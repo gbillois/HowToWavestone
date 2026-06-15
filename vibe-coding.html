@@ -9,16 +9,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
-    --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
-    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
-    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-indigo-50:#F1EEFB;--ws-indigo-100:#D1CAF2;--ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0;--ws-indigo-600:#451DC7;--ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380;--ws-indigo-900:#1E0D57;--ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E;--ws-green-400:#04F06A;--ws-green-700:#088A42;--ws-green-50:#E1FDED;
     --ws-teal-500:#228D95;
-    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
-    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
-    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-white:#FFFFFF;--ws-ink-50:#F5F4F9;--ws-ink-100:#E6E4EE;--ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8;--ws-ink-400:#817C95;--ws-ink-500:#6B6580;--ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550;--ws-ink-900:#16121F;
     --ws-warning:#C8861A;
-    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%,#5226E0 0%,#451DC7 38%,#2D1380 100%);
     --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
     --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
     --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
@@ -30,287 +30,152 @@
     --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
     --ws-ease:cubic-bezier(.2,0,0,1);
   }
-
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{
-    background:var(--ws-white);color:var(--ws-ink-900);
-    font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;
-    padding-bottom:80px;
-  }
+  body{background:var(--ws-ink-50);color:var(--ws-ink-900);font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:80px}
   a{color:inherit}
-  .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
 
-  .eyebrow{
-    display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
-    padding-bottom:4px;border-bottom:2px solid var(--ws-green-400);
-  }
-
-  /* ---------- sticky bar ---------- */
-  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
-  .bar-in{max-width:1100px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  /* bar */
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1120px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
   .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
   .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
   .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);border-radius:999px;padding:6px 13px;transition:.18s var(--ws-ease)}
   .bar a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+  .scroll-progress{position:fixed;top:49px;left:0;height:3px;background:var(--ws-gradient-accent);width:0;z-index:60;transition:width .1s linear}
 
-  /* ---------- hero ---------- */
-  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px}
+  /* hero */
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff}
   .hero .wave{position:absolute;inset:0;pointer-events:none}
-  .hero-in{position:relative;max-width:1100px;margin:0 auto;padding:64px 24px 56px}
-  .hero .eyebrow{color:#fff}
+  .hero-in{position:relative;max-width:1120px;margin:0 auto;padding:64px 24px 56px}
+  .hero .eyebrow{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid var(--ws-green-400);color:#fff}
   .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(32px,5.6vw,58px);line-height:1.05;letter-spacing:-.025em;margin:22px 0 16px;max-width:20ch}
   .hero h1 .ac{color:var(--ws-green-400)}
   .hero .lede{font-size:18px;line-height:1.55;color:rgba(255,255,255,.82);max-width:64ch}
   .hero .tagline{font-family:var(--ws-font-mono);font-size:12.5px;color:rgba(255,255,255,.6);margin-top:22px;letter-spacing:.02em}
 
-  /* ---------- scroll progress indicator ---------- */
-  .scroll-progress{position:fixed;top:49px;left:0;height:3px;background:var(--ws-gradient-accent);width:0;z-index:60;transition:width .1s linear}
+  /* wrap */
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
 
-  /* ---------- level sections ---------- */
-  .level{padding:56px 0 24px;position:relative}
-  .level-label{
-    display:inline-flex;align-items:center;gap:8px;
-    font-family:var(--ws-font-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
-    color:var(--ws-indigo-600);background:var(--ws-indigo-50);border-radius:999px;padding:6px 14px;
-    font-weight:600;margin-bottom:16px;
+  /* diagram sections */
+  .diagram-section{
+    margin:48px 0;opacity:0;transform:translateY(30px);
+    transition:opacity .6s var(--ws-ease),transform .6s var(--ws-ease);
   }
-  .level-label .icon{font-size:14px}
-  .level h2{font-family:var(--ws-font-display);font-weight:700;font-size:28px;letter-spacing:-.015em;color:var(--ws-indigo-600);margin-bottom:6px}
-  .level .desc{color:var(--ws-ink-500);font-size:15px;max-width:60ch;margin-bottom:32px}
+  .diagram-section.visible{opacity:1;transform:none}
 
-  /* ---------- chain layout ---------- */
-  .chain{position:relative;display:flex;flex-direction:column;align-items:center;gap:0}
-
-  /* vertical connector line */
-  .connector{
-    width:3px;height:48px;position:relative;overflow:hidden;
-  }
-  .connector::after{
-    content:"";position:absolute;inset:0;
-    background:var(--ws-gradient-accent);
-    transform:scaleY(0);transform-origin:top;
-    transition:transform .6s var(--ws-ease);
-  }
-  .connector.visible::after{transform:scaleY(1)}
-
-  /* branch connector (horizontal then vertical) */
-  .branch-group{position:relative;width:100%;max-width:900px}
-
-  /* ---------- chain nodes ---------- */
-  .chain-node{
-    opacity:0;transform:translateY(24px);
-    transition:opacity .5s var(--ws-ease), transform .5s var(--ws-ease);
-  }
-  .chain-node.visible{opacity:1;transform:translateY(0)}
-
-  /* core block (the 3 pillars) */
-  .core-row{
-    display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;
-    width:100%;max-width:900px;
-  }
-  @media(max-width:720px){.core-row{grid-template-columns:1fr;gap:12px}}
-
-  .block{
-    background:#fff;border:1.5px solid var(--ws-ink-100);border-radius:18px;
-    padding:24px 20px;box-shadow:var(--ws-shadow-sm);
-    transition:.25s var(--ws-ease);position:relative;overflow:hidden;
-  }
-  .block:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-2px)}
-  .block.primary{border-color:var(--ws-indigo-600);box-shadow:var(--ws-shadow-brand)}
-  .block.primary::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ws-gradient-accent)}
-
-  .block-icon{
-    width:48px;height:48px;border-radius:14px;display:grid;place-items:center;
-    font-size:22px;margin-bottom:14px;
-  }
-  .block-icon.repo{background:var(--ws-indigo-50);color:var(--ws-indigo-600)}
-  .block-icon.editor{background:var(--ws-green-50);color:var(--ws-green-700)}
-  .block-icon.run{background:#E8F8FF;color:var(--ws-teal-500)}
-  .block-icon.db{background:#FFF3E0;color:#E67E22}
-  .block-icon.api{background:#F3E5F5;color:#8E24AA}
-  .block-icon.native{background:#E8EAF6;color:#3949AB}
-  .block-icon.store{background:#FCE4EC;color:#C62828}
-
-  .block h3{font-family:var(--ws-font-display);font-weight:600;font-size:17px;color:var(--ws-ink-900);margin-bottom:6px}
-  .block p{font-size:13.5px;color:var(--ws-ink-500);line-height:1.5}
-  .block .examples{margin-top:10px;display:flex;flex-wrap:wrap;gap:5px}
-  .block .examples .chip{font-family:var(--ws-font-mono);font-size:10.5px;letter-spacing:.02em;color:var(--ws-indigo-700);background:var(--ws-indigo-50);border-radius:999px;padding:3px 9px}
-
-  /* arrow between core blocks (horizontal) */
-  .core-arrows{
-    display:none;
-    grid-template-columns:1fr 1fr 1fr;gap:16px;
-    width:100%;max-width:900px;margin:-6px 0;
-  }
-  @media(min-width:721px){.core-arrows{display:grid}}
-  .core-arrows .arrow-cell{display:flex;justify-content:center;align-items:center}
-  .core-arrows .arrow-cell svg{opacity:0;transition:opacity .5s var(--ws-ease) .3s}
-  .core-arrows .arrow-cell svg.visible{opacity:1}
-
-  /* flow label between sections */
-  .flow-label{
+  .section-head{margin-bottom:24px}
+  .section-head .level-tag{
     display:inline-flex;align-items:center;gap:6px;
-    font-family:var(--ws-font-mono);font-size:11px;letter-spacing:.04em;
-    color:var(--ws-ink-400);background:var(--ws-ink-50);
-    border:1px solid var(--ws-ink-100);border-radius:999px;padding:5px 14px;
-    text-transform:uppercase;
+    font-family:var(--ws-font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ws-white);background:var(--ws-indigo-600);border-radius:999px;padding:5px 14px;font-weight:600;margin-bottom:12px;
   }
+  .section-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:26px;letter-spacing:-.015em;color:var(--ws-indigo-900)}
+  .section-head p{color:var(--ws-ink-500);font-size:15px;margin-top:4px;max-width:60ch}
 
-  /* scenario path cards */
-  .paths{
-    display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;
-    width:100%;max-width:900px;
+  /* SVG diagram canvas */
+  .diagram-canvas{
+    position:relative;width:100%;background:var(--ws-white);
+    border:1px solid var(--ws-ink-100);border-radius:20px;
+    box-shadow:var(--ws-shadow-md);overflow:hidden;
   }
-  @media(max-width:720px){.paths{grid-template-columns:1fr}}
+  .diagram-canvas svg{display:block;width:100%;height:auto}
 
-  .path-card{
-    background:#fff;border:1.5px solid var(--ws-ink-100);border-radius:16px;
-    padding:20px 18px;box-shadow:var(--ws-shadow-sm);transition:.25s var(--ws-ease);
-    position:relative;cursor:default;
-  }
-  .path-card:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-2px);border-color:var(--ws-indigo-200)}
-  .path-card .path-num{
-    font-family:var(--ws-font-mono);font-size:11px;font-weight:600;
-    color:var(--ws-indigo-600);background:var(--ws-indigo-50);
-    border-radius:999px;padding:3px 10px;display:inline-block;margin-bottom:10px;
-  }
-  .path-card h4{font-family:var(--ws-font-display);font-weight:600;font-size:15.5px;color:var(--ws-ink-900);margin-bottom:6px}
-  .path-card p{font-size:13px;color:var(--ws-ink-500);line-height:1.5}
-  .path-card .path-icons{margin-top:12px;display:flex;gap:6px;flex-wrap:wrap}
-  .path-card .path-icons .chip{font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.02em;border-radius:999px;padding:3px 9px}
-  .chip.green{color:var(--ws-green-700);background:var(--ws-green-50)}
-  .chip.indigo{color:var(--ws-indigo-700);background:var(--ws-indigo-50)}
-  .chip.teal{color:var(--ws-teal-500);background:#E0F5F6}
-  .chip.orange{color:#E67E22;background:#FFF3E0}
-  .chip.purple{color:#8E24AA;background:#F3E5F5}
-  .chip.red{color:#C62828;background:#FCE4EC}
+  /* SVG styles */
+  .svg-wire{fill:none;stroke:var(--ws-ink-200);stroke-width:2;stroke-linecap:round}
+  .svg-wire-active{fill:none;stroke:var(--ws-green-400);stroke-width:2.5;stroke-linecap:round;
+    stroke-dasharray:1000;stroke-dashoffset:1000;transition:stroke-dashoffset 1.2s var(--ws-ease)}
+  .visible .svg-wire-active{stroke-dashoffset:0}
+  .svg-wire-accent{fill:none;stroke:var(--ws-indigo-500);stroke-width:2;stroke-dasharray:6 4;stroke-linecap:round;opacity:.5}
+  .svg-wire-glow{fill:none;stroke:var(--ws-green-400);stroke-width:6;stroke-linecap:round;opacity:.15;
+    stroke-dasharray:1000;stroke-dashoffset:1000;transition:stroke-dashoffset 1.2s var(--ws-ease)}
+  .visible .svg-wire-glow{stroke-dashoffset:0}
 
-  /* complexity badge */
-  .complexity{
-    position:absolute;top:14px;right:14px;
-    font-family:var(--ws-font-mono);font-size:9.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
-    border-radius:6px;padding:3px 8px;
-  }
-  .complexity.easy{color:var(--ws-green-700);background:var(--ws-green-50)}
-  .complexity.medium{color:var(--ws-warning);background:#FBF1DD}
-  .complexity.hard{color:#C62828;background:#FCE4EC}
+  .svg-node-bg{rx:14;fill:var(--ws-white);stroke:var(--ws-ink-200);stroke-width:1.5}
+  .svg-node-primary{rx:14;fill:var(--ws-indigo-50);stroke:var(--ws-indigo-500);stroke-width:2}
+  .svg-node-green{rx:14;fill:var(--ws-green-50);stroke:var(--ws-green-400);stroke-width:2}
+  .svg-node-teal{rx:14;fill:#E0F5F6;stroke:var(--ws-teal-500);stroke-width:2}
+  .svg-node-orange{rx:14;fill:#FFF3E0;stroke:#E67E22;stroke-width:2}
+  .svg-node-purple{rx:14;fill:#F3E5F5;stroke:#8E24AA;stroke-width:2}
+  .svg-node-red{rx:14;fill:#FCE4EC;stroke:#C62828;stroke-width:2}
+  .svg-node-dark{rx:16;fill:var(--ws-indigo-950);stroke:var(--ws-indigo-700);stroke-width:2}
 
-  /* wide path cards (2 cols) */
-  .paths-wide{
-    display:grid;grid-template-columns:1fr 1fr;gap:14px;
-    width:100%;max-width:900px;
-  }
-  @media(max-width:720px){.paths-wide{grid-template-columns:1fr}}
+  .svg-label{font-family:var(--ws-font-display);font-weight:700;font-size:13px;fill:var(--ws-ink-900)}
+  .svg-label-sm{font-family:var(--ws-font-body);font-weight:500;font-size:11px;fill:var(--ws-ink-500)}
+  .svg-label-mono{font-family:var(--ws-font-mono);font-weight:500;font-size:10px;fill:var(--ws-ink-400)}
+  .svg-label-white{font-family:var(--ws-font-display);font-weight:700;font-size:13px;fill:#fff}
+  .svg-label-green{font-family:var(--ws-font-mono);font-weight:600;font-size:10px;fill:var(--ws-green-400)}
+  .svg-icon{font-size:22px}
+  .svg-icon-lg{font-size:28px}
 
-  /* full-width card */
-  .paths-full{
-    display:grid;grid-template-columns:1fr;gap:14px;
-    width:100%;max-width:900px;
-  }
+  .svg-badge{rx:10;fill:var(--ws-indigo-600)}
+  .svg-badge-text{font-family:var(--ws-font-mono);font-weight:700;font-size:10px;fill:#fff;letter-spacing:.04em}
+  .svg-arrow{fill:var(--ws-green-400)}
+  .svg-arrow-muted{fill:var(--ws-ink-300)}
 
-  /* pipeline visual */
-  .pipeline{
-    width:100%;max-width:900px;
-    background:var(--ws-indigo-950);border-radius:18px;
-    padding:28px 24px;box-shadow:var(--ws-shadow-brand);
-    position:relative;overflow:hidden;
-  }
-  .pipeline::before{
-    content:"";position:absolute;top:-40px;right:-40px;width:200px;height:200px;
-    background:radial-gradient(circle,rgba(4,240,106,.12) 0%,transparent 70%);pointer-events:none;
-  }
-  .pipeline h3{font-family:var(--ws-font-display);font-weight:700;font-size:18px;color:#fff;margin-bottom:16px;display:flex;align-items:center;gap:10px}
-  .pipeline h3 .ac{color:var(--ws-green-400)}
-  .pipe-flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center}
-  .pipe-node{
-    display:flex;flex-direction:column;align-items:center;gap:6px;
-    padding:12px 16px;min-width:90px;
-  }
-  .pipe-icon{
-    width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
-    font-size:20px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);
-    color:#fff;
-  }
-  .pipe-label{font-family:var(--ws-font-mono);font-size:10.5px;color:rgba(255,255,255,.6);text-align:center;max-width:80px}
-  .pipe-arrow{
-    font-size:18px;color:var(--ws-green-400);flex-shrink:0;
-    padding:0 2px;
-  }
+  /* Pulse animation on key nodes */
+  @keyframes pulse-ring{0%{r:26;opacity:.5}100%{r:36;opacity:0}}
+  .pulse-ring{fill:none;stroke:var(--ws-green-400);stroke-width:2;opacity:0}
+  .visible .pulse-ring{animation:pulse-ring 2s var(--ws-ease) infinite}
 
-  /* scenario summary (dark card) */
-  .scenario-card{
-    width:100%;max-width:900px;
-    background:var(--ws-indigo-950);border-radius:18px;
-    padding:24px;box-shadow:var(--ws-shadow-brand);
-    position:relative;overflow:hidden;
+  /* vertical connector between diagrams */
+  .v-connector{
+    display:flex;flex-direction:column;align-items:center;padding:8px 0;
+    opacity:0;transition:opacity .5s var(--ws-ease);
   }
-  .scenario-card h4{font-family:var(--ws-font-display);font-weight:700;font-size:16px;color:#fff;margin-bottom:4px}
-  .scenario-card .sub{font-size:13px;color:rgba(255,255,255,.55);margin-bottom:16px}
-  .scenario-chain{display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center}
-  .sc-node{
-    display:inline-flex;align-items:center;gap:6px;
-    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
-    border-radius:10px;padding:8px 14px;
-    font-family:var(--ws-font-mono);font-size:12px;color:rgba(255,255,255,.85);
-    white-space:nowrap;
-  }
-  .sc-node .sc-icon{font-size:16px;flex-shrink:0}
-  .sc-arrow{color:var(--ws-green-400);font-size:16px;padding:0 4px;flex-shrink:0}
+  .v-connector.visible{opacity:1}
+  .v-connector svg{width:3px;height:48px;overflow:visible}
+  .v-line{stroke:var(--ws-ink-200);stroke-width:3;stroke-linecap:round;stroke-dasharray:6 6}
+  .v-line-fill{stroke:url(#vgrad);stroke-width:3;stroke-linecap:round;
+    stroke-dasharray:48;stroke-dashoffset:48;transition:stroke-dashoffset .8s var(--ws-ease)}
+  .visible .v-line-fill{stroke-dashoffset:0}
 
-  /* branch visual */
-  .branch-split{
-    width:100%;max-width:900px;
-    display:flex;flex-direction:column;align-items:center;position:relative;
+  /* note */
+  .diagram-note{
+    margin-top:16px;background:var(--ws-white);
+    border:1px solid var(--ws-ink-100);border-left:4px solid var(--ws-indigo-600);
+    border-radius:12px;padding:16px 18px;box-shadow:var(--ws-shadow-sm);
   }
-  .branch-lines{
-    position:relative;width:100%;height:48px;
-  }
-  .branch-lines svg{width:100%;height:100%}
+  .diagram-note .lab{font-family:var(--ws-font-body);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ws-indigo-600);margin-bottom:7px}
+  .diagram-note p{font-size:14px;color:var(--ws-ink-700);line-height:1.55}
+  .diagram-note b{color:var(--ws-ink-900)}
 
-  /* CTA link back */
+  /* back link */
   .back-link{
     display:inline-flex;align-items:center;gap:8px;text-decoration:none;
-    font-family:var(--ws-font-mono);font-size:13px;
-    color:var(--ws-indigo-600);border:1.5px solid var(--ws-indigo-200);
-    border-radius:999px;padding:10px 20px;margin-top:40px;
-    transition:.18s var(--ws-ease);
+    font-family:var(--ws-font-mono);font-size:13px;color:var(--ws-indigo-600);
+    border:1.5px solid var(--ws-indigo-200);border-radius:999px;padding:10px 20px;
+    margin-top:48px;transition:.18s var(--ws-ease);background:var(--ws-white);
   }
   .back-link:hover{border-color:var(--ws-indigo-600);background:var(--ws-indigo-50);transform:translateY(-1px)}
 
-  /* note box */
-  .note{
-    margin-top:18px;background:var(--ws-indigo-50);border:1px solid var(--ws-indigo-100);
-    border-left:4px solid var(--ws-indigo-600);border-radius:12px;padding:16px 18px;
-    width:100%;max-width:900px;
-  }
-  .note .lab{font-family:var(--ws-font-body);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ws-indigo-600);margin-bottom:7px}
-  .note p{font-size:14px;color:var(--ws-ink-700);line-height:1.55}
-
-  /* legend */
-  .legend{
-    display:flex;flex-wrap:wrap;gap:16px;margin-top:8px;
-    width:100%;max-width:900px;
-  }
-  .legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ws-ink-500)}
-  .legend-dot{width:10px;height:10px;border-radius:3px}
-  .legend-dot.l-repo{background:var(--ws-indigo-600)}
-  .legend-dot.l-edit{background:var(--ws-green-400)}
-  .legend-dot.l-run{background:var(--ws-teal-500)}
-  .legend-dot.l-res{background:#E67E22}
-  .legend-dot.l-dist{background:#C62828}
-
-  /* separator */
-  .sep{width:100%;max-width:900px;height:1px;background:var(--ws-ink-100);margin:8px 0}
-
-  footer{max-width:1100px;margin:64px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer{max-width:1120px;margin:64px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);text-align:center}
   footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
 
+  /* responsive: hide desktop SVG, show mobile fallback */
+  .diagram-mobile{display:none}
+  @media(max-width:720px){
+    .diagram-desktop{display:none}
+    .diagram-mobile{display:block}
+    .diagram-section{margin:32px 0}
+  }
   :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
-  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.svg-wire-active,.svg-wire-glow,.v-line-fill{stroke-dashoffset:0!important}}
 </style>
 </head>
 <body>
+
+<!-- shared SVG defs -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="vgrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#04F06A"/><stop offset="100%" stop-color="#5CF59E"/></linearGradient>
+    <linearGradient id="hgrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#04F06A"/><stop offset="100%" stop-color="#5CF59E"/></linearGradient>
+    <linearGradient id="brandgrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#5A2BE0"/><stop offset="100%" stop-color="#2D1380"/></linearGradient>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" class="svg-arrow"/></marker>
+    <marker id="arr-muted" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" class="svg-arrow-muted"/></marker>
+    <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>
+</svg>
 
 <div class="bar">
   <div class="bar-in">
@@ -321,524 +186,757 @@
 <div class="scroll-progress" id="scrollProgress"></div>
 
 <header class="hero">
-  <svg class="wave" viewBox="0 0 1100 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <path d="M-50,300 Q260,180 540,250 T1150,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
-    <path d="M-50,330 Q300,210 560,285 T1150,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  <svg class="wave" viewBox="0 0 1120 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,300 Q260,180 540,250 T1170,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,330 Q300,210 560,285 T1170,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
   </svg>
   <div class="hero-in">
     <span class="eyebrow">Formation interactive</span>
     <h1>Les principes du <span class="ac">vibe coding</span></h1>
     <p class="lede">Comprendre les briques essentielles : o&ugrave; stocker son code, comment le modifier, et comment le rendre vivant. Plus tu descends, plus la cha&icirc;ne se complexifie.</p>
-    <p class="tagline"># scroll pour d&eacute;couvrir &middot; les chemins se construisent sous tes yeux</p>
+    <p class="tagline"># scroll pour d&eacute;couvrir &middot; les connexions se dessinent sous tes yeux</p>
   </div>
 </header>
 
 <div class="wrap">
 
-  <!-- ====== LEVEL 0 : THE CORE TRIO ====== -->
-  <div class="level" id="level0">
-    <span class="level-label"><span class="icon">&#9679;</span> Fondation</span>
+<!-- ═══════════════════════════════════════════
+     LEVEL 0 — THE CORE TRIO
+     ═══════════════════════════════════════════ -->
+<div class="diagram-section" data-reveal>
+  <div class="section-head">
+    <span class="level-tag">&#9679; Fondation</span>
     <h2>Les 3 briques essentielles</h2>
-    <p class="desc">Tout projet de vibe coding repose sur trois piliers. Pas besoin de plus pour d&eacute;marrer.</p>
+    <p>Tout projet de vibe coding repose sur ce trio. Chaque brique se connecte aux autres.</p>
+  </div>
+  <div class="diagram-canvas diagram-desktop">
+    <svg viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg">
+      <!-- wires (glow + main) -->
+      <path class="svg-wire-glow" d="M295,145 L395,145" filter="url(#glow)"/>
+      <path class="svg-wire-active" d="M295,145 L395,145" marker-end="url(#arr)"/>
+      <path class="svg-wire-glow" d="M605,145 L705,145" filter="url(#glow)"/>
+      <path class="svg-wire-active" d="M605,145 L705,145" marker-end="url(#arr)"/>
+      <!-- return wire -->
+      <path class="svg-wire-accent" d="M790,185 Q790,280 500,290 Q210,280 110,185"/>
 
-    <div class="legend">
-      <div class="legend-item"><span class="legend-dot l-repo"></span>Stockage du code</div>
-      <div class="legend-item"><span class="legend-dot l-edit"></span>&Eacute;dition / IA</div>
-      <div class="legend-item"><span class="legend-dot l-run"></span>Ex&eacute;cution</div>
-      <div class="legend-item"><span class="legend-dot l-res"></span>Ressources</div>
-      <div class="legend-item"><span class="legend-dot l-dist"></span>Distribution</div>
-    </div>
+      <!-- Node 1: Stocker -->
+      <rect class="svg-node-primary" x="60" y="75" width="235" height="140"/>
+      <circle class="pulse-ring" cx="177" cy="105" r="26"/>
+      <text x="177" y="108" text-anchor="middle" class="svg-icon-lg">&#128193;</text>
+      <text x="177" y="140" text-anchor="middle" class="svg-label">Stocker ton code</text>
+      <text x="177" y="158" text-anchor="middle" class="svg-label-sm">Versionner &amp; historiser</text>
+      <text x="115" y="186" class="svg-label-mono">GitHub</text>
+      <text x="175" y="186" class="svg-label-mono">GitLab</text>
+      <text x="227" y="186" class="svg-label-mono">Local</text>
+      <rect rx="4" x="105" y="175" width="50" height="16" fill="none" stroke="var(--ws-indigo-200)" stroke-width="1"/>
+      <rect rx="4" x="161" y="175" width="42" height="16" fill="none" stroke="var(--ws-indigo-200)" stroke-width="1"/>
+      <rect rx="4" x="209" y="175" width="42" height="16" fill="none" stroke="var(--ws-indigo-200)" stroke-width="1"/>
+
+      <!-- Arrow label -->
+      <rect rx="8" x="310" y="127" width="80" height="22" fill="var(--ws-indigo-950)"/>
+      <text x="350" y="142" text-anchor="middle" class="svg-label-green">push / pull</text>
+
+      <!-- Node 2: Modifier -->
+      <rect class="svg-node-green" x="395" y="75" width="210" height="140"/>
+      <text x="500" y="108" text-anchor="middle" class="svg-icon-lg">&#129302;</text>
+      <text x="500" y="140" text-anchor="middle" class="svg-label">Modifier avec l'IA</text>
+      <text x="500" y="158" text-anchor="middle" class="svg-label-sm">&Eacute;crire &amp; transformer le code</text>
+      <text x="430" y="186" class="svg-label-mono">Claude</text>
+      <text x="485" y="186" class="svg-label-mono">Codex</text>
+      <text x="540" y="186" class="svg-label-mono">VS Code</text>
+      <rect rx="4" x="420" y="175" width="52" height="16" fill="none" stroke="var(--ws-green-400)" stroke-width="1" opacity=".5"/>
+      <rect rx="4" x="478" y="175" width="48" height="16" fill="none" stroke="var(--ws-green-400)" stroke-width="1" opacity=".5"/>
+      <rect rx="4" x="532" y="175" width="56" height="16" fill="none" stroke="var(--ws-green-400)" stroke-width="1" opacity=".5"/>
+
+      <!-- Arrow label -->
+      <rect rx="8" x="617" y="127" width="80" height="22" fill="var(--ws-indigo-950)"/>
+      <text x="657" y="142" text-anchor="middle" class="svg-label-green">deploy</text>
+
+      <!-- Node 3: Ex&eacute;cuter -->
+      <rect class="svg-node-teal" x="705" y="75" width="175" height="140"/>
+      <text x="792" y="108" text-anchor="middle" class="svg-icon-lg">&#9654;</text>
+      <text x="792" y="140" text-anchor="middle" class="svg-label">Ex&eacute;cuter</text>
+      <text x="792" y="158" text-anchor="middle" class="svg-label-sm">Rendre vivant</text>
+      <text x="737" y="186" class="svg-label-mono">Web</text>
+      <text x="777" y="186" class="svg-label-mono">Local</text>
+      <text x="822" y="186" class="svg-label-mono">Store</text>
+      <rect rx="4" x="728" y="175" width="38" height="16" fill="none" stroke="var(--ws-teal-500)" stroke-width="1" opacity=".5"/>
+      <rect rx="4" x="772" y="175" width="42" height="16" fill="none" stroke="var(--ws-teal-500)" stroke-width="1" opacity=".5"/>
+      <rect rx="4" x="820" y="175" width="42" height="16" fill="none" stroke="var(--ws-teal-500)" stroke-width="1" opacity=".5"/>
+
+      <!-- return label -->
+      <rect rx="8" x="420" y="272" width="100" height="22" fill="var(--ws-ink-50)" stroke="var(--ws-ink-200)" stroke-width="1"/>
+      <text x="470" y="287" text-anchor="middle" style="font-family:var(--ws-font-mono);font-size:10px;fill:var(--ws-ink-400)">feedback loop</text>
+
+      <!-- step numbers -->
+      <circle cx="86" cy="96" r="11" fill="var(--ws-indigo-600)"/>
+      <text x="86" y="100" text-anchor="middle" style="font-family:var(--ws-font-mono);font-size:10px;fill:#fff;font-weight:700">1</text>
+      <circle cx="420" cy="96" r="11" fill="var(--ws-green-700)"/>
+      <text x="420" y="100" text-anchor="middle" style="font-family:var(--ws-font-mono);font-size:10px;fill:#fff;font-weight:700">2</text>
+      <circle cx="727" cy="96" r="11" fill="var(--ws-teal-500)"/>
+      <text x="727" y="100" text-anchor="middle" style="font-family:var(--ws-font-mono);font-size:10px;fill:#fff;font-weight:700">3</text>
+    </svg>
+  </div>
+  <!-- mobile fallback -->
+  <div class="diagram-canvas diagram-mobile">
+    <svg viewBox="0 0 360 520" xmlns="http://www.w3.org/2000/svg">
+      <path class="svg-wire-active" d="M180,170 L180,210" marker-end="url(#arr)"/>
+      <path class="svg-wire-active" d="M180,350 L180,390" marker-end="url(#arr)"/>
+      <rect class="svg-node-primary" x="40" y="30" width="280" height="130"/>
+      <text x="180" y="75" text-anchor="middle" class="svg-icon-lg">&#128193;</text>
+      <text x="180" y="105" text-anchor="middle" class="svg-label">Stocker ton code</text>
+      <text x="180" y="125" text-anchor="middle" class="svg-label-sm">GitHub &middot; GitLab &middot; Local</text>
+      <rect class="svg-node-green" x="40" y="215" width="280" height="130"/>
+      <text x="180" y="260" text-anchor="middle" class="svg-icon-lg">&#129302;</text>
+      <text x="180" y="290" text-anchor="middle" class="svg-label">Modifier avec l'IA</text>
+      <text x="180" y="310" text-anchor="middle" class="svg-label-sm">Claude &middot; Codex &middot; VS Code</text>
+      <rect class="svg-node-teal" x="40" y="395" width="280" height="105"/>
+      <text x="180" y="435" text-anchor="middle" class="svg-icon-lg">&#9654;</text>
+      <text x="180" y="462" text-anchor="middle" class="svg-label">Ex&eacute;cuter</text>
+      <text x="180" y="480" text-anchor="middle" class="svg-label-sm">Web &middot; Local &middot; Store</text>
+    </svg>
+  </div>
+</div>
+
+<!-- vertical connector -->
+<div class="v-connector" data-reveal>
+  <svg viewBox="0 0 3 48"><line class="v-line" x1="1.5" y1="0" x2="1.5" y2="48"/><line class="v-line-fill" x1="1.5" y1="0" x2="1.5" y2="48"/></svg>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     LEVEL 1 — WEB HOSTING
+     ═══════════════════════════════════════════ -->
+<div class="diagram-section" data-reveal>
+  <div class="section-head">
+    <span class="level-tag">&#127760; Niveau 1</span>
+    <h2>H&eacute;berger sur Internet</h2>
+    <p>Le chemin le plus direct : tu codes, tu pousses, c'est en ligne.</p>
+  </div>
+  <div class="diagram-canvas diagram-desktop">
+    <svg viewBox="0 0 900 310" xmlns="http://www.w3.org/2000/svg">
+      <!-- main trunk -->
+      <path class="svg-wire-glow" d="M120,155 L340,155" filter="url(#glow)"/>
+      <path class="svg-wire-active" d="M120,155 L340,155"/>
+
+      <!-- branch lines -->
+      <path class="svg-wire-active" d="M470,115 Q520,70 570,70" marker-end="url(#arr)" style="transition-delay:.3s"/>
+      <path class="svg-wire-active" d="M470,155 L570,155" marker-end="url(#arr)" style="transition-delay:.5s"/>
+      <path class="svg-wire-active" d="M470,195 Q520,240 570,240" marker-end="url(#arr)" style="transition-delay:.7s"/>
+
+      <!-- Source: IA -->
+      <rect class="svg-node-green" x="20" y="115" width="100" height="80"/>
+      <text x="70" y="148" text-anchor="middle" class="svg-icon-lg">&#129302;</text>
+      <text x="70" y="175" text-anchor="middle" class="svg-label" style="font-size:11px">IA</text>
+
+      <!-- Hub: Repo -->
+      <rect class="svg-node-primary" x="150" y="105" width="100" height="100"/>
+      <text x="200" y="145" text-anchor="middle" class="svg-icon-lg">&#128193;</text>
+      <text x="200" y="170" text-anchor="middle" class="svg-label" style="font-size:11px">Repo Git</text>
+      <text x="200" y="185" text-anchor="middle" class="svg-label-mono">push</text>
+
+      <!-- Hub: Build -->
+      <path class="svg-wire-active" d="M250,155 L340,155" marker-end="url(#arr)" style="transition-delay:.15s"/>
+      <rect class="svg-node-bg" x="340" y="105" width="130" height="100" style="stroke:var(--ws-indigo-500);stroke-dasharray:4 3"/>
+      <text x="405" y="140" text-anchor="middle" class="svg-icon">&#9881;</text>
+      <text x="405" y="165" text-anchor="middle" class="svg-label" style="font-size:11px">Build auto</text>
+      <text x="405" y="182" text-anchor="middle" class="svg-label-mono">CI / CD</text>
+
+      <!-- Target A: GitHub Pages -->
+      <rect class="svg-node-teal" x="580" y="35" width="280" height="70"/>
+      <text x="610" y="66" class="svg-icon">&#127760;</text>
+      <text x="640" y="63" class="svg-label">GitHub Pages</text>
+      <text x="640" y="80" class="svg-label-sm">Page statique gratuite &middot; HTML/CSS/JS</text>
+      <rect rx="6" x="830" y="50" width="22" height="22" fill="var(--ws-green-50)" stroke="var(--ws-green-400)" stroke-width="1"/>
+      <text x="841" y="66" text-anchor="middle" style="font-size:12px">&#10003;</text>
+
+      <!-- Target B: Vercel/Netlify -->
+      <rect class="svg-node-teal" x="580" y="120" width="280" height="70"/>
+      <text x="610" y="151" class="svg-icon">&#9889;</text>
+      <text x="640" y="148" class="svg-label">Vercel / Netlify</text>
+      <text x="640" y="165" class="svg-label-sm">Preview par branche &middot; React, Next.js</text>
+
+      <!-- Target C: Cloud -->
+      <rect class="svg-node-orange" x="580" y="205" width="280" height="70"/>
+      <text x="610" y="236" class="svg-icon">&#9729;</text>
+      <text x="640" y="233" class="svg-label">Serveur cloud</text>
+      <text x="640" y="250" class="svg-label-sm">Azure &middot; AWS &middot; Backend Node/Python</text>
+
+      <!-- complexity badges -->
+      <rect class="svg-badge" rx="6" x="568" y="27" width="52" height="17"/>
+      <text x="594" y="39" text-anchor="middle" class="svg-badge-text">SIMPLE</text>
+      <rect class="svg-badge" rx="6" x="568" y="112" width="52" height="17"/>
+      <text x="594" y="124" text-anchor="middle" class="svg-badge-text">SIMPLE</text>
+      <rect rx="6" x="568" y="197" width="52" height="17" fill="var(--ws-warning)"/>
+      <text x="594" y="209" text-anchor="middle" class="svg-badge-text">MOYEN</text>
+    </svg>
+  </div>
+  <div class="diagram-canvas diagram-mobile">
+    <svg viewBox="0 0 360 480" xmlns="http://www.w3.org/2000/svg">
+      <path class="svg-wire-active" d="M180,95 L180,130" marker-end="url(#arr)"/>
+      <path class="svg-wire-active" d="M180,215 L180,255" marker-end="url(#arr)" style="transition-delay:.2s"/>
+      <path class="svg-wire-active" d="M180,325 L180,365" marker-end="url(#arr)" style="transition-delay:.4s"/>
+      <rect class="svg-node-green" x="110" y="20" width="140" height="75"/>
+      <text x="180" y="50" text-anchor="middle" class="svg-icon">&#129302;</text>
+      <text x="180" y="75" text-anchor="middle" class="svg-label" style="font-size:12px">IA + Repo</text>
+      <rect class="svg-node-teal" x="30" y="135" width="300" height="80"/>
+      <text x="55" y="170" class="svg-icon">&#127760;</text>
+      <text x="85" y="168" class="svg-label">GitHub Pages</text>
+      <text x="85" y="185" class="svg-label-sm">Page statique gratuite</text>
+      <rect class="svg-node-teal" x="30" y="260" width="300" height="65"/>
+      <text x="55" y="290" class="svg-icon">&#9889;</text>
+      <text x="85" y="287" class="svg-label">Vercel / Netlify</text>
+      <rect class="svg-node-orange" x="30" y="370" width="300" height="65"/>
+      <text x="55" y="400" class="svg-icon">&#9729;</text>
+      <text x="85" y="397" class="svg-label">Serveur cloud</text>
+    </svg>
+  </div>
+</div>
+
+<div class="v-connector" data-reveal>
+  <svg viewBox="0 0 3 48"><line class="v-line" x1="1.5" y1="0" x2="1.5" y2="48"/><line class="v-line-fill" x1="1.5" y1="0" x2="1.5" y2="48"/></svg>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     LEVEL 2 — LOCAL EXECUTION
+     ═══════════════════════════════════════════ -->
+<div class="diagram-section" data-reveal>
+  <div class="section-head">
+    <span class="level-tag">&#128187; Niveau 2</span>
+    <h2>Ex&eacute;cution locale</h2>
+    <p>Pas besoin d'Internet pour ex&eacute;cuter. Ton code tourne sur ta machine.</p>
+  </div>
+  <div class="diagram-canvas diagram-desktop">
+    <svg viewBox="0 0 900 310" xmlns="http://www.w3.org/2000/svg">
+      <!-- trunk -->
+      <path class="svg-wire-glow" d="M120,155 L290,155" filter="url(#glow)"/>
+      <path class="svg-wire-active" d="M120,155 L290,155"/>
+
+      <!-- Source -->
+      <rect class="svg-node-green" x="20" y="115" width="100" height="80"/>
+      <text x="70" y="148" text-anchor="middle" class="svg-icon-lg">&#129302;</text>
+      <text x="70" y="175" text-anchor="middle" class="svg-label" style="font-size:11px">IA</text>
+
+      <!-- local folder -->
+      <rect class="svg-node-primary" x="150" y="100" width="140" height="110"/>
+      <text x="220" y="138" text-anchor="middle" class="svg-icon-lg">&#128193;</text>
+      <text x="220" y="165" text-anchor="middle" class="svg-label" style="font-size:12px">Dossier local</text>
+      <text x="220" y="182" text-anchor="middle" class="svg-label-mono">C:\Users\...\mon-projet</text>
+
+      <!-- computer -->
+      <rect class="svg-node-bg" x="330" y="75" width="160" height="160" style="stroke:var(--ws-ink-300)"/>
+      <text x="410" y="110" text-anchor="middle" class="svg-icon-lg">&#128187;</text>
+      <text x="410" y="138" text-anchor="middle" class="svg-label">Ta machine</text>
+      <line x1="345" y1="150" x2="475" y2="150" stroke="var(--ws-ink-100)" stroke-width="1"/>
+      <!-- mini icons inside machine -->
+      <text x="360" y="175" class="svg-label-mono" style="fill:var(--ws-ink-400)">OS</text>
+      <text x="400" y="175" class="svg-label-mono" style="fill:var(--ws-ink-400)">Python</text>
+      <text x="450" y="175" class="svg-label-mono" style="fill:var(--ws-ink-400)">Node</text>
+      <text x="360" y="200" class="svg-label-mono" style="fill:var(--ws-ink-400)">Chrome</text>
+      <text x="420" y="200" class="svg-label-mono" style="fill:var(--ws-ink-400)">Terminal</text>
+
+      <path class="svg-wire-active" d="M290,155 L330,155" marker-end="url(#arr)" style="transition-delay:.2s"/>
+
+      <!-- branches from machine -->
+      <path class="svg-wire-active" d="M490,115 Q530,70 570,70" marker-end="url(#arr)" style="transition-delay:.4s"/>
+      <path class="svg-wire-active" d="M490,155 L570,155" marker-end="url(#arr)" style="transition-delay:.6s"/>
+      <path class="svg-wire-active" d="M490,195 Q530,240 570,240" marker-end="url(#arr)" style="transition-delay:.8s"/>
+
+      <!-- A: Browser file:// -->
+      <rect class="svg-node-teal" x="580" y="35" width="290" height="70"/>
+      <text x="610" y="63" class="svg-icon">&#127760;</text>
+      <text x="640" y="60" class="svg-label">Navigateur (file://)</text>
+      <text x="640" y="78" class="svg-label-sm">Double-clic sur .html &mdash; z&eacute;ro serveur</text>
+      <rect class="svg-badge" rx="6" x="568" y="27" width="52" height="17"/>
+      <text x="594" y="39" text-anchor="middle" class="svg-badge-text">SIMPLE</text>
+
+      <!-- B: Python -->
+      <rect class="svg-node-teal" x="580" y="120" width="290" height="70"/>
+      <text x="610" y="148" class="svg-icon">&#128013;</text>
+      <text x="640" y="148" class="svg-label">Script Python</text>
+      <text x="640" y="166" class="svg-label-sm">python script.py &mdash; data, scraping, auto</text>
+      <rect class="svg-badge" rx="6" x="568" y="112" width="52" height="17"/>
+      <text x="594" y="124" text-anchor="middle" class="svg-badge-text">SIMPLE</text>
+
+      <!-- C: Exe -->
+      <rect class="svg-node-orange" x="580" y="205" width="290" height="70"/>
+      <text x="610" y="233" class="svg-icon">&#128230;</text>
+      <text x="640" y="233" class="svg-label">Application .exe</text>
+      <text x="640" y="251" class="svg-label-sm">Electron, Tauri &mdash; app de bureau</text>
+      <rect rx="6" x="568" y="197" width="52" height="17" fill="var(--ws-warning)"/>
+      <text x="594" y="209" text-anchor="middle" class="svg-badge-text">MOYEN</text>
+    </svg>
+  </div>
+  <div class="diagram-canvas diagram-mobile">
+    <svg viewBox="0 0 360 460" xmlns="http://www.w3.org/2000/svg">
+      <path class="svg-wire-active" d="M180,90 L180,125" marker-end="url(#arr)"/>
+      <path class="svg-wire-active" d="M180,215 L180,250" marker-end="url(#arr)" style="transition-delay:.2s"/>
+      <path class="svg-wire-active" d="M180,315 L180,350" marker-end="url(#arr)" style="transition-delay:.4s"/>
+      <rect class="svg-node-primary" x="50" y="20" width="260" height="70"/>
+      <text x="85" y="55" class="svg-icon">&#129302;</text>
+      <text x="115" y="53" class="svg-label">IA &#8594; Dossier local</text>
+      <rect class="svg-node-teal" x="30" y="130" width="300" height="85"/>
+      <text x="55" y="165" class="svg-icon">&#127760;</text>
+      <text x="85" y="162" class="svg-label">Navigateur (file://)</text>
+      <text x="85" y="180" class="svg-label-sm">Double-clic sur .html</text>
+      <rect class="svg-node-teal" x="30" y="255" width="300" height="60"/>
+      <text x="55" y="285" class="svg-icon">&#128013;</text>
+      <text x="85" y="283" class="svg-label">Script Python</text>
+      <rect class="svg-node-orange" x="30" y="355" width="300" height="60"/>
+      <text x="55" y="385" class="svg-icon">&#128230;</text>
+      <text x="85" y="383" class="svg-label">Application .exe</text>
+    </svg>
+  </div>
+</div>
+
+<div class="v-connector" data-reveal>
+  <svg viewBox="0 0 3 48"><line class="v-line" x1="1.5" y1="0" x2="1.5" y2="48"/><line class="v-line-fill" x1="1.5" y1="0" x2="1.5" y2="48"/></svg>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     LEVEL 3 — EXTERNAL RESOURCES
+     ═══════════════════════════════════════════ -->
+<div class="diagram-section" data-reveal>
+  <div class="section-head">
+    <span class="level-tag">&#128451; Niveau 3</span>
+    <h2>Connecter des ressources</h2>
+    <p>Ton appli a besoin de donn&eacute;es, de stockage ou de services tiers ? La cha&icirc;ne s'allonge.</p>
+  </div>
+  <div class="diagram-canvas diagram-desktop">
+    <svg viewBox="0 0 900 520" xmlns="http://www.w3.org/2000/svg">
+      <!-- trunk: IA -> Repo -> App -->
+      <path class="svg-wire-glow" d="M120,90 L380,90" filter="url(#glow)"/>
+      <path class="svg-wire-active" d="M120,90 L200,90" marker-end="url(#arr)"/>
+      <path class="svg-wire-active" d="M300,90 L380,90" marker-end="url(#arr)" style="transition-delay:.15s"/>
+
+      <!-- IA -->
+      <rect class="svg-node-green" x="20" y="55" width="100" height="70"/>
+      <text x="70" y="85" text-anchor="middle" class="svg-icon-lg">&#129302;</text>
+      <text x="70" y="108" text-anchor="middle" class="svg-label" style="font-size:11px">IA</text>
+
+      <!-- Repo -->
+      <rect class="svg-node-primary" x="155" y="55" width="110" height="70"/>
+      <text x="210" y="82" text-anchor="middle" class="svg-icon">&#128193;</text>
+      <text x="210" y="105" text-anchor="middle" class="svg-label" style="font-size:11px">Repo</text>
+
+      <!-- App (central hub) -->
+      <rect class="svg-node-dark" x="380" y="40" width="140" height="100"/>
+      <text x="450" y="75" text-anchor="middle" style="font-size:26px">&#9654;</text>
+      <text x="450" y="100" text-anchor="middle" class="svg-label-white" style="font-size:13px">Ton App</text>
+      <text x="450" y="118" text-anchor="middle" class="svg-label-green">running</text>
+
+      <!-- fan-out lines from App to resources -->
+      <path class="svg-wire-active" d="M520,70 Q580,45 630,45" marker-end="url(#arr)" style="transition-delay:.3s"/>
+      <path class="svg-wire-active" d="M520,90 L630,90" marker-end="url(#arr)" style="transition-delay:.45s"/>
+      <path class="svg-wire-active" d="M520,110 Q580,135 630,135" marker-end="url(#arr)" style="transition-delay:.6s"/>
+
+      <!-- down lines to Cloudflare + infra -->
+      <path class="svg-wire-active" d="M450,140 L450,210" marker-end="url(#arr)" style="transition-delay:.5s"/>
+      <path class="svg-wire-active" d="M350,300 Q300,300 200,300" style="transition-delay:.9s"/>
+      <path class="svg-wire-active" d="M620,300 Q700,300 760,300" style="transition-delay:.9s"/>
+
+      <!-- Resource A: BDD relationnelle -->
+      <rect class="svg-node-orange" x="630" y="15" width="250" height="60"/>
+      <text x="660" y="43" class="svg-icon">&#128451;</text>
+      <text x="690" y="40" class="svg-label" style="font-size:12px">Base relationnelle</text>
+      <text x="690" y="56" class="svg-label-mono">PostgreSQL &middot; MySQL &middot; SQLite</text>
+
+      <!-- Resource B: BDD vectorielle -->
+      <rect class="svg-node-purple" x="630" y="60" width="250" height="60" y="60"/>
+      <text x="660" y="88" class="svg-icon">&#129504;</text>
+      <text x="690" y="85" class="svg-label" style="font-size:12px">Base vectorielle</text>
+      <text x="690" y="101" class="svg-label-mono">Pinecone &middot; Chroma &middot; RAG</text>
+
+      <!-- Resource C: API -->
+      <rect class="svg-node-purple" x="630" y="105" width="250" height="60"/>
+      <text x="660" y="133" class="svg-icon">&#128279;</text>
+      <text x="690" y="130" class="svg-label" style="font-size:12px">Appels API</text>
+      <text x="690" y="146" class="svg-label-mono">REST &middot; Webhooks &middot; Stripe &middot; IA</text>
+
+      <!-- Cloudflare stack -->
+      <rect rx="18" x="290" y="210" width="320" height="160" fill="#FFF8E1" stroke="#F59E0B" stroke-width="2"/>
+      <text x="450" y="240" text-anchor="middle" class="svg-icon-lg">&#9729;</text>
+      <text x="450" y="265" text-anchor="middle" class="svg-label" style="font-size:14px;fill:#92400E">Stack Cloudflare</text>
+      <!-- cf services as pill nodes -->
+      <rect rx="10" x="310" y="280" width="72" height="26" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+      <text x="346" y="298" text-anchor="middle" class="svg-label-mono" style="fill:#92400E">Workers</text>
+      <rect rx="10" x="392" y="280" width="42" height="26" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+      <text x="413" y="298" text-anchor="middle" class="svg-label-mono" style="fill:#92400E">D1</text>
+      <rect rx="10" x="444" y="280" width="42" height="26" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+      <text x="465" y="298" text-anchor="middle" class="svg-label-mono" style="fill:#92400E">R2</text>
+      <rect rx="10" x="496" y="280" width="42" height="26" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+      <text x="517" y="298" text-anchor="middle" class="svg-label-mono" style="fill:#92400E">KV</text>
+      <rect rx="10" x="548" y="280" width="48" height="26" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+      <text x="572" y="298" text-anchor="middle" class="svg-label-mono" style="fill:#92400E">Pages</text>
+      <rect rx="10" x="310" y="316" width="72" height="26" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+      <text x="346" y="334" text-anchor="middle" class="svg-label-mono" style="fill:#92400E">Vectorize</text>
+      <rect rx="10" x="392" y="316" width="70" height="26" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+      <text x="427" y="334" text-anchor="middle" class="svg-label-mono" style="fill:#92400E">Queues</text>
+      <rect rx="10" x="472" y="316" width="42" height="26" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1"/>
+      <text x="493" y="334" text-anchor="middle" class="svg-label-mono" style="fill:#92400E">AI</text>
+
+      <!-- Internal: Azure (recommended) -->
+      <rect rx="18" x="30" y="400" width="380" height="100" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+      <text x="60" y="435" class="svg-icon-lg">&#9729;</text>
+      <text x="92" y="430" class="svg-label" style="font-size:13px;fill:#1E40AF">Microsoft Azure</text>
+      <rect rx="6" x="222" y="418" width="80" height="20" fill="#DCFCE7" stroke="#16A34A" stroke-width="1"/>
+      <text x="262" y="432" text-anchor="middle" style="font-family:var(--ws-font-mono);font-size:9px;fill:#16A34A;font-weight:700">RECOMMAND&Eacute;</text>
+      <text x="92" y="452" class="svg-label-mono" style="fill:#1E40AF">Azure SQL &middot; Blob Storage &middot; App Service</text>
+      <text x="92" y="468" class="svg-label-mono" style="fill:#1E40AF">Azure OpenAI &middot; Functions &middot; CosmosDB</text>
+      <path class="svg-wire-active" d="M220,400 Q220,370 220,340 Q220,310 270,300" style="transition-delay:.8s"/>
+
+      <!-- Internal: AWS -->
+      <rect rx="18" x="460" y="400" width="380" height="100" fill="#FFF7ED" stroke="#F97316" stroke-width="2"/>
+      <text x="490" y="435" class="svg-icon-lg">&#128230;</text>
+      <text x="522" y="430" class="svg-label" style="font-size:13px;fill:#9A3412">Amazon Web Services</text>
+      <text x="522" y="452" class="svg-label-mono" style="fill:#9A3412">S3 &middot; Lambda &middot; DynamoDB &middot; Bedrock</text>
+      <text x="522" y="468" class="svg-label-mono" style="fill:#9A3412">RDS &middot; API Gateway &middot; SQS</text>
+      <path class="svg-wire-active" d="M650,400 Q650,370 650,340 Q650,310 620,300" style="transition-delay:.8s"/>
+
+      <!-- labels on infra lines -->
+      <rect rx="6" x="160" y="344" width="90" height="18" fill="var(--ws-indigo-950)"/>
+      <text x="205" y="357" text-anchor="middle" class="svg-label-green" style="font-size:9px">INTERNE WS</text>
+      <rect rx="6" x="620" y="344" width="90" height="18" fill="var(--ws-indigo-950)"/>
+      <text x="665" y="357" text-anchor="middle" class="svg-label-green" style="font-size:9px">INTERNE WS</text>
+    </svg>
+  </div>
+  <div class="diagram-canvas diagram-mobile">
+    <svg viewBox="0 0 360 680" xmlns="http://www.w3.org/2000/svg">
+      <rect class="svg-node-dark" x="100" y="20" width="160" height="70"/>
+      <text x="180" y="50" text-anchor="middle" style="font-size:22px">&#9654;</text>
+      <text x="180" y="72" text-anchor="middle" class="svg-label-white" style="font-size:12px">Ton App</text>
+      <path class="svg-wire-active" d="M180,90 L180,120" marker-end="url(#arr)"/>
+      <rect class="svg-node-orange" x="20" y="120" width="320" height="55"/>
+      <text x="45" y="150" class="svg-icon">&#128451;</text>
+      <text x="75" y="147" class="svg-label" style="font-size:12px">Base relationnelle</text>
+      <path class="svg-wire-active" d="M180,175 L180,195" marker-end="url(#arr)" style="transition-delay:.15s"/>
+      <rect class="svg-node-purple" x="20" y="195" width="320" height="55"/>
+      <text x="45" y="225" class="svg-icon">&#129504;</text>
+      <text x="75" y="222" class="svg-label" style="font-size:12px">Base vectorielle &middot; API</text>
+      <path class="svg-wire-active" d="M180,250 L180,275" marker-end="url(#arr)" style="transition-delay:.3s"/>
+      <rect rx="14" x="20" y="275" width="320" height="110" fill="#FFF8E1" stroke="#F59E0B" stroke-width="2"/>
+      <text x="180" y="305" text-anchor="middle" class="svg-label" style="fill:#92400E">&#9729; Stack Cloudflare</text>
+      <text x="180" y="325" text-anchor="middle" class="svg-label-mono" style="fill:#92400E">Workers &middot; D1 &middot; R2 &middot; KV</text>
+      <text x="180" y="345" text-anchor="middle" class="svg-label-mono" style="fill:#92400E">Pages &middot; Vectorize &middot; AI</text>
+      <path class="svg-wire-active" d="M180,385 L180,415" marker-end="url(#arr)" style="transition-delay:.5s"/>
+      <rect rx="14" x="20" y="415" width="320" height="90" fill="#EFF6FF" stroke="#3B82F6" stroke-width="2"/>
+      <text x="40" y="448" class="svg-icon">&#9729;</text>
+      <text x="68" y="445" class="svg-label" style="font-size:12px;fill:#1E40AF">Azure</text>
+      <rect rx="4" x="108" y="434" width="65" height="16" fill="#DCFCE7" stroke="#16A34A" stroke-width="1"/>
+      <text x="140" y="446" text-anchor="middle" style="font-family:var(--ws-font-mono);font-size:8px;fill:#16A34A;font-weight:700">RECOMMAND&Eacute;</text>
+      <text x="40" y="472" class="svg-label-mono" style="fill:#1E40AF">Azure SQL &middot; OpenAI &middot; Functions</text>
+      <path class="svg-wire-active" d="M180,505 L180,525" marker-end="url(#arr)" style="transition-delay:.6s"/>
+      <rect rx="14" x="20" y="525" width="320" height="80" fill="#FFF7ED" stroke="#F97316" stroke-width="2"/>
+      <text x="40" y="558" class="svg-icon">&#128230;</text>
+      <text x="68" y="555" class="svg-label" style="font-size:12px;fill:#9A3412">AWS</text>
+      <text x="40" y="578" class="svg-label-mono" style="fill:#9A3412">S3 &middot; Lambda &middot; DynamoDB &middot; Bedrock</text>
+    </svg>
+  </div>
+  <div class="diagram-note">
+    <div class="lab">Gouvernance Wavestone</div>
+    <p><b>Azure est recommand&eacute;</b> pour les donn&eacute;es clients sensibles (int&eacute;gr&eacute; &agrave; l'&eacute;cosyst&egrave;me Wavestone). AWS est disponible pour certains cas d'usage, &agrave; valider avec la gouvernance IT.</p>
+  </div>
+</div>
+
+<div class="v-connector" data-reveal>
+  <svg viewBox="0 0 3 48"><line class="v-line" x1="1.5" y1="0" x2="1.5" y2="48"/><line class="v-line-fill" x1="1.5" y1="0" x2="1.5" y2="48"/></svg>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     LEVEL 4 — ADVANCED DISTRIBUTION
+     ═══════════════════════════════════════════ -->
+<div class="diagram-section" data-reveal>
+  <div class="section-head">
+    <span class="level-tag">&#128640; Niveau 4</span>
+    <h2>Publier et distribuer</h2>
+    <p>La cha&icirc;ne compl&egrave;te : du prompt IA jusqu'au store ou &agrave; l'installeur.</p>
   </div>
 
-  <div class="chain">
-    <!-- PIPELINE VISUAL: simple scenario -->
-    <div class="chain-node" data-reveal>
-      <div class="scenario-card">
-        <h4>&#9889; Le sc&eacute;nario le plus simple</h4>
-        <div class="sub">3 briques, une page en ligne en quelques minutes</div>
-        <div class="scenario-chain">
-          <span class="sc-node"><span class="sc-icon">&#128193;</span> GitHub</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#129302;</span> Claude Code</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#127760;</span> GitHub Pages</span>
-        </div>
-      </div>
-    </div>
+  <!-- iOS pipeline -->
+  <div class="diagram-canvas diagram-desktop" style="margin-bottom:20px">
+    <svg viewBox="0 0 900 170" xmlns="http://www.w3.org/2000/svg">
+      <!-- title bar -->
+      <rect x="0" y="0" width="900" height="36" fill="var(--ws-indigo-950)" rx="0"/>
+      <text x="20" y="24" style="font-family:var(--ws-font-display);font-weight:700;font-size:13px;fill:#fff">&#63743; Pipeline iOS compl&egrave;te</text>
+      <rect rx="6" x="820" y="9" width="60" height="18" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+      <text x="850" y="22" text-anchor="middle" style="font-family:var(--ws-font-mono);font-size:9px;fill:var(--ws-green-400);font-weight:600">AVANC&Eacute;</text>
 
-    <div class="connector" data-reveal></div>
+      <!-- pipeline wire -->
+      <path class="svg-wire-glow" d="M82,100 L820,100" filter="url(#glow)"/>
+      <path class="svg-wire-active" d="M82,100 L820,100"/>
 
-    <!-- CORE: 3 pillars -->
-    <div class="chain-node" data-reveal>
-      <div class="core-row">
-        <div class="block primary">
-          <div class="block-icon repo">&#128193;</div>
-          <h3>Stocker ton code</h3>
-          <p>Un endroit pour stocker, versionner et historiser chaque modification de ton code source.</p>
-          <div class="examples">
-            <span class="chip">GitHub</span>
-            <span class="chip">GitLab</span>
-            <span class="chip">Dossier local</span>
-          </div>
-        </div>
-        <div class="block primary">
-          <div class="block-icon editor">&#129302;</div>
-          <h3>Modifier ton code</h3>
-          <p>Un outil &mdash; souvent pilot&eacute; par l'IA &mdash; qui &eacute;crit et modifie le code &agrave; ta place ou avec toi.</p>
-          <div class="examples">
-            <span class="chip">Claude Code</span>
-            <span class="chip">OpenAI Codex</span>
-            <span class="chip">VS Code</span>
-          </div>
-        </div>
-        <div class="block primary">
-          <div class="block-icon run">&#9654;</div>
-          <h3>Ex&eacute;cuter ton app</h3>
-          <p>Rendre ton code vivant : l'h&eacute;berger sur Internet ou le lancer sur ta machine.</p>
-          <div class="examples">
-            <span class="chip">GitHub Pages</span>
-            <span class="chip">Navigateur</span>
-            <span class="chip">Python</span>
-          </div>
-        </div>
-      </div>
-    </div>
+      <!-- nodes -->
+      <rect class="svg-node-green" x="20" y="60" width="80" height="68" rx="12"/>
+      <text x="60" y="90" text-anchor="middle" style="font-size:20px">&#129302;</text>
+      <text x="60" y="112" text-anchor="middle" class="svg-label" style="font-size:10px">IA</text>
 
-    <div class="connector" data-reveal></div>
+      <circle cx="145" cy="100" r="5" fill="var(--ws-green-400)"/>
 
-    <!-- Arrow visual between core blocks -->
-    <div class="chain-node" data-reveal>
-      <div class="note" style="text-align:center">
-        <div class="lab">Le principe fondamental</div>
-        <p>Tu <b>d&eacute;cris</b> ce que tu veux &rarr; l'IA <b>&eacute;crit</b> le code &rarr; le code est <b>stock&eacute;</b> dans un repository &rarr; l'application est <b>visible</b> en ligne ou en local. C'est &ccedil;a, le vibe coding.</p>
-      </div>
-    </div>
+      <rect class="svg-node-primary" x="170" y="60" width="80" height="68" rx="12"/>
+      <text x="210" y="90" text-anchor="middle" style="font-size:20px">&#128193;</text>
+      <text x="210" y="112" text-anchor="middle" class="svg-label" style="font-size:10px">Repo Git</text>
 
-    <div class="connector" data-reveal></div>
+      <circle cx="295" cy="100" r="5" fill="var(--ws-green-400)"/>
 
-    <!-- ====== LEVEL 1 : SIMPLE WEB ====== -->
-    <div class="chain-node" data-reveal>
-      <div class="sep"></div>
-    </div>
+      <rect class="svg-node-bg" x="320" y="60" width="80" height="68" rx="12" style="stroke:var(--ws-indigo-300)"/>
+      <text x="360" y="90" text-anchor="middle" style="font-size:20px">&#128296;</text>
+      <text x="360" y="112" text-anchor="middle" class="svg-label" style="font-size:10px">Xcode</text>
 
-    <div class="chain-node level" data-reveal id="level1">
-      <span class="level-label"><span class="icon">&#127760;</span> Niveau 1 &mdash; Web simple</span>
-      <h2>H&eacute;berger sur Internet</h2>
-      <p class="desc">Le chemin le plus direct : tu codes, tu pousses, c'est en ligne. Id&eacute;al pour des pages, des outils et des prototypes.</p>
-    </div>
+      <circle cx="445" cy="100" r="5" fill="var(--ws-green-400)"/>
 
-    <div class="chain-node" data-reveal>
-      <div class="scenario-card">
-        <h4>&#128279; Cha&icirc;ne de liaison</h4>
-        <div class="sub">Le code va du repository &agrave; l'h&eacute;bergeur, automatiquement</div>
-        <div class="scenario-chain">
-          <span class="sc-node"><span class="sc-icon">&#129302;</span> IA</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#128193;</span> Repo</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#9881;</span> Build auto</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#127760;</span> Site en ligne</span>
-        </div>
-      </div>
-    </div>
+      <rect class="svg-node-bg" x="470" y="60" width="80" height="68" rx="12" style="stroke:var(--ws-indigo-300)"/>
+      <text x="510" y="90" text-anchor="middle" style="font-size:20px">&#128241;</text>
+      <text x="510" y="112" text-anchor="middle" class="svg-label" style="font-size:10px">Simulateur</text>
 
-    <div class="connector" data-reveal></div>
+      <circle cx="595" cy="100" r="5" fill="var(--ws-green-400)"/>
 
-    <div class="chain-node" data-reveal>
-      <div class="paths">
-        <div class="path-card">
-          <span class="complexity easy">Simple</span>
-          <span class="path-num">A</span>
-          <h4>GitHub Pages</h4>
-          <p>Page statique h&eacute;berg&eacute;e gratuitement. Chaque push met &agrave; jour le site automatiquement.</p>
-          <div class="path-icons">
-            <span class="chip indigo">HTML/CSS/JS</span>
-            <span class="chip green">Gratuit</span>
-          </div>
-        </div>
-        <div class="path-card">
-          <span class="complexity easy">Simple</span>
-          <span class="path-num">B</span>
-          <h4>Vercel / Netlify</h4>
-          <p>H&eacute;bergement moderne avec pr&eacute;visualisation par branche. Id&eacute;al pour React, Vue, etc.</p>
-          <div class="path-icons">
-            <span class="chip indigo">React</span>
-            <span class="chip indigo">Next.js</span>
-            <span class="chip green">Gratuit</span>
-          </div>
-        </div>
-        <div class="path-card">
-          <span class="complexity medium">Moyen</span>
-          <span class="path-num">C</span>
-          <h4>Serveur cloud</h4>
-          <p>Azure, AWS ou GCP pour des applications web avec backend (Node.js, Python, etc.).</p>
-          <div class="path-icons">
-            <span class="chip purple">Azure</span>
-            <span class="chip purple">AWS</span>
-            <span class="chip orange">Backend</span>
-          </div>
-        </div>
-      </div>
-    </div>
+      <rect class="svg-node-bg" x="620" y="60" width="80" height="68" rx="12" style="stroke:var(--ws-indigo-300)"/>
+      <text x="660" y="90" text-anchor="middle" style="font-size:20px">&#9989;</text>
+      <text x="660" y="112" text-anchor="middle" class="svg-label" style="font-size:10px">TestFlight</text>
 
-    <div class="connector" data-reveal></div>
+      <circle cx="745" cy="100" r="5" fill="var(--ws-green-400)"/>
 
-    <!-- ====== LEVEL 2 : LOCAL ====== -->
-    <div class="chain-node" data-reveal>
-      <div class="sep"></div>
-    </div>
+      <rect class="svg-node-red" x="770" y="56" width="110" height="76" rx="14"/>
+      <text x="825" y="88" text-anchor="middle" style="font-size:22px">&#127823;</text>
+      <text x="825" y="112" text-anchor="middle" class="svg-label" style="font-size:11px;fill:#C62828">App Store</text>
 
-    <div class="chain-node level" data-reveal id="level2">
-      <span class="level-label"><span class="icon">&#128187;</span> Niveau 2 &mdash; Ex&eacute;cution locale</span>
-      <h2>Utiliser ton ordinateur</h2>
-      <p class="desc">Pas besoin d'Internet pour ex&eacute;cuter. Ton code tourne en local avec diff&eacute;rentes m&eacute;thodes.</p>
-    </div>
-
-    <div class="chain-node" data-reveal>
-      <div class="scenario-card">
-        <h4>&#128279; Cha&icirc;ne de liaison</h4>
-        <div class="sub">Le code reste sur ta machine, tu l'ex&eacute;cutes directement</div>
-        <div class="scenario-chain">
-          <span class="sc-node"><span class="sc-icon">&#129302;</span> IA</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#128193;</span> Dossier local</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#128187;</span> Ta machine</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="connector" data-reveal></div>
-
-    <div class="chain-node" data-reveal>
-      <div class="paths">
-        <div class="path-card">
-          <span class="complexity easy">Simple</span>
-          <span class="path-num">A</span>
-          <h4>Fichier dans le navigateur</h4>
-          <p>Double-clique sur un fichier <code>.html</code> : ton navigateur l'ouvre directement via <code>file://</code>. Z&eacute;ro serveur.</p>
-          <div class="path-icons">
-            <span class="chip indigo">HTML</span>
-            <span class="chip teal">file://</span>
-            <span class="chip green">Instantan&eacute;</span>
-          </div>
-        </div>
-        <div class="path-card">
-          <span class="complexity easy">Simple</span>
-          <span class="path-num">B</span>
-          <h4>Script Python</h4>
-          <p>Lance <code>python script.py</code> dans le terminal. Traitement de donn&eacute;es, automatisation, scraping&hellip;</p>
-          <div class="path-icons">
-            <span class="chip indigo">Python</span>
-            <span class="chip teal">Terminal</span>
-            <span class="chip orange">pip install</span>
-          </div>
-        </div>
-        <div class="path-card">
-          <span class="complexity medium">Moyen</span>
-          <span class="path-num">C</span>
-          <h4>Application ex&eacute;cutable</h4>
-          <p>Un <code>.exe</code> ou une app Electron que tu lances comme n'importe quel logiciel sur ton bureau.</p>
-          <div class="path-icons">
-            <span class="chip indigo">Electron</span>
-            <span class="chip indigo">.exe</span>
-            <span class="chip teal">Bureau</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="connector" data-reveal></div>
-
-    <!-- ====== LEVEL 3 : RESOURCES ====== -->
-    <div class="chain-node" data-reveal>
-      <div class="sep"></div>
-    </div>
-
-    <div class="chain-node level" data-reveal id="level3">
-      <span class="level-label"><span class="icon">&#128451;</span> Niveau 3 &mdash; Ressources externes</span>
-      <h2>Connecter des ressources</h2>
-      <p class="desc">Ton application a besoin de donn&eacute;es, de stockage ou de services tiers ? La cha&icirc;ne s'allonge.</p>
-    </div>
-
-    <div class="chain-node" data-reveal>
-      <div class="scenario-card">
-        <h4>&#128279; Cha&icirc;ne de liaison</h4>
-        <div class="sub">L'application communique avec des services externes &mdash; cloud ou on-premise</div>
-        <div class="scenario-chain">
-          <span class="sc-node"><span class="sc-icon">&#129302;</span> IA</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#128193;</span> Repo</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#9654;</span> App</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#128451;</span> BDD / API / Cloudflare / Azure / AWS</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="connector" data-reveal></div>
-
-    <div class="chain-node" data-reveal>
-      <div class="paths-wide">
-        <div class="path-card">
-          <span class="complexity medium">Moyen</span>
-          <span class="path-num">A</span>
-          <h4>Base de donn&eacute;es relationnelle</h4>
-          <p>PostgreSQL, MySQL, SQLite&hellip; pour stocker des donn&eacute;es structur&eacute;es (utilisateurs, commandes, etc.).</p>
-          <div class="path-icons">
-            <span class="chip orange">PostgreSQL</span>
-            <span class="chip orange">MySQL</span>
-            <span class="chip orange">SQLite</span>
-          </div>
-        </div>
-        <div class="path-card">
-          <span class="complexity medium">Moyen</span>
-          <span class="path-num">B</span>
-          <h4>Base vectorielle</h4>
-          <p>Pinecone, Chroma, Weaviate&hellip; pour la recherche s&eacute;mantique et le RAG (IA + documents).</p>
-          <div class="path-icons">
-            <span class="chip purple">Pinecone</span>
-            <span class="chip purple">Chroma</span>
-            <span class="chip purple">RAG</span>
-          </div>
-        </div>
-        <div class="path-card">
-          <span class="complexity medium">Moyen</span>
-          <span class="path-num">C</span>
-          <h4>Appels API</h4>
-          <p>Consommer des services tiers : paiement (Stripe), email (SendGrid), IA (OpenAI, Claude)&hellip;</p>
-          <div class="path-icons">
-            <span class="chip purple">REST API</span>
-            <span class="chip purple">Cl&eacute;s API</span>
-            <span class="chip orange">Webhooks</span>
-          </div>
-        </div>
-        <div class="path-card">
-          <span class="complexity medium">Moyen</span>
-          <span class="path-num">D</span>
-          <h4>&#9729; Stack Cloudflare</h4>
-          <p>Un &eacute;cosyst&egrave;me complet : Workers (serverless), D1 (base SQL), R2 (stockage), KV (cl&eacute;-valeur), Vectorize (vecteurs), Pages (h&eacute;bergement).</p>
-          <div class="path-icons">
-            <span class="chip teal">Workers</span>
-            <span class="chip teal">D1</span>
-            <span class="chip teal">R2</span>
-            <span class="chip teal">KV</span>
-            <span class="chip teal">Pages</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="connector" data-reveal></div>
-
-    <div class="chain-node" data-reveal>
-      <div class="note">
-        <div class="lab">Gouvernance Wavestone &mdash; H&eacute;bergement interne</div>
-        <p>Pour les <b>donn&eacute;es clients sensibles</b>, deux options internes sont disponibles :</p>
-        <p>&bull; <b>Microsoft Azure</b> <span style="font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);border-radius:999px;padding:2px 8px;font-weight:600">recommand&eacute;</span> &mdash; environnement int&eacute;gr&eacute; &agrave; l'&eacute;cosyst&egrave;me Wavestone (Azure SQL, Azure OpenAI, Blob Storage, App Service). Privil&eacute;gi&eacute; pour rester dans le p&eacute;rim&egrave;tre ma&icirc;tris&eacute;.</p>
-        <p>&bull; <b>Amazon Web Services (AWS)</b> &mdash; alternative disponible pour certains cas d'usage (DynamoDB, S3, Lambda, Bedrock). &Agrave; valider avec la gouvernance IT.</p>
-        <p>Les <b>cl&eacute;s API Wavestone</b> permettent dans les deux cas de rester dans un p&eacute;rim&egrave;tre s&eacute;curis&eacute; et trac&eacute;.</p>
-      </div>
-    </div>
-
-    <div class="connector" data-reveal></div>
-
-    <!-- ====== LEVEL 4 : ADVANCED DISTRIBUTION ====== -->
-    <div class="chain-node" data-reveal>
-      <div class="sep"></div>
-    </div>
-
-    <div class="chain-node level" data-reveal id="level4">
-      <span class="level-label"><span class="icon">&#128640;</span> Niveau 4 &mdash; Distribution avanc&eacute;e</span>
-      <h2>Publier et distribuer</h2>
-      <p class="desc">Aller au bout : publier sur les stores, cr&eacute;er des applications natives, toucher des utilisateurs finaux.</p>
-    </div>
-
-    <div class="chain-node" data-reveal>
-      <div class="paths-wide">
-        <div class="path-card">
-          <span class="complexity hard">Avanc&eacute;</span>
-          <span class="path-num">A</span>
-          <h4>&#63743; App Store (iOS)</h4>
-          <p>Code Swift/SwiftUI via Xcode, tests sur simulateur, puis soumission &agrave; l'App Store. La cha&icirc;ne compl&egrave;te depuis l'IA.</p>
-          <div class="path-icons">
-            <span class="chip red">Xcode</span>
-            <span class="chip red">Swift</span>
-            <span class="chip red">App Store</span>
-            <span class="chip indigo">TestFlight</span>
-          </div>
-        </div>
-        <div class="path-card">
-          <span class="complexity hard">Avanc&eacute;</span>
-          <span class="path-num">B</span>
-          <h4>&#129302; Application client lourd</h4>
-          <p>Application bureau (Windows/Mac/Linux) distribu&eacute;e en <code>.exe</code>, <code>.dmg</code> ou installateur. Electron, Tauri, Qt&hellip;</p>
-          <div class="path-icons">
-            <span class="chip red">Electron</span>
-            <span class="chip red">Tauri</span>
-            <span class="chip red">.exe / .dmg</span>
-            <span class="chip indigo">Installeur</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="connector" data-reveal></div>
-
-    <!-- Full pipeline: iOS -->
-    <div class="chain-node" data-reveal>
-      <div class="pipeline">
-        <h3>&#63743; Pipeline iOS <span class="ac">compl&egrave;te</span></h3>
-        <div class="pipe-flow">
-          <div class="pipe-node">
-            <div class="pipe-icon">&#129302;</div>
-            <span class="pipe-label">Claude / IA</span>
-          </div>
-          <span class="pipe-arrow">&#10132;</span>
-          <div class="pipe-node">
-            <div class="pipe-icon">&#128193;</div>
-            <span class="pipe-label">Repo Git</span>
-          </div>
-          <span class="pipe-arrow">&#10132;</span>
-          <div class="pipe-node">
-            <div class="pipe-icon">&#128296;</div>
-            <span class="pipe-label">Xcode Build</span>
-          </div>
-          <span class="pipe-arrow">&#10132;</span>
-          <div class="pipe-node">
-            <div class="pipe-icon">&#128241;</div>
-            <span class="pipe-label">Simulateur</span>
-          </div>
-          <span class="pipe-arrow">&#10132;</span>
-          <div class="pipe-node">
-            <div class="pipe-icon">&#9989;</div>
-            <span class="pipe-label">TestFlight</span>
-          </div>
-          <span class="pipe-arrow">&#10132;</span>
-          <div class="pipe-node">
-            <div class="pipe-icon">&#127823;</div>
-            <span class="pipe-label">App Store</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="connector" data-reveal></div>
-
-    <!-- Full pipeline: Desktop -->
-    <div class="chain-node" data-reveal>
-      <div class="pipeline">
-        <h3>&#128187; Pipeline desktop <span class="ac">compl&egrave;te</span></h3>
-        <div class="pipe-flow">
-          <div class="pipe-node">
-            <div class="pipe-icon">&#129302;</div>
-            <span class="pipe-label">Claude / IA</span>
-          </div>
-          <span class="pipe-arrow">&#10132;</span>
-          <div class="pipe-node">
-            <div class="pipe-icon">&#128193;</div>
-            <span class="pipe-label">Repo Git</span>
-          </div>
-          <span class="pipe-arrow">&#10132;</span>
-          <div class="pipe-node">
-            <div class="pipe-icon">&#9881;</div>
-            <span class="pipe-label">Build CI</span>
-          </div>
-          <span class="pipe-arrow">&#10132;</span>
-          <div class="pipe-node">
-            <div class="pipe-icon">&#128230;</div>
-            <span class="pipe-label">Package</span>
-          </div>
-          <span class="pipe-arrow">&#10132;</span>
-          <div class="pipe-node">
-            <div class="pipe-icon">&#128272;</div>
-            <span class="pipe-label">Signature</span>
-          </div>
-          <span class="pipe-arrow">&#10132;</span>
-          <div class="pipe-node">
-            <div class="pipe-icon">&#128229;</div>
-            <span class="pipe-label">Distribution</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="connector" data-reveal></div>
-
-    <!-- ====== RECAP ====== -->
-    <div class="chain-node" data-reveal>
-      <div class="sep"></div>
-    </div>
-
-    <div class="chain-node level" data-reveal id="recap">
-      <span class="level-label"><span class="icon">&#128200;</span> R&eacute;capitulatif</span>
-      <h2>Vue d'ensemble</h2>
-      <p class="desc">Tous les chemins partent des m&ecirc;mes 3 briques. La complexit&eacute; vient de la destination et des ressources connect&eacute;es.</p>
-    </div>
-
-    <div class="chain-node" data-reveal>
-      <div class="pipeline" style="background:var(--ws-gradient-brand)">
-        <h3 style="font-size:20px">&#127919; La r&egrave;gle d'or du vibe coding</h3>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:12px">
-          <div style="text-align:center;padding:16px">
-            <div style="font-size:32px;margin-bottom:8px">&#128193;</div>
-            <div style="font-family:var(--ws-font-display);font-weight:700;font-size:15px;color:#fff">1. Stocke</div>
-            <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px">Un repository pour tout historiser</div>
-          </div>
-          <div style="text-align:center;padding:16px">
-            <div style="font-size:32px;margin-bottom:8px">&#129302;</div>
-            <div style="font-family:var(--ws-font-display);font-weight:700;font-size:15px;color:#fff">2. &Eacute;cris avec l'IA</div>
-            <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px">D&eacute;cris, l'IA code pour toi</div>
-          </div>
-          <div style="text-align:center;padding:16px">
-            <div style="font-size:32px;margin-bottom:8px">&#9654;</div>
-            <div style="font-family:var(--ws-font-display);font-weight:700;font-size:15px;color:#fff">3. Ex&eacute;cute</div>
-            <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px">En ligne, en local, ou sur un store</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="connector" data-reveal></div>
-
-    <!-- Complexity summary -->
-    <div class="chain-node" data-reveal>
-      <div class="paths-full">
-        <div class="path-card" style="border-left:4px solid var(--ws-green-400)">
-          <h4 style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-            <span style="font-size:18px">&#128204;</span> Les niveaux de complexit&eacute;
-          </h4>
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
-            <div>
-              <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
-                <span class="complexity easy" style="position:static">Simple</span>
-              </div>
-              <p style="font-size:12.5px;color:var(--ws-ink-500)">Page web statique, fichier HTML local, script Python. Aucune infrastructure &agrave; g&eacute;rer.</p>
-            </div>
-            <div>
-              <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
-                <span class="complexity medium" style="position:static">Moyen</span>
-              </div>
-              <p style="font-size:12.5px;color:var(--ws-ink-500)">Base de donn&eacute;es, API tierces, serveur cloud. N&eacute;cessite de la configuration et de la s&eacute;curit&eacute;.</p>
-            </div>
-            <div>
-              <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
-                <span class="complexity hard" style="position:static">Avanc&eacute;</span>
-              </div>
-              <p style="font-size:12.5px;color:var(--ws-ink-500)">App Store, application desktop, pipelines CI/CD. Cha&icirc;ne compl&egrave;te de build et distribution.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
+      <!-- step labels -->
+      <text x="60" y="148" text-anchor="middle" class="svg-label-mono">prompt</text>
+      <text x="210" y="148" text-anchor="middle" class="svg-label-mono">push</text>
+      <text x="360" y="148" text-anchor="middle" class="svg-label-mono">build</text>
+      <text x="510" y="148" text-anchor="middle" class="svg-label-mono">test</text>
+      <text x="660" y="148" text-anchor="middle" class="svg-label-mono">beta</text>
+      <text x="825" y="148" text-anchor="middle" class="svg-label-mono">publish</text>
+    </svg>
   </div>
 
-  <div style="text-align:center;margin-top:48px">
-    <a class="back-link" href="parcours.html">&#8592; Retour aux parcours pratiques</a>
+  <!-- Desktop pipeline -->
+  <div class="diagram-canvas diagram-desktop">
+    <svg viewBox="0 0 900 170" xmlns="http://www.w3.org/2000/svg">
+      <!-- title bar -->
+      <rect x="0" y="0" width="900" height="36" fill="var(--ws-indigo-950)" rx="0"/>
+      <text x="20" y="24" style="font-family:var(--ws-font-display);font-weight:700;font-size:13px;fill:#fff">&#128187; Pipeline application desktop</text>
+      <rect rx="6" x="820" y="9" width="60" height="18" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+      <text x="850" y="22" text-anchor="middle" style="font-family:var(--ws-font-mono);font-size:9px;fill:var(--ws-green-400);font-weight:600">AVANC&Eacute;</text>
+
+      <!-- pipeline wire -->
+      <path class="svg-wire-glow" d="M82,100 L820,100" filter="url(#glow)"/>
+      <path class="svg-wire-active" d="M82,100 L820,100"/>
+
+      <!-- nodes -->
+      <rect class="svg-node-green" x="20" y="60" width="80" height="68" rx="12"/>
+      <text x="60" y="90" text-anchor="middle" style="font-size:20px">&#129302;</text>
+      <text x="60" y="112" text-anchor="middle" class="svg-label" style="font-size:10px">IA</text>
+
+      <circle cx="145" cy="100" r="5" fill="var(--ws-green-400)"/>
+
+      <rect class="svg-node-primary" x="170" y="60" width="80" height="68" rx="12"/>
+      <text x="210" y="90" text-anchor="middle" style="font-size:20px">&#128193;</text>
+      <text x="210" y="112" text-anchor="middle" class="svg-label" style="font-size:10px">Repo Git</text>
+
+      <circle cx="295" cy="100" r="5" fill="var(--ws-green-400)"/>
+
+      <rect class="svg-node-bg" x="320" y="60" width="80" height="68" rx="12" style="stroke:var(--ws-indigo-300)"/>
+      <text x="360" y="90" text-anchor="middle" style="font-size:20px">&#9881;</text>
+      <text x="360" y="112" text-anchor="middle" class="svg-label" style="font-size:10px">Build CI</text>
+
+      <circle cx="445" cy="100" r="5" fill="var(--ws-green-400)"/>
+
+      <rect class="svg-node-bg" x="470" y="60" width="80" height="68" rx="12" style="stroke:var(--ws-indigo-300)"/>
+      <text x="510" y="90" text-anchor="middle" style="font-size:20px">&#128230;</text>
+      <text x="510" y="112" text-anchor="middle" class="svg-label" style="font-size:10px">Package</text>
+
+      <circle cx="595" cy="100" r="5" fill="var(--ws-green-400)"/>
+
+      <rect class="svg-node-bg" x="620" y="60" width="80" height="68" rx="12" style="stroke:var(--ws-indigo-300)"/>
+      <text x="660" y="90" text-anchor="middle" style="font-size:20px">&#128272;</text>
+      <text x="660" y="112" text-anchor="middle" class="svg-label" style="font-size:10px">Signature</text>
+
+      <circle cx="745" cy="100" r="5" fill="var(--ws-green-400)"/>
+
+      <rect class="svg-node-orange" x="770" y="56" width="110" height="76" rx="14"/>
+      <text x="825" y="88" text-anchor="middle" style="font-size:22px">&#128229;</text>
+      <text x="825" y="112" text-anchor="middle" class="svg-label" style="font-size:11px;fill:#9A3412">Distribution</text>
+
+      <!-- labels -->
+      <text x="60" y="148" text-anchor="middle" class="svg-label-mono">prompt</text>
+      <text x="210" y="148" text-anchor="middle" class="svg-label-mono">push</text>
+      <text x="360" y="148" text-anchor="middle" class="svg-label-mono">compile</text>
+      <text x="510" y="148" text-anchor="middle" class="svg-label-mono">.exe .dmg</text>
+      <text x="660" y="148" text-anchor="middle" class="svg-label-mono">certif</text>
+      <text x="825" y="148" text-anchor="middle" class="svg-label-mono">deploy</text>
+    </svg>
   </div>
+
+  <!-- mobile pipelines -->
+  <div class="diagram-canvas diagram-mobile" style="margin-bottom:16px">
+    <svg viewBox="0 0 360 420" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="360" height="32" fill="var(--ws-indigo-950)"/>
+      <text x="16" y="22" style="font-family:var(--ws-font-display);font-weight:700;font-size:12px;fill:#fff">&#63743; Pipeline iOS</text>
+      <path class="svg-wire-active" d="M180,72 L180,390"/>
+      <rect class="svg-node-green" x="120" y="48" width="120" height="50" rx="10"/>
+      <text x="155" y="75" style="font-size:16px">&#129302;</text>
+      <text x="180" y="83" class="svg-label" style="font-size:10px">IA</text>
+      <circle cx="180" cy="110" r="4" fill="var(--ws-green-400)"/>
+      <rect class="svg-node-primary" x="120" y="118" width="120" height="50" rx="10"/>
+      <text x="155" y="145" style="font-size:16px">&#128193;</text>
+      <text x="180" y="153" class="svg-label" style="font-size:10px">Repo</text>
+      <circle cx="180" cy="180" r="4" fill="var(--ws-green-400)"/>
+      <rect class="svg-node-bg" x="120" y="188" width="120" height="50" rx="10" style="stroke:var(--ws-ink-300)"/>
+      <text x="155" y="215" style="font-size:16px">&#128296;</text>
+      <text x="180" y="223" class="svg-label" style="font-size:10px">Xcode</text>
+      <circle cx="180" cy="250" r="4" fill="var(--ws-green-400)"/>
+      <rect class="svg-node-bg" x="120" y="258" width="120" height="50" rx="10" style="stroke:var(--ws-ink-300)"/>
+      <text x="155" y="285" style="font-size:16px">&#9989;</text>
+      <text x="180" y="293" class="svg-label" style="font-size:10px">TestFlight</text>
+      <circle cx="180" cy="320" r="4" fill="var(--ws-green-400)"/>
+      <rect class="svg-node-red" x="110" y="330" width="140" height="60" rx="12"/>
+      <text x="180" y="358" text-anchor="middle" style="font-size:20px">&#127823;</text>
+      <text x="180" y="378" text-anchor="middle" class="svg-label" style="font-size:11px;fill:#C62828">App Store</text>
+    </svg>
+  </div>
+  <div class="diagram-canvas diagram-mobile">
+    <svg viewBox="0 0 360 390" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="360" height="32" fill="var(--ws-indigo-950)"/>
+      <text x="16" y="22" style="font-family:var(--ws-font-display);font-weight:700;font-size:12px;fill:#fff">&#128187; Pipeline Desktop</text>
+      <path class="svg-wire-active" d="M180,72 L180,360"/>
+      <rect class="svg-node-green" x="120" y="48" width="120" height="50" rx="10"/>
+      <text x="155" y="75" style="font-size:16px">&#129302;</text>
+      <text x="180" y="83" class="svg-label" style="font-size:10px">IA</text>
+      <circle cx="180" cy="110" r="4" fill="var(--ws-green-400)"/>
+      <rect class="svg-node-primary" x="120" y="118" width="120" height="50" rx="10"/>
+      <text x="155" y="145" style="font-size:16px">&#128193;</text>
+      <text x="180" y="153" class="svg-label" style="font-size:10px">Repo</text>
+      <circle cx="180" cy="180" r="4" fill="var(--ws-green-400)"/>
+      <rect class="svg-node-bg" x="120" y="188" width="120" height="50" rx="10" style="stroke:var(--ws-ink-300)"/>
+      <text x="155" y="215" style="font-size:16px">&#9881;</text>
+      <text x="180" y="223" class="svg-label" style="font-size:10px">Build CI</text>
+      <circle cx="180" cy="250" r="4" fill="var(--ws-green-400)"/>
+      <rect class="svg-node-bg" x="120" y="258" width="120" height="50" rx="10" style="stroke:var(--ws-ink-300)"/>
+      <text x="155" y="285" style="font-size:16px">&#128272;</text>
+      <text x="180" y="293" class="svg-label" style="font-size:10px">Signature</text>
+      <circle cx="180" cy="320" r="4" fill="var(--ws-green-400)"/>
+      <rect class="svg-node-orange" x="110" y="330" width="140" height="50" rx="12"/>
+      <text x="180" y="358" text-anchor="middle" style="font-size:18px">&#128229;</text>
+      <text x="180" y="375" text-anchor="middle" class="svg-label" style="font-size:10px;fill:#9A3412">Distribution</text>
+    </svg>
+  </div>
+</div>
+
+<div class="v-connector" data-reveal>
+  <svg viewBox="0 0 3 48"><line class="v-line" x1="1.5" y1="0" x2="1.5" y2="48"/><line class="v-line-fill" x1="1.5" y1="0" x2="1.5" y2="48"/></svg>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     RECAP
+     ═══════════════════════════════════════════ -->
+<div class="diagram-section" data-reveal>
+  <div class="section-head">
+    <span class="level-tag">&#128200; R&eacute;capitulatif</span>
+    <h2>Vue d'ensemble</h2>
+    <p>Tous les chemins partent du m&ecirc;me trio. La complexit&eacute; vient de la destination.</p>
+  </div>
+  <div class="diagram-canvas diagram-desktop">
+    <svg viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg">
+      <!-- background zones -->
+      <rect x="0" y="0" width="320" height="380" fill="var(--ws-indigo-50)" opacity=".5" rx="20"/>
+      <rect x="320" y="0" width="260" height="380" fill="var(--ws-green-50)" opacity=".4"/>
+      <rect x="580" y="0" width="320" height="380" fill="#E0F5F6" opacity=".4" rx="20"/>
+
+      <!-- zone labels -->
+      <text x="160" y="30" text-anchor="middle" style="font-family:var(--ws-font-mono);font-weight:700;font-size:11px;fill:var(--ws-indigo-600);letter-spacing:.1em">STOCKER</text>
+      <text x="450" y="30" text-anchor="middle" style="font-family:var(--ws-font-mono);font-weight:700;font-size:11px;fill:var(--ws-green-700);letter-spacing:.1em">&Eacute;CRIRE</text>
+      <text x="740" y="30" text-anchor="middle" style="font-family:var(--ws-font-mono);font-weight:700;font-size:11px;fill:var(--ws-teal-500);letter-spacing:.1em">EX&Eacute;CUTER</text>
+
+      <!-- center hub -->
+      <rect class="svg-node-dark" x="375" y="80" width="150" height="70"/>
+      <text x="450" y="108" text-anchor="middle" style="font-size:20px">&#129302;</text>
+      <text x="450" y="132" text-anchor="middle" class="svg-label-white" style="font-size:12px">IA (Claude, Codex...)</text>
+
+      <!-- storage options -->
+      <rect class="svg-node-primary" x="60" y="85" width="130" height="55"/>
+      <text x="125" y="110" text-anchor="middle" class="svg-icon">&#128193;</text>
+      <text x="125" y="128" text-anchor="middle" class="svg-label" style="font-size:10px">GitHub / GitLab</text>
+      <path class="svg-wire-active" d="M190,112 L375,112" marker-end="url(#arr)"/>
+
+      <rect class="svg-node-bg" x="60" y="165" width="130" height="45" style="stroke:var(--ws-indigo-300)"/>
+      <text x="125" y="192" text-anchor="middle" class="svg-label" style="font-size:10px">&#128193; Dossier local</text>
+      <path class="svg-wire" d="M190,187 Q280,187 375,130" marker-end="url(#arr-muted)" stroke-dasharray="4 3"/>
+
+      <!-- execution destinations -->
+      <!-- Web -->
+      <path class="svg-wire-active" d="M525,95 Q590,60 630,60" marker-end="url(#arr)" style="transition-delay:.3s"/>
+      <rect class="svg-node-teal" x="635" y="42" width="230" height="40"/>
+      <text x="655" y="67" style="font-size:14px">&#127760;</text>
+      <text x="678" y="66" class="svg-label" style="font-size:11px">Web (Pages, Vercel, Cloud)</text>
+
+      <!-- Local browser -->
+      <path class="svg-wire-active" d="M525,105 Q590,105 630,105" marker-end="url(#arr)" style="transition-delay:.45s"/>
+      <rect class="svg-node-teal" x="635" y="87" width="230" height="40"/>
+      <text x="655" y="112" style="font-size:14px">&#128187;</text>
+      <text x="678" y="111" class="svg-label" style="font-size:11px">Local (file://, Python, .exe)</text>
+
+      <!-- Resources -->
+      <path class="svg-wire-active" d="M525,120 Q590,155 630,155" marker-end="url(#arr)" style="transition-delay:.6s"/>
+      <rect class="svg-node-orange" x="635" y="135" width="230" height="40"/>
+      <text x="655" y="160" style="font-size:14px">&#128451;</text>
+      <text x="678" y="159" class="svg-label" style="font-size:11px">+ BDD, API, Cloudflare</text>
+
+      <!-- Azure -->
+      <path class="svg-wire-active" d="M525,135 Q590,210 630,210" marker-end="url(#arr)" style="transition-delay:.75s"/>
+      <rect rx="14" x="635" y="190" width="230" height="40" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1.5"/>
+      <text x="655" y="215" style="font-size:14px">&#9729;</text>
+      <text x="678" y="214" class="svg-label" style="font-size:11px;fill:#1E40AF">Azure / AWS (interne WS)</text>
+
+      <!-- App Store -->
+      <path class="svg-wire-active" d="M525,145 Q590,270 630,270" marker-end="url(#arr)" style="transition-delay:.9s"/>
+      <rect class="svg-node-red" x="635" y="250" width="230" height="40"/>
+      <text x="655" y="275" style="font-size:14px">&#127823;</text>
+      <text x="678" y="274" class="svg-label" style="font-size:11px;fill:#C62828">App Store / Desktop</text>
+
+      <!-- complexity scale -->
+      <text x="880" y="67" text-anchor="end" style="font-family:var(--ws-font-mono);font-size:9px;fill:var(--ws-green-700);font-weight:600">SIMPLE</text>
+      <text x="880" y="215" text-anchor="end" style="font-family:var(--ws-font-mono);font-size:9px;fill:var(--ws-warning);font-weight:600">MOYEN</text>
+      <text x="880" y="275" text-anchor="end" style="font-family:var(--ws-font-mono);font-size:9px;fill:#C62828;font-weight:600">AVANC&Eacute;</text>
+
+      <!-- gradient arrow on right -->
+      <line x1="890" y1="55" x2="890" y2="280" stroke="url(#vgrad)" stroke-width="3" stroke-linecap="round" opacity=".4"/>
+    </svg>
+  </div>
+  <div class="diagram-canvas diagram-mobile">
+    <svg viewBox="0 0 360 400" xmlns="http://www.w3.org/2000/svg">
+      <rect class="svg-node-dark" x="100" y="20" width="160" height="60"/>
+      <text x="180" y="47" text-anchor="middle" style="font-size:18px">&#129302;</text>
+      <text x="180" y="66" text-anchor="middle" class="svg-label-white" style="font-size:11px">IA</text>
+      <path class="svg-wire-active" d="M180,80 L180,105" marker-end="url(#arr)"/>
+      <rect class="svg-node-teal" x="20" y="108" width="320" height="38"/>
+      <text x="40" y="132" style="font-size:14px">&#127760;</text>
+      <text x="62" y="131" class="svg-label" style="font-size:11px">Web (Pages, Vercel, Cloud)</text>
+      <path class="svg-wire-active" d="M180,146 L180,160" style="transition-delay:.15s"/>
+      <rect class="svg-node-teal" x="20" y="162" width="320" height="38"/>
+      <text x="40" y="186" style="font-size:14px">&#128187;</text>
+      <text x="62" y="185" class="svg-label" style="font-size:11px">Local (file://, Python, .exe)</text>
+      <path class="svg-wire-active" d="M180,200 L180,214" style="transition-delay:.3s"/>
+      <rect class="svg-node-orange" x="20" y="216" width="320" height="38"/>
+      <text x="40" y="240" style="font-size:14px">&#128451;</text>
+      <text x="62" y="239" class="svg-label" style="font-size:11px">+ BDD, API, Cloudflare</text>
+      <path class="svg-wire-active" d="M180,254 L180,268" style="transition-delay:.45s"/>
+      <rect rx="12" x="20" y="270" width="320" height="38" fill="#EFF6FF" stroke="#3B82F6" stroke-width="1.5"/>
+      <text x="40" y="294" style="font-size:14px">&#9729;</text>
+      <text x="62" y="293" class="svg-label" style="font-size:11px;fill:#1E40AF">Azure / AWS (interne WS)</text>
+      <path class="svg-wire-active" d="M180,308 L180,322" style="transition-delay:.6s"/>
+      <rect class="svg-node-red" x="20" y="324" width="320" height="38"/>
+      <text x="40" y="348" style="font-size:14px">&#127823;</text>
+      <text x="62" y="347" class="svg-label" style="font-size:11px;fill:#C62828">App Store / Desktop</text>
+      <text x="350" y="130" text-anchor="end" style="font-family:var(--ws-font-mono);font-size:8px;fill:var(--ws-green-700);font-weight:600">SIMPLE</text>
+      <text x="350" y="293" text-anchor="end" style="font-family:var(--ws-font-mono);font-size:8px;fill:var(--ws-warning);font-weight:600">MOYEN</text>
+      <text x="350" y="347" text-anchor="end" style="font-family:var(--ws-font-mono);font-size:8px;fill:#C62828;font-weight:600">AVANC&Eacute;</text>
+    </svg>
+  </div>
+</div>
+
+<div style="text-align:center">
+  <a class="back-link" href="parcours.html">&#8592; Passer &agrave; la pratique</a>
+</div>
 
 </div>
 
@@ -850,32 +948,27 @@
 (function(){
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ----- scroll progress bar ----- */
-  var progressBar = document.getElementById('scrollProgress');
+  /* scroll progress */
+  var bar = document.getElementById('scrollProgress');
   function updateProgress(){
-    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    progressBar.style.width = pct + '%';
+    var s = window.pageYOffset || document.documentElement.scrollTop;
+    var h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    bar.style.width = (h > 0 ? s/h*100 : 0) + '%';
   }
   window.addEventListener('scroll', updateProgress, {passive:true});
   updateProgress();
 
-  /* ----- intersection observer for scroll reveal ----- */
-  var revealElements = document.querySelectorAll('[data-reveal]');
+  /* intersection observer */
+  var els = document.querySelectorAll('[data-reveal]');
   if(reduce){
-    revealElements.forEach(function(el){ el.classList.add('visible'); });
+    els.forEach(function(el){ el.classList.add('visible'); });
   } else {
-    var observer = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
       });
-    }, {threshold:0.15, rootMargin:'0px 0px -40px 0px'});
-
-    revealElements.forEach(function(el){ observer.observe(el); });
+    }, {threshold:0.1, rootMargin:'0px 0px -30px 0px'});
+    els.forEach(function(el){ obs.observe(el); });
   }
 })();
 </script>
