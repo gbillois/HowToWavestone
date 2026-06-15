@@ -3,13 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vibe coding @ Wavestone — Choisis ton parcours</title>
+<title>Vibe coding @ Wavestone</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* --- Wavestone tokens (extrait du design system) --- */
     --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
     --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
     --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
@@ -18,15 +17,11 @@
     --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
     --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
     --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
-    --ws-warning:#C8861A;
-
     --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
     --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
-
     --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
     --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
     --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
-
     --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
     --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
     --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
@@ -40,143 +35,76 @@
   body{
     background:var(--ws-white);color:var(--ws-ink-900);
     font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;
-    padding-bottom:80px;
+    min-height:100vh;display:flex;flex-direction:column;
   }
   a{color:inherit}
-  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
 
-  .eyebrow{
-    display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
-    padding-bottom:4px;border-bottom:2px solid var(--ws-green-400);
-  }
-
-  /* ---------- sticky brand bar ---------- */
-  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
-  .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  /* ---------- bar ---------- */
+  .bar{background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:9px}
   .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px}
   .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
-  .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);border-radius:999px;padding:6px 13px;transition:.18s var(--ws-ease)}
-  .bar a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
 
-  /* ---------- hero (brand gradient) ---------- */
-  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px}
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px;flex-shrink:0}
   .hero .wave{position:absolute;inset:0;pointer-events:none}
-  .hero-in{position:relative;max-width:1040px;margin:0 auto;padding:64px 24px 56px}
-  .hero .eyebrow{color:#fff}
-  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(36px,6.4vw,64px);line-height:1.02;letter-spacing:-.025em;margin:22px 0 16px;max-width:16ch}
+  .hero-in{position:relative;max-width:1040px;margin:0 auto;padding:72px 24px 64px;text-align:center}
+  .hero .eyebrow{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid var(--ws-green-400);color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(36px,6.4vw,64px);line-height:1.05;letter-spacing:-.025em;margin:24px auto 18px;max-width:18ch}
   .hero h1 .ac{color:var(--ws-green-400)}
-  .hero .lede{font-size:19px;line-height:1.5;color:rgba(255,255,255,.82);max-width:62ch}
-  .hero .tagline{font-family:var(--ws-font-mono);font-size:12.5px;color:rgba(255,255,255,.6);margin-top:22px;letter-spacing:.02em}
+  .hero .lede{font-size:19px;line-height:1.55;color:rgba(255,255,255,.82);max-width:56ch;margin:0 auto}
 
-  /* ---------- chooser ---------- */
-  .sec-head{margin:56px 0 6px}
-  .sec-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:28px;letter-spacing:-.015em;color:var(--ws-indigo-600);margin-top:8px}
-  .sec-head p{color:var(--ws-ink-500);margin-top:6px;font-size:15px}
+  /* ---------- cards ---------- */
+  .cards{max-width:1040px;margin:-40px auto 0;padding:0 24px;position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:20px;flex:1}
+  @media(max-width:640px){.cards{grid-template-columns:1fr;margin-top:-28px}}
 
-  .chooser{display:grid;gap:14px;margin-top:22px;grid-template-columns:1fr}
-  @media(min-width:720px){.chooser{grid-template-columns:1fr 1fr}}
-  .tile{
-    position:relative;text-align:left;cursor:pointer;background:var(--ws-white);
-    border:1.5px solid var(--ws-ink-100);border-radius:18px;padding:22px 22px 20px;
-    box-shadow:var(--ws-shadow-sm);transition:.2s var(--ws-ease);overflow:hidden;
+  .card{
+    position:relative;text-decoration:none;display:flex;flex-direction:column;
+    background:var(--ws-white);border:1.5px solid var(--ws-ink-100);border-radius:20px;
+    padding:32px 28px 28px;box-shadow:var(--ws-shadow-md);
+    transition:.25s var(--ws-ease);overflow:hidden;
   }
-  .tile:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-2px);border-color:var(--ws-indigo-200)}
-  .tile.active{border-color:var(--ws-indigo-600);box-shadow:var(--ws-shadow-brand)}
-  .tile.active::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ws-gradient-accent)}
-  .tile .idx{font-family:var(--ws-font-mono);font-size:13px;font-weight:600;color:var(--ws-indigo-600)}
-  .tile.soon .idx{color:var(--ws-ink-400)}
-  .tile h3{font-family:var(--ws-font-display);font-weight:600;font-size:18.5px;color:var(--ws-ink-900);margin:8px 0 6px;line-height:1.2}
-  .tile p{font-size:14px;color:var(--ws-ink-500);line-height:1.5}
-  .stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:13px}
-  .chip{font-family:var(--ws-font-mono);font-size:11px;letter-spacing:.02em;color:var(--ws-indigo-700);background:var(--ws-indigo-50);border-radius:999px;padding:4px 10px}
-  .badge-soon{position:absolute;top:18px;right:18px;font-family:var(--ws-font-body);font-weight:700;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-warning);background:#FBF1DD;border-radius:6px;padding:4px 8px}
+  .card:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-4px);border-color:var(--ws-indigo-200)}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ws-gradient-accent);opacity:0;transition:opacity .25s var(--ws-ease)}
+  .card:hover::before{opacity:1}
 
-  /* ---------- panels ---------- */
-  .panels{margin-top:34px}
-  .panel{display:none;animation:fade .4s var(--ws-ease)}
-  .panel.active{display:block}
-  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .card-icon{
+    width:56px;height:56px;border-radius:16px;display:grid;place-items:center;
+    font-size:26px;margin-bottom:18px;
+  }
+  .card-icon.learn{background:var(--ws-indigo-50);color:var(--ws-indigo-600)}
+  .card-icon.build{background:var(--ws-green-50);color:var(--ws-green-700)}
 
-  .panel-head{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;border-bottom:1px solid var(--ws-ink-100);padding-bottom:16px}
-  .panel-head .t .eyebrow{color:var(--ws-ink-900)}
-  .panel-head .t h2{font-family:var(--ws-font-display);font-weight:700;font-size:25px;color:var(--ws-indigo-600);margin-top:10px;letter-spacing:-.01em}
-  .panel-head .t .sub{color:var(--ws-ink-500);font-size:14.5px;margin-top:5px}
-  .prog{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-500);white-space:nowrap}
-  .prog b{color:var(--ws-indigo-600)}
+  .card .tag{
+    display:inline-block;font-family:var(--ws-font-mono);font-size:10.5px;font-weight:600;
+    letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 11px;
+    margin-bottom:14px;width:fit-content;
+  }
+  .tag.formation{color:var(--ws-indigo-700);background:var(--ws-indigo-50)}
+  .tag.pratique{color:var(--ws-green-700);background:var(--ws-green-50)}
 
-  /* steps with pipeline spine */
-  .steps{position:relative;margin-top:24px}
-  .spine{position:absolute;left:21px;top:22px;bottom:22px;width:2px;background:var(--ws-ink-100);z-index:0}
-  .spine-fill{position:absolute;left:0;top:0;width:100%;height:0;background:var(--ws-gradient-accent);transition:height .5s var(--ws-ease)}
-  .step{position:relative;z-index:1;display:flex;gap:18px;padding-bottom:20px}
-  .node{flex:0 0 44px;width:44px;height:44px;border-radius:13px;background:#fff;border:1.5px solid var(--ws-ink-200);display:grid;place-items:center;font-family:var(--ws-font-mono);font-weight:600;font-size:15px;color:var(--ws-indigo-600);cursor:pointer;user-select:none;transition:.22s var(--ws-ease)}
-  .node:hover{border-color:var(--ws-indigo-600)}
-  .node .ck{display:none;font-size:20px;color:#fff;line-height:1}
-  .step.done .node{background:var(--ws-indigo-600);border-color:var(--ws-indigo-600);color:#fff}
-  .step.done .node .nm{display:none}
-  .step.done .node .ck{display:block}
-  .scard{flex:1;background:#fff;border:1px solid var(--ws-ink-100);border-radius:14px;padding:16px 18px;box-shadow:var(--ws-shadow-sm);transition:.22s var(--ws-ease)}
-  .step.done .scard{opacity:.7;border-color:var(--ws-green-50)}
-  .scard h4{font-family:var(--ws-font-display);font-weight:600;font-size:16.5px;color:var(--ws-ink-900);display:flex;align-items:center;gap:9px;flex-wrap:wrap}
-  .scard .do{margin-top:7px;font-size:14.5px;color:var(--ws-ink-600)}
-  .scard .do code{font-family:var(--ws-font-mono);font-size:.85em;background:var(--ws-ink-50);border-radius:5px;padding:1px 6px}
-  .mini{font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ws-green-700);background:var(--ws-green-50);border-radius:999px;padding:3px 8px;font-weight:600}
-  .mini.opt{color:var(--ws-ink-500);background:var(--ws-ink-50)}
+  .card h2{font-family:var(--ws-font-display);font-weight:700;font-size:24px;letter-spacing:-.015em;color:var(--ws-ink-900);margin-bottom:8px}
+  .card p{font-size:15px;color:var(--ws-ink-500);line-height:1.55;flex:1}
 
-  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-  .lk{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-family:var(--ws-font-mono);font-size:12.5px;border:1px solid var(--ws-ink-200);border-radius:999px;padding:7px 13px;background:#fff;color:var(--ws-ink-900);transition:.18s var(--ws-ease)}
-  .lk:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600);transform:translateY(-1px)}
-  .lk .ar{color:var(--ws-ink-400);transition:.18s var(--ws-ease)}
-  .lk:hover .ar{color:var(--ws-indigo-600)}
+  .card .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+  .card .chip{font-family:var(--ws-font-mono);font-size:10.5px;letter-spacing:.02em;color:var(--ws-ink-600);background:var(--ws-ink-50);border-radius:999px;padding:4px 10px}
 
-  /* prompt card (neon green on deep indigo — signature DS combo) */
-  .prompt{position:relative;background:var(--ws-indigo-950);border-radius:14px;padding:16px 18px;margin-top:14px;font-family:var(--ws-font-mono);font-size:13.5px;color:#EAE7F6;box-shadow:var(--ws-shadow-md)}
-  .prompt .who{color:rgba(255,255,255,.5);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
-  .prompt .txt{color:var(--ws-green-300);line-height:1.5}
-  .prompt .txt::before{content:"\2192  ";color:rgba(255,255,255,.35)}
-  .copy{position:absolute;top:13px;right:13px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.7);font-family:var(--ws-font-mono);font-size:11px;border-radius:999px;padding:5px 11px;cursor:pointer;transition:.18s var(--ws-ease)}
-  .copy:hover{color:#fff;border-color:rgba(255,255,255,.4)}
-  .copy.ok{color:var(--ws-green-300);border-color:var(--ws-green-400)}
+  .card .cta{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--ws-font-mono);font-size:13px;font-weight:600;
+    color:var(--ws-indigo-600);margin-top:20px;
+    transition:.18s var(--ws-ease);
+  }
+  .card:hover .cta{gap:12px}
+  .cta .arrow{transition:transform .18s var(--ws-ease)}
+  .card:hover .cta .arrow{transform:translateX(3px)}
 
-  /* note / governance */
-  .note{margin-top:18px;background:var(--ws-indigo-50);border:1px solid var(--ws-indigo-100);border-left:4px solid var(--ws-indigo-600);border-radius:12px;padding:16px 18px}
-  .note .lab{font-family:var(--ws-font-body);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ws-indigo-600);margin-bottom:7px}
-  .note p{font-size:14px;color:var(--ws-ink-700);line-height:1.55}
-  .note p+p{margin-top:8px}
-  .note b{color:var(--ws-ink-900)}
-
-  /* à venir */
-  .soon-card{margin-top:24px;background:linear-gradient(180deg,var(--ws-ink-50),#fff 70%);border:1.5px dashed var(--ws-ink-200);border-radius:18px;padding:30px 26px;text-align:center}
-  .soon-card .ring{width:54px;height:54px;border-radius:50%;border:2px dashed var(--ws-indigo-200);display:grid;place-items:center;margin:0 auto 14px;color:var(--ws-indigo-600);font-size:22px}
-  .soon-card h3{font-family:var(--ws-font-display);font-weight:700;font-size:21px;color:var(--ws-indigo-600)}
-  .soon-card p{color:var(--ws-ink-500);font-size:15px;max-width:52ch;margin:10px auto 0;line-height:1.55}
-
-  /* infos utiles */
-  .res{margin-top:22px;display:grid;gap:16px;grid-template-columns:1fr}
-  @media(min-width:720px){.res{grid-template-columns:1fr 1fr}}
-  .res-card{background:#fff;border:1px solid var(--ws-ink-100);border-radius:16px;padding:20px 22px;box-shadow:var(--ws-shadow-sm)}
-  .res-card.key{border-color:var(--ws-green-400);box-shadow:0 0 0 1px var(--ws-green-400),var(--ws-shadow-sm)}
-  .res-card h3{font-family:var(--ws-font-display);font-weight:600;font-size:17px;color:var(--ws-indigo-600);margin-bottom:14px;display:flex;align-items:center;gap:9px}
-  .res-card h3 .star{color:var(--ws-green-700)}
-  .res-list{list-style:none;display:grid;gap:9px}
-  .res-list a{display:flex;align-items:center;justify-content:space-between;gap:12px;text-decoration:none;border:1px solid var(--ws-ink-100);border-radius:10px;padding:11px 14px;transition:.18s var(--ws-ease)}
-  .res-list a:hover{border-color:var(--ws-indigo-600);background:var(--ws-indigo-50)}
-  .res-list .nm{font-weight:600;font-size:14px;color:var(--ws-ink-900)}
-  .res-list .u{font-family:var(--ws-font-mono);font-size:11.5px;color:var(--ws-ink-400);display:block;margin-top:2px}
-  .res-list .go{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-indigo-600);white-space:nowrap}
-  .res-cta{display:flex;align-items:center;justify-content:space-between;gap:12px;text-decoration:none;background:var(--ws-green-400);border-radius:11px;padding:13px 16px;transition:.18s var(--ws-ease)}
-  .res-cta:hover{background:var(--ws-green-300)}
-  .res-cta .nm{font-family:var(--ws-font-display);font-weight:700;font-size:15px;color:var(--ws-indigo-900)}
-  .res-cta .go{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-indigo-900)}
-  .cap{font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-warning);margin-top:10px;display:flex;gap:6px;align-items:flex-start}
-
-  footer{max-width:1040px;margin:64px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  /* ---------- footer ---------- */
+  footer{max-width:1040px;margin:56px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);width:100%;text-align:center}
   footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
-  .reset{font-family:var(--ws-font-mono);font-size:12.5px;border:1px solid var(--ws-ink-200);background:#fff;border-radius:999px;padding:8px 14px;cursor:pointer;color:var(--ws-ink-500);transition:.18s var(--ws-ease)}
-  .reset:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
 
   :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
-  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -184,10 +112,6 @@
 <div class="bar">
   <div class="bar-in">
     <span class="brand"><span class="dot"></span>Wavestone &middot; Vibe coding</span>
-    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-      <a class="jump" href="vibe-coding.html">Les principes du vibe coding</a>
-      <a class="jump" href="#infos">Infos &amp; liens utiles</a>
-    </div>
   </div>
 </div>
 
@@ -197,369 +121,45 @@
     <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
   </svg>
   <div class="hero-in">
-    <span class="eyebrow">Guide de d&eacute;marrage</span>
-    <h1>Vibe coding : choisis ton <span class="ac">parcours</span></h1>
-    <p class="lede">Quatre chemins pour passer de l'id&eacute;e au code avec Claude &mdash; du plus simple (tout en ligne) au plus avanc&eacute; (appels &agrave; un mod&egrave;le d'IA dans l'environnement Wavestone).</p>
-    <p class="tagline"># environnement wavestone &middot; licence claude entreprise &middot; sans droits admin</p>
+    <span class="eyebrow">Wavestone</span>
+    <h1>Le <span class="ac">vibe coding</span>, par o&ugrave; commencer&nbsp;?</h1>
+    <p class="lede">Comprendre les principes, puis passer &agrave; la pratique. Choisis ton point d'entr&eacute;e.</p>
   </div>
 </header>
 
-<div class="wrap">
+<div class="cards">
 
-  <!-- CHOOSER -->
-  <div class="sec-head">
-    <span class="eyebrow">Par o&ugrave; commencer</span>
-    <h2>Quel est ton objectif ?</h2>
-    <p>Choisis un parcours : les &eacute;tapes et les liens s'affichent juste en dessous.</p>
-  </div>
-
-  <div class="chooser" id="chooser">
-    <button class="tile active" data-target="p1">
-      <span class="idx">01</span>
-      <h3>Coder une application simple en ligne</h3>
-      <p>Une page ou un petit outil, sans rien installer. Tout se passe dans le navigateur.</p>
-      <div class="stack"><span class="chip">GitHub</span><span class="chip">GitHub Pages</span><span class="chip">Claude en ligne</span></div>
-    </button>
-
-    <button class="tile" data-target="p2">
-      <span class="idx">02</span>
-      <h3>Coder une application sur ma machine</h3>
-      <p>D&eacute;veloppement local plus libre, avec sauvegarde et travail en commun via GitHub.</p>
-      <div class="stack"><span class="chip">Git</span><span class="chip">VS Code</span><span class="chip">Python</span><span class="chip">GitHub</span></div>
-    </button>
-
-    <button class="tile soon" data-target="p3">
-      <span class="badge-soon">&Agrave; venir</span>
-      <span class="idx">03</span>
-      <h3>Application web complexe</h3>
-      <p>Stockage et base de donn&eacute;es centralis&eacute;s. Une approche est en cours de r&eacute;flexion.</p>
-      <div class="stack"><span class="chip">Backend</span><span class="chip">Base de donn&eacute;es</span></div>
-    </button>
-
-    <button class="tile" data-target="p4">
-      <span class="idx">04</span>
-      <h3>Appeler un mod&egrave;le d'IA dans mon appli</h3>
-      <p>Int&eacute;grer des appels &agrave; un mod&egrave;le d'IA via des cl&eacute;s API, dans l'environnement Wavestone.</p>
-      <div class="stack"><span class="chip">Cl&eacute;s API Wavestone</span><span class="chip">Microsoft</span></div>
-    </button>
-  </div>
-
-  <!-- PANELS -->
-  <div class="panels">
-
-    <!-- ============ PARCOURS 1 ============ -->
-    <section class="panel active" data-panel="p1">
-      <div class="panel-head">
-        <div class="t">
-          <span class="eyebrow">Parcours 01</span>
-          <h2>Application simple en ligne</h2>
-          <div class="sub">GitHub + GitHub Pages + Claude en ligne &mdash; id&eacute;al pour des pages et outils simples, sans backend.</div>
-        </div>
-        <div class="prog"><b class="dn">0</b>/<span class="tot">4</span> &eacute;tapes</div>
-      </div>
-
-      <div class="steps">
-        <div class="spine"><div class="spine-fill"></div></div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck">&#10003;</span></div>
-          <div class="scard">
-            <h4>Tester ton compte Claude</h4>
-            <div class="do">Connecte-toi avec ton compte Wavestone et v&eacute;rifie que &laquo; Wavestone &raquo; appara&icirc;t : l'environnement entreprise est reconnu.</div>
-            <div class="links"><a class="lk" href="https://claude.ai/new" target="_blank" rel="noopener">claude.ai/new <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck">&#10003;</span></div>
-          <div class="scard">
-            <h4>Cr&eacute;er un compte GitHub <span class="mini">gratuit</span></h4>
-            <div class="do">Cr&eacute;e ton compte, puis un premier <b>repository</b> (l'espace qui stocke ton code).</div>
-            <div class="links"><a class="lk" href="https://github.com/" target="_blank" rel="noopener">github.com <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck">&#10003;</span></div>
-          <div class="scard">
-            <h4>Activer GitHub Pages</h4>
-            <div class="do">Dans les r&eacute;glages du repo, active <b>Pages</b> : c'est ce qui h&eacute;bergera la page que tu vas cr&eacute;er (ton &laquo; pipeline minimum &raquo;).</div>
-            <div class="links"><a class="lk" href="https://pages.github.com/" target="_blank" rel="noopener">pages.github.com <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">4</span><span class="ck">&#10003;</span></div>
-          <div class="scard">
-            <h4>Lancer Claude Code en ligne</h4>
-            <div class="do">Lie Claude &agrave; ton compte GitHub (demand&eacute; &agrave; la premi&egrave;re fois), choisis ton repository, puis d&eacute;cris ce que tu veux. Claude cr&eacute;e une machine virtuelle, &eacute;crit le fichier et le pousse dans le repo.</div>
-            <div class="links"><a class="lk" href="https://claude.ai/new" target="_blank" rel="noopener">claude.ai <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="prompt">
-        <button class="copy">copier</button>
-        <div class="who">Ton premier prompt</div>
-        <div class="txt">Cr&eacute;e-moi une page HTML qui est un quiz sur la cybers&eacute;curit&eacute; en 10 questions. Tire les questions au hasard, pr&eacute;sente-les une par une et donne un score &agrave; la fin.</div>
-      </div>
-    </section>
-
-    <!-- ============ PARCOURS 2 ============ -->
-    <section class="panel" data-panel="p2">
-      <div class="panel-head">
-        <div class="t">
-          <span class="eyebrow">Parcours 02</span>
-          <h2>Application sur ma machine</h2>
-          <div class="sub">Git + VS Code + Python, avec sauvegarde et travail en commun via GitHub. Tout reste en local sur ta machine.</div>
-        </div>
-        <div class="prog"><b class="dn">0</b>/<span class="tot">6</span> &eacute;tapes</div>
-      </div>
-
-      <div class="steps">
-        <div class="spine"><div class="spine-fill"></div></div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck">&#10003;</span></div>
-          <div class="scard">
-            <h4>Tester Claude + cr&eacute;er un GitHub</h4>
-            <div class="do">Connecte-toi &agrave; Claude (compte Wavestone) et cr&eacute;e un compte GitHub gratuit pour stocker et versionner ton code.</div>
-            <div class="links"><a class="lk" href="https://claude.ai/new" target="_blank" rel="noopener">claude.ai/new <span class="ar">&#8599;</span></a><a class="lk" href="https://github.com/" target="_blank" rel="noopener">github.com <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck">&#10003;</span></div>
-          <div class="scard">
-            <h4>Installer Git</h4>
-            <div class="do">T&eacute;l&eacute;charge et installe Git (version Windows). Pas d'interface : c'est le composant qui suit les modifications de tes fichiers.</div>
-            <div class="links"><a class="lk" href="https://git-scm.com/install/" target="_blank" rel="noopener">git-scm.com/install <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck">&#10003;</span></div>
-          <div class="scard">
-            <h4>Installer GitHub Desktop</h4>
-            <div class="do">Le client qui synchronise tes repositories entre le web et ta machine (<code>Documents/GitHub</code>). Connecte ton compte GitHub. C'est lui qui permet la <b>sauvegarde et le travail en commun</b>.</div>
-            <div class="links"><a class="lk" href="https://desktop.github.com/download/" target="_blank" rel="noopener">desktop.github.com <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">4</span><span class="ck">&#10003;</span></div>
-          <div class="scard">
-            <h4>Installer Visual Studio Code</h4>
-            <div class="do">L'&eacute;diteur dans lequel tu travailleras. T&eacute;l&eacute;charge pour Windows, puis Suivant &rarr; Installer.</div>
-            <div class="links"><a class="lk" href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">5</span><span class="ck">&#10003;</span></div>
-          <div class="scard">
-            <h4>Installer Python <span class="mini opt">pour le code avanc&eacute;</span></h4>
-            <div class="do">Installe le <b>Python Install Manager</b> (recommand&eacute; via le Microsoft Store). Utile d&egrave;s que Claude doit g&eacute;n&eacute;rer et ex&eacute;cuter du Python en local.</div>
-            <div class="links"><a class="lk" href="https://apps.microsoft.com/detail/9nq7512cxl7t" target="_blank" rel="noopener">Microsoft Store <span class="ar">&#8599;</span></a><a class="lk" href="https://www.python.org/downloads/" target="_blank" rel="noopener">python.org <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">6</span><span class="ck">&#10003;</span></div>
-          <div class="scard">
-            <h4>Extension Claude Code + premier fichier</h4>
-            <div class="do">Dans VS Code : Extensions (<code>Ctrl+Shift+X</code>) &rarr; cherche <b>&laquo; Claude Code &raquo;</b> (Anthropic) &rarr; Installer. Connecte ton compte Claude, ouvre un dossier de ta machine, puis demande ton premier fichier dans le panneau Claude (ic&ocirc;ne &#10033;).</div>
-            <div class="links"><a class="lk" href="https://code.claude.com/docs/en/vs-code" target="_blank" rel="noopener">guide officiel <span class="ar">&#8599;</span></a><a class="lk" href="vscode:extension/anthropic.claude-code">ouvrir dans VS&nbsp;Code <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="prompt">
-        <button class="copy">copier</button>
-        <div class="who">Exemple &mdash; page simple</div>
-        <div class="txt">Cr&eacute;e-moi une page HTML autonome nomm&eacute;e tetris.html : un Tetris minimaliste qui d&eacute;marre sur la touche Entr&eacute;e.</div>
-      </div>
-      <div class="prompt">
-        <button class="copy">copier</button>
-        <div class="who">Exemple &mdash; script Python local</div>
-        <div class="txt">Cr&eacute;e-moi un script Python qui utilise en local faster-whisper pour transcrire mes fichiers audio et vid&eacute;o sur ma machine.</div>
-      </div>
-
-      <div class="note">
-        <div class="lab">Human in the loop</div>
-        <p>En local, Claude demande ta permission avant d'ex&eacute;cuter une commande. Lis ce qu'il propose, puis valide &mdash; rien ne se lance dans ton dos.</p>
-      </div>
-    </section>
-
-    <!-- ============ PARCOURS 3 ============ -->
-    <section class="panel" data-panel="p3">
-      <div class="panel-head">
-        <div class="t">
-          <span class="eyebrow">Parcours 03</span>
-          <h2>Application web complexe</h2>
-          <div class="sub">Avec stockage et base de donn&eacute;es centralis&eacute;s.</div>
-        </div>
-      </div>
-
-      <div class="soon-card">
-        <div class="ring">&#9203;</div>
-        <h3>&Agrave; venir &mdash; on y r&eacute;fl&eacute;chit</h3>
-        <p>Pour les applications qui n&eacute;cessitent un stockage et une base de donn&eacute;es centralis&eacute;s, une approche est en cours de d&eacute;finition. Compte tenu de la r&egrave;gle de gouvernance (donn&eacute;es clients sensibles dans l'environnement Microsoft), elle s'appuiera probablement sur cet environnement. Reste &agrave; l'&eacute;coute.</p>
-      </div>
-    </section>
-
-    <!-- ============ PARCOURS 4 ============ -->
-    <section class="panel" data-panel="p4">
-      <div class="panel-head">
-        <div class="t">
-          <span class="eyebrow">Parcours 04</span>
-          <h2>Appeler un mod&egrave;le d'IA dans mon appli</h2>
-          <div class="sub">Int&eacute;grer des appels &agrave; un mod&egrave;le d'IA via des cl&eacute;s API, dans l'environnement Wavestone.</div>
-        </div>
-        <div class="prog"><b class="dn">0</b>/<span class="tot">3</span> &eacute;tapes</div>
-      </div>
-
-      <div class="note">
-        <div class="lab">R&egrave;gle de gouvernance</div>
-        <p><b>Les donn&eacute;es clients sensibles se manipulent dans l'environnement Microsoft.</b> Pour les traitements, privil&eacute;gie donc les <b>appels d'API via Microsoft</b> plut&ocirc;t qu'un traitement local non ma&icirc;tris&eacute;.</p>
-        <p>Tes use cases reposant sur des outils web autonomes qui font des appels API peuvent ainsi passer &agrave; l'&eacute;chelle.</p>
-      </div>
-
-      <div class="steps">
-        <div class="spine"><div class="spine-fill"></div></div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck">&#10003;</span></div>
-          <div class="scard">
-            <h4>Cr&eacute;er une cl&eacute; API Wavestone <span class="mini">point de d&eacute;part</span></h4>
-            <div class="do">Le product manager du produit peut cr&eacute;er des cl&eacute;s API et les associer aux personnes qui r&eacute;alisent les missions. Rends-toi sur la page d&eacute;di&eacute;e (voir &laquo; Infos &amp; liens utiles &raquo;).</div>
-            <div class="links"><a class="lk" href="#infos">aller aux liens <span class="ar">&#8595;</span></a></div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck">&#10003;</span></div>
-          <div class="scard">
-            <h4>Associer la cl&eacute; &agrave; l'utilisateur</h4>
-            <div class="do">Depuis l'interface, associe la cl&eacute; cr&eacute;&eacute;e &agrave; la personne (chef de projet / utilisateur) qui en a besoin.</div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck">&#10003;</span></div>
-          <div class="scard">
-            <h4>Appeler le mod&egrave;le depuis ton code</h4>
-            <div class="do">Utilise la cl&eacute; dans ton application pour faire les appels API vers le mod&egrave;le, en restant dans l'environnement Wavestone / Microsoft pour les donn&eacute;es sensibles.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </div>
-
-  <!-- ============ INFOS UTILES ============ -->
-  <div class="sec-head" id="infos">
-    <span class="eyebrow">Ressources</span>
-    <h2>Infos &amp; liens utiles</h2>
-    <p>Tous les acc&egrave;s et t&eacute;l&eacute;chargements, au m&ecirc;me endroit.</p>
-  </div>
-
-  <div class="res">
-    <div class="res-card key">
-      <h3><span class="star">&#9733;</span> Acc&egrave;s &amp; cl&eacute;s Wavestone</h3>
-      <a class="res-cta" href="https://apps.powerapps.com/play/e/03198640-3be3-ebd9-90cf-49ed52db3158/a/cb325a04-ac43-4133-9f1a-af3fc3845f8c?tenantId=5de96c96-c87c-4dce-aad9-f5c557b52ac1&amp;hint=26ff1bb4-0493-416f-a06f-0c1c4f1d6245&amp;source=sharebutton&amp;sourcetime=1781518515405" target="_blank" rel="noopener">
-        <span class="nm">Cr&eacute;er une cl&eacute; API Wavestone</span><span class="go">Power Apps &#8599;</span>
-      </a>
-      <ul class="res-list" style="margin-top:9px">
-        <li><a href="https://apps.powerapps.com/play/e/03198640-3be3-ebd9-90cf-49ed52db3158/a/cb325a04-ac43-4133-9f1a-af3fc3845f8c?tenantId=5de96c96-c87c-4dce-aad9-f5c557b52ac1&amp;hint=26ff1bb4-0493-416f-a06f-0c1c4f1d6245&amp;source=sharebutton&amp;sourcetime=1781518515405" target="_blank" rel="noopener"><span><span class="nm">Demander un compte POC</span><span class="u">apps.powerapps.com</span></span><span class="go">Power Apps &#8599;</span></a></li>
-      </ul>
-      <div class="cap" style="color:var(--ws-ink-400)">&#8505; Les deux actions (cr&eacute;er une cl&eacute; API, demander un compte POC) se font dans la m&ecirc;me application Power Apps Wavestone.</div>
+  <a class="card" href="vibe-coding.html">
+    <div class="card-icon learn">&#128218;</div>
+    <span class="tag formation">Formation</span>
+    <h2>Les principes du vibe coding</h2>
+    <p>Comprendre visuellement les briques essentielles : o&ugrave; stocker son code, comment le modifier avec l'IA, et comment le rendre vivant. Une cha&icirc;ne interactive qui se complexifie au fil du scroll.</p>
+    <div class="chips">
+      <span class="chip">Sch&eacute;mas interactifs</span>
+      <span class="chip">4 niveaux</span>
+      <span class="chip">Scroll anim&eacute;</span>
     </div>
+    <span class="cta">D&eacute;couvrir les principes <span class="arrow">&#8594;</span></span>
+  </a>
 
-    <div class="res-card">
-      <h3>T&eacute;l&eacute;chargements</h3>
-      <ul class="res-list">
-        <li><a href="https://claude.ai/new" target="_blank" rel="noopener"><span><span class="nm">Claude</span><span class="u">claude.ai/new</span></span><span class="go">&#8599;</span></a></li>
-        <li><a href="https://github.com/" target="_blank" rel="noopener"><span><span class="nm">GitHub (compte)</span><span class="u">github.com</span></span><span class="go">&#8599;</span></a></li>
-        <li><a href="https://pages.github.com/" target="_blank" rel="noopener"><span><span class="nm">GitHub Pages</span><span class="u">pages.github.com</span></span><span class="go">&#8599;</span></a></li>
-        <li><a href="https://git-scm.com/install/" target="_blank" rel="noopener"><span><span class="nm">Git</span><span class="u">git-scm.com/install</span></span><span class="go">&#8599;</span></a></li>
-        <li><a href="https://desktop.github.com/download/" target="_blank" rel="noopener"><span><span class="nm">GitHub Desktop</span><span class="u">desktop.github.com/download</span></span><span class="go">&#8599;</span></a></li>
-        <li><a href="https://code.visualstudio.com/" target="_blank" rel="noopener"><span><span class="nm">Visual Studio Code</span><span class="u">code.visualstudio.com</span></span><span class="go">&#8599;</span></a></li>
-        <li><a href="https://code.claude.com/docs/en/vs-code" target="_blank" rel="noopener"><span><span class="nm">Extension Claude Code (VS Code)</span><span class="u">code.claude.com/docs/en/vs-code</span></span><span class="go">&#8599;</span></a></li>
-        <li><a href="https://apps.microsoft.com/detail/9nq7512cxl7t" target="_blank" rel="noopener"><span><span class="nm">Python Install Manager</span><span class="u">Microsoft Store &middot; python.org</span></span><span class="go">&#8599;</span></a></li>
-      </ul>
+  <a class="card" href="parcours.html">
+    <div class="card-icon build">&#128296;</div>
+    <span class="tag pratique">Pratique</span>
+    <h2>Choisir son parcours</h2>
+    <p>Quatre chemins concrets pour passer de l'id&eacute;e au code &mdash; du plus simple (tout en ligne) au plus avanc&eacute; (appels API dans l'environnement Wavestone). &Eacute;tapes, liens et prompts inclus.</p>
+    <div class="chips">
+      <span class="chip">4 parcours</span>
+      <span class="chip">Pas &agrave; pas</span>
+      <span class="chip">Liens directs</span>
     </div>
-  </div>
+    <span class="cta">Choisir mon parcours <span class="arrow">&#8594;</span></span>
+  </a>
 
 </div>
 
 <footer>
-  <span class="src">Notice remise au propre depuis la d&eacute;mo &laquo; Claude &times; VS Code &raquo; &mdash; Wavestone</span>
-  <button class="reset" id="reset">r&eacute;initialiser la progression</button>
+  <span class="src">Vibe coding @ Wavestone &mdash; guide interne</span>
 </footer>
 
-<script>
-(function(){
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* ----- sélecteur de parcours ----- */
-  var tiles = Array.prototype.slice.call(document.querySelectorAll('.tile'));
-  var panels = Array.prototype.slice.call(document.querySelectorAll('.panel'));
-  tiles.forEach(function(t){
-    t.addEventListener('click', function(){
-      var id = t.getAttribute('data-target');
-      tiles.forEach(function(x){ x.classList.toggle('active', x===t); });
-      panels.forEach(function(p){ p.classList.toggle('active', p.getAttribute('data-panel')===id); });
-      var panel = document.querySelector('.panel[data-panel="'+id+'"]');
-      if(panel){ var y = panel.getBoundingClientRect().top + window.pageYOffset - 80; window.scrollTo({top:y, behavior: reduce ? 'auto' : 'smooth'}); }
-    });
-  });
-
-  /* ----- étapes : progression par panneau ----- */
-  function refresh(panel){
-    var steps = panel.querySelectorAll('.step');
-    if(!steps.length) return;
-    var done = panel.querySelectorAll('.step.done').length;
-    var total = steps.length;
-    var dn = panel.querySelector('.prog .dn');
-    var fill = panel.querySelector('.spine-fill');
-    if(dn) dn.textContent = done;
-    if(fill) fill.style.height = (done/total*100)+'%';
-  }
-
-  panels.forEach(function(panel){
-    panel.querySelectorAll('.step').forEach(function(step){
-      var node = step.querySelector('.node');
-      function toggle(){
-        step.classList.toggle('done');
-        node.setAttribute('aria-pressed', step.classList.contains('done'));
-        refresh(panel);
-      }
-      node.addEventListener('click', toggle);
-      node.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); toggle(); } });
-    });
-    refresh(panel);
-  });
-
-  /* ----- copier les prompts ----- */
-  document.querySelectorAll('.copy').forEach(function(c){
-    c.addEventListener('click', function(){
-      var txt = c.parentElement.querySelector('.txt').textContent.trim();
-      var ok = function(){ c.textContent='copi\u00e9 \u2713'; c.classList.add('ok'); setTimeout(function(){ c.textContent='copier'; c.classList.remove('ok'); },1600); };
-      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok, ok); }
-      else { var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); ok(); }
-    });
-  });
-
-  /* ----- reset ----- */
-  document.getElementById('reset').addEventListener('click', function(){
-    panels.forEach(function(panel){
-      panel.querySelectorAll('.step.done').forEach(function(s){ s.classList.remove('done'); s.querySelector('.node').setAttribute('aria-pressed','false'); });
-      refresh(panel);
-    });
-    window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
-  });
-})();
-</script>
 </body>
 </html>
