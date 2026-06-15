@@ -565,7 +565,7 @@
     <div class="chain-node" data-reveal>
       <div class="scenario-card">
         <h4>&#128279; Cha&icirc;ne de liaison</h4>
-        <div class="sub">L'application communique avec des services externes</div>
+        <div class="sub">L'application communique avec des services externes &mdash; cloud ou on-premise</div>
         <div class="scenario-chain">
           <span class="sc-node"><span class="sc-icon">&#129302;</span> IA</span>
           <span class="sc-arrow">&#10132;</span>
@@ -573,7 +573,7 @@
           <span class="sc-arrow">&#10132;</span>
           <span class="sc-node"><span class="sc-icon">&#9654;</span> App</span>
           <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#128451;</span> Ressources</span>
+          <span class="sc-node"><span class="sc-icon">&#128451;</span> BDD / API / Cloudflare / Azure / AWS</span>
         </div>
       </div>
     </div>
@@ -581,7 +581,7 @@
     <div class="connector" data-reveal></div>
 
     <div class="chain-node" data-reveal>
-      <div class="paths">
+      <div class="paths-wide">
         <div class="path-card">
           <span class="complexity medium">Moyen</span>
           <span class="path-num">A</span>
@@ -615,6 +615,19 @@
             <span class="chip orange">Webhooks</span>
           </div>
         </div>
+        <div class="path-card">
+          <span class="complexity medium">Moyen</span>
+          <span class="path-num">D</span>
+          <h4>&#9729; Stack Cloudflare</h4>
+          <p>Un &eacute;cosyst&egrave;me complet : Workers (serverless), D1 (base SQL), R2 (stockage), KV (cl&eacute;-valeur), Vectorize (vecteurs), Pages (h&eacute;bergement).</p>
+          <div class="path-icons">
+            <span class="chip teal">Workers</span>
+            <span class="chip teal">D1</span>
+            <span class="chip teal">R2</span>
+            <span class="chip teal">KV</span>
+            <span class="chip teal">Pages</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -622,8 +635,11 @@
 
     <div class="chain-node" data-reveal>
       <div class="note">
-        <div class="lab">Gouvernance Wavestone</div>
-        <p>Pour les <b>donn&eacute;es clients sensibles</b>, privil&eacute;gie l'environnement Microsoft (Azure) pour l'h&eacute;bergement des bases et les appels API. Les cl&eacute;s API Wavestone permettent de rester dans le p&eacute;rim&egrave;tre ma&icirc;tris&eacute;.</p>
+        <div class="lab">Gouvernance Wavestone &mdash; H&eacute;bergement interne</div>
+        <p>Pour les <b>donn&eacute;es clients sensibles</b>, deux options internes sont disponibles :</p>
+        <p>&bull; <b>Microsoft Azure</b> <span style="font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);border-radius:999px;padding:2px 8px;font-weight:600">recommand&eacute;</span> &mdash; environnement int&eacute;gr&eacute; &agrave; l'&eacute;cosyst&egrave;me Wavestone (Azure SQL, Azure OpenAI, Blob Storage, App Service). Privil&eacute;gi&eacute; pour rester dans le p&eacute;rim&egrave;tre ma&icirc;tris&eacute;.</p>
+        <p>&bull; <b>Amazon Web Services (AWS)</b> &mdash; alternative disponible pour certains cas d'usage (DynamoDB, S3, Lambda, Bedrock). &Agrave; valider avec la gouvernance IT.</p>
+        <p>Les <b>cl&eacute;s API Wavestone</b> permettent dans les deux cas de rester dans un p&eacute;rim&egrave;tre s&eacute;curis&eacute; et trac&eacute;.</p>
       </div>
     </div>
 
