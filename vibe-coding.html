@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe coding — Les principes @ Wavestone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-teal-500:#228D95;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-warning:#C8861A;
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ws-white);color:var(--ws-ink-900);
+    font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;
+    padding-bottom:80px;
+  }
+  a{color:inherit}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+
+  .eyebrow{
+    display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    padding-bottom:4px;border-bottom:2px solid var(--ws-green-400);
+  }
+
+  /* ---------- sticky bar ---------- */
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1100px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);border-radius:999px;padding:6px 13px;transition:.18s var(--ws-ease)}
+  .bar a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1100px;margin:0 auto;padding:64px 24px 56px}
+  .hero .eyebrow{color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(32px,5.6vw,58px);line-height:1.05;letter-spacing:-.025em;margin:22px 0 16px;max-width:20ch}
+  .hero h1 .ac{color:var(--ws-green-400)}
+  .hero .lede{font-size:18px;line-height:1.55;color:rgba(255,255,255,.82);max-width:64ch}
+  .hero .tagline{font-family:var(--ws-font-mono);font-size:12.5px;color:rgba(255,255,255,.6);margin-top:22px;letter-spacing:.02em}
+
+  /* ---------- scroll progress indicator ---------- */
+  .scroll-progress{position:fixed;top:49px;left:0;height:3px;background:var(--ws-gradient-accent);width:0;z-index:60;transition:width .1s linear}
+
+  /* ---------- level sections ---------- */
+  .level{padding:56px 0 24px;position:relative}
+  .level-label{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--ws-font-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--ws-indigo-600);background:var(--ws-indigo-50);border-radius:999px;padding:6px 14px;
+    font-weight:600;margin-bottom:16px;
+  }
+  .level-label .icon{font-size:14px}
+  .level h2{font-family:var(--ws-font-display);font-weight:700;font-size:28px;letter-spacing:-.015em;color:var(--ws-indigo-600);margin-bottom:6px}
+  .level .desc{color:var(--ws-ink-500);font-size:15px;max-width:60ch;margin-bottom:32px}
+
+  /* ---------- chain layout ---------- */
+  .chain{position:relative;display:flex;flex-direction:column;align-items:center;gap:0}
+
+  /* vertical connector line */
+  .connector{
+    width:3px;height:48px;position:relative;overflow:hidden;
+  }
+  .connector::after{
+    content:"";position:absolute;inset:0;
+    background:var(--ws-gradient-accent);
+    transform:scaleY(0);transform-origin:top;
+    transition:transform .6s var(--ws-ease);
+  }
+  .connector.visible::after{transform:scaleY(1)}
+
+  /* branch connector (horizontal then vertical) */
+  .branch-group{position:relative;width:100%;max-width:900px}
+
+  /* ---------- chain nodes ---------- */
+  .chain-node{
+    opacity:0;transform:translateY(24px);
+    transition:opacity .5s var(--ws-ease), transform .5s var(--ws-ease);
+  }
+  .chain-node.visible{opacity:1;transform:translateY(0)}
+
+  /* core block (the 3 pillars) */
+  .core-row{
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;
+    width:100%;max-width:900px;
+  }
+  @media(max-width:720px){.core-row{grid-template-columns:1fr;gap:12px}}
+
+  .block{
+    background:#fff;border:1.5px solid var(--ws-ink-100);border-radius:18px;
+    padding:24px 20px;box-shadow:var(--ws-shadow-sm);
+    transition:.25s var(--ws-ease);position:relative;overflow:hidden;
+  }
+  .block:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-2px)}
+  .block.primary{border-color:var(--ws-indigo-600);box-shadow:var(--ws-shadow-brand)}
+  .block.primary::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ws-gradient-accent)}
+
+  .block-icon{
+    width:48px;height:48px;border-radius:14px;display:grid;place-items:center;
+    font-size:22px;margin-bottom:14px;
+  }
+  .block-icon.repo{background:var(--ws-indigo-50);color:var(--ws-indigo-600)}
+  .block-icon.editor{background:var(--ws-green-50);color:var(--ws-green-700)}
+  .block-icon.run{background:#E8F8FF;color:var(--ws-teal-500)}
+  .block-icon.db{background:#FFF3E0;color:#E67E22}
+  .block-icon.api{background:#F3E5F5;color:#8E24AA}
+  .block-icon.native{background:#E8EAF6;color:#3949AB}
+  .block-icon.store{background:#FCE4EC;color:#C62828}
+
+  .block h3{font-family:var(--ws-font-display);font-weight:600;font-size:17px;color:var(--ws-ink-900);margin-bottom:6px}
+  .block p{font-size:13.5px;color:var(--ws-ink-500);line-height:1.5}
+  .block .examples{margin-top:10px;display:flex;flex-wrap:wrap;gap:5px}
+  .block .examples .chip{font-family:var(--ws-font-mono);font-size:10.5px;letter-spacing:.02em;color:var(--ws-indigo-700);background:var(--ws-indigo-50);border-radius:999px;padding:3px 9px}
+
+  /* arrow between core blocks (horizontal) */
+  .core-arrows{
+    display:none;
+    grid-template-columns:1fr 1fr 1fr;gap:16px;
+    width:100%;max-width:900px;margin:-6px 0;
+  }
+  @media(min-width:721px){.core-arrows{display:grid}}
+  .core-arrows .arrow-cell{display:flex;justify-content:center;align-items:center}
+  .core-arrows .arrow-cell svg{opacity:0;transition:opacity .5s var(--ws-ease) .3s}
+  .core-arrows .arrow-cell svg.visible{opacity:1}
+
+  /* flow label between sections */
+  .flow-label{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:var(--ws-font-mono);font-size:11px;letter-spacing:.04em;
+    color:var(--ws-ink-400);background:var(--ws-ink-50);
+    border:1px solid var(--ws-ink-100);border-radius:999px;padding:5px 14px;
+    text-transform:uppercase;
+  }
+
+  /* scenario path cards */
+  .paths{
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;
+    width:100%;max-width:900px;
+  }
+  @media(max-width:720px){.paths{grid-template-columns:1fr}}
+
+  .path-card{
+    background:#fff;border:1.5px solid var(--ws-ink-100);border-radius:16px;
+    padding:20px 18px;box-shadow:var(--ws-shadow-sm);transition:.25s var(--ws-ease);
+    position:relative;cursor:default;
+  }
+  .path-card:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-2px);border-color:var(--ws-indigo-200)}
+  .path-card .path-num{
+    font-family:var(--ws-font-mono);font-size:11px;font-weight:600;
+    color:var(--ws-indigo-600);background:var(--ws-indigo-50);
+    border-radius:999px;padding:3px 10px;display:inline-block;margin-bottom:10px;
+  }
+  .path-card h4{font-family:var(--ws-font-display);font-weight:600;font-size:15.5px;color:var(--ws-ink-900);margin-bottom:6px}
+  .path-card p{font-size:13px;color:var(--ws-ink-500);line-height:1.5}
+  .path-card .path-icons{margin-top:12px;display:flex;gap:6px;flex-wrap:wrap}
+  .path-card .path-icons .chip{font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.02em;border-radius:999px;padding:3px 9px}
+  .chip.green{color:var(--ws-green-700);background:var(--ws-green-50)}
+  .chip.indigo{color:var(--ws-indigo-700);background:var(--ws-indigo-50)}
+  .chip.teal{color:var(--ws-teal-500);background:#E0F5F6}
+  .chip.orange{color:#E67E22;background:#FFF3E0}
+  .chip.purple{color:#8E24AA;background:#F3E5F5}
+  .chip.red{color:#C62828;background:#FCE4EC}
+
+  /* complexity badge */
+  .complexity{
+    position:absolute;top:14px;right:14px;
+    font-family:var(--ws-font-mono);font-size:9.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
+    border-radius:6px;padding:3px 8px;
+  }
+  .complexity.easy{color:var(--ws-green-700);background:var(--ws-green-50)}
+  .complexity.medium{color:var(--ws-warning);background:#FBF1DD}
+  .complexity.hard{color:#C62828;background:#FCE4EC}
+
+  /* wide path cards (2 cols) */
+  .paths-wide{
+    display:grid;grid-template-columns:1fr 1fr;gap:14px;
+    width:100%;max-width:900px;
+  }
+  @media(max-width:720px){.paths-wide{grid-template-columns:1fr}}
+
+  /* full-width card */
+  .paths-full{
+    display:grid;grid-template-columns:1fr;gap:14px;
+    width:100%;max-width:900px;
+  }
+
+  /* pipeline visual */
+  .pipeline{
+    width:100%;max-width:900px;
+    background:var(--ws-indigo-950);border-radius:18px;
+    padding:28px 24px;box-shadow:var(--ws-shadow-brand);
+    position:relative;overflow:hidden;
+  }
+  .pipeline::before{
+    content:"";position:absolute;top:-40px;right:-40px;width:200px;height:200px;
+    background:radial-gradient(circle,rgba(4,240,106,.12) 0%,transparent 70%);pointer-events:none;
+  }
+  .pipeline h3{font-family:var(--ws-font-display);font-weight:700;font-size:18px;color:#fff;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+  .pipeline h3 .ac{color:var(--ws-green-400)}
+  .pipe-flow{display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center}
+  .pipe-node{
+    display:flex;flex-direction:column;align-items:center;gap:6px;
+    padding:12px 16px;min-width:90px;
+  }
+  .pipe-icon{
+    width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
+    font-size:20px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);
+    color:#fff;
+  }
+  .pipe-label{font-family:var(--ws-font-mono);font-size:10.5px;color:rgba(255,255,255,.6);text-align:center;max-width:80px}
+  .pipe-arrow{
+    font-size:18px;color:var(--ws-green-400);flex-shrink:0;
+    padding:0 2px;
+  }
+
+  /* scenario summary (dark card) */
+  .scenario-card{
+    width:100%;max-width:900px;
+    background:var(--ws-indigo-950);border-radius:18px;
+    padding:24px;box-shadow:var(--ws-shadow-brand);
+    position:relative;overflow:hidden;
+  }
+  .scenario-card h4{font-family:var(--ws-font-display);font-weight:700;font-size:16px;color:#fff;margin-bottom:4px}
+  .scenario-card .sub{font-size:13px;color:rgba(255,255,255,.55);margin-bottom:16px}
+  .scenario-chain{display:flex;align-items:center;gap:0;flex-wrap:wrap;justify-content:center}
+  .sc-node{
+    display:inline-flex;align-items:center;gap:6px;
+    background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
+    border-radius:10px;padding:8px 14px;
+    font-family:var(--ws-font-mono);font-size:12px;color:rgba(255,255,255,.85);
+    white-space:nowrap;
+  }
+  .sc-node .sc-icon{font-size:16px;flex-shrink:0}
+  .sc-arrow{color:var(--ws-green-400);font-size:16px;padding:0 4px;flex-shrink:0}
+
+  /* branch visual */
+  .branch-split{
+    width:100%;max-width:900px;
+    display:flex;flex-direction:column;align-items:center;position:relative;
+  }
+  .branch-lines{
+    position:relative;width:100%;height:48px;
+  }
+  .branch-lines svg{width:100%;height:100%}
+
+  /* CTA link back */
+  .back-link{
+    display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+    font-family:var(--ws-font-mono);font-size:13px;
+    color:var(--ws-indigo-600);border:1.5px solid var(--ws-indigo-200);
+    border-radius:999px;padding:10px 20px;margin-top:40px;
+    transition:.18s var(--ws-ease);
+  }
+  .back-link:hover{border-color:var(--ws-indigo-600);background:var(--ws-indigo-50);transform:translateY(-1px)}
+
+  /* note box */
+  .note{
+    margin-top:18px;background:var(--ws-indigo-50);border:1px solid var(--ws-indigo-100);
+    border-left:4px solid var(--ws-indigo-600);border-radius:12px;padding:16px 18px;
+    width:100%;max-width:900px;
+  }
+  .note .lab{font-family:var(--ws-font-body);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ws-indigo-600);margin-bottom:7px}
+  .note p{font-size:14px;color:var(--ws-ink-700);line-height:1.55}
+
+  /* legend */
+  .legend{
+    display:flex;flex-wrap:wrap;gap:16px;margin-top:8px;
+    width:100%;max-width:900px;
+  }
+  .legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ws-ink-500)}
+  .legend-dot{width:10px;height:10px;border-radius:3px}
+  .legend-dot.l-repo{background:var(--ws-indigo-600)}
+  .legend-dot.l-edit{background:var(--ws-green-400)}
+  .legend-dot.l-run{background:var(--ws-teal-500)}
+  .legend-dot.l-res{background:#E67E22}
+  .legend-dot.l-dist{background:#C62828}
+
+  /* separator */
+  .sep{width:100%;max-width:900px;height:1px;background:var(--ws-ink-100);margin:8px 0}
+
+  footer{max-width:1100px;margin:64px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone &middot; Vibe coding</a>
+    <a class="jump" href="parcours.html">Les parcours pratiques</a>
+  </div>
+</div>
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1100 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,300 Q260,180 540,250 T1150,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,330 Q300,210 560,285 T1150,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <span class="eyebrow">Formation interactive</span>
+    <h1>Les principes du <span class="ac">vibe coding</span></h1>
+    <p class="lede">Comprendre les briques essentielles : o&ugrave; stocker son code, comment le modifier, et comment le rendre vivant. Plus tu descends, plus la cha&icirc;ne se complexifie.</p>
+    <p class="tagline"># scroll pour d&eacute;couvrir &middot; les chemins se construisent sous tes yeux</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ====== LEVEL 0 : THE CORE TRIO ====== -->
+  <div class="level" id="level0">
+    <span class="level-label"><span class="icon">&#9679;</span> Fondation</span>
+    <h2>Les 3 briques essentielles</h2>
+    <p class="desc">Tout projet de vibe coding repose sur trois piliers. Pas besoin de plus pour d&eacute;marrer.</p>
+
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot l-repo"></span>Stockage du code</div>
+      <div class="legend-item"><span class="legend-dot l-edit"></span>&Eacute;dition / IA</div>
+      <div class="legend-item"><span class="legend-dot l-run"></span>Ex&eacute;cution</div>
+      <div class="legend-item"><span class="legend-dot l-res"></span>Ressources</div>
+      <div class="legend-item"><span class="legend-dot l-dist"></span>Distribution</div>
+    </div>
+  </div>
+
+  <div class="chain">
+    <!-- PIPELINE VISUAL: simple scenario -->
+    <div class="chain-node" data-reveal>
+      <div class="scenario-card">
+        <h4>&#9889; Le sc&eacute;nario le plus simple</h4>
+        <div class="sub">3 briques, une page en ligne en quelques minutes</div>
+        <div class="scenario-chain">
+          <span class="sc-node"><span class="sc-icon">&#128193;</span> GitHub</span>
+          <span class="sc-arrow">&#10132;</span>
+          <span class="sc-node"><span class="sc-icon">&#129302;</span> Claude Code</span>
+          <span class="sc-arrow">&#10132;</span>
+          <span class="sc-node"><span class="sc-icon">&#127760;</span> GitHub Pages</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector" data-reveal></div>
+
+    <!-- CORE: 3 pillars -->
+    <div class="chain-node" data-reveal>
+      <div class="core-row">
+        <div class="block primary">
+          <div class="block-icon repo">&#128193;</div>
+          <h3>Stocker ton code</h3>
+          <p>Un endroit pour stocker, versionner et historiser chaque modification de ton code source.</p>
+          <div class="examples">
+            <span class="chip">GitHub</span>
+            <span class="chip">GitLab</span>
+            <span class="chip">Dossier local</span>
+          </div>
+        </div>
+        <div class="block primary">
+          <div class="block-icon editor">&#129302;</div>
+          <h3>Modifier ton code</h3>
+          <p>Un outil &mdash; souvent pilot&eacute; par l'IA &mdash; qui &eacute;crit et modifie le code &agrave; ta place ou avec toi.</p>
+          <div class="examples">
+            <span class="chip">Claude Code</span>
+            <span class="chip">OpenAI Codex</span>
+            <span class="chip">VS Code</span>
+          </div>
+        </div>
+        <div class="block primary">
+          <div class="block-icon run">&#9654;</div>
+          <h3>Ex&eacute;cuter ton app</h3>
+          <p>Rendre ton code vivant : l'h&eacute;berger sur Internet ou le lancer sur ta machine.</p>
+          <div class="examples">
+            <span class="chip">GitHub Pages</span>
+            <span class="chip">Navigateur</span>
+            <span class="chip">Python</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector" data-reveal></div>
+
+    <!-- Arrow visual between core blocks -->
+    <div class="chain-node" data-reveal>
+      <div class="note" style="text-align:center">
+        <div class="lab">Le principe fondamental</div>
+        <p>Tu <b>d&eacute;cris</b> ce que tu veux &rarr; l'IA <b>&eacute;crit</b> le code &rarr; le code est <b>stock&eacute;</b> dans un repository &rarr; l'application est <b>visible</b> en ligne ou en local. C'est &ccedil;a, le vibe coding.</p>
+      </div>
+    </div>
+
+    <div class="connector" data-reveal></div>
+
+    <!-- ====== LEVEL 1 : SIMPLE WEB ====== -->
+    <div class="chain-node" data-reveal>
+      <div class="sep"></div>
+    </div>
+
+    <div class="chain-node level" data-reveal id="level1">
+      <span class="level-label"><span class="icon">&#127760;</span> Niveau 1 &mdash; Web simple</span>
+      <h2>H&eacute;berger sur Internet</h2>
+      <p class="desc">Le chemin le plus direct : tu codes, tu pousses, c'est en ligne. Id&eacute;al pour des pages, des outils et des prototypes.</p>
+    </div>
+
+    <div class="chain-node" data-reveal>
+      <div class="scenario-card">
+        <h4>&#128279; Cha&icirc;ne de liaison</h4>
+        <div class="sub">Le code va du repository &agrave; l'h&eacute;bergeur, automatiquement</div>
+        <div class="scenario-chain">
+          <span class="sc-node"><span class="sc-icon">&#129302;</span> IA</span>
+          <span class="sc-arrow">&#10132;</span>
+          <span class="sc-node"><span class="sc-icon">&#128193;</span> Repo</span>
+          <span class="sc-arrow">&#10132;</span>
+          <span class="sc-node"><span class="sc-icon">&#9881;</span> Build auto</span>
+          <span class="sc-arrow">&#10132;</span>
+          <span class="sc-node"><span class="sc-icon">&#127760;</span> Site en ligne</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector" data-reveal></div>
+
+    <div class="chain-node" data-reveal>
+      <div class="paths">
+        <div class="path-card">
+          <span class="complexity easy">Simple</span>
+          <span class="path-num">A</span>
+          <h4>GitHub Pages</h4>
+          <p>Page statique h&eacute;berg&eacute;e gratuitement. Chaque push met &agrave; jour le site automatiquement.</p>
+          <div class="path-icons">
+            <span class="chip indigo">HTML/CSS/JS</span>
+            <span class="chip green">Gratuit</span>
+          </div>
+        </div>
+        <div class="path-card">
+          <span class="complexity easy">Simple</span>
+          <span class="path-num">B</span>
+          <h4>Vercel / Netlify</h4>
+          <p>H&eacute;bergement moderne avec pr&eacute;visualisation par branche. Id&eacute;al pour React, Vue, etc.</p>
+          <div class="path-icons">
+            <span class="chip indigo">React</span>
+            <span class="chip indigo">Next.js</span>
+            <span class="chip green">Gratuit</span>
+          </div>
+        </div>
+        <div class="path-card">
+          <span class="complexity medium">Moyen</span>
+          <span class="path-num">C</span>
+          <h4>Serveur cloud</h4>
+          <p>Azure, AWS ou GCP pour des applications web avec backend (Node.js, Python, etc.).</p>
+          <div class="path-icons">
+            <span class="chip purple">Azure</span>
+            <span class="chip purple">AWS</span>
+            <span class="chip orange">Backend</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector" data-reveal></div>
+
+    <!-- ====== LEVEL 2 : LOCAL ====== -->
+    <div class="chain-node" data-reveal>
+      <div class="sep"></div>
+    </div>
+
+    <div class="chain-node level" data-reveal id="level2">
+      <span class="level-label"><span class="icon">&#128187;</span> Niveau 2 &mdash; Ex&eacute;cution locale</span>
+      <h2>Utiliser ton ordinateur</h2>
+      <p class="desc">Pas besoin d'Internet pour ex&eacute;cuter. Ton code tourne en local avec diff&eacute;rentes m&eacute;thodes.</p>
+    </div>
+
+    <div class="chain-node" data-reveal>
+      <div class="scenario-card">
+        <h4>&#128279; Cha&icirc;ne de liaison</h4>
+        <div class="sub">Le code reste sur ta machine, tu l'ex&eacute;cutes directement</div>
+        <div class="scenario-chain">
+          <span class="sc-node"><span class="sc-icon">&#129302;</span> IA</span>
+          <span class="sc-arrow">&#10132;</span>
+          <span class="sc-node"><span class="sc-icon">&#128193;</span> Dossier local</span>
+          <span class="sc-arrow">&#10132;</span>
+          <span class="sc-node"><span class="sc-icon">&#128187;</span> Ta machine</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector" data-reveal></div>
+
+    <div class="chain-node" data-reveal>
+      <div class="paths">
+        <div class="path-card">
+          <span class="complexity easy">Simple</span>
+          <span class="path-num">A</span>
+          <h4>Fichier dans le navigateur</h4>
+          <p>Double-clique sur un fichier <code>.html</code> : ton navigateur l'ouvre directement via <code>file://</code>. Z&eacute;ro serveur.</p>
+          <div class="path-icons">
+            <span class="chip indigo">HTML</span>
+            <span class="chip teal">file://</span>
+            <span class="chip green">Instantan&eacute;</span>
+          </div>
+        </div>
+        <div class="path-card">
+          <span class="complexity easy">Simple</span>
+          <span class="path-num">B</span>
+          <h4>Script Python</h4>
+          <p>Lance <code>python script.py</code> dans le terminal. Traitement de donn&eacute;es, automatisation, scraping&hellip;</p>
+          <div class="path-icons">
+            <span class="chip indigo">Python</span>
+            <span class="chip teal">Terminal</span>
+            <span class="chip orange">pip install</span>
+          </div>
+        </div>
+        <div class="path-card">
+          <span class="complexity medium">Moyen</span>
+          <span class="path-num">C</span>
+          <h4>Application ex&eacute;cutable</h4>
+          <p>Un <code>.exe</code> ou une app Electron que tu lances comme n'importe quel logiciel sur ton bureau.</p>
+          <div class="path-icons">
+            <span class="chip indigo">Electron</span>
+            <span class="chip indigo">.exe</span>
+            <span class="chip teal">Bureau</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector" data-reveal></div>
+
+    <!-- ====== LEVEL 3 : RESOURCES ====== -->
+    <div class="chain-node" data-reveal>
+      <div class="sep"></div>
+    </div>
+
+    <div class="chain-node level" data-reveal id="level3">
+      <span class="level-label"><span class="icon">&#128451;</span> Niveau 3 &mdash; Ressources externes</span>
+      <h2>Connecter des ressources</h2>
+      <p class="desc">Ton application a besoin de donn&eacute;es, de stockage ou de services tiers ? La cha&icirc;ne s'allonge.</p>
+    </div>
+
+    <div class="chain-node" data-reveal>
+      <div class="scenario-card">
+        <h4>&#128279; Cha&icirc;ne de liaison</h4>
+        <div class="sub">L'application communique avec des services externes &mdash; cloud ou on-premise</div>
+        <div class="scenario-chain">
+          <span class="sc-node"><span class="sc-icon">&#129302;</span> IA</span>
+          <span class="sc-arrow">&#10132;</span>
+          <span class="sc-node"><span class="sc-icon">&#128193;</span> Repo</span>
+          <span class="sc-arrow">&#10132;</span>
+          <span class="sc-node"><span class="sc-icon">&#9654;</span> App</span>
+          <span class="sc-arrow">&#10132;</span>
+          <span class="sc-node"><span class="sc-icon">&#128451;</span> BDD / API / Cloudflare / Azure / AWS</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector" data-reveal></div>
+
+    <div class="chain-node" data-reveal>
+      <div class="paths-wide">
+        <div class="path-card">
+          <span class="complexity medium">Moyen</span>
+          <span class="path-num">A</span>
+          <h4>Base de donn&eacute;es relationnelle</h4>
+          <p>PostgreSQL, MySQL, SQLite&hellip; pour stocker des donn&eacute;es structur&eacute;es (utilisateurs, commandes, etc.).</p>
+          <div class="path-icons">
+            <span class="chip orange">PostgreSQL</span>
+            <span class="chip orange">MySQL</span>
+            <span class="chip orange">SQLite</span>
+          </div>
+        </div>
+        <div class="path-card">
+          <span class="complexity medium">Moyen</span>
+          <span class="path-num">B</span>
+          <h4>Base vectorielle</h4>
+          <p>Pinecone, Chroma, Weaviate&hellip; pour la recherche s&eacute;mantique et le RAG (IA + documents).</p>
+          <div class="path-icons">
+            <span class="chip purple">Pinecone</span>
+            <span class="chip purple">Chroma</span>
+            <span class="chip purple">RAG</span>
+          </div>
+        </div>
+        <div class="path-card">
+          <span class="complexity medium">Moyen</span>
+          <span class="path-num">C</span>
+          <h4>Appels API</h4>
+          <p>Consommer des services tiers : paiement (Stripe), email (SendGrid), IA (OpenAI, Claude)&hellip;</p>
+          <div class="path-icons">
+            <span class="chip purple">REST API</span>
+            <span class="chip purple">Cl&eacute;s API</span>
+            <span class="chip orange">Webhooks</span>
+          </div>
+        </div>
+        <div class="path-card">
+          <span class="complexity medium">Moyen</span>
+          <span class="path-num">D</span>
+          <h4>&#9729; Stack Cloudflare</h4>
+          <p>Un &eacute;cosyst&egrave;me complet : Workers (serverless), D1 (base SQL), R2 (stockage), KV (cl&eacute;-valeur), Vectorize (vecteurs), Pages (h&eacute;bergement).</p>
+          <div class="path-icons">
+            <span class="chip teal">Workers</span>
+            <span class="chip teal">D1</span>
+            <span class="chip teal">R2</span>
+            <span class="chip teal">KV</span>
+            <span class="chip teal">Pages</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector" data-reveal></div>
+
+    <div class="chain-node" data-reveal>
+      <div class="note">
+        <div class="lab">Gouvernance Wavestone &mdash; H&eacute;bergement interne</div>
+        <p>Pour les <b>donn&eacute;es clients sensibles</b>, deux options internes sont disponibles :</p>
+        <p>&bull; <b>Microsoft Azure</b> <span style="font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);border-radius:999px;padding:2px 8px;font-weight:600">recommand&eacute;</span> &mdash; environnement int&eacute;gr&eacute; &agrave; l'&eacute;cosyst&egrave;me Wavestone (Azure SQL, Azure OpenAI, Blob Storage, App Service). Privil&eacute;gi&eacute; pour rester dans le p&eacute;rim&egrave;tre ma&icirc;tris&eacute;.</p>
+        <p>&bull; <b>Amazon Web Services (AWS)</b> &mdash; alternative disponible pour certains cas d'usage (DynamoDB, S3, Lambda, Bedrock). &Agrave; valider avec la gouvernance IT.</p>
+        <p>Les <b>cl&eacute;s API Wavestone</b> permettent dans les deux cas de rester dans un p&eacute;rim&egrave;tre s&eacute;curis&eacute; et trac&eacute;.</p>
+      </div>
+    </div>
+
+    <div class="connector" data-reveal></div>
+
+    <!-- ====== LEVEL 4 : ADVANCED DISTRIBUTION ====== -->
+    <div class="chain-node" data-reveal>
+      <div class="sep"></div>
+    </div>
+
+    <div class="chain-node level" data-reveal id="level4">
+      <span class="level-label"><span class="icon">&#128640;</span> Niveau 4 &mdash; Distribution avanc&eacute;e</span>
+      <h2>Publier et distribuer</h2>
+      <p class="desc">Aller au bout : publier sur les stores, cr&eacute;er des applications natives, toucher des utilisateurs finaux.</p>
+    </div>
+
+    <div class="chain-node" data-reveal>
+      <div class="paths-wide">
+        <div class="path-card">
+          <span class="complexity hard">Avanc&eacute;</span>
+          <span class="path-num">A</span>
+          <h4>&#63743; App Store (iOS)</h4>
+          <p>Code Swift/SwiftUI via Xcode, tests sur simulateur, puis soumission &agrave; l'App Store. La cha&icirc;ne compl&egrave;te depuis l'IA.</p>
+          <div class="path-icons">
+            <span class="chip red">Xcode</span>
+            <span class="chip red">Swift</span>
+            <span class="chip red">App Store</span>
+            <span class="chip indigo">TestFlight</span>
+          </div>
+        </div>
+        <div class="path-card">
+          <span class="complexity hard">Avanc&eacute;</span>
+          <span class="path-num">B</span>
+          <h4>&#129302; Application client lourd</h4>
+          <p>Application bureau (Windows/Mac/Linux) distribu&eacute;e en <code>.exe</code>, <code>.dmg</code> ou installateur. Electron, Tauri, Qt&hellip;</p>
+          <div class="path-icons">
+            <span class="chip red">Electron</span>
+            <span class="chip red">Tauri</span>
+            <span class="chip red">.exe / .dmg</span>
+            <span class="chip indigo">Installeur</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector" data-reveal></div>
+
+    <!-- Full pipeline: iOS -->
+    <div class="chain-node" data-reveal>
+      <div class="pipeline">
+        <h3>&#63743; Pipeline iOS <span class="ac">compl&egrave;te</span></h3>
+        <div class="pipe-flow">
+          <div class="pipe-node">
+            <div class="pipe-icon">&#129302;</div>
+            <span class="pipe-label">Claude / IA</span>
+          </div>
+          <span class="pipe-arrow">&#10132;</span>
+          <div class="pipe-node">
+            <div class="pipe-icon">&#128193;</div>
+            <span class="pipe-label">Repo Git</span>
+          </div>
+          <span class="pipe-arrow">&#10132;</span>
+          <div class="pipe-node">
+            <div class="pipe-icon">&#128296;</div>
+            <span class="pipe-label">Xcode Build</span>
+          </div>
+          <span class="pipe-arrow">&#10132;</span>
+          <div class="pipe-node">
+            <div class="pipe-icon">&#128241;</div>
+            <span class="pipe-label">Simulateur</span>
+          </div>
+          <span class="pipe-arrow">&#10132;</span>
+          <div class="pipe-node">
+            <div class="pipe-icon">&#9989;</div>
+            <span class="pipe-label">TestFlight</span>
+          </div>
+          <span class="pipe-arrow">&#10132;</span>
+          <div class="pipe-node">
+            <div class="pipe-icon">&#127823;</div>
+            <span class="pipe-label">App Store</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector" data-reveal></div>
+
+    <!-- Full pipeline: Desktop -->
+    <div class="chain-node" data-reveal>
+      <div class="pipeline">
+        <h3>&#128187; Pipeline desktop <span class="ac">compl&egrave;te</span></h3>
+        <div class="pipe-flow">
+          <div class="pipe-node">
+            <div class="pipe-icon">&#129302;</div>
+            <span class="pipe-label">Claude / IA</span>
+          </div>
+          <span class="pipe-arrow">&#10132;</span>
+          <div class="pipe-node">
+            <div class="pipe-icon">&#128193;</div>
+            <span class="pipe-label">Repo Git</span>
+          </div>
+          <span class="pipe-arrow">&#10132;</span>
+          <div class="pipe-node">
+            <div class="pipe-icon">&#9881;</div>
+            <span class="pipe-label">Build CI</span>
+          </div>
+          <span class="pipe-arrow">&#10132;</span>
+          <div class="pipe-node">
+            <div class="pipe-icon">&#128230;</div>
+            <span class="pipe-label">Package</span>
+          </div>
+          <span class="pipe-arrow">&#10132;</span>
+          <div class="pipe-node">
+            <div class="pipe-icon">&#128272;</div>
+            <span class="pipe-label">Signature</span>
+          </div>
+          <span class="pipe-arrow">&#10132;</span>
+          <div class="pipe-node">
+            <div class="pipe-icon">&#128229;</div>
+            <span class="pipe-label">Distribution</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector" data-reveal></div>
+
+    <!-- ====== RECAP ====== -->
+    <div class="chain-node" data-reveal>
+      <div class="sep"></div>
+    </div>
+
+    <div class="chain-node level" data-reveal id="recap">
+      <span class="level-label"><span class="icon">&#128200;</span> R&eacute;capitulatif</span>
+      <h2>Vue d'ensemble</h2>
+      <p class="desc">Tous les chemins partent des m&ecirc;mes 3 briques. La complexit&eacute; vient de la destination et des ressources connect&eacute;es.</p>
+    </div>
+
+    <div class="chain-node" data-reveal>
+      <div class="pipeline" style="background:var(--ws-gradient-brand)">
+        <h3 style="font-size:20px">&#127919; La r&egrave;gle d'or du vibe coding</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:12px">
+          <div style="text-align:center;padding:16px">
+            <div style="font-size:32px;margin-bottom:8px">&#128193;</div>
+            <div style="font-family:var(--ws-font-display);font-weight:700;font-size:15px;color:#fff">1. Stocke</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px">Un repository pour tout historiser</div>
+          </div>
+          <div style="text-align:center;padding:16px">
+            <div style="font-size:32px;margin-bottom:8px">&#129302;</div>
+            <div style="font-family:var(--ws-font-display);font-weight:700;font-size:15px;color:#fff">2. &Eacute;cris avec l'IA</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px">D&eacute;cris, l'IA code pour toi</div>
+          </div>
+          <div style="text-align:center;padding:16px">
+            <div style="font-size:32px;margin-bottom:8px">&#9654;</div>
+            <div style="font-family:var(--ws-font-display);font-weight:700;font-size:15px;color:#fff">3. Ex&eacute;cute</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px">En ligne, en local, ou sur un store</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="connector" data-reveal></div>
+
+    <!-- Complexity summary -->
+    <div class="chain-node" data-reveal>
+      <div class="paths-full">
+        <div class="path-card" style="border-left:4px solid var(--ws-green-400)">
+          <h4 style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+            <span style="font-size:18px">&#128204;</span> Les niveaux de complexit&eacute;
+          </h4>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
+            <div>
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+                <span class="complexity easy" style="position:static">Simple</span>
+              </div>
+              <p style="font-size:12.5px;color:var(--ws-ink-500)">Page web statique, fichier HTML local, script Python. Aucune infrastructure &agrave; g&eacute;rer.</p>
+            </div>
+            <div>
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+                <span class="complexity medium" style="position:static">Moyen</span>
+              </div>
+              <p style="font-size:12.5px;color:var(--ws-ink-500)">Base de donn&eacute;es, API tierces, serveur cloud. N&eacute;cessite de la configuration et de la s&eacute;curit&eacute;.</p>
+            </div>
+            <div>
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+                <span class="complexity hard" style="position:static">Avanc&eacute;</span>
+              </div>
+              <p style="font-size:12.5px;color:var(--ws-ink-500)">App Store, application desktop, pipelines CI/CD. Cha&icirc;ne compl&egrave;te de build et distribution.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;margin-top:48px">
+    <a class="back-link" href="parcours.html">&#8592; Retour aux parcours pratiques</a>
+  </div>
+
+</div>
+
+<footer>
+  <span class="src">Formation vibe coding &mdash; Wavestone</span>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ----- scroll progress bar ----- */
+  var progressBar = document.getElementById('scrollProgress');
+  function updateProgress(){
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, {passive:true});
+  updateProgress();
+
+  /* ----- intersection observer for scroll reveal ----- */
+  var revealElements = document.querySelectorAll('[data-reveal]');
+  if(reduce){
+    revealElements.forEach(function(el){ el.classList.add('visible'); });
+  } else {
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.15, rootMargin:'0px 0px -40px 0px'});
+
+    revealElements.forEach(function(el){ observer.observe(el); });
+  }
+})();
+</script>
+</body>
+</html>
