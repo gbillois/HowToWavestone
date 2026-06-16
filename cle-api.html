@@ -162,6 +162,23 @@
     </div>
   </div>
 
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="sec.eyebrow">S&eacute;curit&eacute;</span>
+    <h2 data-i18n="sec.h2">Une cl&eacute; API se traite comme un mot de passe</h2>
+  </div>
+
+  <div class="note" style="margin-top:24px">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><rect x="3" y="11" width="18" height="11"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    <div>
+      <div class="lab" data-i18n="sec.lab">R&egrave;gles de s&eacute;curit&eacute;</div>
+      <p data-i18n="sec.intro">Une cl&eacute; API est aussi sensible qu'un <b>mot de passe</b> : quiconque la d&eacute;tient peut consommer le quota et les services associ&eacute;s &mdash; &agrave; tes frais.</p>
+      <p data-i18n="sec.r1" style="margin-top:8px">&bull; <b>Ne la partage jamais en clair</b> (email, chat, ticket) et ne la commite pas dans ton code ni sur GitHub.</p>
+      <p data-i18n="sec.r2" style="margin-top:6px">&bull; <b>Conserve-la dans un coffre-fort de mots de passe</b> (gestionnaire de secrets), pas dans un fichier en clair ni dans tes notes.</p>
+      <p data-i18n="sec.r3" style="margin-top:6px">&bull; <b>Dans le code, charge-la depuis une variable d'environnement</b> ou un fichier <code>.env</code> exclu du d&eacute;p&ocirc;t (via <code>.gitignore</code>).</p>
+      <p data-i18n="sec.r4" style="margin-top:6px">&bull; <b>En cas de doute sur une fuite, r&eacute;voque la cl&eacute; imm&eacute;diatement</b> et g&eacute;n&egrave;re-en une nouvelle.</p>
+    </div>
+  </div>
+
 </div>
 
 <footer>
@@ -194,6 +211,14 @@ window.WS_I18N = {
     "res.cta": "Create a Wavestone API key",
     "res.note": "Creating an API key and requesting a POC account are both done in the same Wavestone Power Apps application.",
     "footer.src": "API keys &amp; governance &mdash; Wavestone CYB &middot; AI Maker Initiative",
+    "sec.eyebrow": "Security",
+    "sec.h2": "Treat an API key like a password",
+    "sec.lab": "Security rules",
+    "sec.intro": "An API key is as sensitive as a <b>password</b>: anyone who holds it can consume the quota and the associated services &mdash; at your expense.",
+    "sec.r1": "&bull; <b>Never share it in clear text</b> (email, chat, ticket) and never commit it in your code or to GitHub.",
+    "sec.r2": "&bull; <b>Keep it in a password vault</b> (secrets manager), not in a plain file or your notes.",
+    "sec.r3": "&bull; <b>In code, load it from an environment variable</b> or a <code>.env</code> file excluded from the repo (via <code>.gitignore</code>).",
+    "sec.r4": "&bull; <b>If you suspect a leak, revoke the key immediately</b> and generate a new one.",
     "back": "&#8592; back to home"
   },
   de: {
@@ -219,6 +244,14 @@ window.WS_I18N = {
     "res.cta": "Einen Wavestone-API-Schl&uuml;ssel erstellen",
     "res.note": "Das Erstellen eines API-Schl&uuml;ssels und das Anfordern eines POC-Kontos erfolgen in derselben Wavestone-Power-Apps-Anwendung.",
     "footer.src": "API-Schl&uuml;ssel &amp; Governance &mdash; Wavestone CYB &middot; AI Maker Initiative",
+    "sec.eyebrow": "Sicherheit",
+    "sec.h2": "Behandle einen API-Schlüssel wie ein Passwort",
+    "sec.lab": "Sicherheitsregeln",
+    "sec.intro": "Ein API-Schlüssel ist so sensibel wie ein <b>Passwort</b>: wer ihn besitzt, kann das Kontingent und die zugehörigen Dienste nutzen &mdash; auf deine Kosten.",
+    "sec.r1": "&bull; <b>Teile ihn nie im Klartext</b> (E-Mail, Chat, Ticket) und committe ihn niemals in deinen Code oder auf GitHub.",
+    "sec.r2": "&bull; <b>Bewahre ihn in einem Passwort-Tresor</b> (Secrets-Manager) auf, nicht in einer Klartextdatei oder deinen Notizen.",
+    "sec.r3": "&bull; <b>Lade ihn im Code aus einer Umgebungsvariable</b> oder einer vom Repo ausgeschlossenen <code>.env</code>-Datei (via <code>.gitignore</code>).",
+    "sec.r4": "&bull; <b>Bei Verdacht auf ein Leck widerrufe den Schlüssel sofort</b> und erzeuge einen neuen.",
     "back": "&#8592; zur&uuml;ck zur Startseite"
   }
 };
