@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wavestone CYB AI Maker &mdash; Cr&eacute;er une cl&eacute; API</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-warning:#C8861A;
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ws-white);color:var(--ws-ink-900);font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  .eyebrow{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid var(--ws-green-400)}
+
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:6px 13px;transition:.18s var(--ws-ease)}
+  .bar a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1040px;margin:0 auto;padding:64px 24px 56px}
+  .hero .eyebrow{color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(34px,6vw,60px);line-height:1.04;letter-spacing:-.025em;margin:22px 0 16px;max-width:20ch}
+  .hero .lede{font-size:19px;line-height:1.5;color:rgba(255,255,255,.82);max-width:62ch}
+
+  .sec-head{margin:52px 0 6px}
+  .sec-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:26px;letter-spacing:-.015em;color:var(--ws-indigo-600);margin-top:8px}
+
+  .steps{display:grid;gap:16px;margin-top:24px;grid-template-columns:1fr}
+  @media(min-width:760px){.steps{grid-template-columns:1fr 1fr 1fr}}
+  .scard{position:relative;background:#fff;border:1.5px solid var(--ws-ink-100);border-radius:16px;padding:24px 22px 22px;box-shadow:var(--ws-shadow-sm);transition:.22s var(--ws-ease);display:flex;flex-direction:column}
+  .scard:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-3px);border-color:var(--ws-indigo-200)}
+  .scard .n{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-family:var(--ws-font-mono);font-weight:600;font-size:17px;background:var(--ws-indigo-50);color:var(--ws-indigo-600);margin-bottom:14px}
+  .scard h3{font-family:var(--ws-font-display);font-weight:700;font-size:17.5px;color:var(--ws-ink-900);line-height:1.22;margin-bottom:8px}
+  .scard p{font-size:14.5px;color:var(--ws-ink-600);line-height:1.55;flex:1}
+  .scard p b{color:var(--ws-ink-900)}
+  .scard .lk{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-family:var(--ws-font-mono);font-size:12.5px;border:1px solid var(--ws-ink-200);border-radius:999px;padding:7px 13px;margin-top:14px;width:fit-content;transition:.18s var(--ws-ease)}
+  .scard .lk:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600);transform:translateY(-1px)}
+
+  .note{margin-top:28px;background:#FBF1DD;border:1px solid #F0DBA8;border-left:4px solid var(--ws-warning);border-radius:12px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start}
+  .note svg{flex:0 0 auto;color:var(--ws-warning);margin-top:2px}
+  .note .lab{font-family:var(--ws-font-body);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ws-warning);margin-bottom:7px}
+  .note p{font-size:14.5px;color:var(--ws-ink-700);line-height:1.6}
+  .note b{color:var(--ws-ink-900)}
+
+  .res{margin-top:28px}
+  .res-card{background:#fff;border:1px solid var(--ws-ink-100);border-radius:16px;padding:20px 22px;box-shadow:var(--ws-shadow-sm);border-color:var(--ws-green-400);box-shadow:0 0 0 1px var(--ws-green-400),var(--ws-shadow-sm)}
+  .res-card h3{font-family:var(--ws-font-display);font-weight:600;font-size:17px;color:var(--ws-indigo-600);margin-bottom:14px;display:flex;align-items:center;gap:9px}
+  .res-card h3 .star{color:var(--ws-green-700)}
+  .res-cta{display:flex;align-items:center;justify-content:space-between;gap:12px;text-decoration:none;background:var(--ws-green-400);border-radius:11px;padding:13px 16px;transition:.18s var(--ws-ease)}
+  .res-cta:hover{background:var(--ws-green-300)}
+  .res-cta .nm{font-family:var(--ws-font-display);font-weight:700;font-size:15px;color:var(--ws-indigo-900)}
+  .res-cta .go{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-indigo-900);white-space:nowrap}
+  .cap{font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-ink-400);margin-top:12px;display:flex;gap:6px;align-items:flex-start}
+
+  footer{max-width:1040px;margin:60px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+  footer a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:8px 14px;transition:.18s var(--ws-ease)}
+  footer a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+  *,*::before,*::after{border-radius:0!important}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
+    <div class="nav-links">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="parcours.html" data-i18n="nav.parcours">Les approches</a>
+      <a class="jump" href="showcase.html" data-i18n="nav.showcase">Nos agents</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1040 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,300 Q260,180 540,250 T1100,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <span class="eyebrow" data-i18n="hero.eyebrow">Acc&egrave;s &amp; gouvernance</span>
+    <h1 data-i18n="hero.title">Cr&eacute;er une cl&eacute; API pour votre projet</h1>
+    <p class="lede" data-i18n="hero.lede">Pour appeler un mod&egrave;le d'IA depuis votre application, il vous faut une cl&eacute; API Wavestone. Voici la proc&eacute;dure, la validation requise, et le cas particulier de nos applications maison.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="steps.eyebrow">La marche &agrave; suivre</span>
+    <h2 data-i18n="steps.h2">Trois &eacute;tapes pour obtenir une cl&eacute;</h2>
+  </div>
+
+  <div class="steps">
+    <article class="scard">
+      <div class="n">1</div>
+      <h3 data-i18n="s1.title">Suivre la proc&eacute;dure Power Apps</h3>
+      <p data-i18n="s1.body">La cr&eacute;ation des cl&eacute;s API se fait dans l'application <b>Power Apps Wavestone</b> d&eacute;di&eacute;e. Le product manager du produit peut cr&eacute;er les cl&eacute;s et les associer aux personnes qui en ont besoin.</p>
+      <a class="lk" href="https://apps.powerapps.com/play/e/03198640-3be3-ebd9-90cf-49ed52db3158/a/cb325a04-ac43-4133-9f1a-af3fc3845f8c?tenantId=5de96c96-c87c-4dce-aad9-f5c557b52ac1&amp;hint=26ff1bb4-0493-416f-a06f-0c1c4f1d6245&amp;source=sharebutton&amp;sourcetime=1781518515405" target="_blank" rel="noopener" data-i18n="s1.link">ouvrir Power Apps &#8599;</a>
+    </article>
+
+    <article class="scard">
+      <div class="n">2</div>
+      <h3 data-i18n="s2.title">Faire valider par le CDM</h3>
+      <p data-i18n="s2.body">Toute cl&eacute; doit &ecirc;tre <b>valid&eacute;e par votre Chef de Mission (CDM)</b> avant utilisation&nbsp;: c'est lui qui ent&eacute;rine le besoin et l'usage des appels d'API dans le cadre de la mission.</p>
+    </article>
+
+    <article class="scard">
+      <div class="n">3</div>
+      <h3 data-i18n="s3.title">Associer la cl&eacute; &agrave; l'utilisateur</h3>
+      <p data-i18n="s3.body">Une fois cr&eacute;&eacute;e et valid&eacute;e, la cl&eacute; est associ&eacute;e &agrave; la personne (chef de projet / utilisateur) qui r&eacute;alise la mission, puis utilis&eacute;e dans le code pour les appels au mod&egrave;le.</p>
+    </article>
+  </div>
+
+  <div class="note">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <div>
+      <div class="lab" data-i18n="important.lab">Cas CrisisMaker &amp; CyberBenchExplorer</div>
+      <p data-i18n="important.body">Si la cl&eacute; est destin&eacute;e &agrave; utiliser <b>CrisisMaker</b> ou <b>CyberBenchExplorer</b>, ne cr&eacute;ez pas de cl&eacute; vous-m&ecirc;me&nbsp;: <b>adressez-vous directement &agrave; l'&eacute;quipe projet</b>, qui vous fournira l'acc&egrave;s adapt&eacute; &agrave; l'application.</p>
+    </div>
+  </div>
+
+  <div class="res">
+    <div class="res-card">
+      <h3><span class="star"><svg width="0.85em" height="0.85em" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span> <span data-i18n="res.title">Acc&egrave;s &amp; cl&eacute;s Wavestone</span></h3>
+      <a class="res-cta" href="https://apps.powerapps.com/play/e/03198640-3be3-ebd9-90cf-49ed52db3158/a/cb325a04-ac43-4133-9f1a-af3fc3845f8c?tenantId=5de96c96-c87c-4dce-aad9-f5c557b52ac1&amp;hint=26ff1bb4-0493-416f-a06f-0c1c4f1d6245&amp;source=sharebutton&amp;sourcetime=1781518515405" target="_blank" rel="noopener">
+        <span class="nm" data-i18n="res.cta">Cr&eacute;er une cl&eacute; API Wavestone</span><span class="go">Power Apps &#8599;</span>
+      </a>
+      <div class="cap"><span>&#8505;</span><span data-i18n="res.note">La cr&eacute;ation d'une cl&eacute; API et la demande d'un compte POC se font dans la m&ecirc;me application Power Apps Wavestone.</span></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span class="src" data-i18n="footer.src">Cl&eacute;s API &amp; gouvernance &mdash; Wavestone CYB &middot; AI Maker Initiative</span>
+  <a class="jump" href="index.html" data-i18n="back">&#8592; retour &agrave; l'accueil</a>
+</footer>
+
+<script>
+window.WS_I18N = {
+  en: {
+    "__title": "Wavestone CYB AI Maker &mdash; Create an API key",
+    "nav.home": "Home",
+    "nav.parcours": "The approaches",
+    "nav.showcase": "Our agents",
+    "hero.eyebrow": "Access &amp; governance",
+    "hero.title": "Create an API key for your project",
+    "hero.lede": "To call an AI model from your application, you need a Wavestone API key. Here is the procedure, the sign-off required, and the special case of our in-house applications.",
+    "steps.eyebrow": "How to proceed",
+    "steps.h2": "Three steps to obtain a key",
+    "s1.title": "Follow the Power Apps procedure",
+    "s1.body": "API keys are created in the dedicated <b>Wavestone Power Apps</b> application. The product manager can create keys and assign them to the people who need them.",
+    "s1.link": "open Power Apps &#8599;",
+    "s2.title": "Get sign-off from the CDM",
+    "s2.body": "Every key must be <b>approved by your engagement manager (CDM)</b> before use: they validate the need for, and the use of, API calls within the engagement.",
+    "s3.title": "Assign the key to the user",
+    "s3.body": "Once created and approved, the key is assigned to the person (project lead / user) running the engagement, then used in the code for the model calls.",
+    "important.lab": "CrisisMaker &amp; CyberBenchExplorer case",
+    "important.body": "If the key is meant for using <b>CrisisMaker</b> or <b>CyberBenchExplorer</b>, do not create a key yourself: <b>contact the project team directly</b> &mdash; they will provide the access tailored to the application.",
+    "res.title": "Wavestone access &amp; keys",
+    "res.cta": "Create a Wavestone API key",
+    "res.note": "Creating an API key and requesting a POC account are both done in the same Wavestone Power Apps application.",
+    "footer.src": "API keys &amp; governance &mdash; Wavestone CYB &middot; AI Maker Initiative",
+    "back": "&#8592; back to home"
+  },
+  de: {
+    "__title": "Wavestone CYB AI Maker &mdash; API-Schl&uuml;ssel erstellen",
+    "nav.home": "Start",
+    "nav.parcours": "Die Ans&auml;tze",
+    "nav.showcase": "Unsere Agenten",
+    "hero.eyebrow": "Zugang &amp; Governance",
+    "hero.title": "Einen API-Schl&uuml;ssel f&uuml;r dein Projekt erstellen",
+    "hero.lede": "Um ein KI-Modell aus deiner Anwendung aufzurufen, brauchst du einen Wavestone-API-Schl&uuml;ssel. Hier sind das Vorgehen, die erforderliche Freigabe und der Sonderfall unserer hauseigenen Anwendungen.",
+    "steps.eyebrow": "So gehst du vor",
+    "steps.h2": "Drei Schritte zum Schl&uuml;ssel",
+    "s1.title": "Dem Power-Apps-Vorgehen folgen",
+    "s1.body": "API-Schl&uuml;ssel werden in der eigens daf&uuml;r vorgesehenen <b>Wavestone-Power-Apps</b>-Anwendung erstellt. Der Product Manager kann Schl&uuml;ssel anlegen und den Personen zuweisen, die sie ben&ouml;tigen.",
+    "s1.link": "Power Apps &ouml;ffnen &#8599;",
+    "s2.title": "Freigabe durch den CDM einholen",
+    "s2.body": "Jeder Schl&uuml;ssel muss vor der Nutzung <b>vom Engagement Manager (CDM) freigegeben</b> werden: er best&auml;tigt den Bedarf und die Nutzung der API-Aufrufe im Rahmen des Auftrags.",
+    "s3.title": "Den Schl&uuml;ssel dem Nutzer zuweisen",
+    "s3.body": "Nach Erstellung und Freigabe wird der Schl&uuml;ssel der Person (Projektleitung / Nutzer) zugewiesen, die den Auftrag durchf&uuml;hrt, und dann im Code f&uuml;r die Modellaufrufe verwendet.",
+    "important.lab": "Fall CrisisMaker &amp; CyberBenchExplorer",
+    "important.body": "Wenn der Schl&uuml;ssel f&uuml;r die Nutzung von <b>CrisisMaker</b> oder <b>CyberBenchExplorer</b> gedacht ist, erstelle keinen Schl&uuml;ssel selbst: <b>wende dich direkt an das Projektteam</b> &mdash; es stellt dir den passenden Zugang zur Anwendung bereit.",
+    "res.title": "Wavestone-Zugang &amp; -Schl&uuml;ssel",
+    "res.cta": "Einen Wavestone-API-Schl&uuml;ssel erstellen",
+    "res.note": "Das Erstellen eines API-Schl&uuml;ssels und das Anfordern eines POC-Kontos erfolgen in derselben Wavestone-Power-Apps-Anwendung.",
+    "footer.src": "API-Schl&uuml;ssel &amp; Governance &mdash; Wavestone CYB &middot; AI Maker Initiative",
+    "back": "&#8592; zur&uuml;ck zur Startseite"
+  }
+};
+</script>
+<script src="assets/i18n.js"></script>
+
+</body>
+</html>

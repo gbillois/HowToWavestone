@@ -203,7 +203,7 @@
   <div class="hero-in">
     <span class="eyebrow" data-i18n="hero.eyebrow">Guide de d&eacute;marrage</span>
     <h1 data-i18n="hero.title">Choisis ton <span class="ac">parcours</span></h1>
-    <p class="lede" data-i18n="hero.lede">Quatre chemins pour passer de l'id&eacute;e au code avec Claude &mdash; du plus simple (tout en ligne) au plus avanc&eacute; (appels &agrave; un mod&egrave;le d'IA dans l'environnement Wavestone).</p>
+    <p class="lede" data-i18n="hero.lede">Trois chemins pour passer de l'id&eacute;e au code avec Claude &mdash; de l'application sur ta machine jusqu'aux appels &agrave; un mod&egrave;le d'IA dans l'environnement Wavestone.</p>
     <p class="tagline" data-i18n="hero.tagline"># environnement wavestone &middot; licence claude entreprise &middot; sans droits admin</p>
   </div>
 </header>
@@ -218,15 +218,8 @@
   </div>
 
   <div class="chooser" id="chooser">
-    <button class="tile active" data-target="p1">
+    <button class="tile active" data-target="p2">
       <span class="idx">01</span>
-      <h3 data-i18n="tile1.h3">Coder une application simple en ligne</h3>
-      <p data-i18n="tile1.p">Une page ou un petit outil, sans rien installer. Tout se passe dans le navigateur.</p>
-      <div class="stack"><span class="chip">GitHub</span><span class="chip">GitHub Pages</span><span class="chip" data-i18n="tile1.chip3">Claude en ligne</span></div>
-    </button>
-
-    <button class="tile" data-target="p2">
-      <span class="idx">02</span>
       <h3 data-i18n="tile2.h3">Coder une application sur ma machine</h3>
       <p data-i18n="tile2.p">D&eacute;veloppement local plus libre, avec sauvegarde et travail en commun via GitHub.</p>
       <div class="stack"><span class="chip">Git</span><span class="chip">VS Code</span><span class="chip">Python</span><span class="chip">GitHub</span></div>
@@ -234,14 +227,14 @@
 
     <button class="tile soon" data-target="p3">
       <span class="badge-soon" data-i18n="tile3.badge">&Agrave; venir</span>
-      <span class="idx">03</span>
+      <span class="idx">02</span>
       <h3 data-i18n="tile3.h3">Application web complexe</h3>
       <p data-i18n="tile3.p">Stockage et base de donn&eacute;es centralis&eacute;s. Une approche est en cours de r&eacute;flexion.</p>
       <div class="stack"><span class="chip">Backend</span><span class="chip" data-i18n="tile3.chip2">Base de donn&eacute;es</span></div>
     </button>
 
     <button class="tile" data-target="p4">
-      <span class="idx">04</span>
+      <span class="idx">03</span>
       <h3 data-i18n="tile4.h3">Appeler un mod&egrave;le d'IA dans mon appli</h3>
       <p data-i18n="tile4.p">Int&eacute;grer des appels &agrave; un mod&egrave;le d'IA via des cl&eacute;s API, dans l'environnement Wavestone.</p>
       <div class="stack"><span class="chip" data-i18n="tile4.chip1">Cl&eacute;s API Wavestone</span><span class="chip">Microsoft</span></div>
@@ -251,69 +244,11 @@
   <!-- PANELS -->
   <div class="panels">
 
-    <!-- ============ PARCOURS 1 ============ -->
-    <section class="panel active" data-panel="p1">
-      <div class="panel-head">
-        <div class="t">
-          <span class="eyebrow" data-i18n="p1.eyebrow">Parcours 01</span>
-          <h2 data-i18n="p1.h2">Application simple en ligne</h2>
-          <div class="sub" data-i18n="p1.sub">GitHub + GitHub Pages + Claude en ligne &mdash; id&eacute;al pour des pages et outils simples, sans backend.</div>
-        </div>
-        <div class="prog"><b class="dn">0</b>/<span class="tot">4</span> <span data-i18n="prog.etapes">&eacute;tapes</span></div>
-      </div>
-
-      <div class="steps">
-        <div class="spine"><div class="spine-fill"></div></div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
-          <div class="scard">
-            <h4 data-i18n="p1.s1.h4">Tester ton compte Claude</h4>
-            <div class="do" data-i18n="p1.s1.do">Connecte-toi avec ton compte Wavestone et v&eacute;rifie que &laquo; Wavestone &raquo; appara&icirc;t : l'environnement entreprise est reconnu.</div>
-            <div class="links"><a class="lk" href="https://claude.ai/new" target="_blank" rel="noopener">claude.ai/new <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
-          <div class="scard">
-            <h4 data-i18n="p1.s2.h4">Cr&eacute;er un compte GitHub <span class="mini">gratuit</span></h4>
-            <div class="do" data-i18n="p1.s2.do">Cr&eacute;e ton compte, puis un premier <b>repository</b> (l'espace qui stocke ton code).</div>
-            <div class="links"><a class="lk" href="https://github.com/" target="_blank" rel="noopener">github.com <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
-          <div class="scard">
-            <h4 data-i18n="p1.s3.h4">Activer GitHub Pages</h4>
-            <div class="do" data-i18n="p1.s3.do">Dans les r&eacute;glages du repo, active <b>Pages</b> : c'est ce qui h&eacute;bergera la page que tu vas cr&eacute;er (ton &laquo; pipeline minimum &raquo;).</div>
-            <div class="links"><a class="lk" href="https://pages.github.com/" target="_blank" rel="noopener">pages.github.com <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">4</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
-          <div class="scard">
-            <h4 data-i18n="p1.s4.h4">Lancer Claude Code en ligne</h4>
-            <div class="do" data-i18n="p1.s4.do">Lie Claude &agrave; ton compte GitHub (demand&eacute; &agrave; la premi&egrave;re fois), choisis ton repository, puis d&eacute;cris ce que tu veux. Claude cr&eacute;e une machine virtuelle, &eacute;crit le fichier et le pousse dans le repo.</div>
-            <div class="links"><a class="lk" href="https://claude.ai/new" target="_blank" rel="noopener">claude.ai <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="prompt">
-        <button class="copy">copier</button>
-        <div class="who" data-i18n="p1.prompt.who">Ton premier prompt</div>
-        <div class="txt" data-i18n="p1.prompt.txt">Cr&eacute;e-moi une page HTML qui est un quiz sur la cybers&eacute;curit&eacute; en 10 questions. Tire les questions au hasard, pr&eacute;sente-les une par une et donne un score &agrave; la fin.</div>
-      </div>
-    </section>
-
     <!-- ============ PARCOURS 2 ============ -->
-    <section class="panel" data-panel="p2">
+    <section class="panel active" data-panel="p2">
       <div class="panel-head">
         <div class="t">
-          <span class="eyebrow" data-i18n="p2.eyebrow">Parcours 02</span>
+          <span class="eyebrow" data-i18n="p2.eyebrow">Parcours 01</span>
           <h2 data-i18n="p2.h2">Application sur ma machine</h2>
           <div class="sub" data-i18n="p2.sub">Git + VS Code + Python, avec sauvegarde et travail en commun via GitHub. Tout reste en local sur ta machine.</div>
         </div>
@@ -399,7 +334,7 @@
     <section class="panel" data-panel="p3">
       <div class="panel-head">
         <div class="t">
-          <span class="eyebrow" data-i18n="p3.eyebrow">Parcours 03</span>
+          <span class="eyebrow" data-i18n="p3.eyebrow">Parcours 02</span>
           <h2 data-i18n="p3.h2">Application web complexe</h2>
           <div class="sub" data-i18n="p3.sub">Avec stockage et base de donn&eacute;es centralis&eacute;s.</div>
         </div>
@@ -416,7 +351,7 @@
     <section class="panel" data-panel="p4">
       <div class="panel-head">
         <div class="t">
-          <span class="eyebrow" data-i18n="p4.eyebrow">Parcours 04</span>
+          <span class="eyebrow" data-i18n="p4.eyebrow">Parcours 03</span>
           <h2 data-i18n="p4.h2">Appeler un mod&egrave;le d'IA dans mon appli</h2>
           <div class="sub" data-i18n="p4.sub">Int&eacute;grer des appels &agrave; un mod&egrave;le d'IA via des cl&eacute;s API, dans l'environnement Wavestone.</div>
         </div>
@@ -575,14 +510,11 @@ window.WS_I18N = {
     "nav.infos": "Info &amp; useful links",
     "hero.eyebrow": "Getting-started guide",
     "hero.title": "Choose your <span class=\"ac\">path</span>",
-    "hero.lede": "Four routes to go from idea to code with Claude &mdash; from the simplest (entirely online) to the most advanced (calling an AI model inside the Wavestone environment).",
+    "hero.lede": "Three routes to go from idea to code with Claude &mdash; from an app on your own machine to calling an AI model inside the Wavestone environment.",
     "hero.tagline": "# wavestone environment &middot; claude enterprise licence &middot; no admin rights",
     "chooser.eyebrow": "Where to start",
     "chooser.h2": "What's your goal?",
     "chooser.p": "Pick a path: the steps and links appear right below.",
-    "tile1.h3": "Code a simple app online",
-    "tile1.p": "A page or a small tool, with nothing to install. Everything happens in the browser.",
-    "tile1.chip3": "Claude online",
     "tile2.h3": "Code an app on my machine",
     "tile2.p": "Freer local development, with backup and teamwork via GitHub.",
     "tile3.badge": "Coming soon",
@@ -593,20 +525,7 @@ window.WS_I18N = {
     "tile4.p": "Integrate calls to an AI model via API keys, within the Wavestone environment.",
     "tile4.chip1": "Wavestone API keys",
     "prog.etapes": "steps",
-    "p1.eyebrow": "Path 01",
-    "p1.h2": "Simple app online",
-    "p1.sub": "GitHub + GitHub Pages + Claude online &mdash; ideal for simple pages and tools, with no backend.",
-    "p1.s1.h4": "Test your Claude account",
-    "p1.s1.do": "Sign in with your Wavestone account and check that &laquo; Wavestone &raquo; appears: the enterprise environment is recognised.",
-    "p1.s2.h4": "Create a GitHub account <span class=\"mini\">free</span>",
-    "p1.s2.do": "Create your account, then a first <b>repository</b> (the space that stores your code).",
-    "p1.s3.h4": "Enable GitHub Pages",
-    "p1.s3.do": "In the repo settings, enable <b>Pages</b>: this is what will host the page you create (your &laquo; minimum pipeline &raquo;).",
-    "p1.s4.h4": "Launch Claude Code online",
-    "p1.s4.do": "Link Claude to your GitHub account (asked the first time), choose your repository, then describe what you want. Claude spins up a virtual machine, writes the file and pushes it to the repo.",
-    "p1.prompt.who": "Your first prompt",
-    "p1.prompt.txt": "Create an HTML page that is a 10-question cybersecurity quiz. Draw the questions at random, present them one at a time and give a score at the end.",
-    "p2.eyebrow": "Path 02",
+    "p2.eyebrow": "Path 01",
     "p2.h2": "App on my machine",
     "p2.sub": "Git + VS Code + Python, with backup and teamwork via GitHub. Everything stays local on your machine.",
     "p2.s1.h4": "Test Claude + create a GitHub",
@@ -629,12 +548,12 @@ window.WS_I18N = {
     "p2.prompt2.txt": "Create a Python script that uses faster-whisper locally to transcribe my audio and video files on my machine.",
     "p2.note.lab": "Human in the loop",
     "p2.note.p": "Locally, Claude asks your permission before running a command. Read what it proposes, then approve &mdash; nothing runs behind your back.",
-    "p3.eyebrow": "Path 03",
+    "p3.eyebrow": "Path 02",
     "p3.h2": "Complex web application",
     "p3.sub": "With centralised storage and database.",
     "p3.soon.h3": "Coming soon &mdash; we're working on it",
     "p3.soon.p": "For applications that require centralised storage and a database, an approach is currently being defined. Given the governance rule (sensitive client data in the Microsoft environment), it will probably rely on that environment. Stay tuned.",
-    "p4.eyebrow": "Path 04",
+    "p4.eyebrow": "Path 03",
     "p4.h2": "Call an AI model in my app",
     "p4.sub": "Integrate calls to an AI model via API keys, within the Wavestone environment.",
     "p4.note.lab": "Governance rule",
@@ -668,14 +587,11 @@ window.WS_I18N = {
     "nav.infos": "Infos &amp; n&uuml;tzliche Links",
     "hero.eyebrow": "Einstiegsleitfaden",
     "hero.title": "W&auml;hle deinen <span class=\"ac\">Weg</span>",
-    "hero.lede": "Vier Wege, um mit Claude von der Idee zum Code zu gelangen &mdash; vom einfachsten (komplett online) bis zum fortgeschrittensten (Aufruf eines KI-Modells in der Wavestone-Umgebung).",
+    "hero.lede": "Drei Wege, um mit Claude von der Idee zum Code zu gelangen &mdash; von der App auf dem eigenen Rechner bis zum Aufruf eines KI-Modells in der Wavestone-Umgebung.",
     "hero.tagline": "# wavestone-umgebung &middot; claude-enterprise-lizenz &middot; ohne admin-rechte",
     "chooser.eyebrow": "Wo anfangen",
     "chooser.h2": "Was ist dein Ziel?",
     "chooser.p": "W&auml;hle einen Weg: Die Schritte und Links erscheinen direkt darunter.",
-    "tile1.h3": "Eine einfache App online programmieren",
-    "tile1.p": "Eine Seite oder ein kleines Tool, ohne etwas zu installieren. Alles l&auml;uft im Browser.",
-    "tile1.chip3": "Claude online",
     "tile2.h3": "Eine App auf meinem Rechner programmieren",
     "tile2.p": "Freiere lokale Entwicklung, mit Sicherung und Zusammenarbeit &uuml;ber GitHub.",
     "tile3.badge": "Demn&auml;chst",
@@ -686,20 +602,7 @@ window.WS_I18N = {
     "tile4.p": "Aufrufe eines KI-Modells &uuml;ber API-Schl&uuml;ssel integrieren, in der Wavestone-Umgebung.",
     "tile4.chip1": "Wavestone-API-Schl&uuml;ssel",
     "prog.etapes": "Schritte",
-    "p1.eyebrow": "Weg 01",
-    "p1.h2": "Einfache App online",
-    "p1.sub": "GitHub + GitHub Pages + Claude online &mdash; ideal f&uuml;r einfache Seiten und Tools, ohne Backend.",
-    "p1.s1.h4": "Teste dein Claude-Konto",
-    "p1.s1.do": "Melde dich mit deinem Wavestone-Konto an und pr&uuml;fe, ob &laquo; Wavestone &raquo; erscheint: Die Unternehmensumgebung wird erkannt.",
-    "p1.s2.h4": "Ein GitHub-Konto erstellen <span class=\"mini\">kostenlos</span>",
-    "p1.s2.do": "Erstelle dein Konto und dann ein erstes <b>Repository</b> (der Bereich, der deinen Code speichert).",
-    "p1.s3.h4": "GitHub Pages aktivieren",
-    "p1.s3.do": "Aktiviere in den Repo-Einstellungen <b>Pages</b>: Das hostet die Seite, die du erstellst (deine &laquo; minimale Pipeline &raquo;).",
-    "p1.s4.h4": "Claude Code online starten",
-    "p1.s4.do": "Verbinde Claude mit deinem GitHub-Konto (wird beim ersten Mal abgefragt), w&auml;hle dein Repository und beschreibe, was du m&ouml;chtest. Claude erstellt eine virtuelle Maschine, schreibt die Datei und pusht sie ins Repo.",
-    "p1.prompt.who": "Dein erster Prompt",
-    "p1.prompt.txt": "Erstelle mir eine HTML-Seite mit einem Cybersicherheits-Quiz mit 10 Fragen. Ziehe die Fragen zuf&auml;llig, zeige sie einzeln an und gib am Ende eine Punktzahl.",
-    "p2.eyebrow": "Weg 02",
+    "p2.eyebrow": "Weg 01",
     "p2.h2": "App auf meinem Rechner",
     "p2.sub": "Git + VS Code + Python, mit Sicherung und Zusammenarbeit &uuml;ber GitHub. Alles bleibt lokal auf deinem Rechner.",
     "p2.s1.h4": "Claude testen + ein GitHub erstellen",
@@ -722,12 +625,12 @@ window.WS_I18N = {
     "p2.prompt2.txt": "Erstelle mir ein Python-Skript, das lokal faster-whisper verwendet, um meine Audio- und Videodateien auf meinem Rechner zu transkribieren.",
     "p2.note.lab": "Human in the loop",
     "p2.note.p": "Lokal fragt Claude um deine Erlaubnis, bevor es einen Befehl ausf&uuml;hrt. Lies, was es vorschl&auml;gt, und best&auml;tige dann &mdash; nichts l&auml;uft hinter deinem R&uuml;cken.",
-    "p3.eyebrow": "Weg 03",
+    "p3.eyebrow": "Weg 02",
     "p3.h2": "Komplexe Webanwendung",
     "p3.sub": "Mit zentralisiertem Speicher und Datenbank.",
     "p3.soon.h3": "Demn&auml;chst &mdash; wir arbeiten daran",
     "p3.soon.p": "F&uuml;r Anwendungen, die zentralisierten Speicher und eine Datenbank ben&ouml;tigen, wird derzeit ein Ansatz definiert. Angesichts der Governance-Regel (sensible Kundendaten in der Microsoft-Umgebung) wird er sich wahrscheinlich auf diese Umgebung st&uuml;tzen. Bleib dran.",
-    "p4.eyebrow": "Weg 04",
+    "p4.eyebrow": "Weg 03",
     "p4.h2": "Ein KI-Modell in meiner App aufrufen",
     "p4.sub": "Aufrufe eines KI-Modells &uuml;ber API-Schl&uuml;ssel integrieren, in der Wavestone-Umgebung.",
     "p4.note.lab": "Governance-Regel",
