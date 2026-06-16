@@ -200,7 +200,7 @@
 
 <div class="bar">
   <div class="bar-in">
-    <a class="brand" href="index.html"><span class="dot"></span>Wavestone &middot; Vibe coding</a>
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
     <div class="nav">
       <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
       <a class="jump" href="vibe-coding.html" data-i18n="nav.principles">Les principes</a>
@@ -824,7 +824,13 @@
   });
 
   var saved=null; try{ saved=localStorage.getItem('ws_lang'); }catch(e){}
-  apply(saved || 'fr');
+  function wsDetect(){
+    if(saved && ['fr','en','de'].indexOf(saved)>-1) return saved;
+    var ls=navigator.languages||[navigator.language||navigator.userLanguage||''];
+    for(var i=0;i<ls.length;i++){ var c=(ls[i]||'').slice(0,2).toLowerCase(); if(['fr','en','de'].indexOf(c)>-1) return c; }
+    return 'en';
+  }
+  apply(wsDetect());
 
   /* ---------------- step progress per phase ---------------- */
   document.querySelectorAll('.phase').forEach(function(ph){
