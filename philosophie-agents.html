@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe coding @ Wavestone — Philosophie des agents CYB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* --- Wavestone tokens (extrait du design system) --- */
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-teal-500:#228D95;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-warning:#C8861A;
+
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ws-white);color:var(--ws-ink-900);
+    font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;
+    padding-bottom:80px;
+  }
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+
+  .eyebrow{
+    display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    padding-bottom:4px;border-bottom:2px solid var(--ws-green-400);
+  }
+
+  /* ---------- sticky brand bar ---------- */
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);border-radius:999px;padding:6px 13px;transition:.18s var(--ws-ease)}
+  .bar a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  /* ---------- hero (brand gradient) ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1040px;margin:0 auto;padding:64px 24px 56px}
+  .hero .eyebrow{color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(34px,6vw,60px);line-height:1.04;letter-spacing:-.025em;margin:22px 0 16px;max-width:20ch}
+  .hero h1 .ac{color:var(--ws-green-400)}
+  .hero .lede{font-size:19px;line-height:1.5;color:rgba(255,255,255,.82);max-width:64ch}
+  .hero .tagline{font-family:var(--ws-font-mono);font-size:12.5px;color:rgba(255,255,255,.6);margin-top:22px;letter-spacing:.02em}
+
+  /* ---------- intro ---------- */
+  .sec-head{margin:56px 0 6px}
+  .sec-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:28px;letter-spacing:-.015em;color:var(--ws-indigo-600);margin-top:8px}
+  .sec-head p{color:var(--ws-ink-500);margin-top:6px;font-size:15px;max-width:70ch}
+
+  /* ---------- principles ---------- */
+  .principles{display:grid;gap:18px;margin-top:26px;grid-template-columns:1fr}
+  @media(min-width:760px){.principles{grid-template-columns:1fr 1fr}}
+
+  .pcard{
+    position:relative;background:var(--ws-white);border:1.5px solid var(--ws-ink-100);
+    border-radius:18px;padding:26px 24px 22px;box-shadow:var(--ws-shadow-sm);
+    transition:.22s var(--ws-ease);overflow:hidden;display:flex;flex-direction:column;
+  }
+  .pcard:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-3px);border-color:var(--ws-indigo-200)}
+  .pcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ws-gradient-accent);opacity:0;transition:opacity .22s var(--ws-ease)}
+  .pcard:hover::before{opacity:1}
+  /* premier principe en pleine largeur, mis en avant */
+  .pcard.lead{grid-column:1/-1;border-color:var(--ws-indigo-200);box-shadow:var(--ws-shadow-md)}
+
+  .pcard .top{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+  .pcard .ico{
+    flex:0 0 50px;width:50px;height:50px;border-radius:14px;display:grid;place-items:center;
+    font-size:24px;background:var(--ws-indigo-50);color:var(--ws-indigo-600);
+  }
+  .pcard.lead .ico{background:var(--ws-green-50);color:var(--ws-green-700)}
+  .pcard .num{font-family:var(--ws-font-mono);font-size:12px;font-weight:600;color:var(--ws-indigo-600)}
+  .pcard h3{font-family:var(--ws-font-display);font-weight:700;font-size:19px;letter-spacing:-.01em;color:var(--ws-ink-900);margin-top:3px;line-height:1.22}
+  .pcard p{font-size:14.5px;color:var(--ws-ink-600);line-height:1.55}
+  .pcard p+p{margin-top:9px}
+  .pcard b{color:var(--ws-ink-900)}
+
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:15px}
+  .tag{font-family:var(--ws-font-mono);font-size:11px;letter-spacing:.02em;color:var(--ws-indigo-700);background:var(--ws-indigo-50);border-radius:999px;padding:4px 10px}
+  .tag.green{color:var(--ws-green-700);background:var(--ws-green-50)}
+
+  /* ---------- principe -> ce que ça change ---------- */
+  .why{margin-top:14px;border-top:1px dashed var(--ws-ink-100);padding-top:12px;font-size:13.5px;color:var(--ws-ink-500);display:flex;gap:9px;align-items:flex-start}
+  .why .arr{color:var(--ws-green-700);font-weight:700;flex:0 0 auto}
+  .why b{color:var(--ws-ink-700)}
+
+  /* ---------- synthèse / note ---------- */
+  .note{margin-top:30px;background:var(--ws-indigo-50);border:1px solid var(--ws-indigo-100);border-left:4px solid var(--ws-indigo-600);border-radius:12px;padding:18px 20px}
+  .note .lab{font-family:var(--ws-font-body);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ws-indigo-600);margin-bottom:7px}
+  .note p{font-size:14.5px;color:var(--ws-ink-700);line-height:1.6}
+  .note p+p{margin-top:9px}
+  .note b{color:var(--ws-ink-900)}
+
+  /* ---------- en pratique (chips récap) ---------- */
+  .recap{margin-top:30px;background:var(--ws-indigo-950);border-radius:18px;padding:26px 26px 24px;color:#EAE7F6}
+  .recap .eyebrow{color:#fff;border-color:var(--ws-green-400)}
+  .recap h3{font-family:var(--ws-font-display);font-weight:700;font-size:21px;color:#fff;margin:14px 0 4px}
+  .recap p{font-size:14.5px;color:rgba(255,255,255,.74);line-height:1.6;max-width:66ch}
+  .recap ul{list-style:none;margin-top:16px;display:grid;gap:10px}
+  @media(min-width:680px){.recap ul{grid-template-columns:1fr 1fr}}
+  .recap li{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:rgba(255,255,255,.88);line-height:1.5}
+  .recap li .ck{flex:0 0 auto;color:var(--ws-green-300);font-weight:700;font-family:var(--ws-font-mono)}
+
+  /* ---------- nav cta ---------- */
+  .nav-cta{margin-top:32px;display:grid;gap:14px;grid-template-columns:1fr}
+  @media(min-width:680px){.nav-cta{grid-template-columns:1fr 1fr}}
+  .ncard{display:flex;align-items:center;gap:14px;text-decoration:none;background:#fff;border:1.5px solid var(--ws-ink-100);border-radius:16px;padding:18px 20px;box-shadow:var(--ws-shadow-sm);transition:.2s var(--ws-ease)}
+  .ncard:hover{border-color:var(--ws-indigo-200);box-shadow:var(--ws-shadow-md);transform:translateY(-2px)}
+  .ncard .ni{flex:0 0 44px;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:21px;background:var(--ws-indigo-50);color:var(--ws-indigo-600)}
+  .ncard .nt{font-family:var(--ws-font-display);font-weight:600;font-size:16px;color:var(--ws-ink-900)}
+  .ncard .nd{font-size:13px;color:var(--ws-ink-500);margin-top:2px}
+  .ncard .go{margin-left:auto;font-family:var(--ws-font-mono);font-size:13px;color:var(--ws-indigo-600)}
+
+  footer{max-width:1040px;margin:64px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+  /* square corners */
+  *,*::before,*::after{border-radius:0!important}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone &middot; Vibe coding</a>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <a class="jump" href="vibe-coding.html">Les principes</a>
+      <a class="jump" href="parcours.html">Les parcours</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1040 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,300 Q260,180 540,250 T1100,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <span class="eyebrow">Philosophie de conception</span>
+    <h1>Comment on con&ccedil;oit les <span class="ac">agents CYB</span></h1>
+    <p class="lede">Des principes simples, pens&eacute;s pour le terrain&nbsp;: un agent qu'on peut utiliser <b style="color:#fff">imm&eacute;diatement</b>, partout, sans d&eacute;pendre d'une infrastructure client, d'un mod&egrave;le pr&eacute;cis, ou d'une connexion.</p>
+    <p class="tagline"># d&eacute;coupl&eacute; &middot; portable &middot; d&eacute;terministe &middot; multi-clients</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="sec-head">
+    <span class="eyebrow">L'esprit</span>
+    <h2>Cinq principes qui guident chaque agent</h2>
+    <p>Nos missions sont multi-clients, multi-environnements, souvent contraintes (pas de droits admin, donn&eacute;es sensibles, r&eacute;seaux ferm&eacute;s). Pour qu'un agent CYB soit utile partout d&egrave;s le premier jour, on le con&ccedil;oit en suivant cinq r&egrave;gles de bon sens.</p>
+  </div>
+
+  <div class="principles">
+
+    <!-- 1 -->
+    <article class="pcard lead">
+      <div class="top">
+        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg></div>
+        <div>
+          <span class="num">Principe 01</span>
+          <h3>D&eacute;coupl&eacute; de l'infrastructure client</h3>
+        </div>
+      </div>
+      <p>L'agent doit pouvoir &ecirc;tre utilis&eacute; <b>imm&eacute;diatement</b>, sans d&eacute;ploiement ni d&eacute;pendance &agrave; l'environnement d'un client. La forme par d&eacute;faut est une <b>page HTML autonome</b>&nbsp;: un seul fichier, t&eacute;l&eacute;chargeable, qui s'ex&eacute;cute dans n'importe quel navigateur standard.</p>
+      <p>Pas de serveur &agrave; monter, pas d'installation, rien &agrave; faire valider par une DSI avant de commencer. On ouvre le fichier, &ccedil;a marche.</p>
+      <div class="tags">
+        <span class="tag green">1 fichier HTML</span>
+        <span class="tag green">T&eacute;l&eacute;chargeable</span>
+        <span class="tag green">Navigateur standard</span>
+        <span class="tag">Z&eacute;ro install</span>
+      </div>
+      <div class="why"><span class="arr">&#8594;</span><span><b>Ce que &ccedil;a change&nbsp;:</b> on d&eacute;marre une mission en minutes, sur le poste du client comme sur le n&ocirc;tre, sans d&eacute;pendre de leur infra.</span></div>
+    </article>
+
+    <!-- 2 -->
+    <article class="pcard">
+      <div class="top">
+        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+        <div>
+          <span class="num">Principe 02</span>
+          <h3>D&eacute;coupl&eacute; du LLM</h3>
+        </div>
+      </div>
+      <p>Aucun agent n'est mari&eacute; &agrave; un mod&egrave;le. On s'appuie sur une <b>cl&eacute; API standard</b> pour pouvoir changer de fournisseur &agrave; tout moment&nbsp;: mod&egrave;les Wavestone, acc&egrave;s via <b>Azure</b>, mod&egrave;les <b>du client</b>, ou <b>LLM locaux</b>.</p>
+      <p>Le mod&egrave;le devient un param&egrave;tre, pas une fondation. Si le contexte de la mission impose tel ou tel fournisseur, l'agent s'y adapte.</p>
+      <div class="tags">
+        <span class="tag">Cl&eacute; API standard</span>
+        <span class="tag">Azure</span>
+        <span class="tag">Mod&egrave;le client</span>
+        <span class="tag">LLM local</span>
+      </div>
+      <div class="why"><span class="arr">&#8594;</span><span><b>Ce que &ccedil;a change&nbsp;:</b> on respecte la gouvernance de chaque client et on ne subit pas le verrouillage d'un seul fournisseur.</span></div>
+    </article>
+
+    <!-- 3 -->
+    <article class="pcard">
+      <div class="top">
+        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="2" y="3" width="20" height="14"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div>
+          <span class="num">Principe 03</span>
+          <h3>L'usage local toujours possible</h3>
+        </div>
+      </div>
+      <p>Pour les cas les plus complexes ou les plus sensibles, l'agent doit fonctionner <b>en local</b>, <b>sans droits d'administrateur</b>&nbsp;: avec du <b>Python</b> portable et des <b>mod&egrave;les d'IA locaux</b>.</p>
+      <p>R&eacute;seau ferm&eacute;, donn&eacute;es qui ne doivent pas sortir, poste verrouill&eacute;&nbsp;: l'agent reste op&eacute;rationnel sans rien demander &agrave; personne.</p>
+      <div class="tags">
+        <span class="tag">Sans admin</span>
+        <span class="tag">Python portable</span>
+        <span class="tag">Mod&egrave;les locaux</span>
+        <span class="tag">Hors-ligne</span>
+      </div>
+      <div class="why"><span class="arr">&#8594;</span><span><b>Ce que &ccedil;a change&nbsp;:</b> aucune donn&eacute;e sensible ne quitte le poste, m&ecirc;me dans les environnements les plus contraints.</span></div>
+    </article>
+
+    <!-- 4 -->
+    <article class="pcard">
+      <div class="top">
+        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+        <div>
+          <span class="num">Principe 04</span>
+          <h3>Minimiser les appels au LLM</h3>
+        </div>
+      </div>
+      <p>On vise au maximum des <b>syst&egrave;mes d&eacute;terministes</b>&nbsp;: la logique qui peut &ecirc;tre cod&eacute;e en dur l'est. Le LLM n'est appel&eacute; que l&agrave; o&ugrave; il apporte vraiment de la valeur.</p>
+      <p>R&eacute;sultat&nbsp;: un agent qui travaille <b>m&ecirc;me sans connexion</b>, de mani&egrave;re <b>fiable et reproductible</b>, sans co&ucirc;t d'API inutile ni d&eacute;pendance permanente &agrave; un mod&egrave;le.</p>
+      <div class="tags">
+        <span class="tag">D&eacute;terministe</span>
+        <span class="tag">Fiable</span>
+        <span class="tag">Reproductible</span>
+        <span class="tag">Sobre en tokens</span>
+      </div>
+      <div class="why"><span class="arr">&#8594;</span><span><b>Ce que &ccedil;a change&nbsp;:</b> des r&eacute;sultats pr&eacute;visibles, moins de co&ucirc;ts, et un fonctionnement garanti m&ecirc;me hors-ligne.</span></div>
+    </article>
+
+    <!-- 5 -->
+    <article class="pcard">
+      <div class="top">
+        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div>
+          <span class="num">Principe 05</span>
+          <h3>Multi-utilisateurs, sans usine &agrave; gaz</h3>
+        </div>
+      </div>
+      <p>Pas de gestion complexe de droits ni de base de donn&eacute;es centralis&eacute;e. Le partage et la collaboration passent par <b>l'export / import de fichiers JSON</b>.</p>
+      <p>On garde nos habitudes de travail en &eacute;quipe, <b>multi-clients</b> et <b>multi-environnements</b>&nbsp;: chacun travaille de son c&ocirc;t&eacute;, puis on s'&eacute;change un simple fichier pour se synchroniser.</p>
+      <div class="tags">
+        <span class="tag">Export / import JSON</span>
+        <span class="tag">Sans base de donn&eacute;es</span>
+        <span class="tag">Sans gestion de droits</span>
+        <span class="tag">Travail d'&eacute;quipe</span>
+      </div>
+      <div class="why"><span class="arr">&#8594;</span><span><b>Ce que &ccedil;a change&nbsp;:</b> on collabore entre missions et environnements sans monter d'infrastructure partag&eacute;e.</span></div>
+    </article>
+
+  </div>
+
+  <div class="note">
+    <div class="lab">Le fil rouge</div>
+    <p><b>Autonomie, portabilit&eacute; et sobri&eacute;t&eacute;.</b> Chaque principe pousse dans la m&ecirc;me direction&nbsp;: un agent qu'on peut sortir n'importe o&ugrave;, brancher sur n'importe quel mod&egrave;le (ou aucun), et faire tourner de mani&egrave;re fiable &mdash; sans rien demander &agrave; l'infrastructure du client.</p>
+    <p>C'est ce qui rend nos agents CYB <b>utilisables d&egrave;s le premier jour</b> d'une mission, et ce qui leur permet de <b>passer &agrave; l'&eacute;chelle</b> quand le besoin grandit.</p>
+  </div>
+
+  <div class="recap">
+    <span class="eyebrow">En une phrase</span>
+    <h3>Un agent CYB, c'est&hellip;</h3>
+    <p>&hellip;un outil le plus autonome possible, qu'on emporte partout et qu'on partage par fichier.</p>
+    <ul>
+      <li><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span><span>Une <b>page HTML autonome</b>, t&eacute;l&eacute;chargeable, qui s'ouvre dans un navigateur standard.</span></li>
+      <li><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span><span><b>Ind&eacute;pendant du LLM</b>&nbsp;: cl&eacute; API standard, Azure, mod&egrave;le client ou LLM local.</span></li>
+      <li><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span><span><b>Utilisable en local</b> sans droits admin&nbsp;: Python portable et mod&egrave;les locaux.</span></li>
+      <li><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span><span><b>D&eacute;terministe d'abord</b>&nbsp;: fiable, reproductible, fonctionne hors-ligne.</span></li>
+      <li><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span><span><b>Collaboratif</b> par export / import JSON, sans base ni gestion de droits.</span></li>
+    </ul>
+  </div>
+
+  <div class="nav-cta">
+    <a class="ncard" href="vibe-coding.html">
+      <span class="ni"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
+      <span>
+        <span class="nt">Les principes du vibe coding</span>
+        <span class="nd">Les briques essentielles, en sch&eacute;mas interactifs.</span>
+      </span>
+      <span class="go">&#8594;</span>
+    </a>
+    <a class="ncard" href="parcours.html">
+      <span class="ni"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
+      <span>
+        <span class="nt">Choisir son parcours</span>
+        <span class="nd">Du tout-en-ligne aux appels API Wavestone.</span>
+      </span>
+      <span class="go">&#8594;</span>
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  <span class="src">Philosophie de conception des agents CYB &mdash; Wavestone</span>
+  <a class="jump" href="index.html" style="font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);border-radius:999px;padding:8px 14px">&#8592; retour &agrave; l'accueil</a>
+</footer>
+
+</body>
+</html>

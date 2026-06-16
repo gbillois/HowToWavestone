@@ -308,6 +308,8 @@
 
   :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  /* square corners */
+  *,*::before,*::after{border-radius:0!important}
 </style>
 </head>
 <body>
@@ -315,7 +317,10 @@
 <div class="bar">
   <div class="bar-in">
     <a class="brand" href="index.html"><span class="dot"></span>Wavestone &middot; Vibe coding</a>
-    <a class="jump" href="parcours.html">Les parcours pratiques</a>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <a class="jump" href="philosophie-agents.html">Philosophie agents</a>
+      <a class="jump" href="parcours.html">Les parcours pratiques</a>
+    </div>
   </div>
 </div>
 <div class="scroll-progress" id="scrollProgress"></div>
@@ -337,7 +342,7 @@
 
   <!-- ====== LEVEL 0 : THE CORE TRIO ====== -->
   <div class="level" id="level0">
-    <span class="level-label"><span class="icon">&#9679;</span> Fondation</span>
+    <span class="level-label"><span class="icon"><svg width="0.7em" height="0.7em" viewBox="0 0 10 10" fill="currentColor" style="display:inline-block;vertical-align:middle"><rect width="10" height="10"/></svg></span> Fondation</span>
     <h2>Les 3 briques essentielles</h2>
     <p class="desc">Tout projet de vibe coding repose sur trois piliers. Pas besoin de plus pour d&eacute;marrer.</p>
 
@@ -354,14 +359,14 @@
     <!-- PIPELINE VISUAL: simple scenario -->
     <div class="chain-node" data-reveal>
       <div class="scenario-card">
-        <h4>&#9889; Le sc&eacute;nario le plus simple</h4>
+        <h4><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" style="vertical-align:middle;margin-right:6px"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Le sc&eacute;nario le plus simple</h4>
         <div class="sub">3 briques, une page en ligne en quelques minutes</div>
         <div class="scenario-chain">
-          <span class="sc-node"><span class="sc-icon">&#128193;</span> GitHub</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#129302;</span> Claude Code</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#127760;</span> GitHub Pages</span>
+          <span class="sc-node"><span class="sc-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span> GitHub</span>
+          <span class="sc-arrow">&rarr;</span>
+          <span class="sc-node"><span class="sc-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="4" y="4" width="16" height="16"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></span> Claude Code</span>
+          <span class="sc-arrow">&rarr;</span>
+          <span class="sc-node"><span class="sc-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span> GitHub Pages</span>
         </div>
       </div>
     </div>
@@ -372,7 +377,7 @@
     <div class="chain-node" data-reveal>
       <div class="core-row">
         <div class="block primary">
-          <div class="block-icon repo">&#128193;</div>
+          <div class="block-icon repo"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
           <h3>Stocker ton code</h3>
           <p>Un endroit pour stocker, versionner et historiser chaque modification de ton code source.</p>
           <div class="examples">
@@ -382,7 +387,7 @@
           </div>
         </div>
         <div class="block primary">
-          <div class="block-icon editor">&#129302;</div>
+          <div class="block-icon editor"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="4" y="4" width="16" height="16"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></div>
           <h3>Modifier ton code</h3>
           <p>Un outil &mdash; souvent pilot&eacute; par l'IA &mdash; qui &eacute;crit et modifie le code &agrave; ta place ou avec toi.</p>
           <div class="examples">
@@ -392,7 +397,7 @@
           </div>
         </div>
         <div class="block primary">
-          <div class="block-icon run">&#9654;</div>
+          <div class="block-icon run"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
           <h3>Ex&eacute;cuter ton app</h3>
           <p>Rendre ton code vivant : l'h&eacute;berger sur Internet ou le lancer sur ta machine.</p>
           <div class="examples">
@@ -422,23 +427,23 @@
     </div>
 
     <div class="chain-node level" data-reveal id="level1">
-      <span class="level-label"><span class="icon">&#127760;</span> Niveau 1 &mdash; Web simple</span>
+      <span class="level-label"><span class="icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span> Niveau 1 &mdash; Web simple</span>
       <h2>H&eacute;berger sur Internet</h2>
       <p class="desc">Le chemin le plus direct : tu codes, tu pousses, c'est en ligne. Id&eacute;al pour des pages, des outils et des prototypes.</p>
     </div>
 
     <div class="chain-node" data-reveal>
       <div class="scenario-card">
-        <h4>&#128279; Cha&icirc;ne de liaison</h4>
+        <h4><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" style="vertical-align:middle;margin-right:6px"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Cha&icirc;ne de liaison</h4>
         <div class="sub">Le code va du repository &agrave; l'h&eacute;bergeur, automatiquement</div>
         <div class="scenario-chain">
-          <span class="sc-node"><span class="sc-icon">&#129302;</span> IA</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#128193;</span> Repo</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#9881;</span> Build auto</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#127760;</span> Site en ligne</span>
+          <span class="sc-node"><span class="sc-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="4" y="4" width="16" height="16"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></span> IA</span>
+          <span class="sc-arrow">&rarr;</span>
+          <span class="sc-node"><span class="sc-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span> Repo</span>
+          <span class="sc-arrow">&rarr;</span>
+          <span class="sc-node"><span class="sc-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span> Build auto</span>
+          <span class="sc-arrow">&rarr;</span>
+          <span class="sc-node"><span class="sc-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span> Site en ligne</span>
         </div>
       </div>
     </div>
@@ -490,21 +495,21 @@
     </div>
 
     <div class="chain-node level" data-reveal id="level2">
-      <span class="level-label"><span class="icon">&#128187;</span> Niveau 2 &mdash; Ex&eacute;cution locale</span>
+      <span class="level-label"><span class="icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="2" y="3" width="20" height="14"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span> Niveau 2 &mdash; Ex&eacute;cution locale</span>
       <h2>Utiliser ton ordinateur</h2>
       <p class="desc">Pas besoin d'Internet pour ex&eacute;cuter. Ton code tourne en local avec diff&eacute;rentes m&eacute;thodes.</p>
     </div>
 
     <div class="chain-node" data-reveal>
       <div class="scenario-card">
-        <h4>&#128279; Cha&icirc;ne de liaison</h4>
+        <h4><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" style="vertical-align:middle;margin-right:6px"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Cha&icirc;ne de liaison</h4>
         <div class="sub">Le code reste sur ta machine, tu l'ex&eacute;cutes directement</div>
         <div class="scenario-chain">
-          <span class="sc-node"><span class="sc-icon">&#129302;</span> IA</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#128193;</span> Dossier local</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#128187;</span> Ta machine</span>
+          <span class="sc-node"><span class="sc-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="4" y="4" width="16" height="16"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></span> IA</span>
+          <span class="sc-arrow">&rarr;</span>
+          <span class="sc-node"><span class="sc-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span> Dossier local</span>
+          <span class="sc-arrow">&rarr;</span>
+          <span class="sc-node"><span class="sc-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="2" y="3" width="20" height="14"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></span> Ta machine</span>
         </div>
       </div>
     </div>
@@ -557,23 +562,23 @@
     </div>
 
     <div class="chain-node level" data-reveal id="level3">
-      <span class="level-label"><span class="icon">&#128451;</span> Niveau 3 &mdash; Ressources externes</span>
+      <span class="level-label"><span class="icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></span> Niveau 3 &mdash; Ressources externes</span>
       <h2>Connecter des ressources</h2>
       <p class="desc">Ton application a besoin de donn&eacute;es, de stockage ou de services tiers ? La cha&icirc;ne s'allonge.</p>
     </div>
 
     <div class="chain-node" data-reveal>
       <div class="scenario-card">
-        <h4>&#128279; Cha&icirc;ne de liaison</h4>
+        <h4><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" style="vertical-align:middle;margin-right:6px"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Cha&icirc;ne de liaison</h4>
         <div class="sub">L'application communique avec des services externes &mdash; cloud ou on-premise</div>
         <div class="scenario-chain">
-          <span class="sc-node"><span class="sc-icon">&#129302;</span> IA</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#128193;</span> Repo</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#9654;</span> App</span>
-          <span class="sc-arrow">&#10132;</span>
-          <span class="sc-node"><span class="sc-icon">&#128451;</span> BDD / API / Cloudflare / Azure / AWS</span>
+          <span class="sc-node"><span class="sc-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="4" y="4" width="16" height="16"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></span> IA</span>
+          <span class="sc-arrow">&rarr;</span>
+          <span class="sc-node"><span class="sc-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span> Repo</span>
+          <span class="sc-arrow">&rarr;</span>
+          <span class="sc-node"><span class="sc-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></span> App</span>
+          <span class="sc-arrow">&rarr;</span>
+          <span class="sc-node"><span class="sc-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></span> BDD / API / Cloudflare / Azure / AWS</span>
         </div>
       </div>
     </div>
@@ -618,7 +623,7 @@
         <div class="path-card">
           <span class="complexity medium">Moyen</span>
           <span class="path-num">D</span>
-          <h4>&#9729; Stack Cloudflare</h4>
+          <h4><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" style="vertical-align:middle;margin-right:6px"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg> Stack Cloudflare</h4>
           <p>Un &eacute;cosyst&egrave;me complet : Workers (serverless), D1 (base SQL), R2 (stockage), KV (cl&eacute;-valeur), Vectorize (vecteurs), Pages (h&eacute;bergement).</p>
           <div class="path-icons">
             <span class="chip teal">Workers</span>
@@ -651,7 +656,7 @@
     </div>
 
     <div class="chain-node level" data-reveal id="level4">
-      <span class="level-label"><span class="icon">&#128640;</span> Niveau 4 &mdash; Distribution avanc&eacute;e</span>
+      <span class="level-label"><span class="icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></span> Niveau 4 &mdash; Distribution avanc&eacute;e</span>
       <h2>Publier et distribuer</h2>
       <p class="desc">Aller au bout : publier sur les stores, cr&eacute;er des applications natives, toucher des utilisateurs finaux.</p>
     </div>
@@ -661,7 +666,7 @@
         <div class="path-card">
           <span class="complexity hard">Avanc&eacute;</span>
           <span class="path-num">A</span>
-          <h4>&#63743; App Store (iOS)</h4>
+          <h4><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" style="vertical-align:middle;margin-right:6px"><rect x="5" y="2" width="14" height="20"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg> App Store (iOS)</h4>
           <p>Code Swift/SwiftUI via Xcode, tests sur simulateur, puis soumission &agrave; l'App Store. La cha&icirc;ne compl&egrave;te depuis l'IA.</p>
           <div class="path-icons">
             <span class="chip red">Xcode</span>
@@ -673,7 +678,7 @@
         <div class="path-card">
           <span class="complexity hard">Avanc&eacute;</span>
           <span class="path-num">B</span>
-          <h4>&#129302; Application client lourd</h4>
+          <h4><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" style="vertical-align:middle;margin-right:6px"><rect x="4" y="4" width="16" height="16"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg> Application client lourd</h4>
           <p>Application bureau (Windows/Mac/Linux) distribu&eacute;e en <code>.exe</code>, <code>.dmg</code> ou installateur. Electron, Tauri, Qt&hellip;</p>
           <div class="path-icons">
             <span class="chip red">Electron</span>
@@ -690,35 +695,35 @@
     <!-- Full pipeline: iOS -->
     <div class="chain-node" data-reveal>
       <div class="pipeline">
-        <h3>&#63743; Pipeline iOS <span class="ac">compl&egrave;te</span></h3>
+        <h3><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" style="vertical-align:middle;margin-right:6px"><rect x="5" y="2" width="14" height="20"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg> Pipeline iOS <span class="ac">compl&egrave;te</span></h3>
         <div class="pipe-flow">
           <div class="pipe-node">
-            <div class="pipe-icon">&#129302;</div>
+            <div class="pipe-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="4" y="4" width="16" height="16"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></div>
             <span class="pipe-label">Claude / IA</span>
           </div>
-          <span class="pipe-arrow">&#10132;</span>
+          <span class="pipe-arrow">&rarr;</span>
           <div class="pipe-node">
-            <div class="pipe-icon">&#128193;</div>
+            <div class="pipe-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
             <span class="pipe-label">Repo Git</span>
           </div>
-          <span class="pipe-arrow">&#10132;</span>
+          <span class="pipe-arrow">&rarr;</span>
           <div class="pipe-node">
-            <div class="pipe-icon">&#128296;</div>
+            <div class="pipe-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
             <span class="pipe-label">Xcode Build</span>
           </div>
-          <span class="pipe-arrow">&#10132;</span>
+          <span class="pipe-arrow">&rarr;</span>
           <div class="pipe-node">
-            <div class="pipe-icon">&#128241;</div>
+            <div class="pipe-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="5" y="2" width="14" height="20"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
             <span class="pipe-label">Simulateur</span>
           </div>
-          <span class="pipe-arrow">&#10132;</span>
+          <span class="pipe-arrow">&rarr;</span>
           <div class="pipe-node">
-            <div class="pipe-icon">&#9989;</div>
+            <div class="pipe-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="3" y="3" width="18" height="18"/><polyline points="9 11 12 14 22 4"/></svg></div>
             <span class="pipe-label">TestFlight</span>
           </div>
-          <span class="pipe-arrow">&#10132;</span>
+          <span class="pipe-arrow">&rarr;</span>
           <div class="pipe-node">
-            <div class="pipe-icon">&#127823;</div>
+            <div class="pipe-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
             <span class="pipe-label">App Store</span>
           </div>
         </div>
@@ -730,35 +735,35 @@
     <!-- Full pipeline: Desktop -->
     <div class="chain-node" data-reveal>
       <div class="pipeline">
-        <h3>&#128187; Pipeline desktop <span class="ac">compl&egrave;te</span></h3>
+        <h3><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" style="vertical-align:middle;margin-right:6px"><rect x="2" y="3" width="20" height="14"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Pipeline desktop <span class="ac">compl&egrave;te</span></h3>
         <div class="pipe-flow">
           <div class="pipe-node">
-            <div class="pipe-icon">&#129302;</div>
+            <div class="pipe-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="4" y="4" width="16" height="16"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></div>
             <span class="pipe-label">Claude / IA</span>
           </div>
-          <span class="pipe-arrow">&#10132;</span>
+          <span class="pipe-arrow">&rarr;</span>
           <div class="pipe-node">
-            <div class="pipe-icon">&#128193;</div>
+            <div class="pipe-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
             <span class="pipe-label">Repo Git</span>
           </div>
-          <span class="pipe-arrow">&#10132;</span>
+          <span class="pipe-arrow">&rarr;</span>
           <div class="pipe-node">
-            <div class="pipe-icon">&#9881;</div>
+            <div class="pipe-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
             <span class="pipe-label">Build CI</span>
           </div>
-          <span class="pipe-arrow">&#10132;</span>
+          <span class="pipe-arrow">&rarr;</span>
           <div class="pipe-node">
-            <div class="pipe-icon">&#128230;</div>
+            <div class="pipe-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg></div>
             <span class="pipe-label">Package</span>
           </div>
-          <span class="pipe-arrow">&#10132;</span>
+          <span class="pipe-arrow">&rarr;</span>
           <div class="pipe-node">
-            <div class="pipe-icon">&#128272;</div>
+            <div class="pipe-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="3" y="11" width="18" height="11"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
             <span class="pipe-label">Signature</span>
           </div>
-          <span class="pipe-arrow">&#10132;</span>
+          <span class="pipe-arrow">&rarr;</span>
           <div class="pipe-node">
-            <div class="pipe-icon">&#128229;</div>
+            <div class="pipe-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
             <span class="pipe-label">Distribution</span>
           </div>
         </div>
@@ -773,27 +778,27 @@
     </div>
 
     <div class="chain-node level" data-reveal id="recap">
-      <span class="level-label"><span class="icon">&#128200;</span> R&eacute;capitulatif</span>
+      <span class="level-label"><span class="icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span> R&eacute;capitulatif</span>
       <h2>Vue d'ensemble</h2>
       <p class="desc">Tous les chemins partent des m&ecirc;mes 3 briques. La complexit&eacute; vient de la destination et des ressources connect&eacute;es.</p>
     </div>
 
     <div class="chain-node" data-reveal>
       <div class="pipeline" style="background:var(--ws-gradient-brand)">
-        <h3 style="font-size:20px">&#127919; La r&egrave;gle d'or du vibe coding</h3>
+        <h3 style="font-size:20px"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" style="vertical-align:middle;margin-right:6px"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> La r&egrave;gle d'or du vibe coding</h3>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:12px">
           <div style="text-align:center;padding:16px">
-            <div style="font-size:32px;margin-bottom:8px">&#128193;</div>
+            <div style="font-size:32px;margin-bottom:8px"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
             <div style="font-family:var(--ws-font-display);font-weight:700;font-size:15px;color:#fff">1. Stocke</div>
             <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px">Un repository pour tout historiser</div>
           </div>
           <div style="text-align:center;padding:16px">
-            <div style="font-size:32px;margin-bottom:8px">&#129302;</div>
+            <div style="font-size:32px;margin-bottom:8px"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="4" y="4" width="16" height="16"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></div>
             <div style="font-family:var(--ws-font-display);font-weight:700;font-size:15px;color:#fff">2. &Eacute;cris avec l'IA</div>
             <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px">D&eacute;cris, l'IA code pour toi</div>
           </div>
           <div style="text-align:center;padding:16px">
-            <div style="font-size:32px;margin-bottom:8px">&#9654;</div>
+            <div style="font-size:32px;margin-bottom:8px"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
             <div style="font-family:var(--ws-font-display);font-weight:700;font-size:15px;color:#fff">3. Ex&eacute;cute</div>
             <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:4px">En ligne, en local, ou sur un store</div>
           </div>
@@ -808,7 +813,7 @@
       <div class="paths-full">
         <div class="path-card" style="border-left:4px solid var(--ws-green-400)">
           <h4 style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-            <span style="font-size:18px">&#128204;</span> Les niveaux de complexit&eacute;
+            <span style="font-size:18px"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" style="vertical-align:middle"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span> Les niveaux de complexit&eacute;
           </h4>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px">
             <div>
