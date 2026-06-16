@@ -187,7 +187,6 @@
   <div class="bar-in">
     <a class="brand" href="index.html" style="text-decoration:none"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
     <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-      <a class="jump" href="vibe-coding.html" data-i18n="nav.principes">Les principes</a>
       <a class="jump" href="philosophie-agents.html" data-i18n="nav.agents">Philosophie agents</a>
       <a class="jump" href="showcase.html" data-i18n="nav.usecases">Use cases</a>
       <a class="jump" href="#infos" data-i18n="nav.infos">Infos &amp; liens utiles</a>
@@ -203,7 +202,7 @@
   <div class="hero-in">
     <span class="eyebrow" data-i18n="hero.eyebrow">Guide de d&eacute;marrage</span>
     <h1 data-i18n="hero.title">Choisis ton <span class="ac">parcours</span></h1>
-    <p class="lede" data-i18n="hero.lede">Trois chemins pour passer de l'id&eacute;e au code avec Claude &mdash; de l'application sur ta machine jusqu'aux appels &agrave; un mod&egrave;le d'IA dans l'environnement Wavestone.</p>
+    <p class="lede" data-i18n="hero.lede">Toutes les approches pour passer de l'id&eacute;e au code avec Claude &mdash; de l'application sur ta machine aux ressources externes, en passant par les appels d'API et la distribution avanc&eacute;e. &Eacute;tapes, options et liens inclus.</p>
     <p class="tagline" data-i18n="hero.tagline"># environnement wavestone &middot; licence claude entreprise &middot; sans droits admin</p>
   </div>
 </header>
@@ -238,6 +237,27 @@
       <h3 data-i18n="tile4.h3">Appeler un mod&egrave;le d'IA dans mon appli</h3>
       <p data-i18n="tile4.p">Int&eacute;grer des appels &agrave; un mod&egrave;le d'IA via des cl&eacute;s API, dans l'environnement Wavestone.</p>
       <div class="stack"><span class="chip" data-i18n="tile4.chip1">Cl&eacute;s API Wavestone</span><span class="chip">Microsoft</span></div>
+    </button>
+
+    <button class="tile" data-target="pL2">
+      <span class="idx">04</span>
+      <h3 data-i18n="tileL2.h3">Ex&eacute;cuter ton app en local</h3>
+      <p data-i18n="tileL2.p">Trois fa&ccedil;ons de faire tourner ton code sur ta machine, sans h&eacute;bergement.</p>
+      <div class="stack" data-i18n="tileL2.stack"><span class="chip">Navigateur</span><span class="chip">Python</span><span class="chip">Electron</span></div>
+    </button>
+
+    <button class="tile" data-target="pL3">
+      <span class="idx">05</span>
+      <h3 data-i18n="tileL3.h3">Connecter des ressources externes</h3>
+      <p data-i18n="tileL3.p">Bases de donn&eacute;es, stockage, services tiers et appels d'API pour enrichir ton application.</p>
+      <div class="stack" data-i18n="tileL3.stack"><span class="chip">Base de donn&eacute;es</span><span class="chip">API</span><span class="chip">Cloud</span></div>
+    </button>
+
+    <button class="tile" data-target="pL4">
+      <span class="idx">06</span>
+      <h3 data-i18n="tileL4.h3">Publier et distribuer</h3>
+      <p data-i18n="tileL4.p">Aller au bout : stores mobiles, applications natives de bureau et pipelines complets.</p>
+      <div class="stack" data-i18n="tileL4.stack"><span class="chip">App Store</span><span class="chip">Desktop</span><span class="chip">Pipeline</span></div>
     </button>
   </div>
 
@@ -394,6 +414,134 @@
       </div>
     </section>
 
+    <!-- ============ EXECUTION LOCALE (vibe L2) ============ -->
+    <section class="panel" data-panel="pL2">
+      <div class="panel-head">
+        <div class="t">
+          <span class="eyebrow" data-i18n="pL2.eyebrow">Ex&eacute;cution locale</span>
+          <h2 data-i18n="pL2.h2">Faire tourner ton app sur ta machine</h2>
+          <div class="sub" data-i18n="pL2.sub">Pas besoin d'Internet pour ex&eacute;cuter. Choisis la m&eacute;thode adapt&eacute;e &agrave; ton app.</div>
+        </div>
+        <div class="prog"><b class="dn">0</b>/<span class="tot">3</span> <span data-i18n="prog.etapes">&eacute;tapes</span></div>
+      </div>
+      <div class="steps">
+        <div class="spine"><div class="spine-fill"></div></div>
+        <div class="step">
+          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+          <div class="scard">
+            <h4 data-i18n="pL2.s1.h4">Fichier dans le navigateur</h4>
+            <div class="do" data-i18n="pL2.s1.do">Double-clique sur un fichier <code>.html</code> : ton navigateur l&rsquo;ouvre directement via <code>file://</code>. Z&eacute;ro serveur.</div>
+            <div class="stack" data-i18n="pL2.s1.chips"><span class="chip">HTML</span><span class="chip">file://</span><span class="chip">Instantan&eacute;</span></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+          <div class="scard">
+            <h4 data-i18n="pL2.s2.h4">Script Python</h4>
+            <div class="do" data-i18n="pL2.s2.do">Lance <code>python script.py</code> dans le terminal : traitement de donn&eacute;es, automatisation, scraping&hellip;</div>
+            <div class="stack" data-i18n="pL2.s2.chips"><span class="chip">Python</span><span class="chip">Terminal</span><span class="chip">pip install</span></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+          <div class="scard">
+            <h4 data-i18n="pL2.s3.h4">Application ex&eacute;cutable</h4>
+            <div class="do" data-i18n="pL2.s3.do">Un <code>.exe</code> ou une app Electron que tu lances comme n&rsquo;importe quel logiciel sur ton bureau.</div>
+            <div class="stack" data-i18n="pL2.s3.chips"><span class="chip">Electron</span><span class="chip">.exe</span><span class="chip">Bureau</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ RESSOURCES EXTERNES (vibe L3) ============ -->
+    <section class="panel" data-panel="pL3">
+      <div class="panel-head">
+        <div class="t">
+          <span class="eyebrow" data-i18n="pL3.eyebrow">Ressources externes</span>
+          <h2 data-i18n="pL3.h2">Connecter des donn&eacute;es et des services</h2>
+          <div class="sub" data-i18n="pL3.sub">Ton application a besoin de stockage, de donn&eacute;es ou de services tiers ? La cha&icirc;ne s'allonge.</div>
+        </div>
+        <div class="prog"><b class="dn">0</b>/<span class="tot">4</span> <span data-i18n="prog.etapes">&eacute;tapes</span></div>
+      </div>
+      <div class="steps">
+        <div class="spine"><div class="spine-fill"></div></div>
+        <div class="step">
+          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+          <div class="scard">
+            <h4 data-i18n="pL3.s1.h4">Base de donn&eacute;es relationnelle</h4>
+            <div class="do" data-i18n="pL3.s1.do">PostgreSQL, MySQL, SQLite&hellip; pour stocker des donn&eacute;es structur&eacute;es (utilisateurs, commandes, etc.).</div>
+            <div class="stack" data-i18n="pL3.s1.chips"><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">SQLite</span></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+          <div class="scard">
+            <h4 data-i18n="pL3.s2.h4">Base vectorielle</h4>
+            <div class="do" data-i18n="pL3.s2.do">Pinecone, Chroma, Weaviate&hellip; pour la recherche s&eacute;mantique et le RAG (IA + documents).</div>
+            <div class="stack" data-i18n="pL3.s2.chips"><span class="chip">Pinecone</span><span class="chip">Chroma</span><span class="chip">RAG</span></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+          <div class="scard">
+            <h4 data-i18n="pL3.s3.h4">Appels API</h4>
+            <div class="do" data-i18n="pL3.s3.do">Consommer des services tiers : paiement (Stripe), email (SendGrid), IA (OpenAI, Claude)&hellip;</div>
+            <div class="stack" data-i18n="pL3.s3.chips"><span class="chip">REST API</span><span class="chip">Cl&eacute;s API</span><span class="chip">Webhooks</span></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">4</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+          <div class="scard">
+            <h4 data-i18n="pL3.s4.h4">Stack Cloudflare</h4>
+            <div class="do" data-i18n="pL3.s4.do">Un &eacute;cosyst&egrave;me complet : Workers (serverless), D1 (base SQL), R2 (stockage), KV (cl&eacute;-valeur), Vectorize, Pages (h&eacute;bergement).</div>
+            <div class="stack" data-i18n="pL3.s4.chips"><span class="chip">Workers</span><span class="chip">D1</span><span class="chip">R2</span><span class="chip">KV</span><span class="chip">Pages</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="note">
+        <div class="lab" data-i18n="pL3.gov.lab">Gouvernance Wavestone &mdash; H&eacute;bergement interne</div>
+        <p data-i18n="pL3.gov.p1">Pour les <b>donn&eacute;es clients sensibles</b>, deux options internes sont disponibles :</p>
+        <p data-i18n="pL3.gov.p2">&bull; <b>Microsoft Azure</b> <span style="font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);padding:2px 8px;font-weight:600">recommand&eacute;</span> &mdash; environnement int&eacute;gr&eacute; &agrave; l'&eacute;cosyst&egrave;me Wavestone (Azure SQL, Azure OpenAI, Blob Storage, App Service). Privil&eacute;gi&eacute; pour rester dans le p&eacute;rim&egrave;tre ma&icirc;tris&eacute;.</p>
+        <p data-i18n="pL3.gov.p3">&bull; <b>Amazon Web Services (AWS)</b> &mdash; alternative disponible pour certains cas d'usage (DynamoDB, S3, Lambda, Bedrock). &Agrave; valider avec la gouvernance IT.</p>
+        <p data-i18n="pL3.gov.p4">Les <b>cl&eacute;s API Wavestone</b> permettent dans les deux cas de rester dans un p&eacute;rim&egrave;tre s&eacute;curis&eacute; et trac&eacute;.</p>
+      </div>
+    </section>
+
+    <!-- ============ DISTRIBUTION AVANCEE (vibe L4) ============ -->
+    <section class="panel" data-panel="pL4">
+      <div class="panel-head">
+        <div class="t">
+          <span class="eyebrow" data-i18n="pL4.eyebrow">Distribution avanc&eacute;e</span>
+          <h2 data-i18n="pL4.h2">Publier sur les stores et en natif</h2>
+          <div class="sub" data-i18n="pL4.sub">Aller au bout : publier sur les stores, cr&eacute;er des applications natives, toucher des utilisateurs finaux.</div>
+        </div>
+        <div class="prog"><b class="dn">0</b>/<span class="tot">2</span> <span data-i18n="prog.etapes">&eacute;tapes</span></div>
+      </div>
+      <div class="steps">
+        <div class="spine"><div class="spine-fill"></div></div>
+        <div class="step">
+          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+          <div class="scard">
+            <h4 data-i18n="pL4.s1.h4">App Store (iOS)</h4>
+            <div class="do" data-i18n="pL4.s1.do">Code Swift/SwiftUI via Xcode, tests sur simulateur, puis soumission &agrave; l&rsquo;App Store. La cha&icirc;ne compl&egrave;te depuis l&rsquo;IA.</div>
+            <div class="stack" data-i18n="pL4.s1.chips"><span class="chip">Xcode</span><span class="chip">Swift</span><span class="chip">App Store</span><span class="chip">TestFlight</span></div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+          <div class="scard">
+            <h4 data-i18n="pL4.s2.h4">Application client lourd</h4>
+            <div class="do" data-i18n="pL4.s2.do">Application bureau (Windows/Mac/Linux) distribu&eacute;e en <code>.exe</code>, <code>.dmg</code> ou installateur. Electron, Tauri, Qt&hellip;</div>
+            <div class="stack" data-i18n="pL4.s2.chips"><span class="chip">Electron</span><span class="chip">Tauri</span><span class="chip">.exe / .dmg</span><span class="chip">Installeur</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="note">
+        <div class="lab" data-i18n="pL4.pipe.lab">Pipelines compl&egrave;tes</div>
+        <p data-i18n="pL4.pipe.p"><b>iOS :</b> Claude &rarr; Repo Git &rarr; Xcode &rarr; Simulateur &rarr; TestFlight &rarr; App Store.<br><b>Desktop :</b> Claude &rarr; Repo Git &rarr; Build CI &rarr; Installeur &rarr; Distribution.</p>
+      </div>
+    </section>
+
   </div>
 
   <!-- ============ INFOS UTILES ============ -->
@@ -504,13 +652,12 @@
 window.WS_I18N = {
   en: {
     "__title": "Wavestone CYB AI Maker — Choose your path",
-    "nav.principes": "The principles",
     "nav.agents": "Agent philosophy",
     "nav.usecases": "Use cases",
     "nav.infos": "Info &amp; useful links",
     "hero.eyebrow": "Getting-started guide",
     "hero.title": "Choose your <span class=\"ac\">path</span>",
-    "hero.lede": "Three routes to go from idea to code with Claude &mdash; from an app on your own machine to calling an AI model inside the Wavestone environment.",
+    "hero.lede": "Every approach to go from idea to code with Claude &mdash; from an app on your own machine to external resources, API calls and advanced distribution. Steps, options and links included.",
     "hero.tagline": "# wavestone environment &middot; claude enterprise licence &middot; no admin rights",
     "chooser.eyebrow": "Where to start",
     "chooser.h2": "What's your goal?",
@@ -576,18 +723,69 @@ window.WS_I18N = {
     "infos.dl.h3": "Downloads",
     "infos.dl.github": "GitHub (account)",
     "infos.dl.ext": "Claude Code extension (VS Code)",
+    "tileL2.h3": "Run your app locally",
+    "tileL2.p": "Three ways to run your code on your own machine, with no hosting.",
+    "tileL2.stack": "<span class=\"chip\">Browser</span><span class=\"chip\">Python</span><span class=\"chip\">Electron</span>",
+    "tileL3.h3": "Connect external resources",
+    "tileL3.p": "Databases, storage, third-party services and API calls to enrich your application.",
+    "tileL3.stack": "<span class=\"chip\">Database</span><span class=\"chip\">API</span><span class=\"chip\">Cloud</span>",
+    "tileL4.h3": "Publish and distribute",
+    "tileL4.p": "Go all the way: mobile stores, native desktop apps and full pipelines.",
+    "tileL4.stack": "<span class=\"chip\">App Store</span><span class=\"chip\">Desktop</span><span class=\"chip\">Pipeline</span>",
+    "pL2.eyebrow": "Local execution",
+    "pL2.h2": "Run your app on your own machine",
+    "pL2.sub": "No internet needed to run it. Pick the method that fits your app.",
+    "pL2.s1.h4": "File in the browser",
+    "pL2.s1.do": "Double-click an <code>.html</code> file: your browser opens it directly via <code>file://</code>. Zero server.",
+    "pL2.s1.chips": "<span class=\"chip\">HTML</span><span class=\"chip\">file://</span><span class=\"chip\">Instant</span>",
+    "pL2.s2.h4": "Python script",
+    "pL2.s2.do": "Run <code>python script.py</code> in the terminal: data processing, automation, scraping&hellip;",
+    "pL2.s2.chips": "<span class=\"chip\">Python</span><span class=\"chip\">Terminal</span><span class=\"chip\">pip install</span>",
+    "pL2.s3.h4": "Executable application",
+    "pL2.s3.do": "A <code>.exe</code> or an Electron app you launch like any other software on your desktop.",
+    "pL2.s3.chips": "<span class=\"chip\">Electron</span><span class=\"chip\">.exe</span><span class=\"chip\">Desktop</span>",
+    "pL3.eyebrow": "External resources",
+    "pL3.h2": "Connect data and services",
+    "pL3.sub": "Does your app need storage, data or third-party services? The chain gets longer.",
+    "pL3.s1.h4": "Relational database",
+    "pL3.s1.do": "PostgreSQL, MySQL, SQLite&hellip; to store structured data (users, orders, etc.).",
+    "pL3.s1.chips": "<span class=\"chip\">PostgreSQL</span><span class=\"chip\">MySQL</span><span class=\"chip\">SQLite</span>",
+    "pL3.s2.h4": "Vector database",
+    "pL3.s2.do": "Pinecone, Chroma, Weaviate&hellip; for semantic search and RAG (AI + documents).",
+    "pL3.s2.chips": "<span class=\"chip\">Pinecone</span><span class=\"chip\">Chroma</span><span class=\"chip\">RAG</span>",
+    "pL3.s3.h4": "API calls",
+    "pL3.s3.do": "Consume third-party services: payment (Stripe), email (SendGrid), AI (OpenAI, Claude)&hellip;",
+    "pL3.s3.chips": "<span class=\"chip\">REST API</span><span class=\"chip\">API keys</span><span class=\"chip\">Webhooks</span>",
+    "pL3.s4.h4": "Cloudflare stack",
+    "pL3.s4.do": "A complete ecosystem: Workers (serverless), D1 (SQL database), R2 (storage), KV (key-value), Vectorize, Pages (hosting).",
+    "pL3.s4.chips": "<span class=\"chip\">Workers</span><span class=\"chip\">D1</span><span class=\"chip\">R2</span><span class=\"chip\">KV</span><span class=\"chip\">Pages</span>",
+    "pL3.gov.lab": "Wavestone governance &mdash; internal hosting",
+    "pL3.gov.p1": "For <b>sensitive client data</b>, two internal options are available:",
+    "pL3.gov.p2": "&bull; <b>Microsoft Azure</b> <span style=\"font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);padding:2px 8px;font-weight:600\">recommended</span> &mdash; environment integrated with the Wavestone ecosystem (Azure SQL, Azure OpenAI, Blob Storage, App Service). Preferred to stay within the controlled perimeter.",
+    "pL3.gov.p3": "&bull; <b>Amazon Web Services (AWS)</b> &mdash; alternative available for some use cases (DynamoDB, S3, Lambda, Bedrock). To be validated with IT governance.",
+    "pL3.gov.p4": "In both cases, <b>Wavestone API keys</b> keep you within a secure, traceable perimeter.",
+    "pL4.eyebrow": "Advanced distribution",
+    "pL4.h2": "Publish to stores and as native apps",
+    "pL4.sub": "Go all the way: publish to the stores, build native apps, reach end users.",
+    "pL4.s1.h4": "App Store (iOS)",
+    "pL4.s1.do": "Swift/SwiftUI code via Xcode, testing on the simulator, then submission to the App Store. The full chain from AI.",
+    "pL4.s1.chips": "<span class=\"chip\">Xcode</span><span class=\"chip\">Swift</span><span class=\"chip\">App Store</span><span class=\"chip\">TestFlight</span>",
+    "pL4.s2.h4": "Heavy desktop client",
+    "pL4.s2.do": "Desktop application (Windows/Mac/Linux) distributed as <code>.exe</code>, <code>.dmg</code> or an installer. Electron, Tauri, Qt&hellip;",
+    "pL4.s2.chips": "<span class=\"chip\">Electron</span><span class=\"chip\">Tauri</span><span class=\"chip\">.exe / .dmg</span><span class=\"chip\">Installer</span>",
+    "pL4.pipe.lab": "Full pipelines",
+    "pL4.pipe.p": "<b>iOS:</b> Claude &rarr; Git repo &rarr; Xcode &rarr; Simulator &rarr; TestFlight &rarr; App Store.<br><b>Desktop:</b> Claude &rarr; Git repo &rarr; CI build &rarr; Installer &rarr; Distribution.",
     "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; getting-started guide",
     "footer.reset": "reset progress"
   },
   de: {
     "__title": "Wavestone CYB AI Maker — W&auml;hle deinen Weg",
-    "nav.principes": "Die Prinzipien",
     "nav.agents": "Agenten-Philosophie",
     "nav.usecases": "Anwendungsf&auml;lle",
     "nav.infos": "Infos &amp; n&uuml;tzliche Links",
     "hero.eyebrow": "Einstiegsleitfaden",
     "hero.title": "W&auml;hle deinen <span class=\"ac\">Weg</span>",
-    "hero.lede": "Drei Wege, um mit Claude von der Idee zum Code zu gelangen &mdash; von der App auf dem eigenen Rechner bis zum Aufruf eines KI-Modells in der Wavestone-Umgebung.",
+    "hero.lede": "Alle Ans&auml;tze, um mit Claude von der Idee zum Code zu gelangen &mdash; von der App auf dem eigenen Rechner &uuml;ber externe Ressourcen bis zu API-Aufrufen und fortgeschrittener Distribution. Schritte, Optionen und Links inklusive.",
     "hero.tagline": "# wavestone-umgebung &middot; claude-enterprise-lizenz &middot; ohne admin-rechte",
     "chooser.eyebrow": "Wo anfangen",
     "chooser.h2": "Was ist dein Ziel?",
@@ -653,6 +851,58 @@ window.WS_I18N = {
     "infos.dl.h3": "Downloads",
     "infos.dl.github": "GitHub (Konto)",
     "infos.dl.ext": "Claude-Code-Erweiterung (VS Code)",
+    "tileL2.h3": "Deine App lokal ausf&uuml;hren",
+    "tileL2.p": "Drei Wege, deinen Code auf dem eigenen Rechner laufen zu lassen, ohne Hosting.",
+    "tileL2.stack": "<span class=\"chip\">Browser</span><span class=\"chip\">Python</span><span class=\"chip\">Electron</span>",
+    "tileL3.h3": "Externe Ressourcen anbinden",
+    "tileL3.p": "Datenbanken, Speicher, Drittdienste und API-Aufrufe, um deine Anwendung zu erweitern.",
+    "tileL3.stack": "<span class=\"chip\">Datenbank</span><span class=\"chip\">API</span><span class=\"chip\">Cloud</span>",
+    "tileL4.h3": "Ver&ouml;ffentlichen und verteilen",
+    "tileL4.p": "Bis zum Ende gehen: Mobile Stores, native Desktop-Apps und vollst&auml;ndige Pipelines.",
+    "tileL4.stack": "<span class=\"chip\">App Store</span><span class=\"chip\">Desktop</span><span class=\"chip\">Pipeline</span>",
+    "pL2.eyebrow": "Lokale Ausf&uuml;hrung",
+    "pL2.h2": "Deine App auf dem eigenen Rechner ausf&uuml;hren",
+    "pL2.sub": "Kein Internet n&ouml;tig, um sie auszuf&uuml;hren. W&auml;hle die Methode, die zu deiner App passt.",
+    "pL2.s1.h4": "Datei im Browser",
+    "pL2.s1.do": "Doppelklicke auf eine <code>.html</code>-Datei: dein Browser &ouml;ffnet sie direkt &uuml;ber <code>file://</code>. Kein Server.",
+    "pL2.s1.chips": "<span class=\"chip\">HTML</span><span class=\"chip\">file://</span><span class=\"chip\">Sofort</span>",
+    "pL2.s2.h4": "Python-Skript",
+    "pL2.s2.do": "F&uuml;hre <code>python script.py</code> im Terminal aus: Datenverarbeitung, Automatisierung, Scraping&hellip;",
+    "pL2.s2.chips": "<span class=\"chip\">Python</span><span class=\"chip\">Terminal</span><span class=\"chip\">pip install</span>",
+    "pL2.s3.h4": "Ausf&uuml;hrbare Anwendung",
+    "pL2.s3.do": "Eine <code>.exe</code> oder eine Electron-App, die du wie jede andere Software auf deinem Desktop startest.",
+    "pL2.s3.chips": "<span class=\"chip\">Electron</span><span class=\"chip\">.exe</span><span class=\"chip\">Desktop</span>",
+    "pL3.eyebrow": "Externe Ressourcen",
+    "pL3.h2": "Daten und Dienste anbinden",
+    "pL3.sub": "Braucht deine App Speicher, Daten oder Drittdienste? Die Kette wird l&auml;nger.",
+    "pL3.s1.h4": "Relationale Datenbank",
+    "pL3.s1.do": "PostgreSQL, MySQL, SQLite&hellip; zum Speichern strukturierter Daten (Nutzer, Bestellungen usw.).",
+    "pL3.s1.chips": "<span class=\"chip\">PostgreSQL</span><span class=\"chip\">MySQL</span><span class=\"chip\">SQLite</span>",
+    "pL3.s2.h4": "Vektordatenbank",
+    "pL3.s2.do": "Pinecone, Chroma, Weaviate&hellip; f&uuml;r semantische Suche und RAG (KI + Dokumente).",
+    "pL3.s2.chips": "<span class=\"chip\">Pinecone</span><span class=\"chip\">Chroma</span><span class=\"chip\">RAG</span>",
+    "pL3.s3.h4": "API-Aufrufe",
+    "pL3.s3.do": "Drittdienste nutzen: Zahlung (Stripe), E-Mail (SendGrid), KI (OpenAI, Claude)&hellip;",
+    "pL3.s3.chips": "<span class=\"chip\">REST API</span><span class=\"chip\">API-Schl&uuml;ssel</span><span class=\"chip\">Webhooks</span>",
+    "pL3.s4.h4": "Cloudflare-Stack",
+    "pL3.s4.do": "Ein komplettes &Ouml;kosystem: Workers (serverless), D1 (SQL-Datenbank), R2 (Speicher), KV (Key-Value), Vectorize, Pages (Hosting).",
+    "pL3.s4.chips": "<span class=\"chip\">Workers</span><span class=\"chip\">D1</span><span class=\"chip\">R2</span><span class=\"chip\">KV</span><span class=\"chip\">Pages</span>",
+    "pL3.gov.lab": "Wavestone-Governance &mdash; internes Hosting",
+    "pL3.gov.p1": "F&uuml;r <b>sensible Kundendaten</b> stehen zwei interne Optionen zur Verf&uuml;gung:",
+    "pL3.gov.p2": "&bull; <b>Microsoft Azure</b> <span style=\"font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);padding:2px 8px;font-weight:600\">empfohlen</span> &mdash; in das Wavestone-&Ouml;kosystem integrierte Umgebung (Azure SQL, Azure OpenAI, Blob Storage, App Service). Bevorzugt, um im kontrollierten Perimeter zu bleiben.",
+    "pL3.gov.p3": "&bull; <b>Amazon Web Services (AWS)</b> &mdash; Alternative f&uuml;r bestimmte Anwendungsf&auml;lle (DynamoDB, S3, Lambda, Bedrock). Mit der IT-Governance abzustimmen.",
+    "pL3.gov.p4": "In beiden F&auml;llen halten dich die <b>Wavestone-API-Schl&uuml;ssel</b> in einem sicheren, nachvollziehbaren Perimeter.",
+    "pL4.eyebrow": "Fortgeschrittene Distribution",
+    "pL4.h2": "In Stores und als native Apps ver&ouml;ffentlichen",
+    "pL4.sub": "Bis zum Ende gehen: in den Stores ver&ouml;ffentlichen, native Apps bauen, Endnutzer erreichen.",
+    "pL4.s1.h4": "App Store (iOS)",
+    "pL4.s1.do": "Swift/SwiftUI-Code &uuml;ber Xcode, Tests im Simulator, dann Einreichung im App Store. Die komplette Kette ab der KI.",
+    "pL4.s1.chips": "<span class=\"chip\">Xcode</span><span class=\"chip\">Swift</span><span class=\"chip\">App Store</span><span class=\"chip\">TestFlight</span>",
+    "pL4.s2.h4": "Schwergewichtiger Desktop-Client",
+    "pL4.s2.do": "Desktop-Anwendung (Windows/Mac/Linux), verteilt als <code>.exe</code>, <code>.dmg</code> oder Installer. Electron, Tauri, Qt&hellip;",
+    "pL4.s2.chips": "<span class=\"chip\">Electron</span><span class=\"chip\">Tauri</span><span class=\"chip\">.exe / .dmg</span><span class=\"chip\">Installer</span>",
+    "pL4.pipe.lab": "Vollst&auml;ndige Pipelines",
+    "pL4.pipe.p": "<b>iOS:</b> Claude &rarr; Git-Repo &rarr; Xcode &rarr; Simulator &rarr; TestFlight &rarr; App Store.<br><b>Desktop:</b> Claude &rarr; Git-Repo &rarr; CI-Build &rarr; Installer &rarr; Distribution.",
     "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; Einstiegsleitfaden",
     "footer.reset": "Fortschritt zur&uuml;cksetzen"
   }
