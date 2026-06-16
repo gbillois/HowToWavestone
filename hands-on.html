@@ -144,7 +144,14 @@
   .shots{display:grid;gap:14px;margin-top:16px;grid-template-columns:1fr}
   @media(min-width:600px){.shots.two{grid-template-columns:1fr 1fr}}
   figure.shot{margin:0;border:1px solid var(--ws-ink-200);background:#fff;box-shadow:var(--ws-shadow-md);overflow:hidden;display:flex;flex-direction:column}
-  figure.shot a.zoom{display:block;line-height:0}
+  figure.shot a.zoom{display:block;line-height:0;cursor:zoom-in}
+
+  /* ---------- lightbox (in-page zoom) ---------- */
+  .lb{position:fixed;inset:0;z-index:200;background:rgba(20,12,46,.9);display:none;align-items:center;justify-content:center;padding:32px;cursor:zoom-out}
+  .lb.on{display:flex}
+  .lb img{max-width:95vw;max-height:90vh;width:auto;height:auto;box-shadow:0 24px 70px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.14);cursor:default}
+  .lb-close{position:fixed;top:18px;right:22px;width:44px;height:44px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.32);color:#fff;font-size:24px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:.18s var(--ws-ease)}
+  .lb-close:hover{background:rgba(255,255,255,.24)}
   figure.shot img{display:block;width:100%;height:auto;background:var(--ws-ink-50);border-bottom:1px solid var(--ws-ink-100)}
   figure.shot figcaption{display:flex;gap:9px;align-items:flex-start;font-family:var(--ws-font-mono);font-size:11.5px;color:var(--ws-ink-500);padding:10px 13px;background:#fff;line-height:1.5}
   figure.shot .sn{flex:0 0 auto;width:18px;height:18px;background:var(--ws-indigo-600);color:#fff;font-family:var(--ws-font-mono);font-weight:600;font-size:10.5px;display:grid;place-items:center;margin-top:1px}
@@ -226,6 +233,10 @@
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg>
       <p data-i18n="hero.tip"><b>Astuce animateur&nbsp;:</b> d&eacute;roulez la page de haut en bas avec le groupe. Cliquez sur les <b>num&eacute;ros</b> pour cocher les &eacute;tapes valid&eacute;es, sur <b>copier</b> pour les prompts, et sur une <b>capture</b> pour l&rsquo;agrandir. Le s&eacute;lecteur de langue est en haut &agrave; droite.</p>
     </div>
+    <div class="host-tip" style="background:rgba(200,134,26,.14);border-color:rgba(200,134,26,.4);border-left-color:var(--ws-warning)">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F0C674" stroke-width="2" stroke-linecap="square"><path d="M10.3 3.9 1.8 18a1.5 1.5 0 0 0 1.3 2.3h17.8A1.5 1.5 0 0 0 22.2 18L13.7 3.9a1.5 1.5 0 0 0-2.6 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/></svg>
+      <p data-i18n="hero.notice"><b>&Agrave; noter&nbsp;:</b> tout l&rsquo;atelier se fait avec des <b>comptes grand public</b> et des <b>outils en ligne gratuits</b>, pour se mettre le pied &agrave; l&rsquo;&eacute;trier. <b>N&rsquo;utilisez aucune donn&eacute;e client ni aucune information interne confidentielle.</b></p>
+    </div>
   </div>
 </header>
 
@@ -236,14 +247,6 @@
     <span class="eyebrow" data-i18n="a.eyebrow">Le concept</span>
     <h2 data-i18n="a.title">Trois briques, et c&rsquo;est tout</h2>
     <p data-i18n="a.intro">Le vibe coding repose sur trois briques qui s&rsquo;encha&icirc;nent. Comprenez-les une fois, vous comprenez tout le reste.</p>
-  </div>
-
-  <div class="rail" aria-hidden="true">
-    <span class="n idea" data-i18n="a.rail1">Une id&eacute;e</span>
-    <span class="ar">&#8594;</span>
-    <span class="n" data-i18n="a.rail2">Du code</span>
-    <span class="ar">&#8594;</span>
-    <span class="n live" data-i18n="a.rail3">Un site en ligne</span>
   </div>
 
   <div class="bricks">
@@ -310,15 +313,15 @@
         <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
         <div class="scard">
           <h4 data-i18n="b2.title">Cr&eacute;er le d&eacute;p&ocirc;t (repository) + README</h4>
-          <div class="do" data-i18n="b2.body">Un <b>d&eacute;p&ocirc;t</b> est le dossier en ligne de votre projet. Le <b>README</b> l&rsquo;initialise pour qu&rsquo;il ne soit pas vide.</div>
+          <div class="do" data-i18n="b2.body">Un <b>d&eacute;p&ocirc;t</b> (repository), c&rsquo;est tout simplement votre <b>projet</b>&nbsp;: un espace en ligne qui regroupe tous ses fichiers et son historique. Le <b>README</b> l&rsquo;initialise pour qu&rsquo;il ne soit pas vide.</div>
           <ol class="clicks" data-i18n="b2.clicks">
-            <li>Cliquez sur <span class="ui-lbl">New</span> pour cr&eacute;er un d&eacute;p&ocirc;t.</li>
-            <li>Saisissez un nom (ex.&nbsp;<code>cyber-academy</code>), laissez <span class="ui-lbl">Public</span>, et cochez <span class="ui-lbl">Add a README file</span>.</li>
+            <li>Cliquez sur <span class="ui-lbl">Create repository</span> pour cr&eacute;er un d&eacute;p&ocirc;t.</li>
+            <li>Saisissez un nom (ex.&nbsp;<code>cyber-academy</code>), laissez <span class="ui-lbl">Public</span>, et activez <span class="ui-lbl">Add README</span>.</li>
             <li>Cliquez sur <span class="ui-lbl">Create repository</span>.</li>
           </ol>
           <div class="shots two">
-            <figure class="shot"><a class="zoom" href="assets/screens/image3.png" target="_blank" rel="noopener"><img src="assets/screens/image3.png" loading="lazy" alt=""></a><figcaption><span class="sn">1</span><span data-i18n="s.b2.1">Cliquez sur &laquo;&nbsp;New&nbsp;&raquo; pour cr&eacute;er un d&eacute;p&ocirc;t.</span></figcaption></figure>
-            <figure class="shot"><a class="zoom" href="assets/screens/image4.png" target="_blank" rel="noopener"><img src="assets/screens/image4.png" loading="lazy" alt=""></a><figcaption><span class="sn">2</span><span data-i18n="s.b2.2">Nommez le d&eacute;p&ocirc;t et cochez &laquo;&nbsp;Add a README file&nbsp;&raquo;.</span></figcaption></figure>
+            <figure class="shot"><a class="zoom" href="assets/screens/image3.png" target="_blank" rel="noopener"><img src="assets/screens/image3.png" loading="lazy" alt=""></a><figcaption><span class="sn">1</span><span data-i18n="s.b2.1">Cliquez sur &laquo;&nbsp;Create repository&nbsp;&raquo; pour cr&eacute;er un d&eacute;p&ocirc;t.</span></figcaption></figure>
+            <figure class="shot"><a class="zoom" href="assets/screens/image4.png" target="_blank" rel="noopener"><img src="assets/screens/image4.png" loading="lazy" alt=""></a><figcaption><span class="sn">2</span><span data-i18n="s.b2.2">Nommez le d&eacute;p&ocirc;t et activez &laquo;&nbsp;Add README&nbsp;&raquo;.</span></figcaption></figure>
             <figure class="shot"><a class="zoom" href="assets/screens/image5.png" target="_blank" rel="noopener"><img src="assets/screens/image5.png" loading="lazy" alt=""></a><figcaption><span class="sn">3</span><span data-i18n="s.b2.3">Le d&eacute;p&ocirc;t est cr&eacute;&eacute;.</span></figcaption></figure>
           </div>
           <div class="links"><a class="lk" href="https://github.com/new" target="_blank" rel="noopener">github.com/new <span class="ar">&#8599;</span></a></div>
@@ -329,8 +332,8 @@
       <div class="step">
         <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
         <div class="scard">
-          <h4 data-i18n="b3.title">Activer GitHub Pages</h4>
-          <div class="do" data-i18n="b3.body">GitHub Pages publie automatiquement le contenu de la branche <code>main</code> sur une vraie URL.</div>
+          <h4 data-i18n="b3.title">Activer GitHub Pages pour mettre votre site en ligne</h4>
+          <div class="do" data-i18n="b3.body">GitHub Pages publie automatiquement le contenu de la branche <code>main</code> sur une vraie URL. Une <b>branche</b>, c&rsquo;est comme un r&eacute;pertoire de travail&nbsp;; <code>main</code> est le r&eacute;pertoire principal de votre projet.</div>
           <ol class="clicks" data-i18n="b3.clicks">
             <li>Ouvrez <span class="ui-lbl">Settings &rarr; Pages</span>.</li>
             <li>Sous <span class="ui-lbl">Source</span>, choisissez <span class="ui-lbl">Deploy from a branch</span>.</li>
@@ -344,10 +347,6 @@
             <figure class="shot"><a class="zoom" href="assets/screens/image8.png" target="_blank" rel="noopener"><img src="assets/screens/image8.png" loading="lazy" alt=""></a><figcaption><span class="sn">3</span><span data-i18n="s.b3.3">Branche main, dossier / (root), puis Save.</span></figcaption></figure>
             <figure class="shot"><a class="zoom" href="assets/screens/image9.png" target="_blank" rel="noopener"><img src="assets/screens/image9.png" loading="lazy" alt=""></a><figcaption><span class="sn">4</span><span data-i18n="s.b3.4">Patientez&nbsp;: GitHub construit le site.</span></figcaption></figure>
             <figure class="shot"><a class="zoom" href="assets/screens/image10.png" target="_blank" rel="noopener"><img src="assets/screens/image10.png" loading="lazy" alt=""></a><figcaption><span class="sn">5</span><span data-i18n="s.b3.5">Le site est en ligne &mdash; ne l&rsquo;ouvrez pas encore.</span></figcaption></figure>
-          </div>
-          <div class="note">
-            <div class="lab" data-i18n="word.tip">Astuce</div>
-            <p data-i18n="b3.tip">Gardez cet onglet ouvert&nbsp;: c&rsquo;est ici que vous verrez l&rsquo;URL et que chaque nouvelle version est mise en ligne (<code>https://votre-nom.github.io/cyber-academy/</code>).</p>
           </div>
           <div class="links"><a class="lk" href="https://pages.github.com/" target="_blank" rel="noopener">pages.github.com <span class="ar">&#8599;</span></a></div>
         </div>
@@ -371,7 +370,7 @@
           </div>
           <div class="note green">
             <div class="lab" data-i18n="word.good">Bon &agrave; savoir</div>
-            <p data-i18n="b4.note">Codex n&eacute;cessite un forfait <b>ChatGPT payant</b> (Plus, Team ou Pro). Pr&eacute;voyez-le avant la s&eacute;ance. Claude Code peut jouer le m&ecirc;me r&ocirc;le si vous pr&eacute;f&eacute;rez.</p>
+            <p data-i18n="b4.note">Codex est accessible <b>gratuitement</b>, mais la version gratuite est <b>vite limit&eacute;e</b>&nbsp;: pour l&rsquo;atelier, il est recommand&eacute; de prendre un <b>compte ChatGPT payant</b> (Plus, Team ou Pro). Le principe de configuration est <b>identique avec Claude Code</b>, si vous pr&eacute;f&eacute;rez.</p>
           </div>
           <div class="links"><a class="lk" href="https://chatgpt.com/" target="_blank" rel="noopener">chatgpt.com <span class="ar">&#8599;</span></a></div>
         </div>
@@ -386,14 +385,18 @@
           <ol class="clicks" data-i18n="b5.clicks">
             <li>Dans le menu, ouvrez <span class="ui-lbl">Codex</span>.</li>
             <li>Cliquez sur <span class="ui-lbl">Learn more</span>.</li>
-            <li>En haut &agrave; droite, cliquez sur <span class="ui-lbl">Cloud</span>.</li>
+            <li>En haut &agrave; droite, cliquez sur <span class="ui-lbl">Go to Cloud</span>.</li>
             <li>Fermez la pop-up de pr&eacute;sentation.</li>
           </ol>
           <div class="shots two">
             <figure class="shot"><a class="zoom" href="assets/screens/image14.png" target="_blank" rel="noopener"><img src="assets/screens/image14.png" loading="lazy" alt=""></a><figcaption><span class="sn">1</span><span data-i18n="s.b5.1">Ouvrez Codex.</span></figcaption></figure>
             <figure class="shot"><a class="zoom" href="assets/screens/image15.png" target="_blank" rel="noopener"><img src="assets/screens/image15.png" loading="lazy" alt=""></a><figcaption><span class="sn">2</span><span data-i18n="s.b5.2">Cliquez sur &laquo;&nbsp;Learn more&nbsp;&raquo;.</span></figcaption></figure>
-            <figure class="shot"><a class="zoom" href="assets/screens/image16.png" target="_blank" rel="noopener"><img src="assets/screens/image16.png" loading="lazy" alt=""></a><figcaption><span class="sn">3</span><span data-i18n="s.b5.3">En haut &agrave; droite, cliquez sur &laquo;&nbsp;Cloud&nbsp;&raquo;.</span></figcaption></figure>
+            <figure class="shot"><a class="zoom" href="assets/screens/image16.png" target="_blank" rel="noopener"><img src="assets/screens/image16.png" loading="lazy" alt=""></a><figcaption><span class="sn">3</span><span data-i18n="s.b5.3">En haut &agrave; droite, cliquez sur &laquo;&nbsp;Go to Cloud&nbsp;&raquo;.</span></figcaption></figure>
             <figure class="shot"><a class="zoom" href="assets/screens/image17.png" target="_blank" rel="noopener"><img src="assets/screens/image17.png" loading="lazy" alt=""></a><figcaption><span class="sn">4</span><span data-i18n="s.b5.4">Fermez la pop-up.</span></figcaption></figure>
+          </div>
+          <div class="note">
+            <div class="lab" data-i18n="word.good">Bon &agrave; savoir</div>
+            <p data-i18n="b5.note">OpenAI pr&eacute;f&egrave;re que vous installiez Codex <b>directement sur votre ordinateur</b>&nbsp;: c&rsquo;est pourquoi de nombreux pop-ups (&laquo;&nbsp;Download for Windows&nbsp;&raquo;, &laquo;&nbsp;Install the CLI&nbsp;&raquo;&hellip;) tentent de vous en dissuader. Ici, on reste volontairement sur la version <b>Cloud</b>, 100&nbsp;% navigateur.</p>
           </div>
           <div class="links"><a class="lk" href="https://chatgpt.com/codex/cloud" target="_blank" rel="noopener">chatgpt.com/codex/cloud <span class="ar">&#8599;</span></a></div>
         </div>
@@ -407,12 +410,12 @@
           <div class="do" data-i18n="b6.body">Autorisez Codex &agrave; lire et &eacute;crire dans vos d&eacute;p&ocirc;ts GitHub.</div>
           <ol class="clicks" data-i18n="b6.clicks">
             <li>En bas de la page, cliquez sur <span class="ui-lbl">Connect to GitHub</span>.</li>
-            <li>La fen&ecirc;tre &laquo;&nbsp;Connect GitHub&nbsp;&raquo; s&rsquo;ouvre&nbsp;: la double authentification (MFA) est requise.</li>
-            <li>Activez la MFA sur votre compte (<span class="ui-lbl">Turn on MFA</span>).</li>
+            <li>La fen&ecirc;tre &laquo;&nbsp;Connect GitHub&nbsp;&raquo; s&rsquo;ouvre&nbsp;: la double authentification (MFA) peut &ecirc;tre demand&eacute;e.</li>
+            <li>Si besoin, activez la MFA sur votre compte (<span class="ui-lbl">Turn on MFA</span>).</li>
             <li>Continuez vers GitHub.</li>
             <li>Autorisez Codex &agrave; acc&eacute;der &agrave; GitHub &mdash; GitHub s&rsquo;ouvre.</li>
             <li>Revenez sur Codex.</li>
-            <li>Cliquez sur <span class="ui-lbl">Configure repositories</span>.</li>
+            <li>Cliquez sur <span class="ui-lbl">Configure Repositories on GitHub</span>.</li>
             <li>Installez et autorisez l&rsquo;acc&egrave;s &agrave; <span class="ui-lbl">All repositories</span>.</li>
           </ol>
           <div class="shots two">
@@ -422,8 +425,12 @@
             <figure class="shot"><a class="zoom" href="assets/screens/image21.png" target="_blank" rel="noopener"><img src="assets/screens/image21.png" loading="lazy" alt=""></a><figcaption><span class="sn">4</span><span data-i18n="s.b6.4">Continuez vers GitHub.</span></figcaption></figure>
             <figure class="shot"><a class="zoom" href="assets/screens/image22.png" target="_blank" rel="noopener"><img src="assets/screens/image22.png" loading="lazy" alt=""></a><figcaption><span class="sn">5</span><span data-i18n="s.b6.5">Autorisez Codex &agrave; acc&eacute;der &agrave; GitHub.</span></figcaption></figure>
             <figure class="shot"><a class="zoom" href="assets/screens/image23.png" target="_blank" rel="noopener"><img src="assets/screens/image23.png" loading="lazy" alt=""></a><figcaption><span class="sn">6</span><span data-i18n="s.b6.6">Revenez sur Codex.</span></figcaption></figure>
-            <figure class="shot"><a class="zoom" href="assets/screens/image24.png" target="_blank" rel="noopener"><img src="assets/screens/image24.png" loading="lazy" alt=""></a><figcaption><span class="sn">7</span><span data-i18n="s.b6.7">Cliquez sur &laquo;&nbsp;Configure repositories&nbsp;&raquo;.</span></figcaption></figure>
+            <figure class="shot"><a class="zoom" href="assets/screens/image24.png" target="_blank" rel="noopener"><img src="assets/screens/image24.png" loading="lazy" alt=""></a><figcaption><span class="sn">7</span><span data-i18n="s.b6.7">Cliquez sur &laquo;&nbsp;Configure Repositories on GitHub&nbsp;&raquo;.</span></figcaption></figure>
             <figure class="shot"><a class="zoom" href="assets/screens/image25.png" target="_blank" rel="noopener"><img src="assets/screens/image25.png" loading="lazy" alt=""></a><figcaption><span class="sn">8</span><span data-i18n="s.b6.8">Installez et autorisez tous les d&eacute;p&ocirc;ts.</span></figcaption></figure>
+          </div>
+          <div class="note">
+            <div class="lab" data-i18n="word.good">Bon &agrave; savoir</div>
+            <p data-i18n="b6.note">L&rsquo;activation de la double authentification (MFA) est <b>optionnelle</b>&nbsp;: elle d&eacute;pend du compte Codex utilis&eacute;. Si elle ne vous est pas demand&eacute;e, passez directement &agrave; l&rsquo;&eacute;tape suivante.</p>
           </div>
         </div>
       </div>
@@ -435,7 +442,7 @@
   <div class="phase-head">
     <div class="t">
       <span class="eyebrow" data-i18n="c.eyebrow">&Eacute;tape 2 &mdash; Construire</span>
-      <h2 data-i18n="c.title">D&eacute;velopper le premier jeu</h2>
+      <h2 data-i18n="c.title">D&eacute;velopper le premier projet</h2>
       <div class="sub" data-i18n="c.sub">On cr&eacute;e un jeu du serpent qui pose des questions de cybers&eacute;curit&eacute;. Du prompt au site en ligne.</div>
     </div>
     <div class="prog"><b class="dn">0</b>/<span class="tot">5</span> <span data-i18n="word.steps">&eacute;tapes</span></div>
@@ -449,27 +456,27 @@
       <div class="step">
         <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
         <div class="scard">
-          <h4 data-i18n="c1.title">D&eacute;crire le jeu &agrave; Codex</h4>
+          <h4 data-i18n="c1.title">D&eacute;crire le projet &agrave; Codex</h4>
           <div class="do" data-i18n="c1.body">Nouvelle t&acirc;che&nbsp;: choisissez le d&eacute;p&ocirc;t, collez le prompt, lancez.</div>
           <ol class="clicks" data-i18n="c1.clicks">
             <li>Ouvrez <b>chatgpt.com/codex/cloud</b>.</li>
             <li>S&eacute;lectionnez votre d&eacute;p&ocirc;t de test et la branche <code>main</code>.</li>
-            <li>Collez le prompt ci-dessous, puis cliquez sur <span class="ui-lbl">Code</span>.</li>
+            <li>Collez le prompt ci-dessous, puis lancez avec le <b>bouton d&rsquo;envoi</b> (la fl&egrave;che&nbsp;&#8593;).</li>
           </ol>
           <div class="shots">
             <figure class="shot"><a class="zoom" href="assets/screens/image26.png" target="_blank" rel="noopener"><img src="assets/screens/image26.png" loading="lazy" alt=""></a><figcaption><span class="sn">1</span><span data-i18n="s.c1.1">S&eacute;lectionnez votre d&eacute;p&ocirc;t et la branche main.</span></figcaption></figure>
           </div>
           <div class="prompt">
             <button class="copy">copier</button>
-            <div class="who" data-i18n="c1.who">Le prompt du jeu</div>
+            <div class="who" data-i18n="c1.who">Le prompt du projet</div>
             <div class="txt" data-i18n="c1.prompt">Je suis en charge de notre cyber academy. Pour valider les comp&eacute;tences acquises &agrave; la fin des modules, je veux une approche gamifi&eacute;e. Cr&eacute;e un jeu du serpent dans un fichier index.html autonome (HTML/CSS/JavaScript, sans d&eacute;pendance externe). &Agrave; chaque fois que le serpent mange une brique, le jeu se met en pause et pose une question de cybers&eacute;curit&eacute; avec 3 choix&nbsp;: une r&eacute;ponse franchement fausse, une presque juste, et une vraiment juste. Tire au hasard 10 questions parmi une banque de 30, r&eacute;parties sur l&rsquo;IAM, la GRC, le SOC et la s&eacute;curit&eacute; de l&rsquo;IA. Affiche le score de bonnes r&eacute;ponses &agrave; la fin&nbsp;: au-del&agrave; de 8/10, affiche &laquo;&nbsp;Comp&eacute;tences valid&eacute;es&nbsp;&raquo;.</div>
           </div>
           <div class="shots">
-            <figure class="shot"><a class="zoom" href="assets/screens/image27.png" target="_blank" rel="noopener"><img src="assets/screens/image27.png" loading="lazy" alt=""></a><figcaption><span class="sn">2</span><span data-i18n="s.c1.2">Collez le prompt, puis lancez avec &laquo;&nbsp;Code&nbsp;&raquo;.</span></figcaption></figure>
+            <figure class="shot"><a class="zoom" href="assets/screens/image27.png" target="_blank" rel="noopener"><img src="assets/screens/image27.png" loading="lazy" alt=""></a><figcaption><span class="sn">2</span><span data-i18n="s.c1.2">Collez le prompt, puis lancez avec le bouton d&rsquo;envoi (fl&egrave;che&nbsp;&#8593;).</span></figcaption></figure>
           </div>
           <div class="note">
             <div class="lab" data-i18n="word.tip">Astuce</div>
-            <p data-i18n="c1.note">En demandant explicitement un fichier <code>index.html</code>, vous garantissez que GitHub Pages affichera le jeu directement &agrave; la racine du site.</p>
+            <p data-i18n="c1.note">En demandant explicitement un fichier <code>index.html</code>, vous garantissez que GitHub Pages affichera le projet directement &agrave; la racine du site.</p>
           </div>
         </div>
       </div>
@@ -498,18 +505,18 @@
         <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
         <div class="scard">
           <h4 data-i18n="c3.title">Cr&eacute;er puis ouvrir la Pull Request</h4>
-          <div class="do" data-i18n="c3.body">Quand c&rsquo;est pr&ecirc;t, Codex propose son code via une <b>Pull Request</b>.</div>
+          <div class="do" data-i18n="c3.body">Au bout de <b>3 &agrave; 4&nbsp;minutes</b>, le bouton <span class="ui-lbl">Create PR</span> appara&icirc;t en haut &agrave; droite&nbsp;: Codex propose alors son code via une <b>Pull Request</b>.</div>
           <ol class="clicks" data-i18n="c3.clicks">
             <li>Apr&egrave;s 3&ndash;4&nbsp;min, cliquez sur <span class="ui-lbl">Create PR</span> (en haut &agrave; droite).</li>
             <li>Apr&egrave;s ~30&nbsp;s, cliquez sur <span class="ui-lbl">View PR</span> (en haut &agrave; droite).</li>
           </ol>
-          <div class="shots two">
-            <figure class="shot"><a class="zoom" href="assets/screens/image31.png" target="_blank" rel="noopener"><img src="assets/screens/image31.png" loading="lazy" alt=""></a><figcaption><span class="sn">1</span><span data-i18n="s.c3.1">Cliquez sur &laquo;&nbsp;Create PR&nbsp;&raquo; (en haut &agrave; droite).</span></figcaption></figure>
-            <figure class="shot"><a class="zoom" href="assets/screens/image32.png" target="_blank" rel="noopener"><img src="assets/screens/image32.png" loading="lazy" alt=""></a><figcaption><span class="sn">2</span><span data-i18n="s.c3.2">Puis cliquez sur &laquo;&nbsp;View PR&nbsp;&raquo;.</span></figcaption></figure>
-          </div>
           <div class="note green">
             <div class="lab" data-i18n="word.keynote">&Agrave; retenir</div>
             <p data-i18n="c3.note">Une <b>Pull Request</b> = &laquo;&nbsp;je propose ces modifications&nbsp;&raquo;. C&rsquo;est le point de contr&ocirc;le humain&nbsp;: rien n&rsquo;est publi&eacute; tant que vous n&rsquo;avez pas valid&eacute;.</p>
+          </div>
+          <div class="shots two">
+            <figure class="shot"><a class="zoom" href="assets/screens/image31.png" target="_blank" rel="noopener"><img src="assets/screens/image31.png" loading="lazy" alt=""></a><figcaption><span class="sn">1</span><span data-i18n="s.c3.1">Cliquez sur &laquo;&nbsp;Create PR&nbsp;&raquo; (en haut &agrave; droite).</span></figcaption></figure>
+            <figure class="shot"><a class="zoom" href="assets/screens/image32.png" target="_blank" rel="noopener"><img src="assets/screens/image32.png" loading="lazy" alt=""></a><figcaption><span class="sn">2</span><span data-i18n="s.c3.2">Puis cliquez sur &laquo;&nbsp;View PR&nbsp;&raquo;.</span></figcaption></figure>
           </div>
         </div>
       </div>
@@ -532,6 +539,10 @@
             <figure class="shot"><a class="zoom" href="assets/screens/image35.png" target="_blank" rel="noopener"><img src="assets/screens/image35.png" loading="lazy" alt=""></a><figcaption><span class="sn">3</span><span data-i18n="s.c4.3">Confirmez avec &laquo;&nbsp;Confirm merge&nbsp;&raquo;.</span></figcaption></figure>
             <figure class="shot"><a class="zoom" href="assets/screens/image36.png" target="_blank" rel="noopener"><img src="assets/screens/image36.png" loading="lazy" alt=""></a><figcaption><span class="sn">4</span><span data-i18n="s.c4.4">PR fusionn&eacute;e et ferm&eacute;e.</span></figcaption></figure>
           </div>
+          <div class="note green">
+            <div class="lab" data-i18n="word.keynote">&Agrave; retenir</div>
+            <p data-i18n="c4.note">Fusionner (<b>merge</b>) la PR sur <code>main</code>, c&rsquo;est <b>accepter les modifications dans le projet principal</b>&nbsp;: <code>main</code> devient la nouvelle version officielle, et c&rsquo;est elle que GitHub Pages publie.</p>
+          </div>
         </div>
       </div>
 
@@ -551,7 +562,7 @@
             <figure class="shot"><a class="zoom" href="assets/screens/image37.png" target="_blank" rel="noopener"><img src="assets/screens/image37.png" loading="lazy" alt=""></a><figcaption><span class="sn">1</span><span data-i18n="s.c5.1">Revenez dans Settings &rarr; Pages.</span></figcaption></figure>
             <figure class="shot"><a class="zoom" href="assets/screens/image38.png" target="_blank" rel="noopener"><img src="assets/screens/image38.png" loading="lazy" alt=""></a><figcaption><span class="sn">2</span><span data-i18n="s.c5.2">La configuration des Pages.</span></figcaption></figure>
             <figure class="shot"><a class="zoom" href="assets/screens/image39.png" target="_blank" rel="noopener"><img src="assets/screens/image39.png" loading="lazy" alt=""></a><figcaption><span class="sn">3</span><span data-i18n="s.c5.3">V&eacute;rifiez l&rsquo;&eacute;tat de mise &agrave; jour sous l&rsquo;URL.</span></figcaption></figure>
-            <figure class="shot"><a class="zoom" href="assets/screens/image40.png" target="_blank" rel="noopener"><img src="assets/screens/image40.png" loading="lazy" alt=""></a><figcaption><span class="sn">4</span><span data-i18n="s.c5.4">Et voil&agrave; le jeu en ligne&nbsp;! (s&rsquo;il ne s&rsquo;affiche pas&nbsp;: rechargez ou navigation priv&eacute;e)</span></figcaption></figure>
+            <figure class="shot"><a class="zoom" href="assets/screens/image40.png" target="_blank" rel="noopener"><img src="assets/screens/image40.png" loading="lazy" alt=""></a><figcaption><span class="sn">4</span><span data-i18n="s.c5.4">Et voil&agrave; le projet en ligne&nbsp;! (s&rsquo;il ne s&rsquo;affiche pas&nbsp;: rechargez ou navigation priv&eacute;e)</span></figcaption></figure>
           </div>
           <div class="note green">
             <div class="lab" data-i18n="word.bravo">Bravo</div>
@@ -573,7 +584,7 @@
   <div class="idea-grid">
     <div class="prompt">
       <button class="copy">copier</button>
-      <div class="who" data-i18n="d.p1.who">Am&eacute;liorer le jeu</div>
+      <div class="who" data-i18n="d.p1.who">Am&eacute;liorer le projet</div>
       <div class="txt" data-i18n="d.p1.txt">Ajoute des explosions type feu d&rsquo;artifice &agrave; chaque bonne r&eacute;ponse.</div>
     </div>
     <div class="prompt">
@@ -588,7 +599,7 @@
     </div>
     <div class="note" style="margin-top:0">
       <div class="lab" data-i18n="word.tip">Astuce</div>
-      <p data-i18n="d.note">Pour un sujet totalement diff&eacute;rent, cr&eacute;ez un <b>nouveau d&eacute;p&ocirc;t</b> et r&eacute;p&eacute;tez l&rsquo;&Eacute;tape&nbsp;1. Pour faire &eacute;voluer un jeu existant, restez sur le m&ecirc;me d&eacute;p&ocirc;t.</p>
+      <p data-i18n="d.note">Pour un sujet totalement diff&eacute;rent, cr&eacute;ez un <b>nouveau d&eacute;p&ocirc;t</b> et r&eacute;p&eacute;tez l&rsquo;&Eacute;tape&nbsp;1. Pour faire &eacute;voluer un projet existant, restez sur le m&ecirc;me d&eacute;p&ocirc;t.</p>
     </div>
   </div>
 
@@ -617,6 +628,17 @@
     </div>
   </div>
 
+  <div class="note green" style="margin-top:30px">
+    <div class="lab" data-i18n="word.showcase">Vitrine</div>
+    <p data-i18n="f.showcase">Cette approche vous permet vraiment de construire des choses tr&egrave;s diff&eacute;rentes. D&eacute;couvrez les applications d&eacute;j&agrave; r&eacute;alis&eacute;es ici&nbsp;:</p>
+    <div class="links"><a class="lk" href="showcase.html"><span data-i18n="f.showcase.link">Voir le showcase</span> <span class="ar">&#8599;</span></a></div>
+  </div>
+
+</div>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="lb-close" id="lbClose" aria-label="Fermer">&times;</button>
+  <img id="lbImg" src="" alt="">
 </div>
 
 <footer>
@@ -637,6 +659,7 @@
       "hero.lede":"From an idea to a live website, in real time with your participants &mdash; with nothing to install. Follow the flow, tick off each step, copy the prompts. Every step is illustrated with a real screenshot.",
       "hero.chip1":"# 100% browser","hero.chip2":"# no install","hero.chip3":"# ~45 min as a group","hero.chip4":"# email &middot; github &middot; chatgpt codex",
       "hero.tip":"<b>Facilitator tip:</b> scroll the page top to bottom with the group. Click the <b>numbers</b> to tick off completed steps, <b>copy</b> for the prompts, and a <b>screenshot</b> to enlarge it. The language switch is top right.",
+      "hero.notice":"<b>Note:</b> the whole workshop runs on <b>consumer (general-public) accounts</b> and <b>free online tools</b>, just to get your foot in the door. <b>Never use any client data or confidential internal information.</b>",
       "a.eyebrow":"The concept","a.title":"Three building blocks, that&rsquo;s it",
       "a.intro":"Vibe coding rests on three building blocks that chain together. Understand them once and you understand everything else.",
       "a.rail1":"An idea","a.rail2":"Some code","a.rail3":"A live website",
@@ -644,57 +667,61 @@
       "a.b2.tag":"Block 2","a.b2.title":"GitHub stores and shares","a.b2.body":"The code is saved in an online space that versions it and makes it shareable: a repository.","a.b2.tool":"GitHub",
       "a.b3.tag":"Block 3","a.b3.title":"The site goes live","a.b3.body":"The code is published on a web page anyone can reach via a URL. Hosting happens automatically.","a.b3.tool":"GitHub Pages",
       "b.eyebrow":"Step 1 &mdash; Set up","b.title":"Configure GitHub &amp; ChatGPT","b.sub":"Done once with your participants. Allow 10&ndash;15 min.",
-      "word.steps":"steps","word.free":"free","word.tip":"Tip","word.good":"Good to know","word.keynote":"Key point","word.bravo":"Well done",
+      "word.steps":"steps","word.free":"free","word.tip":"Tip","word.good":"Good to know","word.keynote":"Key point","word.bravo":"Well done","word.showcase":"Showcase",
       "b1.title":"Sign in to GitHub","b1.body":"GitHub will store your code. Easiest option: sign in with a Google account.",
       "b1.clicks":"<li>Go to <b>github.com/login</b>.</li><li>Click <span class=\"ui-lbl\">Continue with Google</span> (or <span class=\"ui-lbl\">Create an account</span> if needed).</li><li>Pick your Google account and authorise.</li>",
       "s.b1.1":"On github.com, click &ldquo;Continue with Google&rdquo;.","s.b1.2":"Pick your Google account.",
-      "b2.title":"Create the repository + README","b2.body":"A <b>repository</b> is the online folder for your project. The <b>README</b> initialises it so it isn&rsquo;t empty.",
-      "b2.clicks":"<li>Click <span class=\"ui-lbl\">New</span> to create a repository.</li><li>Enter a name (e.g. <code>cyber-academy</code>), leave it <span class=\"ui-lbl\">Public</span>, and tick <span class=\"ui-lbl\">Add a README file</span>.</li><li>Click <span class=\"ui-lbl\">Create repository</span>.</li>",
-      "s.b2.1":"Click &ldquo;New&rdquo; to create a repository.","s.b2.2":"Name the repo and tick &ldquo;Add a README file&rdquo;.","s.b2.3":"The repository is created.",
-      "b3.title":"Enable GitHub Pages","b3.body":"GitHub Pages automatically publishes the contents of the <code>main</code> branch to a real URL.",
+      "b2.title":"Create the repository + README","b2.body":"A <b>repository</b> is simply your <b>project</b>: an online space that holds all its files and history. The <b>README</b> initialises it so it isn&rsquo;t empty.",
+      "b2.clicks":"<li>Click <span class=\"ui-lbl\">Create repository</span> to create a repository.</li><li>Enter a name (e.g. <code>cyber-academy</code>), leave it <span class=\"ui-lbl\">Public</span>, and turn on <span class=\"ui-lbl\">Add README</span>.</li><li>Click <span class=\"ui-lbl\">Create repository</span>.</li>",
+      "s.b2.1":"Click &ldquo;Create repository&rdquo; to create a repository.","s.b2.2":"Name the repo and turn on &ldquo;Add README&rdquo;.","s.b2.3":"The repository is created.",
+      "b3.title":"Enable GitHub Pages to put your site online","b3.body":"GitHub Pages automatically publishes the contents of the <code>main</code> branch to a real URL. A <b>branch</b> is like a working folder; <code>main</code> is your project&rsquo;s main folder.",
       "b3.clicks":"<li>Open <span class=\"ui-lbl\">Settings &rarr; Pages</span>.</li><li>Under <span class=\"ui-lbl\">Source</span>, choose <span class=\"ui-lbl\">Deploy from a branch</span>.</li><li>Branch <code>main</code>, folder <code>/ (root)</code>, then <span class=\"ui-lbl\">Save</span>.</li><li>Wait for the build (1&ndash;2 min).</li><li>The site is online &mdash; but <b>don&rsquo;t open it yet</b> (nothing to show yet).</li>",
       "s.b3.1":"Open Settings &rarr; Pages.","s.b3.2":"Source: &ldquo;Deploy from a branch&rdquo;.","s.b3.3":"Branch main, folder / (root), then Save.","s.b3.4":"Wait: GitHub is building the site.","s.b3.5":"The site is online &mdash; don&rsquo;t open it yet.",
       "b3.tip":"Keep this tab open: this is where you&rsquo;ll see the URL and each new version going live (<code>https://your-name.github.io/cyber-academy/</code>).",
       "b4.title":"Set up ChatGPT","b4.body":"Codex, the agent that writes the code, lives inside ChatGPT.",
       "b4.clicks":"<li>Go to <b>chatgpt.com</b>.</li><li>Sign in (a Google account works).</li><li>Accept cookies if prompted.</li>",
       "s.b4.1":"Open chatgpt.com.","s.b4.2":"Sign in to your account.","s.b4.3":"You&rsquo;re on the ChatGPT home.",
-      "b4.note":"Codex requires a <b>paid ChatGPT plan</b> (Plus, Team or Pro). Plan for it before the session. Claude Code can play the same role if you prefer.",
+      "b4.note":"Codex is available <b>for free</b>, but the free tier is <b>quickly limited</b>: for the workshop, a <b>paid ChatGPT plan</b> (Plus, Team or Pro) is recommended. The configuration principle is <b>the same with Claude Code</b>, if you prefer.",
       "b5.title":"Open Codex","b5.body":"Enable the Codex space inside ChatGPT.",
-      "b5.clicks":"<li>In the menu, open <span class=\"ui-lbl\">Codex</span>.</li><li>Click <span class=\"ui-lbl\">Learn more</span>.</li><li>Top right, click <span class=\"ui-lbl\">Cloud</span>.</li><li>Close the intro pop-up.</li>",
-      "s.b5.1":"Open Codex.","s.b5.2":"Click &ldquo;Learn more&rdquo;.","s.b5.3":"Top right, click &ldquo;Cloud&rdquo;.","s.b5.4":"Close the pop-up.",
+      "b5.clicks":"<li>In the menu, open <span class=\"ui-lbl\">Codex</span>.</li><li>Click <span class=\"ui-lbl\">Learn more</span>.</li><li>Top right, click <span class=\"ui-lbl\">Go to Cloud</span>.</li><li>Close the intro pop-up.</li>",
+      "s.b5.1":"Open Codex.","s.b5.2":"Click &ldquo;Learn more&rdquo;.","s.b5.3":"Top right, click &ldquo;Go to Cloud&rdquo;.","s.b5.4":"Close the pop-up.",
+      "b5.note":"OpenAI would rather you install Codex <b>directly on your computer</b>: that&rsquo;s why so many pop-ups (&ldquo;Download for Windows&rdquo;, &ldquo;Install the CLI&rdquo;&hellip;) try to talk you out of it. Here we deliberately stay on the <b>Cloud</b> version, 100% browser.",
       "b6.title":"Connect Codex to GitHub","b6.body":"Authorise Codex to read and write in your GitHub repositories.",
-      "b6.clicks":"<li>At the bottom of the page, click <span class=\"ui-lbl\">Connect to GitHub</span>.</li><li>The &ldquo;Connect GitHub&rdquo; window opens: two-factor (MFA) is required.</li><li>Enable MFA on your account (<span class=\"ui-lbl\">Turn on MFA</span>).</li><li>Continue to GitHub.</li><li>Authorise Codex to access GitHub &mdash; GitHub opens.</li><li>Go back to Codex.</li><li>Click <span class=\"ui-lbl\">Configure repositories</span>.</li><li>Install and allow access to <span class=\"ui-lbl\">All repositories</span>.</li>",
-      "s.b6.1":"At the bottom, &ldquo;Connect to GitHub&rdquo;.","s.b6.2":"&ldquo;Connect GitHub&rdquo; window &mdash; MFA required.","s.b6.3":"Enable two-factor (MFA).","s.b6.4":"Continue to GitHub.","s.b6.5":"Authorise Codex to access GitHub.","s.b6.6":"Go back to Codex.","s.b6.7":"Click &ldquo;Configure repositories&rdquo;.","s.b6.8":"Install and allow all repositories.",
-      "c.eyebrow":"Step 2 &mdash; Build","c.title":"Build the first game","c.sub":"We create a Snake game that asks cybersecurity questions. From prompt to live site.",
-      "c1.title":"Describe the game to Codex","c1.body":"New task: select the repository, paste the prompt, run it.",
-      "c1.clicks":"<li>Open <b>chatgpt.com/codex/cloud</b>.</li><li>Select your test repository and the <code>main</code> branch.</li><li>Paste the prompt below, then click <span class=\"ui-lbl\">Code</span>.</li>",
-      "s.c1.1":"Select your repository and the main branch.","s.c1.2":"Paste the prompt, then start with &ldquo;Code&rdquo;.",
-      "c1.who":"The game prompt",
+      "b6.clicks":"<li>At the bottom of the page, click <span class=\"ui-lbl\">Connect to GitHub</span>.</li><li>The &ldquo;Connect GitHub&rdquo; window opens: two-factor (MFA) may be required.</li><li>If needed, enable MFA on your account (<span class=\"ui-lbl\">Turn on MFA</span>).</li><li>Continue to GitHub.</li><li>Authorise Codex to access GitHub &mdash; GitHub opens.</li><li>Go back to Codex.</li><li>Click <span class=\"ui-lbl\">Configure Repositories on GitHub</span>.</li><li>Install and allow access to <span class=\"ui-lbl\">All repositories</span>.</li>",
+      "s.b6.1":"At the bottom, &ldquo;Connect to GitHub&rdquo;.","s.b6.2":"&ldquo;Connect GitHub&rdquo; window &mdash; MFA may be required.","s.b6.3":"If needed, enable two-factor (MFA).","s.b6.4":"Continue to GitHub.","s.b6.5":"Authorise Codex to access GitHub.","s.b6.6":"Go back to Codex.","s.b6.7":"Click &ldquo;Configure Repositories on GitHub&rdquo;.","s.b6.8":"Install and allow all repositories.",
+      "b6.note":"Enabling two-factor authentication (MFA) is <b>optional</b>: it depends on the Codex account used. If you&rsquo;re not asked for it, go straight to the next step.",
+      "c.eyebrow":"Step 2 &mdash; Build","c.title":"Build the first project","c.sub":"We create a Snake game that asks cybersecurity questions. From prompt to live site.",
+      "c1.title":"Describe the project to Codex","c1.body":"New task: select the repository, paste the prompt, run it.",
+      "c1.clicks":"<li>Open <b>chatgpt.com/codex/cloud</b>.</li><li>Select your test repository and the <code>main</code> branch.</li><li>Paste the prompt below, then run it with the <b>send button</b> (the &uarr; arrow).</li>",
+      "s.c1.1":"Select your repository and the main branch.","s.c1.2":"Paste the prompt, then run it with the send button (&uarr; arrow).",
+      "c1.who":"The project prompt",
       "c1.prompt":"I run our cyber academy. To validate the skills learned at the end of each module, I want a gamified approach. Build a Snake game in a single self-contained index.html file (HTML/CSS/JavaScript, no external dependencies). Each time the snake eats a block, the game pauses and asks a cybersecurity question with 3 choices: one clearly wrong answer, one almost right, and one truly correct. Randomly draw 10 questions from a bank of 30 covering IAM, GRC, SOC and AI security. Show the number of correct answers at the end: above 8/10, display &ldquo;Skills validated&rdquo;.",
-      "c1.note":"By explicitly asking for an <code>index.html</code> file, you ensure GitHub Pages serves the game right at the site root.",
+      "c1.note":"By explicitly asking for an <code>index.html</code> file, you ensure GitHub Pages serves the project right at the site root.",
       "c2.title":"Let Codex code","c2.body":"Codex works on its own for 3 to 4 minutes. You can follow along live.",
       "c2.clicks":"<li>The task starts.</li><li>Open the <b>details</b> if you want.</li><li>Follow the agent&rsquo;s <i>thinking</i>.</li>",
       "s.c2.1":"Codex starts.","s.c2.2":"You can open the details.","s.c2.3":"You can follow its thinking.",
-      "c3.title":"Create then open the Pull Request","c3.body":"When it&rsquo;s ready, Codex proposes its code via a <b>Pull Request</b>.",
+      "c3.title":"Create then open the Pull Request","c3.body":"After <b>3 to 4 minutes</b>, the <span class=\"ui-lbl\">Create PR</span> button appears top right: Codex then proposes its code via a <b>Pull Request</b>.",
       "c3.clicks":"<li>After 3&ndash;4 min, click <span class=\"ui-lbl\">Create PR</span> (top right).</li><li>After ~30 s, click <span class=\"ui-lbl\">View PR</span> (top right).</li>",
       "s.c3.1":"Click &ldquo;Create PR&rdquo; (top right).","s.c3.2":"Then click &ldquo;View PR&rdquo;.",
       "c3.note":"A <b>Pull Request</b> = &ldquo;I propose these changes&rdquo;. It&rsquo;s the human checkpoint: nothing is published until you approve.",
       "c4.title":"Approve (merge) the PR in GitHub","c4.body":"GitHub opens and shows the changes. You authorise publication.",
       "c4.clicks":"<li>Review the proposed changes.</li><li>At the bottom, click <span class=\"ui-lbl\">Merge pull request</span>.</li><li>Confirm with <span class=\"ui-lbl\">Confirm merge</span>.</li><li>The PR is merged and closed: publishing starts.</li>",
       "s.c4.1":"GitHub opens the PR and shows the changes.","s.c4.2":"At the bottom, &ldquo;Merge pull request&rdquo;.","s.c4.3":"Confirm with &ldquo;Confirm merge&rdquo;.","s.c4.4":"PR merged and closed.",
+      "c4.note":"Merging the PR into <code>main</code> means <b>accepting the changes in the main project</b>: <code>main</code> becomes the new official version, and that&rsquo;s what GitHub Pages publishes.",
       "c5.title":"Check the deploy and play","c5.body":"GitHub Pages rebuilds the site on every change to <code>main</code>. Allow 1 to 2 minutes.",
       "c5.clicks":"<li>Go back to <span class=\"ui-lbl\">Settings &rarr; Pages</span>.</li><li>Check the update status under the site URL.</li><li>Open the URL. If nothing shows (cache), reload or use private browsing.</li><li>Play, eat a block, answer the questions, aim for <b>8/10</b>!</li>",
-      "s.c5.1":"Go back to Settings &rarr; Pages.","s.c5.2":"The Pages configuration.","s.c5.3":"Check the update status under the URL.","s.c5.4":"And there&rsquo;s the game online! (if it doesn&rsquo;t show: reload or private browsing)",
+      "s.c5.1":"Go back to Settings &rarr; Pages.","s.c5.2":"The Pages configuration.","s.c5.3":"Check the update status under the URL.","s.c5.4":"And there&rsquo;s the project online! (if it doesn&rsquo;t show: reload or private browsing)",
       "c5.note":"You&rsquo;ve just completed the full chain: <b>idea &rarr; prompt &rarr; Pull Request &rarr; merge &rarr; live</b>. Everything else is just repeating this loop.",
       "d.eyebrow":"Step 3 &mdash; Repeat","d.title":"Iterate, again and again","d.intro":"Run Codex again with a new prompt on the same repository: prompt &rarr; Pull Request &rarr; merge &rarr; live. A few ideas:",
-      "d.p1.who":"Improve the game","d.p1.txt":"Add fireworks-style explosions on every correct answer.",
+      "d.p1.who":"Improve the project","d.p1.txt":"Add fireworks-style explosions on every correct answer.",
       "d.p2.who":"Enrich the content","d.p2.txt":"Add 10 questions on industrial systems security (OT/ICS).",
       "d.p3.who":"New project","d.p3.txt":"Build me an HTML framework to measure compliance with the CSA &ldquo;Are You Mythos Ready&rdquo; document.",
-      "d.note":"For a completely different topic, create a <b>new repository</b> and repeat Step 1. To evolve an existing game, stay on the same repository.",
+      "d.note":"For a completely different topic, create a <b>new repository</b> and repeat Step 1. To evolve an existing project, stay on the same repository.",
       "e.eyebrow":"Go further","e.title":"There&rsquo;s no limit to imagination","e.intro":"Once you&rsquo;ve mastered the loop, you can build anything. And the AI stays your best ally whenever you get stuck.",
       "e1.title":"Stuck? Ask the AI","e1.body":"Any question is fair game: how to use the tool, how to add a given element, how to enrich the content. The AI is also your <b>tutor</b>.",
       "e2.title":"Still a vague idea?","e2.body":"Ask the AI to <b>ask you questions</b> to refine your need: &ldquo;Ask me questions to help me frame my idea.&rdquo;",
       "e3.title":"The loop never changes","e3.body":"<b>Idea &rarr; prompt &rarr; Pull Request &rarr; merge &rarr; live.</b> You know this rhythm now. Over to you!",
+      "f.showcase":"This approach really lets you build very different things. Have a look at the applications already built here:","f.showcase.link":"See the showcase",
       "footer.src":"Vibe coding workshop &mdash; Wavestone &middot; internal guide","footer.reset":"reset progress"
     },
     de:{
@@ -704,6 +731,7 @@
       "hero.lede":"Von der Idee zur Live-Website, in Echtzeit mit deinen Teilnehmenden &mdash; ohne Installation. Folge dem Ablauf, hake jeden Schritt ab, kopiere die Prompts. Jeder Schritt ist mit einem echten Screenshot illustriert.",
       "hero.chip1":"# 100% Browser","hero.chip2":"# keine Installation","hero.chip3":"# ~45 Min in der Gruppe","hero.chip4":"# E-Mail &middot; github &middot; chatgpt codex",
       "hero.tip":"<b>Tipp f&uuml;r Moderierende:</b> scrollt die Seite mit der Gruppe von oben nach unten. Klickt die <b>Zahlen</b> an, um erledigte Schritte abzuhaken, <b>kopieren</b> f&uuml;r die Prompts und einen <b>Screenshot</b> zum Vergr&ouml;&szlig;ern. Die Sprachauswahl ist oben rechts.",
+      "hero.notice":"<b>Hinweis:</b> Der gesamte Workshop l&auml;uft mit <b>Privatkonten</b> und <b>kostenlosen Online-Tools</b>, nur um den Einstieg zu finden. <b>Verwendet niemals Kundendaten oder vertrauliche interne Informationen.</b>",
       "a.eyebrow":"Das Konzept","a.title":"Drei Bausteine, mehr nicht",
       "a.intro":"Vibe Coding beruht auf drei Bausteinen, die ineinandergreifen. Versteht sie einmal, und ihr versteht alles Weitere.",
       "a.rail1":"Eine Idee","a.rail2":"Code","a.rail3":"Eine Live-Website",
@@ -711,57 +739,61 @@
       "a.b2.tag":"Baustein 2","a.b2.title":"GitHub speichert und teilt","a.b2.body":"Der Code wird in einem Online-Speicher abgelegt, der ihn versioniert und teilbar macht: ein Repository.","a.b2.tool":"GitHub",
       "a.b3.tag":"Baustein 3","a.b3.title":"Die Seite geht live","a.b3.body":"Der Code wird auf einer Webseite ver&ouml;ffentlicht, die alle &uuml;ber eine URL erreichen. Das Hosting erfolgt automatisch.","a.b3.tool":"GitHub Pages",
       "b.eyebrow":"Schritt 1 &mdash; Einrichten","b.title":"GitHub &amp; ChatGPT einrichten","b.sub":"Einmalig mit euren Teilnehmenden. Plant 10&ndash;15 Min ein.",
-      "word.steps":"Schritte","word.free":"kostenlos","word.tip":"Tipp","word.good":"Gut zu wissen","word.keynote":"Kernpunkt","word.bravo":"Gut gemacht",
+      "word.steps":"Schritte","word.free":"kostenlos","word.tip":"Tipp","word.good":"Gut zu wissen","word.keynote":"Kernpunkt","word.bravo":"Gut gemacht","word.showcase":"Showcase",
       "b1.title":"Bei GitHub anmelden","b1.body":"GitHub speichert euren Code. Am einfachsten: mit einem Google-Konto anmelden.",
       "b1.clicks":"<li>Geht auf <b>github.com/login</b>.</li><li>Klickt auf <span class=\"ui-lbl\">Continue with Google</span> (oder <span class=\"ui-lbl\">Create an account</span>, falls n&ouml;tig).</li><li>W&auml;hlt euer Google-Konto und best&auml;tigt.</li>",
       "s.b1.1":"Auf github.com &bdquo;Continue with Google&ldquo; klicken.","s.b1.2":"Euer Google-Konto w&auml;hlen.",
-      "b2.title":"Das Repository + README erstellen","b2.body":"Ein <b>Repository</b> ist der Online-Ordner f&uuml;r euer Projekt. Das <b>README</b> initialisiert es, damit es nicht leer ist.",
-      "b2.clicks":"<li>Auf <span class=\"ui-lbl\">New</span> klicken, um ein Repository zu erstellen.</li><li>Einen Namen vergeben (z.&nbsp;B. <code>cyber-academy</code>), <span class=\"ui-lbl\">Public</span> lassen und <span class=\"ui-lbl\">Add a README file</span> ankreuzen.</li><li>Auf <span class=\"ui-lbl\">Create repository</span> klicken.</li>",
-      "s.b2.1":"Auf &bdquo;New&ldquo; klicken, um ein Repository zu erstellen.","s.b2.2":"Repo benennen und &bdquo;Add a README file&ldquo; ankreuzen.","s.b2.3":"Das Repository ist erstellt.",
-      "b3.title":"GitHub Pages aktivieren","b3.body":"GitHub Pages ver&ouml;ffentlicht den Inhalt des <code>main</code>-Branches automatisch unter einer echten URL.",
+      "b2.title":"Das Repository + README erstellen","b2.body":"Ein <b>Repository</b> ist einfach euer <b>Projekt</b>: ein Online-Bereich, der alle Dateien und die Historie enth&auml;lt. Das <b>README</b> initialisiert es, damit es nicht leer ist.",
+      "b2.clicks":"<li>Auf <span class=\"ui-lbl\">Create repository</span> klicken, um ein Repository zu erstellen.</li><li>Einen Namen vergeben (z.&nbsp;B. <code>cyber-academy</code>), <span class=\"ui-lbl\">Public</span> lassen und <span class=\"ui-lbl\">Add README</span> aktivieren.</li><li>Auf <span class=\"ui-lbl\">Create repository</span> klicken.</li>",
+      "s.b2.1":"Auf &bdquo;Create repository&ldquo; klicken, um ein Repository zu erstellen.","s.b2.2":"Repo benennen und &bdquo;Add README&ldquo; aktivieren.","s.b2.3":"Das Repository ist erstellt.",
+      "b3.title":"GitHub Pages aktivieren, um eure Seite online zu stellen","b3.body":"GitHub Pages ver&ouml;ffentlicht den Inhalt des <code>main</code>-Branches automatisch unter einer echten URL. Ein <b>Branch</b> ist wie ein Arbeitsverzeichnis; <code>main</code> ist das Hauptverzeichnis eures Projekts.",
       "b3.clicks":"<li>&Ouml;ffnet <span class=\"ui-lbl\">Settings &rarr; Pages</span>.</li><li>Unter <span class=\"ui-lbl\">Source</span> die Option <span class=\"ui-lbl\">Deploy from a branch</span> w&auml;hlen.</li><li>Branch <code>main</code>, Ordner <code>/ (root)</code>, dann <span class=\"ui-lbl\">Save</span>.</li><li>Wartet auf den Build (1&ndash;2 Min).</li><li>Die Seite ist online &mdash; aber <b>&ouml;ffnet sie noch nicht</b> (noch nichts anzuzeigen).</li>",
       "s.b3.1":"Settings &rarr; Pages &ouml;ffnen.","s.b3.2":"Source: &bdquo;Deploy from a branch&ldquo;.","s.b3.3":"Branch main, Ordner / (root), dann Save.","s.b3.4":"Warten: GitHub baut die Seite.","s.b3.5":"Die Seite ist online &mdash; noch nicht &ouml;ffnen.",
       "b3.tip":"Lasst diesen Reiter offen: hier seht ihr die URL und wann jede neue Version live geht (<code>https://euer-name.github.io/cyber-academy/</code>).",
       "b4.title":"ChatGPT vorbereiten","b4.body":"Codex, der Agent, der den Code schreibt, lebt in ChatGPT.",
       "b4.clicks":"<li>Geht auf <b>chatgpt.com</b>.</li><li>Meldet euch an (ein Google-Konto funktioniert).</li><li>Akzeptiert die Cookies, falls gefragt.</li>",
       "s.b4.1":"chatgpt.com &ouml;ffnen.","s.b4.2":"Bei eurem Konto anmelden.","s.b4.3":"Ihr seid auf der ChatGPT-Startseite.",
-      "b4.note":"Codex erfordert ein <b>kostenpflichtiges ChatGPT-Abo</b> (Plus, Team oder Pro). Plant das vor der Session ein. Claude Code kann dieselbe Rolle &uuml;bernehmen, wenn ihr es bevorzugt.",
+      "b4.note":"Codex ist <b>kostenlos</b> zug&auml;nglich, aber die kostenlose Version ist <b>schnell begrenzt</b>: f&uuml;r den Workshop wird ein <b>kostenpflichtiges ChatGPT-Abo</b> (Plus, Team oder Pro) empfohlen. Das Konfigurationsprinzip ist <b>mit Claude Code identisch</b>, falls ihr es bevorzugt.",
       "b5.title":"Codex &ouml;ffnen","b5.body":"Aktiviert den Codex-Bereich in ChatGPT.",
-      "b5.clicks":"<li>&Ouml;ffnet im Men&uuml; <span class=\"ui-lbl\">Codex</span>.</li><li>Klickt auf <span class=\"ui-lbl\">Learn more</span>.</li><li>Oben rechts auf <span class=\"ui-lbl\">Cloud</span> klicken.</li><li>Schlie&szlig;t das Intro-Pop-up.</li>",
-      "s.b5.1":"Codex &ouml;ffnen.","s.b5.2":"Auf &bdquo;Learn more&ldquo; klicken.","s.b5.3":"Oben rechts auf &bdquo;Cloud&ldquo; klicken.","s.b5.4":"Pop-up schlie&szlig;en.",
+      "b5.clicks":"<li>&Ouml;ffnet im Men&uuml; <span class=\"ui-lbl\">Codex</span>.</li><li>Klickt auf <span class=\"ui-lbl\">Learn more</span>.</li><li>Oben rechts auf <span class=\"ui-lbl\">Go to Cloud</span> klicken.</li><li>Schlie&szlig;t das Intro-Pop-up.</li>",
+      "s.b5.1":"Codex &ouml;ffnen.","s.b5.2":"Auf &bdquo;Learn more&ldquo; klicken.","s.b5.3":"Oben rechts auf &bdquo;Go to Cloud&ldquo; klicken.","s.b5.4":"Pop-up schlie&szlig;en.",
+      "b5.note":"OpenAI m&ouml;chte lieber, dass ihr Codex <b>direkt auf eurem Computer</b> installiert: deshalb versuchen viele Pop-ups (&bdquo;Download for Windows&ldquo;, &bdquo;Install the CLI&ldquo;&hellip;), euch davon abzubringen. Hier bleiben wir bewusst bei der <b>Cloud</b>-Version, 100% Browser.",
       "b6.title":"Codex mit GitHub verbinden","b6.body":"Erlaubt Codex, in euren GitHub-Repositories zu lesen und zu schreiben.",
-      "b6.clicks":"<li>Unten auf der Seite auf <span class=\"ui-lbl\">Connect to GitHub</span> klicken.</li><li>Das Fenster &bdquo;Connect GitHub&ldquo; &ouml;ffnet sich: Zwei-Faktor (MFA) ist erforderlich.</li><li>MFA f&uuml;r euer Konto aktivieren (<span class=\"ui-lbl\">Turn on MFA</span>).</li><li>Weiter zu GitHub.</li><li>Codex den Zugriff auf GitHub erlauben &mdash; GitHub &ouml;ffnet sich.</li><li>Zur&uuml;ck zu Codex.</li><li>Auf <span class=\"ui-lbl\">Configure repositories</span> klicken.</li><li>Zugriff auf <span class=\"ui-lbl\">All repositories</span> installieren und erlauben.</li>",
-      "s.b6.1":"Unten &bdquo;Connect to GitHub&ldquo;.","s.b6.2":"Fenster &bdquo;Connect GitHub&ldquo; &mdash; MFA erforderlich.","s.b6.3":"Zwei-Faktor (MFA) aktivieren.","s.b6.4":"Weiter zu GitHub.","s.b6.5":"Codex den Zugriff auf GitHub erlauben.","s.b6.6":"Zur&uuml;ck zu Codex.","s.b6.7":"Auf &bdquo;Configure repositories&ldquo; klicken.","s.b6.8":"Alle Repositories installieren und erlauben.",
-      "c.eyebrow":"Schritt 2 &mdash; Bauen","c.title":"Das erste Spiel bauen","c.sub":"Wir erstellen ein Snake-Spiel, das Cybersicherheitsfragen stellt. Vom Prompt zur Live-Seite.",
-      "c1.title":"Codex das Spiel beschreiben","c1.body":"Neue Aufgabe: Repository ausw&auml;hlen, Prompt einf&uuml;gen, starten.",
-      "c1.clicks":"<li>&Ouml;ffnet <b>chatgpt.com/codex/cloud</b>.</li><li>W&auml;hlt euer Test-Repository und den <code>main</code>-Branch.</li><li>F&uuml;gt den Prompt unten ein, dann auf <span class=\"ui-lbl\">Code</span> klicken.</li>",
-      "s.c1.1":"Euer Repository und den main-Branch ausw&auml;hlen.","s.c1.2":"Prompt einf&uuml;gen, dann mit &bdquo;Code&ldquo; starten.",
-      "c1.who":"Der Spiel-Prompt",
+      "b6.clicks":"<li>Unten auf der Seite auf <span class=\"ui-lbl\">Connect to GitHub</span> klicken.</li><li>Das Fenster &bdquo;Connect GitHub&ldquo; &ouml;ffnet sich: Zwei-Faktor (MFA) kann erforderlich sein.</li><li>Falls n&ouml;tig, MFA f&uuml;r euer Konto aktivieren (<span class=\"ui-lbl\">Turn on MFA</span>).</li><li>Weiter zu GitHub.</li><li>Codex den Zugriff auf GitHub erlauben &mdash; GitHub &ouml;ffnet sich.</li><li>Zur&uuml;ck zu Codex.</li><li>Auf <span class=\"ui-lbl\">Configure Repositories on GitHub</span> klicken.</li><li>Zugriff auf <span class=\"ui-lbl\">All repositories</span> installieren und erlauben.</li>",
+      "s.b6.1":"Unten &bdquo;Connect to GitHub&ldquo;.","s.b6.2":"Fenster &bdquo;Connect GitHub&ldquo; &mdash; MFA kann erforderlich sein.","s.b6.3":"Falls n&ouml;tig, Zwei-Faktor (MFA) aktivieren.","s.b6.4":"Weiter zu GitHub.","s.b6.5":"Codex den Zugriff auf GitHub erlauben.","s.b6.6":"Zur&uuml;ck zu Codex.","s.b6.7":"Auf &bdquo;Configure Repositories on GitHub&ldquo; klicken.","s.b6.8":"Alle Repositories installieren und erlauben.",
+      "b6.note":"Die Aktivierung der Zwei-Faktor-Authentifizierung (MFA) ist <b>optional</b>: sie h&auml;ngt vom verwendeten Codex-Konto ab. Wenn ihr nicht danach gefragt werdet, geht direkt zum n&auml;chsten Schritt.",
+      "c.eyebrow":"Schritt 2 &mdash; Bauen","c.title":"Das erste Projekt bauen","c.sub":"Wir erstellen ein Snake-Spiel, das Cybersicherheitsfragen stellt. Vom Prompt zur Live-Seite.",
+      "c1.title":"Codex das Projekt beschreiben","c1.body":"Neue Aufgabe: Repository ausw&auml;hlen, Prompt einf&uuml;gen, starten.",
+      "c1.clicks":"<li>&Ouml;ffnet <b>chatgpt.com/codex/cloud</b>.</li><li>W&auml;hlt euer Test-Repository und den <code>main</code>-Branch.</li><li>F&uuml;gt den Prompt unten ein, dann mit der <b>Senden-Schaltfl&auml;che</b> (dem Pfeil &uarr;) starten.</li>",
+      "s.c1.1":"Euer Repository und den main-Branch ausw&auml;hlen.","s.c1.2":"Prompt einf&uuml;gen, dann mit der Senden-Schaltfl&auml;che (Pfeil &uarr;) starten.",
+      "c1.who":"Der Projekt-Prompt",
       "c1.prompt":"Ich verantworte unsere Cyber Academy. Um die am Ende jedes Moduls erworbenen Kompetenzen zu pr&uuml;fen, m&ouml;chte ich einen spielerischen Ansatz. Erstelle ein Snake-Spiel in einer eigenst&auml;ndigen index.html-Datei (HTML/CSS/JavaScript, ohne externe Abh&auml;ngigkeiten). Jedes Mal, wenn die Schlange einen Block frisst, pausiert das Spiel und stellt eine Cybersicherheitsfrage mit 3 Optionen: eine klar falsche Antwort, eine fast richtige und eine wirklich richtige. W&auml;hle zuf&auml;llig 10 Fragen aus einem Pool von 30 zu IAM, GRC, SOC und KI-Sicherheit. Zeige am Ende die Anzahl richtiger Antworten an: &uuml;ber 8/10 erscheint &bdquo;Kompetenzen best&auml;tigt&ldquo;.",
-      "c1.note":"Indem ihr ausdr&uuml;cklich eine <code>index.html</code>-Datei verlangt, stellt ihr sicher, dass GitHub Pages das Spiel direkt im Wurzelverzeichnis ausliefert.",
+      "c1.note":"Indem ihr ausdr&uuml;cklich eine <code>index.html</code>-Datei verlangt, stellt ihr sicher, dass GitHub Pages das Projekt direkt im Wurzelverzeichnis ausliefert.",
       "c2.title":"Codex coden lassen","c2.body":"Codex arbeitet 3 bis 4 Minuten allein. Ihr k&ouml;nnt live mitverfolgen.",
       "c2.clicks":"<li>Die Aufgabe startet.</li><li>&Ouml;ffnet die <b>Details</b>, wenn ihr wollt.</li><li>Verfolgt das <i>Denken</i> des Agenten.</li>",
       "s.c2.1":"Codex startet.","s.c2.2":"Ihr k&ouml;nnt die Details &ouml;ffnen.","s.c2.3":"Ihr k&ouml;nnt sein Denken verfolgen.",
-      "c3.title":"Pull Request erstellen und &ouml;ffnen","c3.body":"Wenn es fertig ist, schl&auml;gt Codex seinen Code &uuml;ber einen <b>Pull Request</b> vor.",
+      "c3.title":"Pull Request erstellen und &ouml;ffnen","c3.body":"Nach <b>3 bis 4 Minuten</b> erscheint oben rechts die Schaltfl&auml;che <span class=\"ui-lbl\">Create PR</span>: Codex schl&auml;gt dann seinen Code &uuml;ber einen <b>Pull Request</b> vor.",
       "c3.clicks":"<li>Nach 3&ndash;4 Min auf <span class=\"ui-lbl\">Create PR</span> klicken (oben rechts).</li><li>Nach ~30 s auf <span class=\"ui-lbl\">View PR</span> klicken (oben rechts).</li>",
       "s.c3.1":"Auf &bdquo;Create PR&ldquo; klicken (oben rechts).","s.c3.2":"Dann auf &bdquo;View PR&ldquo; klicken.",
       "c3.note":"Ein <b>Pull Request</b> = &bdquo;Ich schlage diese &Auml;nderungen vor&ldquo;. Das ist der menschliche Kontrollpunkt: nichts wird ver&ouml;ffentlicht, bis ihr zustimmt.",
       "c4.title":"Den PR in GitHub best&auml;tigen (merge)","c4.body":"GitHub &ouml;ffnet sich und zeigt die &Auml;nderungen. Ihr autorisiert die Ver&ouml;ffentlichung.",
       "c4.clicks":"<li>Pr&uuml;ft die vorgeschlagenen &Auml;nderungen.</li><li>Unten auf <span class=\"ui-lbl\">Merge pull request</span> klicken.</li><li>Mit <span class=\"ui-lbl\">Confirm merge</span> best&auml;tigen.</li><li>Der PR ist gemerged und geschlossen: die Ver&ouml;ffentlichung startet.</li>",
       "s.c4.1":"GitHub &ouml;ffnet den PR und zeigt die &Auml;nderungen.","s.c4.2":"Unten &bdquo;Merge pull request&ldquo;.","s.c4.3":"Mit &bdquo;Confirm merge&ldquo; best&auml;tigen.","s.c4.4":"PR gemerged und geschlossen.",
+      "c4.note":"Den PR in <code>main</code> zu mergen bedeutet, <b>die &Auml;nderungen im Hauptprojekt zu akzeptieren</b>: <code>main</code> wird die neue offizielle Version, und genau die ver&ouml;ffentlicht GitHub Pages.",
       "c5.title":"Deployment pr&uuml;fen und spielen","c5.body":"GitHub Pages baut die Seite bei jeder &Auml;nderung an <code>main</code> neu. Plant 1 bis 2 Minuten ein.",
       "c5.clicks":"<li>Zur&uuml;ck zu <span class=\"ui-lbl\">Settings &rarr; Pages</span>.</li><li>Den Update-Status unter der Seiten-URL pr&uuml;fen.</li><li>Die URL &ouml;ffnen. Falls nichts erscheint (Cache), neu laden oder Inkognito-Modus.</li><li>Spielt, fresst einen Block, beantwortet die Fragen, zielt auf <b>8/10</b>!</li>",
-      "s.c5.1":"Zur&uuml;ck zu Settings &rarr; Pages.","s.c5.2":"Die Pages-Konfiguration.","s.c5.3":"Den Update-Status unter der URL pr&uuml;fen.","s.c5.4":"Und da ist das Spiel online! (falls nicht sichtbar: neu laden oder Inkognito-Modus)",
+      "s.c5.1":"Zur&uuml;ck zu Settings &rarr; Pages.","s.c5.2":"Die Pages-Konfiguration.","s.c5.3":"Den Update-Status unter der URL pr&uuml;fen.","s.c5.4":"Und da ist das Projekt online! (falls nicht sichtbar: neu laden oder Inkognito-Modus)",
       "c5.note":"Ihr habt gerade die komplette Kette durchlaufen: <b>Idee &rarr; Prompt &rarr; Pull Request &rarr; Merge &rarr; live</b>. Alles Weitere ist nur eine Wiederholung dieser Schleife.",
       "d.eyebrow":"Schritt 3 &mdash; Wiederholen","d.title":"Iterieren, immer wieder","d.intro":"Startet Codex erneut mit einem neuen Prompt im selben Repository: Prompt &rarr; Pull Request &rarr; Merge &rarr; live. Ein paar Ideen:",
-      "d.p1.who":"Das Spiel verbessern","d.p1.txt":"F&uuml;ge bei jeder richtigen Antwort Feuerwerk-Explosionen hinzu.",
+      "d.p1.who":"Das Projekt verbessern","d.p1.txt":"F&uuml;ge bei jeder richtigen Antwort Feuerwerk-Explosionen hinzu.",
       "d.p2.who":"Den Inhalt erweitern","d.p2.txt":"F&uuml;ge 10 Fragen zur Sicherheit industrieller Systeme (OT/ICS) hinzu.",
       "d.p3.who":"Neues Projekt","d.p3.txt":"Erstelle mir ein HTML-Framework zur Messung der Konformit&auml;t mit dem CSA-Dokument &bdquo;Are You Mythos Ready&ldquo;.",
-      "d.note":"F&uuml;r ein v&ouml;llig anderes Thema legt ein <b>neues Repository</b> an und wiederholt Schritt 1. Um ein bestehendes Spiel weiterzuentwickeln, bleibt im selben Repository.",
+      "d.note":"F&uuml;r ein v&ouml;llig anderes Thema legt ein <b>neues Repository</b> an und wiederholt Schritt 1. Um ein bestehendes Projekt weiterzuentwickeln, bleibt im selben Repository.",
       "e.eyebrow":"Weitergehen","e.title":"Der Vorstellungskraft sind keine Grenzen gesetzt","e.intro":"Sobald ihr die Schleife beherrscht, k&ouml;nnt ihr alles bauen. Und die KI bleibt euer bester Verb&uuml;ndeter, wann immer ihr feststeckt.",
       "e1.title":"Festgefahren? Fragt die KI","e1.body":"Jede Frage ist erlaubt: wie man das Tool nutzt, wie man ein Element hinzuf&uuml;gt, wie man den Inhalt erweitert. Die KI ist auch eure <b>Tutorin</b>.",
       "e2.title":"Idee noch unklar?","e2.body":"Bittet die KI, <b>euch Fragen zu stellen</b>, um euren Bedarf zu sch&auml;rfen: &bdquo;Stell mir Fragen, um meine Idee zu strukturieren.&ldquo;",
       "e3.title":"Die Schleife bleibt gleich","e3.body":"<b>Idee &rarr; Prompt &rarr; Pull Request &rarr; Merge &rarr; live.</b> Diesen Rhythmus kennt ihr jetzt. Ihr seid dran!",
+      "f.showcase":"Mit diesem Ansatz k&ouml;nnt ihr wirklich ganz unterschiedliche Dinge bauen. Seht euch die bereits erstellten Anwendungen hier an:","f.showcase.link":"Zum Showcase",
       "footer.src":"Vibe-Coding-Workshop &mdash; Wavestone &middot; interner Leitfaden","footer.reset":"Fortschritt zur&uuml;cksetzen"
     }
   };
@@ -828,6 +860,17 @@
       else { var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); ok(); }
     });
   });
+
+  /* ---------------- lightbox (in-page zoom) ---------------- */
+  var lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbClose = document.getElementById('lbClose');
+  function openLb(src){ lbImg.src = src; lb.classList.add('on'); lb.setAttribute('aria-hidden','false'); }
+  function closeLb(){ lb.classList.remove('on'); lb.setAttribute('aria-hidden','true'); lbImg.src = ''; }
+  document.querySelectorAll('figure.shot a.zoom').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); openLb(a.getAttribute('href')); });
+  });
+  lb.addEventListener('click', function(e){ if(e.target !== lbImg) closeLb(); });
+  lbClose.addEventListener('click', closeLb);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && lb.classList.contains('on')) closeLb(); });
 
   /* ---------------- reset ---------------- */
   document.getElementById('reset').addEventListener('click', function(){
