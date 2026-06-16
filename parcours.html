@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vibe coding @ Wavestone — Choisis ton parcours</title>
+<title>Wavestone CYB AI Maker — Choisis ton parcours</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -185,12 +185,12 @@
 
 <div class="bar">
   <div class="bar-in">
-    <a class="brand" href="index.html" style="text-decoration:none"><span class="dot"></span>Wavestone &middot; Vibe coding</a>
+    <a class="brand" href="index.html" style="text-decoration:none"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
     <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-      <a class="jump" href="vibe-coding.html">Les principes</a>
-      <a class="jump" href="philosophie-agents.html">Philosophie agents</a>
-      <a class="jump" href="showcase.html">Use cases</a>
-      <a class="jump" href="#infos">Infos &amp; liens utiles</a>
+      <a class="jump" href="vibe-coding.html" data-i18n="nav.principes">Les principes</a>
+      <a class="jump" href="philosophie-agents.html" data-i18n="nav.agents">Philosophie agents</a>
+      <a class="jump" href="showcase.html" data-i18n="nav.usecases">Use cases</a>
+      <a class="jump" href="#infos" data-i18n="nav.infos">Infos &amp; liens utiles</a>
     </div>
   </div>
 </div>
@@ -201,10 +201,10 @@
     <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
   </svg>
   <div class="hero-in">
-    <span class="eyebrow">Guide de d&eacute;marrage</span>
-    <h1>Vibe coding : choisis ton <span class="ac">parcours</span></h1>
-    <p class="lede">Quatre chemins pour passer de l'id&eacute;e au code avec Claude &mdash; du plus simple (tout en ligne) au plus avanc&eacute; (appels &agrave; un mod&egrave;le d'IA dans l'environnement Wavestone).</p>
-    <p class="tagline"># environnement wavestone &middot; licence claude entreprise &middot; sans droits admin</p>
+    <span class="eyebrow" data-i18n="hero.eyebrow">Guide de d&eacute;marrage</span>
+    <h1 data-i18n="hero.title">Choisis ton <span class="ac">parcours</span></h1>
+    <p class="lede" data-i18n="hero.lede">Quatre chemins pour passer de l'id&eacute;e au code avec Claude &mdash; du plus simple (tout en ligne) au plus avanc&eacute; (appels &agrave; un mod&egrave;le d'IA dans l'environnement Wavestone).</p>
+    <p class="tagline" data-i18n="hero.tagline"># environnement wavestone &middot; licence claude entreprise &middot; sans droits admin</p>
   </div>
 </header>
 
@@ -212,39 +212,39 @@
 
   <!-- CHOOSER -->
   <div class="sec-head">
-    <span class="eyebrow">Par o&ugrave; commencer</span>
-    <h2>Quel est ton objectif ?</h2>
-    <p>Choisis un parcours : les &eacute;tapes et les liens s'affichent juste en dessous.</p>
+    <span class="eyebrow" data-i18n="chooser.eyebrow">Par o&ugrave; commencer</span>
+    <h2 data-i18n="chooser.h2">Quel est ton objectif ?</h2>
+    <p data-i18n="chooser.p">Choisis un parcours : les &eacute;tapes et les liens s'affichent juste en dessous.</p>
   </div>
 
   <div class="chooser" id="chooser">
     <button class="tile active" data-target="p1">
       <span class="idx">01</span>
-      <h3>Coder une application simple en ligne</h3>
-      <p>Une page ou un petit outil, sans rien installer. Tout se passe dans le navigateur.</p>
-      <div class="stack"><span class="chip">GitHub</span><span class="chip">GitHub Pages</span><span class="chip">Claude en ligne</span></div>
+      <h3 data-i18n="tile1.h3">Coder une application simple en ligne</h3>
+      <p data-i18n="tile1.p">Une page ou un petit outil, sans rien installer. Tout se passe dans le navigateur.</p>
+      <div class="stack"><span class="chip">GitHub</span><span class="chip">GitHub Pages</span><span class="chip" data-i18n="tile1.chip3">Claude en ligne</span></div>
     </button>
 
     <button class="tile" data-target="p2">
       <span class="idx">02</span>
-      <h3>Coder une application sur ma machine</h3>
-      <p>D&eacute;veloppement local plus libre, avec sauvegarde et travail en commun via GitHub.</p>
+      <h3 data-i18n="tile2.h3">Coder une application sur ma machine</h3>
+      <p data-i18n="tile2.p">D&eacute;veloppement local plus libre, avec sauvegarde et travail en commun via GitHub.</p>
       <div class="stack"><span class="chip">Git</span><span class="chip">VS Code</span><span class="chip">Python</span><span class="chip">GitHub</span></div>
     </button>
 
     <button class="tile soon" data-target="p3">
-      <span class="badge-soon">&Agrave; venir</span>
+      <span class="badge-soon" data-i18n="tile3.badge">&Agrave; venir</span>
       <span class="idx">03</span>
-      <h3>Application web complexe</h3>
-      <p>Stockage et base de donn&eacute;es centralis&eacute;s. Une approche est en cours de r&eacute;flexion.</p>
-      <div class="stack"><span class="chip">Backend</span><span class="chip">Base de donn&eacute;es</span></div>
+      <h3 data-i18n="tile3.h3">Application web complexe</h3>
+      <p data-i18n="tile3.p">Stockage et base de donn&eacute;es centralis&eacute;s. Une approche est en cours de r&eacute;flexion.</p>
+      <div class="stack"><span class="chip">Backend</span><span class="chip" data-i18n="tile3.chip2">Base de donn&eacute;es</span></div>
     </button>
 
     <button class="tile" data-target="p4">
       <span class="idx">04</span>
-      <h3>Appeler un mod&egrave;le d'IA dans mon appli</h3>
-      <p>Int&eacute;grer des appels &agrave; un mod&egrave;le d'IA via des cl&eacute;s API, dans l'environnement Wavestone.</p>
-      <div class="stack"><span class="chip">Cl&eacute;s API Wavestone</span><span class="chip">Microsoft</span></div>
+      <h3 data-i18n="tile4.h3">Appeler un mod&egrave;le d'IA dans mon appli</h3>
+      <p data-i18n="tile4.p">Int&eacute;grer des appels &agrave; un mod&egrave;le d'IA via des cl&eacute;s API, dans l'environnement Wavestone.</p>
+      <div class="stack"><span class="chip" data-i18n="tile4.chip1">Cl&eacute;s API Wavestone</span><span class="chip">Microsoft</span></div>
     </button>
   </div>
 
@@ -255,11 +255,11 @@
     <section class="panel active" data-panel="p1">
       <div class="panel-head">
         <div class="t">
-          <span class="eyebrow">Parcours 01</span>
-          <h2>Application simple en ligne</h2>
-          <div class="sub">GitHub + GitHub Pages + Claude en ligne &mdash; id&eacute;al pour des pages et outils simples, sans backend.</div>
+          <span class="eyebrow" data-i18n="p1.eyebrow">Parcours 01</span>
+          <h2 data-i18n="p1.h2">Application simple en ligne</h2>
+          <div class="sub" data-i18n="p1.sub">GitHub + GitHub Pages + Claude en ligne &mdash; id&eacute;al pour des pages et outils simples, sans backend.</div>
         </div>
-        <div class="prog"><b class="dn">0</b>/<span class="tot">4</span> &eacute;tapes</div>
+        <div class="prog"><b class="dn">0</b>/<span class="tot">4</span> <span data-i18n="prog.etapes">&eacute;tapes</span></div>
       </div>
 
       <div class="steps">
@@ -268,8 +268,8 @@
         <div class="step">
           <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
           <div class="scard">
-            <h4>Tester ton compte Claude</h4>
-            <div class="do">Connecte-toi avec ton compte Wavestone et v&eacute;rifie que &laquo; Wavestone &raquo; appara&icirc;t : l'environnement entreprise est reconnu.</div>
+            <h4 data-i18n="p1.s1.h4">Tester ton compte Claude</h4>
+            <div class="do" data-i18n="p1.s1.do">Connecte-toi avec ton compte Wavestone et v&eacute;rifie que &laquo; Wavestone &raquo; appara&icirc;t : l'environnement entreprise est reconnu.</div>
             <div class="links"><a class="lk" href="https://claude.ai/new" target="_blank" rel="noopener">claude.ai/new <span class="ar">&#8599;</span></a></div>
           </div>
         </div>
@@ -277,8 +277,8 @@
         <div class="step">
           <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
           <div class="scard">
-            <h4>Cr&eacute;er un compte GitHub <span class="mini">gratuit</span></h4>
-            <div class="do">Cr&eacute;e ton compte, puis un premier <b>repository</b> (l'espace qui stocke ton code).</div>
+            <h4 data-i18n="p1.s2.h4">Cr&eacute;er un compte GitHub <span class="mini">gratuit</span></h4>
+            <div class="do" data-i18n="p1.s2.do">Cr&eacute;e ton compte, puis un premier <b>repository</b> (l'espace qui stocke ton code).</div>
             <div class="links"><a class="lk" href="https://github.com/" target="_blank" rel="noopener">github.com <span class="ar">&#8599;</span></a></div>
           </div>
         </div>
@@ -286,8 +286,8 @@
         <div class="step">
           <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
           <div class="scard">
-            <h4>Activer GitHub Pages</h4>
-            <div class="do">Dans les r&eacute;glages du repo, active <b>Pages</b> : c'est ce qui h&eacute;bergera la page que tu vas cr&eacute;er (ton &laquo; pipeline minimum &raquo;).</div>
+            <h4 data-i18n="p1.s3.h4">Activer GitHub Pages</h4>
+            <div class="do" data-i18n="p1.s3.do">Dans les r&eacute;glages du repo, active <b>Pages</b> : c'est ce qui h&eacute;bergera la page que tu vas cr&eacute;er (ton &laquo; pipeline minimum &raquo;).</div>
             <div class="links"><a class="lk" href="https://pages.github.com/" target="_blank" rel="noopener">pages.github.com <span class="ar">&#8599;</span></a></div>
           </div>
         </div>
@@ -295,8 +295,8 @@
         <div class="step">
           <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">4</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
           <div class="scard">
-            <h4>Lancer Claude Code en ligne</h4>
-            <div class="do">Lie Claude &agrave; ton compte GitHub (demand&eacute; &agrave; la premi&egrave;re fois), choisis ton repository, puis d&eacute;cris ce que tu veux. Claude cr&eacute;e une machine virtuelle, &eacute;crit le fichier et le pousse dans le repo.</div>
+            <h4 data-i18n="p1.s4.h4">Lancer Claude Code en ligne</h4>
+            <div class="do" data-i18n="p1.s4.do">Lie Claude &agrave; ton compte GitHub (demand&eacute; &agrave; la premi&egrave;re fois), choisis ton repository, puis d&eacute;cris ce que tu veux. Claude cr&eacute;e une machine virtuelle, &eacute;crit le fichier et le pousse dans le repo.</div>
             <div class="links"><a class="lk" href="https://claude.ai/new" target="_blank" rel="noopener">claude.ai <span class="ar">&#8599;</span></a></div>
           </div>
         </div>
@@ -304,8 +304,8 @@
 
       <div class="prompt">
         <button class="copy">copier</button>
-        <div class="who">Ton premier prompt</div>
-        <div class="txt">Cr&eacute;e-moi une page HTML qui est un quiz sur la cybers&eacute;curit&eacute; en 10 questions. Tire les questions au hasard, pr&eacute;sente-les une par une et donne un score &agrave; la fin.</div>
+        <div class="who" data-i18n="p1.prompt.who">Ton premier prompt</div>
+        <div class="txt" data-i18n="p1.prompt.txt">Cr&eacute;e-moi une page HTML qui est un quiz sur la cybers&eacute;curit&eacute; en 10 questions. Tire les questions au hasard, pr&eacute;sente-les une par une et donne un score &agrave; la fin.</div>
       </div>
     </section>
 
@@ -313,11 +313,11 @@
     <section class="panel" data-panel="p2">
       <div class="panel-head">
         <div class="t">
-          <span class="eyebrow">Parcours 02</span>
-          <h2>Application sur ma machine</h2>
-          <div class="sub">Git + VS Code + Python, avec sauvegarde et travail en commun via GitHub. Tout reste en local sur ta machine.</div>
+          <span class="eyebrow" data-i18n="p2.eyebrow">Parcours 02</span>
+          <h2 data-i18n="p2.h2">Application sur ma machine</h2>
+          <div class="sub" data-i18n="p2.sub">Git + VS Code + Python, avec sauvegarde et travail en commun via GitHub. Tout reste en local sur ta machine.</div>
         </div>
-        <div class="prog"><b class="dn">0</b>/<span class="tot">6</span> &eacute;tapes</div>
+        <div class="prog"><b class="dn">0</b>/<span class="tot">6</span> <span data-i18n="prog.etapes">&eacute;tapes</span></div>
       </div>
 
       <div class="steps">
@@ -326,8 +326,8 @@
         <div class="step">
           <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
           <div class="scard">
-            <h4>Tester Claude + cr&eacute;er un GitHub</h4>
-            <div class="do">Connecte-toi &agrave; Claude (compte Wavestone) et cr&eacute;e un compte GitHub gratuit pour stocker et versionner ton code.</div>
+            <h4 data-i18n="p2.s1.h4">Tester Claude + cr&eacute;er un GitHub</h4>
+            <div class="do" data-i18n="p2.s1.do">Connecte-toi &agrave; Claude (compte Wavestone) et cr&eacute;e un compte GitHub gratuit pour stocker et versionner ton code.</div>
             <div class="links"><a class="lk" href="https://claude.ai/new" target="_blank" rel="noopener">claude.ai/new <span class="ar">&#8599;</span></a><a class="lk" href="https://github.com/" target="_blank" rel="noopener">github.com <span class="ar">&#8599;</span></a></div>
           </div>
         </div>
@@ -335,8 +335,8 @@
         <div class="step">
           <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
           <div class="scard">
-            <h4>Installer Git</h4>
-            <div class="do">T&eacute;l&eacute;charge et installe Git (version Windows). Pas d'interface : c'est le composant qui suit les modifications de tes fichiers.</div>
+            <h4 data-i18n="p2.s2.h4">Installer Git</h4>
+            <div class="do" data-i18n="p2.s2.do">T&eacute;l&eacute;charge et installe Git (version Windows). Pas d'interface : c'est le composant qui suit les modifications de tes fichiers.</div>
             <div class="links"><a class="lk" href="https://git-scm.com/install/" target="_blank" rel="noopener">git-scm.com/install <span class="ar">&#8599;</span></a></div>
           </div>
         </div>
@@ -344,8 +344,8 @@
         <div class="step">
           <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
           <div class="scard">
-            <h4>Installer GitHub Desktop</h4>
-            <div class="do">Le client qui synchronise tes repositories entre le web et ta machine (<code>Documents/GitHub</code>). Connecte ton compte GitHub. C'est lui qui permet la <b>sauvegarde et le travail en commun</b>.</div>
+            <h4 data-i18n="p2.s3.h4">Installer GitHub Desktop</h4>
+            <div class="do" data-i18n="p2.s3.do">Le client qui synchronise tes repositories entre le web et ta machine (<code>Documents/GitHub</code>). Connecte ton compte GitHub. C'est lui qui permet la <b>sauvegarde et le travail en commun</b>.</div>
             <div class="links"><a class="lk" href="https://desktop.github.com/download/" target="_blank" rel="noopener">desktop.github.com <span class="ar">&#8599;</span></a></div>
           </div>
         </div>
@@ -353,8 +353,8 @@
         <div class="step">
           <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">4</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
           <div class="scard">
-            <h4>Installer Visual Studio Code</h4>
-            <div class="do">L'&eacute;diteur dans lequel tu travailleras. T&eacute;l&eacute;charge pour Windows, puis Suivant &rarr; Installer.</div>
+            <h4 data-i18n="p2.s4.h4">Installer Visual Studio Code</h4>
+            <div class="do" data-i18n="p2.s4.do">L'&eacute;diteur dans lequel tu travailleras. T&eacute;l&eacute;charge pour Windows, puis Suivant &rarr; Installer.</div>
             <div class="links"><a class="lk" href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com <span class="ar">&#8599;</span></a></div>
           </div>
         </div>
@@ -362,8 +362,8 @@
         <div class="step">
           <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">5</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
           <div class="scard">
-            <h4>Installer Python <span class="mini opt">pour le code avanc&eacute;</span></h4>
-            <div class="do">Installe le <b>Python Install Manager</b> (recommand&eacute; via le Microsoft Store). Utile d&egrave;s que Claude doit g&eacute;n&eacute;rer et ex&eacute;cuter du Python en local.</div>
+            <h4 data-i18n="p2.s5.h4">Installer Python <span class="mini opt">pour le code avanc&eacute;</span></h4>
+            <div class="do" data-i18n="p2.s5.do">Installe le <b>Python Install Manager</b> (recommand&eacute; via le Microsoft Store). Utile d&egrave;s que Claude doit g&eacute;n&eacute;rer et ex&eacute;cuter du Python en local.</div>
             <div class="links"><a class="lk" href="https://apps.microsoft.com/detail/9nq7512cxl7t" target="_blank" rel="noopener">Microsoft Store <span class="ar">&#8599;</span></a><a class="lk" href="https://www.python.org/downloads/" target="_blank" rel="noopener">python.org <span class="ar">&#8599;</span></a></div>
           </div>
         </div>
@@ -371,27 +371,27 @@
         <div class="step">
           <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">6</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
           <div class="scard">
-            <h4>Extension Claude Code + premier fichier</h4>
-            <div class="do">Dans VS Code : Extensions (<code>Ctrl+Shift+X</code>) &rarr; cherche <b>&laquo; Claude Code &raquo;</b> (Anthropic) &rarr; Installer. Connecte ton compte Claude, ouvre un dossier de ta machine, puis demande ton premier fichier dans le panneau Claude (ic&ocirc;ne +).</div>
-            <div class="links"><a class="lk" href="https://code.claude.com/docs/en/vs-code" target="_blank" rel="noopener">guide officiel <span class="ar">&#8599;</span></a><a class="lk" href="vscode:extension/anthropic.claude-code">ouvrir dans VS&nbsp;Code <span class="ar">&#8599;</span></a></div>
+            <h4 data-i18n="p2.s6.h4">Extension Claude Code + premier fichier</h4>
+            <div class="do" data-i18n="p2.s6.do">Dans VS Code : Extensions (<code>Ctrl+Shift+X</code>) &rarr; cherche <b>&laquo; Claude Code &raquo;</b> (Anthropic) &rarr; Installer. Connecte ton compte Claude, ouvre un dossier de ta machine, puis demande ton premier fichier dans le panneau Claude (ic&ocirc;ne +).</div>
+            <div class="links"><a class="lk" href="https://code.claude.com/docs/en/vs-code" target="_blank" rel="noopener" data-i18n="p2.s6.lk1">guide officiel <span class="ar">&#8599;</span></a><a class="lk" href="vscode:extension/anthropic.claude-code" data-i18n="p2.s6.lk2">ouvrir dans VS&nbsp;Code <span class="ar">&#8599;</span></a></div>
           </div>
         </div>
       </div>
 
       <div class="prompt">
         <button class="copy">copier</button>
-        <div class="who">Exemple &mdash; page simple</div>
-        <div class="txt">Cr&eacute;e-moi une page HTML autonome nomm&eacute;e tetris.html : un Tetris minimaliste qui d&eacute;marre sur la touche Entr&eacute;e.</div>
+        <div class="who" data-i18n="p2.prompt1.who">Exemple &mdash; page simple</div>
+        <div class="txt" data-i18n="p2.prompt1.txt">Cr&eacute;e-moi une page HTML autonome nomm&eacute;e tetris.html : un Tetris minimaliste qui d&eacute;marre sur la touche Entr&eacute;e.</div>
       </div>
       <div class="prompt">
         <button class="copy">copier</button>
-        <div class="who">Exemple &mdash; script Python local</div>
-        <div class="txt">Cr&eacute;e-moi un script Python qui utilise en local faster-whisper pour transcrire mes fichiers audio et vid&eacute;o sur ma machine.</div>
+        <div class="who" data-i18n="p2.prompt2.who">Exemple &mdash; script Python local</div>
+        <div class="txt" data-i18n="p2.prompt2.txt">Cr&eacute;e-moi un script Python qui utilise en local faster-whisper pour transcrire mes fichiers audio et vid&eacute;o sur ma machine.</div>
       </div>
 
       <div class="note">
-        <div class="lab">Human in the loop</div>
-        <p>En local, Claude demande ta permission avant d'ex&eacute;cuter une commande. Lis ce qu'il propose, puis valide &mdash; rien ne se lance dans ton dos.</p>
+        <div class="lab" data-i18n="p2.note.lab">Human in the loop</div>
+        <p data-i18n="p2.note.p">En local, Claude demande ta permission avant d'ex&eacute;cuter une commande. Lis ce qu'il propose, puis valide &mdash; rien ne se lance dans ton dos.</p>
       </div>
     </section>
 
@@ -399,16 +399,16 @@
     <section class="panel" data-panel="p3">
       <div class="panel-head">
         <div class="t">
-          <span class="eyebrow">Parcours 03</span>
-          <h2>Application web complexe</h2>
-          <div class="sub">Avec stockage et base de donn&eacute;es centralis&eacute;s.</div>
+          <span class="eyebrow" data-i18n="p3.eyebrow">Parcours 03</span>
+          <h2 data-i18n="p3.h2">Application web complexe</h2>
+          <div class="sub" data-i18n="p3.sub">Avec stockage et base de donn&eacute;es centralis&eacute;s.</div>
         </div>
       </div>
 
       <div class="soon-card">
         <div class="ring"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-        <h3>&Agrave; venir &mdash; on y r&eacute;fl&eacute;chit</h3>
-        <p>Pour les applications qui n&eacute;cessitent un stockage et une base de donn&eacute;es centralis&eacute;s, une approche est en cours de d&eacute;finition. Compte tenu de la r&egrave;gle de gouvernance (donn&eacute;es clients sensibles dans l'environnement Microsoft), elle s'appuiera probablement sur cet environnement. Reste &agrave; l'&eacute;coute.</p>
+        <h3 data-i18n="p3.soon.h3">&Agrave; venir &mdash; on y r&eacute;fl&eacute;chit</h3>
+        <p data-i18n="p3.soon.p">Pour les applications qui n&eacute;cessitent un stockage et une base de donn&eacute;es centralis&eacute;s, une approche est en cours de d&eacute;finition. Compte tenu de la r&egrave;gle de gouvernance (donn&eacute;es clients sensibles dans l'environnement Microsoft), elle s'appuiera probablement sur cet environnement. Reste &agrave; l'&eacute;coute.</p>
       </div>
     </section>
 
@@ -416,17 +416,17 @@
     <section class="panel" data-panel="p4">
       <div class="panel-head">
         <div class="t">
-          <span class="eyebrow">Parcours 04</span>
-          <h2>Appeler un mod&egrave;le d'IA dans mon appli</h2>
-          <div class="sub">Int&eacute;grer des appels &agrave; un mod&egrave;le d'IA via des cl&eacute;s API, dans l'environnement Wavestone.</div>
+          <span class="eyebrow" data-i18n="p4.eyebrow">Parcours 04</span>
+          <h2 data-i18n="p4.h2">Appeler un mod&egrave;le d'IA dans mon appli</h2>
+          <div class="sub" data-i18n="p4.sub">Int&eacute;grer des appels &agrave; un mod&egrave;le d'IA via des cl&eacute;s API, dans l'environnement Wavestone.</div>
         </div>
-        <div class="prog"><b class="dn">0</b>/<span class="tot">3</span> &eacute;tapes</div>
+        <div class="prog"><b class="dn">0</b>/<span class="tot">3</span> <span data-i18n="prog.etapes">&eacute;tapes</span></div>
       </div>
 
       <div class="note">
-        <div class="lab">R&egrave;gle de gouvernance</div>
-        <p><b>Les donn&eacute;es clients sensibles se manipulent dans l'environnement Microsoft.</b> Pour les traitements, privil&eacute;gie donc les <b>appels d'API via Microsoft</b> plut&ocirc;t qu'un traitement local non ma&icirc;tris&eacute;.</p>
-        <p>Tes use cases reposant sur des outils web autonomes qui font des appels API peuvent ainsi passer &agrave; l'&eacute;chelle.</p>
+        <div class="lab" data-i18n="p4.note.lab">R&egrave;gle de gouvernance</div>
+        <p data-i18n="p4.note.p1"><b>Les donn&eacute;es clients sensibles se manipulent dans l'environnement Microsoft.</b> Pour les traitements, privil&eacute;gie donc les <b>appels d'API via Microsoft</b> plut&ocirc;t qu'un traitement local non ma&icirc;tris&eacute;.</p>
+        <p data-i18n="p4.note.p2">Tes use cases reposant sur des outils web autonomes qui font des appels API peuvent ainsi passer &agrave; l'&eacute;chelle.</p>
       </div>
 
       <div class="steps">
@@ -435,25 +435,25 @@
         <div class="step">
           <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
           <div class="scard">
-            <h4>Cr&eacute;er une cl&eacute; API Wavestone <span class="mini">point de d&eacute;part</span></h4>
-            <div class="do">Le product manager du produit peut cr&eacute;er des cl&eacute;s API et les associer aux personnes qui r&eacute;alisent les missions. Rends-toi sur la page d&eacute;di&eacute;e (voir &laquo; Infos &amp; liens utiles &raquo;).</div>
-            <div class="links"><a class="lk" href="#infos">aller aux liens <span class="ar">&#8595;</span></a></div>
+            <h4 data-i18n="p4.s1.h4">Cr&eacute;er une cl&eacute; API Wavestone <span class="mini">point de d&eacute;part</span></h4>
+            <div class="do" data-i18n="p4.s1.do">Le product manager du produit peut cr&eacute;er des cl&eacute;s API et les associer aux personnes qui r&eacute;alisent les missions. Rends-toi sur la page d&eacute;di&eacute;e (voir &laquo; Infos &amp; liens utiles &raquo;).</div>
+            <div class="links"><a class="lk" href="#infos" data-i18n="p4.s1.lk">aller aux liens <span class="ar">&#8595;</span></a></div>
           </div>
         </div>
 
         <div class="step">
           <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
           <div class="scard">
-            <h4>Associer la cl&eacute; &agrave; l'utilisateur</h4>
-            <div class="do">Depuis l'interface, associe la cl&eacute; cr&eacute;&eacute;e &agrave; la personne (chef de projet / utilisateur) qui en a besoin.</div>
+            <h4 data-i18n="p4.s2.h4">Associer la cl&eacute; &agrave; l'utilisateur</h4>
+            <div class="do" data-i18n="p4.s2.do">Depuis l'interface, associe la cl&eacute; cr&eacute;&eacute;e &agrave; la personne (chef de projet / utilisateur) qui en a besoin.</div>
           </div>
         </div>
 
         <div class="step">
           <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
           <div class="scard">
-            <h4>Appeler le mod&egrave;le depuis ton code</h4>
-            <div class="do">Utilise la cl&eacute; dans ton application pour faire les appels API vers le mod&egrave;le, en restant dans l'environnement Wavestone / Microsoft pour les donn&eacute;es sensibles.</div>
+            <h4 data-i18n="p4.s3.h4">Appeler le mod&egrave;le depuis ton code</h4>
+            <div class="do" data-i18n="p4.s3.do">Utilise la cl&eacute; dans ton application pour faire les appels API vers le mod&egrave;le, en restant dans l'environnement Wavestone / Microsoft pour les donn&eacute;es sensibles.</div>
           </div>
         </div>
       </div>
@@ -463,33 +463,33 @@
 
   <!-- ============ INFOS UTILES ============ -->
   <div class="sec-head" id="infos">
-    <span class="eyebrow">Ressources</span>
-    <h2>Infos &amp; liens utiles</h2>
-    <p>Tous les acc&egrave;s et t&eacute;l&eacute;chargements, au m&ecirc;me endroit.</p>
+    <span class="eyebrow" data-i18n="infos.eyebrow">Ressources</span>
+    <h2 data-i18n="infos.h2">Infos &amp; liens utiles</h2>
+    <p data-i18n="infos.p">Tous les acc&egrave;s et t&eacute;l&eacute;chargements, au m&ecirc;me endroit.</p>
   </div>
 
   <div class="res">
     <div class="res-card key">
-      <h3><span class="star"><svg width="0.85em" height="0.85em" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span> Acc&egrave;s &amp; cl&eacute;s Wavestone</h3>
+      <h3><span class="star"><svg width="0.85em" height="0.85em" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span> <span data-i18n="infos.key.h3">Acc&egrave;s &amp; cl&eacute;s Wavestone</span></h3>
       <a class="res-cta" href="https://apps.powerapps.com/play/e/03198640-3be3-ebd9-90cf-49ed52db3158/a/cb325a04-ac43-4133-9f1a-af3fc3845f8c?tenantId=5de96c96-c87c-4dce-aad9-f5c557b52ac1&amp;hint=26ff1bb4-0493-416f-a06f-0c1c4f1d6245&amp;source=sharebutton&amp;sourcetime=1781518515405" target="_blank" rel="noopener">
-        <span class="nm">Cr&eacute;er une cl&eacute; API Wavestone</span><span class="go">Power Apps &#8599;</span>
+        <span class="nm" data-i18n="infos.key.cta">Cr&eacute;er une cl&eacute; API Wavestone</span><span class="go">Power Apps &#8599;</span>
       </a>
       <ul class="res-list" style="margin-top:9px">
-        <li><a href="https://apps.powerapps.com/play/e/03198640-3be3-ebd9-90cf-49ed52db3158/a/cb325a04-ac43-4133-9f1a-af3fc3845f8c?tenantId=5de96c96-c87c-4dce-aad9-f5c557b52ac1&amp;hint=26ff1bb4-0493-416f-a06f-0c1c4f1d6245&amp;source=sharebutton&amp;sourcetime=1781518515405" target="_blank" rel="noopener"><span><span class="nm">Demander un compte POC</span><span class="u">apps.powerapps.com</span></span><span class="go">Power Apps &#8599;</span></a></li>
+        <li><a href="https://apps.powerapps.com/play/e/03198640-3be3-ebd9-90cf-49ed52db3158/a/cb325a04-ac43-4133-9f1a-af3fc3845f8c?tenantId=5de96c96-c87c-4dce-aad9-f5c557b52ac1&amp;hint=26ff1bb4-0493-416f-a06f-0c1c4f1d6245&amp;source=sharebutton&amp;sourcetime=1781518515405" target="_blank" rel="noopener"><span><span class="nm" data-i18n="infos.key.poc">Demander un compte POC</span><span class="u">apps.powerapps.com</span></span><span class="go">Power Apps &#8599;</span></a></li>
       </ul>
-      <div class="cap" style="color:var(--ws-ink-400)">&#8505; Les deux actions (cr&eacute;er une cl&eacute; API, demander un compte POC) se font dans la m&ecirc;me application Power Apps Wavestone.</div>
+      <div class="cap" style="color:var(--ws-ink-400)" data-i18n="infos.key.cap">&#8505; Les deux actions (cr&eacute;er une cl&eacute; API, demander un compte POC) se font dans la m&ecirc;me application Power Apps Wavestone.</div>
     </div>
 
     <div class="res-card">
-      <h3>T&eacute;l&eacute;chargements</h3>
+      <h3 data-i18n="infos.dl.h3">T&eacute;l&eacute;chargements</h3>
       <ul class="res-list">
         <li><a href="https://claude.ai/new" target="_blank" rel="noopener"><span><span class="nm">Claude</span><span class="u">claude.ai/new</span></span><span class="go">&#8599;</span></a></li>
-        <li><a href="https://github.com/" target="_blank" rel="noopener"><span><span class="nm">GitHub (compte)</span><span class="u">github.com</span></span><span class="go">&#8599;</span></a></li>
+        <li><a href="https://github.com/" target="_blank" rel="noopener"><span><span class="nm" data-i18n="infos.dl.github">GitHub (compte)</span><span class="u">github.com</span></span><span class="go">&#8599;</span></a></li>
         <li><a href="https://pages.github.com/" target="_blank" rel="noopener"><span><span class="nm">GitHub Pages</span><span class="u">pages.github.com</span></span><span class="go">&#8599;</span></a></li>
         <li><a href="https://git-scm.com/install/" target="_blank" rel="noopener"><span><span class="nm">Git</span><span class="u">git-scm.com/install</span></span><span class="go">&#8599;</span></a></li>
         <li><a href="https://desktop.github.com/download/" target="_blank" rel="noopener"><span><span class="nm">GitHub Desktop</span><span class="u">desktop.github.com/download</span></span><span class="go">&#8599;</span></a></li>
         <li><a href="https://code.visualstudio.com/" target="_blank" rel="noopener"><span><span class="nm">Visual Studio Code</span><span class="u">code.visualstudio.com</span></span><span class="go">&#8599;</span></a></li>
-        <li><a href="https://code.claude.com/docs/en/vs-code" target="_blank" rel="noopener"><span><span class="nm">Extension Claude Code (VS Code)</span><span class="u">code.claude.com/docs/en/vs-code</span></span><span class="go">&#8599;</span></a></li>
+        <li><a href="https://code.claude.com/docs/en/vs-code" target="_blank" rel="noopener"><span><span class="nm" data-i18n="infos.dl.ext">Extension Claude Code (VS Code)</span><span class="u">code.claude.com/docs/en/vs-code</span></span><span class="go">&#8599;</span></a></li>
         <li><a href="https://apps.microsoft.com/detail/9nq7512cxl7t" target="_blank" rel="noopener"><span><span class="nm">Python Install Manager</span><span class="u">Microsoft Store &middot; python.org</span></span><span class="go">&#8599;</span></a></li>
       </ul>
     </div>
@@ -498,8 +498,8 @@
 </div>
 
 <footer>
-  <span class="src">Notice remise au propre depuis la d&eacute;mo &laquo; Claude &times; VS Code &raquo; &mdash; Wavestone</span>
-  <button class="reset" id="reset">r&eacute;initialiser la progression</button>
+  <span class="src" data-i18n="footer.src">Wavestone CYB &middot; AI Maker Initiative &mdash; guide de d&eacute;marrage</span>
+  <button class="reset" id="reset" data-i18n="footer.reset">r&eacute;initialiser la progression</button>
 </footer>
 
 <script>
@@ -565,5 +565,196 @@
   });
 })();
 </script>
+<script>
+window.WS_I18N = {
+  en: {
+    "__title": "Wavestone CYB AI Maker — Choose your path",
+    "nav.principes": "The principles",
+    "nav.agents": "Agent philosophy",
+    "nav.usecases": "Use cases",
+    "nav.infos": "Info &amp; useful links",
+    "hero.eyebrow": "Getting-started guide",
+    "hero.title": "Choose your <span class=\"ac\">path</span>",
+    "hero.lede": "Four routes to go from idea to code with Claude &mdash; from the simplest (entirely online) to the most advanced (calling an AI model inside the Wavestone environment).",
+    "hero.tagline": "# wavestone environment &middot; claude enterprise licence &middot; no admin rights",
+    "chooser.eyebrow": "Where to start",
+    "chooser.h2": "What's your goal?",
+    "chooser.p": "Pick a path: the steps and links appear right below.",
+    "tile1.h3": "Code a simple app online",
+    "tile1.p": "A page or a small tool, with nothing to install. Everything happens in the browser.",
+    "tile1.chip3": "Claude online",
+    "tile2.h3": "Code an app on my machine",
+    "tile2.p": "Freer local development, with backup and teamwork via GitHub.",
+    "tile3.badge": "Coming soon",
+    "tile3.h3": "Complex web application",
+    "tile3.p": "Centralised storage and database. An approach is currently being explored.",
+    "tile3.chip2": "Database",
+    "tile4.h3": "Call an AI model in my app",
+    "tile4.p": "Integrate calls to an AI model via API keys, within the Wavestone environment.",
+    "tile4.chip1": "Wavestone API keys",
+    "prog.etapes": "steps",
+    "p1.eyebrow": "Path 01",
+    "p1.h2": "Simple app online",
+    "p1.sub": "GitHub + GitHub Pages + Claude online &mdash; ideal for simple pages and tools, with no backend.",
+    "p1.s1.h4": "Test your Claude account",
+    "p1.s1.do": "Sign in with your Wavestone account and check that &laquo; Wavestone &raquo; appears: the enterprise environment is recognised.",
+    "p1.s2.h4": "Create a GitHub account <span class=\"mini\">free</span>",
+    "p1.s2.do": "Create your account, then a first <b>repository</b> (the space that stores your code).",
+    "p1.s3.h4": "Enable GitHub Pages",
+    "p1.s3.do": "In the repo settings, enable <b>Pages</b>: this is what will host the page you create (your &laquo; minimum pipeline &raquo;).",
+    "p1.s4.h4": "Launch Claude Code online",
+    "p1.s4.do": "Link Claude to your GitHub account (asked the first time), choose your repository, then describe what you want. Claude spins up a virtual machine, writes the file and pushes it to the repo.",
+    "p1.prompt.who": "Your first prompt",
+    "p1.prompt.txt": "Create an HTML page that is a 10-question cybersecurity quiz. Draw the questions at random, present them one at a time and give a score at the end.",
+    "p2.eyebrow": "Path 02",
+    "p2.h2": "App on my machine",
+    "p2.sub": "Git + VS Code + Python, with backup and teamwork via GitHub. Everything stays local on your machine.",
+    "p2.s1.h4": "Test Claude + create a GitHub",
+    "p2.s1.do": "Sign in to Claude (Wavestone account) and create a free GitHub account to store and version your code.",
+    "p2.s2.h4": "Install Git",
+    "p2.s2.do": "Download and install Git (Windows version). No interface: it's the component that tracks changes to your files.",
+    "p2.s3.h4": "Install GitHub Desktop",
+    "p2.s3.do": "The client that syncs your repositories between the web and your machine (<code>Documents/GitHub</code>). Connect your GitHub account. This is what enables <b>backup and teamwork</b>.",
+    "p2.s4.h4": "Install Visual Studio Code",
+    "p2.s4.do": "The editor you'll work in. Download for Windows, then Next &rarr; Install.",
+    "p2.s5.h4": "Install Python <span class=\"mini opt\">for advanced code</span>",
+    "p2.s5.do": "Install the <b>Python Install Manager</b> (recommended via the Microsoft Store). Useful as soon as Claude needs to generate and run Python locally.",
+    "p2.s6.h4": "Claude Code extension + first file",
+    "p2.s6.do": "In VS Code: Extensions (<code>Ctrl+Shift+X</code>) &rarr; search <b>&laquo; Claude Code &raquo;</b> (Anthropic) &rarr; Install. Connect your Claude account, open a folder on your machine, then ask for your first file in the Claude panel (+ icon).",
+    "p2.s6.lk1": "official guide <span class=\"ar\">&#8599;</span>",
+    "p2.s6.lk2": "open in VS&nbsp;Code <span class=\"ar\">&#8599;</span>",
+    "p2.prompt1.who": "Example &mdash; simple page",
+    "p2.prompt1.txt": "Create a standalone HTML page named tetris.html: a minimalist Tetris that starts on the Enter key.",
+    "p2.prompt2.who": "Example &mdash; local Python script",
+    "p2.prompt2.txt": "Create a Python script that uses faster-whisper locally to transcribe my audio and video files on my machine.",
+    "p2.note.lab": "Human in the loop",
+    "p2.note.p": "Locally, Claude asks your permission before running a command. Read what it proposes, then approve &mdash; nothing runs behind your back.",
+    "p3.eyebrow": "Path 03",
+    "p3.h2": "Complex web application",
+    "p3.sub": "With centralised storage and database.",
+    "p3.soon.h3": "Coming soon &mdash; we're working on it",
+    "p3.soon.p": "For applications that require centralised storage and a database, an approach is currently being defined. Given the governance rule (sensitive client data in the Microsoft environment), it will probably rely on that environment. Stay tuned.",
+    "p4.eyebrow": "Path 04",
+    "p4.h2": "Call an AI model in my app",
+    "p4.sub": "Integrate calls to an AI model via API keys, within the Wavestone environment.",
+    "p4.note.lab": "Governance rule",
+    "p4.note.p1": "<b>Sensitive client data must be handled in the Microsoft environment.</b> For processing, therefore favour <b>API calls via Microsoft</b> rather than unmanaged local processing.",
+    "p4.note.p2": "Your use cases built on autonomous web tools that make API calls can thus scale up.",
+    "p4.s1.h4": "Create a Wavestone API key <span class=\"mini\">starting point</span>",
+    "p4.s1.do": "The product manager can create API keys and assign them to the people running the engagements. Go to the dedicated page (see &laquo; Info &amp; useful links &raquo;).",
+    "p4.s1.lk": "go to the links <span class=\"ar\">&#8595;</span>",
+    "p4.s2.h4": "Assign the key to the user",
+    "p4.s2.do": "From the interface, assign the created key to the person (project lead / user) who needs it.",
+    "p4.s3.h4": "Call the model from your code",
+    "p4.s3.do": "Use the key in your application to make the API calls to the model, staying within the Wavestone / Microsoft environment for sensitive data.",
+    "infos.eyebrow": "Resources",
+    "infos.h2": "Info &amp; useful links",
+    "infos.p": "All the access and downloads, in one place.",
+    "infos.key.h3": "Wavestone access &amp; keys",
+    "infos.key.cta": "Create a Wavestone API key",
+    "infos.key.poc": "Request a POC account",
+    "infos.key.cap": "&#8505; Both actions (creating an API key, requesting a POC account) are done in the same Wavestone Power Apps application.",
+    "infos.dl.h3": "Downloads",
+    "infos.dl.github": "GitHub (account)",
+    "infos.dl.ext": "Claude Code extension (VS Code)",
+    "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; getting-started guide",
+    "footer.reset": "reset progress"
+  },
+  de: {
+    "__title": "Wavestone CYB AI Maker — W&auml;hle deinen Weg",
+    "nav.principes": "Die Prinzipien",
+    "nav.agents": "Agenten-Philosophie",
+    "nav.usecases": "Anwendungsf&auml;lle",
+    "nav.infos": "Infos &amp; n&uuml;tzliche Links",
+    "hero.eyebrow": "Einstiegsleitfaden",
+    "hero.title": "W&auml;hle deinen <span class=\"ac\">Weg</span>",
+    "hero.lede": "Vier Wege, um mit Claude von der Idee zum Code zu gelangen &mdash; vom einfachsten (komplett online) bis zum fortgeschrittensten (Aufruf eines KI-Modells in der Wavestone-Umgebung).",
+    "hero.tagline": "# wavestone-umgebung &middot; claude-enterprise-lizenz &middot; ohne admin-rechte",
+    "chooser.eyebrow": "Wo anfangen",
+    "chooser.h2": "Was ist dein Ziel?",
+    "chooser.p": "W&auml;hle einen Weg: Die Schritte und Links erscheinen direkt darunter.",
+    "tile1.h3": "Eine einfache App online programmieren",
+    "tile1.p": "Eine Seite oder ein kleines Tool, ohne etwas zu installieren. Alles l&auml;uft im Browser.",
+    "tile1.chip3": "Claude online",
+    "tile2.h3": "Eine App auf meinem Rechner programmieren",
+    "tile2.p": "Freiere lokale Entwicklung, mit Sicherung und Zusammenarbeit &uuml;ber GitHub.",
+    "tile3.badge": "Demn&auml;chst",
+    "tile3.h3": "Komplexe Webanwendung",
+    "tile3.p": "Zentralisierter Speicher und Datenbank. Ein Ansatz wird derzeit erarbeitet.",
+    "tile3.chip2": "Datenbank",
+    "tile4.h3": "Ein KI-Modell in meiner App aufrufen",
+    "tile4.p": "Aufrufe eines KI-Modells &uuml;ber API-Schl&uuml;ssel integrieren, in der Wavestone-Umgebung.",
+    "tile4.chip1": "Wavestone-API-Schl&uuml;ssel",
+    "prog.etapes": "Schritte",
+    "p1.eyebrow": "Weg 01",
+    "p1.h2": "Einfache App online",
+    "p1.sub": "GitHub + GitHub Pages + Claude online &mdash; ideal f&uuml;r einfache Seiten und Tools, ohne Backend.",
+    "p1.s1.h4": "Teste dein Claude-Konto",
+    "p1.s1.do": "Melde dich mit deinem Wavestone-Konto an und pr&uuml;fe, ob &laquo; Wavestone &raquo; erscheint: Die Unternehmensumgebung wird erkannt.",
+    "p1.s2.h4": "Ein GitHub-Konto erstellen <span class=\"mini\">kostenlos</span>",
+    "p1.s2.do": "Erstelle dein Konto und dann ein erstes <b>Repository</b> (der Bereich, der deinen Code speichert).",
+    "p1.s3.h4": "GitHub Pages aktivieren",
+    "p1.s3.do": "Aktiviere in den Repo-Einstellungen <b>Pages</b>: Das hostet die Seite, die du erstellst (deine &laquo; minimale Pipeline &raquo;).",
+    "p1.s4.h4": "Claude Code online starten",
+    "p1.s4.do": "Verbinde Claude mit deinem GitHub-Konto (wird beim ersten Mal abgefragt), w&auml;hle dein Repository und beschreibe, was du m&ouml;chtest. Claude erstellt eine virtuelle Maschine, schreibt die Datei und pusht sie ins Repo.",
+    "p1.prompt.who": "Dein erster Prompt",
+    "p1.prompt.txt": "Erstelle mir eine HTML-Seite mit einem Cybersicherheits-Quiz mit 10 Fragen. Ziehe die Fragen zuf&auml;llig, zeige sie einzeln an und gib am Ende eine Punktzahl.",
+    "p2.eyebrow": "Weg 02",
+    "p2.h2": "App auf meinem Rechner",
+    "p2.sub": "Git + VS Code + Python, mit Sicherung und Zusammenarbeit &uuml;ber GitHub. Alles bleibt lokal auf deinem Rechner.",
+    "p2.s1.h4": "Claude testen + ein GitHub erstellen",
+    "p2.s1.do": "Melde dich bei Claude an (Wavestone-Konto) und erstelle ein kostenloses GitHub-Konto, um deinen Code zu speichern und zu versionieren.",
+    "p2.s2.h4": "Git installieren",
+    "p2.s2.do": "Lade Git herunter und installiere es (Windows-Version). Keine Oberfl&auml;che: Es ist die Komponente, die &Auml;nderungen an deinen Dateien verfolgt.",
+    "p2.s3.h4": "GitHub Desktop installieren",
+    "p2.s3.do": "Der Client, der deine Repositories zwischen Web und Rechner synchronisiert (<code>Documents/GitHub</code>). Verbinde dein GitHub-Konto. Er erm&ouml;glicht <b>Sicherung und Zusammenarbeit</b>.",
+    "p2.s4.h4": "Visual Studio Code installieren",
+    "p2.s4.do": "Der Editor, in dem du arbeiten wirst. Lade ihn f&uuml;r Windows herunter, dann Weiter &rarr; Installieren.",
+    "p2.s5.h4": "Python installieren <span class=\"mini opt\">f&uuml;r fortgeschrittenen Code</span>",
+    "p2.s5.do": "Installiere den <b>Python Install Manager</b> (empfohlen &uuml;ber den Microsoft Store). N&uuml;tzlich, sobald Claude lokal Python generieren und ausf&uuml;hren muss.",
+    "p2.s6.h4": "Claude-Code-Erweiterung + erste Datei",
+    "p2.s6.do": "In VS Code: Erweiterungen (<code>Ctrl+Shift+X</code>) &rarr; suche <b>&laquo; Claude Code &raquo;</b> (Anthropic) &rarr; Installieren. Verbinde dein Claude-Konto, &ouml;ffne einen Ordner auf deinem Rechner und frage dann im Claude-Panel (+ Symbol) nach deiner ersten Datei.",
+    "p2.s6.lk1": "offizielle Anleitung <span class=\"ar\">&#8599;</span>",
+    "p2.s6.lk2": "in VS&nbsp;Code &ouml;ffnen <span class=\"ar\">&#8599;</span>",
+    "p2.prompt1.who": "Beispiel &mdash; einfache Seite",
+    "p2.prompt1.txt": "Erstelle mir eine eigenst&auml;ndige HTML-Seite namens tetris.html: ein minimalistisches Tetris, das mit der Enter-Taste startet.",
+    "p2.prompt2.who": "Beispiel &mdash; lokales Python-Skript",
+    "p2.prompt2.txt": "Erstelle mir ein Python-Skript, das lokal faster-whisper verwendet, um meine Audio- und Videodateien auf meinem Rechner zu transkribieren.",
+    "p2.note.lab": "Human in the loop",
+    "p2.note.p": "Lokal fragt Claude um deine Erlaubnis, bevor es einen Befehl ausf&uuml;hrt. Lies, was es vorschl&auml;gt, und best&auml;tige dann &mdash; nichts l&auml;uft hinter deinem R&uuml;cken.",
+    "p3.eyebrow": "Weg 03",
+    "p3.h2": "Komplexe Webanwendung",
+    "p3.sub": "Mit zentralisiertem Speicher und Datenbank.",
+    "p3.soon.h3": "Demn&auml;chst &mdash; wir arbeiten daran",
+    "p3.soon.p": "F&uuml;r Anwendungen, die zentralisierten Speicher und eine Datenbank ben&ouml;tigen, wird derzeit ein Ansatz definiert. Angesichts der Governance-Regel (sensible Kundendaten in der Microsoft-Umgebung) wird er sich wahrscheinlich auf diese Umgebung st&uuml;tzen. Bleib dran.",
+    "p4.eyebrow": "Weg 04",
+    "p4.h2": "Ein KI-Modell in meiner App aufrufen",
+    "p4.sub": "Aufrufe eines KI-Modells &uuml;ber API-Schl&uuml;ssel integrieren, in der Wavestone-Umgebung.",
+    "p4.note.lab": "Governance-Regel",
+    "p4.note.p1": "<b>Sensible Kundendaten werden in der Microsoft-Umgebung verarbeitet.</b> Bevorzuge f&uuml;r die Verarbeitung daher <b>API-Aufrufe &uuml;ber Microsoft</b> statt einer unkontrollierten lokalen Verarbeitung.",
+    "p4.note.p2": "Deine Anwendungsf&auml;lle, die auf autonomen Web-Tools mit API-Aufrufen beruhen, k&ouml;nnen so skalieren.",
+    "p4.s1.h4": "Einen Wavestone-API-Schl&uuml;ssel erstellen <span class=\"mini\">Ausgangspunkt</span>",
+    "p4.s1.do": "Der Product Manager des Produkts kann API-Schl&uuml;ssel erstellen und sie den Personen zuordnen, die die Eins&auml;tze durchf&uuml;hren. Gehe zur entsprechenden Seite (siehe &laquo; Infos &amp; n&uuml;tzliche Links &raquo;).",
+    "p4.s1.lk": "zu den Links <span class=\"ar\">&#8595;</span>",
+    "p4.s2.h4": "Den Schl&uuml;ssel dem Nutzer zuordnen",
+    "p4.s2.do": "Ordne den erstellten Schl&uuml;ssel &uuml;ber die Oberfl&auml;che der Person (Projektleitung / Nutzer) zu, die ihn ben&ouml;tigt.",
+    "p4.s3.h4": "Das Modell aus deinem Code aufrufen",
+    "p4.s3.do": "Verwende den Schl&uuml;ssel in deiner Anwendung, um die API-Aufrufe an das Modell zu machen, und bleibe f&uuml;r sensible Daten in der Wavestone-/Microsoft-Umgebung.",
+    "infos.eyebrow": "Ressourcen",
+    "infos.h2": "Infos &amp; n&uuml;tzliche Links",
+    "infos.p": "Alle Zug&auml;nge und Downloads an einem Ort.",
+    "infos.key.h3": "Wavestone-Zugang &amp; -Schl&uuml;ssel",
+    "infos.key.cta": "Einen Wavestone-API-Schl&uuml;ssel erstellen",
+    "infos.key.poc": "Ein POC-Konto anfragen",
+    "infos.key.cap": "&#8505; Beide Aktionen (API-Schl&uuml;ssel erstellen, POC-Konto anfragen) erfolgen in derselben Wavestone-Power-Apps-Anwendung.",
+    "infos.dl.h3": "Downloads",
+    "infos.dl.github": "GitHub (Konto)",
+    "infos.dl.ext": "Claude-Code-Erweiterung (VS Code)",
+    "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; Einstiegsleitfaden",
+    "footer.reset": "Fortschritt zur&uuml;cksetzen"
+  }
+};
+</script>
+<script src="assets/i18n.js"></script>
 </body>
 </html>
