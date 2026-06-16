@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe coding @ Wavestone — Atelier hands-on</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-teal-500:#228D95;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-warning:#C8861A;
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ws-white);color:var(--ws-ink-900);font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  .eyebrow{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid var(--ws-green-400)}
+
+  /* ---------- sticky brand bar ---------- */
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1040px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .dot{width:9px;height:9px;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .nav a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:6px 12px;transition:.18s var(--ws-ease)}
+  .nav a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+  .langsel{display:flex;border:1px solid var(--ws-ink-200);overflow:hidden}
+  .langsel button{font-family:var(--ws-font-mono);font-size:12px;padding:6px 11px;background:#fff;border:none;border-left:1px solid var(--ws-ink-100);color:var(--ws-ink-500);cursor:pointer;transition:.15s var(--ws-ease)}
+  .langsel button:first-child{border-left:none}
+  .langsel button.on{background:var(--ws-indigo-600);color:#fff;font-weight:600}
+  .langsel button:hover:not(.on){color:var(--ws-indigo-600)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1040px;margin:0 auto;padding:60px 24px 52px}
+  .hero .eyebrow{color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(34px,6vw,60px);line-height:1.04;letter-spacing:-.025em;margin:22px 0 16px;max-width:18ch}
+  .hero h1 .ac{color:var(--ws-green-400)}
+  .hero .lede{font-size:18.5px;line-height:1.55;color:rgba(255,255,255,.85);max-width:60ch}
+  .meta-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+  .meta-chips span{font-family:var(--ws-font-mono);font-size:11.5px;color:rgba(255,255,255,.9);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:6px 12px}
+  .host-tip{display:flex;gap:10px;align-items:flex-start;margin-top:22px;background:rgba(4,240,106,.12);border:1px solid rgba(4,240,106,.35);border-left:4px solid var(--ws-green-400);padding:12px 16px;max-width:62ch}
+  .host-tip svg{flex:0 0 auto;color:var(--ws-green-300);margin-top:2px}
+  .host-tip p{font-size:13.5px;color:rgba(255,255,255,.92);line-height:1.5}
+  .host-tip b{color:#fff}
+
+  /* ---------- section heads ---------- */
+  .sec-head{margin:60px 0 6px}
+  .sec-head .eyebrow{color:var(--ws-ink-900)}
+  .sec-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:30px;letter-spacing:-.02em;color:var(--ws-indigo-600);margin-top:10px}
+  .sec-head p{color:var(--ws-ink-500);margin-top:6px;font-size:15.5px;max-width:64ch}
+
+  /* ---------- concept bricks ---------- */
+  .rail{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:28px 0 22px;font-family:var(--ws-font-mono);font-size:13px}
+  .rail .n{padding:9px 16px;border:1px solid var(--ws-ink-200);background:#fff;color:var(--ws-ink-700);box-shadow:var(--ws-shadow-sm)}
+  .rail .n.idea{border-color:var(--ws-indigo-200);color:var(--ws-indigo-700)}
+  .rail .n.live{background:var(--ws-green-400);border-color:var(--ws-green-400);color:var(--ws-indigo-900);font-weight:600}
+  .rail .ar{color:var(--ws-ink-300);font-size:18px;animation:slide 1.8s var(--ws-ease) infinite}
+  @keyframes slide{0%,100%{transform:translateX(0);opacity:.4}50%{transform:translateX(4px);opacity:1}}
+
+  .bricks{display:flex;flex-direction:column;gap:14px}
+  @media(min-width:820px){.bricks{flex-direction:row;align-items:stretch}}
+  .brick{flex:1;position:relative;background:#fff;border:1.5px solid var(--ws-ink-100);padding:24px 22px 22px;box-shadow:var(--ws-shadow-sm);opacity:0;transform:translateY(12px);animation:rise .6s var(--ws-ease) forwards}
+  .brick::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--ws-gradient-accent);transform:scaleX(0);transform-origin:left;animation:grow .6s var(--ws-ease) forwards}
+  .brick:nth-child(1),.brick:nth-child(1)::before{animation-delay:.05s}
+  .brick:nth-child(3),.brick:nth-child(3)::before{animation-delay:.25s}
+  .brick:nth-child(5),.brick:nth-child(5)::before{animation-delay:.45s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @keyframes grow{to{transform:scaleX(1)}}
+  .b-arrow{display:none;flex:0 0 auto;align-items:center;color:var(--ws-ink-300);font-size:24px}
+  @media(min-width:820px){.b-arrow{display:flex}}
+  .bk-no{font-family:var(--ws-font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-indigo-600)}
+  .bk-ic{width:46px;height:46px;background:var(--ws-indigo-50);color:var(--ws-indigo-600);display:grid;place-items:center;margin:12px 0 14px}
+  .brick:nth-child(5) .bk-ic{background:var(--ws-green-50);color:var(--ws-green-700)}
+  .brick h3{font-family:var(--ws-font-display);font-weight:600;font-size:19px;color:var(--ws-ink-900);margin-bottom:7px;line-height:1.2}
+  .brick p{font-size:14.5px;color:var(--ws-ink-500);line-height:1.55}
+  .brick p b{color:var(--ws-ink-900)}
+  .brick .tool{font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-indigo-700);background:var(--ws-indigo-50);padding:3px 9px;margin-top:13px;display:inline-block}
+
+  /* ---------- phase / steps (pipeline spine) ---------- */
+  .phase{margin-top:18px}
+  .phase-head{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;border-bottom:1px solid var(--ws-ink-100);padding-bottom:16px;margin-top:30px}
+  .phase-head .eyebrow{color:var(--ws-ink-900)}
+  .phase-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:26px;color:var(--ws-indigo-600);margin-top:10px;letter-spacing:-.015em}
+  .phase-head .sub{color:var(--ws-ink-500);font-size:14.5px;margin-top:5px;max-width:60ch}
+  .prog{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-500);white-space:nowrap}
+  .prog b{color:var(--ws-indigo-600)}
+
+  .steps{position:relative;margin-top:24px}
+  .spine{position:absolute;left:21px;top:22px;bottom:22px;width:2px;background:var(--ws-ink-100);z-index:0}
+  .spine-fill{position:absolute;left:0;top:0;width:100%;height:0;background:var(--ws-gradient-accent);transition:height .5s var(--ws-ease)}
+  .step{position:relative;z-index:1;display:flex;gap:18px;padding-bottom:20px}
+  .node{flex:0 0 44px;width:44px;height:44px;background:#fff;border:1.5px solid var(--ws-ink-200);display:grid;place-items:center;font-family:var(--ws-font-mono);font-weight:600;font-size:15px;color:var(--ws-indigo-600);cursor:pointer;user-select:none;transition:.22s var(--ws-ease)}
+  .node:hover{border-color:var(--ws-indigo-600)}
+  .node .ck{display:none;font-size:20px;color:#fff;line-height:1}
+  .step.done .node{background:var(--ws-indigo-600);border-color:var(--ws-indigo-600);color:#fff}
+  .step.done .node .nm{display:none}
+  .step.done .node .ck{display:block}
+  .scard{flex:1;background:#fff;border:1px solid var(--ws-ink-100);padding:18px 20px;box-shadow:var(--ws-shadow-sm);transition:.22s var(--ws-ease);min-width:0}
+  .step.done .scard{opacity:.72;border-color:var(--ws-green-50)}
+  .scard h4{font-family:var(--ws-font-display);font-weight:600;font-size:17px;color:var(--ws-ink-900);display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .scard .do{margin-top:8px;font-size:14.5px;color:var(--ws-ink-600);line-height:1.55}
+  .scard .do b{color:var(--ws-ink-900)}
+  code{font-family:var(--ws-font-mono);font-size:.85em;background:var(--ws-ink-50);padding:1px 6px}
+  .mini{font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ws-green-700);background:var(--ws-green-50);padding:3px 8px;font-weight:600}
+  .mini.opt{color:var(--ws-ink-500);background:var(--ws-ink-50)}
+
+  .clicks{list-style:none;counter-reset:c;margin-top:13px;display:grid;gap:8px}
+  .clicks li{counter-increment:c;position:relative;padding-left:32px;font-size:14px;color:var(--ws-ink-700);line-height:1.5}
+  .clicks li::before{content:counter(c);position:absolute;left:0;top:1px;width:22px;height:22px;background:var(--ws-indigo-50);color:var(--ws-indigo-700);font-family:var(--ws-font-mono);font-weight:600;font-size:11px;display:grid;place-items:center}
+  .clicks b{color:var(--ws-ink-900)}
+  .ui-lbl{font-family:var(--ws-font-mono);font-size:.9em;background:var(--ws-ink-900);color:#fff;padding:1px 7px}
+
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .lk{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-family:var(--ws-font-mono);font-size:12.5px;border:1px solid var(--ws-ink-200);padding:7px 13px;background:#fff;color:var(--ws-ink-900);transition:.18s var(--ws-ease)}
+  .lk:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600);transform:translateY(-1px)}
+  .lk .ar{color:var(--ws-ink-400)}
+  .lk:hover .ar{color:var(--ws-indigo-600)}
+
+  /* ---------- UI mock-ups (screenshot replacements) ---------- */
+  .mock{margin-top:16px;border:1px solid var(--ws-ink-200);background:#fff;box-shadow:var(--ws-shadow-md);overflow:hidden;max-width:540px}
+  .mock-chrome{display:flex;align-items:center;gap:6px;padding:9px 12px;background:var(--ws-ink-50);border-bottom:1px solid var(--ws-ink-100)}
+  .mock-chrome .md{width:9px;height:9px;background:var(--ws-ink-200)}
+  .mock-url{flex:1;font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-ink-500);background:#fff;border:1px solid var(--ws-ink-100);padding:4px 9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-left:6px}
+  .mock-screen{position:relative;padding:18px;background:linear-gradient(180deg,#fff,var(--ws-ink-50))}
+  .ui-h{font-family:var(--ws-font-display);font-weight:600;font-size:14px;color:var(--ws-ink-900);margin-bottom:12px}
+  .ui-field{border:1px solid var(--ws-ink-200);background:#fff;padding:8px 10px;font-size:12px;color:var(--ws-ink-600);margin-bottom:9px}
+  .ui-field .l{display:block;font-size:9.5px;color:var(--ws-ink-400);margin-bottom:3px;font-family:var(--ws-font-mono);text-transform:uppercase;letter-spacing:.04em}
+  .ui-row{display:flex;align-items:center;gap:8px;margin-bottom:9px;font-size:12.5px;color:var(--ws-ink-700)}
+  .ui-box{width:15px;height:15px;border:1.5px solid var(--ws-ink-300);flex:0 0 auto;display:grid;place-items:center;color:#fff}
+  .ui-box.on{background:var(--ws-indigo-600);border-color:var(--ws-indigo-600)}
+  .ui-radio{width:15px;height:15px;border:1.5px solid var(--ws-indigo-600);flex:0 0 auto;position:relative}
+  .ui-radio.on::after{content:"";position:absolute;inset:3px;background:var(--ws-indigo-600)}
+  .ui-btn{display:inline-block;font-family:var(--ws-font-mono);font-size:11px;padding:7px 13px;border:1px solid var(--ws-ink-200);color:var(--ws-ink-700);background:#fff}
+  .ui-btn.green{background:var(--ws-green-400);border-color:var(--ws-green-400);color:var(--ws-indigo-900);font-weight:600}
+  .ui-btn.indigo{background:var(--ws-indigo-600);border-color:var(--ws-indigo-600);color:#fff;font-weight:600}
+  .ui-tabs{display:flex;gap:2px;margin-bottom:14px;border-bottom:1px solid var(--ws-ink-100)}
+  .ui-tab{font-family:var(--ws-font-mono);font-size:11px;padding:7px 11px;color:var(--ws-ink-500);border-bottom:2px solid transparent}
+  .ui-tab.on{color:var(--ws-indigo-600);border-bottom-color:var(--ws-indigo-600);font-weight:600}
+  .ui-side{display:flex;gap:16px}
+  .ui-menu{flex:0 0 116px;display:flex;flex-direction:column;gap:3px}
+  .ui-menu .it{font-size:11px;color:var(--ws-ink-500);padding:5px 7px}
+  .ui-menu .it.on{background:var(--ws-indigo-50);color:var(--ws-indigo-700);font-weight:600}
+  .ui-main{flex:1;min-width:0}
+  .ui-note{font-size:11px;color:var(--ws-ink-400);margin-top:4px}
+  .ui-live{display:flex;align-items:center;gap:8px;background:var(--ws-green-50);border:1px solid var(--ws-green-400);padding:9px 11px;font-size:12px;color:var(--ws-ink-900);font-family:var(--ws-font-mono)}
+  .ui-merge{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ws-ink-600);margin-bottom:10px}
+  .ui-dot-ok{width:14px;height:14px;background:var(--ws-green-400)}
+  .pin{position:absolute;width:23px;height:23px;background:var(--ws-green-400);color:var(--ws-indigo-900);font-family:var(--ws-font-mono);font-weight:700;font-size:12px;display:grid;place-items:center;box-shadow:0 2px 7px rgba(0,0,0,.28);border:2px solid #fff;z-index:4}
+  figcaption{font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-ink-400);padding:9px 13px;border-top:1px solid var(--ws-ink-100);background:#fff;line-height:1.5}
+
+  /* prompt card */
+  .prompt{position:relative;background:var(--ws-indigo-950);padding:16px 18px;margin-top:14px;font-family:var(--ws-font-mono);font-size:13.5px;color:#EAE7F6;box-shadow:var(--ws-shadow-md)}
+  .prompt .who{color:rgba(255,255,255,.5);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:9px}
+  .prompt .txt{color:var(--ws-green-300);line-height:1.6}
+  .prompt .txt::before{content:"\2192  ";color:rgba(255,255,255,.35)}
+  .copy{position:absolute;top:13px;right:13px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.7);font-family:var(--ws-font-mono);font-size:11px;padding:5px 11px;cursor:pointer;transition:.18s var(--ws-ease)}
+  .copy:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+  .copy.ok{color:var(--ws-green-300);border-color:var(--ws-green-400)}
+
+  /* note */
+  .note{margin-top:16px;background:var(--ws-indigo-50);border:1px solid var(--ws-indigo-100);border-left:4px solid var(--ws-indigo-600);padding:14px 16px}
+  .note.green{background:var(--ws-green-50);border-color:var(--ws-green-400);border-left-color:var(--ws-green-700)}
+  .note .lab{font-family:var(--ws-font-body);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ws-indigo-600);margin-bottom:6px}
+  .note.green .lab{color:var(--ws-green-700)}
+  .note p{font-size:13.8px;color:var(--ws-ink-700);line-height:1.55}
+  .note b{color:var(--ws-ink-900)}
+
+  /* iterate / tips grids */
+  .idea-grid{display:grid;gap:14px;grid-template-columns:1fr;margin-top:22px}
+  @media(min-width:760px){.idea-grid{grid-template-columns:1fr 1fr}}
+  .tips{display:grid;gap:16px;grid-template-columns:1fr;margin-top:22px}
+  @media(min-width:760px){.tips{grid-template-columns:repeat(3,1fr)}}
+  .tip{background:#fff;border:1.5px solid var(--ws-ink-100);padding:22px 20px;box-shadow:var(--ws-shadow-sm);transition:.2s var(--ws-ease)}
+  .tip:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-3px);border-color:var(--ws-indigo-200)}
+  .tip .ti{width:42px;height:42px;background:var(--ws-indigo-50);color:var(--ws-indigo-600);display:grid;place-items:center;margin-bottom:14px}
+  .tip h3{font-family:var(--ws-font-display);font-weight:600;font-size:17.5px;color:var(--ws-ink-900);margin-bottom:7px;line-height:1.25}
+  .tip p{font-size:14px;color:var(--ws-ink-500);line-height:1.55}
+  .tip p b{color:var(--ws-ink-900)}
+
+  footer{max-width:1040px;margin:64px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+  .reset{font-family:var(--ws-font-mono);font-size:12.5px;border:1px solid var(--ws-ink-200);background:#fff;padding:8px 14px;cursor:pointer;color:var(--ws-ink-500);transition:.18s var(--ws-ease)}
+  .reset:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus)}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.brick{opacity:1;transform:none}.brick::before{transform:scaleX(1)}}
+  /* square corners — DS identity */
+  *,*::before,*::after{border-radius:0!important}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone &middot; Vibe coding</a>
+    <div class="nav">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="vibe-coding.html" data-i18n="nav.principles">Les principes</a>
+      <a class="jump" href="parcours.html" data-i18n="nav.path">Parcours</a>
+      <div class="langsel" role="group" aria-label="Language">
+        <button data-lang="fr">FR</button>
+        <button data-lang="en">EN</button>
+        <button data-lang="de">DE</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1040 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,300 Q260,180 540,250 T1100,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <span class="eyebrow" data-i18n="hero.eyebrow">Atelier hands-on</span>
+    <h1 data-i18n="hero.title">Comment se lancer dans le <span class="ac">vibe coding</span>&nbsp;?</h1>
+    <p class="lede" data-i18n="hero.lede">De l&rsquo;id&eacute;e au site en ligne, en direct avec vos participants &mdash; sans rien installer. Suivez le d&eacute;roul&eacute;, cochez chaque &eacute;tape, copiez les prompts.</p>
+    <div class="meta-chips">
+      <span data-i18n="hero.chip1"># 100% navigateur</span>
+      <span data-i18n="hero.chip2"># sans installation</span>
+      <span data-i18n="hero.chip3"># ~45 min en groupe</span>
+      <span data-i18n="hero.chip4"># email &middot; github &middot; chatgpt codex</span>
+    </div>
+    <div class="host-tip">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg>
+      <p data-i18n="hero.tip"><b>Astuce animateur&nbsp;:</b> d&eacute;roulez la page de haut en bas avec le groupe. Cliquez sur les <b>num&eacute;ros</b> pour cocher les &eacute;tapes valid&eacute;es, et sur <b>copier</b> pour les prompts. Le s&eacute;lecteur de langue est en haut &agrave; droite.</p>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ A — CONCEPT ============ -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="a.eyebrow">Le concept</span>
+    <h2 data-i18n="a.title">Trois briques, et c&rsquo;est tout</h2>
+    <p data-i18n="a.intro">Le vibe coding repose sur trois briques qui s&rsquo;encha&icirc;nent. Comprenez-les une fois, vous comprenez tout le reste.</p>
+  </div>
+
+  <div class="rail" aria-hidden="true">
+    <span class="n idea" data-i18n="a.rail1">Une id&eacute;e</span>
+    <span class="ar">&#8594;</span>
+    <span class="n" data-i18n="a.rail2">Du code</span>
+    <span class="ar">&#8594;</span>
+    <span class="n live" data-i18n="a.rail3">Un site en ligne</span>
+  </div>
+
+  <div class="bricks">
+    <div class="brick">
+      <span class="bk-no" data-i18n="a.b1.tag">Brique 1</span>
+      <div class="bk-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M12 3l1.9 4.6L18.5 9l-4.6 1.9L12 15l-1.9-4.1L5.5 9l4.6-1.4L12 3z"/><path d="M19 14l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2z"/></svg></div>
+      <h3 data-i18n="a.b1.title">Un agent IA &eacute;crit le code</h3>
+      <p data-i18n="a.b1.body">&Agrave; partir d&rsquo;une simple id&eacute;e en langage naturel, un agent IA g&eacute;n&egrave;re le code source. C&rsquo;est lui qui fait le travail d&rsquo;&eacute;criture.</p>
+      <span class="tool" data-i18n="a.b1.tool">Claude &middot; ou ChatGPT (Codex)</span>
+    </div>
+    <div class="b-arrow" aria-hidden="true">&#8594;</div>
+    <div class="brick">
+      <span class="bk-no" data-i18n="a.b2.tag">Brique 2</span>
+      <div class="bk-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M3 7l9-4 9 4v10l-9 4-9-4V7z"/><path d="M3 7l9 4 9-4"/><path d="M12 11v10"/></svg></div>
+      <h3 data-i18n="a.b2.title">GitHub stocke et partage</h3>
+      <p data-i18n="a.b2.body">Le code est d&eacute;pos&eacute; dans un espace en ligne qui l&rsquo;historise et le rend partageable&nbsp;: un d&eacute;p&ocirc;t (une &laquo;&nbsp;repository&nbsp;&raquo;).</p>
+      <span class="tool" data-i18n="a.b2.tool">GitHub</span>
+    </div>
+    <div class="b-arrow" aria-hidden="true">&#8594;</div>
+    <div class="brick">
+      <span class="bk-no" data-i18n="a.b3.tag">Brique 3</span>
+      <div class="bk-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg></div>
+      <h3 data-i18n="a.b3.title">Le site est publi&eacute;</h3>
+      <p data-i18n="a.b3.body">Le code est publi&eacute; sur une page web accessible &agrave; tous via une URL. L&rsquo;h&eacute;bergement se fait automatiquement.</p>
+      <span class="tool" data-i18n="a.b3.tool">GitHub Pages</span>
+    </div>
+  </div>
+
+  <!-- ============ B — SETUP ============ -->
+  <div class="phase-head">
+    <div class="t">
+      <span class="eyebrow" data-i18n="b.eyebrow">&Eacute;tape 1 &mdash; Pr&eacute;parer</span>
+      <h2 data-i18n="b.title">Configurer les environnements</h2>
+      <div class="sub" data-i18n="b.sub">&Agrave; faire une seule fois avec vos participants. Comptez 10&ndash;15&nbsp;min.</div>
+    </div>
+    <div class="prog"><b class="dn">0</b>/<span class="tot">5</span> <span data-i18n="word.steps">&eacute;tapes</span></div>
+  </div>
+
+  <div class="phase">
+    <div class="steps">
+      <div class="spine"><div class="spine-fill"></div></div>
+
+      <!-- B1 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4><span data-i18n="b1.title">V&eacute;rifier un compte e-mail</span> <span class="mini" data-i18n="b1.mini">5 s</span></h4>
+          <div class="do" data-i18n="b1.body">Chaque participant a besoin d&rsquo;une adresse e-mail pour cr&eacute;er ses comptes. <b>Un compte Gmail personnel</b> est le plus simple, mais n&rsquo;importe quelle adresse fonctionne.</div>
+          <ol class="clicks" data-i18n="b1.clicks">
+            <li>Ouvrez votre messagerie (ex.&nbsp;<b>gmail.com</b>) dans un onglet.</li>
+            <li>Si besoin, cr&eacute;ez un compte gratuit via <span class="ui-lbl">Cr&eacute;er un compte</span>.</li>
+          </ol>
+          <div class="links"><a class="lk" href="https://gmail.com" target="_blank" rel="noopener">gmail.com <span class="ar">&#8599;</span></a></div>
+        </div>
+      </div>
+
+      <!-- B2 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4><span data-i18n="b2.title">Cr&eacute;er un compte GitHub</span> <span class="mini" data-i18n="word.free">gratuit</span></h4>
+          <div class="do" data-i18n="b2.body">GitHub est l&rsquo;espace qui stockera le code. Le compte est gratuit.</div>
+          <ol class="clicks" data-i18n="b2.clicks">
+            <li>Allez sur <b>github.com</b>, puis cliquez sur <span class="ui-lbl">Sign up</span> (en haut &agrave; droite).</li>
+            <li>Saisissez votre <b>e-mail</b>, un <b>mot de passe</b> et un <b>nom d&rsquo;utilisateur</b>.</li>
+            <li>Validez le <b>code de v&eacute;rification</b> re&ccedil;u par e-mail.</li>
+            <li>Choisissez l&rsquo;offre <span class="ui-lbl">Free</span>.</li>
+          </ol>
+          <figure class="mock">
+            <div class="mock-chrome"><span class="md"></span><span class="md"></span><span class="md"></span><span class="mock-url">github.com/signup</span></div>
+            <div class="mock-screen">
+              <div class="ui-h">Welcome to GitHub</div>
+              <div class="ui-field"><span class="l">Email</span>you@gmail.com</div>
+              <div class="ui-field"><span class="l">Password</span>&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;</div>
+              <div class="ui-field"><span class="l">Username</span>cyber-academy-you</div>
+              <span class="ui-btn green">Continue</span>
+              <span class="pin" style="top:14px;right:16px">1</span>
+              <span class="pin" style="top:46px;left:120px">2</span>
+              <span class="pin" style="bottom:16px;left:96px">4</span>
+            </div>
+            <figcaption data-i18n="b2.cap">Page d&rsquo;inscription GitHub &mdash; les num&eacute;ros renvoient aux clics ci-dessus.</figcaption>
+          </figure>
+          <div class="links"><a class="lk" href="https://github.com/signup" target="_blank" rel="noopener">github.com/signup <span class="ar">&#8599;</span></a></div>
+        </div>
+      </div>
+
+      <!-- B3 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="b3.title">Cr&eacute;er le d&eacute;p&ocirc;t (repository) + README</h4>
+          <div class="do" data-i18n="b3.body">Un <b>d&eacute;p&ocirc;t</b> (repository) est le dossier en ligne qui contient votre projet. Le <b>README</b> l&rsquo;initialise pour qu&rsquo;il ne soit pas vide.</div>
+          <ol class="clicks" data-i18n="b3.clicks">
+            <li>En haut &agrave; droite, cliquez sur <span class="ui-lbl">+</span> puis <span class="ui-lbl">New repository</span>.</li>
+            <li>Donnez un nom, ex.&nbsp;<code>cyber-academy</code>.</li>
+            <li>Cochez <span class="ui-lbl">Public</span> &mdash; n&eacute;cessaire pour la publication gratuite.</li>
+            <li>Cochez <span class="ui-lbl">Add a README file</span>.</li>
+            <li>Cliquez sur <span class="ui-lbl">Create repository</span>.</li>
+          </ol>
+          <figure class="mock">
+            <div class="mock-chrome"><span class="md"></span><span class="md"></span><span class="md"></span><span class="mock-url">github.com/new</span></div>
+            <div class="mock-screen">
+              <div class="ui-h">Create a new repository</div>
+              <div class="ui-field"><span class="l">Repository name</span>cyber-academy</div>
+              <div class="ui-row"><span class="ui-radio on"></span> Public</div>
+              <div class="ui-row"><span class="ui-radio"></span> Private</div>
+              <div class="ui-row"><span class="ui-box on"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span> Add a README file</div>
+              <span class="ui-btn green">Create repository</span>
+              <span class="pin" style="top:42px;left:130px">2</span>
+              <span class="pin" style="top:74px;left:78px">3</span>
+              <span class="pin" style="bottom:46px;left:160px">4</span>
+              <span class="pin" style="bottom:14px;left:140px">5</span>
+            </div>
+            <figcaption data-i18n="b3.cap">Formulaire &laquo;&nbsp;New repository&nbsp;&raquo; &mdash; Public + README coch&eacute;s.</figcaption>
+          </figure>
+          <div class="links"><a class="lk" href="https://github.com/new" target="_blank" rel="noopener">github.com/new <span class="ar">&#8599;</span></a></div>
+        </div>
+      </div>
+
+      <!-- B4 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">4</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="b4.title">Activer GitHub Pages</h4>
+          <div class="do" data-i18n="b4.body">GitHub Pages publie automatiquement le contenu de la branche <code>main</code> sur une vraie URL.</div>
+          <ol class="clicks" data-i18n="b4.clicks">
+            <li>Dans le d&eacute;p&ocirc;t, ouvrez l&rsquo;onglet <span class="ui-lbl">Settings</span>.</li>
+            <li>Dans le menu de gauche, cliquez sur <span class="ui-lbl">Pages</span>.</li>
+            <li>Sous <span class="ui-lbl">Source</span>, choisissez <span class="ui-lbl">Deploy from a branch</span>.</li>
+            <li>S&eacute;lectionnez la branche <code>main</code> et le dossier <code>/ (root)</code>.</li>
+            <li>Cliquez sur <span class="ui-lbl">Save</span>.</li>
+            <li>Patientez ~1&nbsp;min&nbsp;: l&rsquo;URL de votre site s&rsquo;affiche en haut.</li>
+          </ol>
+          <figure class="mock">
+            <div class="mock-chrome"><span class="md"></span><span class="md"></span><span class="md"></span><span class="mock-url">github.com/&hellip;/cyber-academy/settings/pages</span></div>
+            <div class="mock-screen">
+              <div class="ui-side">
+                <div class="ui-menu">
+                  <span class="it">General</span>
+                  <span class="it on">Pages</span>
+                  <span class="it">Actions</span>
+                </div>
+                <div class="ui-main">
+                  <div class="ui-h">GitHub Pages</div>
+                  <div class="ui-field"><span class="l">Source</span>Deploy from a branch</div>
+                  <div class="ui-field"><span class="l">Branch</span>main&nbsp;&nbsp;/&nbsp;&nbsp;(root)</div>
+                  <span class="ui-btn indigo">Save</span>
+                </div>
+              </div>
+              <span class="pin" style="top:42px;left:122px">2</span>
+              <span class="pin" style="top:58px;right:24px">3</span>
+              <span class="pin" style="bottom:54px;right:60px">4</span>
+              <span class="pin" style="bottom:16px;left:150px">5</span>
+            </div>
+            <figcaption data-i18n="b4.cap">Settings &rarr; Pages &mdash; Source &laquo;&nbsp;Deploy from a branch&nbsp;&raquo;, branche main.</figcaption>
+          </figure>
+          <div class="note">
+            <div class="lab" data-i18n="word.tip">Astuce</div>
+            <p data-i18n="b4.tip">Gardez cet onglet ouvert&nbsp;: c&rsquo;est ici que vous verrez l&rsquo;URL et que chaque nouvelle version est mise en ligne (<code>https://votre-nom.github.io/cyber-academy/</code>).</p>
+          </div>
+          <div class="links"><a class="lk" href="https://pages.github.com/" target="_blank" rel="noopener">pages.github.com <span class="ar">&#8599;</span></a></div>
+        </div>
+      </div>
+
+      <!-- B5 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">5</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="b5.title">Lancer ChatGPT, puis Codex</h4>
+          <div class="do" data-i18n="b5.body">Codex est l&rsquo;agent de ChatGPT qui &eacute;crit le code directement dans votre d&eacute;p&ocirc;t GitHub.</div>
+          <ol class="clicks" data-i18n="b5.clicks">
+            <li>Allez sur <b>chatgpt.com</b> et connectez-vous (le compte Google fonctionne).</li>
+            <li>Dans le menu de gauche, cliquez sur <span class="ui-lbl">Codex</span>.</li>
+            <li>Cliquez sur <span class="ui-lbl">Connect to GitHub</span> et autorisez l&rsquo;acc&egrave;s.</li>
+            <li>S&eacute;lectionnez le d&eacute;p&ocirc;t <code>cyber-academy</code>.</li>
+          </ol>
+          <figure class="mock">
+            <div class="mock-chrome"><span class="md"></span><span class="md"></span><span class="md"></span><span class="mock-url">chatgpt.com/codex</span></div>
+            <div class="mock-screen">
+              <div class="ui-tabs"><span class="ui-tab">Chat</span><span class="ui-tab on">Codex</span></div>
+              <div class="ui-row" style="margin-bottom:12px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ws-ink-400)" stroke-width="2" stroke-linecap="square"><path d="M3 7l9-4 9 4v10l-9 4-9-4V7z"/></svg> github.com/cyber-academy</div>
+              <span class="ui-btn indigo">Connect to GitHub</span>
+              <span class="pin" style="top:12px;left:88px">2</span>
+              <span class="pin" style="bottom:14px;left:150px">3</span>
+              <span class="pin" style="top:48px;left:8px">4</span>
+            </div>
+            <figcaption data-i18n="b5.cap">Onglet Codex dans ChatGPT &mdash; connexion au d&eacute;p&ocirc;t GitHub.</figcaption>
+          </figure>
+          <div class="note green">
+            <div class="lab" data-i18n="word.good">Bon &agrave; savoir</div>
+            <p data-i18n="b5.note">Codex n&eacute;cessite un forfait <b>ChatGPT payant</b> (Plus, Team ou Pro). Pr&eacute;voyez-le avant la s&eacute;ance. Claude Code peut jouer le m&ecirc;me r&ocirc;le si vous pr&eacute;f&eacute;rez.</p>
+          </div>
+          <div class="links"><a class="lk" href="https://chatgpt.com/codex" target="_blank" rel="noopener">chatgpt.com/codex <span class="ar">&#8599;</span></a></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ C — BUILD ============ -->
+  <div class="phase-head">
+    <div class="t">
+      <span class="eyebrow" data-i18n="c.eyebrow">&Eacute;tape 2 &mdash; Construire</span>
+      <h2 data-i18n="c.title">D&eacute;velopper le premier jeu</h2>
+      <div class="sub" data-i18n="c.sub">On cr&eacute;e un jeu du serpent qui pose des questions de cybers&eacute;curit&eacute;. Du prompt au site en ligne.</div>
+    </div>
+    <div class="prog"><b class="dn">0</b>/<span class="tot">5</span> <span data-i18n="word.steps">&eacute;tapes</span></div>
+  </div>
+
+  <div class="phase">
+    <div class="steps">
+      <div class="spine"><div class="spine-fill"></div></div>
+
+      <!-- C1 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="c1.title">D&eacute;crire le jeu &agrave; Codex</h4>
+          <div class="do" data-i18n="c1.body">Dans Codex, cr&eacute;ez une nouvelle t&acirc;che, v&eacute;rifiez que le bon d&eacute;p&ocirc;t est s&eacute;lectionn&eacute;, puis collez le prompt ci-dessous.</div>
+          <ol class="clicks" data-i18n="c1.clicks">
+            <li>Cliquez dans la <b>zone de texte</b> de Codex.</li>
+            <li>V&eacute;rifiez que le d&eacute;p&ocirc;t s&eacute;lectionn&eacute; est bien <code>cyber-academy</code>.</li>
+            <li>Collez le prompt, puis cliquez sur <span class="ui-lbl">Code</span> (ou Envoyer).</li>
+          </ol>
+          <figure class="mock">
+            <div class="mock-chrome"><span class="md"></span><span class="md"></span><span class="md"></span><span class="mock-url">chatgpt.com/codex &middot; new task</span></div>
+            <div class="mock-screen">
+              <div class="ui-row" style="margin-bottom:10px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--ws-ink-400)" stroke-width="2" stroke-linecap="square"><path d="M3 7l9-4 9 4v10l-9 4-9-4V7z"/></svg> cyber-academy &nbsp;<span style="color:var(--ws-ink-400)">main</span></div>
+              <div class="ui-field" style="min-height:46px"><span class="l">Task</span>Je suis en charge de notre cyber academy&hellip;</div>
+              <span class="ui-btn indigo">Code</span>
+              <span class="pin" style="top:50px;left:130px">1</span>
+              <span class="pin" style="top:12px;left:60px">2</span>
+              <span class="pin" style="bottom:14px;left:74px">3</span>
+            </div>
+            <figcaption data-i18n="c1.cap">Nouvelle t&acirc;che Codex &mdash; d&eacute;p&ocirc;t s&eacute;lectionn&eacute; + prompt coll&eacute;.</figcaption>
+          </figure>
+          <div class="prompt">
+            <button class="copy">copier</button>
+            <div class="who" data-i18n="c1.who">Le prompt du jeu</div>
+            <div class="txt" data-i18n="c1.prompt">Je suis en charge de notre cyber academy. Pour valider les comp&eacute;tences acquises &agrave; la fin des modules, je veux une approche gamifi&eacute;e. Cr&eacute;e un jeu du serpent dans un fichier index.html autonome (HTML/CSS/JavaScript, sans d&eacute;pendance externe). &Agrave; chaque fois que le serpent mange une brique, le jeu se met en pause et pose une question de cybers&eacute;curit&eacute; avec 3 choix&nbsp;: une r&eacute;ponse franchement fausse, une presque juste, et une vraiment juste. Tire au hasard 10 questions parmi une banque de 30, r&eacute;parties sur l&rsquo;IAM, la GRC, le SOC et la s&eacute;curit&eacute; de l&rsquo;IA. Affiche le score de bonnes r&eacute;ponses &agrave; la fin&nbsp;: au-del&agrave; de 8/10, affiche &laquo;&nbsp;Comp&eacute;tences valid&eacute;es&nbsp;&raquo;.</div>
+          </div>
+          <div class="note">
+            <div class="lab" data-i18n="word.tip">Astuce</div>
+            <p data-i18n="c1.note">En demandant explicitement un fichier <code>index.html</code>, vous garantissez que GitHub Pages affichera le jeu directement &agrave; la racine du site.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- C2 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="c2.title">Pousser le code (Pull Request)</h4>
+          <div class="do" data-i18n="c2.body">Quand Codex a fini, il propose une <b>Pull Request</b>&nbsp;: c&rsquo;est sa fa&ccedil;on de proposer d&rsquo;ajouter son code au d&eacute;p&ocirc;t central. Rien n&rsquo;est publi&eacute; tant que vous n&rsquo;avez pas valid&eacute;.</div>
+          <ol class="clicks" data-i18n="c2.clicks">
+            <li>Relisez le <b>r&eacute;sum&eacute;</b> des changements propos&eacute; par Codex.</li>
+            <li>Cliquez sur <span class="ui-lbl">Create PR</span> (ou Open PR).</li>
+            <li>Codex ouvre la Pull Request sur GitHub.</li>
+          </ol>
+          <div class="note green">
+            <div class="lab" data-i18n="word.keynote">&Agrave; retenir</div>
+            <p data-i18n="c2.note">Une <b>Pull Request</b> = &laquo;&nbsp;je propose ces modifications&nbsp;&raquo;. C&rsquo;est le point de contr&ocirc;le humain&nbsp;: c&rsquo;est vous qui d&eacute;cidez de publier ou non.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- C3 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="c3.title">Valider la PR dans GitHub</h4>
+          <div class="do" data-i18n="c3.body">C&rsquo;est vous qui autorisez la publication, en fusionnant (merge) la Pull Request dans la branche <code>main</code>.</div>
+          <ol class="clicks" data-i18n="c3.clicks">
+            <li>Sur la page de la Pull Request, cliquez sur <span class="ui-lbl">Merge pull request</span>.</li>
+            <li>Confirmez avec <span class="ui-lbl">Confirm merge</span>.</li>
+            <li>Le code est maintenant dans <code>main</code>&nbsp;: la publication se d&eacute;clenche automatiquement.</li>
+          </ol>
+          <figure class="mock">
+            <div class="mock-chrome"><span class="md"></span><span class="md"></span><span class="md"></span><span class="mock-url">github.com/&hellip;/cyber-academy/pull/1</span></div>
+            <div class="mock-screen">
+              <div class="ui-h">Add Snake cyber quiz game</div>
+              <div class="ui-merge"><span class="ui-dot-ok"></span> This branch has no conflicts</div>
+              <span class="ui-btn green">Merge pull request</span>
+              <span class="ui-btn" style="margin-left:6px">Close</span>
+              <span class="pin" style="bottom:16px;left:130px">1</span>
+            </div>
+            <figcaption data-i18n="c3.cap">Page Pull Request &mdash; bouton vert &laquo;&nbsp;Merge pull request&nbsp;&raquo;.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <!-- C4 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">4</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="c4.title">Attendre la mise en ligne</h4>
+          <div class="do" data-i18n="c4.body">GitHub Pages reconstruit le site &agrave; chaque changement de <code>main</code>. Comptez 1 &agrave; 2&nbsp;minutes.</div>
+          <ol class="clicks" data-i18n="c4.clicks">
+            <li>Onglet <span class="ui-lbl">Actions</span> du d&eacute;p&ocirc;t&nbsp;: un workflow &laquo;&nbsp;pages build and deployment&nbsp;&raquo; tourne (rond orange &rarr; coche verte).</li>
+            <li>Ou retournez dans <span class="ui-lbl">Settings &rarr; Pages</span>&nbsp;: le bandeau indique &laquo;&nbsp;Your site is live at&hellip;&nbsp;&raquo;.</li>
+          </ol>
+          <figure class="mock">
+            <div class="mock-chrome"><span class="md"></span><span class="md"></span><span class="md"></span><span class="mock-url">github.com/&hellip;/cyber-academy/actions</span></div>
+            <div class="mock-screen">
+              <div class="ui-h">Actions</div>
+              <div class="ui-row"><span class="ui-dot-ok"></span> pages build and deployment &nbsp;<span style="color:var(--ws-green-700)">success</span></div>
+              <div class="ui-live"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg> Your site is live at votre-nom.github.io/cyber-academy/</div>
+              <span class="pin" style="top:42px;left:14px">1</span>
+              <span class="pin" style="bottom:30px;right:18px">2</span>
+            </div>
+            <figcaption data-i18n="c4.cap">Onglet Actions &mdash; d&eacute;ploiement r&eacute;ussi, site en ligne.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <!-- C5 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">5</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="c5.title">Voir le r&eacute;sultat&nbsp;!</h4>
+          <div class="do" data-i18n="c5.body">Ouvrez l&rsquo;URL de votre site. Le jeu est en ligne, accessible &agrave; tous.</div>
+          <ol class="clicks" data-i18n="c5.clicks">
+            <li>Cliquez sur l&rsquo;URL <code>https://votre-nom.github.io/cyber-academy/</code>.</li>
+            <li>Jouez, mangez une brique, r&eacute;pondez aux questions, visez <b>8/10</b>&nbsp;!</li>
+          </ol>
+          <div class="note green">
+            <div class="lab" data-i18n="word.bravo">Bravo</div>
+            <p data-i18n="c5.note">Vous venez de boucler la cha&icirc;ne compl&egrave;te&nbsp;: <b>id&eacute;e &rarr; prompt &rarr; Pull Request &rarr; merge &rarr; en ligne</b>. Tout le reste n&rsquo;est qu&rsquo;une r&eacute;p&eacute;tition de cette boucle.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ D — ITERATE ============ -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="d.eyebrow">&Eacute;tape 3 &mdash; Recommencer</span>
+    <h2 data-i18n="d.title">It&eacute;rer, encore et encore</h2>
+    <p data-i18n="d.intro">Relancez Codex avec un nouveau prompt sur le m&ecirc;me d&eacute;p&ocirc;t&nbsp;: prompt &rarr; Pull Request &rarr; merge &rarr; en ligne. Quelques id&eacute;es&nbsp;:</p>
+  </div>
+
+  <div class="idea-grid">
+    <div class="prompt">
+      <button class="copy">copier</button>
+      <div class="who" data-i18n="d.p1.who">Am&eacute;liorer le jeu</div>
+      <div class="txt" data-i18n="d.p1.txt">Ajoute des explosions type feu d&rsquo;artifice &agrave; chaque bonne r&eacute;ponse.</div>
+    </div>
+    <div class="prompt">
+      <button class="copy">copier</button>
+      <div class="who" data-i18n="d.p2.who">Enrichir le contenu</div>
+      <div class="txt" data-i18n="d.p2.txt">Ajoute 10 questions sur la s&eacute;curit&eacute; des syst&egrave;mes industriels (OT/ICS).</div>
+    </div>
+    <div class="prompt">
+      <button class="copy">copier</button>
+      <div class="who" data-i18n="d.p3.who">Nouveau projet</div>
+      <div class="txt" data-i18n="d.p3.txt">Cr&eacute;e-moi un framework HTML pour mesurer la conformit&eacute; au document du CSA &laquo;&nbsp;Are You Mythos Ready&nbsp;&raquo;.</div>
+    </div>
+    <div class="note" style="margin-top:0">
+      <div class="lab" data-i18n="word.tip">Astuce</div>
+      <p data-i18n="d.note">Pour un sujet totalement diff&eacute;rent, cr&eacute;ez un <b>nouveau d&eacute;p&ocirc;t</b> et r&eacute;p&eacute;tez l&rsquo;&Eacute;tape&nbsp;1. Pour faire &eacute;voluer un jeu existant, restez sur le m&ecirc;me d&eacute;p&ocirc;t.</p>
+    </div>
+  </div>
+
+  <!-- ============ E — GO FURTHER ============ -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="e.eyebrow">Aller plus loin</span>
+    <h2 data-i18n="e.title">Il n&rsquo;y a pas de limite &agrave; l&rsquo;imagination</h2>
+    <p data-i18n="e.intro">Une fois la boucle ma&icirc;tris&eacute;e, vous pouvez tout construire. Et l&rsquo;IA reste votre meilleure alli&eacute;e &agrave; chaque blocage.</p>
+  </div>
+
+  <div class="tips">
+    <div class="tip">
+      <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12" y2="17"/></svg></div>
+      <h3 data-i18n="e1.title">Bloqu&eacute;&nbsp;? Demandez &agrave; l&rsquo;IA</h3>
+      <p data-i18n="e1.body">Toutes les questions sont permises&nbsp;: comment utiliser l&rsquo;outil, comment ajouter tel &eacute;l&eacute;ment, comment enrichir le contenu. L&rsquo;IA est aussi votre <b>tutrice</b>.</p>
+    </div>
+    <div class="tip">
+      <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <h3 data-i18n="e2.title">Une id&eacute;e encore floue&nbsp;?</h3>
+      <p data-i18n="e2.body">Demandez &agrave; l&rsquo;IA de <b>vous poser des questions</b> pour pr&eacute;ciser votre besoin&nbsp;: &laquo;&nbsp;Pose-moi des questions pour m&rsquo;aider &agrave; cadrer mon id&eacute;e.&nbsp;&raquo;</p>
+    </div>
+    <div class="tip">
+      <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><polyline points="23 4 23 10 17 10"/><path d="M20.5 15a9 9 0 1 1-2.1-9.4L23 10"/></svg></div>
+      <h3 data-i18n="e3.title">La boucle est toujours la m&ecirc;me</h3>
+      <p data-i18n="e3.body"><b>Id&eacute;e &rarr; prompt &rarr; Pull Request &rarr; merge &rarr; en ligne.</b> Ce rythme, vous le connaissez d&eacute;sormais. &Agrave; vous de jouer&nbsp;!</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span class="src" data-i18n="footer.src">Atelier vibe coding &mdash; Wavestone &middot; guide interne</span>
+  <button class="reset" id="reset" data-i18n="footer.reset">r&eacute;initialiser la progression</button>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------------- i18n ---------------- */
+  var I18N = {
+    en:{
+      "nav.home":"Home","nav.principles":"The principles","nav.path":"Paths",
+      "hero.eyebrow":"Hands-on workshop",
+      "hero.title":"How to get started with <span class=\"ac\">vibe coding</span>",
+      "hero.lede":"From an idea to a live website, in real time with your participants &mdash; with nothing to install. Follow the flow, tick off each step, copy the prompts.",
+      "hero.chip1":"# 100% browser","hero.chip2":"# no install","hero.chip3":"# ~45 min as a group","hero.chip4":"# email &middot; github &middot; chatgpt codex",
+      "hero.tip":"<b>Facilitator tip:</b> scroll the page top to bottom with the group. Click the <b>numbers</b> to tick off completed steps, and <b>copy</b> for the prompts. The language switch is top right.",
+      "a.eyebrow":"The concept","a.title":"Three building blocks, that&rsquo;s it",
+      "a.intro":"Vibe coding rests on three building blocks that chain together. Understand them once and you understand everything else.",
+      "a.rail1":"An idea","a.rail2":"Some code","a.rail3":"A live website",
+      "a.b1.tag":"Block 1","a.b1.title":"An AI agent writes the code","a.b1.body":"From a simple idea in plain language, an AI agent generates the source code. It does the writing for you.","a.b1.tool":"Claude &middot; or ChatGPT (Codex)",
+      "a.b2.tag":"Block 2","a.b2.title":"GitHub stores and shares","a.b2.body":"The code is saved in an online space that versions it and makes it shareable: a repository.","a.b2.tool":"GitHub",
+      "a.b3.tag":"Block 3","a.b3.title":"The site goes live","a.b3.body":"The code is published on a web page anyone can reach via a URL. Hosting happens automatically.","a.b3.tool":"GitHub Pages",
+      "b.eyebrow":"Step 1 &mdash; Set up","b.title":"Configure the environments","b.sub":"Done once with your participants. Allow 10&ndash;15 min.",
+      "word.steps":"steps","word.free":"free","word.tip":"Tip","word.good":"Good to know","word.keynote":"Key point","word.bravo":"Well done",
+      "b1.title":"Check an e-mail account","b1.mini":"5 s","b1.body":"Each participant needs an e-mail address to create their accounts. <b>A personal Gmail account</b> is simplest, but any address works.",
+      "b1.clicks":"<li>Open your mailbox (e.g. <b>gmail.com</b>) in a tab.</li><li>If needed, create a free account via <span class=\"ui-lbl\">Create account</span>.</li>",
+      "b2.title":"Create a GitHub account","b2.body":"GitHub is the space that will store the code. The account is free.",
+      "b2.clicks":"<li>Go to <b>github.com</b>, then click <span class=\"ui-lbl\">Sign up</span> (top right).</li><li>Enter your <b>e-mail</b>, a <b>password</b> and a <b>username</b>.</li><li>Confirm the <b>verification code</b> sent by e-mail.</li><li>Choose the <span class=\"ui-lbl\">Free</span> plan.</li>",
+      "b2.cap":"GitHub sign-up page &mdash; the numbers map to the clicks above.",
+      "b3.title":"Create the repository + README","b3.body":"A <b>repository</b> is the online folder that holds your project. The <b>README</b> initialises it so it isn&rsquo;t empty.",
+      "b3.clicks":"<li>Top right, click <span class=\"ui-lbl\">+</span> then <span class=\"ui-lbl\">New repository</span>.</li><li>Give it a name, e.g. <code>cyber-academy</code>.</li><li>Tick <span class=\"ui-lbl\">Public</span> &mdash; required for free publishing.</li><li>Tick <span class=\"ui-lbl\">Add a README file</span>.</li><li>Click <span class=\"ui-lbl\">Create repository</span>.</li>",
+      "b3.cap":"&ldquo;New repository&rdquo; form &mdash; Public + README ticked.",
+      "b4.title":"Enable GitHub Pages","b4.body":"GitHub Pages automatically publishes the contents of the <code>main</code> branch to a real URL.",
+      "b4.clicks":"<li>In the repository, open the <span class=\"ui-lbl\">Settings</span> tab.</li><li>In the left menu, click <span class=\"ui-lbl\">Pages</span>.</li><li>Under <span class=\"ui-lbl\">Source</span>, choose <span class=\"ui-lbl\">Deploy from a branch</span>.</li><li>Select the <code>main</code> branch and the <code>/ (root)</code> folder.</li><li>Click <span class=\"ui-lbl\">Save</span>.</li><li>Wait ~1 min: your site URL appears at the top.</li>",
+      "b4.cap":"Settings &rarr; Pages &mdash; Source &ldquo;Deploy from a branch&rdquo;, main branch.",
+      "b4.tip":"Keep this tab open: this is where you&rsquo;ll see the URL and each new version going live (<code>https://your-name.github.io/cyber-academy/</code>).",
+      "b5.title":"Launch ChatGPT, then Codex","b5.body":"Codex is the ChatGPT agent that writes code straight into your GitHub repository.",
+      "b5.clicks":"<li>Go to <b>chatgpt.com</b> and sign in (a Google account works).</li><li>In the left menu, click <span class=\"ui-lbl\">Codex</span>.</li><li>Click <span class=\"ui-lbl\">Connect to GitHub</span> and authorise access.</li><li>Select the <code>cyber-academy</code> repository.</li>",
+      "b5.cap":"Codex tab in ChatGPT &mdash; connecting to the GitHub repository.",
+      "b5.note":"Codex requires a <b>paid ChatGPT plan</b> (Plus, Team or Pro). Plan for it before the session. Claude Code can play the same role if you prefer.",
+      "c.eyebrow":"Step 2 &mdash; Build","c.title":"Build the first game","c.sub":"We create a Snake game that asks cybersecurity questions. From prompt to live site.",
+      "c1.title":"Describe the game to Codex","c1.body":"In Codex, create a new task, check the right repository is selected, then paste the prompt below.",
+      "c1.clicks":"<li>Click in the Codex <b>text box</b>.</li><li>Check the selected repository is <code>cyber-academy</code>.</li><li>Paste the prompt, then click <span class=\"ui-lbl\">Code</span> (or Send).</li>",
+      "c1.cap":"New Codex task &mdash; repository selected + prompt pasted.",
+      "c1.who":"The game prompt",
+      "c1.prompt":"I run our cyber academy. To validate the skills learned at the end of each module, I want a gamified approach. Build a Snake game in a single self-contained index.html file (HTML/CSS/JavaScript, no external dependencies). Each time the snake eats a block, the game pauses and asks a cybersecurity question with 3 choices: one clearly wrong answer, one almost right, and one truly correct. Randomly draw 10 questions from a bank of 30 covering IAM, GRC, SOC and AI security. Show the number of correct answers at the end: above 8/10, display &ldquo;Skills validated&rdquo;.",
+      "c1.note":"By explicitly asking for an <code>index.html</code> file, you ensure GitHub Pages serves the game right at the site root.",
+      "c2.title":"Push the code (Pull Request)","c2.body":"When Codex is done, it proposes a <b>Pull Request</b>: its way of offering to add its code to the central repository. Nothing is published until you approve.",
+      "c2.clicks":"<li>Read the <b>summary</b> of changes Codex proposes.</li><li>Click <span class=\"ui-lbl\">Create PR</span> (or Open PR).</li><li>Codex opens the Pull Request on GitHub.</li>",
+      "c2.note":"A <b>Pull Request</b> = &ldquo;I propose these changes&rdquo;. It&rsquo;s the human checkpoint: you decide whether to publish or not.",
+      "c3.title":"Approve the PR in GitHub","c3.body":"You authorise publication by merging the Pull Request into the <code>main</code> branch.",
+      "c3.clicks":"<li>On the Pull Request page, click <span class=\"ui-lbl\">Merge pull request</span>.</li><li>Confirm with <span class=\"ui-lbl\">Confirm merge</span>.</li><li>The code is now in <code>main</code>: publishing starts automatically.</li>",
+      "c3.cap":"Pull Request page &mdash; green &ldquo;Merge pull request&rdquo; button.",
+      "c4.title":"Wait for it to go live","c4.body":"GitHub Pages rebuilds the site on every change to <code>main</code>. Allow 1 to 2 minutes.",
+      "c4.clicks":"<li>The repo&rsquo;s <span class=\"ui-lbl\">Actions</span> tab: a &ldquo;pages build and deployment&rdquo; workflow runs (orange dot &rarr; green tick).</li><li>Or go back to <span class=\"ui-lbl\">Settings &rarr; Pages</span>: the banner shows &ldquo;Your site is live at&hellip;&rdquo;.</li>",
+      "c4.cap":"Actions tab &mdash; deployment succeeded, site live.",
+      "c5.title":"See the result!","c5.body":"Open your site URL. The game is live, reachable by anyone.",
+      "c5.clicks":"<li>Click the URL <code>https://your-name.github.io/cyber-academy/</code>.</li><li>Play, eat a block, answer the questions, aim for <b>8/10</b>!</li>",
+      "c5.note":"You&rsquo;ve just completed the full chain: <b>idea &rarr; prompt &rarr; Pull Request &rarr; merge &rarr; live</b>. Everything else is just repeating this loop.",
+      "d.eyebrow":"Step 3 &mdash; Repeat","d.title":"Iterate, again and again","d.intro":"Run Codex again with a new prompt on the same repository: prompt &rarr; Pull Request &rarr; merge &rarr; live. A few ideas:",
+      "d.p1.who":"Improve the game","d.p1.txt":"Add fireworks-style explosions on every correct answer.",
+      "d.p2.who":"Enrich the content","d.p2.txt":"Add 10 questions on industrial systems security (OT/ICS).",
+      "d.p3.who":"New project","d.p3.txt":"Build me an HTML framework to measure compliance with the CSA &ldquo;Are You Mythos Ready&rdquo; document.",
+      "d.note":"For a completely different topic, create a <b>new repository</b> and repeat Step 1. To evolve an existing game, stay on the same repository.",
+      "e.eyebrow":"Go further","e.title":"There&rsquo;s no limit to imagination","e.intro":"Once you&rsquo;ve mastered the loop, you can build anything. And the AI stays your best ally whenever you get stuck.",
+      "e1.title":"Stuck? Ask the AI","e1.body":"Any question is fair game: how to use the tool, how to add a given element, how to enrich the content. The AI is also your <b>tutor</b>.",
+      "e2.title":"Still a vague idea?","e2.body":"Ask the AI to <b>ask you questions</b> to refine your need: &ldquo;Ask me questions to help me frame my idea.&rdquo;",
+      "e3.title":"The loop never changes","e3.body":"<b>Idea &rarr; prompt &rarr; Pull Request &rarr; merge &rarr; live.</b> You know this rhythm now. Over to you!",
+      "footer.src":"Vibe coding workshop &mdash; Wavestone &middot; internal guide","footer.reset":"reset progress"
+    },
+    de:{
+      "nav.home":"Start","nav.principles":"Die Prinzipien","nav.path":"Pfade",
+      "hero.eyebrow":"Hands-on-Workshop",
+      "hero.title":"Wie du mit <span class=\"ac\">Vibe Coding</span> startest",
+      "hero.lede":"Von der Idee zur Live-Website, in Echtzeit mit deinen Teilnehmenden &mdash; ohne Installation. Folge dem Ablauf, hake jeden Schritt ab, kopiere die Prompts.",
+      "hero.chip1":"# 100% Browser","hero.chip2":"# keine Installation","hero.chip3":"# ~45 Min in der Gruppe","hero.chip4":"# E-Mail &middot; github &middot; chatgpt codex",
+      "hero.tip":"<b>Tipp f&uuml;r Moderierende:</b> scrollt die Seite mit der Gruppe von oben nach unten. Klickt die <b>Zahlen</b> an, um erledigte Schritte abzuhaken, und <b>kopieren</b> f&uuml;r die Prompts. Die Sprachauswahl ist oben rechts.",
+      "a.eyebrow":"Das Konzept","a.title":"Drei Bausteine, mehr nicht",
+      "a.intro":"Vibe Coding beruht auf drei Bausteinen, die ineinandergreifen. Versteht sie einmal, und ihr versteht alles Weitere.",
+      "a.rail1":"Eine Idee","a.rail2":"Code","a.rail3":"Eine Live-Website",
+      "a.b1.tag":"Baustein 1","a.b1.title":"Ein KI-Agent schreibt den Code","a.b1.body":"Aus einer einfachen Idee in nat&uuml;rlicher Sprache erzeugt ein KI-Agent den Quellcode. Er &uuml;bernimmt das Schreiben f&uuml;r euch.","a.b1.tool":"Claude &middot; oder ChatGPT (Codex)",
+      "a.b2.tag":"Baustein 2","a.b2.title":"GitHub speichert und teilt","a.b2.body":"Der Code wird in einem Online-Speicher abgelegt, der ihn versioniert und teilbar macht: ein Repository.","a.b2.tool":"GitHub",
+      "a.b3.tag":"Baustein 3","a.b3.title":"Die Seite geht live","a.b3.body":"Der Code wird auf einer Webseite ver&ouml;ffentlicht, die alle &uuml;ber eine URL erreichen. Das Hosting erfolgt automatisch.","a.b3.tool":"GitHub Pages",
+      "b.eyebrow":"Schritt 1 &mdash; Einrichten","b.title":"Die Umgebungen einrichten","b.sub":"Einmalig mit euren Teilnehmenden. Plant 10&ndash;15 Min ein.",
+      "word.steps":"Schritte","word.free":"kostenlos","word.tip":"Tipp","word.good":"Gut zu wissen","word.keynote":"Kernpunkt","word.bravo":"Gut gemacht",
+      "b1.title":"Ein E-Mail-Konto pr&uuml;fen","b1.mini":"5 s","b1.body":"Jede teilnehmende Person braucht eine E-Mail-Adresse, um ihre Konten anzulegen. <b>Ein privates Gmail-Konto</b> ist am einfachsten, aber jede Adresse funktioniert.",
+      "b1.clicks":"<li>&Ouml;ffnet euer Postfach (z.&nbsp;B. <b>gmail.com</b>) in einem Tab.</li><li>Falls n&ouml;tig, legt &uuml;ber <span class=\"ui-lbl\">Konto erstellen</span> ein kostenloses Konto an.</li>",
+      "b2.title":"Ein GitHub-Konto erstellen","b2.body":"GitHub ist der Speicher f&uuml;r euren Code. Das Konto ist kostenlos.",
+      "b2.clicks":"<li>Geht auf <b>github.com</b> und klickt auf <span class=\"ui-lbl\">Sign up</span> (oben rechts).</li><li>Gebt eure <b>E-Mail</b>, ein <b>Passwort</b> und einen <b>Benutzernamen</b> ein.</li><li>Best&auml;tigt den per E-Mail erhaltenen <b>Verifizierungscode</b>.</li><li>W&auml;hlt den Tarif <span class=\"ui-lbl\">Free</span>.</li>",
+      "b2.cap":"GitHub-Registrierung &mdash; die Zahlen verweisen auf die Klicks oben.",
+      "b3.title":"Das Repository + README erstellen","b3.body":"Ein <b>Repository</b> ist der Online-Ordner f&uuml;r euer Projekt. Das <b>README</b> initialisiert es, damit es nicht leer ist.",
+      "b3.clicks":"<li>Oben rechts auf <span class=\"ui-lbl\">+</span> und dann <span class=\"ui-lbl\">New repository</span> klicken.</li><li>Einen Namen vergeben, z.&nbsp;B. <code>cyber-academy</code>.</li><li><span class=\"ui-lbl\">Public</span> ankreuzen &mdash; n&ouml;tig f&uuml;r die kostenlose Ver&ouml;ffentlichung.</li><li><span class=\"ui-lbl\">Add a README file</span> ankreuzen.</li><li>Auf <span class=\"ui-lbl\">Create repository</span> klicken.</li>",
+      "b3.cap":"Formular &bdquo;New repository&ldquo; &mdash; Public + README angekreuzt.",
+      "b4.title":"GitHub Pages aktivieren","b4.body":"GitHub Pages ver&ouml;ffentlicht den Inhalt des <code>main</code>-Branches automatisch unter einer echten URL.",
+      "b4.clicks":"<li>Im Repository den Reiter <span class=\"ui-lbl\">Settings</span> &ouml;ffnen.</li><li>Im linken Men&uuml; auf <span class=\"ui-lbl\">Pages</span> klicken.</li><li>Unter <span class=\"ui-lbl\">Source</span> die Option <span class=\"ui-lbl\">Deploy from a branch</span> w&auml;hlen.</li><li>Den Branch <code>main</code> und den Ordner <code>/ (root)</code> ausw&auml;hlen.</li><li>Auf <span class=\"ui-lbl\">Save</span> klicken.</li><li>~1 Min warten: die URL eurer Seite erscheint oben.</li>",
+      "b4.cap":"Settings &rarr; Pages &mdash; Source &bdquo;Deploy from a branch&ldquo;, Branch main.",
+      "b4.tip":"Lasst diesen Reiter offen: hier seht ihr die URL und wann jede neue Version live geht (<code>https://euer-name.github.io/cyber-academy/</code>).",
+      "b5.title":"ChatGPT starten, dann Codex","b5.body":"Codex ist der ChatGPT-Agent, der Code direkt in euer GitHub-Repository schreibt.",
+      "b5.clicks":"<li>Geht auf <b>chatgpt.com</b> und meldet euch an (ein Google-Konto funktioniert).</li><li>Im linken Men&uuml; auf <span class=\"ui-lbl\">Codex</span> klicken.</li><li>Auf <span class=\"ui-lbl\">Connect to GitHub</span> klicken und den Zugriff erlauben.</li><li>Das Repository <code>cyber-academy</code> ausw&auml;hlen.</li>",
+      "b5.cap":"Codex-Reiter in ChatGPT &mdash; Verbindung mit dem GitHub-Repository.",
+      "b5.note":"Codex erfordert ein <b>kostenpflichtiges ChatGPT-Abo</b> (Plus, Team oder Pro). Plant das vor der Session ein. Claude Code kann dieselbe Rolle &uuml;bernehmen, wenn ihr es bevorzugt.",
+      "c.eyebrow":"Schritt 2 &mdash; Bauen","c.title":"Das erste Spiel bauen","c.sub":"Wir erstellen ein Snake-Spiel, das Cybersicherheitsfragen stellt. Vom Prompt zur Live-Seite.",
+      "c1.title":"Codex das Spiel beschreiben","c1.body":"Legt in Codex eine neue Aufgabe an, pr&uuml;ft das ausgew&auml;hlte Repository und f&uuml;gt dann den Prompt unten ein.",
+      "c1.clicks":"<li>In das <b>Textfeld</b> von Codex klicken.</li><li>Pr&uuml;fen, dass das gew&auml;hlte Repository <code>cyber-academy</code> ist.</li><li>Den Prompt einf&uuml;gen, dann auf <span class=\"ui-lbl\">Code</span> (oder Senden) klicken.</li>",
+      "c1.cap":"Neue Codex-Aufgabe &mdash; Repository gew&auml;hlt + Prompt eingef&uuml;gt.",
+      "c1.who":"Der Spiel-Prompt",
+      "c1.prompt":"Ich verantworte unsere Cyber Academy. Um die am Ende jedes Moduls erworbenen Kompetenzen zu pr&uuml;fen, m&ouml;chte ich einen spielerischen Ansatz. Erstelle ein Snake-Spiel in einer eigenst&auml;ndigen index.html-Datei (HTML/CSS/JavaScript, ohne externe Abh&auml;ngigkeiten). Jedes Mal, wenn die Schlange einen Block frisst, pausiert das Spiel und stellt eine Cybersicherheitsfrage mit 3 Optionen: eine klar falsche Antwort, eine fast richtige und eine wirklich richtige. W&auml;hle zuf&auml;llig 10 Fragen aus einem Pool von 30 zu IAM, GRC, SOC und KI-Sicherheit. Zeige am Ende die Anzahl richtiger Antworten an: &uuml;ber 8/10 erscheint &bdquo;Kompetenzen best&auml;tigt&ldquo;.",
+      "c1.note":"Indem ihr ausdr&uuml;cklich eine <code>index.html</code>-Datei verlangt, stellt ihr sicher, dass GitHub Pages das Spiel direkt im Wurzelverzeichnis ausliefert.",
+      "c2.title":"Den Code pushen (Pull Request)","c2.body":"Wenn Codex fertig ist, schl&auml;gt es einen <b>Pull Request</b> vor: so bietet es an, seinen Code dem zentralen Repository hinzuzuf&uuml;gen. Nichts wird ver&ouml;ffentlicht, bis ihr zustimmt.",
+      "c2.clicks":"<li>Lest die von Codex vorgeschlagene <b>Zusammenfassung</b> der &Auml;nderungen.</li><li>Klickt auf <span class=\"ui-lbl\">Create PR</span> (oder Open PR).</li><li>Codex &ouml;ffnet den Pull Request auf GitHub.</li>",
+      "c2.note":"Ein <b>Pull Request</b> = &bdquo;Ich schlage diese &Auml;nderungen vor&ldquo;. Das ist der menschliche Kontrollpunkt: ihr entscheidet, ob ver&ouml;ffentlicht wird.",
+      "c3.title":"Den PR in GitHub best&auml;tigen","c3.body":"Ihr autorisiert die Ver&ouml;ffentlichung, indem ihr den Pull Request in den <code>main</code>-Branch merget.",
+      "c3.clicks":"<li>Auf der Pull-Request-Seite auf <span class=\"ui-lbl\">Merge pull request</span> klicken.</li><li>Mit <span class=\"ui-lbl\">Confirm merge</span> best&auml;tigen.</li><li>Der Code ist nun in <code>main</code>: die Ver&ouml;ffentlichung startet automatisch.</li>",
+      "c3.cap":"Pull-Request-Seite &mdash; gr&uuml;ner Button &bdquo;Merge pull request&ldquo;.",
+      "c4.title":"Auf das Live-Gehen warten","c4.body":"GitHub Pages baut die Seite bei jeder &Auml;nderung an <code>main</code> neu. Plant 1 bis 2 Minuten ein.",
+      "c4.clicks":"<li>Reiter <span class=\"ui-lbl\">Actions</span> des Repos: ein Workflow &bdquo;pages build and deployment&ldquo; l&auml;uft (oranger Punkt &rarr; gr&uuml;ner Haken).</li><li>Oder zur&uuml;ck zu <span class=\"ui-lbl\">Settings &rarr; Pages</span>: das Banner zeigt &bdquo;Your site is live at&hellip;&ldquo;.</li>",
+      "c4.cap":"Reiter Actions &mdash; Deployment erfolgreich, Seite live.",
+      "c5.title":"Das Ergebnis ansehen!","c5.body":"&Ouml;ffnet die URL eurer Seite. Das Spiel ist live und f&uuml;r alle erreichbar.",
+      "c5.clicks":"<li>Klickt die URL <code>https://euer-name.github.io/cyber-academy/</code> an.</li><li>Spielt, fresst einen Block, beantwortet die Fragen, zielt auf <b>8/10</b>!</li>",
+      "c5.note":"Ihr habt gerade die komplette Kette durchlaufen: <b>Idee &rarr; Prompt &rarr; Pull Request &rarr; Merge &rarr; live</b>. Alles Weitere ist nur eine Wiederholung dieser Schleife.",
+      "d.eyebrow":"Schritt 3 &mdash; Wiederholen","d.title":"Iterieren, immer wieder","d.intro":"Startet Codex erneut mit einem neuen Prompt im selben Repository: Prompt &rarr; Pull Request &rarr; Merge &rarr; live. Ein paar Ideen:",
+      "d.p1.who":"Das Spiel verbessern","d.p1.txt":"F&uuml;ge bei jeder richtigen Antwort Feuerwerk-Explosionen hinzu.",
+      "d.p2.who":"Den Inhalt erweitern","d.p2.txt":"F&uuml;ge 10 Fragen zur Sicherheit industrieller Systeme (OT/ICS) hinzu.",
+      "d.p3.who":"Neues Projekt","d.p3.txt":"Erstelle mir ein HTML-Framework zur Messung der Konformit&auml;t mit dem CSA-Dokument &bdquo;Are You Mythos Ready&ldquo;.",
+      "d.note":"F&uuml;r ein v&ouml;llig anderes Thema legt ein <b>neues Repository</b> an und wiederholt Schritt 1. Um ein bestehendes Spiel weiterzuentwickeln, bleibt im selben Repository.",
+      "e.eyebrow":"Weitergehen","e.title":"Der Vorstellungskraft sind keine Grenzen gesetzt","e.intro":"Sobald ihr die Schleife beherrscht, k&ouml;nnt ihr alles bauen. Und die KI bleibt euer bester Verb&uuml;ndeter, wann immer ihr feststeckt.",
+      "e1.title":"Festgefahren? Fragt die KI","e1.body":"Jede Frage ist erlaubt: wie man das Tool nutzt, wie man ein Element hinzuf&uuml;gt, wie man den Inhalt erweitert. Die KI ist auch eure <b>Tutorin</b>.",
+      "e2.title":"Idee noch unklar?","e2.body":"Bittet die KI, <b>euch Fragen zu stellen</b>, um euren Bedarf zu sch&auml;rfen: &bdquo;Stell mir Fragen, um meine Idee zu strukturieren.&ldquo;",
+      "e3.title":"Die Schleife bleibt gleich","e3.body":"<b>Idee &rarr; Prompt &rarr; Pull Request &rarr; Merge &rarr; live.</b> Diesen Rhythmus kennt ihr jetzt. Ihr seid dran!",
+      "footer.src":"Vibe-Coding-Workshop &mdash; Wavestone &middot; interner Leitfaden","footer.reset":"Fortschritt zur&uuml;cksetzen"
+    }
+  };
+
+  var LABELS = { fr:{copy:"copier",copied:"copié ✓"}, en:{copy:"copy",copied:"copied ✓"}, de:{copy:"kopieren",copied:"kopiert ✓"} };
+
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('[data-i18n]'));
+  var ORIG = {};
+  nodes.forEach(function(n){ ORIG[n.getAttribute('data-i18n')] = n.innerHTML; });
+  var cur = 'fr';
+
+  function apply(lang){
+    if(lang!=='fr' && !I18N[lang]) lang='fr';
+    cur = lang;
+    document.documentElement.lang = lang;
+    nodes.forEach(function(n){
+      var k = n.getAttribute('data-i18n');
+      var v = (lang==='fr') ? ORIG[k] : (I18N[lang][k]!=null ? I18N[lang][k] : ORIG[k]);
+      if(v!=null) n.innerHTML = v;
+    });
+    document.querySelectorAll('.copy').forEach(function(c){ if(!c.classList.contains('ok')) c.textContent = LABELS[lang].copy; });
+    document.querySelectorAll('.langsel button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-lang')===lang); });
+    try{ localStorage.setItem('ws_lang', lang); }catch(e){}
+  }
+
+  document.querySelectorAll('.langsel button').forEach(function(b){
+    b.addEventListener('click', function(){ apply(b.getAttribute('data-lang')); });
+  });
+
+  var saved=null; try{ saved=localStorage.getItem('ws_lang'); }catch(e){}
+  apply(saved || 'fr');
+
+  /* ---------------- step progress per phase ---------------- */
+  document.querySelectorAll('.phase').forEach(function(ph){
+    var steps = ph.querySelectorAll('.step');
+    if(!steps.length) return;
+    var fill = ph.previousElementSibling && ph.previousElementSibling.querySelector ? ph.querySelector('.spine-fill') : ph.querySelector('.spine-fill');
+    var head = ph.previousElementSibling;
+    var dn = head && head.querySelector ? head.querySelector('.prog .dn') : null;
+    function refresh(){
+      var d = ph.querySelectorAll('.step.done').length;
+      if(dn) dn.textContent = d;
+      if(fill) fill.style.height = (d/steps.length*100)+'%';
+    }
+    steps.forEach(function(step){
+      var node = step.querySelector('.node');
+      function toggle(){
+        step.classList.toggle('done');
+        node.setAttribute('aria-pressed', step.classList.contains('done'));
+        refresh();
+      }
+      node.addEventListener('click', toggle);
+      node.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); toggle(); } });
+    });
+    refresh();
+  });
+
+  /* ---------------- copy prompts ---------------- */
+  document.querySelectorAll('.copy').forEach(function(c){
+    c.addEventListener('click', function(){
+      var txt = c.parentElement.querySelector('.txt').textContent.trim();
+      var ok = function(){ c.textContent = LABELS[cur].copied; c.classList.add('ok'); setTimeout(function(){ c.classList.remove('ok'); c.textContent = LABELS[cur].copy; },1600); };
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok, ok); }
+      else { var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); ok(); }
+    });
+  });
+
+  /* ---------------- reset ---------------- */
+  document.getElementById('reset').addEventListener('click', function(){
+    document.querySelectorAll('.step.done').forEach(function(s){ s.classList.remove('done'); s.querySelector('.node').setAttribute('aria-pressed','false'); });
+    document.querySelectorAll('.phase').forEach(function(ph){
+      var fill=ph.querySelector('.spine-fill'); if(fill) fill.style.height='0';
+      var head=ph.previousElementSibling; var dn=head&&head.querySelector?head.querySelector('.prog .dn'):null; if(dn) dn.textContent='0';
+    });
+    window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
+  });
+})();
+</script>
+</body>
+</html>
