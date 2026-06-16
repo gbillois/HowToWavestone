@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TP Vibe Coding - Hands-on</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --indigo-950:#170A3D;
+    --indigo-850:#271061;
+    --indigo-700:#451DC7;
+    --indigo-600:#5A2BE0;
+    --indigo-100:#DDD5FA;
+    --indigo-50:#F4F0FF;
+    --green-500:#04F06A;
+    --green-100:#DFFBEA;
+    --green-800:#075D35;
+    --cyan-600:#07818D;
+    --cyan-50:#E8FAFC;
+    --amber-600:#B36300;
+    --amber-50:#FFF5DF;
+    --red-600:#C02F45;
+    --red-50:#FFF0F2;
+    --ink-950:#15121D;
+    --ink-800:#302B41;
+    --ink-650:#5D576E;
+    --ink-500:#756F85;
+    --ink-200:#D9D6E4;
+    --ink-100:#EDEAF3;
+    --ink-50:#F8F7FB;
+    --white:#FFFFFF;
+    --display:'Poppins',system-ui,sans-serif;
+    --body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --shadow-sm:0 2px 8px rgba(21,18,29,.07);
+    --shadow-md:0 10px 26px rgba(21,18,29,.11);
+    --shadow-brand:0 18px 45px rgba(69,29,199,.25);
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--white);
+    color:var(--ink-950);
+    font-family:var(--body);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  button,input,select{font:inherit}
+  .topbar{
+    position:sticky;
+    top:0;
+    z-index:80;
+    background:rgba(255,255,255,.9);
+    border-bottom:1px solid var(--ink-100);
+    backdrop-filter:blur(14px);
+  }
+  .topbar-inner{
+    max-width:1180px;
+    margin:0 auto;
+    padding:12px 22px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:var(--indigo-700);
+    text-decoration:none;
+    font-family:var(--display);
+    font-weight:700;
+    font-size:15px;
+  }
+  .brand-mark{
+    width:13px;
+    height:13px;
+    background:var(--green-500);
+    box-shadow:0 0 0 5px var(--green-100);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:flex-end;
+  }
+  .nav a,.lang-btn{
+    min-height:34px;
+    border:1px solid var(--ink-200);
+    background:var(--white);
+    color:var(--ink-650);
+    text-decoration:none;
+    padding:7px 11px;
+    font-size:12px;
+    font-family:var(--mono);
+    cursor:pointer;
+  }
+  .nav a:hover,.lang-btn:hover,.lang-btn.active{
+    color:var(--indigo-700);
+    border-color:var(--indigo-600);
+    background:var(--indigo-50);
+  }
+  .progress{
+    position:fixed;
+    top:59px;
+    left:0;
+    width:0;
+    height:4px;
+    background:linear-gradient(90deg,var(--green-500),#8BFFBE);
+    z-index:90;
+  }
+
+  .hero{
+    position:relative;
+    overflow:hidden;
+    color:var(--white);
+    background:
+      linear-gradient(135deg,rgba(23,10,61,.96),rgba(69,29,199,.88)),
+      repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 1px,transparent 1px 76px),
+      repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 76px);
+  }
+  .hero:after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:10px;
+    background:linear-gradient(90deg,var(--green-500),#69F0FF,#FFD166,#FF6B7D);
+  }
+  .hero-inner{
+    max-width:1180px;
+    margin:0 auto;
+    padding:76px 22px 70px;
+    display:grid;
+    grid-template-columns:1.08fr .92fr;
+    gap:34px;
+    align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--mono);
+    font-size:12px;
+    font-weight:600;
+    color:var(--green-500);
+    margin-bottom:18px;
+  }
+  .eyebrow:before{content:"";width:18px;height:3px;background:currentColor}
+  h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0}
+  h1{
+    max-width:760px;
+    font-size:56px;
+    font-weight:800;
+  }
+  .hero p{
+    max-width:700px;
+    margin:20px 0 0;
+    color:rgba(255,255,255,.82);
+    font-size:18px;
+  }
+  .hero-actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:28px;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:42px;
+    padding:10px 16px;
+    border:1px solid transparent;
+    text-decoration:none;
+    font-weight:700;
+    cursor:pointer;
+  }
+  .btn.primary{background:var(--green-500);color:var(--indigo-950)}
+  .btn.secondary{background:rgba(255,255,255,.08);color:var(--white);border-color:rgba(255,255,255,.32)}
+  .btn:hover{filter:brightness(.98);transform:translateY(-1px)}
+  .console{
+    background:#0D0821;
+    border:1px solid rgba(255,255,255,.16);
+    box-shadow:var(--shadow-brand);
+    padding:18px;
+  }
+  .console-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:8px;
+    border-bottom:1px solid rgba(255,255,255,.12);
+    padding-bottom:12px;
+    margin-bottom:14px;
+    font-family:var(--mono);
+    font-size:12px;
+    color:rgba(255,255,255,.55);
+  }
+  .dots{display:flex;gap:6px}
+  .dots span{width:10px;height:10px;background:var(--green-500)}
+  .dots span:nth-child(2){background:#69F0FF}
+  .dots span:nth-child(3){background:#FFD166}
+  .terminal-line{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:10px;
+    margin:10px 0;
+    font-family:var(--mono);
+    font-size:13px;
+    color:#DAD7E8;
+  }
+  .terminal-line .prompt{color:var(--green-500)}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+  .overview{
+    margin-top:-34px;
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+  }
+  .metric{
+    background:var(--white);
+    border:1px solid var(--ink-100);
+    box-shadow:var(--shadow-md);
+    padding:18px;
+    min-height:126px;
+  }
+  .metric strong{
+    display:block;
+    font-family:var(--display);
+    color:var(--indigo-700);
+    font-size:24px;
+    margin-bottom:6px;
+  }
+  .metric span{display:block;color:var(--ink-650);font-size:14px}
+  .section{
+    padding:64px 0 10px;
+    scroll-margin-top:92px;
+  }
+  .section-head{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    gap:18px;
+    align-items:start;
+    margin-bottom:24px;
+  }
+  .section-letter{
+    width:54px;
+    height:54px;
+    display:grid;
+    place-items:center;
+    color:var(--white);
+    background:var(--indigo-700);
+    font-family:var(--display);
+    font-size:24px;
+    font-weight:800;
+  }
+  .section h2{font-size:34px;color:var(--indigo-950);margin-bottom:8px}
+  .section-lede{margin:0;color:var(--ink-650);max-width:850px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .card{
+    background:var(--white);
+    border:1px solid var(--ink-100);
+    box-shadow:var(--shadow-sm);
+    padding:20px;
+  }
+  .card.highlight{border-color:var(--indigo-100);box-shadow:var(--shadow-md)}
+  .card h3{font-size:20px;margin-bottom:8px;color:var(--indigo-700)}
+  .card p{margin:0;color:var(--ink-650);font-size:15px}
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    min-height:24px;
+    padding:3px 9px;
+    background:var(--indigo-50);
+    color:var(--indigo-700);
+    font-family:var(--mono);
+    font-size:11px;
+    font-weight:600;
+    margin-bottom:12px;
+  }
+  .badge.green{background:var(--green-100);color:var(--green-800)}
+  .badge.cyan{background:var(--cyan-50);color:var(--cyan-600)}
+  .badge.amber{background:var(--amber-50);color:var(--amber-600)}
+  .flow{
+    display:grid;
+    grid-template-columns:1fr auto 1fr auto 1fr;
+    align-items:stretch;
+    gap:12px;
+    margin-top:18px;
+  }
+  .flow-arrow{
+    display:grid;
+    place-items:center;
+    color:var(--green-800);
+    font-family:var(--display);
+    font-size:22px;
+  }
+  .timeline{display:grid;gap:16px}
+  .step{
+    display:grid;
+    grid-template-columns:58px 1fr;
+    gap:16px;
+    align-items:start;
+    background:var(--ink-50);
+    border:1px solid var(--ink-100);
+    padding:18px;
+  }
+  .step-num{
+    width:42px;
+    height:42px;
+    display:grid;
+    place-items:center;
+    background:var(--white);
+    border:1px solid var(--indigo-100);
+    color:var(--indigo-700);
+    font-family:var(--display);
+    font-weight:800;
+  }
+  .step h3{font-size:21px;color:var(--ink-950);margin-bottom:8px}
+  .step p{margin:0 0 12px;color:var(--ink-650)}
+  .clicks{
+    margin:12px 0 0;
+    padding:0;
+    list-style:none;
+    display:grid;
+    gap:7px;
+  }
+  .clicks li{
+    position:relative;
+    padding-left:24px;
+    color:var(--ink-800);
+    font-size:14px;
+  }
+  .clicks li:before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:8px;
+    width:8px;
+    height:8px;
+    background:var(--green-500);
+  }
+  .shot{
+    margin-top:14px;
+    border:1px dashed var(--indigo-100);
+    background:var(--white);
+    padding:14px;
+  }
+  .shot-title{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    color:var(--indigo-700);
+    font-family:var(--mono);
+    font-weight:600;
+    font-size:12px;
+    margin-bottom:8px;
+  }
+  .shot p{font-size:13px;margin:0;color:var(--ink-650)}
+  .prompt-box{
+    background:#0E0922;
+    color:#ECE9F7;
+    border:1px solid #302663;
+    padding:18px;
+    position:relative;
+  }
+  .prompt-box pre{
+    margin:0;
+    white-space:pre-wrap;
+    font-family:var(--mono);
+    font-size:13px;
+    line-height:1.6;
+  }
+  .copy-btn{
+    position:absolute;
+    right:12px;
+    top:12px;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(255,255,255,.08);
+    color:#fff;
+    min-height:32px;
+    padding:6px 10px;
+    font-family:var(--mono);
+    font-size:11px;
+    cursor:pointer;
+  }
+  .callout{
+    border-left:5px solid var(--green-500);
+    background:var(--green-100);
+    padding:16px 18px;
+    color:var(--green-800);
+  }
+  .callout.warning{border-color:#FFD166;background:var(--amber-50);color:#6E3A00}
+  .callout p{margin:0}
+  .tabs{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin:16px 0;
+  }
+  .tab-btn{
+    border:1px solid var(--ink-200);
+    background:var(--white);
+    color:var(--ink-650);
+    min-height:38px;
+    padding:8px 12px;
+    font-family:var(--mono);
+    font-size:12px;
+    cursor:pointer;
+  }
+  .tab-btn.active{border-color:var(--indigo-600);background:var(--indigo-50);color:var(--indigo-700)}
+  .tab-panel{display:none}
+  .tab-panel.active{display:block}
+  .resource-list{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-top:18px;
+  }
+  .resource{
+    border:1px solid var(--ink-100);
+    background:var(--white);
+    padding:16px;
+    text-decoration:none;
+  }
+  .resource strong{display:block;color:var(--indigo-700);margin-bottom:6px}
+  .resource span{display:block;color:var(--ink-650);font-size:13px}
+  .footer{
+    margin-top:68px;
+    background:var(--indigo-950);
+    color:rgba(255,255,255,.78);
+  }
+  .footer-inner{
+    max-width:1180px;
+    margin:0 auto;
+    padding:30px 22px;
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+  }
+  .footer a{color:#9CF7BF}
+  .hidden{display:none!important}
+  :focus-visible{outline:3px solid rgba(90,43,224,.35);outline-offset:2px}
+
+  @media(max-width:900px){
+    .hero-inner,.grid-2,.grid-3,.overview,.resource-list{grid-template-columns:1fr}
+    .flow{grid-template-columns:1fr}
+    .flow-arrow{min-height:24px;transform:rotate(90deg)}
+    h1{font-size:42px}
+    .section h2{font-size:28px}
+    .topbar-inner{align-items:flex-start;flex-direction:column}
+    .nav{
+      width:100%;
+      max-width:100%;
+      flex-wrap:nowrap;
+      justify-content:flex-start;
+      overflow-x:auto;
+      padding-bottom:2px;
+    }
+    .nav a,.lang-btn{flex:0 0 auto}
+    .progress{top:0}
+  }
+  @media(max-width:560px){
+    .hero-inner{padding-top:46px}
+    h1{font-size:34px}
+    .step{grid-template-columns:1fr}
+    .section-head{grid-template-columns:1fr}
+    .nav{justify-content:flex-start}
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-mark"></span><span data-i18n="brand">Wavestone - TP Vibe Coding</span></a>
+    <nav class="nav" aria-label="Navigation">
+      <a href="#concept" data-i18n="navConcept">Concept</a>
+      <a href="#setup" data-i18n="navSetup">Configuration</a>
+      <a href="#build" data-i18n="navBuild">Développer</a>
+      <a href="#iterate" data-i18n="navIterate">Recommencer</a>
+      <a href="#further" data-i18n="navFurther">Aller plus loin</a>
+      <button class="lang-btn active" type="button" data-lang="fr">FR</button>
+      <button class="lang-btn" type="button" data-lang="en">EN</button>
+      <button class="lang-btn" type="button" data-lang="de">DE</button>
+    </nav>
+  </div>
+</div>
+<div class="progress" id="progress"></div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow" data-i18n="heroEyebrow">Atelier hands-on</div>
+      <h1 data-i18n="heroTitle">Comment se lancer dans le vibe coding ?</h1>
+      <p data-i18n="heroLead">Un parcours live pour passer d'une idée à un site publié : IA de code, GitHub, GitHub Pages, Pull Request, puis itérations créatives.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#setup" data-i18n="heroCta">Démarrer le TP</a>
+        <a class="btn secondary" href="#screenshots" data-i18n="heroCta2">Voir les captures à préparer</a>
+      </div>
+    </div>
+    <div class="console" aria-label="Live coding preview">
+      <div class="console-head">
+        <span>workshop://vibe-coding</span>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </div>
+      <div class="terminal-line"><span class="prompt">&gt;</span><span data-i18n="term1">Décrire l'idée à Codex</span></div>
+      <div class="terminal-line"><span class="prompt">&gt;</span><span data-i18n="term2">Créer le code dans la repository</span></div>
+      <div class="terminal-line"><span class="prompt">&gt;</span><span data-i18n="term3">Ouvrir une Pull Request</span></div>
+      <div class="terminal-line"><span class="prompt">&gt;</span><span data-i18n="term4">Publier automatiquement avec GitHub Pages</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="overview" aria-label="Workshop summary">
+    <div class="metric"><strong>90 min</strong><span data-i18n="metric1">format recommandé pour une séance live</span></div>
+    <div class="metric"><strong>3</strong><span data-i18n="metric2">briques de base à comprendre</span></div>
+    <div class="metric"><strong>1</strong><span data-i18n="metric3">jeu web publié à la fin</span></div>
+    <div class="metric"><strong>∞</strong><span data-i18n="metric4">itérations possibles après le TP</span></div>
+  </section>
+
+  <section class="section" id="concept">
+    <div class="section-head">
+      <div class="section-letter">A</div>
+      <div>
+        <h2 data-i18n="conceptTitle">Expliquer le concept</h2>
+        <p class="section-lede" data-i18n="conceptLead">Le vibe coding devient simple quand les participants voient clairement le flux : idée, code, historique, publication.</p>
+      </div>
+    </div>
+    <div class="flow">
+      <article class="card highlight">
+        <span class="badge green" data-i18n="conceptBadge1">Brique 1</span>
+        <h3 data-i18n="conceptCard1Title">Agent IA de code</h3>
+        <p data-i18n="conceptCard1Text">Codex ou Claude transforme une intention en fichiers HTML, CSS et JavaScript. Le rôle du participant est de formuler, tester, corriger et orienter.</p>
+      </article>
+      <div class="flow-arrow">→</div>
+      <article class="card highlight">
+        <span class="badge" data-i18n="conceptBadge2">Brique 2</span>
+        <h3 data-i18n="conceptCard2Title">Repository GitHub</h3>
+        <p data-i18n="conceptCard2Text">Le code est stocké, historisé et partageable. Une repository est simplement le dossier central du projet, avec l'historique de ses changements.</p>
+      </article>
+      <div class="flow-arrow">→</div>
+      <article class="card highlight">
+        <span class="badge cyan" data-i18n="conceptBadge3">Brique 3</span>
+        <h3 data-i18n="conceptCard3Title">Publication web</h3>
+        <p data-i18n="conceptCard3Text">GitHub Pages publie automatiquement le contenu de la branche principale. Le prototype devient une URL accessible depuis un navigateur.</p>
+      </article>
+    </div>
+    <div class="callout" style="margin-top:16px">
+      <p data-i18n="conceptCallout">Message animateur : le but n'est pas de tout comprendre à Git dès le premier jour. Le but est de comprendre le circuit et d'oser itérer.</p>
+    </div>
+  </section>
+
+  <section class="section" id="setup">
+    <div class="section-head">
+      <div class="section-letter">B</div>
+      <div>
+        <h2 data-i18n="setupTitle">Configurer les environnements</h2>
+        <p class="section-lede" data-i18n="setupLead">Préparer les comptes, créer la repository, activer GitHub Pages, puis connecter Codex à GitHub.</p>
+      </div>
+    </div>
+    <div class="timeline">
+      <article class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3 data-i18n="setup1Title">Vérifier les prérequis</h3>
+          <p data-i18n="setup1Text">Demander aux participants d'avoir un email accessible. Un compte Google/Gmail est pratique pour l'authentification, mais l'essentiel est de pouvoir recevoir les emails GitHub et ChatGPT.</p>
+          <ul class="clicks">
+            <li data-i18n="setup1Click1">Ouvrir <a href="https://github.com" target="_blank" rel="noreferrer">github.com</a>.</li>
+            <li data-i18n="setup1Click2">Ouvrir <a href="https://chatgpt.com" target="_blank" rel="noreferrer">chatgpt.com</a>.</li>
+            <li data-i18n="setup1Click3">Vérifier que chaque participant peut se connecter ou créer un compte.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3 data-i18n="setup2Title">Créer la repository GitHub</h3>
+          <p data-i18n="setup2Text">Expliquer le vocabulaire : une repository est le projet GitHub. Elle contiendra le code, l'historique et les futures Pull Requests.</p>
+          <ul class="clicks">
+            <li data-i18n="setup2Click1">Dans GitHub, cliquer sur le bouton + en haut à droite, puis New repository.</li>
+            <li data-i18n="setup2Click2">Nommer la repository, par exemple cyber-snake-academy.</li>
+            <li data-i18n="setup2Click3">Choisir Public pour simplifier GitHub Pages pendant l'atelier.</li>
+            <li data-i18n="setup2Click4">Cocher Add a README file pour initialiser le projet.</li>
+            <li data-i18n="setup2Click5">Cliquer sur Create repository.</li>
+          </ul>
+          <div class="shot">
+            <div class="shot-title"><span data-i18n="shotLabel">Capture à préparer</span><span>GitHub / New repository</span></div>
+            <p data-i18n="setup2Shot">Faire une capture du formulaire avec le nom de repository, l'option Public et la case Add a README file cochée.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3 data-i18n="setup3Title">Activer GitHub Pages</h3>
+          <p data-i18n="setup3Text">GitHub Pages va publier automatiquement le contenu statique de la branche main. Pour ce TP, publier depuis la racine du projet est le chemin le plus simple.</p>
+          <ul class="clicks">
+            <li data-i18n="setup3Click1">Dans la repository, cliquer sur Settings.</li>
+            <li data-i18n="setup3Click2">Dans le menu de gauche, cliquer sur Pages.</li>
+            <li data-i18n="setup3Click3">Dans Build and deployment, choisir Source : Deploy from a branch.</li>
+            <li data-i18n="setup3Click4">Dans Branch, sélectionner main puis /root.</li>
+            <li data-i18n="setup3Click5">Cliquer sur Save et noter l'URL qui sera affichée après déploiement.</li>
+          </ul>
+          <div class="shot">
+            <div class="shot-title"><span data-i18n="shotLabel">Capture à préparer</span><span>Settings / Pages</span></div>
+            <p data-i18n="setup3Shot">Capturer l'écran où l'on voit Source = Deploy from a branch, Branch = main et dossier = /root.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3 data-i18n="setup4Title">Lancer Codex et connecter GitHub</h3>
+          <p data-i18n="setup4Text">Codex web permet de travailler avec les repositories GitHub et de créer des Pull Requests depuis son travail. L'accès peut dépendre du plan ChatGPT ou des règles de l'espace de travail.</p>
+          <ul class="clicks">
+            <li data-i18n="setup4Click1">Aller sur <a href="https://chatgpt.com/codex" target="_blank" rel="noreferrer">chatgpt.com/codex</a>.</li>
+            <li data-i18n="setup4Click2">Se connecter au compte ChatGPT.</li>
+            <li data-i18n="setup4Click3">Cliquer sur Connect GitHub ou Connect account si demandé.</li>
+            <li data-i18n="setup4Click4">Autoriser l'accès GitHub, idéalement uniquement à la repository du TP.</li>
+            <li data-i18n="setup4Click5">Vérifier que la repository apparaît dans la liste des projets disponibles.</li>
+          </ul>
+          <div class="shot">
+            <div class="shot-title"><span data-i18n="shotLabel">Capture à préparer</span><span>ChatGPT / Codex / GitHub</span></div>
+            <p data-i18n="setup4Shot">Capturer l'entrée Codex dans ChatGPT, puis l'écran d'autorisation GitHub si l'organisation autorise la capture.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="build">
+    <div class="section-head">
+      <div class="section-letter">C</div>
+      <div>
+        <h2 data-i18n="buildTitle">Commencer à développer</h2>
+        <p class="section-lede" data-i18n="buildLead">Créer le premier prompt, laisser Codex produire le jeu, relire les changements, ouvrir une Pull Request, la fusionner et vérifier la publication.</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <span class="badge green" data-i18n="facilitatorBadge">Astuce animateur</span>
+        <h3 data-i18n="buildTipTitle">Dire ce que l'on veut vraiment</h3>
+        <p data-i18n="buildTipText">Le prompt doit décrire le résultat attendu, le public, les règles du jeu, les critères de réussite et les contraintes techniques. Ce n'est pas une commande magique : c'est un brief de réalisation.</p>
+      </div>
+      <div class="card">
+        <span class="badge amber" data-i18n="vocabBadge">Vocabulaire</span>
+        <h3 data-i18n="prTitle">Pull Request</h3>
+        <p data-i18n="prText">Une Pull Request est une proposition de modification. Elle permet de relire les fichiers changés avant de les fusionner dans main, la branche publiée par GitHub Pages.</p>
+      </div>
+    </div>
+
+    <div class="tabs" role="tablist" aria-label="Prompts">
+      <button class="tab-btn active" type="button" data-tab="prompt1" data-i18n="promptTab1">Prompt principal</button>
+      <button class="tab-btn" type="button" data-tab="prompt2" data-i18n="promptTab2">Itération fun</button>
+      <button class="tab-btn" type="button" data-tab="prompt3" data-i18n="promptTab3">Nouveau projet</button>
+    </div>
+    <div class="tab-panel active" id="prompt1">
+      <div class="prompt-box">
+        <button class="copy-btn" type="button" data-copy="#mainPrompt" data-i18n="copy">Copier</button>
+        <pre id="mainPrompt" data-i18n="mainPrompt">Je suis en charge de notre Cyber Academy. Pour valider les compétences acquises à la fin des modules, je voudrais une approche gamifiée.
+
+Crée une page web autonome en HTML/CSS/JavaScript qui propose un jeu de serpent. Chaque fois que le serpent mange une brique, le jeu se met en pause et pose une question de cybersécurité avec 3 choix :
+- 1 réponse clairement fausse ;
+- 1 réponse presque bonne mais incomplète ;
+- 1 bonne réponse.
+
+Prépare 30 questions tirées au hasard sur l'IAM, la GRC, le SOC et la sécurité de l'IA. Pendant une partie, pose 10 questions au maximum et affiche le score final. Si le joueur obtient au moins 8 bonnes réponses sur 10, affiche "Compétence validée". Sinon, propose de recommencer.
+
+Contraintes :
+- tout doit tenir dans une seule page index.html ;
+- le jeu doit fonctionner sur GitHub Pages ;
+- l'interface doit être claire, professionnelle et utilisable en atelier ;
+- ajoute un court écran d'accueil et un écran de score final.</pre>
+      </div>
+    </div>
+    <div class="tab-panel" id="prompt2">
+      <div class="prompt-box">
+        <button class="copy-btn" type="button" data-copy="#funPrompt" data-i18n="copy">Copier</button>
+        <pre id="funPrompt" data-i18n="funPrompt">Ajoute une animation de feu d'artifice à chaque bonne réponse, sans perturber la lisibilité de la question. Ajoute aussi un bouton pour couper les animations si l'utilisateur préfère une interface plus sobre.</pre>
+      </div>
+    </div>
+    <div class="tab-panel" id="prompt3">
+      <div class="prompt-box">
+        <button class="copy-btn" type="button" data-copy="#projectPrompt" data-i18n="copy">Copier</button>
+        <pre id="projectPrompt" data-i18n="projectPrompt">Crée un framework HTML interactif pour mesurer la conformité au document CSA "Are You Mythos Ready?". Je veux une grille de critères, un score de maturité, des recommandations automatiques et une synthèse exportable.</pre>
+      </div>
+    </div>
+
+    <div class="timeline" style="margin-top:18px">
+      <article class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3 data-i18n="build1Title">Créer une tâche Codex</h3>
+          <p data-i18n="build1Text">Démarrer un nouveau chat ou une nouvelle tâche Codex, sélectionner la repository du TP, puis coller le prompt principal.</p>
+          <ul class="clicks">
+            <li data-i18n="build1Click1">Dans Codex, cliquer sur New task ou New chat.</li>
+            <li data-i18n="build1Click2">Sélectionner la repository cyber-snake-academy.</li>
+            <li data-i18n="build1Click3">Coller le prompt principal et lancer la tâche.</li>
+            <li data-i18n="build1Click4">Attendre que Codex propose les fichiers et relire rapidement le résultat.</li>
+          </ul>
+          <div class="shot">
+            <div class="shot-title"><span data-i18n="shotLabel">Capture à préparer</span><span>Codex / New task</span></div>
+            <p data-i18n="build1Shot">Capturer l'écran avec la sélection de repository et le prompt prêt à être envoyé.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3 data-i18n="build2Title">Créer la Pull Request</h3>
+          <p data-i18n="build2Text">Quand le résultat semble correct, demander à Codex de préparer une Pull Request. Expliquer que c'est une proposition de changement vers le système central, pas une publication directe.</p>
+          <ul class="clicks">
+            <li data-i18n="build2Click1">Dans Codex, ouvrir le récapitulatif des changements.</li>
+            <li data-i18n="build2Click2">Cliquer sur Create pull request, Push branch ou l'action équivalente affichée.</li>
+            <li data-i18n="build2Click3">Donner un titre simple, par exemple Add cybersecurity snake game.</li>
+            <li data-i18n="build2Click4">Ouvrir le lien GitHub de la Pull Request.</li>
+          </ul>
+          <div class="shot">
+            <div class="shot-title"><span data-i18n="shotLabel">Capture à préparer</span><span>Codex / Pull Request</span></div>
+            <p data-i18n="build2Shot">Capturer l'écran où Codex affiche les fichiers modifiés et le bouton de création de Pull Request.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3 data-i18n="build3Title">Valider la Pull Request dans GitHub</h3>
+          <p data-i18n="build3Text">Montrer la revue minimale : fichiers modifiés, aperçu du code, puis fusion dans main. C'est cette fusion qui déclenche ensuite la publication GitHub Pages.</p>
+          <ul class="clicks">
+            <li data-i18n="build3Click1">Dans GitHub, ouvrir l'onglet Pull requests.</li>
+            <li data-i18n="build3Click2">Cliquer sur la Pull Request créée par Codex.</li>
+            <li data-i18n="build3Click3">Ouvrir Files changed pour montrer ce qui a été ajouté.</li>
+            <li data-i18n="build3Click4">Revenir sur Conversation, cliquer sur Merge pull request, puis Confirm merge.</li>
+          </ul>
+          <div class="shot">
+            <div class="shot-title"><span data-i18n="shotLabel">Capture à préparer</span><span>GitHub / Merge PR</span></div>
+            <p data-i18n="build3Shot">Capturer la Pull Request avec le bouton Merge pull request visible, puis l'état merged.</p>
+          </div>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3 data-i18n="build4Title">Attendre la mise en ligne</h3>
+          <p data-i18n="build4Text">GitHub Pages peut prendre quelques secondes à quelques minutes. Pendant l'attente, montrer où vérifier le statut du déploiement.</p>
+          <ul class="clicks">
+            <li data-i18n="build4Click1">Dans la repository, ouvrir l'onglet Actions pour voir le workflow Pages.</li>
+            <li data-i18n="build4Click2">Ou retourner dans Settings, puis Pages, pour vérifier l'URL publiée.</li>
+            <li data-i18n="build4Click3">Quand le déploiement est vert, ouvrir l'URL GitHub Pages.</li>
+            <li data-i18n="build4Click4">Tester le jeu avec les participants et noter les idées d'amélioration.</li>
+          </ul>
+          <div class="shot">
+            <div class="shot-title"><span data-i18n="shotLabel">Capture à préparer</span><span>GitHub / Actions / Pages</span></div>
+            <p data-i18n="build4Shot">Capturer soit l'exécution GitHub Actions réussie, soit Settings > Pages avec le message indiquant que le site est live.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="iterate">
+    <div class="section-head">
+      <div class="section-letter">D</div>
+      <div>
+        <h2 data-i18n="iterateTitle">Et recommencer</h2>
+        <p class="section-lede" data-i18n="iterateLead">Le vrai déclic vient après la première publication : on peut améliorer, enrichir, corriger, tester, puis republier.</p>
+      </div>
+    </div>
+    <div class="grid-3">
+      <article class="card">
+        <span class="badge green" data-i18n="iterateBadge1">Effet waouh</span>
+        <h3 data-i18n="iterate1Title">Ajouter des effets</h3>
+        <p data-i18n="iterate1Text">Feux d'artifice, transitions, sons optionnels, mode sombre, animations de score, feedback visuel.</p>
+      </article>
+      <article class="card">
+        <span class="badge cyan" data-i18n="iterateBadge2">Contenu</span>
+        <h3 data-i18n="iterate2Title">Étendre les questions</h3>
+        <p data-i18n="iterate2Text">Ajouter les SI industriels, la continuité d'activité, le cloud, la privacy, la cryptographie ou les risques fournisseurs.</p>
+      </article>
+      <article class="card">
+        <span class="badge amber" data-i18n="iterateBadge3">Nouveau projet</span>
+        <h3 data-i18n="iterate3Title">Changer d'objet</h3>
+        <p data-i18n="iterate3Text">Créer un questionnaire de maturité, un simulateur de crise, une matrice de conformité ou un générateur de fiches pédagogiques.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="further">
+    <div class="section-head">
+      <div class="section-letter">E</div>
+      <div>
+        <h2 data-i18n="furtherTitle">Pour aller plus loin</h2>
+        <p class="section-lede" data-i18n="furtherLead">Il n'y a pas de limite claire tant que l'on sait dialoguer avec l'IA, tester le résultat et garder une revue humaine.</p>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="callout">
+        <p data-i18n="furtherCallout1">Si vous êtes bloqués, demandez à l'IA : "Explique-moi l'erreur", "Propose trois façons de simplifier", "Pose-moi des questions pour clarifier mon besoin".</p>
+      </div>
+      <div class="callout warning">
+        <p data-i18n="furtherCallout2">Gardez un réflexe de revue : ne publiez pas de données sensibles, vérifiez les textes générés, testez le parcours et relisez les changements avant de fusionner.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="screenshots">
+    <div class="section-head">
+      <div class="section-letter">✓</div>
+      <div>
+        <h2 data-i18n="screensTitle">Captures à préparer</h2>
+        <p class="section-lede" data-i18n="screensLead">Je ne peux pas réaliser les captures connectées à tes comptes. Voici la liste précise à produire avant la séance si tu veux remplacer les cadres.</p>
+      </div>
+    </div>
+    <div class="grid-2">
+      <article class="card"><h3 data-i18n="screen1Title">GitHub - compte</h3><p data-i18n="screen1Text">Page github.com connectée, avec le menu + visible en haut à droite.</p></article>
+      <article class="card"><h3 data-i18n="screen2Title">GitHub - nouvelle repository</h3><p data-i18n="screen2Text">Formulaire New repository avec nom, Public et Add a README file.</p></article>
+      <article class="card"><h3 data-i18n="screen3Title">GitHub - Pages</h3><p data-i18n="screen3Text">Settings > Pages avec Deploy from a branch, main, /root.</p></article>
+      <article class="card"><h3 data-i18n="screen4Title">ChatGPT - Codex</h3><p data-i18n="screen4Text">Écran chatgpt.com/codex et connexion GitHub.</p></article>
+      <article class="card"><h3 data-i18n="screen5Title">Codex - nouvelle tâche</h3><p data-i18n="screen5Text">Sélection de la repository et prompt principal collé.</p></article>
+      <article class="card"><h3 data-i18n="screen6Title">GitHub - Pull Request</h3><p data-i18n="screen6Text">Pull Request créée, Files changed, puis Merge pull request.</p></article>
+      <article class="card"><h3 data-i18n="screen7Title">GitHub - déploiement</h3><p data-i18n="screen7Text">Actions ou Settings > Pages montrant que le site est publié.</p></article>
+      <article class="card"><h3 data-i18n="screen8Title">Site final</h3><p data-i18n="screen8Text">URL GitHub Pages ouverte avec le jeu de serpent cyber.</p></article>
+    </div>
+  </section>
+
+  <section class="section" id="sources">
+    <div class="section-head">
+      <div class="section-letter">i</div>
+      <div>
+        <h2 data-i18n="sourcesTitle">Liens utiles</h2>
+        <p class="section-lede" data-i18n="sourcesLead">Sources officielles utilisées pour fiabiliser le déroulé.</p>
+      </div>
+    </div>
+    <div class="resource-list">
+      <a class="resource" href="https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository" target="_blank" rel="noreferrer">
+        <strong>GitHub Docs</strong><span data-i18n="sourceRepo">Créer une repository</span>
+      </a>
+      <a class="resource" href="https://docs.github.com/pages/quickstart" target="_blank" rel="noreferrer">
+        <strong>GitHub Pages</strong><span data-i18n="sourcePages">Quickstart GitHub Pages</span>
+      </a>
+      <a class="resource" href="https://chatgpt.com/codex" target="_blank" rel="noreferrer">
+        <strong>OpenAI Codex</strong><span data-i18n="sourceCodex">Ouvrir Codex web</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span data-i18n="footerLeft">TP Vibe Coding - support live</span>
+    <span data-i18n="footerRight">Conseil : garder 10 minutes à la fin pour une itération libre.</span>
+  </div>
+</footer>
+
+<script>
+const translations = {
+  fr: {
+    brand:"Wavestone - TP Vibe Coding", navConcept:"Concept", navSetup:"Configuration", navBuild:"Développer", navIterate:"Recommencer", navFurther:"Aller plus loin",
+    heroEyebrow:"Atelier hands-on", heroTitle:"Comment se lancer dans le vibe coding ?", heroLead:"Un parcours live pour passer d'une idée à un site publié : IA de code, GitHub, GitHub Pages, Pull Request, puis itérations créatives.", heroCta:"Démarrer le TP", heroCta2:"Voir les captures à préparer",
+    term1:"Décrire l'idée à Codex", term2:"Créer le code dans la repository", term3:"Ouvrir une Pull Request", term4:"Publier automatiquement avec GitHub Pages",
+    metric1:"format recommandé pour une séance live", metric2:"briques de base à comprendre", metric3:"jeu web publié à la fin", metric4:"itérations possibles après le TP",
+    conceptTitle:"Expliquer le concept", conceptLead:"Le vibe coding devient simple quand les participants voient clairement le flux : idée, code, historique, publication.", conceptBadge1:"Brique 1", conceptBadge2:"Brique 2", conceptBadge3:"Brique 3",
+    conceptCard1Title:"Agent IA de code", conceptCard1Text:"Codex ou Claude transforme une intention en fichiers HTML, CSS et JavaScript. Le rôle du participant est de formuler, tester, corriger et orienter.",
+    conceptCard2Title:"Repository GitHub", conceptCard2Text:"Le code est stocké, historisé et partageable. Une repository est simplement le dossier central du projet, avec l'historique de ses changements.",
+    conceptCard3Title:"Publication web", conceptCard3Text:"GitHub Pages publie automatiquement le contenu de la branche principale. Le prototype devient une URL accessible depuis un navigateur.",
+    conceptCallout:"Message animateur : le but n'est pas de tout comprendre à Git dès le premier jour. Le but est de comprendre le circuit et d'oser itérer.",
+    setupTitle:"Configurer les environnements", setupLead:"Préparer les comptes, créer la repository, activer GitHub Pages, puis connecter Codex à GitHub.",
+    setup1Title:"Vérifier les prérequis", setup1Text:"Demander aux participants d'avoir un email accessible. Un compte Google/Gmail est pratique pour l'authentification, mais l'essentiel est de pouvoir recevoir les emails GitHub et ChatGPT.",
+    setup1Click1:'Ouvrir <a href="https://github.com" target="_blank" rel="noreferrer">github.com</a>.', setup1Click2:'Ouvrir <a href="https://chatgpt.com" target="_blank" rel="noreferrer">chatgpt.com</a>.', setup1Click3:"Vérifier que chaque participant peut se connecter ou créer un compte.",
+    setup2Title:"Créer la repository GitHub", setup2Text:"Expliquer le vocabulaire : une repository est le projet GitHub. Elle contiendra le code, l'historique et les futures Pull Requests.",
+    setup2Click1:"Dans GitHub, cliquer sur le bouton + en haut à droite, puis New repository.", setup2Click2:"Nommer la repository, par exemple cyber-snake-academy.", setup2Click3:"Choisir Public pour simplifier GitHub Pages pendant l'atelier.", setup2Click4:"Cocher Add a README file pour initialiser le projet.", setup2Click5:"Cliquer sur Create repository.",
+    shotLabel:"Capture à préparer", setup2Shot:"Faire une capture du formulaire avec le nom de repository, l'option Public et la case Add a README file cochée.",
+    setup3Title:"Activer GitHub Pages", setup3Text:"GitHub Pages va publier automatiquement le contenu statique de la branche main. Pour ce TP, publier depuis la racine du projet est le chemin le plus simple.",
+    setup3Click1:"Dans la repository, cliquer sur Settings.", setup3Click2:"Dans le menu de gauche, cliquer sur Pages.", setup3Click3:"Dans Build and deployment, choisir Source : Deploy from a branch.", setup3Click4:"Dans Branch, sélectionner main puis /root.", setup3Click5:"Cliquer sur Save et noter l'URL qui sera affichée après déploiement.",
+    setup3Shot:"Capturer l'écran où l'on voit Source = Deploy from a branch, Branch = main et dossier = /root.",
+    setup4Title:"Lancer Codex et connecter GitHub", setup4Text:"Codex web permet de travailler avec les repositories GitHub et de créer des Pull Requests depuis son travail. L'accès peut dépendre du plan ChatGPT ou des règles de l'espace de travail.",
+    setup4Click1:'Aller sur <a href="https://chatgpt.com/codex" target="_blank" rel="noreferrer">chatgpt.com/codex</a>.', setup4Click2:"Se connecter au compte ChatGPT.", setup4Click3:"Cliquer sur Connect GitHub ou Connect account si demandé.", setup4Click4:"Autoriser l'accès GitHub, idéalement uniquement à la repository du TP.", setup4Click5:"Vérifier que la repository apparaît dans la liste des projets disponibles.",
+    setup4Shot:"Capturer l'entrée Codex dans ChatGPT, puis l'écran d'autorisation GitHub si l'organisation autorise la capture.",
+    buildTitle:"Commencer à développer", buildLead:"Créer le premier prompt, laisser Codex produire le jeu, relire les changements, ouvrir une Pull Request, la fusionner et vérifier la publication.",
+    facilitatorBadge:"Astuce animateur", buildTipTitle:"Dire ce que l'on veut vraiment", buildTipText:"Le prompt doit décrire le résultat attendu, le public, les règles du jeu, les critères de réussite et les contraintes techniques. Ce n'est pas une commande magique : c'est un brief de réalisation.",
+    vocabBadge:"Vocabulaire", prTitle:"Pull Request", prText:"Une Pull Request est une proposition de modification. Elle permet de relire les fichiers changés avant de les fusionner dans main, la branche publiée par GitHub Pages.",
+    promptTab1:"Prompt principal", promptTab2:"Itération fun", promptTab3:"Nouveau projet", copy:"Copier",
+    mainPrompt:'Je suis en charge de notre Cyber Academy. Pour valider les compétences acquises à la fin des modules, je voudrais une approche gamifiée.\n\nCrée une page web autonome en HTML/CSS/JavaScript qui propose un jeu de serpent. Chaque fois que le serpent mange une brique, le jeu se met en pause et pose une question de cybersécurité avec 3 choix :\n- 1 réponse clairement fausse ;\n- 1 réponse presque bonne mais incomplète ;\n- 1 bonne réponse.\n\nPrépare 30 questions tirées au hasard sur l\'IAM, la GRC, le SOC et la sécurité de l\'IA. Pendant une partie, pose 10 questions au maximum et affiche le score final. Si le joueur obtient au moins 8 bonnes réponses sur 10, affiche "Compétence validée". Sinon, propose de recommencer.\n\nContraintes :\n- tout doit tenir dans une seule page index.html ;\n- le jeu doit fonctionner sur GitHub Pages ;\n- l\'interface doit être claire, professionnelle et utilisable en atelier ;\n- ajoute un court écran d\'accueil et un écran de score final.',
+    funPrompt:"Ajoute une animation de feu d'artifice à chaque bonne réponse, sans perturber la lisibilité de la question. Ajoute aussi un bouton pour couper les animations si l'utilisateur préfère une interface plus sobre.",
+    projectPrompt:'Crée un framework HTML interactif pour mesurer la conformité au document CSA "Are You Mythos Ready?". Je veux une grille de critères, un score de maturité, des recommandations automatiques et une synthèse exportable.',
+    build1Title:"Créer une tâche Codex", build1Text:"Démarrer un nouveau chat ou une nouvelle tâche Codex, sélectionner la repository du TP, puis coller le prompt principal.",
+    build1Click1:"Dans Codex, cliquer sur New task ou New chat.", build1Click2:"Sélectionner la repository cyber-snake-academy.", build1Click3:"Coller le prompt principal et lancer la tâche.", build1Click4:"Attendre que Codex propose les fichiers et relire rapidement le résultat.", build1Shot:"Capturer l'écran avec la sélection de repository et le prompt prêt à être envoyé.",
+    build2Title:"Créer la Pull Request", build2Text:"Quand le résultat semble correct, demander à Codex de préparer une Pull Request. Expliquer que c'est une proposition de changement vers le système central, pas une publication directe.",
+    build2Click1:"Dans Codex, ouvrir le récapitulatif des changements.", build2Click2:"Cliquer sur Create pull request, Push branch ou l'action équivalente affichée.", build2Click3:"Donner un titre simple, par exemple Add cybersecurity snake game.", build2Click4:"Ouvrir le lien GitHub de la Pull Request.", build2Shot:"Capturer l'écran où Codex affiche les fichiers modifiés et le bouton de création de Pull Request.",
+    build3Title:"Valider la Pull Request dans GitHub", build3Text:"Montrer la revue minimale : fichiers modifiés, aperçu du code, puis fusion dans main. C'est cette fusion qui déclenche ensuite la publication GitHub Pages.",
+    build3Click1:"Dans GitHub, ouvrir l'onglet Pull requests.", build3Click2:"Cliquer sur la Pull Request créée par Codex.", build3Click3:"Ouvrir Files changed pour montrer ce qui a été ajouté.", build3Click4:"Revenir sur Conversation, cliquer sur Merge pull request, puis Confirm merge.", build3Shot:"Capturer la Pull Request avec le bouton Merge pull request visible, puis l'état merged.",
+    build4Title:"Attendre la mise en ligne", build4Text:"GitHub Pages peut prendre quelques secondes à quelques minutes. Pendant l'attente, montrer où vérifier le statut du déploiement.",
+    build4Click1:"Dans la repository, ouvrir l'onglet Actions pour voir le workflow Pages.", build4Click2:"Ou retourner dans Settings, puis Pages, pour vérifier l'URL publiée.", build4Click3:"Quand le déploiement est vert, ouvrir l'URL GitHub Pages.", build4Click4:"Tester le jeu avec les participants et noter les idées d'amélioration.", build4Shot:"Capturer soit l'exécution GitHub Actions réussie, soit Settings > Pages avec le message indiquant que le site est live.",
+    iterateTitle:"Et recommencer", iterateLead:"Le vrai déclic vient après la première publication : on peut améliorer, enrichir, corriger, tester, puis republier.",
+    iterateBadge1:"Effet waouh", iterate1Title:"Ajouter des effets", iterate1Text:"Feux d'artifice, transitions, sons optionnels, mode sombre, animations de score, feedback visuel.",
+    iterateBadge2:"Contenu", iterate2Title:"Étendre les questions", iterate2Text:"Ajouter les SI industriels, la continuité d'activité, le cloud, la privacy, la cryptographie ou les risques fournisseurs.",
+    iterateBadge3:"Nouveau projet", iterate3Title:"Changer d'objet", iterate3Text:"Créer un questionnaire de maturité, un simulateur de crise, une matrice de conformité ou un générateur de fiches pédagogiques.",
+    furtherTitle:"Pour aller plus loin", furtherLead:"Il n'y a pas de limite claire tant que l'on sait dialoguer avec l'IA, tester le résultat et garder une revue humaine.",
+    furtherCallout1:'Si vous êtes bloqués, demandez à l\'IA : "Explique-moi l\'erreur", "Propose trois façons de simplifier", "Pose-moi des questions pour clarifier mon besoin".',
+    furtherCallout2:"Gardez un réflexe de revue : ne publiez pas de données sensibles, vérifiez les textes générés, testez le parcours et relisez les changements avant de fusionner.",
+    screensTitle:"Captures à préparer", screensLead:"Je ne peux pas réaliser les captures connectées à tes comptes. Voici la liste précise à produire avant la séance si tu veux remplacer les cadres.",
+    screen1Title:"GitHub - compte", screen1Text:"Page github.com connectée, avec le menu + visible en haut à droite.", screen2Title:"GitHub - nouvelle repository", screen2Text:"Formulaire New repository avec nom, Public et Add a README file.",
+    screen3Title:"GitHub - Pages", screen3Text:"Settings > Pages avec Deploy from a branch, main, /root.", screen4Title:"ChatGPT - Codex", screen4Text:"Écran chatgpt.com/codex et connexion GitHub.", screen5Title:"Codex - nouvelle tâche", screen5Text:"Sélection de la repository et prompt principal collé.", screen6Title:"GitHub - Pull Request", screen6Text:"Pull Request créée, Files changed, puis Merge pull request.", screen7Title:"GitHub - déploiement", screen7Text:"Actions ou Settings > Pages montrant que le site est publié.", screen8Title:"Site final", screen8Text:"URL GitHub Pages ouverte avec le jeu de serpent cyber.",
+    sourcesTitle:"Liens utiles", sourcesLead:"Sources officielles utilisées pour fiabiliser le déroulé.", sourceRepo:"Créer une repository", sourcePages:"Quickstart GitHub Pages", sourceCodex:"Ouvrir Codex web",
+    footerLeft:"TP Vibe Coding - support live", footerRight:"Conseil : garder 10 minutes à la fin pour une itération libre."
+  },
+  en: {
+    brand:"Wavestone - Vibe Coding Lab", navConcept:"Concept", navSetup:"Setup", navBuild:"Build", navIterate:"Iterate", navFurther:"Go further",
+    heroEyebrow:"Hands-on workshop", heroTitle:"How do you get started with vibe coding?", heroLead:"A live path from idea to published website: coding AI, GitHub, GitHub Pages, Pull Request, then creative iterations.", heroCta:"Start the lab", heroCta2:"See screenshots to prepare",
+    term1:"Describe the idea to Codex", term2:"Create code in the repository", term3:"Open a Pull Request", term4:"Publish automatically with GitHub Pages",
+    metric1:"recommended length for a live session", metric2:"basic building blocks to understand", metric3:"published web game at the end", metric4:"possible iterations after the lab",
+    conceptTitle:"Explain the concept", conceptLead:"Vibe coding becomes simple when participants clearly see the flow: idea, code, history, publication.", conceptBadge1:"Block 1", conceptBadge2:"Block 2", conceptBadge3:"Block 3",
+    conceptCard1Title:"Coding AI agent", conceptCard1Text:"Codex or Claude turns intent into HTML, CSS and JavaScript files. The participant's role is to brief, test, correct and steer.",
+    conceptCard2Title:"GitHub repository", conceptCard2Text:"The code is stored, versioned and shareable. A repository is the central project folder, including the history of changes.",
+    conceptCard3Title:"Web publication", conceptCard3Text:"GitHub Pages automatically publishes content from the main branch. The prototype becomes a browser-accessible URL.",
+    conceptCallout:"Facilitator message: the goal is not to understand all of Git on day one. The goal is to understand the circuit and dare to iterate.",
+    setupTitle:"Configure the environments", setupLead:"Prepare accounts, create the repository, enable GitHub Pages, then connect Codex to GitHub.",
+    setup1Title:"Check prerequisites", setup1Text:"Ask participants to have access to an email inbox. A Google/Gmail account is convenient for authentication, but the key point is receiving GitHub and ChatGPT emails.",
+    setup1Click1:'Open <a href="https://github.com" target="_blank" rel="noreferrer">github.com</a>.', setup1Click2:'Open <a href="https://chatgpt.com" target="_blank" rel="noreferrer">chatgpt.com</a>.', setup1Click3:"Check that every participant can sign in or create an account.",
+    setup2Title:"Create the GitHub repository", setup2Text:"Explain the vocabulary: a repository is the GitHub project. It will contain the code, history and future Pull Requests.",
+    setup2Click1:"In GitHub, click the + button at the top right, then New repository.", setup2Click2:"Name the repository, for example cyber-snake-academy.", setup2Click3:"Choose Public to simplify GitHub Pages during the workshop.", setup2Click4:"Check Add a README file to initialize the project.", setup2Click5:"Click Create repository.",
+    shotLabel:"Screenshot to prepare", setup2Shot:"Capture the form with the repository name, Public option and Add a README file checked.",
+    setup3Title:"Enable GitHub Pages", setup3Text:"GitHub Pages will automatically publish static content from the main branch. For this lab, publishing from the project root is the simplest route.",
+    setup3Click1:"In the repository, click Settings.", setup3Click2:"In the left menu, click Pages.", setup3Click3:"Under Build and deployment, choose Source: Deploy from a branch.", setup3Click4:"Under Branch, select main and /root.", setup3Click5:"Click Save and note the URL that appears after deployment.",
+    setup3Shot:"Capture the screen showing Source = Deploy from a branch, Branch = main and folder = /root.",
+    setup4Title:"Launch Codex and connect GitHub", setup4Text:"Codex web can work with GitHub repositories and create Pull Requests from its work. Access can depend on the ChatGPT plan or workspace rules.",
+    setup4Click1:'Go to <a href="https://chatgpt.com/codex" target="_blank" rel="noreferrer">chatgpt.com/codex</a>.', setup4Click2:"Sign in to ChatGPT.", setup4Click3:"Click Connect GitHub or Connect account if prompted.", setup4Click4:"Authorize GitHub access, ideally only to the workshop repository.", setup4Click5:"Check that the repository appears in the available projects list.",
+    setup4Shot:"Capture the Codex entry in ChatGPT, then the GitHub authorization screen if your organization allows it.",
+    buildTitle:"Start building", buildLead:"Create the first prompt, let Codex produce the game, review changes, open a Pull Request, merge it and verify publication.",
+    facilitatorBadge:"Facilitator tip", buildTipTitle:"Say what you really want", buildTipText:"The prompt should describe the expected result, audience, game rules, success criteria and technical constraints. It is not a magic command: it is a delivery brief.",
+    vocabBadge:"Vocabulary", prTitle:"Pull Request", prText:"A Pull Request is a proposed change. It lets you review changed files before merging them into main, the branch published by GitHub Pages.",
+    promptTab1:"Main prompt", promptTab2:"Fun iteration", promptTab3:"New project", copy:"Copy",
+    mainPrompt:'I am in charge of our Cyber Academy. To validate skills acquired at the end of modules, I want a gamified approach.\n\nCreate a standalone HTML/CSS/JavaScript web page with a snake game. Every time the snake eats a block, the game pauses and asks a cybersecurity question with 3 choices:\n- 1 clearly wrong answer;\n- 1 almost correct but incomplete answer;\n- 1 correct answer.\n\nPrepare 30 random questions about IAM, GRC, SOC and AI security. During a game, ask a maximum of 10 questions and display the final score. If the player gets at least 8 correct answers out of 10, display "Skill validated". Otherwise, offer to restart.\n\nConstraints:\n- everything must fit in one index.html file;\n- the game must work on GitHub Pages;\n- the interface must be clear, professional and usable in a workshop;\n- add a short welcome screen and a final score screen.',
+    funPrompt:"Add a fireworks animation for each correct answer without reducing question readability. Also add a button to disable animations for users who prefer a calmer interface.",
+    projectPrompt:'Create an interactive HTML framework to measure compliance with the CSA document "Are You Mythos Ready?". I want a criteria grid, a maturity score, automatic recommendations and an exportable summary.',
+    build1Title:"Create a Codex task", build1Text:"Start a new Codex chat or task, select the workshop repository, then paste the main prompt.",
+    build1Click1:"In Codex, click New task or New chat.", build1Click2:"Select the cyber-snake-academy repository.", build1Click3:"Paste the main prompt and start the task.", build1Click4:"Wait for Codex to propose files and quickly review the result.", build1Shot:"Capture the screen with repository selection and the prompt ready to send.",
+    build2Title:"Create the Pull Request", build2Text:"When the result looks right, ask Codex to prepare a Pull Request. Explain that this is a proposed change to the central system, not a direct publication.",
+    build2Click1:"In Codex, open the change summary.", build2Click2:"Click Create pull request, Push branch or the equivalent action displayed.", build2Click3:"Use a simple title, for example Add cybersecurity snake game.", build2Click4:"Open the GitHub Pull Request link.", build2Shot:"Capture the screen where Codex shows modified files and the Pull Request creation button.",
+    build3Title:"Approve the Pull Request in GitHub", build3Text:"Show the minimum review: changed files, code preview, then merge into main. This merge then triggers GitHub Pages publication.",
+    build3Click1:"In GitHub, open the Pull requests tab.", build3Click2:"Click the Pull Request created by Codex.", build3Click3:"Open Files changed to show what was added.", build3Click4:"Go back to Conversation, click Merge pull request, then Confirm merge.", build3Shot:"Capture the Pull Request with the Merge pull request button visible, then the merged state.",
+    build4Title:"Wait for publication", build4Text:"GitHub Pages can take a few seconds to a few minutes. While waiting, show where to check deployment status.",
+    build4Click1:"In the repository, open the Actions tab to view the Pages workflow.", build4Click2:"Or go back to Settings, then Pages, to verify the published URL.", build4Click3:"When deployment is green, open the GitHub Pages URL.", build4Click4:"Test the game with participants and collect improvement ideas.", build4Shot:"Capture either the successful GitHub Actions run or Settings > Pages with the live-site message.",
+    iterateTitle:"Then iterate", iterateLead:"The real click happens after the first publication: you can improve, enrich, fix, test and republish.",
+    iterateBadge1:"Wow effect", iterate1Title:"Add effects", iterate1Text:"Fireworks, transitions, optional sounds, dark mode, score animations, visual feedback.",
+    iterateBadge2:"Content", iterate2Title:"Extend questions", iterate2Text:"Add industrial systems, business continuity, cloud, privacy, cryptography or third-party risk.",
+    iterateBadge3:"New project", iterate3Title:"Change the object", iterate3Text:"Create a maturity questionnaire, crisis simulator, compliance matrix or learning-card generator.",
+    furtherTitle:"Go further", furtherLead:"There is no clear limit as long as you know how to talk to the AI, test the result and keep human review.",
+    furtherCallout1:'If you are stuck, ask the AI: "Explain the error", "Suggest three ways to simplify", "Ask me questions to clarify my need".',
+    furtherCallout2:"Keep a review reflex: do not publish sensitive data, verify generated text, test the flow and review changes before merging.",
+    screensTitle:"Screenshots to prepare", screensLead:"I cannot capture authenticated screens from your accounts. Here is the precise list to produce before the session if you want to replace the frames.",
+    screen1Title:"GitHub - account", screen1Text:"Logged-in github.com page, with the + menu visible top right.", screen2Title:"GitHub - new repository", screen2Text:"New repository form with name, Public and Add a README file.",
+    screen3Title:"GitHub - Pages", screen3Text:"Settings > Pages with Deploy from a branch, main, /root.", screen4Title:"ChatGPT - Codex", screen4Text:"chatgpt.com/codex screen and GitHub connection.", screen5Title:"Codex - new task", screen5Text:"Repository selection and main prompt pasted.", screen6Title:"GitHub - Pull Request", screen6Text:"Created Pull Request, Files changed, then Merge pull request.", screen7Title:"GitHub - deployment", screen7Text:"Actions or Settings > Pages showing the site is published.", screen8Title:"Final site", screen8Text:"GitHub Pages URL opened with the cyber snake game.",
+    sourcesTitle:"Useful links", sourcesLead:"Official sources used to make the flow reliable.", sourceRepo:"Create a repository", sourcePages:"GitHub Pages quickstart", sourceCodex:"Open Codex web",
+    footerLeft:"Vibe Coding Lab - live support", footerRight:"Tip: keep 10 minutes at the end for free iteration."
+  },
+  de: {
+    brand:"Wavestone - TP Vibe Coding", navConcept:"Konzept", navSetup:"Einrichtung", navBuild:"Entwickeln", navIterate:"Iterieren", navFurther:"Mehr erfahren",
+    heroEyebrow:"Hands-on-Workshop", heroTitle:"Wie startet man mit Vibe Coding?", heroLead:"Ein Live-Ablauf von der Idee bis zur veröffentlichten Website: Code-KI, GitHub, GitHub Pages, Pull Request und kreative Iterationen.", heroCta:"TP starten", heroCta2:"Screenshots vorbereiten",
+    term1:"Die Idee in Codex beschreiben", term2:"Code im Repository erstellen", term3:"Eine Pull Request öffnen", term4:"Automatisch mit GitHub Pages veröffentlichen",
+    metric1:"empfohlenes Format für eine Live-Session", metric2:"Grundbausteine zum Verstehen", metric3:"veröffentlichtes Webspiel am Ende", metric4:"mögliche Iterationen nach dem TP",
+    conceptTitle:"Das Konzept erklären", conceptLead:"Vibe Coding wird einfach, wenn die Teilnehmenden den Ablauf klar sehen: Idee, Code, Historie, Veröffentlichung.", conceptBadge1:"Baustein 1", conceptBadge2:"Baustein 2", conceptBadge3:"Baustein 3",
+    conceptCard1Title:"Code-KI-Agent", conceptCard1Text:"Codex oder Claude verwandelt eine Absicht in HTML-, CSS- und JavaScript-Dateien. Die Rolle der Teilnehmenden ist: formulieren, testen, korrigieren und steuern.",
+    conceptCard2Title:"GitHub-Repository", conceptCard2Text:"Der Code wird gespeichert, versioniert und teilbar gemacht. Ein Repository ist der zentrale Projektordner mit der Historie aller Änderungen.",
+    conceptCard3Title:"Web-Veröffentlichung", conceptCard3Text:"GitHub Pages veröffentlicht automatisch den Inhalt des main-Branches. Der Prototyp wird zu einer URL, die im Browser erreichbar ist.",
+    conceptCallout:"Hinweis für die Moderation: Ziel ist nicht, Git am ersten Tag vollständig zu verstehen. Ziel ist, den Ablauf zu verstehen und Iterationen zu wagen.",
+    setupTitle:"Umgebungen konfigurieren", setupLead:"Konten vorbereiten, Repository erstellen, GitHub Pages aktivieren und anschließend Codex mit GitHub verbinden.",
+    setup1Title:"Voraussetzungen prüfen", setup1Text:"Die Teilnehmenden sollten Zugriff auf ein E-Mail-Postfach haben. Ein Google-/Gmail-Konto ist praktisch für die Anmeldung, entscheidend ist aber, GitHub- und ChatGPT-E-Mails empfangen zu können.",
+    setup1Click1:'<a href="https://github.com" target="_blank" rel="noreferrer">github.com</a> öffnen.', setup1Click2:'<a href="https://chatgpt.com" target="_blank" rel="noreferrer">chatgpt.com</a> öffnen.', setup1Click3:"Prüfen, ob alle Teilnehmenden sich anmelden oder ein Konto erstellen können.",
+    setup2Title:"GitHub-Repository erstellen", setup2Text:"Den Begriff erklären: Ein Repository ist das GitHub-Projekt. Es enthält den Code, die Historie und die späteren Pull Requests.",
+    setup2Click1:"In GitHub oben rechts auf + klicken, dann auf New repository.", setup2Click2:"Das Repository benennen, zum Beispiel cyber-snake-academy.", setup2Click3:"Public wählen, um GitHub Pages im Workshop zu vereinfachen.", setup2Click4:"Add a README file aktivieren, um das Projekt zu initialisieren.", setup2Click5:"Auf Create repository klicken.",
+    shotLabel:"Screenshot vorbereiten", setup2Shot:"Das Formular mit Repository-Namen, Option Public und aktivierter Checkbox Add a README file erfassen.",
+    setup3Title:"GitHub Pages aktivieren", setup3Text:"GitHub Pages veröffentlicht automatisch den statischen Inhalt aus dem main-Branch. Für diesen TP ist die Veröffentlichung aus dem Projektstamm der einfachste Weg.",
+    setup3Click1:"Im Repository auf Settings klicken.", setup3Click2:"Im linken Menü auf Pages klicken.", setup3Click3:"Unter Build and deployment die Source Deploy from a branch wählen.", setup3Click4:"Unter Branch main und /root auswählen.", setup3Click5:"Auf Save klicken und die URL notieren, die nach dem Deployment angezeigt wird.",
+    setup3Shot:"Den Bildschirm erfassen, auf dem Source = Deploy from a branch, Branch = main und Ordner = /root sichtbar sind.",
+    setup4Title:"Codex starten und GitHub verbinden", setup4Text:"Codex web kann mit GitHub-Repositories arbeiten und aus seiner Arbeit Pull Requests erstellen. Der Zugriff kann vom ChatGPT-Plan oder von Workspace-Regeln abhängen.",
+    setup4Click1:'<a href="https://chatgpt.com/codex" target="_blank" rel="noreferrer">chatgpt.com/codex</a> öffnen.', setup4Click2:"Mit dem ChatGPT-Konto anmelden.", setup4Click3:"Auf Connect GitHub oder Connect account klicken, falls angezeigt.", setup4Click4:"GitHub-Zugriff erlauben, idealerweise nur für das TP-Repository.", setup4Click5:"Prüfen, ob das Repository in der Liste der verfügbaren Projekte erscheint.",
+    setup4Shot:"Den Codex-Einstieg in ChatGPT erfassen, danach den GitHub-Autorisierungsbildschirm, sofern die Organisation Screenshots erlaubt.",
+    buildTitle:"Mit der Entwicklung beginnen", buildLead:"Den ersten Prompt erstellen, Codex das Spiel erzeugen lassen, Änderungen prüfen, eine Pull Request öffnen, mergen und die Veröffentlichung prüfen.",
+    facilitatorBadge:"Moderationshinweis", buildTipTitle:"Sagen, was man wirklich will", buildTipText:"Der Prompt sollte Ergebnis, Zielgruppe, Spielregeln, Erfolgskriterien und technische Einschränkungen beschreiben. Er ist kein magischer Befehl, sondern ein Realisierungsbriefing.",
+    vocabBadge:"Vokabular", prTitle:"Pull Request", prText:"Eine Pull Request ist ein Änderungsvorschlag. Sie erlaubt, geänderte Dateien zu prüfen, bevor sie in main gemergt werden, den Branch, den GitHub Pages veröffentlicht.",
+    promptTab1:"Hauptprompt", promptTab2:"Spaß-Iteration", promptTab3:"Neues Projekt", copy:"Kopieren",
+    mainPrompt:'Ich bin verantwortlich für unsere Cyber Academy. Um die am Ende der Module erworbenen Kompetenzen zu validieren, möchte ich einen gamifizierten Ansatz.\n\nErstelle eine eigenständige Webseite in HTML/CSS/JavaScript mit einem Snake-Spiel. Jedes Mal, wenn die Schlange einen Block frisst, pausiert das Spiel und stellt eine Cybersicherheitsfrage mit 3 Antwortmöglichkeiten:\n- 1 eindeutig falsche Antwort;\n- 1 fast richtige, aber unvollständige Antwort;\n- 1 richtige Antwort.\n\nBereite 30 zufällig gezogene Fragen zu IAM, GRC, SOC und KI-Sicherheit vor. Während einer Partie sollen maximal 10 Fragen gestellt werden, danach wird der Endscore angezeigt. Wenn der Spieler mindestens 8 von 10 Antworten richtig hat, zeige "Kompetenz validiert" an. Andernfalls biete einen Neustart an.\n\nEinschränkungen:\n- alles muss in eine einzige Datei index.html passen;\n- das Spiel muss auf GitHub Pages funktionieren;\n- die Oberfläche muss klar, professionell und workshop-tauglich sein;\n- füge einen kurzen Startbildschirm und einen Endscore-Bildschirm hinzu.',
+    funPrompt:"Füge bei jeder richtigen Antwort eine Feuerwerksanimation hinzu, ohne die Lesbarkeit der Frage zu beeinträchtigen. Füge außerdem einen Button hinzu, mit dem Animationen deaktiviert werden können, falls der Nutzer eine ruhigere Oberfläche bevorzugt.",
+    projectPrompt:'Erstelle ein interaktives HTML-Framework, um die Konformität mit dem CSA-Dokument "Are You Mythos Ready?" zu messen. Ich möchte eine Kriterienmatrix, einen Reifegrad-Score, automatische Empfehlungen und eine exportierbare Zusammenfassung.',
+    build1Title:"Codex-Aufgabe erstellen", build1Text:"Einen neuen Codex-Chat oder eine neue Codex-Aufgabe starten, das TP-Repository auswählen und den Hauptprompt einfügen.",
+    build1Click1:"In Codex auf New task oder New chat klicken.", build1Click2:"Das Repository cyber-snake-academy auswählen.", build1Click3:"Den Hauptprompt einfügen und die Aufgabe starten.", build1Click4:"Warten, bis Codex Dateien vorschlägt, und das Ergebnis kurz prüfen.", build1Shot:"Den Bildschirm mit Repository-Auswahl und sendebereitem Prompt erfassen.",
+    build2Title:"Pull Request erstellen", build2Text:"Wenn das Ergebnis korrekt wirkt, Codex bitten, eine Pull Request vorzubereiten. Erklären, dass dies ein Änderungsvorschlag für das zentrale System ist, keine direkte Veröffentlichung.",
+    build2Click1:"In Codex die Änderungsübersicht öffnen.", build2Click2:"Auf Create pull request, Push branch oder die entsprechende angezeigte Aktion klicken.", build2Click3:"Einen einfachen Titel vergeben, zum Beispiel Add cybersecurity snake game.", build2Click4:"Den GitHub-Link zur Pull Request öffnen.", build2Shot:"Den Bildschirm erfassen, auf dem Codex die geänderten Dateien und den Button zur Pull-Request-Erstellung zeigt.",
+    build3Title:"Pull Request in GitHub validieren", build3Text:"Die minimale Review zeigen: geänderte Dateien, Code-Vorschau, dann Merge in main. Dieser Merge löst anschließend die Veröffentlichung über GitHub Pages aus.",
+    build3Click1:"In GitHub den Tab Pull requests öffnen.", build3Click2:"Auf die von Codex erstellte Pull Request klicken.", build3Click3:"Files changed öffnen, um zu zeigen, was hinzugefügt wurde.", build3Click4:"Zurück zu Conversation gehen, auf Merge pull request und dann auf Confirm merge klicken.", build3Shot:"Die Pull Request mit sichtbarem Button Merge pull request erfassen, danach den Zustand merged.",
+    build4Title:"Auf die Veröffentlichung warten", build4Text:"GitHub Pages kann einige Sekunden bis wenige Minuten benötigen. Währenddessen zeigen, wo der Deployment-Status geprüft wird.",
+    build4Click1:"Im Repository den Tab Actions öffnen, um den Pages-Workflow zu sehen.", build4Click2:"Oder zurück zu Settings und dann Pages gehen, um die veröffentlichte URL zu prüfen.", build4Click3:"Wenn das Deployment grün ist, die GitHub-Pages-URL öffnen.", build4Click4:"Das Spiel mit den Teilnehmenden testen und Verbesserungsideen sammeln.", build4Shot:"Entweder den erfolgreichen GitHub-Actions-Lauf oder Settings > Pages mit der Live-Site-Meldung erfassen.",
+    iterateTitle:"Und erneut iterieren", iterateLead:"Der eigentliche Aha-Moment kommt nach der ersten Veröffentlichung: verbessern, erweitern, korrigieren, testen und erneut veröffentlichen.",
+    iterateBadge1:"Wow-Effekt", iterate1Title:"Effekte hinzufügen", iterate1Text:"Feuerwerk, Übergänge, optionale Sounds, Dark Mode, Score-Animationen, visuelles Feedback.",
+    iterateBadge2:"Inhalt", iterate2Title:"Fragen erweitern", iterate2Text:"Industrielle Systeme, Business Continuity, Cloud, Datenschutz, Kryptografie oder Lieferantenrisiken ergänzen.",
+    iterateBadge3:"Neues Projekt", iterate3Title:"Gegenstand wechseln", iterate3Text:"Einen Reifegrad-Fragebogen, Krisensimulator, eine Compliance-Matrix oder einen Generator für Lernkarten erstellen.",
+    furtherTitle:"Mehr erfahren", furtherLead:"Es gibt keine klare Grenze, solange man mit der KI dialogisieren, das Ergebnis testen und eine menschliche Review behalten kann.",
+    furtherCallout1:'Wenn ihr blockiert seid, fragt die KI: "Erkläre mir den Fehler", "Schlage drei Wege zur Vereinfachung vor", "Stelle mir Fragen, um meinen Bedarf zu klären".',
+    furtherCallout2:"Behalte den Review-Reflex: keine sensiblen Daten veröffentlichen, generierte Texte prüfen, den Ablauf testen und Änderungen vor dem Merge gegenlesen.",
+    screensTitle:"Screenshots vorbereiten", screensLead:"Ich kann keine authentifizierten Screenshots aus deinen Konten erstellen. Hier ist die genaue Liste, die du vor der Session vorbereiten kannst, wenn du die Platzhalter ersetzen möchtest.",
+    screen1Title:"GitHub - Konto", screen1Text:"Angemeldete github.com-Seite mit sichtbarem +-Menü oben rechts.", screen2Title:"GitHub - neues Repository", screen2Text:"Formular New repository mit Name, Public und Add a README file.",
+    screen3Title:"GitHub - Pages", screen3Text:"Settings > Pages mit Deploy from a branch, main, /root.", screen4Title:"ChatGPT - Codex", screen4Text:"Bildschirm chatgpt.com/codex und GitHub-Verbindung.", screen5Title:"Codex - neue Aufgabe", screen5Text:"Repository-Auswahl und eingefügter Hauptprompt.", screen6Title:"GitHub - Pull Request", screen6Text:"Erstellte Pull Request, Files changed, danach Merge pull request.", screen7Title:"GitHub - Deployment", screen7Text:"Actions oder Settings > Pages mit Hinweis, dass die Website veröffentlicht ist.", screen8Title:"Finale Website", screen8Text:"GitHub-Pages-URL mit geöffnetem Cyber-Snake-Spiel.",
+    sourcesTitle:"Nützliche Links", sourcesLead:"Offizielle Quellen, die für einen zuverlässigen Ablauf genutzt wurden.", sourceRepo:"Repository erstellen", sourcePages:"GitHub-Pages-Quickstart", sourceCodex:"Codex web öffnen",
+    footerLeft:"TP Vibe Coding - Live-Unterlage", footerRight:"Tipp: Am Ende 10 Minuten für freie Iteration reservieren."
+  }
+};
+
+function applyLang(lang){
+  const dict = translations[lang] || translations.fr;
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-i18n]").forEach((node)=>{
+    const key = node.getAttribute("data-i18n");
+    if(dict[key] === undefined) return;
+    if(node.tagName === "PRE" || node.tagName === "LI" || dict[key].includes("<a ")){
+      node.innerHTML = dict[key];
+    } else {
+      node.textContent = dict[key];
+    }
+  });
+  document.querySelectorAll(".lang-btn").forEach((btn)=>btn.classList.toggle("active", btn.dataset.lang === lang));
+  localStorage.setItem("tp-vibe-lang", lang);
+}
+
+document.querySelectorAll(".lang-btn").forEach((btn)=>{
+  btn.addEventListener("click",()=>applyLang(btn.dataset.lang));
+});
+
+document.querySelectorAll(".tab-btn").forEach((btn)=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".tab-btn").forEach((b)=>b.classList.remove("active"));
+    document.querySelectorAll(".tab-panel").forEach((p)=>p.classList.remove("active"));
+    btn.classList.add("active");
+    document.getElementById(btn.dataset.tab).classList.add("active");
+  });
+});
+
+document.querySelectorAll("[data-copy]").forEach((btn)=>{
+  btn.addEventListener("click", async ()=>{
+    const target = document.querySelector(btn.dataset.copy);
+    if(!target) return;
+    await navigator.clipboard.writeText(target.textContent.trim());
+    const current = btn.textContent;
+    btn.textContent = "OK";
+    setTimeout(()=>{ btn.textContent = current; }, 1000);
+  });
+});
+
+function updateProgress(){
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  const ratio = total > 0 ? window.scrollY / total : 0;
+  document.getElementById("progress").style.width = `${Math.min(100, Math.max(0, ratio * 100))}%`;
+}
+window.addEventListener("scroll", updateProgress, {passive:true});
+window.addEventListener("resize", updateProgress);
+applyLang(localStorage.getItem("tp-vibe-lang") || "fr");
+updateProgress();
+</script>
+</body>
+</html>
