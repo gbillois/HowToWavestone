@@ -141,6 +141,8 @@
 
   :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
   @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+  /* square corners */
+  *,*::before,*::after{border-radius:0!important}
 </style>
 </head>
 <body>
@@ -181,7 +183,7 @@
     <!-- 1 -->
     <article class="pcard lead">
       <div class="top">
-        <div class="ico">&#128230;</div>
+        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg></div>
         <div>
           <span class="num">Principe 01</span>
           <h3>D&eacute;coupl&eacute; de l'infrastructure client</h3>
@@ -201,7 +203,7 @@
     <!-- 2 -->
     <article class="pcard">
       <div class="top">
-        <div class="ico">&#128279;</div>
+        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
         <div>
           <span class="num">Principe 02</span>
           <h3>D&eacute;coupl&eacute; du LLM</h3>
@@ -221,7 +223,7 @@
     <!-- 3 -->
     <article class="pcard">
       <div class="top">
-        <div class="ico">&#128187;</div>
+        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="2" y="3" width="20" height="14"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
         <div>
           <span class="num">Principe 03</span>
           <h3>L'usage local toujours possible</h3>
@@ -241,7 +243,7 @@
     <!-- 4 -->
     <article class="pcard">
       <div class="top">
-        <div class="ico">&#9881;&#65039;</div>
+        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
         <div>
           <span class="num">Principe 04</span>
           <h3>Minimiser les appels au LLM</h3>
@@ -261,7 +263,7 @@
     <!-- 5 -->
     <article class="pcard">
       <div class="top">
-        <div class="ico">&#128101;</div>
+        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <div>
           <span class="num">Principe 05</span>
           <h3>Multi-utilisateurs, sans usine &agrave; gaz</h3>
@@ -291,17 +293,17 @@
     <h3>Un agent CYB, c'est&hellip;</h3>
     <p>&hellip;un outil le plus autonome possible, qu'on emporte partout et qu'on partage par fichier.</p>
     <ul>
-      <li><span class="ck">&#10003;</span><span>Une <b>page HTML autonome</b>, t&eacute;l&eacute;chargeable, qui s'ouvre dans un navigateur standard.</span></li>
-      <li><span class="ck">&#10003;</span><span><b>Ind&eacute;pendant du LLM</b>&nbsp;: cl&eacute; API standard, Azure, mod&egrave;le client ou LLM local.</span></li>
-      <li><span class="ck">&#10003;</span><span><b>Utilisable en local</b> sans droits admin&nbsp;: Python portable et mod&egrave;les locaux.</span></li>
-      <li><span class="ck">&#10003;</span><span><b>D&eacute;terministe d'abord</b>&nbsp;: fiable, reproductible, fonctionne hors-ligne.</span></li>
-      <li><span class="ck">&#10003;</span><span><b>Collaboratif</b> par export / import JSON, sans base ni gestion de droits.</span></li>
+      <li><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span><span>Une <b>page HTML autonome</b>, t&eacute;l&eacute;chargeable, qui s'ouvre dans un navigateur standard.</span></li>
+      <li><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span><span><b>Ind&eacute;pendant du LLM</b>&nbsp;: cl&eacute; API standard, Azure, mod&egrave;le client ou LLM local.</span></li>
+      <li><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span><span><b>Utilisable en local</b> sans droits admin&nbsp;: Python portable et mod&egrave;les locaux.</span></li>
+      <li><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span><span><b>D&eacute;terministe d'abord</b>&nbsp;: fiable, reproductible, fonctionne hors-ligne.</span></li>
+      <li><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span><span><b>Collaboratif</b> par export / import JSON, sans base ni gestion de droits.</span></li>
     </ul>
   </div>
 
   <div class="nav-cta">
     <a class="ncard" href="vibe-coding.html">
-      <span class="ni">&#128218;</span>
+      <span class="ni"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span>
       <span>
         <span class="nt">Les principes du vibe coding</span>
         <span class="nd">Les briques essentielles, en sch&eacute;mas interactifs.</span>
@@ -309,7 +311,7 @@
       <span class="go">&#8594;</span>
     </a>
     <a class="ncard" href="parcours.html">
-      <span class="ni">&#128296;</span>
+      <span class="ni"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
       <span>
         <span class="nt">Choisir son parcours</span>
         <span class="nd">Du tout-en-ligne aux appels API Wavestone.</span>
