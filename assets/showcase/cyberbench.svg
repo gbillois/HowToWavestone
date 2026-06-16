@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">CyberBenchExplorer animated usage preview</title>
+  <desc id="desc">Animated workspace mockup showing benchmark import, checks, matrix, radar and PowerPoint export.</desc>
+  <style>
+    text{font-family:Inter,Arial,sans-serif;letter-spacing:0}
+    .screen{fill:url(#bg)}
+    .shell{fill:#fff;stroke:#d7e7ef;stroke-width:2}
+    .nav{fill:url(#nav)}
+    .navText{font-size:13px;font-weight:850;fill:#fff}
+    .muted{font-size:12px;font-weight:700;fill:#64788b}
+    .title{font-size:22px;font-weight:850;fill:#112b43}
+    .card{fill:#fff;stroke:#e3eef3;stroke-width:2;filter:url(#shadow)}
+    .kpi{font-size:30px;font-weight:850;fill:#0f8794}
+    .gridLine{stroke:#dceaf0;stroke-width:2}
+    .radarGrid{fill:none;stroke:#cfe2ea;stroke-width:2}
+    .radarArea{fill:rgba(46,211,155,.28);stroke:#0f8794;stroke-width:4}
+    .btn{fill:#13a59e}
+    .btnText{font-size:13px;font-weight:850;fill:#fff}
+    #stepImport{animation:stepImport 7s linear infinite}
+    #stepCheck{animation:stepCheck 7s linear infinite}
+    #stepExplore{animation:stepExplore 7s linear infinite}
+    #stepExport{animation:stepExport 7s linear infinite}
+    #upload{animation:upload 7s ease-in-out infinite}
+    #checkRows g{animation:checks 7s ease-in-out infinite}
+    #checkRows g:nth-child(2){animation-delay:.18s}
+    #checkRows g:nth-child(3){animation-delay:.36s}
+    #matrixCursor{animation:matrixCursor 7s ease-in-out infinite}
+    #radarArea{transform-origin:695px 318px;animation:radar 7s ease-in-out infinite}
+    #pptx{animation:pptx 7s ease-in-out infinite}
+    @keyframes stepImport{0%,24%,100%{opacity:1}25%,99%{opacity:.42}}
+    @keyframes stepCheck{0%,24%,50%,100%{opacity:.42}25%,49%{opacity:1}}
+    @keyframes stepExplore{0%,50%,78%,100%{opacity:.42}51%,77%{opacity:1}}
+    @keyframes stepExport{0%,78%,100%{opacity:.42}79%,96%{opacity:1}}
+    @keyframes upload{0%,12%{transform:translateY(34px);opacity:0}18%,100%{transform:translateY(0);opacity:1}}
+    @keyframes checks{0%,25%{opacity:.18;transform:translateX(-14px)}38%,100%{opacity:1;transform:translateX(0)}}
+    @keyframes matrixCursor{0%,50%{transform:translate(0,0);opacity:0}56%{opacity:1}66%{transform:translate(106px,62px);opacity:1}78%,100%{transform:translate(154px,92px);opacity:0}}
+    @keyframes radar{0%,50%{transform:scale(.72);opacity:.4}62%,100%{transform:scale(1);opacity:1}}
+    @keyframes pptx{0%,78%{opacity:0;transform:translateY(28px)}84%,96%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(0)}}
+  </style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="540"><stop stop-color="#d8ecef"/><stop offset=".52" stop-color="#eaf5f5"/><stop offset="1" stop-color="#f8fbff"/></linearGradient>
+    <linearGradient id="nav" x1="60" y1="70" x2="900" y2="70"><stop stop-color="#0d3f61"/><stop offset=".58" stop-color="#0f8794"/><stop offset="1" stop-color="#249b83"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="10" stdDeviation="13" flood-color="#0e4153" flood-opacity=".14"/></filter>
+  </defs>
+  <rect class="screen" width="960" height="540"/>
+  <rect class="shell" x="54" y="42" width="852" height="456"/>
+  <rect class="nav" x="54" y="42" width="852" height="62"/>
+  <text x="84" y="70" class="navText">Wavestone Cyberbenchmark Workspace</text>
+  <text x="84" y="88" font-size="10" font-weight="850" fill="#d6f5ef">INGEST - CHECK - EXPLORE - EXPORT</text>
+  <g transform="translate(430 42)">
+    <rect id="stepImport" x="0" y="0" width="96" height="62" fill="rgba(255,255,255,.14)"/><text x="24" y="38" class="navText">Ingest</text>
+    <rect id="stepCheck" x="96" y="0" width="96" height="62" fill="rgba(255,255,255,.14)"/><text x="122" y="38" class="navText">Check</text>
+    <rect id="stepExplore" x="192" y="0" width="106" height="62" fill="rgba(255,255,255,.14)"/><text x="218" y="38" class="navText">Explore</text>
+    <rect id="stepExport" x="298" y="0" width="96" height="62" fill="rgba(255,255,255,.14)"/><text x="322" y="38" class="navText">Export</text>
+  </g>
+  <rect class="card" x="86" y="132" width="230" height="150"/>
+  <text x="110" y="166" class="title">Import</text>
+  <text x="110" y="190" class="muted">Questionnaire + benchmark</text>
+  <g id="upload" transform="translate(110 212)">
+    <rect width="160" height="42" fill="#f7fbfe" stroke="#cbdde6" stroke-width="2"/>
+    <path d="M22 29h30M37 29V10M27 20l10-10 10 10" fill="none" stroke="#0f8794" stroke-width="3"/>
+    <text x="66" y="27" font-size="13" font-weight="850" fill="#112b43">Excel loaded</text>
+  </g>
+  <rect class="card" x="86" y="306" width="230" height="150"/>
+  <text x="110" y="340" class="title">Checks</text>
+  <g id="checkRows" transform="translate(112 364)">
+    <g><circle cx="10" cy="10" r="8" fill="#2ed39b"/><path d="M6 10l3 3 6-7" fill="none" stroke="#fff" stroke-width="2"/><text x="30" y="15" class="muted">Business rules</text></g>
+    <g transform="translate(0 34)"><circle cx="10" cy="10" r="8" fill="#2ed39b"/><path d="M6 10l3 3 6-7" fill="none" stroke="#fff" stroke-width="2"/><text x="30" y="15" class="muted">Totals = 100%</text></g>
+    <g transform="translate(0 68)"><circle cx="10" cy="10" r="8" fill="#f0c84b"/><path d="M10 5v8M10 16v2" stroke="#fff" stroke-width="2"/><text x="30" y="15" class="muted">Review warning</text></g>
+  </g>
+  <rect class="card" x="348" y="132" width="250" height="324"/>
+  <text x="374" y="166" class="title">Matrix</text>
+  <g transform="translate(376 202)">
+    <rect width="176" height="166" fill="#f7fbfe" stroke="#d8e8ef" stroke-width="2"/>
+    <g class="gridLine">
+      <path d="M0 42h176M0 84h176M0 126h176M44 0v166M88 0v166M132 0v166"/>
+    </g>
+    <rect x="0" y="0" width="44" height="42" fill="#e5f8f5"/><rect x="44" y="42" width="44" height="42" fill="#e6efff"/><rect x="88" y="84" width="44" height="42" fill="#fdeede"/><rect x="132" y="126" width="44" height="40" fill="#e5f8f5"/>
+    <circle id="matrixCursor" cx="18" cy="18" r="11" fill="#451dc7"/>
+  </g>
+  <rect class="btn" x="374" y="394" width="136" height="34"/><text x="398" y="416" class="btnText">Export PNG</text>
+  <rect class="card" x="630" y="132" width="244" height="324"/>
+  <text x="656" y="166" class="title">Radar</text>
+  <text x="656" y="190" class="muted">Scores by domain</text>
+  <g transform="translate(695 318)">
+    <polygon class="radarGrid" points="0,-92 80,-46 80,46 0,92 -80,46 -80,-46"/>
+    <polygon class="radarGrid" points="0,-60 52,-30 52,30 0,60 -52,30 -52,-30"/>
+    <line class="radarGrid" x1="0" y1="-92" x2="0" y2="92"/><line class="radarGrid" x1="-80" y1="-46" x2="80" y2="46"/><line class="radarGrid" x1="80" y1="-46" x2="-80" y2="46"/>
+  </g>
+  <polygon id="radarArea" class="radarArea" points="695,238 758,282 744,360 695,390 628,356 642,280"/>
+  <g id="pptx" transform="translate(692 410)">
+    <rect width="146" height="34" fill="#0d3f61"/>
+    <text x="18" y="22" class="btnText">PPTX ready</text>
+  </g>
+</svg>
