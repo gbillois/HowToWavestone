@@ -1041,7 +1041,7 @@ function applyLang(lang){
     }
   });
   document.querySelectorAll(".lang-btn").forEach((btn)=>btn.classList.toggle("active", btn.dataset.lang === lang));
-  localStorage.setItem("tp-vibe-lang", lang);
+  try{ localStorage.setItem("ws_lang", lang); }catch(e){}
 }
 
 document.querySelectorAll(".lang-btn").forEach((btn)=>{
@@ -1075,7 +1075,13 @@ function updateProgress(){
 }
 window.addEventListener("scroll", updateProgress, {passive:true});
 window.addEventListener("resize", updateProgress);
-applyLang(localStorage.getItem("tp-vibe-lang") || "fr");
+applyLang((function(){
+  var s=null; try{ s=localStorage.getItem("ws_lang"); }catch(e){}
+  if(s && ["fr","en","de"].indexOf(s)>-1) return s;
+  var ls=navigator.languages||[navigator.language||navigator.userLanguage||""];
+  for(var i=0;i<ls.length;i++){ var c=(ls[i]||"").slice(0,2).toLowerCase(); if(["fr","en","de"].indexOf(c)>-1) return c; }
+  return "en";
+})());
 updateProgress();
 </script>
 </body>
