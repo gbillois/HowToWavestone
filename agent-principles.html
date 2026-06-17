@@ -57,6 +57,7 @@
   .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
   .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);border-radius:999px;padding:6px 13px;transition:.18s var(--ws-ease)}
   .bar a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 
   /* ---------- hero (brand gradient) ---------- */
   .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px}
@@ -150,9 +151,12 @@
 <div class="bar">
   <div class="bar-in">
     <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
-    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-      <a class="jump" href="use-cases.html" data-i18n="nav.parcours">Les parcours</a>
-      <a class="jump" href="our-agents.html" data-i18n="nav.usecases">Use cases</a>
+    <div class="nav-links">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="use-cases.html" data-i18n="nav.usecases">Cas d'usage</a>
+      <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+      <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
     </div>
   </div>
 </div>
@@ -338,8 +342,11 @@
 <script>
 window.WS_I18N = {
   en: {
-    "nav.parcours": "The journeys",
+    "nav.home": "Home",
     "nav.usecases": "Use cases",
+    "nav.principles": "Agent principles",
+    "nav.agents": "Our agents",
+    "nav.apikey": "API key",
     "hero.eyebrow": "Design philosophy",
     "hero.title": "How we design <span class=\"ac\">CYB agents</span>",
     "hero.lede": "Simple principles, built for the field: an agent you can use <b style=\"color:#fff\">right away</b>, anywhere, without depending on a client's infrastructure, a specific model, or a connection.",
@@ -414,8 +421,11 @@ window.WS_I18N = {
     "__title": "AI Maker @ Wavestone CYB — CYB agent design philosophy"
   },
   de: {
-    "nav.parcours": "Die Lernpfade",
-    "nav.usecases": "Use Cases",
+    "nav.home": "Start",
+    "nav.usecases": "Anwendungsf&auml;lle",
+    "nav.principles": "Agenten-Prinzipien",
+    "nav.agents": "Unsere Agenten",
+    "nav.apikey": "API-Schl&uuml;ssel",
     "hero.eyebrow": "Designphilosophie",
     "hero.title": "Wie wir <span class=\"ac\">CYB-Agenten</span> entwerfen",
     "hero.lede": "Einfache Prinzipien, f&uuml;r die Praxis gedacht: ein Agent, den man <b style=\"color:#fff\">sofort</b> nutzen kann, &uuml;berall, ohne von der Infrastruktur eines Kunden, einem bestimmten Modell oder einer Verbindung abh&auml;ngig zu sein.",

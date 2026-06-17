@@ -44,6 +44,9 @@
   .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:9px}
   .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px}
   .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);border-radius:999px;padding:6px 13px;transition:.18s var(--ws-ease)}
+  .bar a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
 
   /* ---------- hero ---------- */
   .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px;flex-shrink:0}
@@ -114,6 +117,13 @@
 <div class="bar">
   <div class="bar-in">
     <span class="brand"><span class="dot"></span>Wavestone CYB &middot; AI Maker</span>
+    <div class="nav-links">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="use-cases.html" data-i18n="nav.usecases">Cas d'usage</a>
+      <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+      <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
+    </div>
   </div>
 </div>
 
@@ -208,6 +218,11 @@
 window.WS_I18N = {
   en: {
     "__title": "Wavestone CYB AI Maker Initiative",
+    "nav.home": "Home",
+    "nav.usecases": "Use cases",
+    "nav.principles": "Agent principles",
+    "nav.agents": "Our agents",
+    "nav.apikey": "API key",
     "hero.eyebrow": "Cybersecurity AI Making portal",
     "hero.lede": "Welcome to Wavestone&rsquo;s Cybersecurity AI Making portal. Here you&rsquo;ll find our methodologies for designing applications, an overview of the operating principles we&rsquo;ve adopted, and links to our own applications.",
     "c1.tag": "Hands-on workshop",
@@ -238,6 +253,11 @@ window.WS_I18N = {
   },
   de: {
     "__title": "Wavestone CYB AI Maker Initiative",
+    "nav.home": "Start",
+    "nav.usecases": "Anwendungsf&auml;lle",
+    "nav.principles": "Agenten-Prinzipien",
+    "nav.agents": "Unsere Agenten",
+    "nav.apikey": "API-Schl&uuml;ssel",
     "hero.eyebrow": "Cybersecurity-AI-Making-Portal",
     "hero.lede": "Willkommen im Cybersecurity-AI-Making-Portal von Wavestone. Hier findest du unsere Methoden zum Entwerfen von Anwendungen, eine &Uuml;bersicht der von uns gew&auml;hlten Funktionsprinzipien und Links zu unseren eigenen Anwendungen.",
     "c1.tag": "Hands-on-Workshop",

@@ -185,6 +185,16 @@
 
   :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
   @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+  /* ---------- launcher cards ---------- */
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  a.tile{text-decoration:none;display:block}
+  .tile.soon{cursor:default}
+  .tile.soon:hover{box-shadow:var(--ws-shadow-sm);transform:none;border-color:var(--ws-ink-100)}
+  .tile .open{display:inline-flex;align-items:center;gap:7px;margin-top:14px;font-family:var(--ws-font-mono);font-size:12.5px;font-weight:600;color:var(--ws-indigo-600)}
+  .tile .flow{margin-top:12px;padding:10px 12px}
+  .tile .flow .fn{font-size:11px;padding:5px 8px}
+
   /* square corners */
   *,*::before,*::after{border-radius:0!important}
 </style>
@@ -194,10 +204,12 @@
 <div class="bar">
   <div class="bar-in">
     <a class="brand" href="index.html" style="text-decoration:none"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
-    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-      <a class="jump" href="agent-principles.html" data-i18n="nav.agents">Philosophie agents</a>
-      <a class="jump" href="our-agents.html" data-i18n="nav.usecases">Use cases</a>
-      <a class="jump" href="#infos" data-i18n="nav.infos">Infos &amp; liens utiles</a>
+    <div class="nav-links">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="use-cases.html" data-i18n="nav.usecases">Cas d'usage</a>
+      <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+      <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
     </div>
   </div>
 </div>
@@ -217,237 +229,68 @@
 
 <div class="wrap">
 
-  <!-- CHOOSER -->
+  <!-- CHOOSER / LAUNCHER -->
   <div class="sec-head">
     <span class="eyebrow" data-i18n="chooser.eyebrow">Par o&ugrave; commencer</span>
     <h2 data-i18n="chooser.h2">Quel est ton cas d'usage ?</h2>
-    <p data-i18n="chooser.p">Choisis un cas d'usage : la cha&icirc;ne CI/CD et le how-to s'affichent juste en dessous.</p>
+    <p data-i18n="chooser.p">Choisis un cas d'usage&nbsp;: ouvre son guide de mise en &oelig;uvre, ou d&eacute;couvre la cha&icirc;ne CI/CD pr&eacute;vue.</p>
   </div>
 
   <div class="chooser" id="chooser">
-    <button class="tile active" data-target="loc">
+
+    <a class="tile" href="local-app-guide.html">
       <span class="badge-ok" data-i18n="badge.ok">Guide dispo</span>
-      <span class="idx">01</span>
       <h3 data-i18n="tile.loc.h3">Cr&eacute;er une application locale</h3>
       <p data-i18n="tile.loc.p">Une app qui tourne sur ta machine &mdash; du fichier HTML au script Python.</p>
-      <div class="stack" data-i18n="tile.loc.stack"><span class="chip">Git</span><span class="chip">VS Code</span><span class="chip">Python</span></div>
-    </button>
+      <div class="flow" data-i18n="loc.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Code</span><span class="fa">&rarr;</span><span class="fn">Repo Git</span><span class="fa">&rarr;</span><span class="fn hl">Ta machine</span></div>
+      <span class="open" data-i18n="cta.open">Ouvrir le guide &#8594;</span>
+    </a>
 
-    <button class="tile soon" data-target="web">
+    <a class="tile" href="web-app-guide.html">
+      <span class="badge-ok" data-i18n="badge.ok">Guide dispo</span>
+      <h3 data-i18n="tile.webapp.h3">Cr&eacute;er une application web (en ligne)</h3>
+      <p data-i18n="tile.webapp.p">Une app publi&eacute;e en ligne via GitHub Pages, accessible par une URL.</p>
+      <div class="flow" data-i18n="webapp.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Repo Git</span><span class="fa">&rarr;</span><span class="fn">GitHub Pages</span><span class="fa">&rarr;</span><span class="fn hl">Site en ligne</span></div>
+      <span class="open" data-i18n="cta.open">Ouvrir le guide &#8594;</span>
+    </a>
+
+    <div class="tile soon">
       <span class="badge-soon" data-i18n="badge.soon">&Agrave; venir</span>
-      <span class="idx">02</span>
       <h3 data-i18n="tile.web.h3">Cr&eacute;er une application web avec base de donn&eacute;es en ligne</h3>
       <p data-i18n="tile.web.p">Front, backend et base de donn&eacute;es centralis&eacute;e, h&eacute;berg&eacute;s en ligne.</p>
-      <div class="stack" data-i18n="tile.web.stack"><span class="chip">Backend</span><span class="chip">Base de donn&eacute;es</span><span class="chip">Cloud</span></div>
-    </button>
+      <div class="flow" data-i18n="web.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Repo Git</span><span class="fa">&rarr;</span><span class="fn">Build &amp; d&eacute;ploiement</span><span class="fa">&rarr;</span><span class="fn hl">H&eacute;bergeur web + base de donn&eacute;es</span></div>
+    </div>
 
-    <button class="tile soon" data-target="mobile">
+    <div class="tile soon">
       <span class="badge-soon" data-i18n="badge.soon">&Agrave; venir</span>
-      <span class="idx">03</span>
       <h3 data-i18n="tile.mobile.h3">Cr&eacute;er une application smartphone</h3>
       <p data-i18n="tile.mobile.p">Une app native iOS ou Android, publi&eacute;e sur les stores.</p>
-      <div class="stack" data-i18n="tile.mobile.stack"><span class="chip">iOS</span><span class="chip">Android</span><span class="chip">Store</span></div>
-    </button>
+      <div class="flow" data-i18n="mobile.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Repo Git</span><span class="fa">&rarr;</span><span class="fn">Build natif</span><span class="fa">&rarr;</span><span class="fn">Store</span><span class="fa">&rarr;</span><span class="fn hl">T&eacute;l&eacute;phone</span></div>
+    </div>
 
-    <button class="tile soon" data-target="localai">
+    <div class="tile soon">
       <span class="badge-soon" data-i18n="badge.soon">&Agrave; venir</span>
-      <span class="idx">04</span>
       <h3 data-i18n="tile.localai.h3">Utiliser des mod&egrave;les d'IA localement</h3>
       <p data-i18n="tile.localai.p">Faire tourner un LLM directement sur ta machine, sans appel externe.</p>
-      <div class="stack" data-i18n="tile.localai.stack"><span class="chip">Python</span><span class="chip">LLM local</span><span class="chip">Hors-ligne</span></div>
-    </button>
+      <div class="flow" data-i18n="localai.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Code + Python portable</span><span class="fa">&rarr;</span><span class="fn">Mod&egrave;le d'IA local</span><span class="fa">&rarr;</span><span class="fn hl">Hors-ligne</span></div>
+    </div>
 
-    <button class="tile soon" data-target="copilot">
+    <div class="tile soon">
       <span class="badge-soon" data-i18n="badge.soon">&Agrave; venir</span>
-      <span class="idx">05</span>
       <h3 data-i18n="tile.copilot.h3">Cr&eacute;er un agent Copilot</h3>
       <p data-i18n="tile.copilot.p">Un agent dans l'&eacute;cosyst&egrave;me Microsoft Copilot.</p>
-      <div class="stack" data-i18n="tile.copilot.stack"><span class="chip">Copilot Studio</span><span class="chip">Microsoft 365</span></div>
-    </button>
+      <div class="flow" data-i18n="copilot.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">D&eacute;finition de l'agent</span><span class="fa">&rarr;</span><span class="fn">Copilot Studio</span><span class="fa">&rarr;</span><span class="fn">Test</span><span class="fa">&rarr;</span><span class="fn hl">D&eacute;ploiement M365</span></div>
+    </div>
+
   </div>
 
-  <!-- PANELS -->
-  <div class="panels">
-
-    <!-- ============ CAS 01 — APPLICATION LOCALE (how-to dispo) ============ -->
-    <section class="panel active" data-panel="loc">
-      <div class="panel-head">
-        <div class="t">
-          <span class="eyebrow" data-i18n="p2.eyebrow">Cas d'usage 01</span>
-          <h2 data-i18n="p2.h2">Cr&eacute;er une application locale</h2>
-          <div class="sub" data-i18n="p2.sub">Git + VS Code + Python : une app qui tourne sur ta machine, avec sauvegarde et travail en commun via GitHub.</div>
-        </div>
-        <div class="prog"><b class="dn">0</b>/<span class="tot">6</span> <span data-i18n="prog.etapes">&eacute;tapes</span></div>
-      </div>
-
-      <div class="flow-lab" data-i18n="flow.lab">La cha&icirc;ne CI/CD</div>
-      <div class="flow" data-i18n="loc.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Code</span><span class="fa">&rarr;</span><span class="fn">Repo Git</span><span class="fa">&rarr;</span><span class="fn hl">Ta machine</span></div>
-
-      <a class="res-cta" href="local-app-guide.html" style="margin-top:16px;max-width:460px" data-i18n="loc.detail"><span class="nm">Voir le how-to d&eacute;taill&eacute;</span><span class="go">pas &agrave; pas &#8594;</span></a>
-
-      <div class="steps">
-        <div class="spine"><div class="spine-fill"></div></div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
-          <div class="scard">
-            <h4 data-i18n="p2.s1.h4">Tester Claude + cr&eacute;er un GitHub</h4>
-            <div class="do" data-i18n="p2.s1.do">Connecte-toi &agrave; Claude (compte Wavestone) et cr&eacute;e un compte GitHub gratuit pour stocker et versionner ton code.</div>
-            <div class="links"><a class="lk" href="https://claude.ai/new" target="_blank" rel="noopener">claude.ai/new <span class="ar">&#8599;</span></a><a class="lk" href="https://github.com/" target="_blank" rel="noopener">github.com <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
-          <div class="scard">
-            <h4 data-i18n="p2.s2.h4">Installer Git</h4>
-            <div class="do" data-i18n="p2.s2.do">T&eacute;l&eacute;charge et installe Git (version Windows). Pas d'interface : c'est le composant qui suit les modifications de tes fichiers.</div>
-            <div class="links"><a class="lk" href="https://git-scm.com/install/" target="_blank" rel="noopener">git-scm.com/install <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
-          <div class="scard">
-            <h4 data-i18n="p2.s3.h4">Installer GitHub Desktop</h4>
-            <div class="do" data-i18n="p2.s3.do">Le client qui synchronise tes repositories entre le web et ta machine (<code>Documents/GitHub</code>). Connecte ton compte GitHub. C'est lui qui permet la <b>sauvegarde et le travail en commun</b>.</div>
-            <div class="links"><a class="lk" href="https://desktop.github.com/download/" target="_blank" rel="noopener">desktop.github.com <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">4</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
-          <div class="scard">
-            <h4 data-i18n="p2.s4.h4">Installer Visual Studio Code</h4>
-            <div class="do" data-i18n="p2.s4.do">L'&eacute;diteur dans lequel tu travailleras. T&eacute;l&eacute;charge pour Windows, puis Suivant &rarr; Installer.</div>
-            <div class="links"><a class="lk" href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">5</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
-          <div class="scard">
-            <h4 data-i18n="p2.s5.h4">Installer Python <span class="mini opt">pour le code avanc&eacute;</span></h4>
-            <div class="do" data-i18n="p2.s5.do">Installe le <b>Python Install Manager</b> (recommand&eacute; via le Microsoft Store). Utile d&egrave;s que Claude doit g&eacute;n&eacute;rer et ex&eacute;cuter du Python en local.</div>
-            <div class="links"><a class="lk" href="https://apps.microsoft.com/detail/9nq7512cxl7t" target="_blank" rel="noopener">Microsoft Store <span class="ar">&#8599;</span></a><a class="lk" href="https://www.python.org/downloads/" target="_blank" rel="noopener">python.org <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-
-        <div class="step">
-          <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">6</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span></div>
-          <div class="scard">
-            <h4 data-i18n="p2.s6.h4">Extension Claude Code + premier fichier</h4>
-            <div class="do" data-i18n="p2.s6.do">Dans VS Code : Extensions (<code>Ctrl+Shift+X</code>) &rarr; cherche <b>&laquo; Claude Code &raquo;</b> (Anthropic) &rarr; Installer. Connecte ton compte Claude, ouvre un dossier de ta machine, puis demande ton premier fichier dans le panneau Claude (ic&ocirc;ne +).</div>
-            <div class="links"><a class="lk" href="https://code.claude.com/docs/en/vs-code" target="_blank" rel="noopener" data-i18n="p2.s6.lk1">guide officiel <span class="ar">&#8599;</span></a><a class="lk" href="vscode:extension/anthropic.claude-code" data-i18n="p2.s6.lk2">ouvrir dans VS&nbsp;Code <span class="ar">&#8599;</span></a></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="prompt">
-        <button class="copy">copier</button>
-        <div class="who" data-i18n="p2.prompt1.who">Exemple &mdash; page simple</div>
-        <div class="txt" data-i18n="p2.prompt1.txt">Cr&eacute;e-moi une page HTML autonome nomm&eacute;e tetris.html : un Tetris minimaliste qui d&eacute;marre sur la touche Entr&eacute;e.</div>
-      </div>
-      <div class="prompt">
-        <button class="copy">copier</button>
-        <div class="who" data-i18n="p2.prompt2.who">Exemple &mdash; script Python local</div>
-        <div class="txt" data-i18n="p2.prompt2.txt">Cr&eacute;e-moi un script Python qui utilise en local faster-whisper pour transcrire mes fichiers audio et vid&eacute;o sur ma machine.</div>
-      </div>
-
-      <div class="note">
-        <div class="lab" data-i18n="p2.note.lab">Human in the loop</div>
-        <p data-i18n="p2.note.p">En local, Claude demande ta permission avant d'ex&eacute;cuter une commande. Lis ce qu'il propose, puis valide &mdash; rien ne se lance dans ton dos.</p>
-      </div>
-    </section>
-
-    <!-- ============ CAS 02 — APP WEB + BDD EN LIGNE (à venir) ============ -->
-    <section class="panel" data-panel="web">
-      <div class="panel-head">
-        <div class="t">
-          <span class="eyebrow" data-i18n="web.eyebrow">Cas d'usage 02</span>
-          <h2 data-i18n="web.h2">Cr&eacute;er une application web avec base de donn&eacute;es en ligne</h2>
-          <div class="sub" data-i18n="web.sub">Front, backend et base de donn&eacute;es centralis&eacute;e, h&eacute;berg&eacute;s en ligne.</div>
-        </div>
-      </div>
-
-      <div class="flow-lab" data-i18n="flow.lab">La cha&icirc;ne CI/CD</div>
-      <div class="flow" data-i18n="web.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Repo Git</span><span class="fa">&rarr;</span><span class="fn">Build &amp; d&eacute;ploiement</span><span class="fa">&rarr;</span><span class="fn hl">H&eacute;bergeur web + base de donn&eacute;es</span></div>
-
-      <div class="soon-card">
-        <div class="ring"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-        <h3 data-i18n="soon.h3">&Agrave; venir &mdash; how-to en pr&eacute;paration</h3>
-        <p data-i18n="web.soon.p">Le pas-&agrave;-pas pour brancher une base de donn&eacute;es en ligne arrive. Compte tenu de la gouvernance (donn&eacute;es clients sensibles dans l'environnement Microsoft), il s'appuiera en priorit&eacute; sur Azure.</p>
-      </div>
-
-      <div class="note">
-        <div class="lab" data-i18n="pL3.gov.lab">Gouvernance Wavestone &mdash; H&eacute;bergement interne</div>
-        <p data-i18n="pL3.gov.p1">Pour les <b>donn&eacute;es clients sensibles</b>, deux options internes sont disponibles :</p>
-        <p data-i18n="pL3.gov.p2">&bull; <b>Microsoft Azure</b> <span style="font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);padding:2px 8px;font-weight:600">recommand&eacute;</span> &mdash; environnement int&eacute;gr&eacute; &agrave; l'&eacute;cosyst&egrave;me Wavestone (Azure SQL, Azure OpenAI, Blob Storage, App Service). Privil&eacute;gi&eacute; pour rester dans le p&eacute;rim&egrave;tre ma&icirc;tris&eacute;.</p>
-        <p data-i18n="pL3.gov.p3">&bull; <b>Amazon Web Services (AWS)</b> &mdash; alternative disponible pour certains cas d'usage (DynamoDB, S3, Lambda, Bedrock). &Agrave; valider avec la gouvernance IT.</p>
-        <p data-i18n="pL3.gov.p4">Les <b>cl&eacute;s API Wavestone</b> permettent dans les deux cas de rester dans un p&eacute;rim&egrave;tre s&eacute;curis&eacute; et trac&eacute;.</p>
-      </div>
-    </section>
-
-    <!-- ============ CAS 03 — APPLICATION SMARTPHONE (à venir) ============ -->
-    <section class="panel" data-panel="mobile">
-      <div class="panel-head">
-        <div class="t">
-          <span class="eyebrow" data-i18n="mobile.eyebrow">Cas d'usage 03</span>
-          <h2 data-i18n="mobile.h2">Cr&eacute;er une application smartphone</h2>
-          <div class="sub" data-i18n="mobile.sub">Une app native iOS ou Android, publi&eacute;e sur les stores.</div>
-        </div>
-      </div>
-
-      <div class="flow-lab" data-i18n="flow.lab">La cha&icirc;ne CI/CD</div>
-      <div class="flow" data-i18n="mobile.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Repo Git</span><span class="fa">&rarr;</span><span class="fn">Build natif</span><span class="fa">&rarr;</span><span class="fn">Store</span><span class="fa">&rarr;</span><span class="fn hl">T&eacute;l&eacute;phone</span></div>
-
-      <div class="soon-card">
-        <div class="ring"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-        <h3 data-i18n="soon.h3">&Agrave; venir &mdash; how-to en pr&eacute;paration</h3>
-        <p data-i18n="mobile.soon.p">Le pas-&agrave;-pas pour g&eacute;n&eacute;rer, tester et publier une application mobile native (iOS / Android) sera ajout&eacute; ici.</p>
-      </div>
-    </section>
-
-    <!-- ============ CAS 04 — MODÈLES D'IA EN LOCAL (à venir) ============ -->
-    <section class="panel" data-panel="localai">
-      <div class="panel-head">
-        <div class="t">
-          <span class="eyebrow" data-i18n="localai.eyebrow">Cas d'usage 04</span>
-          <h2 data-i18n="localai.h2">Utiliser des mod&egrave;les d'IA localement</h2>
-          <div class="sub" data-i18n="localai.sub">Faire tourner un LLM directement sur ta machine, sans appel externe.</div>
-        </div>
-      </div>
-
-      <div class="flow-lab" data-i18n="flow.lab">La cha&icirc;ne CI/CD</div>
-      <div class="flow" data-i18n="localai.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Code + Python portable</span><span class="fa">&rarr;</span><span class="fn">Mod&egrave;le d'IA local</span><span class="fa">&rarr;</span><span class="fn hl">Hors-ligne</span></div>
-
-      <div class="soon-card">
-        <div class="ring"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-        <h3 data-i18n="soon.h3">&Agrave; venir &mdash; how-to en pr&eacute;paration</h3>
-        <p data-i18n="localai.soon.p">Le pas-&agrave;-pas pour installer un mod&egrave;le d'IA local (Python portable + LLM) et l'appeler depuis ton app sera ajout&eacute; ici.</p>
-      </div>
-    </section>
-
-    <!-- ============ CAS 05 — AGENT COPILOT (à venir) ============ -->
-    <section class="panel" data-panel="copilot">
-      <div class="panel-head">
-        <div class="t">
-          <span class="eyebrow" data-i18n="copilot.eyebrow">Cas d'usage 05</span>
-          <h2 data-i18n="copilot.h2">Cr&eacute;er un agent Copilot</h2>
-          <div class="sub" data-i18n="copilot.sub">Un agent dans l'&eacute;cosyst&egrave;me Microsoft Copilot.</div>
-        </div>
-      </div>
-
-      <div class="flow-lab" data-i18n="flow.lab">La cha&icirc;ne CI/CD</div>
-      <div class="flow" data-i18n="copilot.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">D&eacute;finition de l'agent</span><span class="fa">&rarr;</span><span class="fn">Copilot Studio</span><span class="fa">&rarr;</span><span class="fn">Test</span><span class="fa">&rarr;</span><span class="fn hl">D&eacute;ploiement M365</span></div>
-
-      <div class="soon-card">
-        <div class="ring"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-        <h3 data-i18n="soon.h3">&Agrave; venir &mdash; how-to en pr&eacute;paration</h3>
-        <p data-i18n="copilot.soon.p">Le pas-&agrave;-pas pour cr&eacute;er et d&eacute;ployer un agent dans Microsoft Copilot Studio sera ajout&eacute; ici.</p>
-      </div>
-    </section>
-
+  <!-- GOVERNANCE NOTE -->
+  <div class="note">
+    <div class="lab" data-i18n="pL3.gov.lab">Gouvernance Wavestone &mdash; H&eacute;bergement interne</div>
+    <p data-i18n="pL3.gov.p1">Pour les <b>donn&eacute;es clients sensibles</b>, deux options internes sont disponibles :</p>
+    <p data-i18n="pL3.gov.p2">&bull; <b>Microsoft Azure</b> <span style="font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);padding:2px 8px;font-weight:600">recommand&eacute;</span> &mdash; environnement int&eacute;gr&eacute; &agrave; l'&eacute;cosyst&egrave;me Wavestone (Azure SQL, Azure OpenAI, Blob Storage, App Service). Privil&eacute;gi&eacute; pour rester dans le p&eacute;rim&egrave;tre ma&icirc;tris&eacute;.</p>
+    <p data-i18n="pL3.gov.p3">&bull; <b>Amazon Web Services (AWS)</b> &mdash; alternative disponible pour certains cas d'usage (DynamoDB, S3, Lambda, Bedrock). &Agrave; valider avec la gouvernance IT.</p>
+    <p data-i18n="pL3.gov.p4">Les <b>cl&eacute;s API Wavestone</b> permettent dans les deux cas de rester dans un p&eacute;rim&egrave;tre s&eacute;curis&eacute; et trac&eacute;.</p>
   </div>
 
   <!-- ============ INFOS UTILES ============ -->
@@ -488,156 +331,50 @@
 
 <footer>
   <span class="src" data-i18n="footer.src">Wavestone CYB &middot; AI Maker Initiative &mdash; guide de d&eacute;marrage</span>
-  <button class="reset" id="reset" data-i18n="footer.reset">r&eacute;initialiser la progression</button>
 </footer>
 
-<script>
-(function(){
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* ----- sélecteur de cas d'usage ----- */
-  var tiles = Array.prototype.slice.call(document.querySelectorAll('.tile'));
-  var panels = Array.prototype.slice.call(document.querySelectorAll('.panel'));
-  tiles.forEach(function(t){
-    t.addEventListener('click', function(){
-      var id = t.getAttribute('data-target');
-      tiles.forEach(function(x){ x.classList.toggle('active', x===t); });
-      panels.forEach(function(p){ p.classList.toggle('active', p.getAttribute('data-panel')===id); });
-      var panel = document.querySelector('.panel[data-panel="'+id+'"]');
-      if(panel){ var y = panel.getBoundingClientRect().top + window.pageYOffset - 80; window.scrollTo({top:y, behavior: reduce ? 'auto' : 'smooth'}); }
-    });
-  });
-
-  /* ----- étapes : progression par panneau ----- */
-  function refresh(panel){
-    var steps = panel.querySelectorAll('.step');
-    if(!steps.length) return;
-    var done = panel.querySelectorAll('.step.done').length;
-    var total = steps.length;
-    var dn = panel.querySelector('.prog .dn');
-    var fill = panel.querySelector('.spine-fill');
-    if(dn) dn.textContent = done;
-    if(fill) fill.style.height = (done/total*100)+'%';
-  }
-
-  panels.forEach(function(panel){
-    panel.querySelectorAll('.step').forEach(function(step){
-      var node = step.querySelector('.node');
-      function toggle(){
-        step.classList.toggle('done');
-        node.setAttribute('aria-pressed', step.classList.contains('done'));
-        refresh(panel);
-      }
-      node.addEventListener('click', toggle);
-      node.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); toggle(); } });
-    });
-    refresh(panel);
-  });
-
-  /* ----- copier les prompts ----- */
-  document.querySelectorAll('.copy').forEach(function(c){
-    c.addEventListener('click', function(){
-      var txt = c.parentElement.querySelector('.txt').textContent.trim();
-      var ok = function(){ c.textContent='copié ✓'; c.classList.add('ok'); setTimeout(function(){ c.textContent='copier'; c.classList.remove('ok'); },1600); };
-      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok, ok); }
-      else { var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); ok(); }
-    });
-  });
-
-  /* ----- reset ----- */
-  document.getElementById('reset').addEventListener('click', function(){
-    panels.forEach(function(panel){
-      panel.querySelectorAll('.step.done').forEach(function(s){ s.classList.remove('done'); s.querySelector('.node').setAttribute('aria-pressed','false'); });
-      refresh(panel);
-    });
-    window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
-  });
-})();
-</script>
 <script>
 window.WS_I18N = {
   en: {
     "__title": "Wavestone CYB AI Maker — Use cases",
-    "nav.agents": "Agent philosophy",
+    "nav.home": "Home",
     "nav.usecases": "Use cases",
-    "nav.infos": "Info &amp; useful links",
+    "nav.principles": "Agent principles",
+    "nav.agents": "Our agents",
+    "nav.apikey": "API key",
     "hero.eyebrow": "Use cases",
     "hero.title": "What do you want to <span class=\"ac\">build</span>?",
     "hero.lede": "Pick a use case. For each one: the high-level CI/CD chain, then the detailed how-to when it exists &mdash; otherwise, it's coming soon.",
     "hero.tagline": "# wavestone environment &middot; claude enterprise licence &middot; no admin rights",
     "chooser.eyebrow": "Where to start",
     "chooser.h2": "What's your use case?",
-    "chooser.p": "Pick a use case: the CI/CD chain and the how-to appear right below.",
+    "chooser.p": "Pick a use case: open its implementation guide, or discover the planned CI/CD chain.",
     "badge.ok": "Guide ready",
     "badge.soon": "Coming soon",
+    "cta.open": "Open the guide &#8594;",
     "tile.loc.h3": "Create a local application",
     "tile.loc.p": "An app that runs on your machine &mdash; from an HTML file to a Python script.",
-    "tile.loc.stack": "<span class=\"chip\">Git</span><span class=\"chip\">VS Code</span><span class=\"chip\">Python</span>",
+    "loc.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Code</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git repo</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Your machine</span>",
+    "tile.webapp.h3": "Create a web app (online)",
+    "tile.webapp.p": "An app published online via GitHub Pages, reachable through a URL.",
+    "webapp.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">GitHub Pages</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Live website</span>",
     "tile.web.h3": "Create a web app with an online database",
     "tile.web.p": "Front end, backend and a centralised database, hosted online.",
-    "tile.web.stack": "<span class=\"chip\">Backend</span><span class=\"chip\">Database</span><span class=\"chip\">Cloud</span>",
+    "web.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Build &amp; deploy</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Web host + database</span>",
     "tile.mobile.h3": "Create a smartphone app",
     "tile.mobile.p": "A native iOS or Android app, published to the stores.",
-    "tile.mobile.stack": "<span class=\"chip\">iOS</span><span class=\"chip\">Android</span><span class=\"chip\">Store</span>",
+    "mobile.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Native build</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Store</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Phone</span>",
     "tile.localai.h3": "Use AI models locally",
     "tile.localai.p": "Run an LLM directly on your machine, with no external call.",
-    "tile.localai.stack": "<span class=\"chip\">Python</span><span class=\"chip\">Local LLM</span><span class=\"chip\">Offline</span>",
+    "localai.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Code + portable Python</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Local AI model</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Offline</span>",
     "tile.copilot.h3": "Create a Copilot agent",
     "tile.copilot.p": "An agent in the Microsoft Copilot ecosystem.",
-    "tile.copilot.stack": "<span class=\"chip\">Copilot Studio</span><span class=\"chip\">Microsoft 365</span>",
-    "prog.etapes": "steps",
-    "flow.lab": "The CI/CD chain",
-    "loc.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Code</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git repo</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Your machine</span>",
-    "loc.detail": "<span class=\"nm\">See the detailed how-to</span><span class=\"go\">step by step &#8594;</span>",
-    "p2.eyebrow": "Use case 01",
-    "p2.h2": "Create a local application",
-    "p2.sub": "Git + VS Code + Python: an app that runs on your machine, with backup and teamwork via GitHub.",
-    "p2.s1.h4": "Test Claude + create a GitHub",
-    "p2.s1.do": "Sign in to Claude (Wavestone account) and create a free GitHub account to store and version your code.",
-    "p2.s2.h4": "Install Git",
-    "p2.s2.do": "Download and install Git (Windows version). No interface: it's the component that tracks changes to your files.",
-    "p2.s3.h4": "Install GitHub Desktop",
-    "p2.s3.do": "The client that syncs your repositories between the web and your machine (<code>Documents/GitHub</code>). Connect your GitHub account. This is what enables <b>backup and teamwork</b>.",
-    "p2.s4.h4": "Install Visual Studio Code",
-    "p2.s4.do": "The editor you'll work in. Download for Windows, then Next &rarr; Install.",
-    "p2.s5.h4": "Install Python <span class=\"mini opt\">for advanced code</span>",
-    "p2.s5.do": "Install the <b>Python Install Manager</b> (recommended via the Microsoft Store). Useful as soon as Claude needs to generate and run Python locally.",
-    "p2.s6.h4": "Claude Code extension + first file",
-    "p2.s6.do": "In VS Code: Extensions (<code>Ctrl+Shift+X</code>) &rarr; search <b>&laquo; Claude Code &raquo;</b> (Anthropic) &rarr; Install. Connect your Claude account, open a folder on your machine, then ask for your first file in the Claude panel (+ icon).",
-    "p2.s6.lk1": "official guide <span class=\"ar\">&#8599;</span>",
-    "p2.s6.lk2": "open in VS&nbsp;Code <span class=\"ar\">&#8599;</span>",
-    "p2.prompt1.who": "Example &mdash; simple page",
-    "p2.prompt1.txt": "Create a standalone HTML page named tetris.html: a minimalist Tetris that starts on the Enter key.",
-    "p2.prompt2.who": "Example &mdash; local Python script",
-    "p2.prompt2.txt": "Create a Python script that uses faster-whisper locally to transcribe my audio and video files on my machine.",
-    "p2.note.lab": "Human in the loop",
-    "p2.note.p": "Locally, Claude asks your permission before running a command. Read what it proposes, then approve &mdash; nothing runs behind your back.",
-    "web.eyebrow": "Use case 02",
-    "web.h2": "Create a web app with an online database",
-    "web.sub": "Front end, backend and a centralised database, hosted online.",
-    "web.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Build &amp; deploy</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Web host + database</span>",
-    "web.soon.p": "The step-by-step for wiring an online database is coming. Given the governance rule (sensitive client data in the Microsoft environment), it will rely primarily on Azure.",
-    "soon.h3": "Coming soon &mdash; how-to in preparation",
+    "copilot.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Agent definition</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Copilot Studio</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Test</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">M365 deployment</span>",
     "pL3.gov.lab": "Wavestone governance &mdash; internal hosting",
     "pL3.gov.p1": "For <b>sensitive client data</b>, two internal options are available:",
     "pL3.gov.p2": "&bull; <b>Microsoft Azure</b> <span style=\"font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);padding:2px 8px;font-weight:600\">recommended</span> &mdash; environment integrated with the Wavestone ecosystem (Azure SQL, Azure OpenAI, Blob Storage, App Service). Preferred to stay within the controlled perimeter.",
     "pL3.gov.p3": "&bull; <b>Amazon Web Services (AWS)</b> &mdash; alternative available for some use cases (DynamoDB, S3, Lambda, Bedrock). To be validated with IT governance.",
     "pL3.gov.p4": "In both cases, <b>Wavestone API keys</b> keep you within a secure, traceable perimeter.",
-    "mobile.eyebrow": "Use case 03",
-    "mobile.h2": "Create a smartphone app",
-    "mobile.sub": "A native iOS or Android app, published to the stores.",
-    "mobile.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Native build</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Store</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Phone</span>",
-    "mobile.soon.p": "The step-by-step to generate, test and publish a native mobile app (iOS / Android) will be added here.",
-    "localai.eyebrow": "Use case 04",
-    "localai.h2": "Use AI models locally",
-    "localai.sub": "Run an LLM directly on your machine, with no external call.",
-    "localai.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Code + portable Python</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Local AI model</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Offline</span>",
-    "localai.soon.p": "The step-by-step to install a local AI model (portable Python + LLM) and call it from your app will be added here.",
-    "copilot.eyebrow": "Use case 05",
-    "copilot.h2": "Create a Copilot agent",
-    "copilot.sub": "An agent in the Microsoft Copilot ecosystem.",
-    "copilot.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Agent definition</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Copilot Studio</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Test</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">M365 deployment</span>",
-    "copilot.soon.p": "The step-by-step to build and deploy an agent in Microsoft Copilot Studio will be added here.",
     "infos.eyebrow": "Resources",
     "infos.h2": "Info &amp; useful links",
     "infos.p": "All the access and downloads, in one place.",
@@ -649,91 +386,48 @@ window.WS_I18N = {
     "infos.dl.h3": "Downloads",
     "infos.dl.github": "GitHub (account)",
     "infos.dl.ext": "Claude Code extension (VS Code)",
-    "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; getting-started guide",
-    "footer.reset": "reset progress"
+    "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; getting-started guide"
   },
   de: {
-    "__title": "Wavestone CYB AI Maker — Anwendungsf&auml;lle",
-    "nav.agents": "Agenten-Philosophie",
+    "__title": "Wavestone CYB AI Maker — Anwendungsfälle",
+    "nav.home": "Start",
     "nav.usecases": "Anwendungsf&auml;lle",
-    "nav.infos": "Infos &amp; n&uuml;tzliche Links",
+    "nav.principles": "Agenten-Prinzipien",
+    "nav.agents": "Unsere Agenten",
+    "nav.apikey": "API-Schl&uuml;ssel",
     "hero.eyebrow": "Anwendungsf&auml;lle",
     "hero.title": "Was willst du <span class=\"ac\">bauen</span>?",
     "hero.lede": "W&auml;hle einen Anwendungsfall. F&uuml;r jeden: die CI/CD-Kette auf hoher Ebene, dann das detaillierte How-to, sofern vorhanden &mdash; sonst kommt es bald.",
     "hero.tagline": "# wavestone-umgebung &middot; claude-enterprise-lizenz &middot; ohne admin-rechte",
     "chooser.eyebrow": "Wo anfangen",
     "chooser.h2": "Was ist dein Anwendungsfall?",
-    "chooser.p": "W&auml;hle einen Anwendungsfall: Die CI/CD-Kette und das How-to erscheinen direkt darunter.",
+    "chooser.p": "W&auml;hle einen Anwendungsfall: &Ouml;ffne seinen Umsetzungsleitfaden oder entdecke die geplante CI/CD-Kette.",
     "badge.ok": "Anleitung da",
     "badge.soon": "Demn&auml;chst",
+    "cta.open": "Zum Leitfaden &#8594;",
     "tile.loc.h3": "Eine lokale Anwendung erstellen",
     "tile.loc.p": "Eine App, die auf deinem Rechner l&auml;uft &mdash; von der HTML-Datei bis zum Python-Skript.",
-    "tile.loc.stack": "<span class=\"chip\">Git</span><span class=\"chip\">VS Code</span><span class=\"chip\">Python</span>",
+    "loc.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Code</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git-Repo</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Dein Rechner</span>",
+    "tile.webapp.h3": "Eine Web-App erstellen (online)",
+    "tile.webapp.p": "Eine App, die &uuml;ber GitHub Pages online ver&ouml;ffentlicht und per URL erreichbar ist.",
+    "webapp.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git-Repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">GitHub Pages</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Live-Website</span>",
     "tile.web.h3": "Eine Web-App mit Online-Datenbank erstellen",
     "tile.web.p": "Frontend, Backend und eine zentrale Datenbank, online gehostet.",
-    "tile.web.stack": "<span class=\"chip\">Backend</span><span class=\"chip\">Datenbank</span><span class=\"chip\">Cloud</span>",
+    "web.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git-Repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Build &amp; Deployment</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Webhoster + Datenbank</span>",
     "tile.mobile.h3": "Eine Smartphone-App erstellen",
     "tile.mobile.p": "Eine native iOS- oder Android-App, in den Stores ver&ouml;ffentlicht.",
-    "tile.mobile.stack": "<span class=\"chip\">iOS</span><span class=\"chip\">Android</span><span class=\"chip\">Store</span>",
+    "mobile.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git-Repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Nativer Build</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Store</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Smartphone</span>",
     "tile.localai.h3": "KI-Modelle lokal nutzen",
     "tile.localai.p": "Ein LLM direkt auf deinem Rechner ausf&uuml;hren, ohne externen Aufruf.",
-    "tile.localai.stack": "<span class=\"chip\">Python</span><span class=\"chip\">Lokales LLM</span><span class=\"chip\">Offline</span>",
+    "localai.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Code + portables Python</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Lokales KI-Modell</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Offline</span>",
     "tile.copilot.h3": "Einen Copilot-Agenten erstellen",
     "tile.copilot.p": "Ein Agent im Microsoft-Copilot-&Ouml;kosystem.",
-    "tile.copilot.stack": "<span class=\"chip\">Copilot Studio</span><span class=\"chip\">Microsoft 365</span>",
-    "prog.etapes": "Schritte",
-    "flow.lab": "Die CI/CD-Kette",
-    "loc.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Code</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git-Repo</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Dein Rechner</span>",
-    "loc.detail": "<span class=\"nm\">Detailliertes How-to ansehen</span><span class=\"go\">Schritt f&uuml;r Schritt &#8594;</span>",
-    "p2.eyebrow": "Anwendungsfall 01",
-    "p2.h2": "Eine lokale Anwendung erstellen",
-    "p2.sub": "Git + VS Code + Python: eine App, die auf deinem Rechner l&auml;uft, mit Sicherung und Zusammenarbeit &uuml;ber GitHub.",
-    "p2.s1.h4": "Claude testen + ein GitHub erstellen",
-    "p2.s1.do": "Melde dich bei Claude an (Wavestone-Konto) und erstelle ein kostenloses GitHub-Konto, um deinen Code zu speichern und zu versionieren.",
-    "p2.s2.h4": "Git installieren",
-    "p2.s2.do": "Lade Git herunter und installiere es (Windows-Version). Keine Oberfl&auml;che: Es ist die Komponente, die &Auml;nderungen an deinen Dateien verfolgt.",
-    "p2.s3.h4": "GitHub Desktop installieren",
-    "p2.s3.do": "Der Client, der deine Repositories zwischen Web und Rechner synchronisiert (<code>Documents/GitHub</code>). Verbinde dein GitHub-Konto. Er erm&ouml;glicht <b>Sicherung und Zusammenarbeit</b>.",
-    "p2.s4.h4": "Visual Studio Code installieren",
-    "p2.s4.do": "Der Editor, in dem du arbeiten wirst. Lade ihn f&uuml;r Windows herunter, dann Weiter &rarr; Installieren.",
-    "p2.s5.h4": "Python installieren <span class=\"mini opt\">f&uuml;r fortgeschrittenen Code</span>",
-    "p2.s5.do": "Installiere den <b>Python Install Manager</b> (empfohlen &uuml;ber den Microsoft Store). N&uuml;tzlich, sobald Claude lokal Python generieren und ausf&uuml;hren muss.",
-    "p2.s6.h4": "Claude-Code-Erweiterung + erste Datei",
-    "p2.s6.do": "In VS Code: Erweiterungen (<code>Ctrl+Shift+X</code>) &rarr; suche <b>&laquo; Claude Code &raquo;</b> (Anthropic) &rarr; Installieren. Verbinde dein Claude-Konto, &ouml;ffne einen Ordner auf deinem Rechner und frage dann im Claude-Panel (+ Symbol) nach deiner ersten Datei.",
-    "p2.s6.lk1": "offizielle Anleitung <span class=\"ar\">&#8599;</span>",
-    "p2.s6.lk2": "in VS&nbsp;Code &ouml;ffnen <span class=\"ar\">&#8599;</span>",
-    "p2.prompt1.who": "Beispiel &mdash; einfache Seite",
-    "p2.prompt1.txt": "Erstelle mir eine eigenst&auml;ndige HTML-Seite namens tetris.html: ein minimalistisches Tetris, das mit der Enter-Taste startet.",
-    "p2.prompt2.who": "Beispiel &mdash; lokales Python-Skript",
-    "p2.prompt2.txt": "Erstelle mir ein Python-Skript, das lokal faster-whisper verwendet, um meine Audio- und Videodateien auf meinem Rechner zu transkribieren.",
-    "p2.note.lab": "Human in the loop",
-    "p2.note.p": "Lokal fragt Claude um deine Erlaubnis, bevor es einen Befehl ausf&uuml;hrt. Lies, was es vorschl&auml;gt, und best&auml;tige dann &mdash; nichts l&auml;uft hinter deinem R&uuml;cken.",
-    "web.eyebrow": "Anwendungsfall 02",
-    "web.h2": "Eine Web-App mit Online-Datenbank erstellen",
-    "web.sub": "Frontend, Backend und eine zentrale Datenbank, online gehostet.",
-    "web.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git-Repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Build &amp; Deployment</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Webhoster + Datenbank</span>",
-    "web.soon.p": "Die Schritt-f&uuml;r-Schritt-Anleitung zum Anbinden einer Online-Datenbank folgt. Angesichts der Governance-Regel (sensible Kundendaten in der Microsoft-Umgebung) wird sie vorrangig auf Azure setzen.",
-    "soon.h3": "Demn&auml;chst &mdash; How-to in Vorbereitung",
+    "copilot.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Agenten-Definition</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Copilot Studio</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Test</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">M365-Deployment</span>",
     "pL3.gov.lab": "Wavestone-Governance &mdash; internes Hosting",
     "pL3.gov.p1": "F&uuml;r <b>sensible Kundendaten</b> stehen zwei interne Optionen zur Verf&uuml;gung:",
     "pL3.gov.p2": "&bull; <b>Microsoft Azure</b> <span style=\"font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);padding:2px 8px;font-weight:600\">empfohlen</span> &mdash; in das Wavestone-&Ouml;kosystem integrierte Umgebung (Azure SQL, Azure OpenAI, Blob Storage, App Service). Bevorzugt, um im kontrollierten Perimeter zu bleiben.",
     "pL3.gov.p3": "&bull; <b>Amazon Web Services (AWS)</b> &mdash; Alternative f&uuml;r bestimmte Anwendungsf&auml;lle (DynamoDB, S3, Lambda, Bedrock). Mit der IT-Governance abzustimmen.",
     "pL3.gov.p4": "In beiden F&auml;llen halten dich die <b>Wavestone-API-Schl&uuml;ssel</b> in einem sicheren, nachvollziehbaren Perimeter.",
-    "mobile.eyebrow": "Anwendungsfall 03",
-    "mobile.h2": "Eine Smartphone-App erstellen",
-    "mobile.sub": "Eine native iOS- oder Android-App, in den Stores ver&ouml;ffentlicht.",
-    "mobile.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git-Repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Nativer Build</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Store</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Smartphone</span>",
-    "mobile.soon.p": "Die Schritt-f&uuml;r-Schritt-Anleitung zum Erstellen, Testen und Ver&ouml;ffentlichen einer nativen mobilen App (iOS / Android) wird hier erg&auml;nzt.",
-    "localai.eyebrow": "Anwendungsfall 04",
-    "localai.h2": "KI-Modelle lokal nutzen",
-    "localai.sub": "Ein LLM direkt auf deinem Rechner ausf&uuml;hren, ohne externen Aufruf.",
-    "localai.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Code + portables Python</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Lokales KI-Modell</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Offline</span>",
-    "localai.soon.p": "Die Schritt-f&uuml;r-Schritt-Anleitung zum Installieren eines lokalen KI-Modells (portables Python + LLM) und dessen Aufruf aus deiner App wird hier erg&auml;nzt.",
-    "copilot.eyebrow": "Anwendungsfall 05",
-    "copilot.h2": "Einen Copilot-Agenten erstellen",
-    "copilot.sub": "Ein Agent im Microsoft-Copilot-&Ouml;kosystem.",
-    "copilot.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Agenten-Definition</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Copilot Studio</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Test</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">M365-Deployment</span>",
-    "copilot.soon.p": "Die Schritt-f&uuml;r-Schritt-Anleitung zum Erstellen und Bereitstellen eines Agenten in Microsoft Copilot Studio wird hier erg&auml;nzt.",
     "infos.eyebrow": "Ressourcen",
     "infos.h2": "Infos &amp; n&uuml;tzliche Links",
     "infos.p": "Alle Zug&auml;nge und Downloads an einem Ort.",
@@ -745,8 +439,7 @@ window.WS_I18N = {
     "infos.dl.h3": "Downloads",
     "infos.dl.github": "GitHub (Konto)",
     "infos.dl.ext": "Claude-Code-Erweiterung (VS Code)",
-    "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; Einstiegsleitfaden",
-    "footer.reset": "Fortschritt zur&uuml;cksetzen"
+    "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; Einstiegsleitfaden"
   }
 };
 </script>
