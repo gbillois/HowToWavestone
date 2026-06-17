@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe coding @ Wavestone — Application locale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --indigo-950:#170A3D; --indigo-850:#271061; --indigo-700:#451DC7; --indigo-600:#5A2BE0;
+    --indigo-100:#DDD5FA; --indigo-50:#F4F0FF; --green-500:#04F06A; --green-100:#DFFBEA;
+    --green-800:#075D35; --cyan-600:#07818D; --cyan-50:#E8FAFC; --amber-600:#B36300;
+    --amber-50:#FFF5DF; --red-600:#C02F45; --red-50:#FFF0F2; --ink-950:#15121D;
+    --ink-800:#302B41; --ink-650:#5D576E; --ink-500:#756F85; --ink-200:#D9D6E4;
+    --ink-100:#EDEAF3; --ink-50:#F8F7FB; --white:#FFFFFF;
+    --display:'Poppins',system-ui,sans-serif; --body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --shadow-sm:0 2px 8px rgba(21,18,29,.07); --shadow-md:0 10px 26px rgba(21,18,29,.11);
+    --shadow-brand:0 18px 45px rgba(69,29,199,.25);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--white);color:var(--ink-950);font-family:var(--body);line-height:1.55;-webkit-font-smoothing:antialiased}
+  a{color:inherit} button{font:inherit}
+  .topbar{position:sticky;top:0;z-index:80;background:rgba(255,255,255,.9);border-bottom:1px solid var(--ink-100);backdrop-filter:blur(14px)}
+  .topbar-inner{max-width:1180px;margin:0 auto;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{display:flex;align-items:center;gap:10px;color:var(--indigo-700);text-decoration:none;font-family:var(--display);font-weight:700;font-size:15px}
+  .brand-mark{width:13px;height:13px;background:var(--green-500);box-shadow:0 0 0 5px var(--green-100)}
+  .nav{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+  .nav a{min-height:34px;border:1px solid var(--ink-200);background:var(--white);color:var(--ink-650);text-decoration:none;padding:7px 11px;font-size:12px;font-family:var(--mono)}
+  .nav a:hover{color:var(--indigo-700);border-color:var(--indigo-600);background:var(--indigo-50)}
+  .progress{position:fixed;top:59px;left:0;width:0;height:4px;background:linear-gradient(90deg,var(--green-500),#8BFFBE);z-index:90}
+  .hero{position:relative;overflow:hidden;color:var(--white);background:linear-gradient(135deg,rgba(23,10,61,.97),rgba(69,29,199,.88)),repeating-linear-gradient(90deg,rgba(255,255,255,.06) 0 1px,transparent 1px 76px),repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 76px)}
+  .hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:10px;background:linear-gradient(90deg,var(--green-500),#69F0FF,#FFD166,#FF6B7D)}
+  .hero-inner{max-width:1180px;margin:0 auto;padding:76px 22px 70px;display:grid;grid-template-columns:1.08fr .92fr;gap:34px;align-items:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;font-weight:600;color:var(--green-500);margin-bottom:18px}
+  .eyebrow:before{content:"";width:18px;height:3px;background:currentColor}
+  h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0}
+  h1{max-width:760px;font-size:56px;font-weight:800}
+  .hero p{max-width:720px;margin:20px 0 0;color:rgba(255,255,255,.82);font-size:18px}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 16px;border:1px solid transparent;text-decoration:none;font-weight:700;cursor:pointer}
+  .btn.primary{background:var(--green-500);color:var(--indigo-950)}
+  .btn.secondary{background:rgba(255,255,255,.08);color:var(--white);border-color:rgba(255,255,255,.32)}
+  .console{background:#0D0821;border:1px solid rgba(255,255,255,.16);box-shadow:var(--shadow-brand);padding:18px}
+  .console-head{display:flex;align-items:center;justify-content:space-between;gap:8px;border-bottom:1px solid rgba(255,255,255,.12);padding-bottom:12px;margin-bottom:14px;font-family:var(--mono);font-size:12px;color:rgba(255,255,255,.55)}
+  .dots{display:flex;gap:6px}.dots span{width:10px;height:10px;background:var(--green-500)}.dots span:nth-child(2){background:#69F0FF}.dots span:nth-child(3){background:#FFD166}
+  .terminal-line{display:grid;grid-template-columns:auto 1fr;gap:10px;margin:10px 0;font-family:var(--mono);font-size:13px;color:#DAD7E8}
+  .terminal-line .prompt{color:var(--green-500)}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+  .overview{margin-top:-34px;position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .metric{background:var(--white);border:1px solid var(--ink-100);box-shadow:var(--shadow-md);padding:18px;min-height:126px}
+  .metric strong{display:block;font-family:var(--display);color:var(--indigo-700);font-size:24px;margin-bottom:6px}
+  .metric span{display:block;color:var(--ink-650);font-size:14px}
+  .section{padding:64px 0 10px;scroll-margin-top:92px}
+  .section-head{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start;margin-bottom:24px}
+  .section-letter{width:54px;height:54px;display:grid;place-items:center;color:var(--white);background:var(--indigo-700);font-family:var(--display);font-size:24px;font-weight:800}
+  .section h2{font-size:34px;color:var(--indigo-950);margin-bottom:8px}
+  .section-lede{margin:0;color:var(--ink-650);max-width:850px}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .card{background:var(--white);border:1px solid var(--ink-100);box-shadow:var(--shadow-sm);padding:20px}
+  .card.highlight{border-color:var(--indigo-100);box-shadow:var(--shadow-md)}
+  .card h3{font-size:20px;margin-bottom:8px;color:var(--indigo-700)}
+  .card p{margin:0;color:var(--ink-650);font-size:15px}
+  .badge{display:inline-flex;align-items:center;min-height:24px;padding:3px 9px;background:var(--indigo-50);color:var(--indigo-700);font-family:var(--mono);font-size:11px;font-weight:600;margin-bottom:12px}
+  .badge.green{background:var(--green-100);color:var(--green-800)}.badge.cyan{background:var(--cyan-50);color:var(--cyan-600)}.badge.amber{background:var(--amber-50);color:var(--amber-600)}.badge.red{background:var(--red-50);color:var(--red-600)}
+  .flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:12px;margin-top:18px}
+  .flow-arrow{display:grid;place-items:center;color:var(--green-800);font-family:var(--display);font-size:22px}
+  .timeline{display:grid;gap:16px}
+  .step{display:grid;grid-template-columns:58px 1fr;gap:16px;align-items:start;background:var(--ink-50);border:1px solid var(--ink-100);padding:18px}
+  .step-num{width:42px;height:42px;display:grid;place-items:center;background:var(--white);border:1px solid var(--indigo-100);color:var(--indigo-700);font-family:var(--display);font-weight:800}
+  .step h3{font-size:21px;color:var(--ink-950);margin-bottom:8px}
+  .step p{margin:0 0 12px;color:var(--ink-650)}
+  .clicks{margin:12px 0 0;padding:0;list-style:none;display:grid;gap:7px}
+  .clicks li{position:relative;padding-left:24px;color:var(--ink-800);font-size:14px}
+  .clicks li:before{content:"";position:absolute;left:0;top:8px;width:8px;height:8px;background:var(--green-500)}
+  code{font-family:var(--mono);font-size:.9em;background:#fff;border:1px solid var(--ink-100);padding:1px 5px}
+  .shot{margin-top:14px;border:1px dashed var(--indigo-100);background:var(--white);padding:14px}
+  .shot-title{display:flex;justify-content:space-between;gap:10px;color:var(--indigo-700);font-family:var(--mono);font-weight:600;font-size:12px;margin-bottom:8px}
+  .shot p{font-size:13px;margin:0;color:var(--ink-650)}
+  .prompt-box{background:#0E0922;color:#ECE9F7;border:1px solid #302663;padding:18px;position:relative}
+  .prompt-box pre{margin:0;white-space:pre-wrap;font-family:var(--mono);font-size:13px;line-height:1.6}
+  .copy-btn{position:absolute;right:12px;top:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;min-height:32px;padding:6px 10px;font-family:var(--mono);font-size:11px;cursor:pointer}
+  .callout{border-left:5px solid var(--green-500);background:var(--green-100);padding:16px 18px;color:var(--green-800)}
+  .callout.warning{border-color:#FFD166;background:var(--amber-50);color:#6E3A00}.callout p{margin:0}
+  .resource-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-top:18px}
+  .resource{border:1px solid var(--ink-100);background:var(--white);padding:16px;text-decoration:none}
+  .resource strong{display:block;color:var(--indigo-700);margin-bottom:6px}.resource span{display:block;color:var(--ink-650);font-size:13px}
+  .footer{margin-top:68px;background:var(--indigo-950);color:rgba(255,255,255,.78)}
+  .footer-inner{max-width:1180px;margin:0 auto;padding:30px 22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .footer a{color:#9CF7BF}
+  :focus-visible{outline:3px solid rgba(90,43,224,.35);outline-offset:2px}
+  @media(max-width:900px){
+    .hero-inner,.grid-2,.grid-3,.overview,.resource-list{grid-template-columns:1fr}
+    .flow{grid-template-columns:1fr}.flow-arrow{min-height:24px;transform:rotate(90deg)}
+    h1{font-size:42px}.section h2{font-size:28px}.topbar-inner{align-items:flex-start;flex-direction:column}
+    .nav{width:100%;max-width:100%;flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;padding-bottom:2px}.nav a{flex:0 0 auto}.progress{top:0}
+  }
+  @media(max-width:560px){.hero-inner{padding-top:46px}h1{font-size:34px}.step{grid-template-columns:1fr}.section-head{grid-template-columns:1fr}}
+  *,*::before,*::after{border-radius:0!important}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="index.html"><span class="brand-mark"></span><span>Wavestone - App locale</span></a>
+    <nav class="nav" aria-label="Navigation">
+      <a href="#concept">Concept</a>
+      <a href="#installation">Installation</a>
+      <a href="#simple">Premier test</a>
+      <a href="#transcription">Transcription locale</a>
+      <a href="#sources">Liens utiles</a>
+    </nav>
+  </div>
+</div>
+<div class="progress" id="progress"></div>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow">Atelier PC Wavestone</div>
+      <h1>Créer une application locale avec l'IA</h1>
+      <p>Un parcours simple pour installer les bons outils, synchroniser un projet GitHub, coder avec Claude dans Visual Studio Code, puis lancer une vraie application sur le poste.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#installation">Démarrer l'installation</a>
+        <a class="btn secondary" href="#transcription">Voir le cas avancé</a>
+      </div>
+    </div>
+    <div class="console" aria-label="Local coding preview">
+      <div class="console-head">
+        <span>local://wavestone-pc</span>
+        <div class="dots"><span></span><span></span><span></span></div>
+      </div>
+      <div class="terminal-line"><span class="prompt">&gt;</span><span>Installer Git, GitHub Desktop, Python et VS Code</span></div>
+      <div class="terminal-line"><span class="prompt">&gt;</span><span>Créer et synchroniser une repository</span></div>
+      <div class="terminal-line"><span class="prompt">&gt;</span><span>Coder avec l'extension Claude</span></div>
+      <div class="terminal-line"><span class="prompt">&gt;</span><span>Lancer l'application en local</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="overview" aria-label="Résumé">
+    <div class="metric"><strong>45 min</strong><span>pour installer et tester la chaîne locale</span></div>
+    <div class="metric"><strong>4</strong><span>outils : Git, GitHub, Python, VS Code</span></div>
+    <div class="metric"><strong>1</strong><span>repository synchronisée avec le poste</span></div>
+    <div class="metric"><strong>2</strong><span>cas d'usage : HTML simple puis IA locale</span></div>
+  </section>
+
+  <section class="section" id="concept">
+    <div class="section-head">
+      <div class="section-letter">A</div>
+      <div>
+        <h2>Comprendre la chaîne locale</h2>
+        <p class="section-lede">La logique reste la même que pour une application web : une idée, un repository, un agent IA de code, puis une exécution. La différence est que le résultat tourne sur le PC.</p>
+      </div>
+    </div>
+    <div class="flow">
+      <article class="card highlight">
+        <span class="badge green">Brique 1</span>
+        <h3>Repository GitHub</h3>
+        <p>Le projet vit dans GitHub pour être historisé, partagé et sauvegardé. GitHub Desktop ou Git SCM synchronise le dossier local.</p>
+      </article>
+      <div class="flow-arrow">→</div>
+      <article class="card highlight">
+        <span class="badge">Brique 2</span>
+        <h3>VS Code + Claude</h3>
+        <p>Visual Studio Code ouvre le dossier. L'extension Claude lit le projet, crée les fichiers, corrige les erreurs et propose les commandes.</p>
+      </article>
+      <div class="flow-arrow">→</div>
+      <article class="card highlight">
+        <span class="badge cyan">Brique 3</span>
+        <h3>Exécution locale</h3>
+        <p>Un fichier HTML s'ouvre directement dans le navigateur. Une application Python se lance depuis le terminal et peut traiter des fichiers locaux.</p>
+      </article>
+    </div>
+    <div class="callout" style="margin-top:16px">
+      <p>Message animateur : l'objectif n'est pas de devenir développeur. L'objectif est de savoir créer un dossier projet propre, demander à l'IA de produire le code, puis tester le résultat sur son poste.</p>
+    </div>
+  </section>
+
+  <section class="section" id="installation">
+    <div class="section-head">
+      <div class="section-letter">B</div>
+      <div>
+        <h2>Installer les outils sur le PC Wavestone</h2>
+        <p class="section-lede">À faire une fois. Les droits disponibles peuvent varier selon le poste : privilégier les installateurs utilisateur et le Microsoft Store quand c'est possible.</p>
+      </div>
+    </div>
+    <div class="timeline">
+      <article class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>Installer Git SCM</h3>
+          <p>Git SCM donne les commandes Git au poste. C'est la couche de synchronisation utilisée par GitHub Desktop, VS Code et les agents de code.</p>
+          <ul class="clicks">
+            <li>Ouvrir <a href="https://git-scm.com/download/win" target="_blank" rel="noreferrer">git-scm.com/download/win</a>.</li>
+            <li>Télécharger Git for Windows puis lancer l'installation.</li>
+            <li>Garder les options par défaut, notamment Git Credential Manager.</li>
+            <li>Ouvrir un terminal et vérifier avec <code>git --version</code>.</li>
+          </ul>
+          <div class="shot"><div class="shot-title"><span>Contrôle</span><span>Terminal</span></div><p>Une version Git s'affiche. Si Windows demande avec quelle application ouvrir Git, relancer l'installation et garder les options par défaut.</p></div>
+        </div>
+      </article>
+      <article class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>Installer GitHub Desktop et se connecter</h3>
+          <p>GitHub Desktop simplifie les premières synchronisations : clone, commit, push et pull sans ligne de commande.</p>
+          <ul class="clicks">
+            <li>Ouvrir <a href="https://desktop.github.com" target="_blank" rel="noreferrer">desktop.github.com</a>.</li>
+            <li>Installer GitHub Desktop avec l'installateur utilisateur.</li>
+            <li>Se connecter au compte GitHub Wavestone ou au compte autorisé pour l'atelier.</li>
+            <li>Vérifier que l'application affiche le bouton <b>Clone a repository</b>.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>Installer Python via le Microsoft Store</h3>
+          <p>Python permet de lancer des scripts et des applications locales. Le Microsoft Store évite souvent les problèmes de droits administrateur.</p>
+          <ul class="clicks">
+            <li>Ouvrir le Microsoft Store.</li>
+            <li>Rechercher <b>Python</b> et installer une version récente de Python 3.</li>
+            <li>Ouvrir un terminal et vérifier avec <code>python --version</code>.</li>
+            <li>Vérifier aussi <code>pip --version</code>, qui servira à installer les bibliothèques du projet.</li>
+          </ul>
+          <div class="shot"><div class="shot-title"><span>Astuce</span><span>Windows</span></div><p>Si la commande <code>python</code> ouvre le Store au lieu d'afficher une version, fermer le terminal, le rouvrir, puis réessayer.</p></div>
+        </div>
+      </article>
+      <article class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3>Installer Visual Studio Code et l'extension Claude</h3>
+          <p>VS Code est l'espace de travail. L'extension Claude permet de demander des changements directement dans le contexte du dossier ouvert.</p>
+          <ul class="clicks">
+            <li>Ouvrir <a href="https://code.visualstudio.com" target="_blank" rel="noreferrer">code.visualstudio.com</a> et installer la version User Installer pour Windows.</li>
+            <li>Lancer VS Code puis ouvrir l'onglet Extensions.</li>
+            <li>Rechercher <b>Claude</b> et installer l'extension utilisée par l'équipe.</li>
+            <li>Se connecter au compte autorisé, puis vérifier que le panneau Claude est accessible dans VS Code.</li>
+          </ul>
+          <div class="shot"><div class="shot-title"><span>Contrôle</span><span>VS Code</span></div><p>Le panneau Claude doit pouvoir lire le dossier ouvert et proposer de créer ou modifier des fichiers.</p></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="simple">
+    <div class="section-head">
+      <div class="section-letter">C</div>
+      <div>
+        <h2>Démarrer avec un premier prompt simple</h2>
+        <p class="section-lede">On crée une repository, on la synchronise sur le PC, on l'ouvre dans VS Code, puis on demande à Claude de générer un premier fichier HTML autonome.</p>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <span class="badge green">But</span>
+        <h3>Valider la chaîne complète</h3>
+        <p>À la fin de cette étape, le fichier <code>index.html</code> est présent dans le dossier local et s'ouvre dans le navigateur. Le système est fonctionnel.</p>
+      </div>
+      <div class="card">
+        <span class="badge amber">Réflexe</span>
+        <h3>Commiter tôt</h3>
+        <p>Dès que le premier test fonctionne, faire un commit dans GitHub Desktop. Cela crée un point de retour avant les itérations.</p>
+      </div>
+    </div>
+    <div class="timeline" style="margin-top:18px">
+      <article class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>Créer et synchroniser une repository GitHub</h3>
+          <p>La repository peut être privée si elle contient des éléments internes. Pour un atelier public, rester sur un projet sans données sensibles.</p>
+          <ul class="clicks">
+            <li>Dans GitHub, cliquer sur <b>New repository</b>.</li>
+            <li>Nommer le projet, par exemple <code>local-snake-lab</code>.</li>
+            <li>Cocher <b>Add a README file</b> pour initialiser le projet.</li>
+            <li>Dans GitHub Desktop, cliquer sur <b>Clone a repository</b>, choisir la repository et sélectionner un dossier local.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>Ouvrir le répertoire avec VS Code</h3>
+          <p>Le dossier cloné devient l'espace de travail. Claude verra les fichiers présents et pourra en créer de nouveaux.</p>
+          <ul class="clicks">
+            <li>Dans GitHub Desktop, cliquer sur <b>Open in Visual Studio Code</b>.</li>
+            <li>Ou dans VS Code, faire <b>File</b> puis <b>Open Folder</b> et sélectionner le dossier du projet.</li>
+            <li>Vérifier que le README apparaît dans l'explorateur de fichiers à gauche.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>Demander à Claude le jeu Snake en HTML</h3>
+          <p>Le premier prompt doit rester simple et produire un seul fichier. C'est le test le plus rapide pour valider que l'agent peut écrire dans le dossier.</p>
+          <div class="prompt-box">
+            <button class="copy-btn" type="button" data-copy="#snakePrompt">Copier</button>
+            <pre id="snakePrompt">Crée un fichier index.html autonome en HTML/CSS/JavaScript qui propose un jeu de serpent simple.
+
+Contraintes :
+- tout doit tenir dans un seul fichier index.html ;
+- le jeu doit s'ouvrir directement dans le navigateur depuis mon PC ;
+- ajoute un écran d'accueil, un score, un bouton recommencer et des contrôles clavier ;
+- garde une interface claire et professionnelle, utilisable en démonstration.</pre>
+          </div>
+        </div>
+      </article>
+      <article class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3>Ouvrir le fichier et tester</h3>
+          <p>Une fois le prompt exécuté, le système est utilisable : le code est dans le dossier, Git le voit, et le navigateur lance l'application.</p>
+          <ul class="clicks">
+            <li>Dans VS Code, ouvrir <code>index.html</code>.</li>
+            <li>Faire clic droit puis <b>Reveal in File Explorer</b>, ou ouvrir le dossier depuis Windows.</li>
+            <li>Double-cliquer sur <code>index.html</code> pour l'ouvrir dans Edge ou Chrome.</li>
+            <li>Tester le jeu, puis faire un commit dans GitHub Desktop : <b>Add first local snake app</b>.</li>
+          </ul>
+          <div class="callout" style="margin-top:14px"><p>À ce stade, la boucle locale est validée : repository synchronisée, édition IA dans VS Code, exécution sur le poste.</p></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="transcription">
+    <div class="section-head">
+      <div class="section-letter">D</div>
+      <div>
+        <h2>Cas avancé : transcription audio locale</h2>
+        <p class="section-lede">On passe d'un fichier HTML à une application Python qui télécharge un modèle Whisper depuis Hugging Face, le stocke dans le projet, puis transcrit un audio enregistré au smartphone.</p>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="callout warning">
+        <p><b>Confidentialité :</b> ne pas déposer d'audio client dans une repository publique. Pour une mission confidentielle, utiliser une repository privée, vérifier le code généré et s'assurer que la transcription ne fait pas d'appel API après téléchargement du modèle.</p>
+      </div>
+      <div class="callout">
+        <p><b>Principe :</b> le modèle est récupéré une première fois depuis Hugging Face, stocké dans le répertoire du projet, puis réutilisé localement pour les fichiers audio suivants.</p>
+      </div>
+    </div>
+    <div class="timeline" style="margin-top:18px">
+      <article class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>Créer le prompt applicatif</h3>
+          <p>Le prompt demande une application complète mais garde le périmètre clair : Python, modèle local, dossier d'entrée audio, sortie texte, README et commandes.</p>
+          <div class="prompt-box">
+            <button class="copy-btn" type="button" data-copy="#transcriptionPrompt">Copier</button>
+            <pre id="transcriptionPrompt">Crée une application Python locale pour transcrire des fichiers audio sur mon PC.
+
+Contexte :
+- cas d'usage : extraire des informations d'un enregistrement de réunion pour une mission confidentielle ;
+- les fichiers audio restent dans le dossier du projet ;
+- aucune clé API ne doit être nécessaire pour transcrire ;
+- le modèle doit être un modèle Whisper d'OpenAI récupéré depuis Hugging Face, par exemple openai/whisper-small ;
+- le modèle doit être stocké localement dans un dossier du projet, par exemple models/whisper-small, pour pouvoir être réutilisé.
+
+Ce que je veux :
+- un script Python simple, par exemple transcribe.py ;
+- un dossier audio/ pour déposer les fichiers enregistrés avec un smartphone ;
+- un dossier transcripts/ pour écrire les transcriptions en .txt ;
+- un requirements.txt ;
+- un README.md avec les commandes exactes pour installer, télécharger le modèle, puis lancer une transcription ;
+- une gestion claire des erreurs si le fichier audio n'existe pas ou si le modèle n'est pas encore téléchargé.
+
+Contraintes :
+- privilégie une solution robuste sur Windows ;
+- ne pas envoyer le contenu audio vers une API externe ;
+- commenter le code uniquement là où c'est utile ;
+- prévoir un exemple de commande du type python transcribe.py audio/mon_audio.m4a.</pre>
+          </div>
+        </div>
+      </article>
+      <article class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>Laisser Claude générer le projet</h3>
+          <p>Claude doit créer les fichiers et expliquer les commandes. Relire particulièrement les lignes qui chargent le modèle et le chemin de stockage local.</p>
+          <ul class="clicks">
+            <li>Coller le prompt dans le panneau Claude de VS Code.</li>
+            <li>Accepter la création des fichiers proposés : <code>transcribe.py</code>, <code>requirements.txt</code>, <code>README.md</code>, <code>audio/</code>, <code>transcripts/</code>.</li>
+            <li>Vérifier que le README indique une commande de lancement claire.</li>
+            <li>Faire un commit avant d'installer les dépendances : <b>Add local transcription app scaffold</b>.</li>
+          </ul>
+        </div>
+      </article>
+      <article class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>Installer les dépendances dans un terminal VS Code</h3>
+          <p>Le terminal intégré évite de changer de contexte. Les commandes exactes peuvent varier selon ce que Claude a généré ; le README du projet fait foi.</p>
+          <ul class="clicks">
+            <li>Dans VS Code, ouvrir <b>Terminal</b> puis <b>New Terminal</b>.</li>
+            <li>Créer un environnement local : <code>python -m venv .venv</code>.</li>
+            <li>Activer l'environnement : <code>.venv\Scripts\activate</code>.</li>
+            <li>Installer les dépendances : <code>pip install -r requirements.txt</code>.</li>
+            <li>Lancer la commande de téléchargement ou de premier chargement du modèle indiquée par le README.</li>
+          </ul>
+          <div class="shot"><div class="shot-title"><span>Attention</span><span>Premier lancement</span></div><p>Le premier téléchargement du modèle peut prendre plusieurs minutes et nécessite une connexion. Les transcriptions suivantes doivent réutiliser le modèle local.</p></div>
+        </div>
+      </article>
+      <article class="step">
+        <div class="step-num">4</div>
+        <div>
+          <h3>Tester avec un audio de smartphone</h3>
+          <p>Le test réel consiste à enregistrer un court audio, le copier dans le projet, puis lancer la transcription depuis le terminal.</p>
+          <ul class="clicks">
+            <li>Enregistrer un audio court avec son smartphone : 30 secondes suffisent.</li>
+            <li>Transférer le fichier sur le PC et le déposer dans <code>audio/</code>.</li>
+            <li>Renommer le fichier simplement, par exemple <code>test-reunion.m4a</code>.</li>
+            <li>Lancer la transcription, par exemple <code>python transcribe.py audio/test-reunion.m4a</code>.</li>
+            <li>Ouvrir le fichier généré dans <code>transcripts/</code> et vérifier le résultat.</li>
+          </ul>
+          <div class="callout" style="margin-top:14px"><p>Le système est fonctionnel quand le même projet peut transcrire un nouvel audio simplement en le déposant dans <code>audio/</code> et en relançant la commande.</p></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="sources">
+    <div class="section-head">
+      <div class="section-letter">i</div>
+      <div>
+        <h2>Liens utiles</h2>
+        <p class="section-lede">Les points d'entrée à garder sous la main pendant l'atelier.</p>
+      </div>
+    </div>
+    <div class="resource-list">
+      <a class="resource" href="https://git-scm.com/download/win" target="_blank" rel="noreferrer"><strong>Git SCM</strong><span>Installer Git for Windows</span></a>
+      <a class="resource" href="https://desktop.github.com" target="_blank" rel="noreferrer"><strong>GitHub Desktop</strong><span>Synchroniser les repositories</span></a>
+      <a class="resource" href="https://apps.microsoft.com/search?query=python" target="_blank" rel="noreferrer"><strong>Microsoft Store</strong><span>Installer Python 3</span></a>
+      <a class="resource" href="https://code.visualstudio.com" target="_blank" rel="noreferrer"><strong>VS Code</strong><span>Installer l'éditeur</span></a>
+      <a class="resource" href="https://code.claude.com/docs/en/vs-code" target="_blank" rel="noreferrer"><strong>Claude Code</strong><span>Installer l'extension VS Code</span></a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <span>Application locale sur PC Wavestone - support d'atelier</span>
+    <a href="index.html">Retour à l'accueil</a>
+  </div>
+</footer>
+
+<script>
+const progress = document.getElementById('progress');
+function updateProgress(){
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  progress.style.width = max > 0 ? `${(window.scrollY / max) * 100}%` : '0';
+}
+window.addEventListener('scroll', updateProgress, {passive:true});
+updateProgress();
+
+document.querySelectorAll('[data-copy]').forEach(button => {
+  button.addEventListener('click', async () => {
+    const target = document.querySelector(button.dataset.copy);
+    if (!target) return;
+    await navigator.clipboard.writeText(target.textContent.trim());
+    const original = button.textContent;
+    button.textContent = 'Copié';
+    setTimeout(() => { button.textContent = original; }, 1200);
+  });
+});
+</script>
+</body>
+</html>
