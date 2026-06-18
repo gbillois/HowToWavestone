@@ -84,62 +84,36 @@
   @keyframes rise{to{opacity:1;transform:none}}
   @keyframes grow{to{transform:scaleX(1)}}
 
-  /* ---------- concept flow map (animated SVG pipeline) ---------- */
-  .flowmap{display:flex;flex-direction:column;align-items:stretch;gap:0;margin:30px 0 8px}
-  @media(min-width:980px){.flowmap{flex-direction:row;align-items:stretch}}
+  /* ---------- concept: wide cards + animated flow arc ---------- */
+  .b3row{display:flex;flex-direction:column;gap:16px;margin:30px 0 0}
+  @media(min-width:760px){.b3row{flex-direction:row;align-items:stretch}}
 
-  .fstage{flex:1;min-width:0;position:relative;background:#fff;border:1.5px solid var(--ws-ink-100);box-shadow:var(--ws-shadow-sm);padding:18px 18px 20px;display:flex;flex-direction:column;opacity:0;transform:translateY(14px);animation:rise .6s var(--ws-ease) forwards}
+  .fstage{flex:1;min-width:0;position:relative;background:#fff;border:1.5px solid var(--ws-ink-100);box-shadow:var(--ws-shadow-sm);padding:22px 22px 24px;display:flex;flex-direction:column;opacity:0;transform:translateY(14px);animation:rise .6s var(--ws-ease) forwards}
   .fstage::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--ws-gradient-accent);transform:scaleX(0);transform-origin:left;animation:grow .6s var(--ws-ease) forwards}
-  .flowmap>.fstage:nth-child(1),.flowmap>.fstage:nth-child(1)::before{animation-delay:.02s}
-  .flowmap>.fstage:nth-child(3),.flowmap>.fstage:nth-child(3)::before{animation-delay:.16s}
-  .flowmap>.fstage:nth-child(5),.flowmap>.fstage:nth-child(5)::before{animation-delay:.30s}
-  .flowmap>.fstage:nth-child(7),.flowmap>.fstage:nth-child(7)::before{animation-delay:.44s}
-
-  .fstage--user{background:var(--ws-gradient-brand);border-color:var(--ws-indigo-800);color:#fff;text-align:center;align-items:center}
-  .fstage--user .bk-no{color:var(--ws-green-300)}
-  .fstage--user h3{color:#fff}
-  .fstage--user p{color:rgba(255,255,255,.82)}
+  .b3row>.fstage:nth-child(1),.b3row>.fstage:nth-child(1)::before{animation-delay:.05s}
+  .b3row>.fstage:nth-child(2),.b3row>.fstage:nth-child(2)::before{animation-delay:.20s}
+  .b3row>.fstage:nth-child(3),.b3row>.fstage:nth-child(3)::before{animation-delay:.35s}
 
   .bk-no{font-family:var(--ws-font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-indigo-600);align-self:flex-start}
-  .fstage--user .bk-no{align-self:center}
 
-  .favatar{margin:16px auto 14px;width:104px;height:104px;display:grid;place-items:center;color:#fff}
-  .favatar svg{width:100%;height:100%;overflow:visible}
-  .fbubble{stroke:var(--ws-green-300);transform-box:fill-box;transform-origin:center;animation:bubblepulse 2.4s var(--ws-ease) infinite}
-  @keyframes bubblepulse{0%,100%{opacity:.5;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
-
-  .fscreen{position:relative;margin:12px 0 14px;border:1px solid var(--ws-ink-200);background:var(--ws-ink-50);box-shadow:var(--ws-shadow-md);overflow:hidden}
+  .fscreen{position:relative;margin:13px 0 15px;border:1px solid var(--ws-ink-200);background:var(--ws-ink-50);box-shadow:var(--ws-shadow-md);overflow:hidden}
   .fscreen .topbar{display:flex;gap:5px;align-items:center;padding:7px 10px;background:var(--ws-ink-100);border-bottom:1px solid var(--ws-ink-200)}
   .fscreen .topbar i{width:8px;height:8px;background:var(--ws-ink-300);display:block;flex:0 0 auto}
-  .fscreen .topbar b{margin-left:7px;font-family:var(--ws-font-mono);font-size:9.5px;font-weight:500;color:var(--ws-ink-400);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .fscreen .topbar b{margin-left:7px;font-family:var(--ws-font-mono);font-size:10px;font-weight:500;color:var(--ws-ink-400);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .fscreen a.zoom{display:block;line-height:0;cursor:zoom-in}
-  .fscreen img{display:block;width:100%;height:150px;object-fit:cover;object-position:top left;transition:transform .4s var(--ws-ease)}
+  .fscreen img{display:block;width:100%;height:172px;object-fit:cover;object-position:top left;transition:transform .4s var(--ws-ease)}
   .fscreen a.zoom:hover img{transform:scale(1.05)}
 
-  .fstage h3{font-family:var(--ws-font-display);font-weight:600;font-size:18px;color:var(--ws-ink-900);margin-bottom:7px;line-height:1.22}
-  .fstage p{font-size:14px;color:var(--ws-ink-500);line-height:1.55;flex:1}
+  .fstage h3{font-family:var(--ws-font-display);font-weight:600;font-size:19px;color:var(--ws-ink-900);margin-bottom:7px;line-height:1.22}
+  .fstage p{font-size:14.5px;color:var(--ws-ink-500);line-height:1.55;flex:1}
   .fstage p b{color:var(--ws-ink-900)}
   .fstage .tool{font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-indigo-700);background:var(--ws-indigo-50);padding:3px 9px;margin-top:14px;display:inline-block;align-self:flex-start}
 
-  /* connectors with a travelling packet */
-  .fconn{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:12px 0}
-  @media(min-width:980px){.fconn{width:124px;padding:0 6px;align-self:center}}
-  .frail{position:relative;width:34px;height:60px}
-  @media(min-width:980px){.frail{width:100%;height:34px}}
-  .fline{position:absolute;left:50%;top:0;transform:translateX(-50%);width:3px;height:100%;background-image:repeating-linear-gradient(180deg,var(--ws-indigo-500) 0 6px,transparent 6px 12px);background-size:100% 12px;animation:flowY .7s linear infinite}
-  @media(min-width:980px){.fline{left:0;top:50%;transform:translateY(-50%);width:100%;height:3px;background-image:repeating-linear-gradient(90deg,var(--ws-indigo-500) 0 6px,transparent 6px 12px);background-size:12px 100%;animation:flowX .7s linear infinite}}
-  @keyframes flowY{to{background-position:0 12px}}
-  @keyframes flowX{to{background-position:12px 0}}
-  .farrow{position:absolute;left:50%;bottom:-3px;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:8px solid var(--ws-indigo-600)}
-  @media(min-width:980px){.farrow{left:auto;right:-3px;bottom:auto;top:50%;transform:translateY(-50%);border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid var(--ws-indigo-600);border-right:0}}
-  .fpacket{position:absolute;left:50%;top:0;width:26px;height:26px;transform:translate(-50%,0);background:#fff;border:1.5px solid var(--ws-indigo-500);color:var(--ws-indigo-600);display:grid;place-items:center;box-shadow:var(--ws-shadow-md);z-index:2;animation:travelY 2.1s var(--ws-ease) infinite}
-  .fpacket svg{width:14px;height:14px;display:block}
-  @media(min-width:980px){.fpacket{top:50%;left:0;transform:translate(0,-50%);animation:travelX 2.1s var(--ws-ease) infinite}}
-  .flowmap>.fconn:nth-child(4) .fpacket{animation-delay:.45s}
-  .flowmap>.fconn:nth-child(6) .fpacket{animation-delay:.9s}
-  @keyframes travelY{0%{top:-6px;opacity:0}14%{opacity:1}86%{opacity:1}100%{top:calc(100% - 20px);opacity:0}}
-  @keyframes travelX{0%{left:-8px;opacity:0}14%{opacity:1}86%{opacity:1}100%{left:calc(100% - 20px);opacity:0}}
-  .flabel{font-family:var(--ws-font-mono);font-size:10.5px;line-height:1.25;color:var(--ws-indigo-700);background:var(--ws-indigo-50);border:1px solid var(--ws-indigo-100);padding:3px 9px;text-align:center;max-width:118px}
+  /* flow lane: user figure + animated SVG arc running below the cards */
+  .flowlane{position:relative;margin:2px 0 6px}
+  .flowsvg{display:block;width:100%;height:auto;overflow:visible}
+  .flabels{display:flex;justify-content:space-around;gap:10px;margin-top:-6px;padding:0 4%}
+  .flabel{font-family:var(--ws-font-mono);font-size:11.5px;line-height:1.2;color:var(--ws-indigo-700);background:var(--ws-indigo-50);border:1px solid var(--ws-indigo-100);padding:4px 11px;text-align:center}
 
   /* ---------- phase / steps (pipeline spine) ---------- */
   .phase{margin-top:18px}
@@ -232,7 +206,7 @@
   .reset:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
 
   :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus)}
-  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.fstage{opacity:1;transform:none}.fstage::before{transform:scaleX(1)}.fpacket{opacity:1}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.fstage{opacity:1;transform:none}.fstage::before{transform:scaleX(1)}}
   /* square corners — DS identity */
   *,*::before,*::after{border-radius:0!important}
 </style>
@@ -288,36 +262,7 @@
     <p data-i18n="a.intro">Le vibe coding repose sur trois briques qui s&rsquo;encha&icirc;nent. Comprenez-les une fois, vous comprenez tout le reste.</p>
   </div>
 
-  <div class="flowmap">
-
-    <!-- You -->
-    <div class="fstage fstage--user">
-      <span class="bk-no" data-i18n="a.user.tag">Vous</span>
-      <div class="favatar" aria-hidden="true">
-        <svg viewBox="0 0 104 104" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="42" cy="40" r="15"/>
-          <path d="M16 88c0-15 12-24 26-24s26 9 26 24"/>
-          <g class="fbubble">
-            <rect x="60" y="12" width="34" height="26"/>
-            <path d="M70 38l-3 9 12-9"/>
-            <line x1="67" y1="21" x2="87" y2="21"/>
-            <line x1="67" y1="29" x2="82" y2="29"/>
-          </g>
-        </svg>
-      </div>
-      <h3 data-i18n="a.user.title">Une id&eacute;e en t&ecirc;te</h3>
-      <p data-i18n="a.user.body">Vous d&eacute;crivez votre id&eacute;e en langage naturel&nbsp;: c&rsquo;est le seul ingr&eacute;dient pour d&eacute;marrer.</p>
-    </div>
-
-    <!-- flow: prompt -->
-    <div class="fconn" aria-hidden="true">
-      <div class="frail">
-        <div class="fline"></div>
-        <div class="fpacket"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M4 5h16v11H9l-4 3V5z"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="12.5" x2="13" y2="12.5"/></svg></div>
-        <div class="farrow"></div>
-      </div>
-      <span class="flabel" data-i18n="a.flow1">prompt</span>
-    </div>
+  <div class="b3row">
 
     <!-- Block 1: AI agent (Codex) -->
     <div class="fstage">
@@ -329,16 +274,6 @@
       <h3 data-i18n="a.b1.title">Un agent IA &eacute;crit le code</h3>
       <p data-i18n="a.b1.body">&Agrave; partir d&rsquo;une simple id&eacute;e en langage naturel, un agent IA g&eacute;n&egrave;re le code source. C&rsquo;est lui qui fait le travail d&rsquo;&eacute;criture.</p>
       <span class="tool" data-i18n="a.b1.tool">Claude &middot; ou ChatGPT (Codex)</span>
-    </div>
-
-    <!-- flow: source code -->
-    <div class="fconn" aria-hidden="true">
-      <div class="frail">
-        <div class="fline"></div>
-        <div class="fpacket"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><polyline points="9 7 4 12 9 17"/><polyline points="15 7 20 12 15 17"/></svg></div>
-        <div class="farrow"></div>
-      </div>
-      <span class="flabel" data-i18n="a.flow2">code source</span>
     </div>
 
     <!-- Block 2: GitHub -->
@@ -353,16 +288,6 @@
       <span class="tool" data-i18n="a.b2.tool">GitHub</span>
     </div>
 
-    <!-- flow: HTML files -->
-    <div class="fconn" aria-hidden="true">
-      <div class="frail">
-        <div class="fline"></div>
-        <div class="fpacket"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M7 3h8l4 4v14H7z"/><polyline points="15 3 15 8 19 8"/><polyline points="9.5 12.5 7.5 14.5 9.5 16.5"/><polyline points="13 12.5 15 14.5 13 16.5"/></svg></div>
-        <div class="farrow"></div>
-      </div>
-      <span class="flabel" data-i18n="a.flow3">fichiers HTML</span>
-    </div>
-
     <!-- Block 3: GitHub Pages (live site) -->
     <div class="fstage">
       <span class="bk-no" data-i18n="a.b3.tag">Brique 3</span>
@@ -375,6 +300,73 @@
       <span class="tool" data-i18n="a.b3.tool">GitHub Pages</span>
     </div>
 
+  </div>
+
+  <!-- animated flow: user on the left, the exchange sweeps in an arc below the cards -->
+  <div class="flowlane">
+    <svg id="conceptflow" class="flowsvg" viewBox="0 0 1200 210" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <defs>
+        <marker id="cfArrow" markerWidth="9" markerHeight="9" refX="5.5" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L6,3 L0,6 Z" fill="#451DC7"/>
+        </marker>
+      </defs>
+
+      <!-- the user (idea in plain language) -->
+      <g fill="none" stroke="#451DC7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" transform="translate(20,16)">
+        <circle cx="42" cy="40" r="17"/>
+        <path d="M9,108 C9,80 26,68 42,68 C58,68 75,80 75,108"/>
+        <g stroke="#088A42">
+          <rect x="62" y="4" width="40" height="29"/>
+          <path d="M74,33 l-4,12 15,-12"/>
+          <line x1="70" y1="14" x2="94" y2="14"/>
+          <line x1="70" y1="23" x2="88" y2="23"/>
+          <animateTransform attributeName="transform" type="translate" values="0 0; 0 -3.5; 0 0" dur="2.6s" repeatCount="indefinite"/>
+        </g>
+      </g>
+
+      <!-- arc track -->
+      <path id="cfArc" d="M120,72 C 370,206 840,206 1182,60" fill="none" stroke="#D1CAF2" stroke-width="4"/>
+      <!-- animated flowing dashes along the arc -->
+      <path d="M120,72 C 370,206 840,206 1182,60" fill="none" stroke="#451DC7" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 16" marker-end="url(#cfArrow)">
+        <animate attributeName="stroke-dashoffset" values="34;0" dur="0.9s" repeatCount="indefinite"/>
+      </path>
+
+      <!-- packet 1: the prompt (text) travels to the AI agent -->
+      <g opacity="0">
+        <rect x="-20" y="-20" width="40" height="40" fill="#fff" stroke="#451DC7" stroke-width="2.5"/>
+        <g transform="translate(-12,-12)" fill="none" stroke="#451DC7" stroke-width="2.2" stroke-linecap="square">
+          <path d="M3 4h18v12H8l-4 3V4z"/><line x1="7" y1="8.5" x2="17" y2="8.5"/><line x1="7" y1="12" x2="13" y2="12"/>
+        </g>
+        <animateMotion dur="3.6s" begin="0s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0.34" keyTimes="0;1" rotate="0"><mpath href="#cfArc"/></animateMotion>
+        <animate attributeName="opacity" dur="3.6s" begin="0s" repeatCount="indefinite" keyTimes="0;0.12;0.88;1" values="0;1;1;0"/>
+      </g>
+
+      <!-- packet 2: the source code is exchanged with GitHub -->
+      <g opacity="0">
+        <rect x="-20" y="-20" width="40" height="40" fill="#fff" stroke="#451DC7" stroke-width="2.5"/>
+        <g transform="translate(-12,-12)" fill="none" stroke="#451DC7" stroke-width="2.2" stroke-linecap="square">
+          <polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/>
+        </g>
+        <animateMotion dur="3.6s" begin="1.2s" repeatCount="indefinite" calcMode="linear" keyPoints="0.33;0.67" keyTimes="0;1" rotate="0"><mpath href="#cfArc"/></animateMotion>
+        <animate attributeName="opacity" dur="3.6s" begin="1.2s" repeatCount="indefinite" keyTimes="0;0.12;0.88;1" values="0;1;1;0"/>
+      </g>
+
+      <!-- packet 3: the HTML files flow to GitHub Pages -->
+      <g opacity="0">
+        <rect x="-20" y="-20" width="40" height="40" fill="#fff" stroke="#451DC7" stroke-width="2.5"/>
+        <g transform="translate(-12,-12)" fill="none" stroke="#451DC7" stroke-width="2.2" stroke-linecap="square">
+          <path d="M6 2h9l5 5v15H6z"/><polyline points="15 2 15 8 21 8"/><line x1="9.5" y1="13" x2="14.5" y2="13"/><line x1="9.5" y1="17" x2="14.5" y2="17"/>
+        </g>
+        <animateMotion dur="3.6s" begin="2.4s" repeatCount="indefinite" calcMode="linear" keyPoints="0.66;1" keyTimes="0;1" rotate="0"><mpath href="#cfArc"/></animateMotion>
+        <animate attributeName="opacity" dur="3.6s" begin="2.4s" repeatCount="indefinite" keyTimes="0;0.12;0.88;1" values="0;1;1;0"/>
+      </g>
+    </svg>
+
+    <div class="flabels">
+      <span class="flabel" data-i18n="a.flow1">prompt</span>
+      <span class="flabel" data-i18n="a.flow2">code source</span>
+      <span class="flabel" data-i18n="a.flow3">fichiers HTML</span>
+    </div>
   </div>
 
   <!-- ============ B — SETUP ============ -->
@@ -988,6 +980,15 @@
   lb.addEventListener('click', function(e){ if(e.target !== lbImg) closeLb(); });
   lbClose.addEventListener('click', closeLb);
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && lb.classList.contains('on')) closeLb(); });
+
+  /* ---------------- concept flow: honour reduced motion ---------------- */
+  if(reduce){
+    var cf = document.getElementById('conceptflow');
+    if(cf){
+      cf.querySelectorAll('g[opacity]').forEach(function(g){ g.setAttribute('opacity','1'); });
+      if(cf.pauseAnimations) cf.pauseAnimations();
+    }
+  }
 
   /* ---------------- reset ---------------- */
   document.getElementById('reset').addEventListener('click', function(){
