@@ -81,24 +81,65 @@
   .rail .ar{color:var(--ws-ink-300);font-size:18px;animation:slide 1.8s var(--ws-ease) infinite}
   @keyframes slide{0%,100%{transform:translateX(0);opacity:.4}50%{transform:translateX(4px);opacity:1}}
 
-  .bricks{display:flex;flex-direction:column;gap:14px}
-  @media(min-width:820px){.bricks{flex-direction:row;align-items:stretch}}
-  .brick{flex:1;position:relative;background:#fff;border:1.5px solid var(--ws-ink-100);padding:24px 22px 22px;box-shadow:var(--ws-shadow-sm);opacity:0;transform:translateY(12px);animation:rise .6s var(--ws-ease) forwards}
-  .brick::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--ws-gradient-accent);transform:scaleX(0);transform-origin:left;animation:grow .6s var(--ws-ease) forwards}
-  .brick:nth-child(1),.brick:nth-child(1)::before{animation-delay:.05s}
-  .brick:nth-child(3),.brick:nth-child(3)::before{animation-delay:.25s}
-  .brick:nth-child(5),.brick:nth-child(5)::before{animation-delay:.45s}
   @keyframes rise{to{opacity:1;transform:none}}
   @keyframes grow{to{transform:scaleX(1)}}
-  .b-arrow{display:none;flex:0 0 auto;align-items:center;color:var(--ws-ink-300);font-size:24px}
-  @media(min-width:820px){.b-arrow{display:flex}}
-  .bk-no{font-family:var(--ws-font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-indigo-600)}
-  .bk-ic{width:46px;height:46px;background:var(--ws-indigo-50);color:var(--ws-indigo-600);display:grid;place-items:center;margin:12px 0 14px}
-  .brick:nth-child(5) .bk-ic{background:var(--ws-green-50);color:var(--ws-green-700)}
-  .brick h3{font-family:var(--ws-font-display);font-weight:600;font-size:19px;color:var(--ws-ink-900);margin-bottom:7px;line-height:1.2}
-  .brick p{font-size:14.5px;color:var(--ws-ink-500);line-height:1.55}
-  .brick p b{color:var(--ws-ink-900)}
-  .brick .tool{font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-indigo-700);background:var(--ws-indigo-50);padding:3px 9px;margin-top:13px;display:inline-block}
+
+  /* ---------- concept flow map (animated SVG pipeline) ---------- */
+  .flowmap{display:flex;flex-direction:column;align-items:stretch;gap:0;margin:30px 0 8px}
+  @media(min-width:980px){.flowmap{flex-direction:row;align-items:stretch}}
+
+  .fstage{flex:1;min-width:0;position:relative;background:#fff;border:1.5px solid var(--ws-ink-100);box-shadow:var(--ws-shadow-sm);padding:18px 18px 20px;display:flex;flex-direction:column;opacity:0;transform:translateY(14px);animation:rise .6s var(--ws-ease) forwards}
+  .fstage::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--ws-gradient-accent);transform:scaleX(0);transform-origin:left;animation:grow .6s var(--ws-ease) forwards}
+  .flowmap>.fstage:nth-child(1),.flowmap>.fstage:nth-child(1)::before{animation-delay:.02s}
+  .flowmap>.fstage:nth-child(3),.flowmap>.fstage:nth-child(3)::before{animation-delay:.16s}
+  .flowmap>.fstage:nth-child(5),.flowmap>.fstage:nth-child(5)::before{animation-delay:.30s}
+  .flowmap>.fstage:nth-child(7),.flowmap>.fstage:nth-child(7)::before{animation-delay:.44s}
+
+  .fstage--user{background:var(--ws-gradient-brand);border-color:var(--ws-indigo-800);color:#fff;text-align:center;align-items:center}
+  .fstage--user .bk-no{color:var(--ws-green-300)}
+  .fstage--user h3{color:#fff}
+  .fstage--user p{color:rgba(255,255,255,.82)}
+
+  .bk-no{font-family:var(--ws-font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-indigo-600);align-self:flex-start}
+  .fstage--user .bk-no{align-self:center}
+
+  .favatar{margin:16px auto 14px;width:104px;height:104px;display:grid;place-items:center;color:#fff}
+  .favatar svg{width:100%;height:100%;overflow:visible}
+  .fbubble{stroke:var(--ws-green-300);transform-box:fill-box;transform-origin:center;animation:bubblepulse 2.4s var(--ws-ease) infinite}
+  @keyframes bubblepulse{0%,100%{opacity:.5;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
+
+  .fscreen{position:relative;margin:12px 0 14px;border:1px solid var(--ws-ink-200);background:var(--ws-ink-50);box-shadow:var(--ws-shadow-md);overflow:hidden}
+  .fscreen .topbar{display:flex;gap:5px;align-items:center;padding:7px 10px;background:var(--ws-ink-100);border-bottom:1px solid var(--ws-ink-200)}
+  .fscreen .topbar i{width:8px;height:8px;background:var(--ws-ink-300);display:block;flex:0 0 auto}
+  .fscreen .topbar b{margin-left:7px;font-family:var(--ws-font-mono);font-size:9.5px;font-weight:500;color:var(--ws-ink-400);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .fscreen a.zoom{display:block;line-height:0;cursor:zoom-in}
+  .fscreen img{display:block;width:100%;height:150px;object-fit:cover;object-position:top left;transition:transform .4s var(--ws-ease)}
+  .fscreen a.zoom:hover img{transform:scale(1.05)}
+
+  .fstage h3{font-family:var(--ws-font-display);font-weight:600;font-size:18px;color:var(--ws-ink-900);margin-bottom:7px;line-height:1.22}
+  .fstage p{font-size:14px;color:var(--ws-ink-500);line-height:1.55;flex:1}
+  .fstage p b{color:var(--ws-ink-900)}
+  .fstage .tool{font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-indigo-700);background:var(--ws-indigo-50);padding:3px 9px;margin-top:14px;display:inline-block;align-self:flex-start}
+
+  /* connectors with a travelling packet */
+  .fconn{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:12px 0}
+  @media(min-width:980px){.fconn{width:124px;padding:0 6px;align-self:center}}
+  .frail{position:relative;width:34px;height:60px}
+  @media(min-width:980px){.frail{width:100%;height:34px}}
+  .fline{position:absolute;left:50%;top:0;transform:translateX(-50%);width:3px;height:100%;background-image:repeating-linear-gradient(180deg,var(--ws-indigo-500) 0 6px,transparent 6px 12px);background-size:100% 12px;animation:flowY .7s linear infinite}
+  @media(min-width:980px){.fline{left:0;top:50%;transform:translateY(-50%);width:100%;height:3px;background-image:repeating-linear-gradient(90deg,var(--ws-indigo-500) 0 6px,transparent 6px 12px);background-size:12px 100%;animation:flowX .7s linear infinite}}
+  @keyframes flowY{to{background-position:0 12px}}
+  @keyframes flowX{to{background-position:12px 0}}
+  .farrow{position:absolute;left:50%;bottom:-3px;transform:translateX(-50%);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:8px solid var(--ws-indigo-600)}
+  @media(min-width:980px){.farrow{left:auto;right:-3px;bottom:auto;top:50%;transform:translateY(-50%);border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid var(--ws-indigo-600);border-right:0}}
+  .fpacket{position:absolute;left:50%;top:0;width:26px;height:26px;transform:translate(-50%,0);background:#fff;border:1.5px solid var(--ws-indigo-500);color:var(--ws-indigo-600);display:grid;place-items:center;box-shadow:var(--ws-shadow-md);z-index:2;animation:travelY 2.1s var(--ws-ease) infinite}
+  .fpacket svg{width:14px;height:14px;display:block}
+  @media(min-width:980px){.fpacket{top:50%;left:0;transform:translate(0,-50%);animation:travelX 2.1s var(--ws-ease) infinite}}
+  .flowmap>.fconn:nth-child(4) .fpacket{animation-delay:.45s}
+  .flowmap>.fconn:nth-child(6) .fpacket{animation-delay:.9s}
+  @keyframes travelY{0%{top:-6px;opacity:0}14%{opacity:1}86%{opacity:1}100%{top:calc(100% - 20px);opacity:0}}
+  @keyframes travelX{0%{left:-8px;opacity:0}14%{opacity:1}86%{opacity:1}100%{left:calc(100% - 20px);opacity:0}}
+  .flabel{font-family:var(--ws-font-mono);font-size:10.5px;line-height:1.25;color:var(--ws-indigo-700);background:var(--ws-indigo-50);border:1px solid var(--ws-indigo-100);padding:3px 9px;text-align:center;max-width:118px}
 
   /* ---------- phase / steps (pipeline spine) ---------- */
   .phase{margin-top:18px}
@@ -191,7 +232,7 @@
   .reset:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
 
   :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus)}
-  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.brick{opacity:1;transform:none}.brick::before{transform:scaleX(1)}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.fstage{opacity:1;transform:none}.fstage::before{transform:scaleX(1)}.fpacket{opacity:1}}
   /* square corners — DS identity */
   *,*::before,*::after{border-radius:0!important}
 </style>
@@ -224,16 +265,12 @@
   <div class="hero-in">
     <span class="eyebrow" data-i18n="hero.eyebrow">Atelier hands-on</span>
     <h1 data-i18n="hero.title">Comment se lancer dans le <span class="ac">vibe coding</span>&nbsp;?</h1>
-    <p class="lede" data-i18n="hero.lede">De l&rsquo;id&eacute;e au site en ligne, en direct avec vos participants &mdash; sans rien installer. Suivez le d&eacute;roul&eacute;, cochez chaque &eacute;tape, copiez les prompts. Chaque &eacute;tape est illustr&eacute;e par une vraie capture d&rsquo;&eacute;cran.</p>
+    <p class="lede" data-i18n="hero.lede">De l&rsquo;id&eacute;e au site en ligne, &agrave; votre rythme &mdash; sans rien installer. Suivez le d&eacute;roul&eacute;, cochez chaque &eacute;tape, copiez les prompts. Chaque &eacute;tape est illustr&eacute;e par une vraie capture d&rsquo;&eacute;cran.</p>
     <div class="meta-chips">
       <span data-i18n="hero.chip1"># 100% navigateur</span>
       <span data-i18n="hero.chip2"># sans installation</span>
-      <span data-i18n="hero.chip3"># ~45 min en groupe</span>
+      <span data-i18n="hero.chip3"># ~45 min en autonomie</span>
       <span data-i18n="hero.chip4"># email &middot; github &middot; chatgpt codex</span>
-    </div>
-    <div class="host-tip">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg>
-      <p data-i18n="hero.tip"><b>Astuce animateur&nbsp;:</b> d&eacute;roulez la page de haut en bas avec le groupe. Cliquez sur les <b>num&eacute;ros</b> pour cocher les &eacute;tapes valid&eacute;es, sur <b>copier</b> pour les prompts, et sur une <b>capture</b> pour l&rsquo;agrandir. Le s&eacute;lecteur de langue est en haut &agrave; droite.</p>
     </div>
     <div class="host-tip" style="background:rgba(200,134,26,.14);border-color:rgba(200,134,26,.4);border-left-color:var(--ws-warning)">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F0C674" stroke-width="2" stroke-linecap="square"><path d="M10.3 3.9 1.8 18a1.5 1.5 0 0 0 1.3 2.3h17.8A1.5 1.5 0 0 0 22.2 18L13.7 3.9a1.5 1.5 0 0 0-2.6 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12" y2="17"/></svg>
@@ -251,30 +288,93 @@
     <p data-i18n="a.intro">Le vibe coding repose sur trois briques qui s&rsquo;encha&icirc;nent. Comprenez-les une fois, vous comprenez tout le reste.</p>
   </div>
 
-  <div class="bricks">
-    <div class="brick">
+  <div class="flowmap">
+
+    <!-- You -->
+    <div class="fstage fstage--user">
+      <span class="bk-no" data-i18n="a.user.tag">Vous</span>
+      <div class="favatar" aria-hidden="true">
+        <svg viewBox="0 0 104 104" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="42" cy="40" r="15"/>
+          <path d="M16 88c0-15 12-24 26-24s26 9 26 24"/>
+          <g class="fbubble">
+            <rect x="60" y="12" width="34" height="26"/>
+            <path d="M70 38l-3 9 12-9"/>
+            <line x1="67" y1="21" x2="87" y2="21"/>
+            <line x1="67" y1="29" x2="82" y2="29"/>
+          </g>
+        </svg>
+      </div>
+      <h3 data-i18n="a.user.title">Une id&eacute;e en t&ecirc;te</h3>
+      <p data-i18n="a.user.body">Vous d&eacute;crivez votre id&eacute;e en langage naturel&nbsp;: c&rsquo;est le seul ingr&eacute;dient pour d&eacute;marrer.</p>
+    </div>
+
+    <!-- flow: prompt -->
+    <div class="fconn" aria-hidden="true">
+      <div class="frail">
+        <div class="fline"></div>
+        <div class="fpacket"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M4 5h16v11H9l-4 3V5z"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="12.5" x2="13" y2="12.5"/></svg></div>
+        <div class="farrow"></div>
+      </div>
+      <span class="flabel" data-i18n="a.flow1">prompt</span>
+    </div>
+
+    <!-- Block 1: AI agent (Codex) -->
+    <div class="fstage">
       <span class="bk-no" data-i18n="a.b1.tag">Brique 1</span>
-      <div class="bk-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M12 3l1.9 4.6L18.5 9l-4.6 1.9L12 15l-1.9-4.1L5.5 9l4.6-1.4L12 3z"/><path d="M19 14l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2z"/></svg></div>
+      <div class="fscreen">
+        <div class="topbar" aria-hidden="true"><i></i><i></i><i></i><b>chatgpt.com/codex</b></div>
+        <a class="zoom" href="assets/screens/image28.png" target="_blank" rel="noopener"><img src="assets/screens/image28.png" loading="lazy" alt="ChatGPT Codex"></a>
+      </div>
       <h3 data-i18n="a.b1.title">Un agent IA &eacute;crit le code</h3>
       <p data-i18n="a.b1.body">&Agrave; partir d&rsquo;une simple id&eacute;e en langage naturel, un agent IA g&eacute;n&egrave;re le code source. C&rsquo;est lui qui fait le travail d&rsquo;&eacute;criture.</p>
       <span class="tool" data-i18n="a.b1.tool">Claude &middot; ou ChatGPT (Codex)</span>
     </div>
-    <div class="b-arrow" aria-hidden="true">&#8594;</div>
-    <div class="brick">
+
+    <!-- flow: source code -->
+    <div class="fconn" aria-hidden="true">
+      <div class="frail">
+        <div class="fline"></div>
+        <div class="fpacket"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><polyline points="9 7 4 12 9 17"/><polyline points="15 7 20 12 15 17"/></svg></div>
+        <div class="farrow"></div>
+      </div>
+      <span class="flabel" data-i18n="a.flow2">code source</span>
+    </div>
+
+    <!-- Block 2: GitHub -->
+    <div class="fstage">
       <span class="bk-no" data-i18n="a.b2.tag">Brique 2</span>
-      <div class="bk-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M3 7l9-4 9 4v10l-9 4-9-4V7z"/><path d="M3 7l9 4 9-4"/><path d="M12 11v10"/></svg></div>
+      <div class="fscreen">
+        <div class="topbar" aria-hidden="true"><i></i><i></i><i></i><b>github.com</b></div>
+        <a class="zoom" href="assets/screens/image33.png" target="_blank" rel="noopener"><img src="assets/screens/image33.png" loading="lazy" alt="GitHub Pull Request"></a>
+      </div>
       <h3 data-i18n="a.b2.title">GitHub stocke et partage</h3>
       <p data-i18n="a.b2.body">Le code est d&eacute;pos&eacute; dans un espace en ligne qui l&rsquo;historise et le rend partageable&nbsp;: un d&eacute;p&ocirc;t (une &laquo;&nbsp;repository&nbsp;&raquo;).</p>
       <span class="tool" data-i18n="a.b2.tool">GitHub</span>
     </div>
-    <div class="b-arrow" aria-hidden="true">&#8594;</div>
-    <div class="brick">
+
+    <!-- flow: HTML files -->
+    <div class="fconn" aria-hidden="true">
+      <div class="frail">
+        <div class="fline"></div>
+        <div class="fpacket"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M7 3h8l4 4v14H7z"/><polyline points="15 3 15 8 19 8"/><polyline points="9.5 12.5 7.5 14.5 9.5 16.5"/><polyline points="13 12.5 15 14.5 13 16.5"/></svg></div>
+        <div class="farrow"></div>
+      </div>
+      <span class="flabel" data-i18n="a.flow3">fichiers HTML</span>
+    </div>
+
+    <!-- Block 3: GitHub Pages (live site) -->
+    <div class="fstage">
       <span class="bk-no" data-i18n="a.b3.tag">Brique 3</span>
-      <div class="bk-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg></div>
+      <div class="fscreen">
+        <div class="topbar" aria-hidden="true"><i></i><i></i><i></i><b>votre-projet.github.io</b></div>
+        <a class="zoom" href="assets/screens/image40.png" target="_blank" rel="noopener"><img src="assets/screens/image40.png" loading="lazy" alt="Snake game en ligne"></a>
+      </div>
       <h3 data-i18n="a.b3.title">Le site est publi&eacute;</h3>
       <p data-i18n="a.b3.body">Le code est publi&eacute; sur une page web accessible &agrave; tous via une URL. L&rsquo;h&eacute;bergement se fait automatiquement.</p>
       <span class="tool" data-i18n="a.b3.tool">GitHub Pages</span>
     </div>
+
   </div>
 
   <!-- ============ B — SETUP ============ -->
@@ -282,7 +382,7 @@
     <div class="t">
       <span class="eyebrow" data-i18n="b.eyebrow">&Eacute;tape 1 &mdash; Pr&eacute;parer</span>
       <h2 data-i18n="b.title">Configurer GitHub &amp; ChatGPT</h2>
-      <div class="sub" data-i18n="b.sub">&Agrave; faire une seule fois avec vos participants. Comptez 10&ndash;15&nbsp;min.</div>
+      <div class="sub" data-i18n="b.sub">&Agrave; faire une seule fois. Comptez 10&ndash;15&nbsp;min.</div>
     </div>
     <div class="prog"><b class="dn">0</b>/<span class="tot">6</span> <span data-i18n="word.steps">&eacute;tapes</span></div>
   </div>
@@ -663,17 +763,18 @@
       "nav.home":"Home","nav.usecases":"Use cases","nav.principles":"Agent principles","nav.agents":"Our agents","nav.apikey":"API key",
       "hero.eyebrow":"Hands-on workshop",
       "hero.title":"How to get started with <span class=\"ac\">vibe coding</span>",
-      "hero.lede":"From an idea to a live website, in real time with your participants &mdash; with nothing to install. Follow the flow, tick off each step, copy the prompts. Every step is illustrated with a real screenshot.",
-      "hero.chip1":"# 100% browser","hero.chip2":"# no install","hero.chip3":"# ~45 min as a group","hero.chip4":"# email &middot; github &middot; chatgpt codex",
-      "hero.tip":"<b>Facilitator tip:</b> scroll the page top to bottom with the group. Click the <b>numbers</b> to tick off completed steps, <b>copy</b> for the prompts, and a <b>screenshot</b> to enlarge it. The language switch is top right.",
+      "hero.lede":"From an idea to a live website, at your own pace &mdash; with nothing to install. Follow the flow, tick off each step, copy the prompts. Every step is illustrated with a real screenshot.",
+      "hero.chip1":"# 100% browser","hero.chip2":"# no install","hero.chip3":"# ~45 min, self-paced","hero.chip4":"# email &middot; github &middot; chatgpt codex",
       "hero.notice":"<b>Note:</b> the whole workshop runs on <b>consumer (general-public) accounts</b> and <b>free online tools</b>, just to get your foot in the door. <b>Never use any client data or confidential internal information.</b>",
       "a.eyebrow":"The concept","a.title":"Three building blocks, that&rsquo;s it",
       "a.intro":"Vibe coding rests on three building blocks that chain together. Understand them once and you understand everything else.",
+      "a.user.tag":"You","a.user.title":"An idea in mind","a.user.body":"You describe your idea in plain language &mdash; that&rsquo;s the only ingredient you need to get started.",
+      "a.flow1":"prompt","a.flow2":"source code","a.flow3":"HTML files",
       "a.rail1":"An idea","a.rail2":"Some code","a.rail3":"A live website",
       "a.b1.tag":"Block 1","a.b1.title":"An AI agent writes the code","a.b1.body":"From a simple idea in plain language, an AI agent generates the source code. It does the writing for you.","a.b1.tool":"Claude &middot; or ChatGPT (Codex)",
       "a.b2.tag":"Block 2","a.b2.title":"GitHub stores and shares","a.b2.body":"The code is saved in an online space that versions it and makes it shareable: a repository.","a.b2.tool":"GitHub",
       "a.b3.tag":"Block 3","a.b3.title":"The site goes live","a.b3.body":"The code is published on a web page anyone can reach via a URL. Hosting happens automatically.","a.b3.tool":"GitHub Pages",
-      "b.eyebrow":"Step 1 &mdash; Set up","b.title":"Configure GitHub &amp; ChatGPT","b.sub":"Done once with your participants. Allow 10&ndash;15 min.",
+      "b.eyebrow":"Step 1 &mdash; Set up","b.title":"Configure GitHub &amp; ChatGPT","b.sub":"Done once. Allow 10&ndash;15 min.",
       "word.steps":"steps","word.free":"free","word.tip":"Tip","word.good":"Good to know","word.keynote":"Key point","word.bravo":"Well done","word.showcase":"Showcase",
       "b1.title":"Sign in to GitHub","b1.body":"GitHub will store your code. Easiest option: sign in with a Google account.",
       "b1.clicks":"<li>Go to <b>github.com/login</b>.</li><li>Click <span class=\"ui-lbl\">Continue with Google</span> (or <span class=\"ui-lbl\">Create an account</span> if needed).</li><li>Pick your Google account and authorise.</li>",
@@ -736,17 +837,18 @@
       "nav.home":"Start","nav.usecases":"Anwendungsf&auml;lle","nav.principles":"Agenten-Prinzipien","nav.agents":"Unsere Agenten","nav.apikey":"API-Schl&uuml;ssel",
       "hero.eyebrow":"Hands-on-Workshop",
       "hero.title":"Wie du mit <span class=\"ac\">Vibe Coding</span> startest",
-      "hero.lede":"Von der Idee zur Live-Website, in Echtzeit mit deinen Teilnehmenden &mdash; ohne Installation. Folge dem Ablauf, hake jeden Schritt ab, kopiere die Prompts. Jeder Schritt ist mit einem echten Screenshot illustriert.",
-      "hero.chip1":"# 100% Browser","hero.chip2":"# keine Installation","hero.chip3":"# ~45 Min in der Gruppe","hero.chip4":"# E-Mail &middot; github &middot; chatgpt codex",
-      "hero.tip":"<b>Tipp f&uuml;r Moderierende:</b> scrollt die Seite mit der Gruppe von oben nach unten. Klickt die <b>Zahlen</b> an, um erledigte Schritte abzuhaken, <b>kopieren</b> f&uuml;r die Prompts und einen <b>Screenshot</b> zum Vergr&ouml;&szlig;ern. Die Sprachauswahl ist oben rechts.",
+      "hero.lede":"Von der Idee zur Live-Website, in deinem eigenen Tempo &mdash; ohne Installation. Folge dem Ablauf, hake jeden Schritt ab, kopiere die Prompts. Jeder Schritt ist mit einem echten Screenshot illustriert.",
+      "hero.chip1":"# 100% Browser","hero.chip2":"# keine Installation","hero.chip3":"# ~45 Min, im eigenen Tempo","hero.chip4":"# E-Mail &middot; github &middot; chatgpt codex",
       "hero.notice":"<b>Hinweis:</b> Der gesamte Workshop l&auml;uft mit <b>Privatkonten</b> und <b>kostenlosen Online-Tools</b>, nur um den Einstieg zu finden. <b>Verwendet niemals Kundendaten oder vertrauliche interne Informationen.</b>",
       "a.eyebrow":"Das Konzept","a.title":"Drei Bausteine, mehr nicht",
       "a.intro":"Vibe Coding beruht auf drei Bausteinen, die ineinandergreifen. Versteht sie einmal, und ihr versteht alles Weitere.",
+      "a.user.tag":"Du","a.user.title":"Eine Idee im Kopf","a.user.body":"Du beschreibst deine Idee in nat&uuml;rlicher Sprache &mdash; mehr braucht es zum Start nicht.",
+      "a.flow1":"Prompt","a.flow2":"Quellcode","a.flow3":"HTML-Dateien",
       "a.rail1":"Eine Idee","a.rail2":"Code","a.rail3":"Eine Live-Website",
       "a.b1.tag":"Baustein 1","a.b1.title":"Ein KI-Agent schreibt den Code","a.b1.body":"Aus einer einfachen Idee in nat&uuml;rlicher Sprache erzeugt ein KI-Agent den Quellcode. Er &uuml;bernimmt das Schreiben f&uuml;r euch.","a.b1.tool":"Claude &middot; oder ChatGPT (Codex)",
       "a.b2.tag":"Baustein 2","a.b2.title":"GitHub speichert und teilt","a.b2.body":"Der Code wird in einem Online-Speicher abgelegt, der ihn versioniert und teilbar macht: ein Repository.","a.b2.tool":"GitHub",
       "a.b3.tag":"Baustein 3","a.b3.title":"Die Seite geht live","a.b3.body":"Der Code wird auf einer Webseite ver&ouml;ffentlicht, die alle &uuml;ber eine URL erreichen. Das Hosting erfolgt automatisch.","a.b3.tool":"GitHub Pages",
-      "b.eyebrow":"Schritt 1 &mdash; Einrichten","b.title":"GitHub &amp; ChatGPT einrichten","b.sub":"Einmalig mit euren Teilnehmenden. Plant 10&ndash;15 Min ein.",
+      "b.eyebrow":"Schritt 1 &mdash; Einrichten","b.title":"GitHub &amp; ChatGPT einrichten","b.sub":"Einmalig. Plant 10&ndash;15 Min ein.",
       "word.steps":"Schritte","word.free":"kostenlos","word.tip":"Tipp","word.good":"Gut zu wissen","word.keynote":"Kernpunkt","word.bravo":"Gut gemacht","word.showcase":"Showcase",
       "b1.title":"Bei GitHub anmelden","b1.body":"GitHub speichert euren Code. Am einfachsten: mit einem Google-Konto anmelden.",
       "b1.clicks":"<li>Geht auf <b>github.com/login</b>.</li><li>Klickt auf <span class=\"ui-lbl\">Continue with Google</span> (oder <span class=\"ui-lbl\">Create an account</span>, falls n&ouml;tig).</li><li>W&auml;hlt euer Google-Konto und best&auml;tigt.</li>",
@@ -880,7 +982,7 @@
   var lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbClose = document.getElementById('lbClose');
   function openLb(src){ lbImg.src = src; lb.classList.add('on'); lb.setAttribute('aria-hidden','false'); }
   function closeLb(){ lb.classList.remove('on'); lb.setAttribute('aria-hidden','true'); lbImg.src = ''; }
-  document.querySelectorAll('figure.shot a.zoom').forEach(function(a){
+  document.querySelectorAll('figure.shot a.zoom, .fscreen a.zoom').forEach(function(a){
     a.addEventListener('click', function(e){ e.preventDefault(); openLb(a.getAttribute('href')); });
   });
   lb.addEventListener('click', function(e){ if(e.target !== lbImg) closeLb(); });
