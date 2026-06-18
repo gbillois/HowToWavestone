@@ -57,7 +57,8 @@
   .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
   .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);border-radius:999px;padding:6px 13px;transition:.18s var(--ws-ease)}
   .bar a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
-  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-left:auto}
+  .bar-in .langsel{margin-left:10px}
 
   /* ---------- hero (brand gradient) ---------- */
   .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px}
@@ -153,7 +154,7 @@
     <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
     <div class="nav-links">
       <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
-      <a class="jump" href="use-cases.html" data-i18n="nav.usecases">Cas d'usage</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
       <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
       <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
       <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
@@ -335,10 +336,10 @@
       </span>
       <span class="go">&#8594;</span>
     </a>
-    <a class="ncard" href="use-cases.html">
+    <a class="ncard" href="playbook.html">
       <span class="ni"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
       <span>
-        <span class="nt" data-i18n="cta2.title">Choisir son parcours</span>
+        <span class="nt" data-i18n="cta2.title">Choisir un playbook</span>
         <span class="nd" data-i18n="cta2.desc">Du tout-en-ligne aux appels API Wavestone.</span>
       </span>
       <span class="go">&#8594;</span>
@@ -346,7 +347,7 @@
     <a class="ncard" href="our-agents.html">
       <span class="ni"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="3" y="3" width="18" height="18"/><path d="M7 15l3-3 2 2 5-6"/><path d="M7 19h10"/></svg></span>
       <span>
-        <span class="nt" data-i18n="cta3.title">Voir des use cases</span>
+        <span class="nt" data-i18n="cta3.title">Voir nos agents</span>
         <span class="nd" data-i18n="cta3.desc">Explorer CrisisMaker, CyberBenchExplorer et RadarMapper.</span>
       </span>
       <span class="go">&#8594;</span>
@@ -364,7 +365,7 @@
 window.WS_I18N = {
   en: {
     "nav.home": "Home",
-    "nav.usecases": "Use cases",
+    "nav.usecases": "Playbook",
     "nav.principles": "Agent principles",
     "nav.agents": "Our agents",
     "nav.apikey": "API key",
@@ -443,9 +444,9 @@ window.WS_I18N = {
     "recap.li6": "<b>Budgeted by engagement</b>: API key, usage envelope and consumption tracking.",
     "cta1.title": "Create an API key",
     "cta1.desc": "Procedure, CDM sign-off and security rules.",
-    "cta2.title": "Choose your journey",
+    "cta2.title": "Choose a playbook",
     "cta2.desc": "From fully online to Wavestone API calls.",
-    "cta3.title": "See use cases",
+    "cta3.title": "See our agents",
     "cta3.desc": "Explore CrisisMaker, CyberBenchExplorer and RadarMapper.",
     "footer.src": "CYB agent design philosophy &mdash; Wavestone CYB &middot; AI Maker Initiative",
     "footer.home": "&#8592; back to home",
@@ -453,7 +454,7 @@ window.WS_I18N = {
   },
   de: {
     "nav.home": "Start",
-    "nav.usecases": "Anwendungsf&auml;lle",
+    "nav.usecases": "Playbook",
     "nav.principles": "Agenten-Prinzipien",
     "nav.agents": "Unsere Agenten",
     "nav.apikey": "API-Schl&uuml;ssel",
@@ -532,9 +533,9 @@ window.WS_I18N = {
     "recap.li6": "<b>Pro Einsatz budgetiert</b>: API-Schl&uuml;ssel, Nutzungsrahmen und Verbrauchsverfolgung.",
     "cta1.title": "Einen API-Schlüssel erstellen",
     "cta1.desc": "Vorgehen, CDM-Freigabe und Sicherheitsregeln.",
-    "cta2.title": "W&auml;hle deinen Lernpfad",
+    "cta2.title": "Ein Playbook w&auml;hlen",
     "cta2.desc": "Von vollst&auml;ndig online bis zu Wavestone-API-Aufrufen.",
-    "cta3.title": "Use Cases ansehen",
+    "cta3.title": "Unsere Agenten ansehen",
     "cta3.desc": "CrisisMaker, CyberBenchExplorer und RadarMapper erkunden.",
     "footer.src": "Designphilosophie der CYB-Agenten &mdash; Wavestone CYB &middot; AI Maker Initiative",
     "footer.home": "&#8592; zur&uuml;ck zur Startseite",

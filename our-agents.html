@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title data-i18n="__title">Wavestone CYB &middot; AI Maker Initiative &mdash; Showcase use cases</title>
+<title data-i18n="__title">Wavestone CYB &middot; AI Maker Initiative &mdash; Showcase agents</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -42,10 +42,11 @@
   .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
 
   .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
-  .bar-in{max-width:1120px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
   .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
   .brand .dot{width:9px;height:9px;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
-  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-left:auto}
+  .bar-in .langsel{margin-left:10px}
   .jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:6px 13px;transition:.18s var(--ws-ease)}
   .jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
 
@@ -113,7 +114,7 @@
     <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
     <div class="nav-links">
       <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
-      <a class="jump" href="use-cases.html" data-i18n="nav.usecases">Cas d'usage</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
       <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
       <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
       <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
@@ -128,7 +129,7 @@
   </svg>
   <div class="hero-in">
     <span class="eyebrow" data-i18n="hero.eyebrow">Showcase</span>
-    <h1 data-i18n="hero.title">Des <span class="ac">use cases</span> Wavestone concrets</h1>
+    <h1 data-i18n="hero.title">Des <span class="ac">agents</span> Wavestone concrets</h1>
     <p class="lede" data-i18n="hero.lede">Trois outils autonomes issus des d&eacute;p&ocirc;ts locaux, pens&eacute;s pour transformer vite une expertise terrain en application utilisable.</p>
     <div class="hero-meta">
       <span class="hero-pill" data-i18n="hero.pill1">Static-first</span>
@@ -153,7 +154,7 @@
     </div>
   </section>
 
-  <section class="wrap showcase" aria-label="Use cases Wavestone">
+  <section class="wrap showcase" aria-label="Agents Wavestone">
     <article class="usecase">
       <div class="media">
         <img src="assets/showcase/crisismaker.svg" data-i18n-alt="img.crisis" alt="Miniature animee de CrisisMaker montrant un scenario, des stimuli et un export debrief">
@@ -245,7 +246,7 @@
 </main>
 
 <footer>
-  <span class="src" data-i18n="footer.src">Wavestone CYB &middot; AI Maker Initiative &mdash; showcase use cases</span>
+  <span class="src" data-i18n="footer.src">Wavestone CYB &middot; AI Maker Initiative &mdash; showcase agents</span>
   <a class="jump" href="index.html" data-i18n="footer.home">&#8592; retour &agrave; l'accueil</a>
 </footer>
 
@@ -253,19 +254,19 @@
 window.WS_I18N = {
   en: {
     "nav.home": "Home",
-    "nav.usecases": "Use cases",
+    "nav.usecases": "Playbook",
     "nav.principles": "Agent principles",
     "nav.agents": "Our agents",
     "nav.apikey": "API key",
     "hero.eyebrow": "Showcase",
-    "hero.title": "Concrete Wavestone <span class=\"ac\">use cases</span>",
+    "hero.title": "Concrete Wavestone <span class=\"ac\">agents</span>",
     "hero.lede": "Three standalone tools built from local repositories, designed to quickly turn field expertise into a usable application.",
     "hero.pill1": "Static-first",
     "hero.pill2": "Local browser apps",
     "hero.pill3": "GitHub Pages",
     "intro.h2": "What these examples show",
     "intro.body": "Each tool illustrates a pragmatic delivery mindset: start from a very specific business need, ship a directly testable interface, keep data on the browser side whenever possible, and industrialise only what deserves it.",
-    "prin1.label": "A use case before a platform",
+    "prin1.label": "A purpose before a platform",
     "prin1.body": "Each tool solves an identifiable workflow, without waiting for heavy architecture.",
     "prin2.label": "A shareable artefact",
     "prin2.body": "Standalone HTML, PPTX export, ZIP package, CMS snippets or an interactive report.",
@@ -297,28 +298,28 @@ window.WS_I18N = {
     "uc3.repo": "View the repo",
     "note.lab": "Thumbnails",
     "note.body": "The thumbnails are animated SVGs versioned in the site. They play the role of a GIF, but stay lighter, sharp on high-density screens and easy to maintain in Git.",
-    "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; showcase use cases",
+    "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; showcase agents",
     "footer.home": "&#8592; back to home",
     "img.crisis": "Animated thumbnail of CrisisMaker showing a scenario, stimuli and a debrief export",
     "img.cyberbench": "Animated thumbnail of CyberBenchExplorer showing import, checks, matrix, radar and PPTX export",
     "img.radar": "Animated thumbnail of RadarMapper showing a radar, clickable zones, a popup and an export",
-    "__title": "Wavestone CYB &middot; AI Maker Initiative &mdash; Showcase use cases"
+    "__title": "Wavestone CYB &middot; AI Maker Initiative &mdash; Showcase agents"
   },
   de: {
     "nav.home": "Start",
-    "nav.usecases": "Anwendungsf&auml;lle",
+    "nav.usecases": "Playbook",
     "nav.principles": "Agenten-Prinzipien",
     "nav.agents": "Unsere Agenten",
     "nav.apikey": "API-Schl&uuml;ssel",
     "hero.eyebrow": "Showcase",
-    "hero.title": "Konkrete Wavestone-<span class=\"ac\">Use-Cases</span>",
+    "hero.title": "Konkrete Wavestone-<span class=\"ac\">Agenten</span>",
     "hero.lede": "Drei eigenst&auml;ndige Tools aus lokalen Repositories, entwickelt, um Praxiswissen schnell in eine nutzbare Anwendung zu verwandeln.",
     "hero.pill1": "Static-first",
     "hero.pill2": "Local browser apps",
     "hero.pill3": "GitHub Pages",
     "intro.h2": "Was diese Beispiele zeigen",
     "intro.body": "Jedes Tool veranschaulicht eine pragmatische Delivery-Logik: von einem sehr spezifischen fachlichen Bedarf ausgehen, eine direkt testbare Oberfl&auml;che liefern, Daten nach M&ouml;glichkeit im Browser halten und nur das industrialisieren, was es verdient.",
-    "prin1.label": "Ein Anwendungsfall vor einer Plattform",
+    "prin1.label": "Ein Einsatzzweck vor einer Plattform",
     "prin1.body": "Jedes Tool l&ouml;st einen klar erkennbaren Workflow, ohne auf eine schwere Architektur zu warten.",
     "prin2.label": "Ein teilbares Artefakt",
     "prin2.body": "Eigenst&auml;ndiges HTML, PPTX-Export, ZIP-Paket, CMS-Snippets oder ein interaktiver Bericht.",
@@ -350,12 +351,12 @@ window.WS_I18N = {
     "uc3.repo": "Repo ansehen",
     "note.lab": "Vorschaubilder",
     "note.body": "Die Vorschaubilder sind animierte SVGs, die im Site versioniert sind. Sie &uuml;bernehmen die Rolle eines GIFs, bleiben aber leichter, scharf auf hochaufl&ouml;senden Bildschirmen und einfach in Git zu pflegen.",
-    "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; Showcase-Use-Cases",
+    "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; Showcase-Agenten",
     "footer.home": "&#8592; zur&uuml;ck zur Startseite",
     "img.crisis": "Animiertes Vorschaubild von CrisisMaker mit Szenario, Stimuli und einem Debrief-Export",
     "img.cyberbench": "Animiertes Vorschaubild von CyberBenchExplorer mit Import, Checks, Matrix, Radar und PPTX-Export",
     "img.radar": "Animiertes Vorschaubild von RadarMapper mit Radar, anklickbaren Zonen, einem Popup und einem Export",
-    "__title": "Wavestone CYB &middot; AI Maker Initiative &mdash; Showcase-Use-Cases"
+    "__title": "Wavestone CYB &middot; AI Maker Initiative &mdash; Showcase-Agenten"
   }
 };
 </script>

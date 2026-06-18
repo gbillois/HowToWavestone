@@ -40,7 +40,7 @@
 
   /* ---------- sticky brand bar ---------- */
   .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
-  .bar-in{max-width:1040px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
   .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
   .brand .dot{width:9px;height:9px;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
   .nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -203,7 +203,7 @@
     <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
     <div class="nav">
       <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
-      <a class="jump" href="use-cases.html" data-i18n="nav.usecases">Cas d'usage</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
       <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
       <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
       <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
@@ -222,7 +222,7 @@
     <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
   </svg>
   <div class="hero-in">
-    <span class="eyebrow" data-i18n="hero.eyebrow">Cas d&rsquo;usage &middot; Application locale</span>
+    <span class="eyebrow" data-i18n="hero.eyebrow">Playbook &middot; Application bureau</span>
     <h1 data-i18n="hero.title">Cr&eacute;er une application <span class="ac">locale</span> avec l&rsquo;IA</h1>
     <p class="lede" data-i18n="hero.lede">D&rsquo;une id&eacute;e &agrave; une app qui tourne sur ta propre machine, &eacute;tape par &eacute;tape &mdash; rien d&rsquo;h&eacute;berg&eacute; en ligne. Suis le d&eacute;roul&eacute;, coche chaque &eacute;tape, copie les prompts.</p>
     <div class="meta-chips">
@@ -427,8 +427,8 @@
   /* ---------------- i18n ---------------- */
   var I18N = {
     en:{
-      "nav.home":"Home","nav.usecases":"Use cases","nav.principles":"Agent principles","nav.agents":"Our agents","nav.apikey":"API key",
-      "hero.eyebrow":"Use case &middot; Local application",
+      "nav.home":"Home","nav.usecases":"Playbook","nav.principles":"Agent principles","nav.agents":"Our agents","nav.apikey":"API key",
+      "hero.eyebrow":"Playbook &middot; Desktop application",
       "hero.title":"Build a <span class=\"ac\">local</span> application with AI",
       "hero.lede":"From an idea to an app that runs on your own machine, step by step &mdash; nothing hosted online. Follow the flow, tick off each step, copy the prompts.",
       "hero.chip1":"# 100% on your machine","hero.chip2":"# no admin rights","hero.chip3":"# ~30 min","hero.chip4":"# Git &middot; VS Code &middot; Python &middot; Claude Code",
@@ -460,8 +460,8 @@
       "__title":"Build a local application with AI &mdash; Wavestone CYB"
     },
     de:{
-      "nav.home":"Start","nav.usecases":"Anwendungsf&auml;lle","nav.principles":"Agenten-Prinzipien","nav.agents":"Unsere Agenten","nav.apikey":"API-Schl&uuml;ssel",
-      "hero.eyebrow":"Anwendungsfall &middot; Lokale Anwendung",
+      "nav.home":"Start","nav.usecases":"Playbook","nav.principles":"Agenten-Prinzipien","nav.agents":"Unsere Agenten","nav.apikey":"API-Schl&uuml;ssel",
+      "hero.eyebrow":"Playbook &middot; Desktop-Anwendung",
       "hero.title":"Eine <span class=\"ac\">lokale</span> Anwendung mit KI bauen",
       "hero.lede":"Von der Idee zu einer App, die auf deinem eigenen Rechner l&auml;uft, Schritt f&uuml;r Schritt &mdash; nichts online gehostet. Folge dem Ablauf, hake jeden Schritt ab, kopiere die Prompts.",
       "hero.chip1":"# 100% auf deinem Rechner","hero.chip2":"# ohne Adminrechte","hero.chip3":"# ~30 Min","hero.chip4":"# Git &middot; VS Code &middot; Python &middot; Claude Code",
