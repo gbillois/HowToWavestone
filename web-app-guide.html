@@ -290,7 +290,7 @@
 
   </div>
 
-  <!-- animated flow: a user on the left, then one arc between each box -->
+  <!-- animated flow: one arc between each box -->
   <div class="flowlane">
     <svg id="conceptflow" class="flowsvg" viewBox="0 0 1200 150" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
       <defs>
@@ -298,23 +298,6 @@
           <path d="M0,0 L6,3 L0,6 Z" fill="#451DC7"/>
         </marker>
       </defs>
-
-      <!-- the user (an idea in plain language) -->
-      <g fill="none" stroke="#451DC7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" transform="translate(8,8) scale(.8)">
-        <circle cx="42" cy="40" r="17"/>
-        <path d="M9,108 C9,80 26,68 42,68 C58,68 75,80 75,108"/>
-        <g stroke="#088A42">
-          <rect x="62" y="4" width="40" height="29"/>
-          <path d="M74,33 l-4,12 15,-12"/>
-          <line x1="70" y1="14" x2="94" y2="14"/>
-          <line x1="70" y1="23" x2="88" y2="23"/>
-          <animateTransform attributeName="transform" type="translate" values="0 0; 0 -3.5; 0 0" dur="2.6s" repeatCount="indefinite"/>
-        </g>
-      </g>
-
-      <!-- arc A : user -> AI agent -->
-      <path id="cfA" d="M88,46 C 130,120 168,112 198,34" fill="none" stroke="#D1CAF2" stroke-width="4"/>
-      <path d="M88,46 C 130,120 168,112 198,34" fill="none" stroke="#451DC7" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 15" marker-end="url(#cfArrow)"><animate attributeName="stroke-dashoffset" values="32;0" dur="0.85s" repeatCount="indefinite"/></path>
 
       <!-- arc B : AI agent -> GitHub -->
       <path id="cfB" d="M202,34 C 340,138 558,136 598,34" fill="none" stroke="#D1CAF2" stroke-width="4"/>
@@ -324,24 +307,14 @@
       <path id="cfC" d="M602,34 C 740,138 958,136 998,34" fill="none" stroke="#D1CAF2" stroke-width="4"/>
       <path d="M602,34 C 740,138 958,136 998,34" fill="none" stroke="#451DC7" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 15" marker-end="url(#cfArrow)"><animate attributeName="stroke-dashoffset" values="32;0" dur="0.85s" repeatCount="indefinite"/></path>
 
-      <!-- packet A : the prompt (text) travels to the AI agent -->
-      <g opacity="0">
-        <rect x="-18" y="-18" width="36" height="36" fill="#fff" stroke="#451DC7" stroke-width="2.5"/>
-        <g transform="translate(-12,-12)" fill="none" stroke="#451DC7" stroke-width="2.2" stroke-linecap="square">
-          <path d="M3 4h18v12H8l-4 3V4z"/><line x1="7" y1="8.5" x2="17" y2="8.5"/><line x1="7" y1="12" x2="13" y2="12"/>
-        </g>
-        <animateMotion dur="2.7s" begin="0s" repeatCount="indefinite" calcMode="linear" rotate="0"><mpath href="#cfA"/></animateMotion>
-        <animate attributeName="opacity" dur="2.7s" begin="0s" repeatCount="indefinite" keyTimes="0;0.15;0.8;1" values="0;1;1;0"/>
-      </g>
-
       <!-- packet B : the source code is exchanged with GitHub -->
       <g opacity="0">
         <rect x="-18" y="-18" width="36" height="36" fill="#fff" stroke="#451DC7" stroke-width="2.5"/>
         <g transform="translate(-12,-12)" fill="none" stroke="#451DC7" stroke-width="2.2" stroke-linecap="square">
           <polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/>
         </g>
-        <animateMotion dur="2.7s" begin="0.8s" repeatCount="indefinite" calcMode="linear" rotate="0"><mpath href="#cfB"/></animateMotion>
-        <animate attributeName="opacity" dur="2.7s" begin="0.8s" repeatCount="indefinite" keyTimes="0;0.15;0.8;1" values="0;1;1;0"/>
+        <animateMotion dur="2.7s" begin="0s" repeatCount="indefinite" calcMode="linear" rotate="0"><mpath href="#cfB"/></animateMotion>
+        <animate attributeName="opacity" dur="2.7s" begin="0s" repeatCount="indefinite" keyTimes="0;0.15;0.8;1" values="0;1;1;0"/>
       </g>
 
       <!-- packet C : the HTML files flow to GitHub Pages -->
@@ -350,13 +323,12 @@
         <g transform="translate(-12,-12)" fill="none" stroke="#451DC7" stroke-width="2.2" stroke-linecap="square">
           <path d="M6 2h9l5 5v15H6z"/><polyline points="15 2 15 8 21 8"/><line x1="9.5" y1="13" x2="14.5" y2="13"/><line x1="9.5" y1="17" x2="14.5" y2="17"/>
         </g>
-        <animateMotion dur="2.7s" begin="1.6s" repeatCount="indefinite" calcMode="linear" rotate="0"><mpath href="#cfC"/></animateMotion>
-        <animate attributeName="opacity" dur="2.7s" begin="1.6s" repeatCount="indefinite" keyTimes="0;0.15;0.8;1" values="0;1;1;0"/>
+        <animateMotion dur="2.7s" begin="0.9s" repeatCount="indefinite" calcMode="linear" rotate="0"><mpath href="#cfC"/></animateMotion>
+        <animate attributeName="opacity" dur="2.7s" begin="0.9s" repeatCount="indefinite" keyTimes="0;0.15;0.8;1" values="0;1;1;0"/>
       </g>
     </svg>
 
     <div class="flabels">
-      <span class="flabel" data-i18n="a.flow1" style="left:12%">prompt</span>
       <span class="flabel" data-i18n="a.flow2" style="left:33%">code source</span>
       <span class="flabel" data-i18n="a.flow3" style="left:66.5%">fichiers HTML</span>
     </div>
