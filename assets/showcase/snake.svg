@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" role="img" aria-labelledby="st sd">
+  <title id="st">Le jeu Snake publie en ligne</title>
+  <desc id="sd">Mockup anime du jeu Snake Cyber Academy en ligne : le serpent se deplace, le score progresse.</desc>
+  <style>
+    text{font-family:Inter,Arial,sans-serif}
+    .shell{fill:#fff;stroke:#d9d4ee;stroke-width:2}
+    .board{fill:#150939}
+    .title{font-size:13px;font-weight:800;fill:#fff}
+    .lab{font-size:10px;font-weight:700;fill:#9a93c8}
+    .score{font-size:15px;font-weight:850;fill:#04f06a}
+    .seg{fill:#04f06a}
+    #snake{animation:slither 4s steps(4) infinite}
+    #food{animation:foodblink 1.2s ease-in-out infinite}
+    #ate{animation:ate 4s ease-in-out infinite}
+    @keyframes slither{0%{transform:translateX(0)}100%{transform:translateX(120px)}}
+    @keyframes foodblink{0%,100%{opacity:1}50%{opacity:.35}}
+    @keyframes ate{0%,70%{opacity:0}80%,95%{opacity:1}100%{opacity:0}}
+  </style>
+  <defs>
+    <linearGradient id="sbg" x1="0" y1="0" x2="0" y2="300"><stop stop-color="#f1eefb"/><stop offset="1" stop-color="#f8fbff"/></linearGradient>
+  </defs>
+
+  <rect width="480" height="300" fill="url(#sbg)"/>
+  <rect class="shell" x="20" y="24" width="440" height="252"/>
+
+  <!-- game board -->
+  <rect class="board" x="34" y="38" width="412" height="224"/>
+  <text x="48" y="62" class="title">Cyber Academy Snake</text>
+  <text x="48" y="78" class="lab">Eat blocks · answer cyber questions</text>
+  <text x="372" y="64" class="lab">SCORE</text>
+  <text x="372" y="84" class="score">8/10</text>
+
+  <!-- faint grid -->
+  <g stroke="#2a1c5e" stroke-width="1">
+    <path d="M34 110h412M34 134h412M34 158h412M34 182h412M34 206h412M34 230h412"/>
+    <path d="M82 96v166M130 96v166M178 96v166M226 96v166M274 96v166M322 96v166M370 96v166M418 96v166"/>
+  </g>
+
+  <!-- food -->
+  <rect id="food" x="294" y="158" width="20" height="20" fill="#c8861a"/>
+
+  <!-- snake -->
+  <g id="snake">
+    <rect class="seg" x="58" y="158" width="20" height="20"/>
+    <rect class="seg" x="82" y="158" width="20" height="20"/>
+    <rect class="seg" x="106" y="158" width="20" height="20"/>
+    <rect x="130" y="158" width="20" height="20" fill="#5cf59e"/>
+  </g>
+
+  <!-- correct answer flash -->
+  <g id="ate">
+    <rect x="150" y="200" width="160" height="30" fill="#088a42"/>
+    <path d="M166 215l5 5 9-10" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="square"/>
+    <text x="190" y="220" font-size="12" font-weight="800" fill="#fff">Phishing — correct!</text>
+  </g>
+</svg>

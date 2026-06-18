@@ -96,24 +96,21 @@
 
   .bk-no{font-family:var(--ws-font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-indigo-600);align-self:flex-start}
 
-  .fscreen{position:relative;margin:13px 0 15px;border:1px solid var(--ws-ink-200);background:var(--ws-ink-50);box-shadow:var(--ws-shadow-md);overflow:hidden}
-  .fscreen .topbar{display:flex;gap:5px;align-items:center;padding:7px 10px;background:var(--ws-ink-100);border-bottom:1px solid var(--ws-ink-200)}
-  .fscreen .topbar i{width:8px;height:8px;background:var(--ws-ink-300);display:block;flex:0 0 auto}
-  .fscreen .topbar b{margin-left:7px;font-family:var(--ws-font-mono);font-size:10px;font-weight:500;color:var(--ws-ink-400);letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .fscreen a.zoom{display:block;line-height:0;cursor:zoom-in}
-  .fscreen img{display:block;width:100%;height:172px;object-fit:cover;object-position:top left;transition:transform .4s var(--ws-ease)}
-  .fscreen a.zoom:hover img{transform:scale(1.05)}
+  .fmedia{position:relative;margin:13px 0 16px;background:linear-gradient(180deg,#efecfb 0,#f8fbff 100%);border:1px solid var(--ws-ink-100);box-shadow:var(--ws-shadow-md);padding:14px 14px 18px;overflow:hidden}
+  .fmedia::after{content:"";position:absolute;left:14px;right:14px;bottom:8px;height:4px;background:var(--ws-gradient-accent)}
+  .fmedia img{display:block;width:100%;height:auto}
 
   .fstage h3{font-family:var(--ws-font-display);font-weight:600;font-size:19px;color:var(--ws-ink-900);margin-bottom:7px;line-height:1.22}
   .fstage p{font-size:14.5px;color:var(--ws-ink-500);line-height:1.55;flex:1}
   .fstage p b{color:var(--ws-ink-900)}
   .fstage .tool{font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-indigo-700);background:var(--ws-indigo-50);padding:3px 9px;margin-top:14px;display:inline-block;align-self:flex-start}
 
-  /* flow lane: user figure + animated SVG arc running below the cards */
-  .flowlane{position:relative;margin:2px 0 6px}
+  /* flow lane: user figure + an animated SVG arc between each box */
+  .flowlane{position:relative;margin:4px 0 6px}
   .flowsvg{display:block;width:100%;height:auto;overflow:visible}
-  .flabels{display:flex;justify-content:space-around;gap:10px;margin-top:-6px;padding:0 4%}
-  .flabel{font-family:var(--ws-font-mono);font-size:11.5px;line-height:1.2;color:var(--ws-indigo-700);background:var(--ws-indigo-50);border:1px solid var(--ws-indigo-100);padding:4px 11px;text-align:center}
+  .flabels{position:relative;height:24px;margin-top:2px}
+  .flabel{position:absolute;top:0;transform:translateX(-50%);white-space:nowrap;font-family:var(--ws-font-mono);font-size:11.5px;line-height:1.2;color:var(--ws-indigo-700);background:var(--ws-indigo-50);border:1px solid var(--ws-indigo-100);padding:4px 11px;text-align:center}
+  @media(max-width:759px){.flabels{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;height:auto;margin-top:6px}.flabel{position:static!important;left:auto!important;transform:none}}
 
   /* ---------- phase / steps (pipeline spine) ---------- */
   .phase{margin-top:18px}
@@ -267,10 +264,7 @@
     <!-- Block 1: AI agent (Codex) -->
     <div class="fstage">
       <span class="bk-no" data-i18n="a.b1.tag">Brique 1</span>
-      <div class="fscreen">
-        <div class="topbar" aria-hidden="true"><i></i><i></i><i></i><b>chatgpt.com/codex</b></div>
-        <a class="zoom" href="assets/screens/image28.png" target="_blank" rel="noopener"><img src="assets/screens/image28.png" loading="lazy" alt="ChatGPT Codex"></a>
-      </div>
+      <div class="fmedia"><img src="assets/showcase/codex.svg" loading="lazy" alt="Interface Codex : une idee est saisie, l'agent ecrit le code"></div>
       <h3 data-i18n="a.b1.title">Un agent IA &eacute;crit le code</h3>
       <p data-i18n="a.b1.body">&Agrave; partir d&rsquo;une simple id&eacute;e en langage naturel, un agent IA g&eacute;n&egrave;re le code source. C&rsquo;est lui qui fait le travail d&rsquo;&eacute;criture.</p>
       <span class="tool" data-i18n="a.b1.tool">Claude &middot; ou ChatGPT (Codex)</span>
@@ -279,10 +273,7 @@
     <!-- Block 2: GitHub -->
     <div class="fstage">
       <span class="bk-no" data-i18n="a.b2.tag">Brique 2</span>
-      <div class="fscreen">
-        <div class="topbar" aria-hidden="true"><i></i><i></i><i></i><b>github.com</b></div>
-        <a class="zoom" href="assets/screens/image33.png" target="_blank" rel="noopener"><img src="assets/screens/image33.png" loading="lazy" alt="GitHub Pull Request"></a>
-      </div>
+      <div class="fmedia"><img src="assets/showcase/github.svg" loading="lazy" alt="Pull Request GitHub : le code propose, pret a fusionner"></div>
       <h3 data-i18n="a.b2.title">GitHub stocke et partage</h3>
       <p data-i18n="a.b2.body">Le code est d&eacute;pos&eacute; dans un espace en ligne qui l&rsquo;historise et le rend partageable&nbsp;: un d&eacute;p&ocirc;t (une &laquo;&nbsp;repository&nbsp;&raquo;).</p>
       <span class="tool" data-i18n="a.b2.tool">GitHub</span>
@@ -291,10 +282,7 @@
     <!-- Block 3: GitHub Pages (live site) -->
     <div class="fstage">
       <span class="bk-no" data-i18n="a.b3.tag">Brique 3</span>
-      <div class="fscreen">
-        <div class="topbar" aria-hidden="true"><i></i><i></i><i></i><b>votre-projet.github.io</b></div>
-        <a class="zoom" href="assets/screens/image40.png" target="_blank" rel="noopener"><img src="assets/screens/image40.png" loading="lazy" alt="Snake game en ligne"></a>
-      </div>
+      <div class="fmedia"><img src="assets/showcase/snake.svg" loading="lazy" alt="Le jeu Snake publie en ligne"></div>
       <h3 data-i18n="a.b3.title">Le site est publi&eacute;</h3>
       <p data-i18n="a.b3.body">Le code est publi&eacute; sur une page web accessible &agrave; tous via une URL. L&rsquo;h&eacute;bergement se fait automatiquement.</p>
       <span class="tool" data-i18n="a.b3.tool">GitHub Pages</span>
@@ -302,17 +290,17 @@
 
   </div>
 
-  <!-- animated flow: user on the left, the exchange sweeps in an arc below the cards -->
+  <!-- animated flow: a user on the left, then one arc between each box -->
   <div class="flowlane">
-    <svg id="conceptflow" class="flowsvg" viewBox="0 0 1200 210" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+    <svg id="conceptflow" class="flowsvg" viewBox="0 0 1200 150" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
       <defs>
-        <marker id="cfArrow" markerWidth="9" markerHeight="9" refX="5.5" refY="3" orient="auto" markerUnits="strokeWidth">
+        <marker id="cfArrow" markerWidth="9" markerHeight="9" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
           <path d="M0,0 L6,3 L0,6 Z" fill="#451DC7"/>
         </marker>
       </defs>
 
-      <!-- the user (idea in plain language) -->
-      <g fill="none" stroke="#451DC7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" transform="translate(20,16)">
+      <!-- the user (an idea in plain language) -->
+      <g fill="none" stroke="#451DC7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" transform="translate(8,8) scale(.8)">
         <circle cx="42" cy="40" r="17"/>
         <path d="M9,108 C9,80 26,68 42,68 C58,68 75,80 75,108"/>
         <g stroke="#088A42">
@@ -324,48 +312,53 @@
         </g>
       </g>
 
-      <!-- arc track -->
-      <path id="cfArc" d="M120,72 C 370,206 840,206 1182,60" fill="none" stroke="#D1CAF2" stroke-width="4"/>
-      <!-- animated flowing dashes along the arc -->
-      <path d="M120,72 C 370,206 840,206 1182,60" fill="none" stroke="#451DC7" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 16" marker-end="url(#cfArrow)">
-        <animate attributeName="stroke-dashoffset" values="34;0" dur="0.9s" repeatCount="indefinite"/>
-      </path>
+      <!-- arc A : user -> AI agent -->
+      <path id="cfA" d="M88,46 C 130,120 168,112 198,34" fill="none" stroke="#D1CAF2" stroke-width="4"/>
+      <path d="M88,46 C 130,120 168,112 198,34" fill="none" stroke="#451DC7" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 15" marker-end="url(#cfArrow)"><animate attributeName="stroke-dashoffset" values="32;0" dur="0.85s" repeatCount="indefinite"/></path>
 
-      <!-- packet 1: the prompt (text) travels to the AI agent -->
+      <!-- arc B : AI agent -> GitHub -->
+      <path id="cfB" d="M202,34 C 340,138 558,136 598,34" fill="none" stroke="#D1CAF2" stroke-width="4"/>
+      <path d="M202,34 C 340,138 558,136 598,34" fill="none" stroke="#451DC7" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 15" marker-end="url(#cfArrow)"><animate attributeName="stroke-dashoffset" values="32;0" dur="0.85s" repeatCount="indefinite"/></path>
+
+      <!-- arc C : GitHub -> GitHub Pages -->
+      <path id="cfC" d="M602,34 C 740,138 958,136 998,34" fill="none" stroke="#D1CAF2" stroke-width="4"/>
+      <path d="M602,34 C 740,138 958,136 998,34" fill="none" stroke="#451DC7" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 15" marker-end="url(#cfArrow)"><animate attributeName="stroke-dashoffset" values="32;0" dur="0.85s" repeatCount="indefinite"/></path>
+
+      <!-- packet A : the prompt (text) travels to the AI agent -->
       <g opacity="0">
-        <rect x="-20" y="-20" width="40" height="40" fill="#fff" stroke="#451DC7" stroke-width="2.5"/>
+        <rect x="-18" y="-18" width="36" height="36" fill="#fff" stroke="#451DC7" stroke-width="2.5"/>
         <g transform="translate(-12,-12)" fill="none" stroke="#451DC7" stroke-width="2.2" stroke-linecap="square">
           <path d="M3 4h18v12H8l-4 3V4z"/><line x1="7" y1="8.5" x2="17" y2="8.5"/><line x1="7" y1="12" x2="13" y2="12"/>
         </g>
-        <animateMotion dur="3.6s" begin="0s" repeatCount="indefinite" calcMode="linear" keyPoints="0;0.34" keyTimes="0;1" rotate="0"><mpath href="#cfArc"/></animateMotion>
-        <animate attributeName="opacity" dur="3.6s" begin="0s" repeatCount="indefinite" keyTimes="0;0.12;0.88;1" values="0;1;1;0"/>
+        <animateMotion dur="2.7s" begin="0s" repeatCount="indefinite" calcMode="linear" rotate="0"><mpath href="#cfA"/></animateMotion>
+        <animate attributeName="opacity" dur="2.7s" begin="0s" repeatCount="indefinite" keyTimes="0;0.15;0.8;1" values="0;1;1;0"/>
       </g>
 
-      <!-- packet 2: the source code is exchanged with GitHub -->
+      <!-- packet B : the source code is exchanged with GitHub -->
       <g opacity="0">
-        <rect x="-20" y="-20" width="40" height="40" fill="#fff" stroke="#451DC7" stroke-width="2.5"/>
+        <rect x="-18" y="-18" width="36" height="36" fill="#fff" stroke="#451DC7" stroke-width="2.5"/>
         <g transform="translate(-12,-12)" fill="none" stroke="#451DC7" stroke-width="2.2" stroke-linecap="square">
           <polyline points="8 7 3 12 8 17"/><polyline points="16 7 21 12 16 17"/>
         </g>
-        <animateMotion dur="3.6s" begin="1.2s" repeatCount="indefinite" calcMode="linear" keyPoints="0.33;0.67" keyTimes="0;1" rotate="0"><mpath href="#cfArc"/></animateMotion>
-        <animate attributeName="opacity" dur="3.6s" begin="1.2s" repeatCount="indefinite" keyTimes="0;0.12;0.88;1" values="0;1;1;0"/>
+        <animateMotion dur="2.7s" begin="0.8s" repeatCount="indefinite" calcMode="linear" rotate="0"><mpath href="#cfB"/></animateMotion>
+        <animate attributeName="opacity" dur="2.7s" begin="0.8s" repeatCount="indefinite" keyTimes="0;0.15;0.8;1" values="0;1;1;0"/>
       </g>
 
-      <!-- packet 3: the HTML files flow to GitHub Pages -->
+      <!-- packet C : the HTML files flow to GitHub Pages -->
       <g opacity="0">
-        <rect x="-20" y="-20" width="40" height="40" fill="#fff" stroke="#451DC7" stroke-width="2.5"/>
+        <rect x="-18" y="-18" width="36" height="36" fill="#fff" stroke="#451DC7" stroke-width="2.5"/>
         <g transform="translate(-12,-12)" fill="none" stroke="#451DC7" stroke-width="2.2" stroke-linecap="square">
           <path d="M6 2h9l5 5v15H6z"/><polyline points="15 2 15 8 21 8"/><line x1="9.5" y1="13" x2="14.5" y2="13"/><line x1="9.5" y1="17" x2="14.5" y2="17"/>
         </g>
-        <animateMotion dur="3.6s" begin="2.4s" repeatCount="indefinite" calcMode="linear" keyPoints="0.66;1" keyTimes="0;1" rotate="0"><mpath href="#cfArc"/></animateMotion>
-        <animate attributeName="opacity" dur="3.6s" begin="2.4s" repeatCount="indefinite" keyTimes="0;0.12;0.88;1" values="0;1;1;0"/>
+        <animateMotion dur="2.7s" begin="1.6s" repeatCount="indefinite" calcMode="linear" rotate="0"><mpath href="#cfC"/></animateMotion>
+        <animate attributeName="opacity" dur="2.7s" begin="1.6s" repeatCount="indefinite" keyTimes="0;0.15;0.8;1" values="0;1;1;0"/>
       </g>
     </svg>
 
     <div class="flabels">
-      <span class="flabel" data-i18n="a.flow1">prompt</span>
-      <span class="flabel" data-i18n="a.flow2">code source</span>
-      <span class="flabel" data-i18n="a.flow3">fichiers HTML</span>
+      <span class="flabel" data-i18n="a.flow1" style="left:12%">prompt</span>
+      <span class="flabel" data-i18n="a.flow2" style="left:33%">code source</span>
+      <span class="flabel" data-i18n="a.flow3" style="left:66.5%">fichiers HTML</span>
     </div>
   </div>
 
@@ -974,7 +967,7 @@
   var lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbClose = document.getElementById('lbClose');
   function openLb(src){ lbImg.src = src; lb.classList.add('on'); lb.setAttribute('aria-hidden','false'); }
   function closeLb(){ lb.classList.remove('on'); lb.setAttribute('aria-hidden','true'); lbImg.src = ''; }
-  document.querySelectorAll('figure.shot a.zoom, .fscreen a.zoom').forEach(function(a){
+  document.querySelectorAll('figure.shot a.zoom').forEach(function(a){
     a.addEventListener('click', function(e){ e.preventDefault(); openLb(a.getAttribute('href')); });
   });
   lb.addEventListener('click', function(e){ if(e.target !== lbImg) closeLb(); });
