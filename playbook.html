@@ -185,6 +185,12 @@
 
   :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
   @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+  /* On narrow screens let the status badge sit above the title instead of
+     overlapping it when the heading wraps under the absolute badge. */
+  @media(max-width:560px){
+    .badge-ok,.badge-soon{position:static;display:inline-block;margin-bottom:6px}
+    .tile h3{margin-top:2px}
+  }
 
   /* ---------- launcher cards ---------- */
   .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-left:auto}
@@ -448,5 +454,6 @@ window.WS_I18N = {
 };
 </script>
 <script src="assets/i18n.js"></script>
+<script src="assets/mobile-nav.js"></script>
 </body>
 </html>
