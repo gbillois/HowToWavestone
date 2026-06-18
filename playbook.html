@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wavestone CYB AI Maker — Cas d'usage</title>
+<title>Wavestone CYB AI Maker — Playbook</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -187,7 +187,8 @@
   @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
 
   /* ---------- launcher cards ---------- */
-  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-left:auto}
+  .bar-in .langsel{margin-left:10px}
   a.tile{text-decoration:none;display:block}
   .tile.soon{cursor:default}
   .tile.soon:hover{box-shadow:var(--ws-shadow-sm);transform:none;border-color:var(--ws-ink-100)}
@@ -206,7 +207,7 @@
     <a class="brand" href="index.html" style="text-decoration:none"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
     <div class="nav-links">
       <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
-      <a class="jump" href="use-cases.html" data-i18n="nav.usecases">Cas d'usage</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
       <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
       <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
       <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
@@ -220,9 +221,9 @@
     <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
   </svg>
   <div class="hero-in">
-    <span class="eyebrow" data-i18n="hero.eyebrow">Cas d'usage</span>
+    <span class="eyebrow" data-i18n="hero.eyebrow">Playbook</span>
     <h1 data-i18n="hero.title">Que veux-tu <span class="ac">construire</span> ?</h1>
-    <p class="lede" data-i18n="hero.lede">Choisis un cas d'usage. Pour chacun&nbsp;: la cha&icirc;ne CI/CD &agrave; haut niveau, puis le how-to d&eacute;taill&eacute; quand il existe &mdash; sinon, il arrive bient&ocirc;t.</p>
+    <p class="lede" data-i18n="hero.lede">Choisis un playbook. Pour chacun&nbsp;: la cha&icirc;ne CI/CD &agrave; haut niveau, puis le how-to d&eacute;taill&eacute; quand il existe &mdash; sinon, il arrive bient&ocirc;t.</p>
     <p class="tagline" data-i18n="hero.tagline"># environnement wavestone &middot; licence claude entreprise &middot; sans droits admin</p>
   </div>
 </header>
@@ -232,55 +233,56 @@
   <!-- CHOOSER / LAUNCHER -->
   <div class="sec-head">
     <span class="eyebrow" data-i18n="chooser.eyebrow">Par o&ugrave; commencer</span>
-    <h2 data-i18n="chooser.h2">Quel est ton cas d'usage ?</h2>
-    <p data-i18n="chooser.p">Choisis un cas d'usage&nbsp;: ouvre son guide de mise en &oelig;uvre, ou d&eacute;couvre la cha&icirc;ne CI/CD pr&eacute;vue.</p>
+    <h2 data-i18n="chooser.h2">Quel playbook te faut-il ?</h2>
+    <p data-i18n="chooser.p">Choisis un playbook&nbsp;: ouvre son guide de mise en &oelig;uvre, ou d&eacute;couvre la cha&icirc;ne CI/CD pr&eacute;vue.</p>
   </div>
 
   <div class="chooser" id="chooser">
 
-    <a class="tile" href="local-app-guide.html">
-      <span class="badge-ok" data-i18n="badge.ok">Guide dispo</span>
-      <h3 data-i18n="tile.loc.h3">Cr&eacute;er une application locale</h3>
-      <p data-i18n="tile.loc.p">Une app qui tourne sur ta machine &mdash; du fichier HTML au script Python.</p>
-      <div class="flow" data-i18n="loc.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Code</span><span class="fa">&rarr;</span><span class="fn">Repo Git</span><span class="fa">&rarr;</span><span class="fn hl">Ta machine</span></div>
-      <span class="open" data-i18n="cta.open">Ouvrir le guide &#8594;</span>
-    </a>
-
     <a class="tile" href="web-app-guide.html">
       <span class="badge-ok" data-i18n="badge.ok">Guide dispo</span>
-      <h3 data-i18n="tile.webapp.h3">Cr&eacute;er une application web (en ligne)</h3>
-      <p data-i18n="tile.webapp.p">Une app publi&eacute;e en ligne via GitHub Pages, accessible par une URL.</p>
-      <div class="flow" data-i18n="webapp.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Repo Git</span><span class="fa">&rarr;</span><span class="fn">GitHub Pages</span><span class="fa">&rarr;</span><span class="fn hl">Site en ligne</span></div>
+      <h3 data-i18n="tile.static.h3">Site web statique</h3>
+      <p data-i18n="tile.static.p">Un site statique publi&eacute; en ligne via GitHub Pages, accessible par une URL.</p>
+      <div class="flow" data-i18n="static.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Repo Git</span><span class="fa">&rarr;</span><span class="fn">GitHub Pages</span><span class="fa">&rarr;</span><span class="fn hl">Site en ligne</span></div>
       <span class="open" data-i18n="cta.open">Ouvrir le guide &#8594;</span>
     </a>
 
     <div class="tile soon">
       <span class="badge-soon" data-i18n="badge.soon">&Agrave; venir</span>
-      <h3 data-i18n="tile.web.h3">Cr&eacute;er une application web avec base de donn&eacute;es en ligne</h3>
-      <p data-i18n="tile.web.p">Front, backend et base de donn&eacute;es centralis&eacute;e, h&eacute;berg&eacute;s en ligne.</p>
-      <div class="flow" data-i18n="web.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Repo Git</span><span class="fa">&rarr;</span><span class="fn">Build &amp; d&eacute;ploiement</span><span class="fa">&rarr;</span><span class="fn hl">H&eacute;bergeur web + base de donn&eacute;es</span></div>
+      <h3 data-i18n="tile.db.h3">Application web avec base de donn&eacute;es</h3>
+      <p data-i18n="tile.db.p">Front, backend et base de donn&eacute;es centralis&eacute;e, h&eacute;berg&eacute;s en ligne.</p>
+      <div class="flow" data-i18n="db.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Repo Git</span><span class="fa">&rarr;</span><span class="fn">Build &amp; d&eacute;ploiement</span><span class="fa">&rarr;</span><span class="fn hl">H&eacute;bergeur web + base de donn&eacute;es</span></div>
     </div>
+
+    <a class="tile" href="local-app-guide.html">
+      <span class="badge-ok" data-i18n="badge.ok">Guide dispo</span>
+      <h3 data-i18n="tile.desktop.h3">Application bureau</h3>
+      <p data-i18n="tile.desktop.p">Une app qui tourne sur ta machine &mdash; du fichier HTML au script Python.</p>
+      <div class="flow" data-i18n="desktop.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Code</span><span class="fa">&rarr;</span><span class="fn">Repo Git</span><span class="fa">&rarr;</span><span class="fn hl">Ta machine</span></div>
+      <span class="open" data-i18n="cta.open">Ouvrir le guide &#8594;</span>
+    </a>
 
     <div class="tile soon">
       <span class="badge-soon" data-i18n="badge.soon">&Agrave; venir</span>
-      <h3 data-i18n="tile.mobile.h3">Cr&eacute;er une application smartphone</h3>
+      <h3 data-i18n="tile.mobile.h3">Application mobile</h3>
       <p data-i18n="tile.mobile.p">Une app native iOS ou Android, publi&eacute;e sur les stores.</p>
       <div class="flow" data-i18n="mobile.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Repo Git</span><span class="fa">&rarr;</span><span class="fn">Build natif</span><span class="fa">&rarr;</span><span class="fn">Store</span><span class="fa">&rarr;</span><span class="fn hl">T&eacute;l&eacute;phone</span></div>
     </div>
 
     <div class="tile soon">
       <span class="badge-soon" data-i18n="badge.soon">&Agrave; venir</span>
-      <h3 data-i18n="tile.localai.h3">Utiliser des mod&egrave;les d'IA localement</h3>
-      <p data-i18n="tile.localai.p">Faire tourner un LLM directement sur ta machine, sans appel externe.</p>
-      <div class="flow" data-i18n="localai.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Code + Python portable</span><span class="fa">&rarr;</span><span class="fn">Mod&egrave;le d'IA local</span><span class="fa">&rarr;</span><span class="fn hl">Hors-ligne</span></div>
-    </div>
-
-    <div class="tile soon">
-      <span class="badge-soon" data-i18n="badge.soon">&Agrave; venir</span>
-      <h3 data-i18n="tile.copilot.h3">Cr&eacute;er un agent Copilot</h3>
+      <h3 data-i18n="tile.copilot.h3">Agent Copilot</h3>
       <p data-i18n="tile.copilot.p">Un agent dans l'&eacute;cosyst&egrave;me Microsoft Copilot.</p>
       <div class="flow" data-i18n="copilot.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">D&eacute;finition de l'agent</span><span class="fa">&rarr;</span><span class="fn">Copilot Studio</span><span class="fa">&rarr;</span><span class="fn">Test</span><span class="fa">&rarr;</span><span class="fn hl">D&eacute;ploiement M365</span></div>
     </div>
+
+    <a class="tile" href="api-key.html">
+      <span class="badge-ok" data-i18n="badge.ok">Guide dispo</span>
+      <h3 data-i18n="tile.apikey.h3">Ajouter une cl&eacute; API</h3>
+      <p data-i18n="tile.apikey.p">Obtenir une cl&eacute; API Wavestone pour appeler les mod&egrave;les dans un p&eacute;rim&egrave;tre s&eacute;curis&eacute;.</p>
+      <div class="flow" data-i18n="apikey.flow"><span class="fn">Demande</span><span class="fa">&rarr;</span><span class="fn">Power Apps Wavestone</span><span class="fa">&rarr;</span><span class="fn">Validation</span><span class="fa">&rarr;</span><span class="fn">Cl&eacute; API</span><span class="fa">&rarr;</span><span class="fn hl">Int&eacute;gration projet</span></div>
+      <span class="open" data-i18n="cta.openkey">Voir la proc&eacute;dure &#8594;</span>
+    </a>
 
   </div>
 
@@ -289,7 +291,7 @@
     <div class="lab" data-i18n="pL3.gov.lab">Gouvernance Wavestone &mdash; H&eacute;bergement interne</div>
     <p data-i18n="pL3.gov.p1">Pour les <b>donn&eacute;es clients sensibles</b>, deux options internes sont disponibles :</p>
     <p data-i18n="pL3.gov.p2">&bull; <b>Microsoft Azure</b> <span style="font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);padding:2px 8px;font-weight:600">recommand&eacute;</span> &mdash; environnement int&eacute;gr&eacute; &agrave; l'&eacute;cosyst&egrave;me Wavestone (Azure SQL, Azure OpenAI, Blob Storage, App Service). Privil&eacute;gi&eacute; pour rester dans le p&eacute;rim&egrave;tre ma&icirc;tris&eacute;.</p>
-    <p data-i18n="pL3.gov.p3">&bull; <b>Amazon Web Services (AWS)</b> &mdash; alternative disponible pour certains cas d'usage (DynamoDB, S3, Lambda, Bedrock). &Agrave; valider avec la gouvernance IT.</p>
+    <p data-i18n="pL3.gov.p3">&bull; <b>Amazon Web Services (AWS)</b> &mdash; alternative disponible pour certains sc&eacute;narios (DynamoDB, S3, Lambda, Bedrock). &Agrave; valider avec la gouvernance IT.</p>
     <p data-i18n="pL3.gov.p4">Les <b>cl&eacute;s API Wavestone</b> permettent dans les deux cas de rester dans un p&eacute;rim&egrave;tre s&eacute;curis&eacute; et trac&eacute;.</p>
   </div>
 
@@ -336,44 +338,45 @@
 <script>
 window.WS_I18N = {
   en: {
-    "__title": "Wavestone CYB AI Maker — Use cases",
+    "__title": "Wavestone CYB AI Maker — Playbook",
     "nav.home": "Home",
-    "nav.usecases": "Use cases",
+    "nav.usecases": "Playbook",
     "nav.principles": "Agent principles",
     "nav.agents": "Our agents",
     "nav.apikey": "API key",
-    "hero.eyebrow": "Use cases",
+    "hero.eyebrow": "Playbook",
     "hero.title": "What do you want to <span class=\"ac\">build</span>?",
-    "hero.lede": "Pick a use case. For each one: the high-level CI/CD chain, then the detailed how-to when it exists &mdash; otherwise, it's coming soon.",
+    "hero.lede": "Pick a playbook. For each one: the high-level CI/CD chain, then the detailed how-to when it exists &mdash; otherwise, it's coming soon.",
     "hero.tagline": "# wavestone environment &middot; claude enterprise licence &middot; no admin rights",
     "chooser.eyebrow": "Where to start",
-    "chooser.h2": "What's your use case?",
-    "chooser.p": "Pick a use case: open its implementation guide, or discover the planned CI/CD chain.",
+    "chooser.h2": "Which playbook do you need?",
+    "chooser.p": "Pick a playbook: open its implementation guide, or discover the planned CI/CD chain.",
     "badge.ok": "Guide ready",
     "badge.soon": "Coming soon",
     "cta.open": "Open the guide &#8594;",
-    "tile.loc.h3": "Create a local application",
-    "tile.loc.p": "An app that runs on your machine &mdash; from an HTML file to a Python script.",
-    "loc.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Code</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git repo</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Your machine</span>",
-    "tile.webapp.h3": "Create a web app (online)",
-    "tile.webapp.p": "An app published online via GitHub Pages, reachable through a URL.",
-    "webapp.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">GitHub Pages</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Live website</span>",
-    "tile.web.h3": "Create a web app with an online database",
-    "tile.web.p": "Front end, backend and a centralised database, hosted online.",
-    "web.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Build &amp; deploy</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Web host + database</span>",
-    "tile.mobile.h3": "Create a smartphone app",
+    "cta.openkey": "See the procedure &#8594;",
+    "tile.static.h3": "Static website",
+    "tile.static.p": "A static site published online via GitHub Pages, reachable through a URL.",
+    "static.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">GitHub Pages</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Live website</span>",
+    "tile.db.h3": "Database-backed web app",
+    "tile.db.p": "Front end, backend and a centralised database, hosted online.",
+    "db.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Build &amp; deploy</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Web host + database</span>",
+    "tile.desktop.h3": "Desktop application",
+    "tile.desktop.p": "An app that runs on your machine &mdash; from an HTML file to a Python script.",
+    "desktop.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Code</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git repo</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Your machine</span>",
+    "tile.mobile.h3": "Mobile app",
     "tile.mobile.p": "A native iOS or Android app, published to the stores.",
     "mobile.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Native build</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Store</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Phone</span>",
-    "tile.localai.h3": "Use AI models locally",
-    "tile.localai.p": "Run an LLM directly on your machine, with no external call.",
-    "localai.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Code + portable Python</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Local AI model</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Offline</span>",
-    "tile.copilot.h3": "Create a Copilot agent",
+    "tile.copilot.h3": "Copilot agent",
     "tile.copilot.p": "An agent in the Microsoft Copilot ecosystem.",
     "copilot.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Agent definition</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Copilot Studio</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Test</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">M365 deployment</span>",
+    "tile.apikey.h3": "Add an API key",
+    "tile.apikey.p": "Get a Wavestone API key to call the models within a secure perimeter.",
+    "apikey.flow": "<span class=\"fn\">Request</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Wavestone Power Apps</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Validation</span><span class=\"fa\">&rarr;</span><span class=\"fn\">API key</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Project integration</span>",
     "pL3.gov.lab": "Wavestone governance &mdash; internal hosting",
     "pL3.gov.p1": "For <b>sensitive client data</b>, two internal options are available:",
     "pL3.gov.p2": "&bull; <b>Microsoft Azure</b> <span style=\"font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);padding:2px 8px;font-weight:600\">recommended</span> &mdash; environment integrated with the Wavestone ecosystem (Azure SQL, Azure OpenAI, Blob Storage, App Service). Preferred to stay within the controlled perimeter.",
-    "pL3.gov.p3": "&bull; <b>Amazon Web Services (AWS)</b> &mdash; alternative available for some use cases (DynamoDB, S3, Lambda, Bedrock). To be validated with IT governance.",
+    "pL3.gov.p3": "&bull; <b>Amazon Web Services (AWS)</b> &mdash; alternative available for some scenarios (DynamoDB, S3, Lambda, Bedrock). To be validated with IT governance.",
     "pL3.gov.p4": "In both cases, <b>Wavestone API keys</b> keep you within a secure, traceable perimeter.",
     "infos.eyebrow": "Resources",
     "infos.h2": "Info &amp; useful links",
@@ -389,44 +392,45 @@ window.WS_I18N = {
     "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; getting-started guide"
   },
   de: {
-    "__title": "Wavestone CYB AI Maker — Anwendungsfälle",
+    "__title": "Wavestone CYB AI Maker — Playbook",
     "nav.home": "Start",
-    "nav.usecases": "Anwendungsf&auml;lle",
+    "nav.usecases": "Playbook",
     "nav.principles": "Agenten-Prinzipien",
     "nav.agents": "Unsere Agenten",
     "nav.apikey": "API-Schl&uuml;ssel",
-    "hero.eyebrow": "Anwendungsf&auml;lle",
+    "hero.eyebrow": "Playbook",
     "hero.title": "Was willst du <span class=\"ac\">bauen</span>?",
-    "hero.lede": "W&auml;hle einen Anwendungsfall. F&uuml;r jeden: die CI/CD-Kette auf hoher Ebene, dann das detaillierte How-to, sofern vorhanden &mdash; sonst kommt es bald.",
+    "hero.lede": "W&auml;hle ein Playbook. F&uuml;r jedes: die CI/CD-Kette auf hoher Ebene, dann das detaillierte How-to, sofern vorhanden &mdash; sonst kommt es bald.",
     "hero.tagline": "# wavestone-umgebung &middot; claude-enterprise-lizenz &middot; ohne admin-rechte",
     "chooser.eyebrow": "Wo anfangen",
-    "chooser.h2": "Was ist dein Anwendungsfall?",
-    "chooser.p": "W&auml;hle einen Anwendungsfall: &Ouml;ffne seinen Umsetzungsleitfaden oder entdecke die geplante CI/CD-Kette.",
+    "chooser.h2": "Welches Playbook brauchst du?",
+    "chooser.p": "W&auml;hle ein Playbook: &Ouml;ffne seinen Umsetzungsleitfaden oder entdecke die geplante CI/CD-Kette.",
     "badge.ok": "Anleitung da",
     "badge.soon": "Demn&auml;chst",
     "cta.open": "Zum Leitfaden &#8594;",
-    "tile.loc.h3": "Eine lokale Anwendung erstellen",
-    "tile.loc.p": "Eine App, die auf deinem Rechner l&auml;uft &mdash; von der HTML-Datei bis zum Python-Skript.",
-    "loc.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Code</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git-Repo</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Dein Rechner</span>",
-    "tile.webapp.h3": "Eine Web-App erstellen (online)",
-    "tile.webapp.p": "Eine App, die &uuml;ber GitHub Pages online ver&ouml;ffentlicht und per URL erreichbar ist.",
-    "webapp.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git-Repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">GitHub Pages</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Live-Website</span>",
-    "tile.web.h3": "Eine Web-App mit Online-Datenbank erstellen",
-    "tile.web.p": "Frontend, Backend und eine zentrale Datenbank, online gehostet.",
-    "web.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git-Repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Build &amp; Deployment</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Webhoster + Datenbank</span>",
-    "tile.mobile.h3": "Eine Smartphone-App erstellen",
+    "cta.openkey": "Zur Anleitung &#8594;",
+    "tile.static.h3": "Statische Website",
+    "tile.static.p": "Eine statische Website, &uuml;ber GitHub Pages online ver&ouml;ffentlicht und per URL erreichbar.",
+    "static.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git-Repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">GitHub Pages</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Live-Website</span>",
+    "tile.db.h3": "Web-App mit Datenbank",
+    "tile.db.p": "Frontend, Backend und eine zentrale Datenbank, online gehostet.",
+    "db.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git-Repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Build &amp; Deployment</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Webhoster + Datenbank</span>",
+    "tile.desktop.h3": "Desktop-Anwendung",
+    "tile.desktop.p": "Eine App, die auf deinem Rechner l&auml;uft &mdash; von der HTML-Datei bis zum Python-Skript.",
+    "desktop.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Code</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git-Repo</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Dein Rechner</span>",
+    "tile.mobile.h3": "Mobile App",
     "tile.mobile.p": "Eine native iOS- oder Android-App, in den Stores ver&ouml;ffentlicht.",
     "mobile.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git-Repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Nativer Build</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Store</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Smartphone</span>",
-    "tile.localai.h3": "KI-Modelle lokal nutzen",
-    "tile.localai.p": "Ein LLM direkt auf deinem Rechner ausf&uuml;hren, ohne externen Aufruf.",
-    "localai.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Code + portables Python</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Lokales KI-Modell</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Offline</span>",
-    "tile.copilot.h3": "Einen Copilot-Agenten erstellen",
+    "tile.copilot.h3": "Copilot-Agent",
     "tile.copilot.p": "Ein Agent im Microsoft-Copilot-&Ouml;kosystem.",
     "copilot.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Agenten-Definition</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Copilot Studio</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Test</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">M365-Deployment</span>",
+    "tile.apikey.h3": "API-Schl&uuml;ssel hinzuf&uuml;gen",
+    "tile.apikey.p": "Einen Wavestone-API-Schl&uuml;ssel erhalten, um die Modelle in einem sicheren Perimeter aufzurufen.",
+    "apikey.flow": "<span class=\"fn\">Anfrage</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Wavestone Power Apps</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Validierung</span><span class=\"fa\">&rarr;</span><span class=\"fn\">API-Schl&uuml;ssel</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Projekt-Integration</span>",
     "pL3.gov.lab": "Wavestone-Governance &mdash; internes Hosting",
     "pL3.gov.p1": "F&uuml;r <b>sensible Kundendaten</b> stehen zwei interne Optionen zur Verf&uuml;gung:",
     "pL3.gov.p2": "&bull; <b>Microsoft Azure</b> <span style=\"font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);padding:2px 8px;font-weight:600\">empfohlen</span> &mdash; in das Wavestone-&Ouml;kosystem integrierte Umgebung (Azure SQL, Azure OpenAI, Blob Storage, App Service). Bevorzugt, um im kontrollierten Perimeter zu bleiben.",
-    "pL3.gov.p3": "&bull; <b>Amazon Web Services (AWS)</b> &mdash; Alternative f&uuml;r bestimmte Anwendungsf&auml;lle (DynamoDB, S3, Lambda, Bedrock). Mit der IT-Governance abzustimmen.",
+    "pL3.gov.p3": "&bull; <b>Amazon Web Services (AWS)</b> &mdash; Alternative f&uuml;r bestimmte Szenarien (DynamoDB, S3, Lambda, Bedrock). Mit der IT-Governance abzustimmen.",
     "pL3.gov.p4": "In beiden F&auml;llen halten dich die <b>Wavestone-API-Schl&uuml;ssel</b> in einem sicheren, nachvollziehbaren Perimeter.",
     "infos.eyebrow": "Ressourcen",
     "infos.h2": "Infos &amp; n&uuml;tzliche Links",
