@@ -1,7 +1,7 @@
 /* ============================================================================
    Wavestone CYB AI Maker Initiative — shared i18n engine (FR / EN / DE)
    ----------------------------------------------------------------------------
-   Same mechanism as hands-on.html, factored into one file so every page
+   Same mechanism as web-app-guide.html, factored into one file so every page
    behaves identically:
 
      • French is the ORIGINAL text written directly in the HTML.

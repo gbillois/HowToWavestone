@@ -203,8 +203,10 @@
     <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
     <div class="nav">
       <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
-      <a class="jump" href="vibe-coding.html" data-i18n="nav.principles">Les principes</a>
-      <a class="jump" href="parcours.html" data-i18n="nav.path">Parcours</a>
+      <a class="jump" href="use-cases.html" data-i18n="nav.usecases">Cas d'usage</a>
+      <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+      <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
       <div class="langsel" role="group" aria-label="Language">
         <button data-lang="fr">FR</button>
         <button data-lang="en">EN</button>
@@ -626,12 +628,17 @@
       <h3 data-i18n="e3.title">La boucle est toujours la m&ecirc;me</h3>
       <p data-i18n="e3.body"><b>Id&eacute;e &rarr; prompt &rarr; Pull Request &rarr; merge &rarr; en ligne.</b> Ce rythme, vous le connaissez d&eacute;sormais. &Agrave; vous de jouer&nbsp;!</p>
     </div>
+    <div class="tip">
+      <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+      <h3 data-i18n="e4.title">N&rsquo;oubliez pas l&rsquo;audit de s&eacute;curit&eacute;&nbsp;!</h3>
+      <p data-i18n="e4.body">Avant de partager votre application, demandez &agrave; l&rsquo;IA&nbsp;: &laquo;&nbsp;Fais un audit de s&eacute;curit&eacute; de mon application et corrige les vuln&eacute;rabilit&eacute;s.&nbsp;&raquo; Un r&eacute;flexe simple qui &eacute;vite bien des erreurs.</p>
+    </div>
   </div>
 
   <div class="note green" style="margin-top:30px">
     <div class="lab" data-i18n="word.showcase">Vitrine</div>
     <p data-i18n="f.showcase">Cette approche vous permet vraiment de construire des choses tr&egrave;s diff&eacute;rentes. D&eacute;couvrez les applications d&eacute;j&agrave; r&eacute;alis&eacute;es ici&nbsp;:</p>
-    <div class="links"><a class="lk" href="showcase.html"><span data-i18n="f.showcase.link">Voir le showcase</span> <span class="ar">&#8599;</span></a></div>
+    <div class="links"><a class="lk" href="our-agents.html"><span data-i18n="f.showcase.link">Voir le showcase</span> <span class="ar">&#8599;</span></a></div>
   </div>
 
 </div>
@@ -653,7 +660,7 @@
   /* ---------------- i18n ---------------- */
   var I18N = {
     en:{
-      "nav.home":"Home","nav.principles":"The principles","nav.path":"Paths",
+      "nav.home":"Home","nav.usecases":"Use cases","nav.principles":"Agent principles","nav.agents":"Our agents","nav.apikey":"API key",
       "hero.eyebrow":"Hands-on workshop",
       "hero.title":"How to get started with <span class=\"ac\">vibe coding</span>",
       "hero.lede":"From an idea to a live website, in real time with your participants &mdash; with nothing to install. Follow the flow, tick off each step, copy the prompts. Every step is illustrated with a real screenshot.",
@@ -721,11 +728,12 @@
       "e1.title":"Stuck? Ask the AI","e1.body":"Any question is fair game: how to use the tool, how to add a given element, how to enrich the content. The AI is also your <b>tutor</b>.",
       "e2.title":"Still a vague idea?","e2.body":"Ask the AI to <b>ask you questions</b> to refine your need: &ldquo;Ask me questions to help me frame my idea.&rdquo;",
       "e3.title":"The loop never changes","e3.body":"<b>Idea &rarr; prompt &rarr; Pull Request &rarr; merge &rarr; live.</b> You know this rhythm now. Over to you!",
+      "e4.title":"Don&rsquo;t forget the security audit!","e4.body":"Before sharing your app, ask the AI: &ldquo;Run a security audit of my application and fix the vulnerabilities.&rdquo; A simple reflex that prevents a lot of mistakes.",
       "f.showcase":"This approach really lets you build very different things. Have a look at the applications already built here:","f.showcase.link":"See the showcase",
       "footer.src":"Vibe coding workshop &mdash; Wavestone &middot; internal guide","footer.reset":"reset progress"
     },
     de:{
-      "nav.home":"Start","nav.principles":"Die Prinzipien","nav.path":"Pfade",
+      "nav.home":"Start","nav.usecases":"Anwendungsf&auml;lle","nav.principles":"Agenten-Prinzipien","nav.agents":"Unsere Agenten","nav.apikey":"API-Schl&uuml;ssel",
       "hero.eyebrow":"Hands-on-Workshop",
       "hero.title":"Wie du mit <span class=\"ac\">Vibe Coding</span> startest",
       "hero.lede":"Von der Idee zur Live-Website, in Echtzeit mit deinen Teilnehmenden &mdash; ohne Installation. Folge dem Ablauf, hake jeden Schritt ab, kopiere die Prompts. Jeder Schritt ist mit einem echten Screenshot illustriert.",
@@ -793,6 +801,7 @@
       "e1.title":"Festgefahren? Fragt die KI","e1.body":"Jede Frage ist erlaubt: wie man das Tool nutzt, wie man ein Element hinzuf&uuml;gt, wie man den Inhalt erweitert. Die KI ist auch eure <b>Tutorin</b>.",
       "e2.title":"Idee noch unklar?","e2.body":"Bittet die KI, <b>euch Fragen zu stellen</b>, um euren Bedarf zu sch&auml;rfen: &bdquo;Stell mir Fragen, um meine Idee zu strukturieren.&ldquo;",
       "e3.title":"Die Schleife bleibt gleich","e3.body":"<b>Idee &rarr; Prompt &rarr; Pull Request &rarr; Merge &rarr; live.</b> Diesen Rhythmus kennt ihr jetzt. Ihr seid dran!",
+      "e4.title":"Vergesst den Sicherheits-Audit nicht!","e4.body":"Bevor ihr eure App teilt, bittet die KI: &bdquo;F&uuml;hre einen Sicherheits-Audit meiner Anwendung durch und behebe die Schwachstellen.&ldquo; Ein einfacher Reflex, der viele Fehler vermeidet.",
       "f.showcase":"Mit diesem Ansatz k&ouml;nnt ihr wirklich ganz unterschiedliche Dinge bauen. Seht euch die bereits erstellten Anwendungen hier an:","f.showcase.link":"Zum Showcase",
       "footer.src":"Vibe-Coding-Workshop &mdash; Wavestone &middot; interner Leitfaden","footer.reset":"Fortschritt zur&uuml;cksetzen"
     }
