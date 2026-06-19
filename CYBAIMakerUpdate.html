@@ -50,8 +50,8 @@
   }
 
   /* ---------- sticky brand bar ---------- */
-  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
-  .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .bar{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1180px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
   .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
   .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
   .bar .back{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);border-radius:999px;padding:6px 13px;transition:.18s var(--ws-ease)}
@@ -154,8 +154,86 @@
   footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
   footer .date{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
 
+  /* ---------- deck / mode présentation (par défaut : flux normal) ---------- */
+  .deck{position:relative}
+  .slides{display:flex;flex-direction:column}
+  .slide{position:relative}
+  .slide-inner{width:auto}
+  .pager,.edge{display:none}
+
+  /* ===== Sur écran d'ordinateur : 2 slides plein écran ===== */
+  @media(min-width:900px){
+    html,body{height:100%;overflow:hidden}
+    body{padding-bottom:0}
+
+    .bar{position:fixed;left:0;right:0;top:0;height:54px}
+    .bar-in{height:54px;padding-top:0;padding-bottom:0}
+
+    .deck{position:fixed;left:0;right:0;top:54px;bottom:0;overflow:hidden;background:var(--ws-white)}
+    .slides{flex-direction:row;width:200%;height:100%;transition:transform .55s var(--ws-ease)}
+    .slide{flex:0 0 50%;width:50%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:14px 22px 78px}
+    .slide-fit{width:1180px;transform-origin:center center;will-change:transform}
+    .slide-inner{width:1180px}
+
+    /* hero pleine largeur dans la slide */
+    .slide-inner .hero{border-radius:0 0 28px 28px}
+    .hero-in{padding:30px 40px 26px;max-width:none}
+    .hero h1{font-size:42px;margin:12px 0 10px;max-width:26ch}
+    .hero .lede{font-size:16px;max-width:none}
+    .hero .tagline{margin-top:12px}
+    .hero.compact .hero-in{padding:24px 40px 22px}
+    .hero.compact h1{font-size:38px;margin:10px 0 0}
+
+    .wrap{max-width:none;padding:0 40px}
+    .besoin{margin-top:18px;padding:20px 24px}
+    .besoin h3{font-size:20px;margin:8px 0 12px}
+    .sec-head{margin:18px 0 4px}
+    .model{margin-top:14px;gap:14px}
+    .mcard{padding:18px 20px 15px}
+    .mcard .top{margin-bottom:10px}
+    .mnote{margin-top:10px;padding-top:10px}
+
+    .summary{margin-top:18px}
+    .chantier{margin-top:12px;padding:15px 22px 13px}
+    .chantier .pbar{margin:11px 0 4px}
+    .items{margin-top:11px;gap:7px}
+    .objective{margin-top:12px;padding:10px 14px}
+
+    footer{display:none}
+
+    /* contrôles de navigation */
+    .pager{
+      position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:65;
+      display:flex;align-items:center;gap:14px;
+      background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+      border:1px solid var(--ws-ink-100);box-shadow:var(--ws-shadow-md);padding:8px 12px;
+    }
+    .pager .arrow{
+      font-family:var(--ws-font-mono);font-size:12.5px;font-weight:600;color:var(--ws-indigo-600);
+      border:1px solid var(--ws-ink-200);background:#fff;padding:7px 13px;cursor:pointer;
+      transition:.18s var(--ws-ease);display:inline-flex;align-items:center;gap:6px;
+    }
+    .pager .arrow:hover:not(:disabled){border-color:var(--ws-indigo-600);color:var(--ws-indigo-700)}
+    .pager .arrow:disabled{opacity:.35;cursor:default}
+    .pager .dots{display:flex;gap:8px;align-items:center}
+    .pager .dots i{width:10px;height:10px;background:var(--ws-ink-200);cursor:pointer;transition:.22s var(--ws-ease)}
+    .pager .dots i.on{background:var(--ws-indigo-600);width:28px}
+    .pager .counter{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-500);min-width:64px;text-align:center}
+
+    /* zones cliquables sur les bords */
+    .edge{
+      position:fixed;top:54px;bottom:70px;width:70px;z-index:55;border:none;cursor:pointer;
+      background:transparent;color:var(--ws-indigo-600);display:grid;place-items:center;font-size:30px;
+      transition:.2s var(--ws-ease);
+    }
+    .edge.prev{left:0}.edge.next{right:0}
+    .edge:hover:not(:disabled){background:linear-gradient(90deg,rgba(69,29,199,.07),transparent)}
+    .edge.next:hover:not(:disabled){background:linear-gradient(270deg,rgba(69,29,199,.07),transparent)}
+    .edge:disabled{opacity:0;pointer-events:none}
+  }
+
   :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
-  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}.pbar .fill{transition:none}}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}.pbar .fill{transition:none}.slides{transition:none}}
   /* square corners (design system) */
   *,*::before,*::after{border-radius:0!important}
 </style>
@@ -169,183 +247,222 @@
   </div>
 </div>
 
-<header class="hero">
-  <svg class="wave" viewBox="0 0 1040 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <path d="M-50,300 Q260,180 540,250 T1100,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
-    <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
-  </svg>
-  <div class="hero-in">
-    <span class="eyebrow">Point d'avancement &middot; Interne</span>
-    <h1>L'IA Agentique <span class="ac">chez CYB</span></h1>
-    <p class="lede">Notre approche pour acc&eacute;l&eacute;rer les missions avec des agents IA utilisables rapidement chez nos clients &mdash; le besoin, les principes, et l&agrave; o&ugrave; nous en sommes.</p>
-    <p class="tagline"># besoin &middot; principes &middot; plan d'action &middot; avancement</p>
+<div class="deck" id="deck">
+  <div class="slides" id="slides">
+
+    <!-- ============================================================ -->
+    <!-- SLIDE 1 — BESOIN & PRINCIPES                                  -->
+    <!-- ============================================================ -->
+    <section class="slide" id="slide-1" aria-label="Slide 1 sur 2 : Besoin et principes">
+      <div class="slide-fit">
+        <div class="slide-inner">
+
+          <header class="hero">
+            <svg class="wave" viewBox="0 0 1040 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <path d="M-50,300 Q260,180 540,250 T1100,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+              <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+            </svg>
+            <div class="hero-in">
+              <span class="eyebrow">Partie 01 &middot; Besoin &amp; principes</span>
+              <h1>L'IA Agentique <span class="ac">chez CYB</span></h1>
+              <p class="lede">Notre approche pour acc&eacute;l&eacute;rer les missions avec des agents IA utilisables rapidement chez nos clients &mdash; le besoin et la philosophie qui guident la cr&eacute;ation de nos agents.</p>
+              <p class="tagline"># besoin &middot; principes &middot; mod&egrave;le &middot; piliers</p>
+            </div>
+          </header>
+
+          <div class="wrap">
+
+            <!-- Le besoin -->
+            <div class="besoin">
+              <span class="lab">Le besoin &middot; bloc transverse</span>
+              <h3>Acc&eacute;l&eacute;rer nos missions avec des agents IA</h3>
+              <ul>
+                <li><span class="ck">&#9656;</span><span>Mettre &agrave; disposition des agents IA <b style="color:#fff">utilisables rapidement</b>, en respectant les contraintes technologiques et de s&eacute;curit&eacute; de nos clients.</span></li>
+                <li><span class="ck">&#9656;</span><span>Adopter une approche <b style="color:#fff">dynamique, l&eacute;g&egrave;re</b> et d'autonomisation des consultants.</span></li>
+              </ul>
+            </div>
+
+            <!-- Le modele -->
+            <div class="sec-head">
+              <span class="eyebrow">Le mod&egrave;le</span>
+              <h3>Quatre piliers pour des agents simples &agrave; d&eacute;ployer</h3>
+            </div>
+
+            <div class="model">
+
+              <!-- pilier 1 : philosophie (lead) -->
+              <article class="mcard lead">
+                <div class="top">
+                  <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg></div>
+                  <h4>Une philosophie de cr&eacute;ation simple &amp; rapide chez le client</h4>
+                </div>
+                <p>Des agents <b>utilisables simplement et rapidement</b> chez nos clients, tout en respectant les problématiques de s&eacute;curit&eacute;.</p>
+                <div class="mnote"><span class="arr">&#8594;</span><span><b>Le principe&nbsp;:</b> des agents d&eacute;corr&eacute;l&eacute;s de l'infrastructure et des LLM, reposant sur des pages HTML autonomes avec appel API aux IA du client (voire en local) &mdash; pour s'adapter au client et d&eacute;marrer rapidement les missions.</span></div>
+              </article>
+
+              <!-- pilier 2 : portail -->
+              <article class="mcard">
+                <div class="top">
+                  <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="3" y="3" width="18" height="18"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+                  <h4>Un portail AI CYB Maker</h4>
+                </div>
+                <p>Un portail qui <b>expose nos agents</b> et permet de les t&eacute;l&eacute;charger pour les utiliser chez nos clients, appuy&eacute; par une <b>infrastructure CYB</b> donnant les moyens d'en cr&eacute;er en autonomie selon notre philosophie.</p>
+                <span class="owner"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>Porteurs&nbsp;: Adrien &amp; Fran&ccedil;ois</span>
+              </article>
+
+              <!-- pilier 3 : agents collaborateurs -->
+              <article class="mcard">
+                <div class="top">
+                  <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+                  <h4>Des agents &agrave; disposition des collaborateurs</h4>
+                </div>
+                <p>Des agents qui <b>acc&eacute;l&egrave;rent un besoin sp&eacute;cifique</b>, li&eacute; &agrave; une mission ou &agrave; un m&eacute;tier du conseil.</p>
+                <div class="mnote"><span class="arr">&#8594;</span><span>Un <b>Product Manager</b> anime une communaut&eacute;, forme, et peut modifier l'outil pour l'adapter rapidement au besoin.</span></div>
+                <div class="mnote" style="margin-top:9px"><span class="arr">&#8594;</span><span>Une <b>cl&eacute; API par mission</b>, associée &agrave; un budget capp&eacute; d&eacute;fini dans la proposition commerciale.</span></div>
+              </article>
+
+              <!-- pilier 4 : creation par chacun -->
+              <article class="mcard">
+                <div class="top">
+                  <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+                  <h4>Une cr&eacute;ation d'agents accessible &agrave; chacun</h4>
+                </div>
+                <p>La capacit&eacute; pour <b>chaque collaborateur</b> de cr&eacute;er simplement des agents selon ses besoins.</p>
+                <div class="mnote"><span class="arr">&#8594;</span><span>Tutoriels disponibles, outils simples, et une <b>communaut&eacute; de makers sur Teams</b> qui partage des astuces et permet &agrave; chacun d'ajouter des fonctionnalit&eacute;s.</span></div>
+              </article>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SLIDE 2 — PLAN D'ACTION & AVANCEMENT                          -->
+    <!-- ============================================================ -->
+    <section class="slide" id="slide-2" aria-label="Slide 2 sur 2 : Plan d'action et avancement">
+      <div class="slide-fit">
+        <div class="slide-inner">
+
+          <header class="hero compact">
+            <svg class="wave" viewBox="0 0 1040 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <path d="M-50,300 Q260,180 540,250 T1100,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+              <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+            </svg>
+            <div class="hero-in">
+              <span class="eyebrow">Partie 02 &middot; &Agrave; date, o&ugrave; en est-on&nbsp;?</span>
+              <h1>Plan d'action &amp; <span class="ac">avancement</span></h1>
+            </div>
+          </header>
+
+          <div class="wrap">
+
+            <!-- vue d'ensemble -->
+            <div class="summary">
+              <div class="scard"><div class="big">3</div><div class="cap">agents cr&eacute;&eacute;s en ligne, en d&eacute;ploiement</div></div>
+              <div class="scard"><div class="big">5</div><div class="cap">agents en cours de d&eacute;veloppement</div></div>
+              <div class="scard"><div class="big">7 juil.</div><div class="cap">objectif de sortie des MVP</div></div>
+              <div class="scard"><div class="big">4</div><div class="cap">chantiers actifs en parall&egrave;le</div></div>
+            </div>
+
+            <!-- Chantier 1 : Agents CYB Mission -->
+            <section class="chantier">
+              <div class="ch-top">
+                <div class="ch-ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="3" y="11" width="18" height="11"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+                <div>
+                  <h3>Agents CYB Mission</h3>
+                  <div class="ch-meta">Conception &amp; d&eacute;ploiement des agents selon la philosophie</div>
+                </div>
+              </div>
+              <div class="pbar"><div class="lab"><span>Avancement du chantier</span><b>60&nbsp;%</b></div><div class="track"><div class="fill" data-w="60"></div></div></div>
+              <ul class="items">
+                <li><span class="txt"><b>3 agents cr&eacute;&eacute;s en ligne</b> selon la philosophie &mdash; Crisis Maker, Pentest, IAM Data &mdash; avec porteur, communaut&eacute; et premiers usages.</span><span class="pill wip">D&eacute;ploiement</span></li>
+                <li><span class="txt"><b>1 agent en cours d'adaptation</b> &agrave; la philosophie&nbsp;: Analyse de risque.</span><span class="pill wip">En cours</span></li>
+                <li><span class="txt"><b>5 agents en d&eacute;veloppement</b>&nbsp;: &Eacute;valuation Mythos, Cyber Bench, CTI Seeker, Document Purifier, NIS2, nouvelle version Audit (avec BPCE).</span><span class="pill wip">En cours</span></li>
+              </ul>
+              <div class="objective"><span class="em">&#127919;</span><span><b>Objectif&nbsp;:</b> sortie des MVP pour le <b>7 juillet</b>.</span></div>
+            </section>
+
+            <!-- Chantier 2 : Portail CYB -->
+            <section class="chantier">
+              <div class="ch-top">
+                <div class="ch-ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="3" y="3" width="18" height="18"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+                <div>
+                  <h3>Portail CYB</h3>
+                  <div class="ch-meta">Exposition des agents &amp; autonomisation des collaborateurs</div>
+                </div>
+              </div>
+              <div class="pbar"><div class="lab"><span>Avancement du chantier</span><b>45&nbsp;%</b></div><div class="track"><div class="fill" data-w="45"></div></div></div>
+              <ul class="items">
+                <li><span class="txt"><b>Structuration initiale r&eacute;alis&eacute;e</b> et porteur identifi&eacute; (Adrien) &mdash; mais h&eacute;berg&eacute; sur une solution personnelle &agrave; date (&agrave; migrer sur SharePoint).</span><span class="pill wip">&Agrave; migrer</span></li>
+                <li><span class="txt">Autonomisation des collaborateurs sur l'usage des outils et la r&eacute;cup&eacute;ration des cl&eacute;s API.</span><span class="pill wip">En cours</span></li>
+                <li><span class="txt"><b>Tutoriels&nbsp;: 2/4 r&eacute;alis&eacute;s</b> (introduction au vibe coding / outil personnel, utilisation pour cr&eacute;er une application locale).</span><span class="pill wip">2 / 4</span></li>
+              </ul>
+              <div class="objective"><span class="em">&#127919;</span><span><b>Objectif&nbsp;:</b> &agrave; poursuivre sur l'&eacute;t&eacute;.</span></div>
+            </section>
+
+            <!-- Chantier 3 : Infrastructure CYB -->
+            <section class="chantier">
+              <div class="ch-top">
+                <div class="ch-ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="2" y="2" width="20" height="8"/><rect x="2" y="14" width="20" height="8"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div>
+                <div>
+                  <h3>Infrastructure CYB</h3>
+                  <div class="ch-meta">Moyens techniques pour cr&eacute;er &amp; h&eacute;berger les agents en autonomie</div>
+                </div>
+                <span class="ch-tag prio">Priorit&eacute; n&deg;1</span>
+              </div>
+              <div class="pbar"><div class="lab"><span>Avancement du chantier</span><b>35&nbsp;%</b></div><div class="track"><div class="fill" data-w="35"></div></div></div>
+              <ul class="items">
+                <li><span class="txt">Cr&eacute;ation de cl&eacute;s API pour les utilisateurs, en <b>suivant et cappant la consommation</b>.</span><span class="pill ok">OK</span></li>
+                <li><span class="txt">Posture &agrave; d&eacute;finir sur les <b>licences</b> pour la cr&eacute;ation d'agents (Claude Code).</span><span class="pill wip">En cours</span></li>
+                <li><span class="txt"><b>Infrastructure interne (1/4)</b> pour cr&eacute;er &amp; h&eacute;berger les agents&nbsp;: solution locale op&eacute;rationnelle (un peu artisanale) ; solution web avec expression de besoin r&eacute;alis&eacute;e aupr&egrave;s de la DSI.</span><span class="pill wip">1 / 4</span></li>
+              </ul>
+              <div class="objective prio"><span class="em">&#9888;&#65039;</span><span><b>Priorit&eacute; n&deg;1&nbsp;:</b> quitter la situation actuelle o&ugrave; l'on utilise des outils personnels pour cr&eacute;er et h&eacute;berger les agents.</span></div>
+            </section>
+
+            <!-- Chantier 4 : Formation & Communication -->
+            <section class="chantier">
+              <div class="ch-top">
+                <div class="ch-ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></div>
+                <div>
+                  <h3>Formation &amp; Communication</h3>
+                  <div class="ch-meta">Diffusion, mont&eacute;e en comp&eacute;tence &amp; animation de la communaut&eacute;</div>
+                </div>
+                <span class="ch-tag major">Chantier majeur</span>
+              </div>
+              <div class="pbar"><div class="lab"><span>Avancement du chantier</span><b>25&nbsp;%</b></div><div class="track"><div class="fill" data-w="25"></div></div></div>
+              <ul class="items">
+                <li><span class="txt">Premier <b>Global Talk d&eacute;di&eacute; &agrave; l'IA</b>.</span><span class="pill ok">R&eacute;alis&eacute;</span></li>
+                <li><span class="txt">Lancement d'une <b>newsletter CYB Agents</b>.</span><span class="pill todo">&Agrave; faire</span></li>
+                <li><span class="txt">Cr&eacute;ation de la <b>communaut&eacute; AI CYB Maker</b>.</span><span class="pill todo">&Agrave; faire</span></li>
+                <li><span class="txt">Lancement d'un <b>cycle de formation Maker</b>.</span><span class="pill todo">&Agrave; faire (&eacute;t&eacute;)</span></li>
+                <li><span class="txt"><b>Global Talk &agrave; la rentr&eacute;e</b> pour pr&eacute;senter le portail et les agents r&eacute;alis&eacute;s pendant l'&eacute;t&eacute;.</span><span class="pill todo">Planifi&eacute;</span></li>
+              </ul>
+            </section>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
   </div>
-</header>
+</div>
 
-<div class="wrap">
+<!-- zones de navigation latérales -->
+<button class="edge prev" id="edgePrev" aria-label="Slide précédente">&#8249;</button>
+<button class="edge next" id="edgeNext" aria-label="Slide suivante">&#8250;</button>
 
-  <!-- ============================================================ -->
-  <!-- PARTIE 1 — BESOIN & PRINCIPES                                 -->
-  <!-- ============================================================ -->
-  <div class="part-head">
-    <span class="pn">01</span>
-    <h2>Besoin &amp; principes</h2>
-  </div>
-  <p class="part-sub">Pourquoi nous lan&ccedil;ons cette initiative, et la philosophie qui guide la cr&eacute;ation de nos agents.</p>
-
-  <!-- Le besoin -->
-  <div class="besoin">
-    <span class="lab">Le besoin &middot; bloc transverse</span>
-    <h3>Acc&eacute;l&eacute;rer nos missions avec des agents IA</h3>
-    <ul>
-      <li><span class="ck">&#9656;</span><span>Mettre &agrave; disposition des agents IA <b style="color:#fff">utilisables rapidement</b>, en respectant les contraintes technologiques et de s&eacute;curit&eacute; de nos clients.</span></li>
-      <li><span class="ck">&#9656;</span><span>Adopter une approche <b style="color:#fff">dynamique, l&eacute;g&egrave;re</b> et d'autonomisation des consultants.</span></li>
-    </ul>
-  </div>
-
-  <!-- Le modele -->
-  <div class="sec-head">
-    <span class="eyebrow">Le mod&egrave;le</span>
-    <h3>Quatre piliers pour des agents simples &agrave; d&eacute;ployer</h3>
-  </div>
-
-  <div class="model">
-
-    <!-- pilier 1 : philosophie (lead) -->
-    <article class="mcard lead">
-      <div class="top">
-        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg></div>
-        <h4>Une philosophie de cr&eacute;ation simple &amp; rapide chez le client</h4>
-      </div>
-      <p>Des agents <b>utilisables simplement et rapidement</b> chez nos clients, tout en respectant les problématiques de s&eacute;curit&eacute;.</p>
-      <div class="mnote"><span class="arr">&#8594;</span><span><b>Le principe&nbsp;:</b> des agents d&eacute;corr&eacute;l&eacute;s de l'infrastructure et des LLM, reposant sur des pages HTML autonomes avec appel API aux IA du client (voire en local) &mdash; pour s'adapter au client et d&eacute;marrer rapidement les missions.</span></div>
-    </article>
-
-    <!-- pilier 2 : portail -->
-    <article class="mcard">
-      <div class="top">
-        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="3" y="3" width="18" height="18"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
-        <h4>Un portail AI CYB Maker</h4>
-      </div>
-      <p>Un portail qui <b>expose nos agents</b> et permet de les t&eacute;l&eacute;charger pour les utiliser chez nos clients, appuy&eacute; par une <b>infrastructure CYB</b> donnant les moyens d'en cr&eacute;er en autonomie selon notre philosophie.</p>
-      <span class="owner"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>Porteurs&nbsp;: Adrien &amp; Fran&ccedil;ois</span>
-    </article>
-
-    <!-- pilier 3 : agents collaborateurs -->
-    <article class="mcard">
-      <div class="top">
-        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <h4>Des agents &agrave; disposition des collaborateurs</h4>
-      </div>
-      <p>Des agents qui <b>acc&eacute;l&egrave;rent un besoin sp&eacute;cifique</b>, li&eacute; &agrave; une mission ou &agrave; un m&eacute;tier du conseil.</p>
-      <div class="mnote"><span class="arr">&#8594;</span><span>Un <b>Product Manager</b> anime une communaut&eacute;, forme, et peut modifier l'outil pour l'adapter rapidement au besoin.</span></div>
-      <div class="mnote" style="margin-top:9px"><span class="arr">&#8594;</span><span>Une <b>cl&eacute; API par mission</b>, associée &agrave; un budget capp&eacute; d&eacute;fini dans la proposition commerciale.</span></div>
-    </article>
-
-    <!-- pilier 4 : creation par chacun -->
-    <article class="mcard">
-      <div class="top">
-        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
-        <h4>Une cr&eacute;ation d'agents accessible &agrave; chacun</h4>
-      </div>
-      <p>La capacit&eacute; pour <b>chaque collaborateur</b> de cr&eacute;er simplement des agents selon ses besoins.</p>
-      <div class="mnote"><span class="arr">&#8594;</span><span>Tutoriels disponibles, outils simples, et une <b>communaut&eacute; de makers sur Teams</b> qui partage des astuces et permet &agrave; chacun d'ajouter des fonctionnalit&eacute;s.</span></div>
-    </article>
-
-  </div>
-
-  <!-- ============================================================ -->
-  <!-- PARTIE 2 — PLAN D'ACTION & AVANCEMENT                         -->
-  <!-- ============================================================ -->
-  <div class="part-head">
-    <span class="pn">02</span>
-    <h2>Plan d'action &amp; avancement</h2>
-  </div>
-  <p class="part-sub">&Agrave; date, o&ugrave; en est-on&nbsp;? &Eacute;tat des quatre chantiers de l'initiative.</p>
-
-  <!-- vue d'ensemble -->
-  <div class="summary">
-    <div class="scard"><div class="big">3</div><div class="cap">agents cr&eacute;&eacute;s en ligne, en d&eacute;ploiement</div></div>
-    <div class="scard"><div class="big">5</div><div class="cap">agents en cours de d&eacute;veloppement</div></div>
-    <div class="scard"><div class="big">7 juil.</div><div class="cap">objectif de sortie des MVP</div></div>
-    <div class="scard"><div class="big">4</div><div class="cap">chantiers actifs en parall&egrave;le</div></div>
-  </div>
-
-  <!-- Chantier 1 : Agents CYB Mission -->
-  <section class="chantier">
-    <div class="ch-top">
-      <div class="ch-ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="3" y="11" width="18" height="11"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-      <div>
-        <h3>Agents CYB Mission</h3>
-        <div class="ch-meta">Conception &amp; d&eacute;ploiement des agents selon la philosophie</div>
-      </div>
-    </div>
-    <div class="pbar"><div class="lab"><span>Avancement du chantier</span><b>60&nbsp;%</b></div><div class="track"><div class="fill" data-w="60"></div></div></div>
-    <ul class="items">
-      <li><span class="txt"><b>3 agents cr&eacute;&eacute;s en ligne</b> selon la philosophie &mdash; Crisis Maker, Pentest, IAM Data &mdash; avec porteur, communaut&eacute; et premiers usages.</span><span class="pill wip">D&eacute;ploiement</span></li>
-      <li><span class="txt"><b>1 agent en cours d'adaptation</b> &agrave; la philosophie&nbsp;: Analyse de risque.</span><span class="pill wip">En cours</span></li>
-      <li><span class="txt"><b>5 agents en d&eacute;veloppement</b>&nbsp;: &Eacute;valuation Mythos, Cyber Bench, CTI Seeker, Document Purifier, NIS2, nouvelle version Audit (avec BPCE).</span><span class="pill wip">En cours</span></li>
-    </ul>
-    <div class="objective"><span class="em">&#127919;</span><span><b>Objectif&nbsp;:</b> sortie des MVP pour le <b>7 juillet</b>.</span></div>
-  </section>
-
-  <!-- Chantier 2 : Portail CYB -->
-  <section class="chantier">
-    <div class="ch-top">
-      <div class="ch-ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="3" y="3" width="18" height="18"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
-      <div>
-        <h3>Portail CYB</h3>
-        <div class="ch-meta">Exposition des agents &amp; autonomisation des collaborateurs</div>
-      </div>
-    </div>
-    <div class="pbar"><div class="lab"><span>Avancement du chantier</span><b>45&nbsp;%</b></div><div class="track"><div class="fill" data-w="45"></div></div></div>
-    <ul class="items">
-      <li><span class="txt"><b>Structuration initiale r&eacute;alis&eacute;e</b> et porteur identifi&eacute; (Adrien) &mdash; mais h&eacute;berg&eacute; sur une solution personnelle &agrave; date (&agrave; migrer sur SharePoint).</span><span class="pill wip">&Agrave; migrer</span></li>
-      <li><span class="txt">Autonomisation des collaborateurs sur l'usage des outils et la r&eacute;cup&eacute;ration des cl&eacute;s API.</span><span class="pill wip">En cours</span></li>
-      <li><span class="txt"><b>Tutoriels&nbsp;: 2/4 r&eacute;alis&eacute;s</b> (introduction au vibe coding / outil personnel, utilisation pour cr&eacute;er une application locale).</span><span class="pill wip">2 / 4</span></li>
-    </ul>
-    <div class="objective"><span class="em">&#127919;</span><span><b>Objectif&nbsp;:</b> &agrave; poursuivre sur l'&eacute;t&eacute;.</span></div>
-  </section>
-
-  <!-- Chantier 3 : Infrastructure CYB -->
-  <section class="chantier">
-    <div class="ch-top">
-      <div class="ch-ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="2" y="2" width="20" height="8"/><rect x="2" y="14" width="20" height="8"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg></div>
-      <div>
-        <h3>Infrastructure CYB</h3>
-        <div class="ch-meta">Moyens techniques pour cr&eacute;er &amp; h&eacute;berger les agents en autonomie</div>
-      </div>
-      <span class="ch-tag prio">Priorit&eacute; n&deg;1</span>
-    </div>
-    <div class="pbar"><div class="lab"><span>Avancement du chantier</span><b>35&nbsp;%</b></div><div class="track"><div class="fill" data-w="35"></div></div></div>
-    <ul class="items">
-      <li><span class="txt">Cr&eacute;ation de cl&eacute;s API pour les utilisateurs, en <b>suivant et cappant la consommation</b>.</span><span class="pill ok">OK</span></li>
-      <li><span class="txt">Posture &agrave; d&eacute;finir sur les <b>licences</b> pour la cr&eacute;ation d'agents (Claude Code).</span><span class="pill wip">En cours</span></li>
-      <li><span class="txt"><b>Infrastructure interne (1/4)</b> pour cr&eacute;er &amp; h&eacute;berger les agents&nbsp;: solution locale op&eacute;rationnelle (un peu artisanale) ; solution web avec expression de besoin r&eacute;alis&eacute;e aupr&egrave;s de la DSI.</span><span class="pill wip">1 / 4</span></li>
-    </ul>
-    <div class="objective prio"><span class="em">&#9888;&#65039;</span><span><b>Priorit&eacute; n&deg;1&nbsp;:</b> quitter la situation actuelle o&ugrave; l'on utilise des outils personnels pour cr&eacute;er et h&eacute;berger les agents.</span></div>
-  </section>
-
-  <!-- Chantier 4 : Formation & Communication -->
-  <section class="chantier">
-    <div class="ch-top">
-      <div class="ch-ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg></div>
-      <div>
-        <h3>Formation &amp; Communication</h3>
-        <div class="ch-meta">Diffusion, mont&eacute;e en comp&eacute;tence &amp; animation de la communaut&eacute;</div>
-      </div>
-      <span class="ch-tag major">Chantier majeur</span>
-    </div>
-    <div class="pbar"><div class="lab"><span>Avancement du chantier</span><b>25&nbsp;%</b></div><div class="track"><div class="fill" data-w="25"></div></div></div>
-    <ul class="items">
-      <li><span class="txt">Premier <b>Global Talk d&eacute;di&eacute; &agrave; l'IA</b>.</span><span class="pill ok">R&eacute;alis&eacute;</span></li>
-      <li><span class="txt">Lancement d'une <b>newsletter CYB Agents</b>.</span><span class="pill todo">&Agrave; faire</span></li>
-      <li><span class="txt">Cr&eacute;ation de la <b>communaut&eacute; AI CYB Maker</b>.</span><span class="pill todo">&Agrave; faire</span></li>
-      <li><span class="txt">Lancement d'un <b>cycle de formation Maker</b>.</span><span class="pill todo">&Agrave; faire (&eacute;t&eacute;)</span></li>
-      <li><span class="txt"><b>Global Talk &agrave; la rentr&eacute;e</b> pour pr&eacute;senter le portail et les agents r&eacute;alis&eacute;s pendant l'&eacute;t&eacute;.</span><span class="pill todo">Planifi&eacute;</span></li>
-    </ul>
-  </section>
-
+<!-- barre de navigation (pager) -->
+<div class="pager" role="navigation" aria-label="Navigation des slides">
+  <button class="arrow prev" id="btnPrev" aria-label="Slide précédente">&#8249; Pr&eacute;c&eacute;dent</button>
+  <span class="dots" id="dots">
+    <i data-i="0" class="on" role="button" tabindex="0" aria-label="Aller à la slide 1"></i>
+    <i data-i="1" role="button" tabindex="0" aria-label="Aller à la slide 2"></i>
+  </span>
+  <span class="counter" id="counter">1 / 2</span>
+  <button class="arrow next" id="btnNext" aria-label="Slide suivante">Suivant &#8250;</button>
 </div>
 
 <footer>
@@ -354,24 +471,138 @@
 </footer>
 
 <script>
-  // Anime les barres d'avancement à l'apparition à l'écran
-  (function(){
-    var fills = document.querySelectorAll('.pbar .fill');
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce || !('IntersectionObserver' in window)) {
-      fills.forEach(function(f){ f.style.width = f.getAttribute('data-w') + '%'; });
+(function(){
+  var slidesEl = document.getElementById('slides');
+  var slideEls = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var fits     = Array.prototype.slice.call(document.querySelectorAll('.slide-fit'));
+  var deck     = document.getElementById('deck');
+  var N        = slideEls.length;
+  var idx      = 0;
+  var deckMQ   = window.matchMedia('(min-width:900px)');
+  var reduceMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  var btnPrev  = document.getElementById('btnPrev');
+  var btnNext  = document.getElementById('btnNext');
+  var edgePrev = document.getElementById('edgePrev');
+  var edgeNext = document.getElementById('edgeNext');
+  var counter  = document.getElementById('counter');
+  var dots     = Array.prototype.slice.call(document.querySelectorAll('#dots i'));
+
+  // --- met chaque slide à l'échelle pour tenir dans l'écran (façon "slide") ---
+  function rescale(){
+    if(!deckMQ.matches){
+      fits.forEach(function(f){ f.style.transform=''; });
+      slidesEl.style.transform='';
       return;
     }
+    var availW = deck.clientWidth  - 44;  // marges latérales (padding .slide)
+    var availH = deck.clientHeight - 92;  // marges haut/bas + place pour le pager
+    fits.forEach(function(f){
+      f.style.transform = 'none';
+      var inner = f.firstElementChild;
+      var w = inner.offsetWidth || 1180;
+      var h = inner.offsetHeight || 1;
+      var s = Math.min(availW / w, availH / h, 1);
+      f.style.transform = 'scale(' + s + ')';
+    });
+    applyTranslate();
+  }
+
+  function applyTranslate(){
+    slidesEl.style.transform = deckMQ.matches ? ('translateX(' + (-idx * 50) + '%)') : '';
+  }
+
+  function animateFills(slide){
+    var f = slide.querySelectorAll('.pbar .fill');
+    Array.prototype.forEach.call(f, function(el){ el.style.width = el.getAttribute('data-w') + '%'; });
+  }
+
+  function updateUI(){
+    if(counter) counter.textContent = (idx + 1) + ' / ' + N;
+    dots.forEach(function(d, i){ d.classList.toggle('on', i === idx); });
+    if(btnPrev)  btnPrev.disabled  = (idx === 0);
+    if(edgePrev) edgePrev.disabled = (idx === 0);
+    if(btnNext)  btnNext.disabled  = (idx === N - 1);
+    if(edgeNext) edgeNext.disabled = (idx === N - 1);
+  }
+
+  function go(i){
+    idx = Math.max(0, Math.min(N - 1, i));
+    applyTranslate();
+    updateUI();
+    animateFills(slideEls[idx]);
+    if(!deckMQ.matches){
+      slideEls[idx].scrollIntoView({ behavior: reduceMQ.matches ? 'auto' : 'smooth', block: 'start' });
+    }
+  }
+  function next(){ go(idx + 1); }
+  function prev(){ go(idx - 1); }
+
+  // --- contrôles ---
+  if(btnPrev)  btnPrev.addEventListener('click', prev);
+  if(btnNext)  btnNext.addEventListener('click', next);
+  if(edgePrev) edgePrev.addEventListener('click', prev);
+  if(edgeNext) edgeNext.addEventListener('click', next);
+  dots.forEach(function(d){
+    d.addEventListener('click', function(){ go(+d.getAttribute('data-i')); });
+    d.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); go(+d.getAttribute('data-i')); } });
+  });
+
+  // --- clavier ---
+  document.addEventListener('keydown', function(e){
+    if(['ArrowRight','PageDown'].indexOf(e.key) > -1){ e.preventDefault(); next(); }
+    else if(['ArrowLeft','PageUp'].indexOf(e.key) > -1){ e.preventDefault(); prev(); }
+    else if(e.key === 'Home'){ e.preventDefault(); go(0); }
+    else if(e.key === 'End'){ e.preventDefault(); go(N - 1); }
+    else if(e.key === ' ' && e.target === document.body){ e.preventDefault(); next(); }
+  });
+
+  // --- swipe tactile ---
+  var tx = null, ty = null;
+  deck.addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, {passive:true});
+  deck.addEventListener('touchend', function(e){
+    if(tx === null || !deckMQ.matches) return;
+    var dx = e.changedTouches[0].clientX - tx;
+    var dy = e.changedTouches[0].clientY - ty;
+    if(Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)){ dx < 0 ? next() : prev(); }
+    tx = ty = null;
+  }, {passive:true});
+
+  // --- molette horizontale (trackpad) ---
+  var wheelLock = false;
+  deck.addEventListener('wheel', function(e){
+    if(!deckMQ.matches) return;
+    if(Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 30){
+      if(wheelLock) return;
+      wheelLock = true;
+      e.deltaX > 0 ? next() : prev();
+      setTimeout(function(){ wheelLock = false; }, 650);
+    }
+  }, {passive:true});
+
+  // --- recalcule à chaque évènement utile ---
+  window.addEventListener('resize', rescale);
+  if(deckMQ.addEventListener) deckMQ.addEventListener('change', function(){ rescale(); updateUI(); });
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(rescale); }
+  window.addEventListener('load', rescale);
+
+  // init
+  updateUI();
+  rescale();
+  // les barres s'animent dès qu'elles entrent dans l'écran (scroll mobile
+  // ou passage à la slide 2 en mode présentation)
+  if('IntersectionObserver' in window){
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
-        if (e.isIntersecting){
-          e.target.style.width = e.target.getAttribute('data-w') + '%';
-          io.unobserve(e.target);
-        }
+        if(e.isIntersecting){ e.target.style.width = e.target.getAttribute('data-w') + '%'; io.unobserve(e.target); }
       });
-    }, { threshold: .4 });
-    fills.forEach(function(f){ io.observe(f); });
-  })();
+    }, { threshold:.4 });
+    document.querySelectorAll('.pbar .fill').forEach(function(f){ io.observe(f); });
+  } else {
+    document.querySelectorAll('.pbar .fill').forEach(function(f){ f.style.width = f.getAttribute('data-w') + '%'; });
+  }
+  setTimeout(rescale, 200);
+})();
 </script>
 
 </body>
