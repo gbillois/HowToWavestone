@@ -801,7 +801,10 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
     }
   }, {passive:true});
 
-  // ---- PPTX export (pixel-perfect: each slide -> full-bleed image on a 16:9 slide) ----
+  // ===========================================================================
+  // NATIVE PPTX EXPORT — every slide rebuilt as editable shapes + text boxes
+  // (no screenshots). 1280x720 px maps 1:1 to 13.333x7.5 in  (96 px = 1 in).
+  // ===========================================================================
   var toast = document.getElementById('toast');
   function setStatus(msg, spinning){
     if(!msg){ toast.classList.remove('on'); return; }
@@ -810,60 +813,351 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
   }
   function loadScript(src){
     return new Promise(function(res, rej){
-      var existing = document.querySelector('script[data-src="'+src+'"]');
-      if(existing){ res(); return; }
+      if(document.querySelector('script[data-src="'+src+'"]')){ res(); return; }
       var sc = document.createElement('script');
       sc.src = src; sc.setAttribute('data-src', src);
       sc.onload = res; sc.onerror = function(){ rej(new Error('load '+src)); };
       document.head.appendChild(sc);
     });
   }
-  function raf2(){ return new Promise(function(r){ requestAnimationFrame(function(){ requestAnimationFrame(r); }); }); }
+
+  // palette (Wavestone tokens, hex without #)
+  var C = {
+    ind6:'451DC7', ind7:'36169B', ind8:'2D1380', ind9:'1E0D57', ind50:'F1EEFB',
+    grn4:'04F06A', grn7:'088A42', grn50:'E1FDED', grnLt:'5CF59E',
+    tl5:'228D95', tl7:'18636A', tlSub:'E2F1F2',
+    ink9:'16121F', ink7:'3A3550', ink6:'514C63', ink5:'6B6580', ink4:'817C95',
+    ink2:'CFCCDC', ink1:'E6E4EE', ink05:'F5F4F9',
+    dgr:'D8412F', wrn:'C8861A', wht:'FFFFFF',
+    glass:'3C2497', glassBd:'5C42B2', mut:'D7D0F2', sub:'B2A8E0'
+  };
+  var FD='Poppins', FB='Inter', FM='IBM Plex Mono';
+  var I = function(px){ return px/96; };
 
   var exporting = false;
   async function exportPPTX(){
     if(exporting) return; exporting = true;
-    var prevCur = cur, prevTransform = stage.style.transform;
     try{
-      setStatus('Loading export engine…', true);
-      await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+      setStatus('Loading PowerPoint engine…', true);
       await loadScript('https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js');
+      setStatus('Building editable slides…', true);
 
       var pptx = new PptxGenJS();
-      pptx.defineLayout({ name:'WS16x9', width:13.333, height:7.5 });
-      pptx.layout = 'WS16x9';
+      pptx.defineLayout({ name:'WS', width:13.333, height:7.5 });
+      pptx.layout = 'WS';
+      pptx.author='Wavestone'; pptx.company='Wavestone';
+      pptx.title='Cyber Threat Landscape — Automotive Sector';
 
-      document.body.classList.add('exporting');
-      stage.style.transform = 'none'; // capture at native 1280x720
-
-      for(var i=0;i<slides.length;i++){
-        setStatus('Rendering slide '+(i+1)+' / '+slides.length+' …', true);
-        slides.forEach(function(x){ x.classList.remove('active'); });
-        var s = slides[i];
-        s.classList.add('active');
-        setFrags(s, true);                 // reveal every build for the export
-        await raf2();
-        var canvas = await html2canvas(s, {
-          scale: 2, useCORS: true, backgroundColor: null,
-          width: 1280, height: 720, windowWidth: 1280, windowHeight: 720, logging: false
-        });
-        var img = canvas.toDataURL('image/jpeg', 0.92);
-        pptx.addSlide().addImage({ data: img, x:0, y:0, w:13.333, h:7.5 });
+      // ---- primitives -------------------------------------------------------
+      function S(sl,x,y,w,h,fill,lineC,lw){
+        sl.addShape(pptx.ShapeType.rect,{ x:I(x),y:I(y),w:I(w),h:I(h),
+          fill: fill ? {color:fill} : {type:'none'},
+          line: lineC ? {color:lineC,width:lw||1} : {type:'none'} });
       }
+      function T(sl,text,x,y,w,h,o){
+        o=o||{};
+        sl.addText(text,{ x:I(x),y:I(y),w:I(w),h:I(h),
+          fontFace:o.f||FB, fontSize:o.s||12, color:o.c||C.ink9, bold:!!o.b, italic:!!o.i,
+          align:o.align||'left', valign:o.valign||'top', margin:0,
+          lineSpacingMultiple:o.lh||1.0, charSpacing:o.cs||0, wrap:true });
+      }
+      // rich runs: parts = [[text, bold?, colorOverride?], ...]
+      function RT(sl,parts,x,y,w,h,o){
+        o=o||{};
+        var runs = parts.map(function(p){
+          return { text:p[0], options:{ fontFace:o.f||FB, fontSize:o.s||12,
+            color:p[2]||o.c||C.ink9, bold: p[1]?true:(!!o.b) } };
+        });
+        sl.addText(runs,{ x:I(x),y:I(y),w:I(w),h:I(h), align:o.align||'left',
+          valign:o.valign||'top', margin:0, lineSpacingMultiple:o.lh||1.15, wrap:true });
+      }
+      function eyebrow(sl,text,x,y,dark){
+        T(sl,text.toUpperCase(),x,y,700,16,{f:FB,s:9,b:true,c:dark?C.wht:C.ink9,cs:2});
+        S(sl,x,y+19,Math.min(700,text.length*7.0+8),2.4,C.grn4);
+      }
+      function brand(sl,dark){
+        S(sl,54,33,9,9,C.grn4);
+        T(sl,'WAVESTONE · Cyber Threat Intelligence',68,28,520,18,
+          {f:FD,s:10.5,b:true,c:dark?C.wht:C.ind7,valign:'middle'});
+      }
+      function page(sl,n,dark,kicker){
+        T(sl,n+' / 10',1000,684,226,16,{f:FM,s:9,c:dark?'BCB4E2':C.ink4,align:'right',valign:'middle'});
+        if(kicker) T(sl,kicker.toUpperCase(),54,684,600,16,{f:FM,s:8.5,c:dark?'9C92CE':C.ink2,cs:2,valign:'middle'});
+      }
+      function accent(sl,x,y){ S(sl,x,y,54,4,C.grn4); }
+      function iconBox(sl,x,y,sz,bg,glyph,gc){
+        S(sl,x,y,sz,sz,bg);
+        T(sl,glyph,x,y-1,sz,sz,{s:Math.round(sz*0.46),c:gc,align:'center',valign:'middle'});
+      }
+      function badge(sl,x,y,text,fill,tc){
+        var w=text.length*6.4+16;
+        S(sl,x,y,w,19,fill);
+        T(sl,text,x,y,w,19,{s:8,b:true,c:tc,align:'center',valign:'middle',cs:1});
+        return w;
+      }
+      function card(sl,x,y,w,h){ S(sl,x,y,w,h,C.wht,C.ink1,1); S(sl,x,y,4,h,C.grn4); }
+      function glass(sl,x,y,w,h,topbar){
+        S(sl,x,y,w,h,C.glass,C.glassBd,1);
+        if(topbar==='top') S(sl,x,y,w,3,C.grn4);
+        else if(topbar==='left') S(sl,x,y,4,h,C.grn4);
+      }
+
+      // ---- SLIDE 1 — TITLE --------------------------------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.ind8};
+        S(s,691,0,589,720,C.ind9);             // right panel (photo placeholder)
+        S(s,687,0,4,720,C.ind6);
+        S(s,0,620,1280,2,'4A2BB0');            // subtle accent line
+        brand(s,true);
+        eyebrow(s,'Board Briefing · Confidential',54,210,true);
+        s.addText([
+          {text:'Cyber Threat Landscape',options:{color:C.wht,breakLine:true,fontFace:FD,fontSize:42,bold:true}},
+          {text:'The Automotive Sector',options:{color:C.grnLt,fontFace:FD,fontSize:42,bold:true}}
+        ],{ x:I(54),y:I(250),w:I(620),h:I(150),valign:'top',margin:0,lineSpacingMultiple:1.02 });
+        T(s,'From a single breach to systemic risk — what the Jaguar Land Rover attack teaches the board, and how the threat now spans the entire automotive value chain.',
+          54,430,560,90,{s:14,c:C.mut,lh:1.3});
+        var chips=['Case study: Jaguar Land Rover','Sector threats','Product risk','Threat actors'], cx=54;
+        chips.forEach(function(t){ var w=t.length*6.6+20; S(s,cx,545,w,26,'33198F',C.glassBd,1);
+          T(s,t,cx,545,w,26,{f:FM,s:9,c:C.mut,align:'center',valign:'middle'}); cx+=w+12; });
+        T(s,'Prepared by Wavestone · June 2026',54,684,500,16,{f:FM,s:8.5,c:'9C92CE',cs:2,valign:'middle'});
+        T(s,'01 / 10',1000,684,226,16,{f:FM,s:9,c:'BCB4E2',align:'right',valign:'middle'});
+      })();
+
+      // ---- SLIDE 2 — EXEC SUMMARY ------------------------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.wht};
+        brand(s); eyebrow(s,'Executive Summary',54,84);
+        T(s,'A wake-up call the whole sector felt',54,112,1100,46,{f:FD,s:27,b:true,c:C.ind7});
+        accent(s,54,176);
+        T(s,'A five-week production halt at one UK manufacturer rippled across 5,000+ organisations and an entire national economy. This is no longer an IT problem — it is enterprise and supply-chain risk that lands squarely on the board agenda.',
+          54,192,1080,46,{s:13,c:C.ink5,lh:1.3});
+        var stats=[['£1.9bn',C.dgr,'Estimated hit to the UK economy — the most damaging cyber event in UK history'],
+                   ['5 wks',C.ind6,"Global production frozen across JLR's plants, ~£50m lost output per week"],
+                   ['5,000+',C.tl5,'Suppliers, dealers & partners disrupted across the value chain'],
+                   ['+44%',C.grn7,'Ransomware share of automotive incidents in 2025 — more than doubled YoY']];
+        var cw=279.5;
+        stats.forEach(function(d,i){ var x=54+i*297.5,y=256,h=150; card(s,x,y,cw,h);
+          T(s,d[0],x+18,y+18,cw-30,46,{f:FD,s:31,b:true,c:d[1]});
+          T(s,d[2],x+18,y+74,cw-32,66,{s:10,c:C.ink5,lh:1.2}); });
+        var ag=[['①',C.ind50,C.ind6,'The JLR attack','Timeline & anatomy'],
+                ['②',C.tlSub,C.tl7,'Sector threats','The broader picture'],
+                ['③',C.grn50,C.grn7,'Product risk','Connected & electric'],
+                ['④','FBE9E7',C.dgr,'Threat actors','Who & why']];
+        ag.forEach(function(d,i){ var x=54+i*297.5,y=440; iconBox(s,x,y,42,d[1],d[0],d[2]);
+          T(s,d[3],x+54,y-2,cw-54,20,{f:FD,s:11.5,b:true,c:C.ink9});
+          T(s,d[4],x+54,y+18,cw-54,18,{s:10,c:C.ink5}); });
+        page(s,'02',false,'Agenda & key figures');
+      })();
+
+      // ---- SLIDE 3 — JLR OVERVIEW (dark) -----------------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.ind8};
+        S(s,724,0,556,720,C.ind9);             // right colour panel (photo placeholder)
+        brand(s,true);
+        badge(s,54,92,'Case Study',C.dgr,C.wht);
+        T(s,'Jaguar Land Rover',54,118,640,52,{f:FD,s:30,b:true,c:C.wht});
+        T(s,"In late August 2025, the UK's largest automotive employer — owned by Tata Motors — was forced to shut down its own IT systems to contain an intrusion, halting vehicle production worldwide.",
+          54,178,560,80,{s:13,c:C.mut,lh:1.35});
+        var rows=[['🏭','3 UK plants + global','Solihull, Halewood, Wolverhampton & Nitra (SK)'],
+                  ['⏱','~1,000 cars/day lost','Output halted from 1 Sep to phased restart 8 Oct 2025'],
+                  ['💷','£1.5bn government loan','UK state guarantee to stop a supply-chain collapse']];
+        rows.forEach(function(d,i){ var y=300+i*84; iconBox(s,54,y,46,'3A2A86',d[0],C.grnLt);
+          T(s,d[1],112,y+2,520,22,{f:FD,s:14,b:true,c:C.wht});
+          T(s,d[2],112,y+26,520,22,{s:11.5,c:C.mut}); });
+        T(s,'JLR',724,250,556,120,{f:FD,s:54,b:true,c:'2A1570',align:'center'}); // watermark on panel
+        T(s,'03 / 10',1000,684,226,16,{f:FM,s:9,c:'BCB4E2',align:'right',valign:'middle'});
+      })();
+
+      // ---- SLIDE 4 — TIMELINE ----------------------------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.wht};
+        brand(s); eyebrow(s,'JLR · Anatomy in time',54,84);
+        T(s,'Five weeks that froze a carmaker',54,112,1100,46,{f:FD,s:27,b:true,c:C.ind7});
+        accent(s,54,176);
+        S(s,70,292,1140,3,C.ind6);             // axis
+        var steps=[['31 Aug','Intrusion detected','JLR proactively shuts down its IT systems to contain the breach; production paused.',C.dgr],
+                   ['2 Sep','Public disclosure','Retail & production "severely disrupted"; "Scattered Lapsus$ Hunters" claim it.',C.dgr],
+                   ['10 Sep','Data theft confirmed','JLR confirms some data was stolen; forensic investigation widens.',C.ind6],
+                   ['16 Sep','Halt extended','Investigation ongoing; production suspension pushed back again.',C.ind6],
+                   ['23 Sep','Into a 4th week','Pause extended to at least 1 Oct; ~£50m lost output per week.',C.ind6],
+                   ['28 Sep','State steps in','UK government approves a £1.5bn loan guarantee to protect suppliers.',C.grn7],
+                   ['8 Oct','Phased restart','Controlled, gradual ramp-up of production begins after 5 weeks down.',C.grn7]];
+        var n=steps.length, colW=1172/n;
+        steps.forEach(function(d,i){ var cx=54+i*colW, w=colW;
+          T(s,d[0],cx,250,w,16,{f:FM,s:10,b:true,c:C.ind7,align:'center'});
+          S(s,cx+w/2-7,285,14,14,d[3]);
+          T(s,d[1],cx+4,308,w-8,30,{f:FD,s:10.5,b:true,c:C.ink9,align:'center',lh:1.05});
+          T(s,d[2],cx+4,340,w-8,96,{s:8.6,c:C.ink6,align:'center',lh:1.12}); });
+        var cards=[[C.dgr,'⚠  Containment cost',[['The shutdown was partly ',0],['self-imposed',1],[' — disconnecting systems was the only way to stop the spread. Resilience, not just prevention, decides the bill.',0]]],
+                   [C.tl5,'↻  Recovery is slow',[['Restoring trust in clean systems and re-validating OT/production lines took weeks — far longer than the initial intrusion.',0]]],
+                   [C.ind6,'⛓  Systemic blast radius',[['The pause cascaded to 5,000+ suppliers and dealers, triggering unprecedented government intervention.',0]]]];
+        var cw=378.7;
+        cards.forEach(function(d,i){ var x=54+i*396.7,y=470,h=170; card(s,x,y,cw,h);
+          T(s,d[1],x+18,y+16,cw-30,22,{f:FD,s:13,b:true,c:C.ind7});
+          RT(s,d[2],x+18,y+46,cw-34,110,{s:10,c:C.ink5,lh:1.25}); });
+        page(s,'04',false,'Aug – Oct 2025');
+      })();
+
+      // ---- SLIDE 5 — ANATOMY / ATTRIBUTION ---------------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.wht};
+        brand(s); eyebrow(s,'JLR · How it happened',54,84);
+        T(s,'Identity-led intrusion, extortion endgame',54,112,1100,46,{f:FD,s:27,b:true,c:C.ind7});
+        accent(s,54,176);
+        var lx=54, lw=587, rx=667, rw=559;
+        T(s,'Attribution — "Scattered Lapsus$ Hunters"',lx,198,lw,22,{f:FD,s:14,b:true,c:C.ink9});
+        T(s,'A loose, English-speaking collective — the "Trinity of Chaos" — pooling people and tradecraft from three notorious crews. Hellcat was tied to the initial breach; the production-stopping phase was claimed under the joint banner.',
+          lx,226,lw,64,{s:11,c:C.ink5,lh:1.3});
+        var crews=[['🎯','Scattered Spider','Master social engineers — help-desk & MFA-fatigue attacks.'],
+                   ['🛡','Lapsus$','Insider lures & SIM-swaps; brazen public extortion.'],
+                   ['🔒','ShinyHunters','Data theft & leak-site extortion at scale.'],
+                   ['☣','Hellcat (RaaS)','Linked to the initial intrusion vector.']];
+        var ccw=(lw-12)/2;
+        crews.forEach(function(d,i){ var x=lx+(i%2)*(ccw+12), y=300+Math.floor(i/2)*98, h=86;
+          S(s,x,y,ccw,h,C.wht,C.ink1,1); S(s,x,y,4,h,C.grn4);
+          iconBox(s,x+14,y+14,30,'FBE9E7',d[0],C.dgr);
+          T(s,d[1],x+52,y+14,ccw-60,22,{f:FD,s:12.5,b:true,c:C.ind7,valign:'middle'});
+          T(s,d[2],x+14,y+46,ccw-26,34,{s:9.5,c:C.ink5,lh:1.15}); });
+        T(s,'The cascade — IT to enterprise crisis',rx,198,rw,22,{f:FD,s:14,b:true,c:C.ink9});
+        var chain=[['Access',C.ind6,[['Social engineering',1],[' of identity & help-desk — no malware needed to get in.',0]]],
+                   ['Spread',C.ind6,[['Lateral movement',1],[' across flat IT estate; reach toward business-critical systems.',0]]],
+                   ['Exfil',C.wrn,[['Data stolen',1],[' for double-extortion leverage and public pressure.',0]]],
+                   ['Impact',C.dgr,[['Emergency IT shutdown',1],[' halts production — operational, not just data, damage.',0]]],
+                   ['Fallout',C.dgr,[['Supply-chain & economic crisis',1],[' forcing state-level intervention.',0]]]];
+        chain.forEach(function(d,i){ var y=232+i*62;
+          S(s,rx,y,72,20,d[1]); T(s,d[0],rx,y,72,20,{s:8.5,b:true,c:C.wht,align:'center',valign:'middle',cs:1});
+          RT(s,d[2],rx+84,y-3,rw-90,52,{s:11,c:C.ink6,lh:1.2});
+          if(i<4) S(s,rx,y+50,rw,1,C.ink1); });
+        page(s,'05',false,'Tradecraft & impact');
+      })();
+
+      // ---- SLIDE 6 — LESSONS (dark) ----------------------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.ind8};
+        brand(s,true); eyebrow(s,'JLR · Board takeaways',54,84,true);
+        T(s,'Five lessons for the boardroom',54,112,1100,46,{f:FD,s:27,b:true,c:C.wht});
+        accent(s,54,176);
+        var L=[['01','Identity is the perimeter','Phishing-resistant MFA & hardened help-desk verification beat the #1 entry route.'],
+               ['02','IT outage = OT outage',"Segment IT from production so a containment shutdown doesn't stop the line."],
+               ['03','Resilience > prevention',"Tested recovery & clean-build playbooks decide whether it's days or weeks."],
+               ['04','Supply chain = your risk','Your outage is their crisis. Map dependencies and rehearse joint response.'],
+               ['05',"It's a board issue",'Cyber is now balance-sheet, brand & national-economy risk — own it at the top.']];
+        var cw=221.6;
+        L.forEach(function(d,i){ var x=54+i*237.6,y=210,h=270; glass(s,x,y,cw,h,'left');
+          T(s,d[0],x+18,y+18,cw-30,34,{f:FD,s:26,b:true,c:C.grn4});
+          T(s,d[1],x+18,y+58,cw-30,44,{f:FD,s:13,b:true,c:C.wht,lh:1.1});
+          T(s,d[2],x+18,y+108,cw-32,140,{s:10,c:C.mut,lh:1.25}); });
+        S(s,54,512,1172,64,'1C3A2E',C.grn7,1);
+        T(s,'💡',64,512,40,64,{s:18,align:'center',valign:'middle'});
+        RT(s,[['The shift: ',1,C.wht],['attackers no longer need to break your machines — disrupting ',0,C.wht],['trust in your IT',1,C.grnLt],[' is enough to stop the factory.',0,C.wht]],
+          108,512,1100,64,{s:13,lh:1.2,valign:'middle'});
+        page(s,'06',true,'');
+      })();
+
+      // ---- SLIDE 7 — BROADER SECTOR THREATS --------------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.wht};
+        brand(s); eyebrow(s,'Zooming out',54,84);
+        T(s,'JLR is the headline — not the exception',54,112,1100,46,{f:FD,s:27,b:true,c:C.ind7});
+        accent(s,54,176);
+        T(s,'Across the sector, ransomware and supply-chain attacks have surged. The attack surface now stretches from the corporate IT estate to the factory floor, the dealer network and the vehicle itself.',
+          54,192,1080,44,{s:13,c:C.ink5,lh:1.3});
+        var cards=[['🔒','FBE9E7',C.dgr,'Ransomware surge',[['44–45%',1],[' of automotive incidents in 2025 — more than double 2024. RaaS crews favour high-pressure, production-stopping targets.',0]]],
+                   ['🕸','F1EEFB',C.ind6,'Weakest link: suppliers',[['Most incidents hit ',0],['Tier-1/2 suppliers',1],[' & software providers — privileged access to OEMs, but thinner defences.',0]]],
+                   ['🖥','E2F1F2',C.tl7,'Dealer ecosystem',[['The 2024 CDK Global attack froze ',0],['15,000+',1],[' North-American dealerships — one SaaS vendor, sector-wide paralysis.',0]]],
+                   ['📈','E1FDED',C.grn7,'Soaring losses',[['Automotive cyberattacks drove ',0],['tens of billions $',1],[' in losses (2022–24) from disruption, data & IP theft.',0]]]];
+        var lx=54, lcw=316.5;
+        cards.forEach(function(d,i){ var x=lx+(i%2)*(lcw+16), y=250+Math.floor(i/2)*156, h=140;
+          S(s,x,y,lcw,h,C.wht,C.ink1,1); S(s,x,y,4,h,C.grn4);
+          iconBox(s,x+16,y+16,40,d[1],d[0],d[2]);
+          T(s,d[3],x+66,y+18,lcw-76,34,{f:FD,s:13,b:true,c:C.ind7,valign:'middle'});
+          RT(s,d[4],x+16,y+66,lcw-32,68,{s:10,c:C.ink5,lh:1.22}); });
+        var px=727, pw=499;
+        S(s,px,250,pw,300,C.tl7); S(s,px,250,pw,300,null,C.tl5,1);
+        T(s,'2×',px+26,300,pw-40,70,{f:FD,s:48,b:true,c:C.wht});
+        T(s,'Ransomware doubled',px+26,380,pw-50,28,{f:FD,s:17,b:true,c:C.wht});
+        T(s,'Attacks on automotive & smart-mobility more than doubled in 2025. The convergence of IT, OT and connected products is widening the front line faster than defences can follow.',
+          px+26,414,pw-52,120,{s:11.5,c:'E2F1F2',lh:1.3});
+        page(s,'07',false,'Sector-wide threat picture');
+      })();
+
+      // ---- SLIDE 8 — PRODUCT RISK (dark) -----------------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.ind8};
+        brand(s,true); eyebrow(s,'The vehicle as attack surface',54,84,true);
+        T(s,'Product-specific risk: the software-defined car',54,112,1150,46,{f:FD,s:27,b:true,c:C.wht});
+        accent(s,54,176);
+        T(s,'Beyond the enterprise, the connected, electric and increasingly autonomous vehicle introduces safety-critical cyber risk — where a breach can mean recalls, liability and physical harm.',
+          54,192,1120,44,{s:13,c:C.mut,lh:1.3});
+        var R=[['🌐','Connectivity & APIs',[['Backend servers & APIs are now the ',0],['primary weak point',1],[' — telematics linking cars, cloud and apps enable fleet-scale compromise.',0]]],
+               ['📡','OTA updates',[['Over-the-air pipelines are powerful — and a high-value target. A compromised update channel can push malicious code to ',0],['entire fleets',1],['.',0]]],
+               ['🔑','Keyless entry / relay theft',[['Relay devices extend key-fob signals to ',0],['unlock and start',1],[' vehicles in seconds — physical crime enabled by weak crypto.',0]]],
+               ['⚡','EV charging & infrastructure',[['Charge-point operators & back-ends are emerging targets — incl. unauthorised access to customer data at a major provider in 2025.',0]]],
+               ['🚗','In-vehicle / CAN & ECUs',[['Onboard buses & ECUs can be abused for ',0],['vehicle hijacking',1],[' — turning a cyber flaw into a safety incident.',0]]],
+               ['🤖','AI & autonomy',[['Gen-AI and ML in the stack add new exposure — model manipulation, data-poisoning and an expanding, complex codebase.',0]]]];
+        var cw=380;
+        R.forEach(function(d,i){ var x=54+(i%3)*396, y=254+Math.floor(i/3)*166, h=150; glass(s,x,y,cw,h,'top');
+          iconBox(s,x+18,y+18,38,'15402A',d[0],C.grnLt);
+          T(s,d[1],x+18,y+62,cw-32,24,{f:FD,s:13,b:true,c:C.wht});
+          RT(s,d[2],x+18,y+90,cw-34,56,{s:10,c:C.mut,lh:1.2}); });
+        page(s,'08',true,'');
+      })();
+
+      // ---- SLIDE 9 — THREAT ACTORS -----------------------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.wht};
+        brand(s); eyebrow(s,'Know your adversary',54,84);
+        T(s,'Who is targeting the sector — and why',54,112,1100,46,{f:FD,s:27,b:true,c:C.ind7});
+        accent(s,54,176);
+        var A=[['🎯','FBE9E7',C.dgr,'Critical',C.dgr,'Social-engineering collectives','Scattered Spider, Lapsus$, ShinyHunters — the "Scattered Lapsus$ Hunters" alliance behind JLR.','MOTIVE · Extortion & notoriety'],
+               ['🔒','FBE9E7',C.dgr,'Critical',C.dgr,'Ransomware-as-a-Service','BlackSuit, Qilin, Akira, Everest, Hellcat — professionalised crews using double-extortion & AI tooling.','MOTIVE · Financial'],
+               ['🛡','F1EEFB',C.ind6,'High',C.wrn,'Nation-state & espionage','Targeting EV, battery & autonomous-driving IP and R&D — long-dwell, stealthy intrusions.','MOTIVE · IP theft & strategy'],
+               ['🌐','E2F1F2',C.tl7,'Moderate',C.tl5,'Hacktivists & criminals','Ideological disruption, plus organised crime monetising keyless theft & stolen vehicle data.','MOTIVE · Disruption & profit']];
+        var cw=279.5;
+        A.forEach(function(d,i){ var x=54+i*297.5,y=210,h=300; card(s,x,y,cw,h);
+          iconBox(s,x+18,y+18,40,d[1],d[0],d[2]);
+          badge(s,x+cw-86,y+22,d[3],d[4],C.wht);
+          T(s,d[5],x+18,y+76,cw-34,44,{f:FD,s:13.5,b:true,c:C.ind7,lh:1.08});
+          T(s,d[6],x+18,y+128,cw-34,110,{s:10.5,c:C.ink5,lh:1.25});
+          S(s,x+18,y+h-40,cw-36,1,C.ink1);
+          T(s,d[7],x+18,y+h-32,cw-34,18,{f:FM,s:8.5,c:C.ink4}); });
+        S(s,54,532,1172,52,C.ink05); S(s,54,532,4,52,C.ind6);
+        RT(s,[['The common thread: ',1,C.ink9],['attackers increasingly enter through ',0,C.ink7],['people and third parties',1,C.ink9],[', not exotic exploits — and pivot to whatever causes the most leverage, from data leaks to a stopped production line.',0,C.ink7]],
+          72,532,1140,52,{s:11.5,lh:1.2,valign:'middle'});
+        page(s,'09',false,'Threat actor landscape');
+      })();
+
+      // ---- SLIDE 10 — RECOMMENDATIONS / CLOSE (dark) -----------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.ind8};
+        S(s,0,150,1280,2,'3F2AA8'); S(s,0,200,1280,2,'2A1570');
+        brand(s,true); eyebrow(s,'From insight to action',54,84,true);
+        T(s,'Board priorities for the year ahead',54,112,1100,46,{f:FD,s:28,b:true,c:C.wht});
+        accent(s,54,176);
+        var P=[['SECURE THE ENTERPRISE',['Phishing-resistant MFA & identity hardening','Help-desk verification controls','Segment IT from OT / production']],
+               ['BUILD RESILIENCE',['Tested recovery & clean-rebuild plans','Board-level crisis rehearsals','Cyber risk on the balance sheet']],
+               ['EXTEND TO ECOSYSTEM',['Map & tier critical suppliers','Secure-by-design products & OTA','Continuous threat intelligence']]];
+        var cw=378.7;
+        P.forEach(function(d,i){ var x=54+i*396.7,y=210,h=230; glass(s,x,y,cw,h);
+          T(s,d[0],x+20,y+20,cw-34,22,{f:FD,s:13,b:true,c:C.grn4,cs:1});
+          var items=d[1].map(function(t){ return {text:'✓  '+t, options:{fontFace:FB,fontSize:11.5,color:C.mut,bullet:false,breakLine:true,paraSpaceAfter:8}}; });
+          s.addText(items,{x:I(x+20),y:I(y+56),w:I(cw-36),h:I(h-70),valign:'top',margin:0,lineSpacingMultiple:1.2}); });
+        T(s,'"Resilience is the new prevention — assume the breach, and rehearse the recovery."',
+          54,470,640,80,{f:FD,s:21,b:true,c:C.wht,lh:1.3});
+        S(s,1090,476,9,9,C.grn4);
+        T(s,'WAVESTONE',900,468,326,24,{f:FD,s:17,b:true,c:C.wht,align:'right'});
+        T(s,'Cyber Threat Intelligence · Automotive',900,496,326,16,{f:FM,s:9,c:'BCB4E2',align:'right'});
+        T(s,'10 / 10',1000,684,226,16,{f:FM,s:9,c:'BCB4E2',align:'right',valign:'middle'});
+      })();
 
       setStatus('Saving CTI.pptx …', true);
       await pptx.writeFile({ fileName: 'CTI.pptx' });
-      setStatus('✓ CTI.pptx downloaded');
-      setTimeout(function(){ setStatus(''); }, 2600);
+      setStatus('✓ CTI.pptx — fully editable deck downloaded');
+      setTimeout(function(){ setStatus(''); }, 3000);
     }catch(err){
-      setStatus('⚠ Export failed — needs internet on first use to load the libraries.');
+      setStatus('⚠ Export failed — needs internet on first use to load PptxGenJS.');
       setTimeout(function(){ setStatus(''); }, 4200);
-    }finally{
-      document.body.classList.remove('exporting');
-      stage.style.transform = prevTransform;
-      go(prevCur, true);
-      exporting = false;
-    }
+    }finally{ exporting = false; }
   }
   document.getElementById('pptx').addEventListener('click', function(e){ e.stopPropagation(); exportPPTX(); });
 
