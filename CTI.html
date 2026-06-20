@@ -834,9 +834,32 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
   var FD='Poppins', FB='Inter', FM='IBM Plex Mono';
   var I = function(px){ return px/96; };
 
+  function raf2(){ return new Promise(function(r){ requestAnimationFrame(function(){ requestAnimationFrame(r); }); }); }
+
+  // Render ONE element (a photo panel) to an image — keeps text/shapes native,
+  // only the photographs are rasterised, captured live from the browser.
+  async function snapEl(el, hideChildren){
+    if(typeof html2canvas === 'undefined') return null;
+    var hidden=[];
+    if(hideChildren){ Array.prototype.forEach.call(el.children,function(c){
+      hidden.push([c,c.style.visibility]); c.style.visibility='hidden'; }); }
+    try{
+      var cv = await html2canvas(el, { useCORS:true, allowTaint:false, backgroundColor:null, scale:2, logging:false });
+      return cv.toDataURL('image/jpeg', 0.9);
+    }catch(e){ return null; }
+    finally{ hidden.forEach(function(p){ p[0].style.visibility=p[1]; }); }
+  }
+  // element box in the 1280x720 slide coordinate space
+  function rectIn(el, slideEl){
+    var er=el.getBoundingClientRect(), sr=slideEl.getBoundingClientRect();
+    var sc = sr.width/1280 || 1;
+    return { x:(er.left-sr.left)/sc, y:(er.top-sr.top)/sc, w:er.width/sc, h:er.height/sc };
+  }
+
   var exporting = false;
   async function exportPPTX(){
     if(exporting) return; exporting = true;
+    var prevCur = cur, prevTf = stage.style.transform, captured = false;
     try{
       setStatus('Loading PowerPoint engine…', true);
       if(typeof PptxGenJS === 'undefined'){
@@ -844,6 +867,31 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
         catch(e){ await loadScript('https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js'); }
       }
       if(typeof PptxGenJS === 'undefined') throw new Error('PptxGenJS unavailable');
+      if(typeof html2canvas === 'undefined'){
+        try{ await loadScript('assets/html2canvas.min.js'); }
+        catch(e){ try{ await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'); }catch(e2){} }
+      }
+
+      // ---- capture phase: render the live photos to images -----------------
+      setStatus('Capturing photos from the page…', true);
+      var photos = {};
+      captured = true;
+      document.body.classList.add('exporting');
+      stage.style.transform = 'none';                 // capture at native 1280x720
+      var shots = [ ['s1','#s1 .hero-photo',false], ['s3','#s3 .photo',false], ['s7','#s7 .photo',true] ];
+      for(var k=0;k<shots.length;k++){
+        var slEl = document.getElementById(shots[k][0]);
+        slides.forEach(function(x){ x.classList.remove('active'); });
+        slEl.classList.add('active'); setFrags(slEl, true);
+        await raf2(); await raf2();
+        var el = document.querySelector(shots[k][1]);
+        if(el){ photos[shots[k][0]] = { data: await snapEl(el, shots[k][2]), rect: rectIn(el, slEl) }; }
+      }
+      stage.style.transform = prevTf;
+      document.body.classList.remove('exporting');
+      go(prevCur, true);
+      captured = false;
+
       setStatus('Building editable slides…', true);
 
       var pptx = new PptxGenJS();
@@ -900,6 +948,11 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
         return w;
       }
       function card(sl,x,y,w,h){ S(sl,x,y,w,h,C.wht,C.ink1,1); S(sl,x,y,4,h,C.grn4); }
+      // place a captured photo if available, else run the fallback drawer
+      function photo(sl,p,fallback){
+        if(p && p.data && p.rect){ sl.addImage({ data:p.data, x:I(p.rect.x), y:I(p.rect.y), w:I(p.rect.w), h:I(p.rect.h) }); return true; }
+        if(fallback) fallback(); return false;
+      }
       function glass(sl,x,y,w,h,topbar){
         S(sl,x,y,w,h,C.glass,C.glassBd,1);
         if(topbar==='top') S(sl,x,y,w,3,C.grn4);
@@ -909,7 +962,7 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
       // ---- SLIDE 1 — TITLE --------------------------------------------------
       (function(){
         var s=pptx.addSlide(); s.background={color:C.ind8};
-        S(s,691,0,589,720,C.ind9);             // right panel (photo placeholder)
+        photo(s, photos.s1, function(){ S(s,691,0,589,720,C.ind9); });   // hero photo (live render)
         S(s,687,0,4,720,C.ind6);
         S(s,0,620,1280,2,'4A2BB0');            // subtle accent line
         brand(s,true);
@@ -956,7 +1009,7 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
       // ---- SLIDE 3 — JLR OVERVIEW (dark) -----------------------------------
       (function(){
         var s=pptx.addSlide(); s.background={color:C.ind8};
-        S(s,724,0,556,720,C.ind9);             // right colour panel (photo placeholder)
+        var hasP3 = photo(s, photos.s3, function(){ S(s,724,0,556,720,C.ind9); });   // JLR photo (live render)
         brand(s,true);
         badge(s,54,92,'Case Study',C.dgr,C.wht);
         T(s,'Jaguar Land Rover',54,118,640,52,{f:FD,s:30,b:true,c:C.wht});
@@ -968,7 +1021,7 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
         rows.forEach(function(d,i){ var y=300+i*84; iconBox(s,54,y,46,'3A2A86',d[0],C.grnLt);
           T(s,d[1],112,y+2,520,22,{f:FD,s:14,b:true,c:C.wht});
           T(s,d[2],112,y+26,520,22,{s:11.5,c:C.mut}); });
-        T(s,'JLR',724,250,556,120,{f:FD,s:54,b:true,c:'2A1570',align:'center'}); // watermark on panel
+        if(!hasP3) T(s,'JLR',724,250,556,120,{f:FD,s:54,b:true,c:'2A1570',align:'center'}); // watermark only if no photo
         T(s,'03 / 10',1000,684,226,16,{f:FM,s:9,c:'BCB4E2',align:'right',valign:'middle'});
       })();
 
@@ -1077,7 +1130,8 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
           T(s,d[3],x+66,y+18,lcw-76,34,{f:FD,s:13,b:true,c:C.ind7,valign:'middle'});
           RT(s,d[4],x+16,y+66,lcw-32,68,{s:10,c:C.ink5,lh:1.22}); });
         var px=727, pw=499;
-        S(s,px,250,pw,300,C.tl7); S(s,px,250,pw,300,null,C.tl5,1);
+        photo(s, photos.s7, function(){ S(s,px,250,pw,300,C.tl7); });   // panel photo (live render, text hidden)
+        S(s,px,250,pw,300,null,C.tl5,1);                                 // border + native text overlay
         T(s,'2×',px+26,300,pw-40,70,{f:FD,s:48,b:true,c:C.wht});
         T(s,'Ransomware doubled',px+26,380,pw-50,28,{f:FD,s:17,b:true,c:C.wht});
         T(s,'Attacks on automotive & smart-mobility more than doubled in 2025. The convergence of IT, OT and connected products is widening the front line faster than defences can follow.',
@@ -1161,7 +1215,10 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
     }catch(err){
       setStatus('⚠ Export failed — could not load the PowerPoint engine.');
       setTimeout(function(){ setStatus(''); }, 4200);
-    }finally{ exporting = false; }
+    }finally{
+      if(captured){ stage.style.transform = prevTf; document.body.classList.remove('exporting'); go(prevCur, true); }
+      exporting = false;
+    }
   }
   document.getElementById('pptx').addEventListener('click', function(e){ e.stopPropagation(); exportPPTX(); });
 
