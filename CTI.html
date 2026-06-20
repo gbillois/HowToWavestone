@@ -839,7 +839,11 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
     if(exporting) return; exporting = true;
     try{
       setStatus('Loading PowerPoint engine…', true);
-      await loadScript('https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js');
+      if(typeof PptxGenJS === 'undefined'){
+        try{ await loadScript('assets/pptxgen.bundle.js'); }           // vendored, works offline
+        catch(e){ await loadScript('https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js'); }
+      }
+      if(typeof PptxGenJS === 'undefined') throw new Error('PptxGenJS unavailable');
       setStatus('Building editable slides…', true);
 
       var pptx = new PptxGenJS();
@@ -1155,7 +1159,7 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
       setStatus('✓ CTI.pptx — fully editable deck downloaded');
       setTimeout(function(){ setStatus(''); }, 3000);
     }catch(err){
-      setStatus('⚠ Export failed — needs internet on first use to load PptxGenJS.');
+      setStatus('⚠ Export failed — could not load the PowerPoint engine.');
       setTimeout(function(){ setStatus(''); }, 4200);
     }finally{ exporting = false; }
   }
