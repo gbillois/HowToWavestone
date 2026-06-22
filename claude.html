@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mythos-Ready Compliance Framework &middot; Wavestone CYB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-teal-500:#228D95;
+    --ws-amber-500:#E0A106; --ws-amber-50:#FBF2DA;
+    --ws-red-500:#D6304B; --ws-red-50:#FBE4E8;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ws-ink-50);color:var(--ws-ink-900);
+    font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;
+    min-height:100vh;display:flex;flex-direction:column;
+  }
+  a{color:inherit}
+
+  /* ---------- bar ---------- */
+  .bar{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1080px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px}
+  .brand .dot{width:9px;height:9px;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-left:auto}
+  .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:6px 13px;transition:.18s var(--ws-ease)}
+  .bar a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;flex-shrink:0}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1080px;margin:0 auto;padding:64px 24px 56px}
+  .hero .eyebrow{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid var(--ws-green-400);color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(32px,5.4vw,52px);line-height:1.06;letter-spacing:-.025em;margin:22px 0 16px;max-width:20ch}
+  .hero h1 .ac{color:var(--ws-green-400)}
+  .hero .lede{font-size:18px;line-height:1.55;color:rgba(255,255,255,.82);max-width:64ch}
+  .hero .meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px}
+  .hero .meta .pill{font-family:var(--ws-font-mono);font-size:11.5px;letter-spacing:.02em;color:#fff;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:5px 11px}
+
+  /* ---------- layout ---------- */
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;width:100%}
+
+  /* ---------- scoreboard ---------- */
+  .scoreboard{position:sticky;top:53px;z-index:50;margin:-28px auto 0;max-width:1080px;padding:0 24px}
+  .sb-card{background:var(--ws-white);border:1.5px solid var(--ws-ink-100);box-shadow:var(--ws-shadow-lg);padding:20px 24px;display:grid;grid-template-columns:auto 1fr auto;gap:24px;align-items:center}
+  @media(max-width:760px){.sb-card{grid-template-columns:1fr;gap:16px}}
+  .sb-score{display:flex;align-items:baseline;gap:10px}
+  .sb-score .num{font-family:var(--ws-font-display);font-weight:800;font-size:46px;line-height:1;letter-spacing:-.03em;color:var(--ws-indigo-700)}
+  .sb-score .pct{font-family:var(--ws-font-display);font-weight:700;font-size:20px;color:var(--ws-ink-400)}
+  .sb-score .lab{font-family:var(--ws-font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ws-ink-400);display:block}
+  .sb-tier{display:inline-flex;align-items:center;gap:8px;font-family:var(--ws-font-mono);font-weight:600;font-size:13px;padding:6px 13px;border:1.5px solid currentColor;width:fit-content}
+  .sb-tier .tdot{width:9px;height:9px;background:currentColor}
+  .sb-bars{display:flex;flex-direction:column;gap:10px;min-width:0}
+  .hbar{display:grid;grid-template-columns:130px 1fr 48px;gap:10px;align-items:center}
+  .hbar .hb-lab{font-family:var(--ws-font-mono);font-size:11.5px;color:var(--ws-ink-600);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .hbar .hb-track{height:9px;background:var(--ws-ink-100);overflow:hidden}
+  .hbar .hb-fill{height:100%;width:0;background:var(--ws-gradient-accent);transition:width .4s var(--ws-ease)}
+  .hbar .hb-val{font-family:var(--ws-font-mono);font-size:11.5px;color:var(--ws-ink-500);text-align:right}
+  .sb-actions{display:flex;flex-wrap:wrap;gap:8px}
+  .btn{font-family:var(--ws-font-mono);font-size:12.5px;font-weight:600;padding:8px 14px;border:1.5px solid var(--ws-ink-200);background:var(--ws-white);color:var(--ws-ink-700);cursor:pointer;transition:.18s var(--ws-ease)}
+  .btn:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+  .btn.primary{background:var(--ws-indigo-600);border-color:var(--ws-indigo-600);color:#fff}
+  .btn.primary:hover{background:var(--ws-indigo-700);color:#fff}
+
+  /* ---------- intro ---------- */
+  .intro{margin:36px 0 8px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+  @media(max-width:760px){.intro{grid-template-columns:1fr}}
+  .ic{background:var(--ws-white);border:1.5px solid var(--ws-ink-100);padding:18px 20px;box-shadow:var(--ws-shadow-sm)}
+  .ic h3{font-family:var(--ws-font-display);font-weight:700;font-size:15px;color:var(--ws-indigo-700);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .ic h3 .hz{font-family:var(--ws-font-mono);font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-green-700);background:var(--ws-green-50);padding:3px 8px}
+  .ic p{font-size:13.5px;color:var(--ws-ink-500);line-height:1.5}
+
+  /* ---------- domains ---------- */
+  section.domain{margin:28px 0;background:var(--ws-white);border:1.5px solid var(--ws-ink-100);box-shadow:var(--ws-shadow-sm)}
+  .dom-head{display:flex;align-items:center;gap:16px;padding:20px 24px;border-bottom:1px solid var(--ws-ink-100);cursor:pointer;user-select:none}
+  .dom-head .dom-ix{font-family:var(--ws-font-display);font-weight:800;font-size:20px;color:var(--ws-indigo-200);min-width:34px}
+  .dom-head .dom-t{flex:1;min-width:0}
+  .dom-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:19px;letter-spacing:-.015em;color:var(--ws-ink-900)}
+  .dom-head .dom-sub{font-size:13px;color:var(--ws-ink-500);margin-top:2px}
+  .dom-head .dom-score{font-family:var(--ws-font-mono);font-weight:600;font-size:14px;padding:5px 11px;border:1.5px solid var(--ws-ink-200);color:var(--ws-ink-600);white-space:nowrap}
+  .dom-head .chev{color:var(--ws-ink-300);transition:transform .2s var(--ws-ease)}
+  section.domain.collapsed .chev{transform:rotate(-90deg)}
+  section.domain.collapsed .dom-body{display:none}
+  .dom-body{padding:6px 0}
+
+  .item{display:grid;grid-template-columns:1fr auto;gap:16px;padding:16px 24px;border-bottom:1px solid var(--ws-ink-50);align-items:start}
+  .item:last-child{border-bottom:none}
+  .item .it-main{min-width:0}
+  .item .it-h{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .item .it-h .ttl{font-weight:600;font-size:15px;color:var(--ws-ink-900)}
+  .item .it-d{font-size:13.5px;color:var(--ws-ink-500);margin-top:4px;line-height:1.5}
+  .hzt{font-family:var(--ws-font-mono);font-size:9.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:3px 7px;white-space:nowrap}
+  .hzt.week{color:var(--ws-red-500);background:var(--ws-red-50)}
+  .hzt.d45{color:var(--ws-amber-500);background:var(--ws-amber-50)}
+  .hzt.m12{color:var(--ws-indigo-700);background:var(--ws-indigo-50)}
+
+  .seg{display:inline-flex;border:1.5px solid var(--ws-ink-200);overflow:hidden;flex-shrink:0}
+  .seg button{font-family:var(--ws-font-mono);font-size:11px;font-weight:600;padding:7px 10px;background:var(--ws-white);color:var(--ws-ink-500);border:none;border-left:1px solid var(--ws-ink-100);cursor:pointer;transition:.14s var(--ws-ease);white-space:nowrap}
+  .seg button:first-child{border-left:none}
+  .seg button:hover{background:var(--ws-ink-50)}
+  .seg button[aria-pressed="true"][data-v="0"]{background:var(--ws-red-500);color:#fff}
+  .seg button[aria-pressed="true"][data-v="25"]{background:var(--ws-amber-500);color:#fff}
+  .seg button[aria-pressed="true"][data-v="50"]{background:var(--ws-teal-500);color:#fff}
+  .seg button[aria-pressed="true"][data-v="100"]{background:var(--ws-green-700);color:#fff}
+  .seg button[aria-pressed="true"][data-v="na"]{background:var(--ws-ink-400);color:#fff}
+
+  /* ---------- sources / footer ---------- */
+  .notebox{margin:8px 0 0;background:var(--ws-indigo-50);border:1.5px solid var(--ws-indigo-100);padding:18px 22px}
+  .notebox h3{font-family:var(--ws-font-display);font-weight:700;font-size:14px;color:var(--ws-indigo-700);margin-bottom:6px}
+  .notebox p{font-size:13px;color:var(--ws-ink-600);line-height:1.55}
+  .notebox a{color:var(--ws-indigo-600);font-weight:600}
+  footer{max-width:1080px;margin:40px auto 0;padding:24px;border-top:1px solid var(--ws-ink-200);width:100%;text-align:center}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400);line-height:1.7}
+
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus)}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  /* square corners — site aesthetic */
+  *,*::before,*::after{border-radius:0!important}
+
+  @media print{
+    .bar,.scoreboard,.hero .wave,.seg button:not([aria-pressed="true"]){display:none!important}
+    body{background:#fff}
+    section.domain.collapsed .dom-body{display:block!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <span class="brand"><span class="dot"></span>Wavestone CYB &middot; AI Maker</span>
+    <div class="nav-links">
+      <a class="jump" href="index.html">Home</a>
+      <a class="jump" href="playbook.html">Playbook</a>
+      <a class="jump" href="agent-principles.html">Agent principles</a>
+      <a class="jump" href="our-agents.html">Our agents</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1080 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,300 Q280,180 560,250 T1140,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,330 Q320,210 580,285 T1140,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <span class="eyebrow">CSA &middot; AI Vulnerability Storm</span>
+    <h1>Mythos-Ready <span class="ac">Compliance Framework</span></h1>
+    <p class="lede">An interactive self-assessment against the Cloud Security Alliance briefing <em>&ldquo;The AI Vulnerability Storm: Building a Mythos-Ready Security Program.&rdquo;</em> Rate each control, track readiness across the three time horizons, and measure your minimum viable resilience to AI-accelerated vulnerability discovery and exploitation.</p>
+    <div class="meta">
+      <span class="pill">CSA &middot; SANS &middot; OWASP GenAI</span>
+      <span class="pill">Published Apr 2026</span>
+      <span class="pill">10 baseline questions</span>
+      <span class="pill">8 control domains</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ SCOREBOARD ============ -->
+<div class="scoreboard">
+  <div class="sb-card">
+    <div>
+      <span class="sb-score lab">Overall readiness</span>
+      <div class="sb-score"><span class="num" id="scoreNum">0</span><span class="pct">%</span></div>
+      <span class="sb-tier" id="tier" style="color:var(--ws-red-500);margin-top:8px"><span class="tdot"></span><span id="tierName">Exposed</span></span>
+    </div>
+    <div class="sb-bars">
+      <div class="hbar"><span class="hb-lab">This week</span><span class="hb-track"><span class="hb-fill" id="bar-week"></span></span><span class="hb-val" id="val-week">0%</span></div>
+      <div class="hbar"><span class="hb-lab">Within 45 days</span><span class="hb-track"><span class="hb-fill" id="bar-d45"></span></span><span class="hb-val" id="val-d45">0%</span></div>
+      <div class="hbar"><span class="hb-lab">Over 12 months</span><span class="hb-track"><span class="hb-fill" id="bar-m12"></span></span><span class="hb-val" id="val-m12">0%</span></div>
+    </div>
+    <div class="sb-actions">
+      <button class="btn primary" id="btnExport">Export JSON</button>
+      <button class="btn" id="btnPrint">Print / PDF</button>
+      <button class="btn" id="btnReset">Reset</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="intro">
+    <div class="ic">
+      <h3>This week <span class="hz">now</span></h3>
+      <p>Point AI agents at your own code before adversaries do. Stand up an LLM-driven security review and pre-plan fix paths for your most critical exposures.</p>
+    </div>
+    <div class="ic">
+      <h3>Within 45 days <span class="hz">sprint</span></h3>
+      <p>Pull roadmap controls forward: phishing-resistant MFA on every identity, default-deny at every external perimeter point, and elimination of standing privileged access.</p>
+    </div>
+    <div class="ic">
+      <h3>Over 12 months <span class="hz">build</span></h3>
+      <p>Compress remediation timelines, automate patching, harden segmentation, and stand up VulnOps as a permanent, staffed, automated function &mdash; the vulnerability-side analogue of DevOps.</p>
+    </div>
+  </div>
+
+  <div id="domains"></div>
+
+  <div class="notebox">
+    <h3>How scoring works</h3>
+    <p>Each control is rated <strong>Not started (0%)</strong>, <strong>Planned (25%)</strong>, <strong>In progress (50%)</strong>, or <strong>Implemented (100%)</strong>; mark items that genuinely don&rsquo;t apply as <strong>N/A</strong> to exclude them. The overall score is the mean of all in-scope controls. Time-horizon bars roll up only the controls tagged to each horizon, so you can see whether your immediate <em>This-week</em> actions are truly done even while longer-term work is in flight. A program is considered <strong>Mythos-Ready</strong> at <strong>90%+</strong> &mdash; the CSA frames this as <em>minimum viable resilience</em>, not perfection. Answers are saved in your browser (localStorage) only; nothing is sent anywhere.</p>
+  </div>
+
+</div>
+
+<footer>
+  <span class="src">
+    Built on the CSA / SANS / OWASP GenAI briefing &ldquo;The AI Vulnerability Storm: Building a Mythos-Ready Security Program&rdquo; (April 2026).<br>
+    Sources:
+    <a href="https://cloudsecurityalliance.org/mythos-ciso">cloudsecurityalliance.org/mythos-ciso</a> &middot;
+    <a href="https://labs.cloudsecurityalliance.org/mythos-ciso/">labs.cloudsecurityalliance.org/mythos-ciso</a><br>
+    Wavestone CYB &middot; AI Maker Initiative &mdash; internal compliance tooling. Not affiliated with or endorsed by CSA.
+  </span>
+</footer>
+
+<script>
+/* =======================================================================
+   Mythos-Ready Compliance Framework — control model
+   Horizons: "week" | "d45" | "m12" | null (no specific horizon / baseline)
+   ===================================================================== */
+const MODEL = [
+  {
+    id:"baseline", ix:"00",
+    title:"Baseline self-assessment",
+    sub:"The 10 CISO questions — put these in front of your leadership team to establish your honest starting point.",
+    items:[
+      {id:"b1", hz:null, t:"Actual stance on AI today", d:"Is enterprise AI use Allowed, Tolerated, Restricted, or simply Unknown? You have a clear, communicated position rather than a vacuum."},
+      {id:"b2", hz:null, t:"Agentic coding tools are governed", d:"Employees can use agentic coding tools with guardrails for agents that loop tool usage and write code — not unmanaged shadow usage."},
+      {id:"b3", hz:null, t:"Open-source contribution is unambiguous", d:"Employees can contribute to open source without legal/IP ambiguity — a policy and legal question, not just engineering philosophy."},
+      {id:"b4", hz:null, t:"Disciplined control of repos, artifacts & software", d:"You control your software supply chain, including the agentic supply chain: MCP servers, plugins, and skills."},
+      {id:"b5", hz:null, t:"A real cooling-off point / security gate exists", d:"There is a genuine security gate between code change and production — evidence of control over the software supply chain."},
+      {id:"b6", hz:null, t:"Security is operational, not merely advisory", d:"Security can directly affect outcomes and ship changes, rather than acting only as a review board."},
+      {id:"b7", hz:null, t:"Proven speed of security-driven change", d:"You know — from real metrics, not theoretical SLAs — the fastest security-driven production change made in the last year."},
+      {id:"b8", hz:null, t:"Complete, accurate asset inventory", d:"You have a complete and accurate endpoint/asset inventory: the precondition for everything else."},
+      {id:"b9", hz:null, t:"Detection based on behaviour & TTPs", d:"Detection keys on attacker tactics, techniques and behaviour — not just tool signatures that offensive AI can trivially change."},
+      {id:"b10", hz:null, t:"Ability to remediate at machine speed", d:"You can compress remediation timelines and automate patching to keep pace with AI-speed discovery and exploitation."}
+    ]
+  },
+  {
+    id:"findfirst", ix:"01",
+    title:"Find your own vulnerabilities first",
+    sub:"This-week priority — if AI can find vulnerabilities in your code, find them before your adversaries do.",
+    items:[
+      {id:"f1", hz:"week", t:"Point AI agents at your own code", d:"Run AI-driven vulnerability discovery against your own codebase this week, before adversaries do the same."},
+      {id:"f2", hz:"week", t:"Stand up LLM-driven security review", d:"Adopt a commercial (e.g. Claude Code Security, Codex Security) or open-source (OpenAnt, raptor, Trail of Bits agentic skills) reviewer in the pipeline."},
+      {id:"f3", hz:"week", t:"Pre-plan fix paths for critical vulns", d:"Define remediation playbooks for your crown-jewel and internet-facing systems before the storm hits, not during it."},
+      {id:"f4", hz:"d45", t:"Continuous, not one-off, code scanning", d:"AI-assisted discovery runs continuously across the estate rather than as a point-in-time exercise."}
+    ]
+  },
+  {
+    id:"aigov", ix:"02",
+    title:"Govern AI & the agentic supply chain",
+    sub:"Surface and control shadow AI, agentic tooling, and AI-generated code before it reaches production.",
+    items:[
+      {id:"g1", hz:"week", t:"Discover shadow AI in dev environments", d:"Inventory unauthorized AI coding agents, MCP servers, and agentic developer tools running inside the organization."},
+      {id:"g2", hz:"d45", t:"Vet every agentic component before connecting", d:"MCP servers, plugins and skills are reviewed and approved before they are wired into your systems."},
+      {id:"g3", hz:"d45", t:"Review gate for AI-generated code", d:"A mandatory gate ensures AI-generated code is reviewed before it can reach production."},
+      {id:"g4", hz:"d45", t:"Scope and constrain agent permissions", d:"AI agents — especially those that loop tool usage — run with least-privilege, bounded permissions."},
+      {id:"g5", hz:"m12", t:"Legal & IP clarity for OSS contribution", d:"Clear policy lets employees contribute to and consume open source without legal ambiguity."}
+    ]
+  },
+  {
+    id:"inventory", ix:"03",
+    title:"Asset inventory & exposure reduction",
+    sub:"Complete, accurate inventory is the precondition for everything — then cut unnecessary exposure.",
+    items:[
+      {id:"i1", hz:"d45", t:"Continuous asset discovery via APIs", d:"Assets are discovered continuously through APIs rather than periodic manual scans."},
+      {id:"i2", hz:"d45", t:"SBOMs generated for all builds", d:"Every build produces a Software Bill of Materials covering direct and transitive dependencies."},
+      {id:"i3", hz:"m12", t:"AI-assisted real-time inventory classification", d:"Inventory is classified in real time (criticality, owner, exposure) with AI assistance."},
+      {id:"i4", hz:"d45", t:"Reduce unnecessary external exposure", d:"Attack surface is actively minimized — unneeded internet-facing services and endpoints are removed."}
+    ]
+  },
+  {
+    id:"identity", ix:"04",
+    title:"Identity & perimeter (45-day sprint)",
+    sub:"Pull these roadmap controls forward — they are the highest-leverage hardening before the storm.",
+    items:[
+      {id:"id1", hz:"d45", t:"Phishing-resistant MFA on every identity", d:"Phish-proof MFA (e.g. domain-bound hardware tokens / passkeys) covers every human and service identity."},
+      {id:"id2", hz:"d45", t:"Default-deny on every external perimeter point", d:"Each external perimeter point denies by default; only explicitly required flows are permitted."},
+      {id:"id3", hz:"d45", t:"Eliminate standing privileged access", d:"Standing privilege is removed in favour of just-in-time, time-bound, audited elevation."}
+    ]
+  },
+  {
+    id:"hardening", ix:"05",
+    title:"Segmentation & control hardening",
+    sub:"Harden fundamentals so a single discovered vulnerability cannot become a full compromise.",
+    items:[
+      {id:"h1", hz:"m12", t:"Network segmentation enforced", d:"The estate is segmented to contain blast radius and limit lateral movement."},
+      {id:"h2", hz:"m12", t:"Fundamental controls hardened & maintained", d:"Baseline hardening (config, patch levels, secure defaults) is enforced and continuously verified."},
+      {id:"h3", hz:"m12", t:"Zero-trust assumptions on AI infrastructure", d:"Network source policies, device authorization and frequent re-authentication protect high-value (e.g. model/data) infrastructure."}
+    ]
+  },
+  {
+    id:"deception", ix:"06",
+    title:"Deception & behaviour-based detection",
+    sub:"Deception and TTP-based detection survive offensive-AI tool changes because they key on behaviour, not signatures.",
+    items:[
+      {id:"x1", hz:"m12", t:"Canaries & honey tokens deployed", d:"Decoy assets and credentials are seeded across the environment to trip attackers early."},
+      {id:"x2", hz:"m12", t:"Behavioral monitoring in place", d:"Detection focuses on anomalous behaviour and attacker TTPs rather than known tool signatures."},
+      {id:"x3", hz:"m12", t:"Pre-authorized containment actions", d:"Containment responses are pre-approved so defenders can act at machine speed without waiting for sign-off."}
+    ]
+  },
+  {
+    id:"vulnops", ix:"07",
+    title:"Remediation, patching & VulnOps",
+    sub:"Stand up VulnOps — a permanent, staffed, automated function for continuous discovery and remediation, like DevOps.",
+    items:[
+      {id:"v1", hz:"m12", t:"Compressed remediation timelines", d:"Mean-time-to-remediate is being driven down toward AI-speed, with explicit targets."},
+      {id:"v2", hz:"m12", t:"Automated patching pipelines", d:"Patching is automated end-to-end rather than dependent on manual, ticket-driven cycles."},
+      {id:"v3", hz:"d45", t:"Prioritize on runtime context, not raw CVSS", d:"Prioritization uses reachability, exposure, blast radius and business impact — not CVSS scores alone."},
+      {id:"v4", hz:"m12", t:"Quarterly mass-CVE remediation drills", d:"Quarterly drills simulate 10+ critical CVEs hitting the stack simultaneously to stress-test MTTR."},
+      {id:"v5", hz:"m12", t:"VulnOps stood up as a permanent function", d:"A staffed, automated Vulnerability Operations function owns continuous discovery and automated remediation as a standing pillar."}
+    ]
+  },
+  {
+    id:"ir", ix:"08",
+    title:"Incident response at AI speed",
+    sub:"Make IR and disclosure handling fast enough to matter when exploitation outpaces human response.",
+    items:[
+      {id:"r1", hz:"m12", t:"IR playbooks tuned for AI-speed attacks", d:"Response runbooks assume rapid exploit-chaining and compress decision and action time accordingly."},
+      {id:"r2", hz:"m12", t:"Coordinated disclosure handling", d:"You can receive, triage and act on coordinated vulnerability disclosures within tight windows."},
+      {id:"r3", hz:"d45", t:"Security can ship emergency production changes", d:"Security has a proven, exercised path to push emergency fixes to production under pressure."}
+    ]
+  }
+];
+
+const OPTIONS = [
+  {v:"0",   lab:"Not started"},
+  {v:"25",  lab:"Planned"},
+  {v:"50",  lab:"In progress"},
+  {v:"100", lab:"Implemented"},
+  {v:"na",  lab:"N/A"}
+];
+
+const TIERS = [
+  {min:90, name:"Mythos-Ready",   color:"var(--ws-green-700)"},
+  {min:75, name:"Mythos-Aware",   color:"var(--ws-teal-500)"},
+  {min:50, name:"Hardening",      color:"var(--ws-indigo-600)"},
+  {min:25, name:"Emerging",       color:"var(--ws-amber-500)"},
+  {min:0,  name:"Exposed",        color:"var(--ws-red-500)"}
+];
+
+const STORE_KEY = "mythosReadyState.v1";
+let state = loadState();
+
+function loadState(){
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; }catch(e){ return {}; }
+}
+function saveState(){
+  try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){}
+}
+
+/* ---------- render ---------- */
+const domainsEl = document.getElementById("domains");
+MODEL.forEach((dom, di)=>{
+  const sec = document.createElement("section");
+  sec.className = "domain";
+  sec.dataset.dom = dom.id;
+
+  const head = document.createElement("div");
+  head.className = "dom-head";
+  head.innerHTML = `
+    <span class="dom-ix">${dom.ix}</span>
+    <div class="dom-t">
+      <h2>${dom.title}</h2>
+      <div class="dom-sub">${dom.sub}</div>
+    </div>
+    <span class="dom-score" data-domscore="${dom.id}">&mdash;</span>
+    <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square"><polyline points="6 9 12 15 18 9"/></svg>`;
+  head.addEventListener("click", ()=> sec.classList.toggle("collapsed"));
+  sec.appendChild(head);
+
+  const body = document.createElement("div");
+  body.className = "dom-body";
+
+  dom.items.forEach(it=>{
+    const row = document.createElement("div");
+    row.className = "item";
+    const hzTag = it.hz ? `<span class="hzt ${it.hz==='week'?'week':it.hz==='d45'?'d45':'m12'}">${it.hz==='week'?'This week':it.hz==='d45'?'45 days':'12 months'}</span>` : "";
+    const cur = state[it.id];
+    const seg = OPTIONS.map(o=>`<button type="button" data-item="${it.id}" data-v="${o.v}" aria-pressed="${cur===o.v?'true':'false'}">${o.lab}</button>`).join("");
+    row.innerHTML = `
+      <div class="it-main">
+        <div class="it-h">${hzTag}<span class="ttl">${it.t}</span></div>
+        <div class="it-d">${it.d}</div>
+      </div>
+      <div class="seg" role="group" aria-label="${it.t} status">${seg}</div>`;
+    body.appendChild(row);
+  });
+
+  sec.appendChild(body);
+  domainsEl.appendChild(sec);
+});
+
+/* ---------- interactions ---------- */
+domainsEl.addEventListener("click", e=>{
+  const btn = e.target.closest("button[data-item]");
+  if(!btn) return;
+  const id = btn.dataset.item, v = btn.dataset.v;
+  if(state[id] === v){ delete state[id]; }      // toggle off
+  else { state[id] = v; }
+  // update pressed state for the group
+  btn.parentElement.querySelectorAll("button").forEach(b=>{
+    b.setAttribute("aria-pressed", state[id]===b.dataset.v ? "true":"false");
+  });
+  saveState();
+  recompute();
+});
+
+/* ---------- scoring ---------- */
+function scoreOf(v){ return v==="na" ? null : Number(v); }
+
+function recompute(){
+  let all=[], hz={week:[], d45:[], m12:[]};
+  MODEL.forEach(dom=>{
+    let domVals=[];
+    dom.items.forEach(it=>{
+      const raw = state[it.id];
+      if(raw===undefined || raw==="na") {
+        if(raw==="na"){ /* excluded */ }
+        return;
+      }
+      const s = scoreOf(raw);
+      domVals.push(s); all.push(s);
+      if(it.hz) hz[it.hz].push(s);
+    });
+    const el = document.querySelector(`[data-domscore="${dom.id}"]`);
+    if(domVals.length){
+      const avg = Math.round(domVals.reduce((a,b)=>a+b,0)/domVals.length);
+      el.textContent = avg+"%";
+      el.style.color = tierFor(avg).color;
+      el.style.borderColor = tierFor(avg).color;
+    } else {
+      el.textContent = "—";
+      el.style.color = "var(--ws-ink-400)";
+      el.style.borderColor = "var(--ws-ink-200)";
+    }
+  });
+
+  const overall = all.length ? Math.round(all.reduce((a,b)=>a+b,0)/all.length) : 0;
+  document.getElementById("scoreNum").textContent = overall;
+  const t = tierFor(overall);
+  const tierEl = document.getElementById("tier");
+  tierEl.style.color = t.color;
+  document.getElementById("tierName").textContent = t.name;
+
+  setBar("week", hz.week);
+  setBar("d45", hz.d45);
+  setBar("m12", hz.m12);
+}
+
+function setBar(key, vals){
+  const v = vals.length ? Math.round(vals.reduce((a,b)=>a+b,0)/vals.length) : 0;
+  document.getElementById("bar-"+key).style.width = v+"%";
+  document.getElementById("val-"+key).textContent = vals.length ? v+"%" : "—";
+}
+
+function tierFor(score){
+  return TIERS.find(t=> score >= t.min) || TIERS[TIERS.length-1];
+}
+
+/* ---------- actions ---------- */
+document.getElementById("btnReset").addEventListener("click", ()=>{
+  if(!confirm("Clear all answers and start over?")) return;
+  state = {}; saveState();
+  document.querySelectorAll("button[data-item]").forEach(b=> b.setAttribute("aria-pressed","false"));
+  recompute();
+});
+
+document.getElementById("btnPrint").addEventListener("click", ()=> window.print());
+
+document.getElementById("btnExport").addEventListener("click", ()=>{
+  const out = {
+    framework: "CSA Mythos-Ready Compliance Framework",
+    generated: new Date().toISOString(),
+    overall: Number(document.getElementById("scoreNum").textContent),
+    tier: document.getElementById("tierName").textContent,
+    horizons: {
+      thisWeek: document.getElementById("val-week").textContent,
+      within45Days: document.getElementById("val-d45").textContent,
+      over12Months: document.getElementById("val-m12").textContent
+    },
+    domains: MODEL.map(dom=>({
+      id: dom.id, title: dom.title,
+      score: document.querySelector(`[data-domscore="${dom.id}"]`).textContent,
+      items: dom.items.map(it=>{
+        const raw = state[it.id];
+        const lab = raw===undefined ? "Unanswered" : (OPTIONS.find(o=>o.v===raw)||{}).lab;
+        return { id: it.id, title: it.t, horizon: it.hz||"baseline", status: lab };
+      })
+    }))
+  };
+  const blob = new Blob([JSON.stringify(out,null,2)], {type:"application/json"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "mythos-ready-assessment.json";
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+recompute();
+</script>
+
+</body>
+</html>
