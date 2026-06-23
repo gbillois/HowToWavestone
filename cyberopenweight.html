@@ -103,7 +103,12 @@ h2.head{font-family:var(--ws-font-display);font-weight:700;font-size:38px;letter
 .accentbar{width:54px;height:4px;background:var(--ws-gradient-accent);margin:18px 0}
 
 /* generic body padding */
-.body{flex:1;display:flex;flex-direction:column;padding:96px 54px 64px}
+.body{flex:1;display:flex;flex-direction:column;padding:88px 56px 60px;position:relative}
+.body>*{position:relative;z-index:1}
+/* soft atmosphere on light slides + faint concentric "target" motif (echoes slide 5) */
+.slide:not(.dark){background:radial-gradient(135% 108% at 100% -12%, #F1EEFB 0%, #FAF9FE 46%, #FFFFFF 76%)}
+.slide:not(.dark) .body::after{content:"";position:absolute;right:-170px;bottom:-190px;width:500px;height:500px;border:2px solid rgba(69,29,199,.07);border-radius:50%;pointer-events:none;z-index:0}
+.slide:not(.dark) .body::before{content:"";position:absolute;right:-86px;bottom:-104px;width:332px;height:332px;border:2px solid rgba(4,240,106,.13);border-radius:50%;pointer-events:none;z-index:0}
 
 /* cards ---------------------------------------------------------------------*/
 .card{background:#fff;border:1.5px solid var(--ws-ink-100);padding:22px 22px;box-shadow:var(--ws-shadow-md);position:relative;overflow:hidden}
@@ -211,9 +216,10 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
 /* ====== SLIDE 1 : TITLE ==================================================== */
 #s1{background:var(--ws-gradient-brand)}
 #s1 .net{position:absolute;inset:0;opacity:.5}
-#s1 .hero-photo{position:absolute;right:0;top:0;width:46%;height:100%;
-  background:linear-gradient(90deg,#2D1380 0%,rgba(45,19,128,.35) 35%,rgba(45,19,128,.15) 100%),
+#s1 .hero-photo{position:absolute;right:0;top:0;width:46%;height:100%;z-index:2;
+  background:linear-gradient(90deg,#2D1380 0%,rgba(45,19,128,.58) 30%,rgba(45,19,128,.12) 100%),
              var(--photo) center/cover;}
+#s1 .s1graphic{position:absolute;right:0;top:0;width:46%;height:100%;z-index:1}
 #s1 .s1in{position:relative;z-index:5;padding:0 54px;max-width:760px;margin:auto 0;}
 #s1 h1.title{font-size:62px;color:#fff;margin:22px 0 0}
 #s1 h1.title .ac{color:var(--ws-green-400)}
@@ -239,10 +245,10 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
 .ico-lg[data-ic] svg{width:26px;height:26px}
 
 /* ---- slide 5 concentric rings ---- */
-.ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%}
-.rtag{position:absolute;left:50%;transform:translateX(-50%);font-family:var(--ws-font-mono);font-size:11px;font-weight:700;color:var(--ws-ink-500);background:#fff;padding:0 4px}
-.lvl{display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid var(--ws-ink-100);padding:8px 14px}
-.lvl .ld{width:12px;height:12px;flex:none}
+.ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%;border-width:4px!important}
+.rtag{position:absolute;left:50%;transform:translateX(-50%);font-family:var(--ws-font-mono);font-size:11px;font-weight:700;color:var(--ws-ink-500);background:#fff;padding:1px 5px}
+.lvl{display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid var(--ws-ink-100);padding:9px 16px;box-shadow:var(--ws-shadow-md)}
+.lvl .ld{width:12px;height:12px;flex:none;border-radius:50%}
 .lvl b{font-family:var(--ws-font-display);font-size:13px;color:var(--ws-ink-900);width:218px}
 .lvl span:last-child{font-size:12px;color:var(--ws-ink-500)}
 
@@ -280,6 +286,25 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
     <path d="M-50,610 Q380,470 720,560 T1330,510" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".5"/>
     <path d="M-50,500 Q340,380 680,470 T1330,410" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="1.5"/>
   </svg>
+  <svg class="s1graphic" viewBox="0 0 588 720" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g fill="none" stroke="rgba(255,255,255,.13)" stroke-width="1.4">
+      <circle cx="300" cy="360" r="78"/><circle cx="300" cy="360" r="150"/>
+      <circle cx="300" cy="360" r="226"/><circle cx="300" cy="360" r="304"/>
+    </g>
+    <circle cx="300" cy="360" r="150" fill="none" stroke="rgba(4,240,106,.28)" stroke-width="1.4" stroke-dasharray="4 8"/>
+    <g stroke="rgba(255,255,255,.16)" stroke-width="1.2">
+      <line x1="300" y1="360" x2="300" y2="56"/><line x1="300" y1="360" x2="516" y2="178"/>
+      <line x1="300" y1="360" x2="116" y2="214"/><line x1="300" y1="360" x2="470" y2="556"/>
+      <line x1="300" y1="360" x2="118" y2="520"/>
+    </g>
+    <g fill="#fff">
+      <circle cx="300" cy="56" r="5"/><circle cx="516" cy="178" r="5"/>
+      <circle cx="116" cy="214" r="5"/><circle cx="118" cy="520" r="5"/>
+    </g>
+    <circle cx="470" cy="556" r="6" fill="#04F06A"/>
+    <circle cx="300" cy="360" r="11" fill="#04F06A"/>
+    <circle cx="300" cy="360" r="22" fill="none" stroke="rgba(4,240,106,.5)" stroke-width="2"/>
+  </svg>
   <div class="hero-photo" style="--photo:url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1100&q=80')"></div>
   <div class="brandmark"><span class="dot"></span>WAVESTONE &middot; AI Security &amp; Trust</div>
   <div class="s1in">
@@ -307,7 +332,7 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
     <p class="lede" style="max-width:84ch">Open-weight gives you more <b>control over execution</b>. It does not, on its own, give you <b>trust</b> in the model or the AI system built around it.</p>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:26px;flex:1">
-      <div class="card" style="display:flex;flex-direction:column">
+      <div class="card" style="display:flex;flex-direction:column;justify-content:center">
         <h3><span class="iconbox green"><i data-ic="check"></i></span>What open-weight DOES give</h3>
         <ul style="margin-top:10px;list-style:none;font-size:13.5px;color:var(--ws-ink-600);line-height:1.7">
           <li style="display:flex;gap:9px"><i class="ico-sm" data-ic="check" style="color:var(--ws-green-700)"></i>Weights accessible &amp; deployable on controlled infrastructure</li>
@@ -315,7 +340,7 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
           <li style="display:flex;gap:9px"><i class="ico-sm" data-ic="check" style="color:var(--ws-green-700)"></i>More sovereignty over where and how inference runs</li>
         </ul>
       </div>
-      <div class="card" style="display:flex;flex-direction:column">
+      <div class="card" style="display:flex;flex-direction:column;justify-content:center">
         <h3><span class="iconbox red"><i data-ic="x"></i></span>What it does NOT give</h3>
         <ul style="margin-top:10px;list-style:none;font-size:13.5px;color:var(--ws-ink-600);line-height:1.7">
           <li style="display:flex;gap:9px"><i class="ico-sm" data-ic="x" style="color:var(--ws-danger)"></i>Training data, training code, eval methods or reproducibility</li>
@@ -956,11 +981,23 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
         T(sl,name,x+mw+9,y,nameW,26,{f:FD,s:10,b:true,c:C.wht,valign:'middle'});
         return w;
       }
+      // faint concentric "target" motif bottom-right, echoing slide 5 (light slides)
+      function decorLight(sl){
+        sl.addShape(pptx.ShapeType.ellipse,{x:I(986),y:I(450),w:I(500),h:I(500),fill:{type:'none'},line:{color:'DED7F6',width:1.5}});
+        sl.addShape(pptx.ShapeType.ellipse,{x:I(1070),y:I(534),w:I(332),h:I(332),fill:{type:'none'},line:{color:'CDEFDB',width:1.5}});
+      }
 
       // ---- SLIDE 1 — TITLE --------------------------------------------------
       (function(){
         var s=pptx.addSlide(); s.background={color:C.ind8};
         photo(s, photos.s1, function(){ S(s,691,0,589,720,C.ind9); });
+        (function(){ var cx=985, cy=360;   // orbital motif on the right panel
+          [156,300,452,608].forEach(function(d){ s.addShape(pptx.ShapeType.ellipse,{x:I(cx-d/2),y:I(cy-d/2),w:I(d),h:I(d),fill:{type:'none'},line:{color:'8E7CDB',width:1.2}}); });
+          s.addShape(pptx.ShapeType.ellipse,{x:I(cx-150),y:I(cy-150),w:I(300),h:I(300),fill:{type:'none'},line:{color:'2E9A6B',width:1.2,dashType:'dash'}});
+          [[991,56,'FFFFFF'],[1190,178,'FFFFFF'],[807,214,'FFFFFF'],[809,520,'FFFFFF'],[1150,556,'04F06A']].forEach(function(n){ s.addShape(pptx.ShapeType.ellipse,{x:I(n[0]-5),y:I(n[1]-5),w:I(10),h:I(10),fill:{color:n[2]},line:{type:'none'}}); });
+          s.addShape(pptx.ShapeType.ellipse,{x:I(cx-22),y:I(cy-22),w:I(44),h:I(44),fill:{type:'none'},line:{color:'04F06A',width:2}});
+          s.addShape(pptx.ShapeType.ellipse,{x:I(cx-11),y:I(cy-11),w:I(22),h:I(22),fill:{color:'04F06A'},line:{type:'none'}});
+        })();
         S(s,687,0,4,720,C.ind6);
         S(s,0,620,1280,2,'4A2BB0');
         brand(s,true);
@@ -980,24 +1017,24 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
 
       // ---- SLIDE 2 — OPEN-WEIGHT ≠ OPEN SOURCE -----------------------------
       (function(){
-        var s=pptx.addSlide(); s.background={color:C.wht};
+        var s=pptx.addSlide(); s.background={color:C.wht}; decorLight(s);
         brand(s); eyebrow(s,'Framing the problem',54,84);
         T(s,'Open-weight is not open source — and not trust by default',54,112,1140,46,{f:FD,s:25,b:true,c:C.ind7});
         accent(s,54,170);
         RT(s,[['Open-weight gives you more ',0],['control over execution',1],['. It does not, on its own, give you ',0],['trust',1],[' in the model or the AI system built around it.',0]],
           54,186,1080,40,{s:13,c:C.ink5,lh:1.3});
         card(s,54,250,560,240);
-        iconTile(s,72,268,34,C.grn50,'check',C.grn7);
-        T(s,'What open-weight DOES give',118,270,470,30,{f:FD,s:14,b:true,c:C.ind7,valign:'middle'});
+        iconTile(s,72,300,34,C.grn50,'check',C.grn7);
+        T(s,'What open-weight DOES give',118,302,470,30,{f:FD,s:14,b:true,c:C.ind7,valign:'middle'});
         var l2a=['Weights accessible & deployable on controlled infrastructure','Less dependency on a single external API provider','More sovereignty over where and how inference runs'];
         s.addText(l2a.map(function(t){return {text:'✓   '+t,options:{fontFace:FB,fontSize:12.5,color:C.ink6,breakLine:true,paraSpaceAfter:10}};}),
-          {x:I(72),y:I(316),w:I(524),h:I(160),valign:'top',margin:0,lineSpacingMultiple:1.15});
+          {x:I(72),y:I(348),w:I(524),h:I(120),valign:'top',margin:0,lineSpacingMultiple:1.15});
         card(s,664,250,562,240);
-        iconTile(s,682,268,34,'FBE9E7','x',C.dgr);
-        T(s,'What it does NOT give',728,270,470,30,{f:FD,s:14,b:true,c:C.ind7,valign:'middle'});
+        iconTile(s,682,300,34,'FBE9E7','x',C.dgr);
+        T(s,'What it does NOT give',728,302,470,30,{f:FD,s:14,b:true,c:C.ind7,valign:'middle'});
         var l2b=['Training data, training code, eval methods or reproducibility','Evidence it is unbiased, safe, lawful or robust','Any guarantee it is free from hidden behaviors'];
         s.addText(l2b.map(function(t){return {text:'✗   '+t,options:{fontFace:FB,fontSize:12.5,color:C.ink6,breakLine:true,paraSpaceAfter:10}};}),
-          {x:I(682),y:I(316),w:I(528),h:I(160),valign:'top',margin:0,lineSpacingMultiple:1.15});
+          {x:I(682),y:I(348),w:I(528),h:I(120),valign:'top',margin:0,lineSpacingMultiple:1.15});
         S(s,54,512,1172,72,C.ind9);
         badge(s,72,528,'The real question',C.grn4,C.ind9);
         T(s,'Not “Can we host this model?” but “Can we trust the results of this AI system for this use case?”',
@@ -1035,7 +1072,7 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
 
       // ---- SLIDE 4 — RESULTS INTEGRITY -------------------------------------
       (function(){
-        var s=pptx.addSlide(); s.background={color:C.wht};
+        var s=pptx.addSlide(); s.background={color:C.wht}; decorLight(s);
         brand(s); eyebrow(s,'The hard problem',54,84);
         T(s,'The real risk is results integrity — not just the model',54,112,1140,46,{f:FD,s:25,b:true,c:C.ind7});
         accent(s,54,170);
@@ -1058,13 +1095,13 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
 
       // ---- SLIDE 5 — GRADED TRUST (concentric) -----------------------------
       (function(){
-        var s=pptx.addSlide(); s.background={color:C.wht};
+        var s=pptx.addSlide(); s.background={color:C.wht}; decorLight(s);
         brand(s); eyebrow(s,'Grade the trust',54,84);
         T(s,'Trust must be graded, not assumed',54,112,1100,46,{f:FD,s:27,b:true,c:C.ind7});
         accent(s,54,176);
         var cx=326, cy=440;
         function ring(d,col,fill){ s.addShape(pptx.ShapeType.ellipse,{x:I(cx-d/2),y:I(cy-d/2),w:I(d),h:I(d),
-          fill:fill?{color:fill}:{type:'none'}, line:{color:col,width:2.5}}); }
+          fill:fill?{color:fill}:{type:'none'}, line:{color:col,width:4}}); }
         ring(392,'A8A4B8'); ring(326,'6EC3C9'); ring(262,'228D95'); ring(198,'5A2BE0'); ring(134,'36169B'); ring(74,'088A42','04F06A');
         var tags=[['L0',392,'A8A4B8'],['L1',326,'18636A'],['L2',262,'18636A'],['L3',198,'36169B'],['L4',134,'36169B']];
         tags.forEach(function(t){ T(s,t[0],cx-16,cy-t[1]/2-4,32,16,{f:FM,s:9,b:true,c:t[2],align:'center'}); });
@@ -1124,7 +1161,7 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
 
       // ---- SLIDE 7 — OPERATING MODEL / RACI --------------------------------
       (function(){
-        var s=pptx.addSlide(); s.background={color:C.wht};
+        var s=pptx.addSlide(); s.background={color:C.wht}; decorLight(s);
         brand(s); eyebrow(s,'Target operating model',54,84);
         T(s,'Who owns AI trust? A shared accountability model',54,112,1140,46,{f:FD,s:25,b:true,c:C.ind7});
         accent(s,54,170);
@@ -1178,7 +1215,7 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
 
       // ---- SLIDE 9 — METHODOLOGY -------------------------------------------
       (function(){
-        var s=pptx.addSlide(); s.background={color:C.wht};
+        var s=pptx.addSlide(); s.background={color:C.wht}; decorLight(s);
         brand(s); eyebrow(s,'Enterprise methodology',54,84);
         T(s,'From intake to production approval',54,112,1100,46,{f:FD,s:27,b:true,c:C.ind7});
         accent(s,54,176);
