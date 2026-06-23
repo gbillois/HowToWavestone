@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open-Weight AI: Control Is Not Trust | Wavestone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================================
+   WAVESTONE DESIGN SYSTEM — tokens (subset, sourced from wavestonedesign.css)
+   ========================================================================== */
+:root{
+  --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+  --ws-indigo-300:#A18FE3; --ws-indigo-400:#866CDB; --ws-indigo-500:#5A2BE0;
+  --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B; --ws-indigo-800:#2D1380;
+  --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+  --ws-green-50:#E1FDED; --ws-green-100:#C8FBDC; --ws-green-300:#5CF59E;
+  --ws-green-400:#04F06A; --ws-green-500:#06D964; --ws-green-700:#088A42;
+  --ws-teal-300:#6EC3C9; --ws-teal-400:#3E9BA3; --ws-teal-500:#228D95; --ws-teal-700:#18636A;
+  --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+  --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+  --ws-ink-700:#3A3550; --ws-ink-800:#242036; --ws-ink-900:#16121F;
+  --ws-success:#088A42; --ws-warning:#C8861A; --ws-danger:#D8412F; --ws-info:#228D95;
+  --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+  --ws-gradient-brand-flat:linear-gradient(135deg,#451DC7 0%,#2D1380 100%);
+  --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+  --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+  --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+  --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+  --ws-shadow-xl:0 24px 48px rgba(22,18,31,.16);
+  --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+  --ws-ease:cubic-bezier(.2,0,0,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+/* Wavestone brand uses square corners (see index.html) */
+*,*::before,*::after{border-radius:0}
+
+html,body{height:100%}
+body{
+  background:#0c0820;
+  font-family:var(--ws-font-body);
+  color:var(--ws-ink-900);
+  -webkit-font-smoothing:antialiased;
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+
+/* ============================================================================
+   STAGE — fixed 16:9 (1280x720) scaled to viewport for clean PPTX export
+   ========================================================================== */
+#stage{
+  position:relative;
+  width:1280px;height:720px;
+  transform-origin:center center;
+  box-shadow:0 40px 120px rgba(0,0,0,.55);
+}
+.slide{
+  position:absolute;inset:0;
+  width:1280px;height:720px;
+  background:var(--ws-white);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  opacity:0;visibility:hidden;
+  transform:scale(1.025);
+  transition:opacity .6s var(--ws-ease),transform .7s var(--ws-ease),visibility 0s linear .6s;
+  z-index:1;
+}
+.slide.active{
+  opacity:1;visibility:visible;transform:scale(1);
+  transition:opacity .6s var(--ws-ease),transform .7s var(--ws-ease),visibility 0s;
+  z-index:2;
+}
+/* cinematic depth on dark slides */
+.slide.dark{box-shadow:inset 0 0 220px rgba(8,4,26,.45)}
+
+/* ---- click-by-click builds (PowerPoint-style fragments) ---- */
+.frag{opacity:0;transform:translateY(18px);
+  transition:opacity .55s var(--ws-ease),transform .55s var(--ws-ease)}
+.frag.fade-left{transform:translateX(-26px)}
+.frag.fade-right{transform:translateX(26px)}
+.frag.zoom{transform:scale(.9)}
+.frag.show{opacity:1;transform:none}
+.frag.current{animation:fragPop .55s var(--ws-ease)}
+@keyframes fragPop{0%{opacity:0;transform:translateY(18px)}60%{opacity:1}100%{transform:translateY(0)}}
+
+@media(prefers-reduced-motion:reduce){
+  .slide,.slide.active{transition:opacity .15s linear}
+  .frag{transition:opacity .15s linear}
+  .frag.current{animation:none}
+}
+
+/* slide chrome ---------------------------------------------------------------*/
+.brandmark{position:absolute;top:34px;left:54px;z-index:20;display:flex;align-items:center;gap:9px;
+  font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:.02em;color:var(--ws-indigo-700)}
+.brandmark .dot{width:9px;height:9px;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+.slide.dark .brandmark{color:#fff}
+.slide.dark .brandmark .dot{box-shadow:0 0 0 3px rgba(4,240,106,.22)}
+
+.pagenum{position:absolute;bottom:30px;right:54px;z-index:20;font-family:var(--ws-font-mono);font-size:12px;
+  letter-spacing:.05em;color:var(--ws-ink-400)}
+.slide.dark .pagenum{color:rgba(255,255,255,.55)}
+.kicker{position:absolute;bottom:30px;left:54px;z-index:20;font-family:var(--ws-font-mono);font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ws-ink-300)}
+.slide.dark .kicker{color:rgba(255,255,255,.45)}
+
+.eyebrow{display:inline-block;font-family:var(--ws-font-body);font-weight:700;font-size:12px;
+  letter-spacing:.14em;text-transform:uppercase;padding-bottom:5px;border-bottom:2px solid var(--ws-green-400);color:inherit}
+.dark .eyebrow{color:#fff}
+
+h1.title{font-family:var(--ws-font-display);font-weight:800;letter-spacing:-.025em;line-height:1.04}
+h2.head{font-family:var(--ws-font-display);font-weight:700;font-size:38px;letter-spacing:-.02em;line-height:1.08;color:var(--ws-indigo-700)}
+.dark h2.head{color:#fff}
+.lede{font-size:17px;line-height:1.55;color:var(--ws-ink-500)}
+.dark .lede{color:rgba(255,255,255,.78)}
+
+.accentbar{width:54px;height:4px;background:var(--ws-gradient-accent);margin:18px 0}
+
+/* generic body padding */
+.body{flex:1;display:flex;flex-direction:column;padding:96px 54px 64px}
+
+/* cards ---------------------------------------------------------------------*/
+.card{background:#fff;border:1.5px solid var(--ws-ink-100);padding:22px 22px;box-shadow:var(--ws-shadow-md);position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ws-gradient-accent)}
+.card h3{font-family:var(--ws-font-display);font-weight:700;font-size:17px;color:var(--ws-indigo-700);margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.card p{font-size:13.5px;line-height:1.5;color:var(--ws-ink-500)}
+
+.iconbox{width:42px;height:42px;display:grid;place-items:center;flex:none}
+.iconbox.indigo{background:var(--ws-indigo-50);color:var(--ws-indigo-600)}
+.iconbox.green{background:var(--ws-green-50);color:var(--ws-green-700)}
+.iconbox.teal{background:#E2F1F2;color:var(--ws-teal-700)}
+.iconbox.red{background:#FBE9E7;color:var(--ws-danger)}
+.iconbox svg{width:22px;height:22px}
+
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--ws-font-mono);font-size:11px;font-weight:600;
+  letter-spacing:.03em;padding:5px 11px;background:var(--ws-ink-50);color:var(--ws-ink-600);border:1px solid var(--ws-ink-100)}
+.dark .chip{background:rgba(255,255,255,.08);color:rgba(255,255,255,.85);border-color:rgba(255,255,255,.16)}
+
+.badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--ws-font-body);font-weight:700;font-size:11px;
+  letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;line-height:1.4}
+.badge.crit{background:var(--ws-danger);color:#fff}
+.badge.high{background:var(--ws-warning);color:#fff}
+.badge.accent{background:var(--ws-green-400);color:var(--ws-indigo-900)}
+.badge.teal{background:var(--ws-teal-500);color:#fff}
+
+.statnum{font-family:var(--ws-font-display);font-weight:800;line-height:.95;letter-spacing:-.02em}
+
+/* navigation controls -------------------------------------------------------*/
+#nav{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:200;display:flex;align-items:center;gap:14px;
+  background:rgba(20,9,57,.72);backdrop-filter:blur(10px);padding:8px 14px;border:1px solid rgba(255,255,255,.12)}
+#nav button{background:transparent;border:1px solid rgba(255,255,255,.25);color:#fff;width:34px;height:30px;cursor:pointer;
+  font-size:15px;display:grid;place-items:center;transition:.15s var(--ws-ease)}
+#nav button:hover{background:var(--ws-green-400);color:var(--ws-indigo-900);border-color:var(--ws-green-400)}
+#dots{display:flex;gap:7px;align-items:center}
+#dots span{width:9px;height:9px;background:rgba(255,255,255,.28);cursor:pointer;transition:.15s var(--ws-ease)}
+#dots span.on{background:var(--ws-green-400);transform:scale(1.15)}
+#counter{font-family:var(--ws-font-mono);font-size:12px;color:#fff;min-width:46px;text-align:center;letter-spacing:.05em}
+.hint{position:fixed;bottom:26px;right:22px;z-index:200;font-family:var(--ws-font-mono);font-size:11px;color:rgba(255,255,255,.4)}
+
+/* photo helper: gradient overlay stacked over image; survives broken image */
+.photo{background-color:var(--ws-indigo-900);background-size:cover;background-position:center}
+
+/* graphic polish ------------------------------------------------------------*/
+.statnum{text-shadow:0 6px 24px rgba(69,29,199,.18)}
+.card{transition:box-shadow .25s var(--ws-ease),transform .25s var(--ws-ease)}
+.card:hover{box-shadow:var(--ws-shadow-xl);transform:translateY(-3px)}
+.iconbox svg{filter:drop-shadow(0 2px 4px rgba(22,18,31,.12))}
+.dark .iconbox svg{filter:none}
+
+/* top progress bar */
+#progress{position:fixed;top:0;left:0;right:0;height:4px;background:rgba(255,255,255,.10);z-index:300}
+#progressfill{height:100%;width:10%;background:var(--ws-gradient-accent);
+  box-shadow:0 0 14px rgba(4,240,106,.6);transition:width .45s var(--ws-ease)}
+
+/* ============================================================================
+   FULLSCREEN + RESPONSIVE / MOBILE
+   ========================================================================== */
+body.fs{background:#000}
+#nav button.fsbtn{width:auto;padding:0 12px;gap:7px;font-family:var(--ws-font-mono);font-size:11px;letter-spacing:.04em}
+#nav button.fsbtn svg{width:14px;height:14px}
+
+/* touch: bigger tap targets, swipe enabled */
+@media (pointer:coarse){ .hint{content:""} }
+
+/* tablets / small laptops */
+@media (max-width:1024px){
+  #nav{gap:10px;padding:7px 12px}
+  .hint{font-size:10px;right:14px;bottom:18px}
+}
+
+/* phones */
+@media (max-width:760px){
+  #dots{display:none}
+  #nav{bottom:14px;gap:10px;padding:8px 12px}
+  #nav button{width:40px;height:38px;font-size:18px}
+  #nav button.fsbtn{width:auto;padding:0 12px}
+  #counter{font-size:13px;min-width:54px}
+  .hint{display:none}
+  #progress{height:5px}
+}
+/* portrait phones: nudge the user to rotate for a full-size slide */
+#rotate{display:none}
+@media (max-width:760px) and (orientation:portrait){
+  #rotate{display:flex;flex-direction:column;align-items:center;gap:14px;
+    position:fixed;inset:0;z-index:250;background:var(--ws-gradient-brand);
+    color:#fff;justify-content:center;text-align:center;padding:32px;font-family:var(--ws-font-body)}
+  #rotate svg{width:54px;height:54px;animation:rot 2.4s var(--ws-ease) infinite}
+  #rotate b{font-family:var(--ws-font-display);font-size:20px;font-weight:700}
+  #rotate p{font-size:14px;color:rgba(255,255,255,.78);max-width:30ch}
+  #rotate .go{margin-top:8px;font-family:var(--ws-font-mono);font-size:12px;
+    border:1px solid rgba(255,255,255,.4);padding:9px 16px;color:#fff;background:transparent}
+}
+@keyframes rot{0%,40%{transform:rotate(0)}60%,100%{transform:rotate(90deg)}}
+
+/* export toast + capture mode */
+#toast{position:fixed;top:18px;left:50%;transform:translateX(-50%) translateY(-80px);z-index:400;
+  background:rgba(20,9,57,.94);color:#fff;font-family:var(--ws-font-mono);font-size:12px;letter-spacing:.03em;
+  padding:11px 20px;border:1px solid rgba(4,240,106,.4);box-shadow:0 10px 30px rgba(0,0,0,.4);
+  display:flex;align-items:center;gap:10px;opacity:0;transition:transform .35s var(--ws-ease),opacity .35s var(--ws-ease);pointer-events:none}
+#toast.on{transform:translateX(-50%) translateY(0);opacity:1}
+#toast .spin{width:13px;height:13px;border:2px solid rgba(255,255,255,.3);border-top-color:var(--ws-green-400);animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+body.exporting .slide,body.exporting .frag{transition:none!important;animation:none!important}
+
+/* ====== SLIDE 1 : TITLE ==================================================== */
+#s1{background:var(--ws-gradient-brand)}
+#s1 .net{position:absolute;inset:0;opacity:.5}
+#s1 .hero-photo{position:absolute;right:0;top:0;width:46%;height:100%;
+  background:linear-gradient(90deg,#2D1380 0%,rgba(45,19,128,.35) 35%,rgba(45,19,128,.15) 100%),
+             var(--photo) center/cover;}
+#s1 .s1in{position:relative;z-index:5;padding:0 54px;max-width:760px;margin:auto 0;}
+#s1 h1.title{font-size:62px;color:#fff;margin:22px 0 0}
+#s1 h1.title .ac{color:var(--ws-green-400)}
+#s1 .sub{font-size:19px;color:rgba(255,255,255,.82);margin-top:22px;max-width:46ch;line-height:1.5}
+#s1 .meta{margin-top:40px;display:flex;gap:14px;flex-wrap:wrap}
+
+/* timeline ------------------------------------------------------------------*/
+.tl{position:relative;margin-top:30px;flex:1}
+.tl .axis{position:absolute;left:0;right:0;top:46px;height:3px;background:linear-gradient(90deg,var(--ws-indigo-200),var(--ws-indigo-600))}
+.tl .steps{display:flex;justify-content:space-between;position:relative}
+.tl .step{width:13.5%;position:relative;text-align:center}
+.tl .node{width:18px;height:18px;background:var(--ws-indigo-600);margin:38px auto 0;box-shadow:0 0 0 5px #fff,0 0 0 6px var(--ws-ink-100);position:relative;z-index:2}
+.tl .step.crit .node{background:var(--ws-danger);box-shadow:0 0 0 5px #fff,0 0 0 6px #FBE9E7}
+.tl .step.good .node{background:var(--ws-green-700);box-shadow:0 0 0 5px #fff,0 0 0 6px var(--ws-green-50)}
+.tl .date{font-family:var(--ws-font-mono);font-size:12px;font-weight:600;color:var(--ws-indigo-700);position:absolute;top:8px;left:0;right:0}
+.tl .desc{font-size:12px;line-height:1.4;color:var(--ws-ink-600);margin-top:14px;padding:0 4px}
+.tl .desc b{color:var(--ws-ink-900);display:block;font-size:12.5px;margin-bottom:2px;font-family:var(--ws-font-display);font-weight:600}
+
+@media print{
+  body{overflow:visible;background:#fff;display:block}
+  #nav,.hint,#progress,#rotate{display:none!important}
+  #stage{transform:none!important;width:1280px;height:auto;box-shadow:none}
+  .slide{display:flex!important;position:relative;page-break-after:always;box-shadow:none;margin:0 auto;
+    opacity:1!important;visibility:visible!important;transform:none!important}
+  .frag{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<div id="stage">
+
+<!-- ================= SLIDE 1 — TITLE ================= -->
+<section class="slide active dark" id="s1">
+  <svg class="net" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,560 Q360,420 700,520 T1330,460" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="1.5"/>
+    <path d="M-50,610 Q380,470 720,560 T1330,510" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".5"/>
+    <path d="M-50,500 Q340,380 680,470 T1330,410" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="1.5"/>
+  </svg>
+  <div class="hero-photo" style="--photo:url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1100&q=80')"></div>
+  <div class="brandmark"><span class="dot"></span>WAVESTONE &middot; AI Security &amp; Trust</div>
+  <div class="s1in">
+    <span class="eyebrow">AI Security &middot; Board Briefing</span>
+    <h1 class="title">Open-Weight AI<br><span class="ac">Control Is Not Trust</span></h1>
+    <p class="sub">Running a model on your own infrastructure gives you control over execution &mdash; not automatic trust in its results. A framework to decide, per use case, whether the residual risk is acceptable.</p>
+    <div class="meta">
+      <span class="chip">Open-weight &ne; open source</span>
+      <span class="chip">Results integrity</span>
+      <span class="chip">Graded trust</span>
+      <span class="chip">Defense-in-depth</span>
+    </div>
+  </div>
+  <div class="pagenum">01 / 10</div>
+  <div class="kicker">Prepared by Wavestone &middot; June 2026</div>
+</section>
+
+<!-- ================= SLIDE 2 — OPEN-WEIGHT ≠ OPEN SOURCE ================= -->
+<section class="slide" id="s2">
+  <div class="brandmark"><span class="dot"></span>WAVESTONE &middot; AI Security &amp; Trust</div>
+  <div class="body">
+    <span class="eyebrow" style="color:var(--ws-indigo-700)">Framing the problem</span>
+    <h2 class="head" style="margin-top:14px">Open-weight is not open source &mdash; and not trust by default</h2>
+    <div class="accentbar"></div>
+    <p class="lede" style="max-width:84ch">Open-weight gives you more <b>control over execution</b>. It does not, on its own, give you <b>trust</b> in the model or the AI system built around it.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:26px;flex:1">
+      <div class="card frag" style="display:flex;flex-direction:column">
+        <h3><span class="iconbox green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></span>What open-weight DOES give</h3>
+        <ul style="margin-top:10px;list-style:none;font-size:13.5px;color:var(--ws-ink-600);line-height:1.7">
+          <li>✓ Weights are accessible and can be deployed on controlled infrastructure</li>
+          <li>✓ Less dependency on a single external API provider</li>
+          <li>✓ More sovereignty over where and how inference runs</li>
+        </ul>
+      </div>
+      <div class="card frag" style="display:flex;flex-direction:column">
+        <h3><span class="iconbox red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></span>What it does NOT give</h3>
+        <ul style="margin-top:10px;list-style:none;font-size:13.5px;color:var(--ws-ink-600);line-height:1.7">
+          <li>✗ Training data, training code, eval methods or reproducibility</li>
+          <li>✗ Evidence the model is unbiased, safe, lawful or robust</li>
+          <li>✗ Any guarantee it is free from hidden behaviors</li>
+        </ul>
+      </div>
+    </div>
+    <div class="frag" style="background:var(--ws-indigo-900);padding:18px 24px;display:flex;gap:16px;align-items:center;margin-top:6px">
+      <span class="badge accent">The real question</span>
+      <p style="font-size:15px;color:#fff;font-family:var(--ws-font-display);font-weight:600">Not &ldquo;Can we host this model?&rdquo; but &ldquo;Can we trust the results of this AI system for this use case?&rdquo;</p>
+    </div>
+  </div>
+  <div class="pagenum">02 / 10</div>
+  <div class="kicker">Deployment control &ne; model trust</div>
+</section>
+
+<!-- ================= SLIDE 3 — CONTROLLED HOSTING (dark) ================= -->
+<section class="slide dark" id="s3" style="background:var(--ws-gradient-brand-flat)">
+  <div class="brandmark"><span class="dot"></span>WAVESTONE &middot; AI Security &amp; Trust</div>
+  <div class="body">
+    <span class="eyebrow">Why host internally</span>
+    <h2 class="head" style="margin-top:14px;font-size:34px">Controlled hosting cuts availability &amp; confidentiality risk</h2>
+    <div class="accentbar"></div>
+    <div style="display:flex;gap:26px;flex:1;margin-top:8px">
+      <div style="flex:1.35;display:flex;flex-direction:column">
+        <!-- risk shift diagram -->
+        <div class="frag" style="display:flex;align-items:center;gap:16px;margin-bottom:18px">
+          <div style="flex:1;background:rgba(216,65,47,.16);border:1px solid rgba(216,65,47,.5);padding:14px 16px">
+            <div style="font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.1em;color:#FFB4A8">FROM</div>
+            <b style="font-family:var(--ws-font-display);color:#fff;font-size:15px">External API dependency</b>
+          </div>
+          <div style="font-size:26px;color:var(--ws-green-400)">&rarr;</div>
+          <div style="flex:1;background:rgba(4,240,106,.14);border:1px solid rgba(4,240,106,.45);padding:14px 16px">
+            <div style="font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.1em;color:#9CF7C2">TO</div>
+            <b style="font-family:var(--ws-font-display);color:#fff;font-size:15px">Controlled infrastructure</b>
+          </div>
+        </div>
+        <div class="frag" style="display:flex;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.12)"><span class="badge accent">Availability</span><p style="font-size:13px;color:rgba(255,255,255,.82)">No longer hostage to API shutdowns, usage caps, pricing changes or geopolitical access limits.</p></div>
+        <div class="frag" style="display:flex;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.12)"><span class="badge teal">Confidentiality</span><p style="font-size:13px;color:rgba(255,255,255,.82)">Prompts, documents and business data can stay inside controlled environments.</p></div>
+        <div class="frag" style="display:flex;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.12)"><span class="badge teal">Sovereignty</span><p style="font-size:13px;color:rgba(255,255,255,.82)">Runtime, storage, logging and inference operated in approved locations.</p></div>
+        <div class="frag" style="display:flex;gap:12px;padding:11px 0"><span class="badge high">Caveat</span><p style="font-size:13px;color:rgba(255,255,255,.82)">Only if the surroundings are controlled too &mdash; logs, telemetry, RAG stores, plugins, connectors, secrets.</p></div>
+      </div>
+      <div class="photo" style="flex:0 0 31%;background-image:linear-gradient(160deg,rgba(45,19,128,.72),rgba(34,141,149,.5)),url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80');padding:24px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff">
+        <b style="font-family:var(--ws-font-display);font-size:16px">Risk doesn't vanish &mdash; it moves</b>
+        <p style="font-size:12.5px;color:rgba(255,255,255,.85);margin-top:6px">From provider dependency to your infrastructure, operations and capacity management.</p>
+      </div>
+    </div>
+  </div>
+  <div class="pagenum" style="color:rgba(255,255,255,.6)">03 / 10</div>
+</section>
+
+<!-- ================= SLIDE 4 — RESULTS INTEGRITY ================= -->
+<section class="slide" id="s4">
+  <div class="brandmark"><span class="dot"></span>WAVESTONE &middot; AI Security &amp; Trust</div>
+  <div class="body">
+    <span class="eyebrow" style="color:var(--ws-indigo-700)">The hard problem</span>
+    <h2 class="head" style="margin-top:14px">The real risk is results integrity &mdash; not just the model</h2>
+    <div class="accentbar"></div>
+    <div style="display:grid;grid-template-columns:1fr 1.05fr;gap:30px;flex:1;margin-top:6px">
+      <div>
+        <p class="lede" style="font-size:15px">Integrity must hold across the <b>whole chain</b>, not the model alone.</p>
+        <div class="frag" style="display:flex;gap:12px;margin-top:16px;align-items:flex-start"><span style="color:var(--ws-danger);font-size:18px">!</span><p style="font-size:13.5px;color:var(--ws-ink-600)">A <b>correct model</b> + wrong, outdated or poisoned context = a wrong result.</p></div>
+        <div class="frag" style="display:flex;gap:12px;margin-top:12px;align-items:flex-start"><span style="color:var(--ws-danger);font-size:18px">!</span><p style="font-size:13.5px;color:var(--ws-ink-600)">A <b>safe model</b> + poorly controlled prompt, RAG or tools = unsafe behavior.</p></div>
+        <div class="frag" style="display:flex;gap:12px;margin-top:12px;align-items:flex-start"><span style="color:var(--ws-danger);font-size:18px">!</span><p style="font-size:13.5px;color:var(--ws-ink-600)">A <b>well-hosted model</b> can still be biased, misleading or low-quality.</p></div>
+        <div class="frag" style="display:flex;gap:12px;margin-top:12px;align-items:flex-start"><span style="color:var(--ws-indigo-600);font-size:18px">&#9881;</span><p style="font-size:13.5px;color:var(--ws-ink-600)">For agents: was the <b>right tool</b> called, with the <b>right permissions</b>, at the <b>right time</b>?</p></div>
+        <div class="frag" style="background:var(--ws-ink-50);border-left:4px solid var(--ws-indigo-600);padding:12px 16px;margin-top:16px"><p style="font-size:13px;color:var(--ws-ink-700)"><b>Goal:</b> approve an AI <b>system</b> for a use case, data scope &amp; autonomy level &mdash; not certify a model in isolation.</p></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;justify-content:center">
+        <div style="font-family:var(--ws-font-mono);font-size:11px;letter-spacing:.1em;color:var(--ws-ink-400);text-transform:uppercase;margin-bottom:2px">Where integrity can fail</div>
+        <div class="frag" style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:11px 16px"><span style="font-size:18px">&#129302;</span><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Model integrity</b></div>
+        <div class="frag" style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:11px 16px"><span style="font-size:18px">&#128230;</span><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Packaging integrity</b></div>
+        <div class="frag" style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:11px 16px"><span style="font-size:18px">&#128221;</span><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Prompt integrity</b></div>
+        <div class="frag" style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:11px 16px"><span style="font-size:18px">&#128218;</span><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Context &amp; RAG integrity</b></div>
+        <div class="frag" style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:11px 16px"><span style="font-size:18px">&#128295;</span><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Tool &amp; agent integrity</b></div>
+        <div class="frag" style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:11px 16px"><span style="font-size:18px">&#128202;</span><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Output integrity</b></div>
+        <div class="frag" style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:11px 16px"><span style="font-size:18px">&#128064;</span><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Monitoring integrity</b></div>
+      </div>
+    </div>
+  </div>
+  <div class="pagenum">04 / 10</div>
+  <div class="kicker">Model &middot; Data &middot; Prompt &middot; Context &middot; Tools &middot; Output</div>
+</section>
+
+<!-- ================= SLIDE 5 — GRADED TRUST ================= -->
+<section class="slide" id="s5">
+  <div class="brandmark"><span class="dot"></span>WAVESTONE &middot; AI Security &amp; Trust</div>
+  <div class="body">
+    <span class="eyebrow" style="color:var(--ws-indigo-700)">Grade the trust</span>
+    <h2 class="head" style="margin-top:14px">Trust must be graded, not assumed</h2>
+    <div class="accentbar"></div>
+    <p class="lede" style="max-width:84ch">Trust should be <b>proportional</b> to use-case criticality and the level of evidence available &mdash; from a vendor claim to continuous assurance.</p>
+    <div style="display:flex;flex-direction:column-reverse;gap:9px;margin-top:18px;flex:1;justify-content:center">
+      <div class="frag" style="display:flex;align-items:center;gap:16px;background:#fff;border:1.5px solid var(--ws-ink-100);border-left:5px solid var(--ws-ink-300);padding:9px 16px;width:62%"><span class="badge" style="background:var(--ws-ink-400);color:#fff">L0</span><b style="font-family:var(--ws-font-display);font-size:13.5px;color:var(--ws-ink-900);width:200px">Vendor claim only</b><span style="font-size:12.5px;color:var(--ws-ink-500)">No production use</span></div>
+      <div class="frag" style="display:flex;align-items:center;gap:16px;background:#fff;border:1.5px solid var(--ws-ink-100);border-left:5px solid var(--ws-teal-300);padding:9px 16px;width:68.5%"><span class="badge teal">L1</span><b style="font-family:var(--ws-font-display);font-size:13.5px;color:var(--ws-ink-900);width:200px">Basic documentation</b><span style="font-size:12.5px;color:var(--ws-ink-500)">Low-risk experimentation</span></div>
+      <div class="frag" style="display:flex;align-items:center;gap:16px;background:#fff;border:1.5px solid var(--ws-ink-100);border-left:5px solid var(--ws-teal-500);padding:9px 16px;width:75%"><span class="badge teal">L2</span><b style="font-family:var(--ws-font-display);font-size:13.5px;color:var(--ws-ink-900);width:200px">Supply chain evidence</b><span style="font-size:12.5px;color:var(--ws-ink-500)">Internal productivity</span></div>
+      <div class="frag" style="display:flex;align-items:center;gap:16px;background:#fff;border:1.5px solid var(--ws-ink-100);border-left:5px solid var(--ws-indigo-500);padding:9px 16px;width:81.5%"><span class="badge primary">L3</span><b style="font-family:var(--ws-font-display);font-size:13.5px;color:var(--ws-ink-900);width:200px">Independent testing</b><span style="font-size:12.5px;color:var(--ws-ink-500)">Sensitive internal use</span></div>
+      <div class="frag" style="display:flex;align-items:center;gap:16px;background:#fff;border:1.5px solid var(--ws-ink-100);border-left:5px solid var(--ws-indigo-700);padding:9px 16px;width:88%"><span class="badge primary">L4</span><b style="font-family:var(--ws-font-display);font-size:13.5px;color:var(--ws-ink-900);width:200px">Contractual assurance</b><span style="font-size:12.5px;color:var(--ws-ink-500)">Regulated / business-critical</span></div>
+      <div class="frag" style="display:flex;align-items:center;gap:16px;background:var(--ws-green-50);border:1.5px solid var(--ws-green-300);border-left:5px solid var(--ws-green-700);padding:9px 16px;width:95%"><span class="badge accent">L5</span><b style="font-family:var(--ws-font-display);font-size:13.5px;color:var(--ws-ink-900);width:200px">Continuous assurance</b><span style="font-size:12.5px;color:var(--ws-ink-600)">High-impact production</span></div>
+    </div>
+    <p class="frag" style="font-size:12.5px;color:var(--ws-ink-500);margin-top:4px">Combine both: an <b>approved-model catalogue</b> &times; <b>use-case-specific approval</b>.</p>
+  </div>
+  <div class="pagenum">05 / 10</div>
+  <div class="kicker">From no evidence to continuous assurance</div>
+</section>
+
+<!-- ================= SLIDE 6 — DEFENSE IN DEPTH (dark) ================= -->
+<section class="slide dark" id="s6" style="background:var(--ws-gradient-brand)">
+  <div class="brandmark"><span class="dot"></span>WAVESTONE &middot; AI Security &amp; Trust</div>
+  <div class="body">
+    <span class="eyebrow">Architecture</span>
+    <h2 class="head" style="margin-top:14px;font-size:36px">Defense-in-depth for open-weight AI</h2>
+    <div class="accentbar"></div>
+    <p class="lede" style="max-width:86ch;color:rgba(255,255,255,.8)">Layered controls across the full lifecycle and runtime &mdash; no single control carries the trust.</p>
+    <div style="display:flex;gap:8px;align-items:stretch;margin-top:20px">
+      <div class="frag" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:14px 12px"><div style="font-size:20px">&#128229;</div><b style="display:block;font-family:var(--ws-font-display);font-size:13px;color:#fff;margin:8px 0 4px">Intake</b><p style="font-size:10.5px;color:rgba(255,255,255,.72);line-height:1.35">Approved sources &amp; trusted repos; licence &amp; intended-use review.</p></div>
+      <div class="frag" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:14px 12px"><div style="font-size:20px">&#128270;</div><b style="display:block;font-family:var(--ws-font-display);font-size:13px;color:#fff;margin:8px 0 4px">Artifact security</b><p style="font-size:10.5px;color:rgba(255,255,255,.72);line-height:1.35">Malware/serialization scans; hashes, signatures, AI-BOM.</p></div>
+      <div class="frag" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:14px 12px"><div style="font-size:20px">&#128274;</div><b style="display:block;font-family:var(--ws-font-display);font-size:13px;color:#fff;margin:8px 0 4px">Runtime</b><p style="font-size:10.5px;color:rgba(255,255,255,.72);line-height:1.35">Sandboxed load; hardened containers; network &amp; secret isolation.</p></div>
+      <div class="frag" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:14px 12px"><div style="font-size:20px">&#128193;</div><b style="display:block;font-family:var(--ws-font-display);font-size:13px;color:#fff;margin:8px 0 4px">Data</b><p style="font-size:10.5px;color:rgba(255,255,255,.72);line-height:1.35">Least privilege for RAG, search &amp; document retrieval.</p></div>
+      <div class="frag" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:14px 12px"><div style="font-size:20px">&#129520;</div><b style="display:block;font-family:var(--ws-font-display);font-size:13px;color:#fff;margin:8px 0 4px">Prompt &amp; tools</b><p style="font-size:10.5px;color:rgba(255,255,255,.72);line-height:1.35">System prompts &amp; tool permissions governed as sensitive config.</p></div>
+      <div class="frag" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:14px 12px"><div style="font-size:20px">&#128737;</div><b style="display:block;font-family:var(--ws-font-display);font-size:13px;color:#fff;margin:8px 0 4px">Output</b><p style="font-size:10.5px;color:rgba(255,255,255,.72);line-height:1.35">Guardrails, DLP, policy validation, human review.</p></div>
+      <div class="frag" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:14px 12px"><div style="font-size:20px">&#128200;</div><b style="display:block;font-family:var(--ws-font-display);font-size:13px;color:#fff;margin:8px 0 4px">Monitoring</b><p style="font-size:10.5px;color:rgba(255,255,255,.72);line-height:1.35">Drift, anomalies, unexpected tool use, quality decay.</p></div>
+    </div>
+    <div class="frag" style="background:rgba(4,240,106,.12);border:1px solid rgba(4,240,106,.35);padding:14px 22px;display:flex;gap:14px;align-items:center;margin-top:18px">
+      <span style="font-size:20px">&#128300;</span>
+      <p style="font-size:13px;color:#fff">For high-risk use cases, add <b>internal model observability</b> to detect deeper behavioral deviations &mdash; not just bad inputs and outputs.</p>
+    </div>
+  </div>
+  <div class="pagenum" style="color:rgba(255,255,255,.6)">06 / 10</div>
+</section>
+
+<!-- ================= SLIDE 7 — OPERATING MODEL / RACI ================= -->
+<section class="slide" id="s7">
+  <div class="brandmark"><span class="dot"></span>WAVESTONE &middot; AI Security &amp; Trust</div>
+  <div class="body">
+    <span class="eyebrow" style="color:var(--ws-indigo-700)">Target operating model</span>
+    <h2 class="head" style="margin-top:14px">Who owns AI trust? A shared accountability model</h2>
+    <div class="accentbar"></div>
+    <div style="margin-top:14px;flex:1;display:flex;flex-direction:column;gap:6px">
+      <div style="display:flex;gap:10px;font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ws-ink-400);padding:0 14px"><span style="width:230px">Function</span><span style="flex:1">Owns</span></div>
+      <div class="frag" style="display:flex;gap:10px;align-items:center;background:var(--ws-ink-50);padding:9px 14px;border-left:4px solid var(--ws-indigo-600)"><b style="width:230px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">AI / Data Science</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Model selection, evaluation, benchmarking, performance monitoring</span></div>
+      <div class="frag" style="display:flex;gap:10px;align-items:center;background:#fff;padding:9px 14px;border-left:4px solid var(--ws-danger)"><b style="width:230px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">Cybersecurity</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Threat modeling, supply-chain controls, runtime hardening, red teaming, monitoring</span></div>
+      <div class="frag" style="display:flex;gap:10px;align-items:center;background:var(--ws-ink-50);padding:9px 14px;border-left:4px solid var(--ws-indigo-600)"><b style="width:230px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">Legal &amp; Compliance</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Licensing, copyright, AI Act exposure, contractual clauses, regulatory duties</span></div>
+      <div class="frag" style="display:flex;gap:10px;align-items:center;background:#fff;padding:9px 14px;border-left:4px solid var(--ws-teal-500)"><b style="width:230px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">Data Office</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Data classification, RAG governance, sensitive-data exposure, retention</span></div>
+      <div class="frag" style="display:flex;gap:10px;align-items:center;background:var(--ws-ink-50);padding:9px 14px;border-left:4px solid var(--ws-teal-500)"><b style="width:230px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">Architecture &amp; Cloud</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Hosting patterns, isolation, scalability, observability, resilience</span></div>
+      <div class="frag" style="display:flex;gap:10px;align-items:center;background:#fff;padding:9px 14px;border-left:4px solid var(--ws-green-700)"><b style="width:230px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">Business Owner</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Use-case criticality, expected outcomes, acceptable risk, human validation</span></div>
+      <div class="frag" style="display:flex;gap:10px;align-items:center;background:var(--ws-ink-50);padding:9px 14px;border-left:4px solid var(--ws-green-700)"><b style="width:230px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">Risk &amp; Internal Control</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Approval workflows, evidence retention, periodic reassessment, risk acceptance</span></div>
+    </div>
+    <div class="frag" style="background:var(--ws-indigo-900);padding:14px 22px;display:flex;gap:14px;align-items:center;margin-top:8px">
+      <span class="badge accent">Decision</span>
+      <p style="font-size:14px;color:#fff;font-family:var(--ws-font-mono)">Model + Use Case + Data + Autonomy + Evidence&nbsp;&nbsp;=&nbsp;&nbsp;Approval</p>
+    </div>
+  </div>
+  <div class="pagenum">07 / 10</div>
+  <div class="kicker">Approve for a class of usage &mdash; never generically</div>
+</section>
+
+<!-- ================= SLIDE 8 — MARKET THREE-WAVE (dark) ================= -->
+<section class="slide dark" id="s8" style="background:var(--ws-gradient-brand-flat)">
+  <div class="brandmark"><span class="dot"></span>WAVESTONE &middot; AI Security &amp; Trust</div>
+  <div class="body">
+    <span class="eyebrow">Market view</span>
+    <h2 class="head" style="margin-top:14px;font-size:34px">How the market is tackling the problem</h2>
+    <div class="accentbar"></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px">
+      <div class="frag" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:18px"><div style="font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.12em;color:var(--ws-green-400)">WAVE 1</div><b style="display:block;font-family:var(--ws-font-display);font-size:16px;color:#fff;margin:6px 0 10px">Supply-chain security</b><p style="font-size:12px;color:rgba(255,255,255,.78);line-height:1.45">Scan model artifacts &amp; dependencies.<br><br><b style="color:#fff">Hugging Face</b> — malware, pickle &amp; secret scanning; <b style="color:#fff">Protect AI</b> partnership at Hub scale.<br><b style="color:#fff">Azure AI</b> — HiddenLayer Model Scanner on the curated catalogue.</p></div>
+      <div class="frag" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:18px"><div style="font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.12em;color:var(--ws-green-400)">WAVE 2</div><b style="display:block;font-family:var(--ws-font-display);font-size:16px;color:#fff;margin:6px 0 10px">Runtime protection</b><p style="font-size:12px;color:rgba(255,255,255,.78);line-height:1.45">Secure prompts, outputs, tools &amp; runtime.<br><br><b style="color:#fff">Protect AI</b> — AI security lifecycle, inventory, runtime protection.<br><b style="color:#fff">HiddenLayer</b> — model scanning, AI runtime security, red teaming.</p></div>
+      <div class="frag" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:18px"><div style="font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.12em;color:var(--ws-green-400)">WAVE 3</div><b style="display:block;font-family:var(--ws-font-display);font-size:16px;color:#fff;margin:6px 0 10px">Internal model observability</b><p style="font-size:12px;color:rgba(255,255,255,.78);line-height:1.45">Observe behavior <i>during</i> inference.<br><br><b style="color:#fff">Realm Labs</b> (RSAC 2026 finalist) — &ldquo;model MRI&rdquo;, real-time misbehavior.<br><b style="color:#fff">Starseer</b> — mechanistic interpretability, glass-box observability.</p></div>
+    </div>
+    <div class="photo" style="margin-top:16px;background-image:linear-gradient(100deg,rgba(30,13,87,.9),rgba(34,141,149,.5)),url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1100&q=80');padding:16px 24px;display:flex;align-items:center;gap:16px">
+      <span class="badge accent">Direction</span>
+      <p style="font-size:13.5px;color:#fff;font-family:var(--ws-font-display);font-weight:600">External guardrails &rarr; runtime protection &rarr; deeper model &amp; runtime assurance</p>
+    </div>
+  </div>
+  <div class="pagenum" style="color:rgba(255,255,255,.6)">08 / 10</div>
+</section>
+
+<!-- ================= SLIDE 9 — METHODOLOGY ================= -->
+<section class="slide" id="s9">
+  <div class="brandmark"><span class="dot"></span>WAVESTONE &middot; AI Security &amp; Trust</div>
+  <div class="body">
+    <span class="eyebrow" style="color:var(--ws-indigo-700)">Enterprise methodology</span>
+    <h2 class="head" style="margin-top:14px">From intake to production approval</h2>
+    <div class="accentbar"></div>
+    <p class="lede" style="max-width:86ch">A repeatable homologation process for open-weight AI systems &mdash; the same path every time.</p>
+    <div class="tl">
+      <div class="axis"></div>
+      <div class="steps">
+        <div class="step frag"><div class="date">01</div><div class="node"></div><div class="desc"><b>Intake</b>Purpose, users, data types, decisions, autonomy level.</div></div>
+        <div class="step frag"><div class="date">02</div><div class="node"></div><div class="desc"><b>Tiering</b>Classify by impact, data sensitivity, regulation, automation.</div></div>
+        <div class="step frag"><div class="date">03</div><div class="node"></div><div class="desc"><b>Due diligence</b>Provenance, licence, intended use, known limits.</div></div>
+        <div class="step frag"><div class="date">04</div><div class="node"></div><div class="desc"><b>Supply chain</b>Hashes, signatures, AI-BOM, tokenizer, deps, scripts.</div></div>
+        <div class="step crit frag"><div class="date">05</div><div class="node"></div><div class="desc"><b>Security &amp; safety tests</b>Bias, toxicity, hallucination, jailbreak, prompt injection.</div></div>
+        <div class="step frag"><div class="date">06</div><div class="node"></div><div class="desc"><b>Architecture review</b>Hosting, identity, flows, RAG, logging, DLP, secrets.</div></div>
+        <div class="step good frag"><div class="date">07</div><div class="node"></div><div class="desc"><b>Production gate</b>Business, cyber, legal, data &amp; risk sign-off.</div></div>
+        <div class="step good frag"><div class="date">08</div><div class="node"></div><div class="desc"><b>Continuous assurance</b>Monitor; revalidate on any change.</div></div>
+      </div>
+    </div>
+    <div style="display:flex;gap:18px;margin-top:6px">
+      <div class="card frag" style="flex:1"><h3><span style="color:var(--ws-indigo-600)">&#128203;</span> Evidence pack</h3><p>Document decisions, tests, residual risks and compensating controls before the gate.</p></div>
+      <div class="card frag" style="flex:1"><h3><span style="color:var(--ws-teal-500)">&#129309;</span> Cross-functional gate</h3><p>No single owner approves: business, cyber, legal, data and risk decide together.</p></div>
+      <div class="card frag" style="flex:1"><h3><span style="color:var(--ws-danger)">&#128260;</span> Reassess on change</h3><p>Model, prompt, RAG source, toolset or use-case change &rarr; trigger re-homologation.</p></div>
+    </div>
+  </div>
+  <div class="pagenum">09 / 10</div>
+  <div class="kicker">Intake &rarr; Continuous assurance</div>
+</section>
+
+<!-- ================= SLIDE 10 — ROADMAP / CLOSE (dark) ================= -->
+<section class="slide dark" id="s10" style="background:var(--ws-gradient-brand)">
+  <svg class="net" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="position:absolute;inset:0;opacity:.4">
+    <path d="M-50,150 Q360,40 700,140 T1330,90" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".5"/>
+    <path d="M-50,200 Q380,90 720,190 T1330,140" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="1.5"/>
+  </svg>
+  <div class="brandmark"><span class="dot"></span>WAVESTONE &middot; AI Security &amp; Trust</div>
+  <div class="body" style="position:relative;z-index:5">
+    <span class="eyebrow">Implementation roadmap</span>
+    <h2 class="head" style="margin-top:14px;font-size:36px">Build the capability progressively</h2>
+    <div class="accentbar"></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:16px;flex:1;align-content:center">
+      <div class="frag" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);padding:20px">
+        <b style="display:block;font-family:var(--ws-font-display);color:var(--ws-green-400);font-size:14px">0&ndash;3 MONTHS &middot; FRAME</b>
+        <ul style="margin-top:10px;list-style:none;font-size:12px;color:rgba(255,255,255,.82);line-height:1.55">
+          <li>&bull; Open-weight usage policy</li>
+          <li>&bull; Risk tiers (data, impact, autonomy)</li>
+          <li>&bull; Approval workflow for high-risk</li>
+          <li>&bull; Find shadow deployments</li>
+          <li>&bull; Min. controls: sources, sandbox, scanning, restricted runtime</li>
+        </ul>
+      </div>
+      <div class="frag" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);padding:20px">
+        <b style="display:block;font-family:var(--ws-font-display);color:var(--ws-green-400);font-size:14px">3&ndash;6 MONTHS &middot; INDUSTRIALIZE</b>
+        <ul style="margin-top:10px;list-style:none;font-size:12px;color:rgba(255,255,255,.82);line-height:1.55">
+          <li>&bull; Enterprise model catalogue</li>
+          <li>&bull; AI gateway for prompts/tools/RAG/outputs</li>
+          <li>&bull; DLP, logging, monitoring, escalation</li>
+          <li>&bull; AI Security Review Board</li>
+        </ul>
+      </div>
+      <div class="frag" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);padding:20px">
+        <b style="display:block;font-family:var(--ws-font-display);color:var(--ws-green-400);font-size:14px">6&ndash;12 MONTHS &middot; SCALE</b>
+        <ul style="margin-top:10px;list-style:none;font-size:12px;color:rgba(255,255,255,.82);line-height:1.55">
+          <li>&bull; Automated evidence packs &amp; reassessment</li>
+          <li>&bull; Integrate with SOC, GRC, model registry</li>
+          <li>&bull; Tools: scanning, runtime, observability</li>
+          <li>&bull; Extend to agentic &amp; tool-calling</li>
+          <li>&bull; Project-by-project &rarr; continuous assurance</li>
+        </ul>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:8px">
+      <div class="ws-quote" style="text-align:left;max-width:60ch;font-family:var(--ws-font-display);font-weight:700;font-size:19px;color:#fff;line-height:1.3">Don&rsquo;t ask &ldquo;Is this model safe?&rdquo; &mdash; ask &ldquo;For this use case, data, autonomy and evidence, is the residual risk acceptable?&rdquo;</div>
+      <div style="text-align:right;flex:none;margin-left:24px">
+        <div style="font-family:var(--ws-font-display);font-weight:700;font-size:18px;color:#fff;display:flex;align-items:center;gap:9px;justify-content:flex-end"><span style="width:9px;height:9px;background:var(--ws-green-400);display:inline-block"></span>WAVESTONE</div>
+        <div style="font-family:var(--ws-font-mono);font-size:11px;color:rgba(255,255,255,.6);margin-top:6px">AI Security &amp; Trust</div>
+      </div>
+    </div>
+  </div>
+  <div class="pagenum" style="color:rgba(255,255,255,.6)">10 / 10</div>
+</section>
+
+</div><!-- /stage -->
+
+<!-- ===================== PROGRESS ===================== -->
+<div id="progress"><div id="progressfill"></div></div>
+
+<!-- ===================== NAV ===================== -->
+<div id="nav">
+  <button id="prev" aria-label="Previous slide">&#8592;</button>
+  <div id="dots"></div>
+  <span id="counter">01 / 10</span>
+  <button id="next" aria-label="Next slide">&#8594;</button>
+  <button id="fs" class="fsbtn" aria-label="Toggle fullscreen">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9V3h6M21 9V3h-6M3 15v6h6M21 15v6h-6"/></svg>
+    <span id="fslabel">Full</span>
+  </button>
+  <button id="pptx" class="fsbtn" aria-label="Export to PowerPoint">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M8 11l4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+    <span>PPTX</span>
+  </button>
+</div>
+<div class="hint">← → · Space · swipe · F = fullscreen · builds click-by-click</div>
+<div id="toast"></div>
+
+<!-- ===================== ROTATE HINT (portrait phones) ===================== -->
+<div id="rotate">
+  <svg viewBox="0 0 24 24" fill="none" stroke="#04F06A" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="1"/><path d="M9 18h6"/></svg>
+  <b>Rotate your device</b>
+  <p>This board deck is 16:9 — turn your phone sideways to view each slide full-size.</p>
+  <button class="go" onclick="document.getElementById('rotate').style.display='none'">View anyway</button>
+</div>
+
+<script>
+(function(){
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var total = slides.length, cur = 0;
+  var dots = document.getElementById('dots');
+  var counter = document.getElementById('counter');
+  var stage = document.getElementById('stage');
+  var pfill = document.getElementById('progressfill');
+  var isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
+
+  slides.forEach(function(_,i){
+    var d = document.createElement('span');
+    d.addEventListener('click', function(){ go(i, i < cur); });
+    dots.appendChild(d);
+  });
+  var dotEls = dots.children;
+
+  function pad(n){ return (n<10?'0':'')+n; }
+  function frags(s){ return Array.prototype.slice.call(s.querySelectorAll('.frag')); }
+  function shownCount(s){ return frags(s).filter(function(e){return e.classList.contains('show');}).length; }
+  function setFrags(s, all){
+    frags(s).forEach(function(e){ e.classList.remove('current'); e.classList.toggle('show', !!all); });
+  }
+  function updateProgress(){
+    var s=slides[cur], f=frags(s);
+    var frac = f.length ? shownCount(s)/f.length : 1;
+    pfill.style.width = ((cur + frac)/total*100)+'%';
+  }
+  function render(){
+    slides.forEach(function(s,i){ s.classList.toggle('active', i===cur); });
+    for (var i=0;i<dotEls.length;i++){ dotEls[i].classList.toggle('on', i===cur); }
+    counter.textContent = pad(cur+1)+' / '+pad(total);
+    updateProgress();
+  }
+  function go(i, revealAll){
+    cur = Math.max(0, Math.min(total-1, i));
+    setFrags(slides[cur], !!revealAll);
+    render();
+  }
+  // click-by-click: reveal the next fragment first, only then change slide
+  function next(){
+    var s=slides[cur], f=frags(s), shown=shownCount(s);
+    if(shown < f.length){
+      f.forEach(function(e){ e.classList.remove('current'); });
+      f[shown].classList.add('show'); f[shown].classList.add('current');
+      updateProgress(); return;
+    }
+    if(cur < total-1) go(cur+1, false);
+  }
+  function prev(){
+    var s=slides[cur], f=frags(s), shown=shownCount(s);
+    if(shown > 0){
+      f[shown-1].classList.remove('show'); f[shown-1].classList.remove('current');
+      updateProgress(); return;
+    }
+    if(cur > 0) go(cur-1, true); // step back into the previous slide fully built
+  }
+
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('prev').addEventListener('click', prev);
+
+  document.addEventListener('keydown', function(e){
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){ e.preventDefault(); next(); }
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); prev(); }
+    else if(e.key==='Home'){ go(0, false); }
+    else if(e.key==='End'){ go(total-1, true); }
+    else if(e.key==='f'||e.key==='F'){ toggleFs(); }
+  });
+
+  // ---- fullscreen ----
+  function fsActive(){ return document.fullscreenElement || document.webkitFullscreenElement; }
+  function toggleFs(){
+    var el = document.documentElement;
+    if(!fsActive()){
+      (el.requestFullscreen||el.webkitRequestFullscreen||function(){}).call(el);
+    } else {
+      (document.exitFullscreen||document.webkitExitFullscreen||function(){}).call(document);
+    }
+  }
+  document.getElementById('fs').addEventListener('click', function(e){ e.stopPropagation(); toggleFs(); });
+  function onFsChange(){
+    var on = !!fsActive();
+    document.body.classList.toggle('fs', on);
+    var l = document.getElementById('fslabel'); if(l) l.textContent = on ? 'Exit' : 'Full';
+    setTimeout(fit, 60);
+  }
+  document.addEventListener('fullscreenchange', onFsChange);
+  document.addEventListener('webkitfullscreenchange', onFsChange);
+
+  // ---- desktop: click right/left half of the stage to advance ----
+  if(!isTouch){
+    stage.addEventListener('click', function(e){
+      if (e.target.closest('a') || e.target.closest('#nav')) return;
+      var r = stage.getBoundingClientRect();
+      if ((e.clientX - r.left) > r.width*0.5) next(); else prev();
+    });
+  }
+
+  // ---- mobile: swipe to navigate ----
+  var tsx=0, tsy=0, tracking=false;
+  stage.addEventListener('touchstart', function(e){
+    var t=e.changedTouches[0]; tsx=t.clientX; tsy=t.clientY; tracking=true;
+  }, {passive:true});
+  stage.addEventListener('touchend', function(e){
+    if(!tracking) return; tracking=false;
+    var t=e.changedTouches[0], dx=t.clientX-tsx, dy=t.clientY-tsy;
+    if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)){
+      if(dx < 0) next(); else prev();
+    } else if(Math.abs(dx) < 12 && Math.abs(dy) < 12 && !e.target.closest('a')){
+      next(); // tap to advance
+    }
+  }, {passive:true});
+
+  // ===========================================================================
+  // NATIVE PPTX EXPORT — every slide rebuilt as editable shapes + text boxes
+  // (no screenshots). 1280x720 px maps 1:1 to 13.333x7.5 in  (96 px = 1 in).
+  // ===========================================================================
+  var toast = document.getElementById('toast');
+  function setStatus(msg, spinning){
+    if(!msg){ toast.classList.remove('on'); return; }
+    toast.innerHTML = (spinning ? '<span class="spin"></span>' : '') + msg;
+    toast.classList.add('on');
+  }
+  function loadScript(src){
+    return new Promise(function(res, rej){
+      if(document.querySelector('script[data-src="'+src+'"]')){ res(); return; }
+      var sc = document.createElement('script');
+      sc.src = src; sc.setAttribute('data-src', src);
+      sc.onload = res; sc.onerror = function(){ rej(new Error('load '+src)); };
+      document.head.appendChild(sc);
+    });
+  }
+
+  // palette (Wavestone tokens, hex without #)
+  var C = {
+    ind6:'451DC7', ind7:'36169B', ind8:'2D1380', ind9:'1E0D57', ind50:'F1EEFB',
+    grn4:'04F06A', grn7:'088A42', grn50:'E1FDED', grnLt:'5CF59E',
+    tl5:'228D95', tl7:'18636A', tlSub:'E2F1F2',
+    ink9:'16121F', ink7:'3A3550', ink6:'514C63', ink5:'6B6580', ink4:'817C95',
+    ink2:'CFCCDC', ink1:'E6E4EE', ink05:'F5F4F9',
+    dgr:'D8412F', wrn:'C8861A', wht:'FFFFFF',
+    glass:'3C2497', glassBd:'5C42B2', mut:'D7D0F2', sub:'B2A8E0'
+  };
+  var FD='Poppins', FB='Inter', FM='IBM Plex Mono';
+  var I = function(px){ return px/96; };
+
+  function raf2(){ return new Promise(function(r){ requestAnimationFrame(function(){ requestAnimationFrame(r); }); }); }
+
+  // Render ONE element (a photo panel) to an image — keeps text/shapes native,
+  // only the photographs are rasterised, captured live from the browser.
+  async function snapEl(el, hideChildren){
+    if(typeof html2canvas === 'undefined') return null;
+    var hidden=[];
+    if(hideChildren){ Array.prototype.forEach.call(el.children,function(c){
+      hidden.push([c,c.style.visibility]); c.style.visibility='hidden'; }); }
+    try{
+      var cv = await html2canvas(el, { useCORS:true, allowTaint:false, backgroundColor:null, scale:2, logging:false });
+      return cv.toDataURL('image/jpeg', 0.9);
+    }catch(e){ return null; }
+    finally{ hidden.forEach(function(p){ p[0].style.visibility=p[1]; }); }
+  }
+  // element box in the 1280x720 slide coordinate space
+  function rectIn(el, slideEl){
+    var er=el.getBoundingClientRect(), sr=slideEl.getBoundingClientRect();
+    var sc = sr.width/1280 || 1;
+    return { x:(er.left-sr.left)/sc, y:(er.top-sr.top)/sc, w:er.width/sc, h:er.height/sc };
+  }
+
+  var exporting = false;
+  async function exportPPTX(){
+    if(exporting) return; exporting = true;
+    var prevCur = cur, prevTf = stage.style.transform, captured = false;
+    try{
+      setStatus('Loading PowerPoint engine…', true);
+      if(typeof PptxGenJS === 'undefined'){
+        try{ await loadScript('assets/pptxgen.bundle.js'); }           // vendored, works offline
+        catch(e){ await loadScript('https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js'); }
+      }
+      if(typeof PptxGenJS === 'undefined') throw new Error('PptxGenJS unavailable');
+      if(typeof html2canvas === 'undefined'){
+        try{ await loadScript('assets/html2canvas.min.js'); }
+        catch(e){ try{ await loadScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'); }catch(e2){} }
+      }
+
+      // ---- capture phase: render the live photos to images -----------------
+      setStatus('Capturing photos from the page…', true);
+      var photos = {};
+      captured = true;
+      document.body.classList.add('exporting');
+      stage.style.transform = 'none';                 // capture at native 1280x720
+      var shots = [ ['s1','#s1 .hero-photo',false], ['s3','#s3 .photo',true], ['s8','#s8 .photo',true] ];
+      for(var k=0;k<shots.length;k++){
+        var slEl = document.getElementById(shots[k][0]);
+        slides.forEach(function(x){ x.classList.remove('active'); });
+        slEl.classList.add('active'); setFrags(slEl, true);
+        await raf2(); await raf2();
+        var el = document.querySelector(shots[k][1]);
+        if(el){ photos[shots[k][0]] = { data: await snapEl(el, shots[k][2]), rect: rectIn(el, slEl) }; }
+      }
+      stage.style.transform = prevTf;
+      document.body.classList.remove('exporting');
+      go(prevCur, true);
+      captured = false;
+
+      setStatus('Building editable slides…', true);
+
+      var pptx = new PptxGenJS();
+      pptx.defineLayout({ name:'WS', width:13.333, height:7.5 });
+      pptx.layout = 'WS';
+      pptx.author='Wavestone'; pptx.company='Wavestone';
+      pptx.title='Open-Weight AI: Control Is Not Trust';
+
+      // ---- primitives -------------------------------------------------------
+      function S(sl,x,y,w,h,fill,lineC,lw){
+        sl.addShape(pptx.ShapeType.rect,{ x:I(x),y:I(y),w:I(w),h:I(h),
+          fill: fill ? {color:fill} : {type:'none'},
+          line: lineC ? {color:lineC,width:lw||1} : {type:'none'} });
+      }
+      function T(sl,text,x,y,w,h,o){
+        o=o||{};
+        sl.addText(text,{ x:I(x),y:I(y),w:I(w),h:I(h),
+          fontFace:o.f||FB, fontSize:o.s||12, color:o.c||C.ink9, bold:!!o.b, italic:!!o.i,
+          align:o.align||'left', valign:o.valign||'top', margin:0,
+          lineSpacingMultiple:o.lh||1.0, charSpacing:o.cs||0, wrap:true });
+      }
+      // rich runs: parts = [[text, bold?, colorOverride?], ...]
+      function RT(sl,parts,x,y,w,h,o){
+        o=o||{};
+        var runs = parts.map(function(p){
+          return { text:p[0], options:{ fontFace:o.f||FB, fontSize:o.s||12,
+            color:p[2]||o.c||C.ink9, bold: p[1]?true:(!!o.b) } };
+        });
+        sl.addText(runs,{ x:I(x),y:I(y),w:I(w),h:I(h), align:o.align||'left',
+          valign:o.valign||'top', margin:0, lineSpacingMultiple:o.lh||1.15, wrap:true });
+      }
+      function eyebrow(sl,text,x,y,dark){
+        T(sl,text.toUpperCase(),x,y,700,16,{f:FB,s:9,b:true,c:dark?C.wht:C.ink9,cs:2});
+        S(sl,x,y+19,Math.min(700,text.length*7.0+8),2.4,C.grn4);
+      }
+      function brand(sl,dark){
+        S(sl,54,33,9,9,C.grn4);
+        T(sl,'WAVESTONE · AI Security & Trust',68,28,520,18,
+          {f:FD,s:10.5,b:true,c:dark?C.wht:C.ind7,valign:'middle'});
+      }
+      function page(sl,n,dark,kicker){
+        T(sl,n+' / 10',1000,684,226,16,{f:FM,s:9,c:dark?'BCB4E2':C.ink4,align:'right',valign:'middle'});
+        if(kicker) T(sl,kicker.toUpperCase(),54,684,600,16,{f:FM,s:8.5,c:dark?'9C92CE':C.ink2,cs:2,valign:'middle'});
+      }
+      function accent(sl,x,y){ S(sl,x,y,54,4,C.grn4); }
+      function iconBox(sl,x,y,sz,bg,glyph,gc){
+        S(sl,x,y,sz,sz,bg);
+        T(sl,glyph,x,y-1,sz,sz,{s:Math.round(sz*0.46),c:gc,align:'center',valign:'middle'});
+      }
+      function badge(sl,x,y,text,fill,tc){
+        var w=text.length*6.4+16;
+        S(sl,x,y,w,19,fill);
+        T(sl,text,x,y,w,19,{s:8,b:true,c:tc,align:'center',valign:'middle',cs:1});
+        return w;
+      }
+      function card(sl,x,y,w,h){ S(sl,x,y,w,h,C.wht,C.ink1,1); S(sl,x,y,4,h,C.grn4); }
+      // place a captured photo if available, else run the fallback drawer
+      function photo(sl,p,fallback){
+        if(p && p.data && p.rect){ sl.addImage({ data:p.data, x:I(p.rect.x), y:I(p.rect.y), w:I(p.rect.w), h:I(p.rect.h) }); return true; }
+        if(fallback) fallback(); return false;
+      }
+      function glass(sl,x,y,w,h,topbar){
+        S(sl,x,y,w,h,C.glass,C.glassBd,1);
+        if(topbar==='top') S(sl,x,y,w,3,C.grn4);
+        else if(topbar==='left') S(sl,x,y,4,h,C.grn4);
+      }
+
+      // ---- SLIDE 1 — TITLE --------------------------------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.ind8};
+        photo(s, photos.s1, function(){ S(s,691,0,589,720,C.ind9); });
+        S(s,687,0,4,720,C.ind6);
+        S(s,0,620,1280,2,'4A2BB0');
+        brand(s,true);
+        eyebrow(s,'AI Security · Board Briefing',54,210,true);
+        s.addText([
+          {text:'Open-Weight AI',options:{color:C.wht,breakLine:true,fontFace:FD,fontSize:44,bold:true}},
+          {text:'Control Is Not Trust',options:{color:C.grnLt,fontFace:FD,fontSize:44,bold:true}}
+        ],{ x:I(54),y:I(250),w:I(600),h:I(150),valign:'top',margin:0,lineSpacingMultiple:1.02 });
+        T(s,'Running a model on your own infrastructure gives you control over execution — not automatic trust in its results. A framework to decide, per use case, whether the residual risk is acceptable.',
+          54,432,560,100,{s:14,c:C.mut,lh:1.3});
+        var chips=['Open-weight ≠ open source','Results integrity','Graded trust','Defense-in-depth'], cx=54;
+        chips.forEach(function(t){ var w=t.length*6.4+20; S(s,cx,556,w,26,'33198F',C.glassBd,1);
+          T(s,t,cx,556,w,26,{f:FM,s:9,c:C.mut,align:'center',valign:'middle'}); cx+=w+12; });
+        T(s,'Prepared by Wavestone · June 2026',54,684,500,16,{f:FM,s:8.5,c:'9C92CE',cs:2,valign:'middle'});
+        T(s,'01 / 10',1000,684,226,16,{f:FM,s:9,c:'BCB4E2',align:'right',valign:'middle'});
+      })();
+
+      // ---- SLIDE 2 — OPEN-WEIGHT ≠ OPEN SOURCE -----------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.wht};
+        brand(s); eyebrow(s,'Framing the problem',54,84);
+        T(s,'Open-weight is not open source — and not trust by default',54,112,1140,46,{f:FD,s:25,b:true,c:C.ind7});
+        accent(s,54,170);
+        RT(s,[['Open-weight gives you more ',0],['control over execution',1],['. It does not, on its own, give you ',0],['trust',1],[' in the model or the AI system built around it.',0]],
+          54,186,1080,40,{s:13,c:C.ink5,lh:1.3});
+        // left card
+        card(s,54,250,560,240);
+        iconBox(s,72,268,34,C.grn50,'✓',C.grn7);
+        T(s,'What open-weight DOES give',118,270,470,30,{f:FD,s:14,b:true,c:C.ind7,valign:'middle'});
+        var l2a=['Weights accessible & deployable on controlled infrastructure','Less dependency on a single external API provider','More sovereignty over where and how inference runs'];
+        s.addText(l2a.map(function(t){return {text:'✓   '+t,options:{fontFace:FB,fontSize:12.5,color:C.ink6,breakLine:true,paraSpaceAfter:10}};}),
+          {x:I(72),y:I(316),w:I(524),h:I(160),valign:'top',margin:0,lineSpacingMultiple:1.15});
+        // right card
+        card(s,664,250,562,240);
+        iconBox(s,682,268,34,'FBE9E7','✗',C.dgr);
+        T(s,'What it does NOT give',728,270,470,30,{f:FD,s:14,b:true,c:C.ind7,valign:'middle'});
+        var l2b=['Training data, training code, eval methods or reproducibility','Evidence it is unbiased, safe, lawful or robust','Any guarantee it is free from hidden behaviors'];
+        s.addText(l2b.map(function(t){return {text:'✗   '+t,options:{fontFace:FB,fontSize:12.5,color:C.ink6,breakLine:true,paraSpaceAfter:10}};}),
+          {x:I(682),y:I(316),w:I(528),h:I(160),valign:'top',margin:0,lineSpacingMultiple:1.15});
+        // bottom band
+        S(s,54,512,1172,72,C.ind9);
+        badge(s,72,528,'The real question',C.grn4,C.ind9);
+        T(s,'Not “Can we host this model?” but “Can we trust the results of this AI system for this use case?”',
+          230,512,980,72,{f:FD,s:15,b:true,c:C.wht,valign:'middle'});
+        page(s,'02',false,'Deployment control ≠ model trust');
+      })();
+
+      // ---- SLIDE 3 — CONTROLLED HOSTING (dark) -----------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.ind8};
+        var p3=(photos.s3&&photos.s3.rect)?photos.s3.rect:{x:792,y:206,w:434,h:330};
+        photo(s, photos.s3, function(){ S(s,p3.x,p3.y,p3.w,p3.h,C.tl7); });
+        brand(s,true); eyebrow(s,'Why host internally',54,84,true);
+        T(s,'Controlled hosting cuts availability & confidentiality risk',54,112,720,72,{f:FD,s:25,b:true,c:C.wht,lh:1.05});
+        accent(s,54,196);
+        // risk-shift diagram
+        S(s,54,214,300,62,'3A1430','C0473A',1);
+        T(s,'FROM',66,222,280,14,{f:FM,s:9,c:'FFB4A8',cs:1});
+        T(s,'External API dependency',66,238,280,24,{f:FD,s:14,b:true,c:C.wht});
+        T(s,'→',360,214,40,62,{f:FD,s:26,c:C.grn4,align:'center',valign:'middle'});
+        S(s,404,214,300,62,'12351F','2E8A52',1);
+        T(s,'TO',416,222,280,14,{f:FM,s:9,c:'9CF7C2',cs:1});
+        T(s,'Controlled infrastructure',416,238,280,24,{f:FD,s:14,b:true,c:C.wht});
+        var rows=[['Availability',C.grn4,C.ind9,'No longer hostage to API shutdowns, usage caps, pricing or geo limits.'],
+                  ['Confidentiality',C.tl5,C.wht,'Prompts, documents and business data can stay in controlled environments.'],
+                  ['Sovereignty',C.tl5,C.wht,'Runtime, storage, logging and inference operated in approved locations.'],
+                  ['Caveat',C.wrn,C.wht,'Only if surroundings are controlled too — logs, telemetry, RAG, plugins, connectors, secrets.']];
+        rows.forEach(function(d,i){ var y=296+i*64; badge(s,54,y,d[0],d[1],d[2]);
+          T(s,d[3],54,y+24,690,40,{s:12.5,c:C.mut,lh:1.2});
+          if(i<3) S(s,54,y+58,690,1,'4A3398'); });
+        T(s,"Risk doesn't vanish — it moves",p3.x+18,p3.y+p3.h-94,p3.w-30,40,{f:FD,s:15,b:true,c:C.wht});
+        T(s,'From provider dependency to your infrastructure, operations and capacity management.',
+          p3.x+18,p3.y+p3.h-52,p3.w-30,44,{s:11,c:C.mut,lh:1.2});
+        T(s,'03 / 10',1000,684,226,16,{f:FM,s:9,c:'BCB4E2',align:'right',valign:'middle'});
+      })();
+
+      // ---- SLIDE 4 — RESULTS INTEGRITY -------------------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.wht};
+        brand(s); eyebrow(s,'The hard problem',54,84);
+        T(s,'The real risk is results integrity — not just the model',54,112,1140,46,{f:FD,s:25,b:true,c:C.ind7});
+        accent(s,54,170);
+        T(s,'Integrity must hold across the whole chain, not the model alone.',54,188,560,24,{s:14,c:C.ink5});
+        var pts=[[C.dgr,[['A ',0],['correct model',1],[' + wrong, outdated or poisoned context = a wrong result.',0]]],
+                 [C.dgr,[['A ',0],['safe model',1],[' + poorly controlled prompt, RAG or tools = unsafe behavior.',0]]],
+                 [C.dgr,[['A ',0],['well-hosted model',1],[' can still be biased, misleading or low-quality.',0]]],
+                 [C.ind6,[['For agents: was the ',0],['right tool',1],[' called, with the ',0],['right permissions',1],[', at the ',0],['right time',1],['?',0]]]];
+        pts.forEach(function(d,i){ var y=226+i*46; T(s,d[0]===C.dgr?'!':'⚙',54,y,16,20,{s:14,b:true,c:d[0]});
+          RT(s,d[1],76,y,520,42,{s:12.5,c:C.ink6,lh:1.18}); });
+        S(s,54,418,560,58,C.ink05); S(s,54,418,4,58,C.ind6);
+        RT(s,[['Goal: ',1,C.ink9],['approve an AI ',0,C.ink7],['system',1,C.ink9],[' for a use case, data scope & autonomy — not certify a model in isolation.',0,C.ink7]],
+          70,426,536,46,{s:12,lh:1.2});
+        // right: integrity layers
+        T(s,'WHERE INTEGRITY CAN FAIL',664,196,560,16,{f:FM,s:10,c:C.ink4,cs:2});
+        var layers=[['🤖','Model integrity'],['📦','Packaging integrity'],['📝','Prompt integrity'],['📚','Context & RAG integrity'],['🔧','Tool & agent integrity'],['📊','Output integrity'],['👁','Monitoring integrity']];
+        layers.forEach(function(d,i){ var y=220+i*44; S(s,664,y,560,38,C.ind50); S(s,664,y,4,38,C.ind6);
+          T(s,d[0],678,y,30,38,{s:15,valign:'middle'});
+          T(s,d[1],712,y,500,38,{f:FD,s:13.5,b:true,c:C.ink9,valign:'middle'}); });
+        page(s,'04',false,'Model · Data · Prompt · Context · Tools · Output');
+      })();
+
+      // ---- SLIDE 5 — GRADED TRUST ------------------------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.wht};
+        brand(s); eyebrow(s,'Grade the trust',54,84);
+        T(s,'Trust must be graded, not assumed',54,112,1100,46,{f:FD,s:27,b:true,c:C.ind7});
+        accent(s,54,176);
+        T(s,'Trust should be proportional to use-case criticality and the level of evidence available.',54,192,1080,24,{s:13,c:C.ink5});
+        var L=[['L5','Continuous assurance','High-impact production',C.grn7,C.grn4,C.ind9,1113,C.grn50],
+               ['L4','Contractual assurance','Regulated / business-critical',C.ind7,C.ind6,C.wht,1031,C.wht],
+               ['L3','Independent testing','Sensitive internal use',C.ind6,C.ind6,C.wht,955,C.wht],
+               ['L2','Supply chain evidence','Internal productivity',C.tl5,C.tl5,C.wht,879,C.wht],
+               ['L1','Basic documentation','Low-risk experimentation',C.tl5,C.tl5,C.wht,803,C.wht],
+               ['L0','Vendor claim only','No production use',C.ink4,C.ink4,C.wht,727,C.wht]];
+        L.forEach(function(d,i){ var y=234+i*50, h=42;
+          S(s,54,y,d[6],h,d[7]==='FFFFFF'?C.wht:d[7],C.ink1,1); S(s,54,y,5,h,d[3]);
+          badge(s,68,y+11,d[0],d[4],d[5]);
+          T(s,d[1],132,y,260,h,{f:FD,s:13.5,b:true,c:C.ink9,valign:'middle'});
+          T(s,d[2],392,y,360,h,{s:12.5,c:C.ink5,valign:'middle'}); });
+        RT(s,[['Combine both: an ',0,C.ink5],['approved-model catalogue',1,C.ink9],[' × ',0,C.ink5],['use-case-specific approval',1,C.ink9],['.',0,C.ink5]],
+          54,548,1100,24,{s:12.5,lh:1.2});
+        page(s,'05',false,'From no evidence to continuous assurance');
+      })();
+
+      // ---- SLIDE 6 — DEFENSE IN DEPTH (dark) -------------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.ind8};
+        brand(s,true); eyebrow(s,'Architecture',54,84,true);
+        T(s,'Defense-in-depth for open-weight AI',54,112,1100,46,{f:FD,s:28,b:true,c:C.wht});
+        accent(s,54,176);
+        T(s,'Layered controls across the full lifecycle and runtime — no single control carries the trust.',54,192,1120,24,{s:13,c:C.mut});
+        var st=[['📥','Intake','Approved sources & trusted repos; licence & intended-use review.'],
+                ['🔍','Artifact security','Malware/serialization scans; hashes, signatures, AI-BOM.'],
+                ['🔒','Runtime','Sandboxed load; hardened containers; network & secret isolation.'],
+                ['📁','Data','Least privilege for RAG, search & document retrieval.'],
+                ['🧰','Prompt & tools','System prompts & tool permissions as sensitive config.'],
+                ['🛡','Output','Guardrails, DLP, policy validation, human review.'],
+                ['📈','Monitoring','Drift, anomalies, unexpected tool use, quality decay.']];
+        var bw=160.5;
+        st.forEach(function(d,i){ var x=54+i*(bw+8), y=240, h=200; glass(s,x,y,bw,h,'top');
+          T(s,d[0],x+12,y+12,bw-20,28,{s:18});
+          T(s,d[1],x+12,y+44,bw-20,34,{f:FD,s:12.5,b:true,c:C.wht,lh:1.05});
+          T(s,d[2],x+12,y+80,bw-22,110,{s:9.5,c:C.mut,lh:1.25}); });
+        S(s,54,470,1172,62,'15402A',C.grn7,1);
+        T(s,'🔬',66,470,40,62,{s:18,align:'center',valign:'middle'});
+        RT(s,[['For high-risk use cases, add ',0,C.wht],['internal model observability',1,C.grnLt],[' to detect deeper behavioral deviations — not just bad inputs and outputs.',0,C.wht]],
+          112,470,1100,62,{s:13,lh:1.2,valign:'middle'});
+        page(s,'06',true,'');
+      })();
+
+      // ---- SLIDE 7 — OPERATING MODEL / RACI --------------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.wht};
+        brand(s); eyebrow(s,'Target operating model',54,84);
+        T(s,'Who owns AI trust? A shared accountability model',54,112,1140,46,{f:FD,s:25,b:true,c:C.ind7});
+        accent(s,54,170);
+        T(s,'FUNCTION',66,190,230,14,{f:FM,s:9.5,c:C.ink4,cs:1});
+        T(s,'OWNS',300,190,900,14,{f:FM,s:9.5,c:C.ink4,cs:1});
+        var R=[['AI / Data Science',C.ind6,'Model selection, evaluation, benchmarking, performance monitoring',C.ink05],
+               ['Cybersecurity',C.dgr,'Threat modeling, supply-chain controls, runtime hardening, red teaming, monitoring',C.wht],
+               ['Legal & Compliance',C.ind6,'Licensing, copyright, AI Act exposure, contractual clauses, regulatory duties',C.ink05],
+               ['Data Office',C.tl5,'Data classification, RAG governance, sensitive-data exposure, retention',C.wht],
+               ['Architecture & Cloud',C.tl5,'Hosting patterns, isolation, scalability, observability, resilience',C.ink05],
+               ['Business Owner',C.grn7,'Use-case criticality, expected outcomes, acceptable risk, human validation',C.wht],
+               ['Risk & Internal Control',C.grn7,'Approval workflows, evidence retention, periodic reassessment, risk acceptance',C.ink05]];
+        R.forEach(function(d,i){ var y=210+i*44, h=40;
+          S(s,54,y,1172,h,d[3]); S(s,54,y,4,h,d[1]);
+          T(s,d[0],66,y,236,h,{f:FD,s:12.5,b:true,c:C.ind7,valign:'middle'});
+          T(s,d[2],306,y,910,h,{s:12,c:C.ink6,valign:'middle'}); });
+        S(s,54,524,1172,56,C.ind9);
+        badge(s,70,540,'Decision',C.grn4,C.ind9);
+        T(s,'Model + Use Case + Data + Autonomy + Evidence  =  Approval',186,524,1030,56,{f:FM,s:14,c:C.wht,valign:'middle'});
+        page(s,'07',false,'Approve for a class of usage — never generically');
+      })();
+
+      // ---- SLIDE 8 — MARKET THREE-WAVE (dark) ------------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.ind8};
+        brand(s,true); eyebrow(s,'Market view',54,84,true);
+        T(s,'How the market is tackling the problem',54,112,1100,46,{f:FD,s:25,b:true,c:C.wht});
+        accent(s,54,170);
+        var W=[['WAVE 1','Supply-chain security','Scan model artifacts & dependencies.',
+                [['Hugging Face',1],[' — malware, pickle & secret scanning; ',0],['Protect AI',1],[' partnership at Hub scale. ',0],['Azure AI',1],[' — HiddenLayer Model Scanner on the curated catalogue.',0]]],
+               ['WAVE 2','Runtime protection','Secure prompts, outputs, tools & runtime.',
+                [['Protect AI',1],[' — AI security lifecycle, inventory, runtime protection. ',0],['HiddenLayer',1],[' — model scanning, AI runtime security, red teaming.',0]]],
+               ['WAVE 3','Internal model observability','Observe behavior during inference.',
+                [['Realm Labs',1],[' (RSAC 2026 finalist) — “model MRI”, real-time misbehavior. ',0],['Starseer',1],[' — mechanistic interpretability, glass-box observability.',0]]]];
+        var cw=380;
+        W.forEach(function(d,i){ var x=54+i*396, y=200, h=300; glass(s,x,y,cw,h,'top');
+          T(s,d[0],x+18,y+16,cw-30,14,{f:FM,s:10,c:C.grn4,cs:1});
+          T(s,d[1],x+18,y+32,cw-30,46,{f:FD,s:16,b:true,c:C.wht,lh:1.05});
+          T(s,d[2],x+18,y+80,cw-32,20,{s:11.5,i:true,c:C.mut});
+          RT(s,d[3],x+18,y+108,cw-34,180,{s:11.5,c:C.mut,lh:1.3}); });
+        var p8=(photos.s8&&photos.s8.rect)?photos.s8.rect:{x:54,y:520,w:1172,h:64};
+        photo(s, photos.s8, function(){ S(s,p8.x,p8.y,p8.w,p8.h,C.tl7); });
+        badge(s,p8.x+16,p8.y+(p8.h-19)/2,'Direction',C.grn4,C.ind9);
+        T(s,'External guardrails → runtime protection → deeper model & runtime assurance',
+          p8.x+118,p8.y,p8.w-130,p8.h,{f:FD,s:13.5,b:true,c:C.wht,valign:'middle'});
+        page(s,'08',true,'');
+      })();
+
+      // ---- SLIDE 9 — METHODOLOGY -------------------------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.wht};
+        brand(s); eyebrow(s,'Enterprise methodology',54,84);
+        T(s,'From intake to production approval',54,112,1100,46,{f:FD,s:27,b:true,c:C.ind7});
+        accent(s,54,176);
+        T(s,'A repeatable homologation process for open-weight AI systems — the same path every time.',54,192,1080,24,{s:13,c:C.ink5});
+        S(s,70,300,1140,3,C.ind6);
+        var steps=[['01','Intake','Purpose, users, data types, decisions, autonomy level.',C.ind6],
+                   ['02','Tiering','Classify by impact, data sensitivity, regulation, automation.',C.ind6],
+                   ['03','Due diligence','Provenance, licence, intended use, known limits.',C.ind6],
+                   ['04','Supply chain','Hashes, signatures, AI-BOM, tokenizer, deps, scripts.',C.ind6],
+                   ['05','Security & safety','Bias, toxicity, hallucination, jailbreak, prompt injection.',C.dgr],
+                   ['06','Architecture','Hosting, identity, flows, RAG, logging, DLP, secrets.',C.ind6],
+                   ['07','Production gate','Business, cyber, legal, data & risk sign-off.',C.grn7],
+                   ['08','Continuous assurance','Monitor; revalidate on any change.',C.grn7]];
+        var n=8, colW=1172/n;
+        steps.forEach(function(d,i){ var cx=54+i*colW, w=colW;
+          T(s,d[0],cx,258,w,16,{f:FM,s:10,b:true,c:C.ind7,align:'center'});
+          S(s,cx+w/2-7,293,14,14,d[3]);
+          T(s,d[1],cx+3,314,w-6,30,{f:FD,s:10.5,b:true,c:C.ink9,align:'center',lh:1.05});
+          T(s,d[2],cx+3,346,w-6,110,{s:8.4,c:C.ink6,align:'center',lh:1.12}); });
+        var cards=[[C.ind6,'📋  Evidence pack','Document decisions, tests, residual risks and compensating controls before the gate.'],
+                   [C.tl5,'🤝  Cross-functional gate','No single owner approves: business, cyber, legal, data and risk decide together.'],
+                   [C.dgr,'🔄  Reassess on change','Model, prompt, RAG source, toolset or use-case change → trigger re-homologation.']];
+        var cw=378.7;
+        cards.forEach(function(d,i){ var x=54+i*396.7,y=480,h=160; card(s,x,y,cw,h);
+          T(s,d[1],x+18,y+16,cw-30,24,{f:FD,s:13,b:true,c:C.ind7});
+          T(s,d[2],x+18,y+46,cw-34,100,{s:10.5,c:C.ink5,lh:1.25}); });
+        page(s,'09',false,'Intake → Continuous assurance');
+      })();
+
+      // ---- SLIDE 10 — ROADMAP / CLOSE (dark) -------------------------------
+      (function(){
+        var s=pptx.addSlide(); s.background={color:C.ind8};
+        S(s,0,150,1280,2,'3F2AA8'); S(s,0,200,1280,2,'2A1570');
+        brand(s,true); eyebrow(s,'Implementation roadmap',54,84,true);
+        T(s,'Build the capability progressively',54,112,1100,46,{f:FD,s:28,b:true,c:C.wht});
+        accent(s,54,176);
+        var P=[['0–3 MONTHS · FRAME',['Open-weight usage policy','Risk tiers (data, impact, autonomy)','Approval workflow for high-risk','Find shadow deployments','Min. controls: sources, sandbox, scanning, restricted runtime']],
+               ['3–6 MONTHS · INDUSTRIALIZE',['Enterprise model catalogue','AI gateway for prompts / tools / RAG / outputs','DLP, logging, monitoring, escalation','AI Security Review Board']],
+               ['6–12 MONTHS · SCALE',['Automated evidence packs & reassessment','Integrate with SOC, GRC, model registry','Tools: scanning, runtime, observability','Extend to agentic & tool-calling','Project-by-project → continuous assurance']]];
+        var cw=378.7;
+        P.forEach(function(d,i){ var x=54+i*396.7,y=206,h=246; glass(s,x,y,cw,h);
+          T(s,d[0],x+18,y+18,cw-30,22,{f:FD,s:12.5,b:true,c:C.grn4,cs:1});
+          var items=d[1].map(function(t){ return {text:'•  '+t, options:{fontFace:FB,fontSize:11,color:C.mut,breakLine:true,paraSpaceAfter:6}}; });
+          s.addText(items,{x:I(x+18),y:I(y+50),w:I(cw-34),h:I(h-64),valign:'top',margin:0,lineSpacingMultiple:1.18}); });
+        T(s,'Don’t ask “Is this model safe?” — ask “For this use case, data, autonomy and evidence, is the residual risk acceptable?”',
+          54,474,820,90,{f:FD,s:18,b:true,c:C.wht,lh:1.3});
+        S(s,1085,482,9,9,C.grn4);
+        T(s,'WAVESTONE',900,474,326,24,{f:FD,s:17,b:true,c:C.wht,align:'right'});
+        T(s,'AI Security & Trust',900,502,326,16,{f:FM,s:9,c:'BCB4E2',align:'right'});
+        T(s,'10 / 10',1000,684,226,16,{f:FM,s:9,c:'BCB4E2',align:'right',valign:'middle'});
+      })();
+      setStatus('Saving CyberOpenWeight.pptx …', true);
+      await pptx.writeFile({ fileName: 'CyberOpenWeight.pptx' });
+      setStatus('✓ CyberOpenWeight.pptx — fully editable deck downloaded');
+      setTimeout(function(){ setStatus(''); }, 3000);
+    }catch(err){
+      setStatus('⚠ Export failed — could not load the PowerPoint engine.');
+      setTimeout(function(){ setStatus(''); }, 4200);
+    }finally{
+      if(captured){ stage.style.transform = prevTf; document.body.classList.remove('exporting'); go(prevCur, true); }
+      exporting = false;
+    }
+  }
+  document.getElementById('pptx').addEventListener('click', function(e){ e.stopPropagation(); exportPPTX(); });
+
+  // scale the fixed 1280x720 stage to fit the viewport (letterboxed, always whole slide)
+  function fit(){
+    var vw = window.innerWidth, vh = window.innerHeight;
+    var s = Math.min(vw/1280, vh/720);
+    stage.style.transform = 'scale('+s+')';
+  }
+  window.addEventListener('resize', fit);
+  window.addEventListener('orientationchange', function(){ setTimeout(fit, 120); });
+  fit(); go(0, false);
+})();
+</script>
+</body>
+</html>
