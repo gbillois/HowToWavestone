@@ -67,33 +67,14 @@ body{
   display:flex;
   flex-direction:column;
   opacity:0;visibility:hidden;
-  transform:scale(1.025);
-  transition:opacity .6s var(--ws-ease),transform .7s var(--ws-ease),visibility 0s linear .6s;
   z-index:1;
 }
-.slide.active{
-  opacity:1;visibility:visible;transform:scale(1);
-  transition:opacity .6s var(--ws-ease),transform .7s var(--ws-ease),visibility 0s;
-  z-index:2;
-}
+.slide.active{ opacity:1;visibility:visible;z-index:2 }
 /* cinematic depth on dark slides */
 .slide.dark{box-shadow:inset 0 0 220px rgba(8,4,26,.45)}
 
-/* ---- click-by-click builds (PowerPoint-style fragments) ---- */
-.frag{opacity:0;transform:translateY(18px);
-  transition:opacity .55s var(--ws-ease),transform .55s var(--ws-ease)}
-.frag.fade-left{transform:translateX(-26px)}
-.frag.fade-right{transform:translateX(26px)}
-.frag.zoom{transform:scale(.9)}
-.frag.show{opacity:1;transform:none}
-.frag.current{animation:fragPop .55s var(--ws-ease)}
-@keyframes fragPop{0%{opacity:0;transform:translateY(18px)}60%{opacity:1}100%{transform:translateY(0)}}
-
-@media(prefers-reduced-motion:reduce){
-  .slide,.slide.active{transition:opacity .15s linear}
-  .frag{transition:opacity .15s linear}
-  .frag.current{animation:none}
-}
+/* animations removed — content is fully shown, slides switch instantly */
+.frag{opacity:1;transform:none}
 
 /* slide chrome ---------------------------------------------------------------*/
 .brandmark{position:absolute;top:34px;left:54px;z-index:20;display:flex;align-items:center;gap:9px;
@@ -251,6 +232,33 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
 .tl .desc{font-size:12px;line-height:1.4;color:var(--ws-ink-600);margin-top:14px;padding:0 4px}
 .tl .desc b{color:var(--ws-ink-900);display:block;font-size:12.5px;margin-bottom:2px;font-family:var(--ws-font-display);font-weight:600}
 
+/* ---- flat icons ---- */
+[data-ic]{display:inline-grid;place-items:center;line-height:0}
+[data-ic] svg{width:22px;height:22px;stroke-width:2;fill:none;stroke:currentColor}
+.ico-sm[data-ic] svg{width:18px;height:18px}
+.ico-lg[data-ic] svg{width:26px;height:26px}
+
+/* ---- slide 5 concentric rings ---- */
+.ring{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:50%}
+.rtag{position:absolute;left:50%;transform:translateX(-50%);font-family:var(--ws-font-mono);font-size:11px;font-weight:700;color:var(--ws-ink-500);background:#fff;padding:0 4px}
+.lvl{display:flex;align-items:center;gap:12px;background:#fff;border:1.5px solid var(--ws-ink-100);padding:8px 14px}
+.lvl .ld{width:12px;height:12px;flex:none}
+.lvl b{font-family:var(--ws-font-display);font-size:13px;color:var(--ws-ink-900);width:218px}
+.lvl span:last-child{font-size:12px;color:var(--ws-ink-500)}
+
+/* ---- slide 6 tech diagram ---- */
+.dgx{position:absolute;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);padding:11px 13px}
+.dgx i[data-ic]{color:var(--ws-green-400)}
+.dgx b{display:block;font-family:var(--ws-font-display);font-size:12.5px;color:#fff;margin:6px 0 3px}
+.dgx span{font-size:10px;color:rgba(255,255,255,.7);line-height:1.35;display:block}
+.dgmodel{background:rgba(4,240,106,.12);border-color:rgba(4,240,106,.5)}
+.darr{position:absolute;font-size:24px;color:var(--ws-green-400)}
+.dup{position:absolute;font-size:20px;color:var(--ws-green-400)}
+
+/* ---- provider logos ---- */
+.logo{display:inline-flex;align-items:center;gap:8px;font-family:var(--ws-font-display);font-weight:600;font-size:12px;color:#fff;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);padding:4px 11px 4px 4px;margin:5px 6px 0 0}
+.logo__m{width:24px;height:24px;display:grid;place-items:center;font-size:10px;font-weight:800;font-family:var(--ws-font-display)}
+
 @media print{
   body{overflow:visible;background:#fff;display:block}
   #nav,.hint,#progress,#rotate{display:none!important}
@@ -299,24 +307,24 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
     <p class="lede" style="max-width:84ch">Open-weight gives you more <b>control over execution</b>. It does not, on its own, give you <b>trust</b> in the model or the AI system built around it.</p>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:26px;flex:1">
-      <div class="card frag" style="display:flex;flex-direction:column">
-        <h3><span class="iconbox green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg></span>What open-weight DOES give</h3>
+      <div class="card" style="display:flex;flex-direction:column">
+        <h3><span class="iconbox green"><i data-ic="check"></i></span>What open-weight DOES give</h3>
         <ul style="margin-top:10px;list-style:none;font-size:13.5px;color:var(--ws-ink-600);line-height:1.7">
-          <li>✓ Weights are accessible and can be deployed on controlled infrastructure</li>
-          <li>✓ Less dependency on a single external API provider</li>
-          <li>✓ More sovereignty over where and how inference runs</li>
+          <li style="display:flex;gap:9px"><i class="ico-sm" data-ic="check" style="color:var(--ws-green-700)"></i>Weights accessible &amp; deployable on controlled infrastructure</li>
+          <li style="display:flex;gap:9px"><i class="ico-sm" data-ic="check" style="color:var(--ws-green-700)"></i>Less dependency on a single external API provider</li>
+          <li style="display:flex;gap:9px"><i class="ico-sm" data-ic="check" style="color:var(--ws-green-700)"></i>More sovereignty over where and how inference runs</li>
         </ul>
       </div>
-      <div class="card frag" style="display:flex;flex-direction:column">
-        <h3><span class="iconbox red"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg></span>What it does NOT give</h3>
+      <div class="card" style="display:flex;flex-direction:column">
+        <h3><span class="iconbox red"><i data-ic="x"></i></span>What it does NOT give</h3>
         <ul style="margin-top:10px;list-style:none;font-size:13.5px;color:var(--ws-ink-600);line-height:1.7">
-          <li>✗ Training data, training code, eval methods or reproducibility</li>
-          <li>✗ Evidence the model is unbiased, safe, lawful or robust</li>
-          <li>✗ Any guarantee it is free from hidden behaviors</li>
+          <li style="display:flex;gap:9px"><i class="ico-sm" data-ic="x" style="color:var(--ws-danger)"></i>Training data, training code, eval methods or reproducibility</li>
+          <li style="display:flex;gap:9px"><i class="ico-sm" data-ic="x" style="color:var(--ws-danger)"></i>Evidence it is unbiased, safe, lawful or robust</li>
+          <li style="display:flex;gap:9px"><i class="ico-sm" data-ic="x" style="color:var(--ws-danger)"></i>Any guarantee it is free from hidden behaviors</li>
         </ul>
       </div>
     </div>
-    <div class="frag" style="background:var(--ws-indigo-900);padding:18px 24px;display:flex;gap:16px;align-items:center;margin-top:6px">
+    <div style="background:var(--ws-indigo-900);padding:18px 24px;display:flex;gap:16px;align-items:center;margin-top:6px">
       <span class="badge accent">The real question</span>
       <p style="font-size:15px;color:#fff;font-family:var(--ws-font-display);font-weight:600">Not &ldquo;Can we host this model?&rdquo; but &ldquo;Can we trust the results of this AI system for this use case?&rdquo;</p>
     </div>
@@ -334,22 +342,22 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
     <div class="accentbar"></div>
     <div style="display:flex;gap:26px;flex:1;margin-top:8px">
       <div style="flex:1.35;display:flex;flex-direction:column">
-        <!-- risk shift diagram -->
-        <div class="frag" style="display:flex;align-items:center;gap:16px;margin-bottom:18px">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px">
           <div style="flex:1;background:rgba(216,65,47,.16);border:1px solid rgba(216,65,47,.5);padding:14px 16px">
             <div style="font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.1em;color:#FFB4A8">FROM</div>
             <b style="font-family:var(--ws-font-display);color:#fff;font-size:15px">External API dependency</b>
           </div>
+          <i class="ico-lg" data-ic="check" style="display:none"></i>
           <div style="font-size:26px;color:var(--ws-green-400)">&rarr;</div>
           <div style="flex:1;background:rgba(4,240,106,.14);border:1px solid rgba(4,240,106,.45);padding:14px 16px">
             <div style="font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.1em;color:#9CF7C2">TO</div>
             <b style="font-family:var(--ws-font-display);color:#fff;font-size:15px">Controlled infrastructure</b>
           </div>
         </div>
-        <div class="frag" style="display:flex;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.12)"><span class="badge accent">Availability</span><p style="font-size:13px;color:rgba(255,255,255,.82)">No longer hostage to API shutdowns, usage caps, pricing changes or geopolitical access limits.</p></div>
-        <div class="frag" style="display:flex;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.12)"><span class="badge teal">Confidentiality</span><p style="font-size:13px;color:rgba(255,255,255,.82)">Prompts, documents and business data can stay inside controlled environments.</p></div>
-        <div class="frag" style="display:flex;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.12)"><span class="badge teal">Sovereignty</span><p style="font-size:13px;color:rgba(255,255,255,.82)">Runtime, storage, logging and inference operated in approved locations.</p></div>
-        <div class="frag" style="display:flex;gap:12px;padding:11px 0"><span class="badge high">Caveat</span><p style="font-size:13px;color:rgba(255,255,255,.82)">Only if the surroundings are controlled too &mdash; logs, telemetry, RAG stores, plugins, connectors, secrets.</p></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.12)"><span class="badge accent">Availability</span><p style="font-size:13px;color:rgba(255,255,255,.82)">No longer hostage to API shutdowns, usage caps, pricing or geo limits.</p></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.12)"><span class="badge teal">Confidentiality</span><p style="font-size:13px;color:rgba(255,255,255,.82)">Prompts, documents and business data can stay in controlled environments.</p></div>
+        <div style="display:flex;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.12)"><span class="badge teal">Sovereignty</span><p style="font-size:13px;color:rgba(255,255,255,.82)">Runtime, storage, logging and inference operated in approved locations.</p></div>
+        <div style="display:flex;gap:12px;padding:11px 0"><span class="badge high">Caveat</span><p style="font-size:13px;color:rgba(255,255,255,.82)">Only if surroundings are controlled too &mdash; logs, telemetry, RAG, plugins, connectors, secrets.</p></div>
       </div>
       <div class="photo" style="flex:0 0 31%;background-image:linear-gradient(160deg,rgba(45,19,128,.72),rgba(34,141,149,.5)),url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80');padding:24px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff">
         <b style="font-family:var(--ws-font-display);font-size:16px">Risk doesn't vanish &mdash; it moves</b>
@@ -370,21 +378,21 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
     <div style="display:grid;grid-template-columns:1fr 1.05fr;gap:30px;flex:1;margin-top:6px">
       <div>
         <p class="lede" style="font-size:15px">Integrity must hold across the <b>whole chain</b>, not the model alone.</p>
-        <div class="frag" style="display:flex;gap:12px;margin-top:16px;align-items:flex-start"><span style="color:var(--ws-danger);font-size:18px">!</span><p style="font-size:13.5px;color:var(--ws-ink-600)">A <b>correct model</b> + wrong, outdated or poisoned context = a wrong result.</p></div>
-        <div class="frag" style="display:flex;gap:12px;margin-top:12px;align-items:flex-start"><span style="color:var(--ws-danger);font-size:18px">!</span><p style="font-size:13.5px;color:var(--ws-ink-600)">A <b>safe model</b> + poorly controlled prompt, RAG or tools = unsafe behavior.</p></div>
-        <div class="frag" style="display:flex;gap:12px;margin-top:12px;align-items:flex-start"><span style="color:var(--ws-danger);font-size:18px">!</span><p style="font-size:13.5px;color:var(--ws-ink-600)">A <b>well-hosted model</b> can still be biased, misleading or low-quality.</p></div>
-        <div class="frag" style="display:flex;gap:12px;margin-top:12px;align-items:flex-start"><span style="color:var(--ws-indigo-600);font-size:18px">&#9881;</span><p style="font-size:13.5px;color:var(--ws-ink-600)">For agents: was the <b>right tool</b> called, with the <b>right permissions</b>, at the <b>right time</b>?</p></div>
-        <div class="frag" style="background:var(--ws-ink-50);border-left:4px solid var(--ws-indigo-600);padding:12px 16px;margin-top:16px"><p style="font-size:13px;color:var(--ws-ink-700)"><b>Goal:</b> approve an AI <b>system</b> for a use case, data scope &amp; autonomy level &mdash; not certify a model in isolation.</p></div>
+        <div style="display:flex;gap:12px;margin-top:16px;align-items:flex-start"><i class="ico-sm" data-ic="alert" style="color:var(--ws-danger)"></i><p style="font-size:13.5px;color:var(--ws-ink-600)">A <b>correct model</b> + wrong, outdated or poisoned context = a wrong result.</p></div>
+        <div style="display:flex;gap:12px;margin-top:12px;align-items:flex-start"><i class="ico-sm" data-ic="alert" style="color:var(--ws-danger)"></i><p style="font-size:13.5px;color:var(--ws-ink-600)">A <b>safe model</b> + poorly controlled prompt, RAG or tools = unsafe behavior.</p></div>
+        <div style="display:flex;gap:12px;margin-top:12px;align-items:flex-start"><i class="ico-sm" data-ic="alert" style="color:var(--ws-danger)"></i><p style="font-size:13.5px;color:var(--ws-ink-600)">A <b>well-hosted model</b> can still be biased, misleading or low-quality.</p></div>
+        <div style="display:flex;gap:12px;margin-top:12px;align-items:flex-start"><i class="ico-sm" data-ic="gear" style="color:var(--ws-indigo-600)"></i><p style="font-size:13.5px;color:var(--ws-ink-600)">For agents: was the <b>right tool</b> called, with the <b>right permissions</b>, at the <b>right time</b>?</p></div>
+        <div style="background:var(--ws-ink-50);border-left:4px solid var(--ws-indigo-600);padding:12px 16px;margin-top:16px"><p style="font-size:13px;color:var(--ws-ink-700)"><b>Goal:</b> approve an AI <b>system</b> for a use case, data scope &amp; autonomy level &mdash; not certify a model in isolation.</p></div>
       </div>
       <div style="display:flex;flex-direction:column;gap:8px;justify-content:center">
         <div style="font-family:var(--ws-font-mono);font-size:11px;letter-spacing:.1em;color:var(--ws-ink-400);text-transform:uppercase;margin-bottom:2px">Where integrity can fail</div>
-        <div class="frag" style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:11px 16px"><span style="font-size:18px">&#129302;</span><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Model integrity</b></div>
-        <div class="frag" style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:11px 16px"><span style="font-size:18px">&#128230;</span><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Packaging integrity</b></div>
-        <div class="frag" style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:11px 16px"><span style="font-size:18px">&#128221;</span><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Prompt integrity</b></div>
-        <div class="frag" style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:11px 16px"><span style="font-size:18px">&#128218;</span><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Context &amp; RAG integrity</b></div>
-        <div class="frag" style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:11px 16px"><span style="font-size:18px">&#128295;</span><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Tool &amp; agent integrity</b></div>
-        <div class="frag" style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:11px 16px"><span style="font-size:18px">&#128202;</span><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Output integrity</b></div>
-        <div class="frag" style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:11px 16px"><span style="font-size:18px">&#128064;</span><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Monitoring integrity</b></div>
+        <div style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:10px 16px"><i class="ico-sm" data-ic="cpu" style="color:var(--ws-indigo-600)"></i><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Model integrity</b></div>
+        <div style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:10px 16px"><i class="ico-sm" data-ic="box" style="color:var(--ws-indigo-600)"></i><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Packaging integrity</b></div>
+        <div style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:10px 16px"><i class="ico-sm" data-ic="doc" style="color:var(--ws-indigo-600)"></i><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Prompt integrity</b></div>
+        <div style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:10px 16px"><i class="ico-sm" data-ic="db" style="color:var(--ws-indigo-600)"></i><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Context &amp; RAG integrity</b></div>
+        <div style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:10px 16px"><i class="ico-sm" data-ic="wrench" style="color:var(--ws-indigo-600)"></i><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Tool &amp; agent integrity</b></div>
+        <div style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:10px 16px"><i class="ico-sm" data-ic="bars" style="color:var(--ws-indigo-600)"></i><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Output integrity</b></div>
+        <div style="display:flex;align-items:center;gap:12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:10px 16px"><i class="ico-sm" data-ic="eye" style="color:var(--ws-indigo-600)"></i><b style="font-family:var(--ws-font-display);font-size:14px;color:var(--ws-ink-900)">Monitoring integrity</b></div>
       </div>
     </div>
   </div>
@@ -392,48 +400,75 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
   <div class="kicker">Model &middot; Data &middot; Prompt &middot; Context &middot; Tools &middot; Output</div>
 </section>
 
-<!-- ================= SLIDE 5 — GRADED TRUST ================= -->
+<!-- ================= SLIDE 5 — GRADED TRUST (concentric) ================= -->
 <section class="slide" id="s5">
   <div class="brandmark"><span class="dot"></span>WAVESTONE &middot; AI Security &amp; Trust</div>
   <div class="body">
     <span class="eyebrow" style="color:var(--ws-indigo-700)">Grade the trust</span>
     <h2 class="head" style="margin-top:14px">Trust must be graded, not assumed</h2>
     <div class="accentbar"></div>
-    <p class="lede" style="max-width:84ch">Trust should be <b>proportional</b> to use-case criticality and the level of evidence available &mdash; from a vendor claim to continuous assurance.</p>
-    <div style="display:flex;flex-direction:column-reverse;gap:9px;margin-top:18px;flex:1;justify-content:center">
-      <div class="frag" style="display:flex;align-items:center;gap:16px;background:#fff;border:1.5px solid var(--ws-ink-100);border-left:5px solid var(--ws-ink-300);padding:9px 16px;width:62%"><span class="badge" style="background:var(--ws-ink-400);color:#fff">L0</span><b style="font-family:var(--ws-font-display);font-size:13.5px;color:var(--ws-ink-900);width:200px">Vendor claim only</b><span style="font-size:12.5px;color:var(--ws-ink-500)">No production use</span></div>
-      <div class="frag" style="display:flex;align-items:center;gap:16px;background:#fff;border:1.5px solid var(--ws-ink-100);border-left:5px solid var(--ws-teal-300);padding:9px 16px;width:68.5%"><span class="badge teal">L1</span><b style="font-family:var(--ws-font-display);font-size:13.5px;color:var(--ws-ink-900);width:200px">Basic documentation</b><span style="font-size:12.5px;color:var(--ws-ink-500)">Low-risk experimentation</span></div>
-      <div class="frag" style="display:flex;align-items:center;gap:16px;background:#fff;border:1.5px solid var(--ws-ink-100);border-left:5px solid var(--ws-teal-500);padding:9px 16px;width:75%"><span class="badge teal">L2</span><b style="font-family:var(--ws-font-display);font-size:13.5px;color:var(--ws-ink-900);width:200px">Supply chain evidence</b><span style="font-size:12.5px;color:var(--ws-ink-500)">Internal productivity</span></div>
-      <div class="frag" style="display:flex;align-items:center;gap:16px;background:#fff;border:1.5px solid var(--ws-ink-100);border-left:5px solid var(--ws-indigo-500);padding:9px 16px;width:81.5%"><span class="badge primary">L3</span><b style="font-family:var(--ws-font-display);font-size:13.5px;color:var(--ws-ink-900);width:200px">Independent testing</b><span style="font-size:12.5px;color:var(--ws-ink-500)">Sensitive internal use</span></div>
-      <div class="frag" style="display:flex;align-items:center;gap:16px;background:#fff;border:1.5px solid var(--ws-ink-100);border-left:5px solid var(--ws-indigo-700);padding:9px 16px;width:88%"><span class="badge primary">L4</span><b style="font-family:var(--ws-font-display);font-size:13.5px;color:var(--ws-ink-900);width:200px">Contractual assurance</b><span style="font-size:12.5px;color:var(--ws-ink-500)">Regulated / business-critical</span></div>
-      <div class="frag" style="display:flex;align-items:center;gap:16px;background:var(--ws-green-50);border:1.5px solid var(--ws-green-300);border-left:5px solid var(--ws-green-700);padding:9px 16px;width:95%"><span class="badge accent">L5</span><b style="font-family:var(--ws-font-display);font-size:13.5px;color:var(--ws-ink-900);width:200px">Continuous assurance</b><span style="font-size:12.5px;color:var(--ws-ink-600)">High-impact production</span></div>
+    <div style="display:flex;gap:44px;flex:1;align-items:center">
+      <div style="position:relative;width:392px;height:392px;flex:none">
+        <div class="ring" style="width:392px;height:392px;border:3px solid var(--ws-ink-300)"></div>
+        <div class="ring" style="width:326px;height:326px;border:3px solid var(--ws-teal-300)"></div>
+        <div class="ring" style="width:262px;height:262px;border:3px solid var(--ws-teal-500)"></div>
+        <div class="ring" style="width:198px;height:198px;border:3px solid var(--ws-indigo-500)"></div>
+        <div class="ring" style="width:134px;height:134px;border:3px solid var(--ws-indigo-700)"></div>
+        <div class="ring" style="width:74px;height:74px;border:3px solid var(--ws-green-700);background:var(--ws-green-400)"></div>
+        <div class="rtag" style="top:2px">L0</div>
+        <div class="rtag" style="top:35px">L1</div>
+        <div class="rtag" style="top:67px">L2</div>
+        <div class="rtag" style="top:99px">L3</div>
+        <div class="rtag" style="top:131px">L4</div>
+        <div class="rtag" style="top:182px;color:var(--ws-indigo-900)">L5</div>
+      </div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:7px">
+        <div class="lvl"><span class="ld" style="background:var(--ws-ink-400)"></span><b>L0 &middot; Vendor claim only</b><span>No production use</span></div>
+        <div class="lvl"><span class="ld" style="background:var(--ws-teal-300)"></span><b>L1 &middot; Basic documentation</b><span>Low-risk experimentation</span></div>
+        <div class="lvl"><span class="ld" style="background:var(--ws-teal-500)"></span><b>L2 &middot; Supply chain evidence</b><span>Internal productivity</span></div>
+        <div class="lvl"><span class="ld" style="background:var(--ws-indigo-500)"></span><b>L3 &middot; Independent testing</b><span>Sensitive internal use</span></div>
+        <div class="lvl"><span class="ld" style="background:var(--ws-indigo-700)"></span><b>L4 &middot; Contractual assurance</b><span>Regulated / business-critical</span></div>
+        <div class="lvl" style="background:var(--ws-green-50);border-color:var(--ws-green-300)"><span class="ld" style="background:var(--ws-green-700)"></span><b>L5 &middot; Continuous assurance</b><span>High-impact production</span></div>
+        <p style="font-size:12px;color:var(--ws-ink-500);margin-top:6px">Combine both: an <b>approved-model catalogue</b> &times; <b>use-case-specific approval</b>.</p>
+      </div>
     </div>
-    <p class="frag" style="font-size:12.5px;color:var(--ws-ink-500);margin-top:4px">Combine both: an <b>approved-model catalogue</b> &times; <b>use-case-specific approval</b>.</p>
   </div>
   <div class="pagenum">05 / 10</div>
-  <div class="kicker">From no evidence to continuous assurance</div>
+  <div class="kicker">Deeper trust requires deeper evidence</div>
 </section>
 
-<!-- ================= SLIDE 6 — DEFENSE IN DEPTH (dark) ================= -->
+<!-- ================= SLIDE 6 — DEFENSE IN DEPTH (tech diagram, dark) ================= -->
 <section class="slide dark" id="s6" style="background:var(--ws-gradient-brand)">
   <div class="brandmark"><span class="dot"></span>WAVESTONE &middot; AI Security &amp; Trust</div>
   <div class="body">
     <span class="eyebrow">Architecture</span>
-    <h2 class="head" style="margin-top:14px;font-size:36px">Defense-in-depth for open-weight AI</h2>
+    <h2 class="head" style="margin-top:14px;font-size:34px">Defense-in-depth for open-weight AI</h2>
     <div class="accentbar"></div>
-    <p class="lede" style="max-width:86ch;color:rgba(255,255,255,.8)">Layered controls across the full lifecycle and runtime &mdash; no single control carries the trust.</p>
-    <div style="display:flex;gap:8px;align-items:stretch;margin-top:20px">
-      <div class="frag" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:14px 12px"><div style="font-size:20px">&#128229;</div><b style="display:block;font-family:var(--ws-font-display);font-size:13px;color:#fff;margin:8px 0 4px">Intake</b><p style="font-size:10.5px;color:rgba(255,255,255,.72);line-height:1.35">Approved sources &amp; trusted repos; licence &amp; intended-use review.</p></div>
-      <div class="frag" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:14px 12px"><div style="font-size:20px">&#128270;</div><b style="display:block;font-family:var(--ws-font-display);font-size:13px;color:#fff;margin:8px 0 4px">Artifact security</b><p style="font-size:10.5px;color:rgba(255,255,255,.72);line-height:1.35">Malware/serialization scans; hashes, signatures, AI-BOM.</p></div>
-      <div class="frag" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:14px 12px"><div style="font-size:20px">&#128274;</div><b style="display:block;font-family:var(--ws-font-display);font-size:13px;color:#fff;margin:8px 0 4px">Runtime</b><p style="font-size:10.5px;color:rgba(255,255,255,.72);line-height:1.35">Sandboxed load; hardened containers; network &amp; secret isolation.</p></div>
-      <div class="frag" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:14px 12px"><div style="font-size:20px">&#128193;</div><b style="display:block;font-family:var(--ws-font-display);font-size:13px;color:#fff;margin:8px 0 4px">Data</b><p style="font-size:10.5px;color:rgba(255,255,255,.72);line-height:1.35">Least privilege for RAG, search &amp; document retrieval.</p></div>
-      <div class="frag" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:14px 12px"><div style="font-size:20px">&#129520;</div><b style="display:block;font-family:var(--ws-font-display);font-size:13px;color:#fff;margin:8px 0 4px">Prompt &amp; tools</b><p style="font-size:10.5px;color:rgba(255,255,255,.72);line-height:1.35">System prompts &amp; tool permissions governed as sensitive config.</p></div>
-      <div class="frag" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:14px 12px"><div style="font-size:20px">&#128737;</div><b style="display:block;font-family:var(--ws-font-display);font-size:13px;color:#fff;margin:8px 0 4px">Output</b><p style="font-size:10.5px;color:rgba(255,255,255,.72);line-height:1.35">Guardrails, DLP, policy validation, human review.</p></div>
-      <div class="frag" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:14px 12px"><div style="font-size:20px">&#128200;</div><b style="display:block;font-family:var(--ws-font-display);font-size:13px;color:#fff;margin:8px 0 4px">Monitoring</b><p style="font-size:10.5px;color:rgba(255,255,255,.72);line-height:1.35">Drift, anomalies, unexpected tool use, quality decay.</p></div>
-    </div>
-    <div class="frag" style="background:rgba(4,240,106,.12);border:1px solid rgba(4,240,106,.35);padding:14px 22px;display:flex;gap:14px;align-items:center;margin-top:18px">
-      <span style="font-size:20px">&#128300;</span>
-      <p style="font-size:13px;color:#fff">For high-risk use cases, add <b>internal model observability</b> to detect deeper behavioral deviations &mdash; not just bad inputs and outputs.</p>
+    <div style="position:relative;flex:1;margin-top:6px">
+      <!-- lifecycle inputs -->
+      <div class="dgx" style="left:0;top:104px;width:150px"><i data-ic="inbox"></i><b>Intake</b><span>Approved sources &amp; licence review</span></div>
+      <div class="darr" style="left:152px;top:132px">&rarr;</div>
+      <div class="dgx" style="left:178px;top:104px;width:150px"><i data-ic="scan"></i><b>Artifact security</b><span>Scans, hashes, signatures, AI-BOM</span></div>
+      <div class="darr" style="left:330px;top:132px">&rarr;</div>
+      <!-- runtime sandbox container -->
+      <div style="position:absolute;left:356px;top:22px;width:486px;height:264px;border:1.5px dashed rgba(4,240,106,.55);background:rgba(255,255,255,.04)">
+        <div style="position:absolute;top:-11px;left:16px;background:#2D1380;padding:0 10px;font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.1em;color:var(--ws-green-400)">RUNTIME &middot; SANDBOXED &middot; ISOLATED</div>
+        <div class="dgx dgmodel" style="left:153px;top:34px;width:180px"><i data-ic="cpu"></i><b>Open-weight model</b><span>Sandboxed load, hardened container</span></div>
+        <div class="dgx" style="left:24px;top:158px;width:200px"><i data-ic="folder"></i><b>Data &middot; RAG</b><span>Least-privilege retrieval</span></div>
+        <div class="dgx" style="left:262px;top:158px;width:200px"><i data-ic="toolbox"></i><b>Prompt &amp; tools</b><span>Permissions as sensitive config</span></div>
+        <div class="dup" style="left:104px;top:120px">&uarr;</div>
+        <div class="dup" style="left:352px;top:120px">&uarr;</div>
+      </div>
+      <div class="darr" style="left:844px;top:132px">&rarr;</div>
+      <div class="dgx" style="left:870px;top:104px;width:150px"><i data-ic="shield"></i><b>Output</b><span>Guardrails, DLP, human review</span></div>
+      <!-- monitoring baseline -->
+      <div style="position:absolute;left:0;top:300px;width:1020px;height:48px;background:rgba(4,240,106,.1);border:1px solid rgba(4,240,106,.4);display:flex;align-items:center;gap:12px;padding:0 18px">
+        <i data-ic="pulse" style="color:var(--ws-green-400)"></i><b style="font-family:var(--ws-font-display);font-size:13px;color:#fff">Continuous monitoring &amp; internal model observability</b><span style="font-size:11px;color:rgba(255,255,255,.7)">&mdash; drift, anomalies, unexpected tool use, behavioral deviation</span>
+      </div>
+      <div style="position:absolute;left:1042px;top:96px;width:130px;text-align:center">
+        <i data-ic="lock" style="color:var(--ws-green-400);transform:scale(1.4)"></i>
+        <p style="font-size:11px;color:rgba(255,255,255,.72);margin-top:14px;line-height:1.4">No single layer carries the trust</p>
+      </div>
     </div>
   </div>
   <div class="pagenum" style="color:rgba(255,255,255,.6)">06 / 10</div>
@@ -448,15 +483,15 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
     <div class="accentbar"></div>
     <div style="margin-top:14px;flex:1;display:flex;flex-direction:column;gap:6px">
       <div style="display:flex;gap:10px;font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ws-ink-400);padding:0 14px"><span style="width:230px">Function</span><span style="flex:1">Owns</span></div>
-      <div class="frag" style="display:flex;gap:10px;align-items:center;background:var(--ws-ink-50);padding:9px 14px;border-left:4px solid var(--ws-indigo-600)"><b style="width:230px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">AI / Data Science</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Model selection, evaluation, benchmarking, performance monitoring</span></div>
-      <div class="frag" style="display:flex;gap:10px;align-items:center;background:#fff;padding:9px 14px;border-left:4px solid var(--ws-danger)"><b style="width:230px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">Cybersecurity</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Threat modeling, supply-chain controls, runtime hardening, red teaming, monitoring</span></div>
-      <div class="frag" style="display:flex;gap:10px;align-items:center;background:var(--ws-ink-50);padding:9px 14px;border-left:4px solid var(--ws-indigo-600)"><b style="width:230px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">Legal &amp; Compliance</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Licensing, copyright, AI Act exposure, contractual clauses, regulatory duties</span></div>
-      <div class="frag" style="display:flex;gap:10px;align-items:center;background:#fff;padding:9px 14px;border-left:4px solid var(--ws-teal-500)"><b style="width:230px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">Data Office</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Data classification, RAG governance, sensitive-data exposure, retention</span></div>
-      <div class="frag" style="display:flex;gap:10px;align-items:center;background:var(--ws-ink-50);padding:9px 14px;border-left:4px solid var(--ws-teal-500)"><b style="width:230px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">Architecture &amp; Cloud</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Hosting patterns, isolation, scalability, observability, resilience</span></div>
-      <div class="frag" style="display:flex;gap:10px;align-items:center;background:#fff;padding:9px 14px;border-left:4px solid var(--ws-green-700)"><b style="width:230px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">Business Owner</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Use-case criticality, expected outcomes, acceptable risk, human validation</span></div>
-      <div class="frag" style="display:flex;gap:10px;align-items:center;background:var(--ws-ink-50);padding:9px 14px;border-left:4px solid var(--ws-green-700)"><b style="width:230px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">Risk &amp; Internal Control</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Approval workflows, evidence retention, periodic reassessment, risk acceptance</span></div>
+      <div style="display:flex;gap:12px;align-items:center;background:var(--ws-ink-50);padding:9px 14px;border-left:4px solid var(--ws-indigo-600)"><i class="ico-sm" data-ic="cpu" style="color:var(--ws-indigo-600)"></i><b style="width:212px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">AI / Data Science</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Model selection, evaluation, benchmarking, performance monitoring</span></div>
+      <div style="display:flex;gap:12px;align-items:center;background:#fff;padding:9px 14px;border-left:4px solid var(--ws-danger)"><i class="ico-sm" data-ic="shield" style="color:var(--ws-danger)"></i><b style="width:212px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">Cybersecurity</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Threat modeling, supply-chain controls, runtime hardening, red teaming</span></div>
+      <div style="display:flex;gap:12px;align-items:center;background:var(--ws-ink-50);padding:9px 14px;border-left:4px solid var(--ws-indigo-600)"><i class="ico-sm" data-ic="flag" style="color:var(--ws-indigo-600)"></i><b style="width:212px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">Legal &amp; Compliance</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Licensing, copyright, AI Act exposure, contractual clauses, regulatory duties</span></div>
+      <div style="display:flex;gap:12px;align-items:center;background:#fff;padding:9px 14px;border-left:4px solid var(--ws-teal-500)"><i class="ico-sm" data-ic="db" style="color:var(--ws-teal-700)"></i><b style="width:212px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">Data Office</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Data classification, RAG governance, sensitive-data exposure, retention</span></div>
+      <div style="display:flex;gap:12px;align-items:center;background:var(--ws-ink-50);padding:9px 14px;border-left:4px solid var(--ws-teal-500)"><i class="ico-sm" data-ic="cloud" style="color:var(--ws-teal-700)"></i><b style="width:212px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">Architecture &amp; Cloud</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Hosting patterns, isolation, scalability, observability, resilience</span></div>
+      <div style="display:flex;gap:12px;align-items:center;background:#fff;padding:9px 14px;border-left:4px solid var(--ws-green-700)"><i class="ico-sm" data-ic="target" style="color:var(--ws-green-700)"></i><b style="width:212px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">Business Owner</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Use-case criticality, expected outcomes, acceptable risk, human validation</span></div>
+      <div style="display:flex;gap:12px;align-items:center;background:var(--ws-ink-50);padding:9px 14px;border-left:4px solid var(--ws-green-700)"><i class="ico-sm" data-ic="clipboard" style="color:var(--ws-green-700)"></i><b style="width:212px;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-indigo-700)">Risk &amp; Internal Control</b><span style="flex:1;font-size:12.5px;color:var(--ws-ink-600)">Approval workflows, evidence retention, periodic reassessment, risk acceptance</span></div>
     </div>
-    <div class="frag" style="background:var(--ws-indigo-900);padding:14px 22px;display:flex;gap:14px;align-items:center;margin-top:8px">
+    <div style="background:var(--ws-indigo-900);padding:14px 22px;display:flex;gap:14px;align-items:center;margin-top:8px">
       <span class="badge accent">Decision</span>
       <p style="font-size:14px;color:#fff;font-family:var(--ws-font-mono)">Model + Use Case + Data + Autonomy + Evidence&nbsp;&nbsp;=&nbsp;&nbsp;Approval</p>
     </div>
@@ -465,7 +500,7 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
   <div class="kicker">Approve for a class of usage &mdash; never generically</div>
 </section>
 
-<!-- ================= SLIDE 8 — MARKET THREE-WAVE (dark) ================= -->
+<!-- ================= SLIDE 8 — MARKET THREE-WAVE + LOGOS (dark) ================= -->
 <section class="slide dark" id="s8" style="background:var(--ws-gradient-brand-flat)">
   <div class="brandmark"><span class="dot"></span>WAVESTONE &middot; AI Security &amp; Trust</div>
   <div class="body">
@@ -473,9 +508,34 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
     <h2 class="head" style="margin-top:14px;font-size:34px">How the market is tackling the problem</h2>
     <div class="accentbar"></div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px">
-      <div class="frag" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:18px"><div style="font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.12em;color:var(--ws-green-400)">WAVE 1</div><b style="display:block;font-family:var(--ws-font-display);font-size:16px;color:#fff;margin:6px 0 10px">Supply-chain security</b><p style="font-size:12px;color:rgba(255,255,255,.78);line-height:1.45">Scan model artifacts &amp; dependencies.<br><br><b style="color:#fff">Hugging Face</b> — malware, pickle &amp; secret scanning; <b style="color:#fff">Protect AI</b> partnership at Hub scale.<br><b style="color:#fff">Azure AI</b> — HiddenLayer Model Scanner on the curated catalogue.</p></div>
-      <div class="frag" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:18px"><div style="font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.12em;color:var(--ws-green-400)">WAVE 2</div><b style="display:block;font-family:var(--ws-font-display);font-size:16px;color:#fff;margin:6px 0 10px">Runtime protection</b><p style="font-size:12px;color:rgba(255,255,255,.78);line-height:1.45">Secure prompts, outputs, tools &amp; runtime.<br><br><b style="color:#fff">Protect AI</b> — AI security lifecycle, inventory, runtime protection.<br><b style="color:#fff">HiddenLayer</b> — model scanning, AI runtime security, red teaming.</p></div>
-      <div class="frag" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:18px"><div style="font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.12em;color:var(--ws-green-400)">WAVE 3</div><b style="display:block;font-family:var(--ws-font-display);font-size:16px;color:#fff;margin:6px 0 10px">Internal model observability</b><p style="font-size:12px;color:rgba(255,255,255,.78);line-height:1.45">Observe behavior <i>during</i> inference.<br><br><b style="color:#fff">Realm Labs</b> (RSAC 2026 finalist) — &ldquo;model MRI&rdquo;, real-time misbehavior.<br><b style="color:#fff">Starseer</b> — mechanistic interpretability, glass-box observability.</p></div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:18px;display:flex;flex-direction:column">
+        <div style="display:flex;align-items:center;gap:10px"><i data-ic="scan" style="color:var(--ws-green-400)"></i><div style="font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.12em;color:var(--ws-green-400)">WAVE 1</div></div>
+        <b style="display:block;font-family:var(--ws-font-display);font-size:16px;color:#fff;margin:8px 0 4px">Supply-chain security</b>
+        <p style="font-size:11.5px;color:rgba(255,255,255,.74);line-height:1.4">Scan model artifacts &amp; dependencies &mdash; malware, pickle &amp; secret scanning.</p>
+        <div style="margin-top:auto;padding-top:12px">
+          <span class="logo"><span class="logo__m" style="background:#FFB000;color:#1E0D57">HF</span>Hugging&nbsp;Face</span>
+          <span class="logo"><span class="logo__m" style="background:#2E8DEF;color:#fff">AZ</span>Azure&nbsp;AI</span>
+          <span class="logo"><span class="logo__m" style="background:#6C4BF0;color:#fff">PA</span>Protect&nbsp;AI</span>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:18px;display:flex;flex-direction:column">
+        <div style="display:flex;align-items:center;gap:10px"><i data-ic="shieldcheck" style="color:var(--ws-green-400)"></i><div style="font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.12em;color:var(--ws-green-400)">WAVE 2</div></div>
+        <b style="display:block;font-family:var(--ws-font-display);font-size:16px;color:#fff;margin:8px 0 4px">Runtime protection</b>
+        <p style="font-size:11.5px;color:rgba(255,255,255,.74);line-height:1.4">Secure prompts, outputs, tools &amp; runtime; inventory and red teaming.</p>
+        <div style="margin-top:auto;padding-top:12px">
+          <span class="logo"><span class="logo__m" style="background:#6C4BF0;color:#fff">PA</span>Protect&nbsp;AI</span>
+          <span class="logo"><span class="logo__m" style="background:#16A99B;color:#fff">HL</span>HiddenLayer</span>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-top:3px solid var(--ws-green-400);padding:18px;display:flex;flex-direction:column">
+        <div style="display:flex;align-items:center;gap:10px"><i data-ic="pulse" style="color:var(--ws-green-400)"></i><div style="font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.12em;color:var(--ws-green-400)">WAVE 3</div></div>
+        <b style="display:block;font-family:var(--ws-font-display);font-size:16px;color:#fff;margin:8px 0 4px">Internal model observability</b>
+        <p style="font-size:11.5px;color:rgba(255,255,255,.74);line-height:1.4">Observe behavior <i>during</i> inference &mdash; the &ldquo;model MRI&rdquo; category.</p>
+        <div style="margin-top:auto;padding-top:12px">
+          <span class="logo"><span class="logo__m" style="background:#04F06A;color:#0c0820">RL</span>Realm&nbsp;Labs</span>
+          <span class="logo"><span class="logo__m" style="background:#E8557A;color:#fff">ST</span>Starseer</span>
+        </div>
+      </div>
     </div>
     <div class="photo" style="margin-top:16px;background-image:linear-gradient(100deg,rgba(30,13,87,.9),rgba(34,141,149,.5)),url('https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1100&q=80');padding:16px 24px;display:flex;align-items:center;gap:16px">
       <span class="badge accent">Direction</span>
@@ -496,20 +556,20 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
     <div class="tl">
       <div class="axis"></div>
       <div class="steps">
-        <div class="step frag"><div class="date">01</div><div class="node"></div><div class="desc"><b>Intake</b>Purpose, users, data types, decisions, autonomy level.</div></div>
-        <div class="step frag"><div class="date">02</div><div class="node"></div><div class="desc"><b>Tiering</b>Classify by impact, data sensitivity, regulation, automation.</div></div>
-        <div class="step frag"><div class="date">03</div><div class="node"></div><div class="desc"><b>Due diligence</b>Provenance, licence, intended use, known limits.</div></div>
-        <div class="step frag"><div class="date">04</div><div class="node"></div><div class="desc"><b>Supply chain</b>Hashes, signatures, AI-BOM, tokenizer, deps, scripts.</div></div>
-        <div class="step crit frag"><div class="date">05</div><div class="node"></div><div class="desc"><b>Security &amp; safety tests</b>Bias, toxicity, hallucination, jailbreak, prompt injection.</div></div>
-        <div class="step frag"><div class="date">06</div><div class="node"></div><div class="desc"><b>Architecture review</b>Hosting, identity, flows, RAG, logging, DLP, secrets.</div></div>
-        <div class="step good frag"><div class="date">07</div><div class="node"></div><div class="desc"><b>Production gate</b>Business, cyber, legal, data &amp; risk sign-off.</div></div>
-        <div class="step good frag"><div class="date">08</div><div class="node"></div><div class="desc"><b>Continuous assurance</b>Monitor; revalidate on any change.</div></div>
+        <div class="step"><div class="date">01</div><div class="node"></div><div class="desc"><b>Intake</b>Purpose, users, data types, decisions, autonomy level.</div></div>
+        <div class="step"><div class="date">02</div><div class="node"></div><div class="desc"><b>Tiering</b>Classify by impact, data sensitivity, regulation, automation.</div></div>
+        <div class="step"><div class="date">03</div><div class="node"></div><div class="desc"><b>Due diligence</b>Provenance, licence, intended use, known limits.</div></div>
+        <div class="step"><div class="date">04</div><div class="node"></div><div class="desc"><b>Supply chain</b>Hashes, signatures, AI-BOM, tokenizer, deps, scripts.</div></div>
+        <div class="step crit"><div class="date">05</div><div class="node"></div><div class="desc"><b>Security &amp; safety tests</b>Bias, toxicity, hallucination, jailbreak, prompt injection.</div></div>
+        <div class="step"><div class="date">06</div><div class="node"></div><div class="desc"><b>Architecture review</b>Hosting, identity, flows, RAG, logging, DLP, secrets.</div></div>
+        <div class="step good"><div class="date">07</div><div class="node"></div><div class="desc"><b>Production gate</b>Business, cyber, legal, data &amp; risk sign-off.</div></div>
+        <div class="step good"><div class="date">08</div><div class="node"></div><div class="desc"><b>Continuous assurance</b>Monitor; revalidate on any change.</div></div>
       </div>
     </div>
     <div style="display:flex;gap:18px;margin-top:6px">
-      <div class="card frag" style="flex:1"><h3><span style="color:var(--ws-indigo-600)">&#128203;</span> Evidence pack</h3><p>Document decisions, tests, residual risks and compensating controls before the gate.</p></div>
-      <div class="card frag" style="flex:1"><h3><span style="color:var(--ws-teal-500)">&#129309;</span> Cross-functional gate</h3><p>No single owner approves: business, cyber, legal, data and risk decide together.</p></div>
-      <div class="card frag" style="flex:1"><h3><span style="color:var(--ws-danger)">&#128260;</span> Reassess on change</h3><p>Model, prompt, RAG source, toolset or use-case change &rarr; trigger re-homologation.</p></div>
+      <div class="card" style="flex:1"><h3><span class="iconbox indigo"><i data-ic="clipboard"></i></span>Evidence pack</h3><p>Document decisions, tests, residual risks and compensating controls before the gate.</p></div>
+      <div class="card" style="flex:1"><h3><span class="iconbox teal"><i data-ic="users"></i></span>Cross-functional gate</h3><p>No single owner approves: business, cyber, legal, data and risk decide together.</p></div>
+      <div class="card" style="flex:1"><h3><span class="iconbox red"><i data-ic="refresh"></i></span>Reassess on change</h3><p>Model, prompt, RAG source, toolset or use-case change &rarr; trigger re-homologation.</p></div>
     </div>
   </div>
   <div class="pagenum">09 / 10</div>
@@ -528,7 +588,7 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
     <h2 class="head" style="margin-top:14px;font-size:36px">Build the capability progressively</h2>
     <div class="accentbar"></div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:16px;flex:1;align-content:center">
-      <div class="frag" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);padding:20px">
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);padding:20px;border-top:3px solid var(--ws-green-400)">
         <b style="display:block;font-family:var(--ws-font-display);color:var(--ws-green-400);font-size:14px">0&ndash;3 MONTHS &middot; FRAME</b>
         <ul style="margin-top:10px;list-style:none;font-size:12px;color:rgba(255,255,255,.82);line-height:1.55">
           <li>&bull; Open-weight usage policy</li>
@@ -538,7 +598,7 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
           <li>&bull; Min. controls: sources, sandbox, scanning, restricted runtime</li>
         </ul>
       </div>
-      <div class="frag" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);padding:20px">
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);padding:20px;border-top:3px solid var(--ws-green-400)">
         <b style="display:block;font-family:var(--ws-font-display);color:var(--ws-green-400);font-size:14px">3&ndash;6 MONTHS &middot; INDUSTRIALIZE</b>
         <ul style="margin-top:10px;list-style:none;font-size:12px;color:rgba(255,255,255,.82);line-height:1.55">
           <li>&bull; Enterprise model catalogue</li>
@@ -547,7 +607,7 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
           <li>&bull; AI Security Review Board</li>
         </ul>
       </div>
-      <div class="frag" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);padding:20px">
+      <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);padding:20px;border-top:3px solid var(--ws-green-400)">
         <b style="display:block;font-family:var(--ws-font-display);color:var(--ws-green-400);font-size:14px">6&ndash;12 MONTHS &middot; SCALE</b>
         <ul style="margin-top:10px;list-style:none;font-size:12px;color:rgba(255,255,255,.82);line-height:1.55">
           <li>&bull; Automated evidence packs &amp; reassessment</li>
@@ -602,6 +662,43 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
 
 <script>
 (function(){
+  // ---- flat line-icon set (shared by the page and the PPTX export) ----
+  var ICON = {
+    check:'<path d="M20 6 9 17l-5-5"/>',
+    x:'<path d="M18 6 6 18M6 6l12 12"/>',
+    cpu:'<rect x="5" y="5" width="14" height="14" rx="1"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/>',
+    box:'<path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>',
+    doc:'<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M9 13h7M9 17h5"/>',
+    db:'<ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
+    wrench:'<path d="M15 6.5a4 4 0 0 0 4.8 4.8L11 20a2.4 2.4 0 0 1-3.4-3.4l8.7-8.7A4 4 0 0 1 15 6.5z"/>',
+    bars:'<path d="M3 21h18"/><rect x="5" y="11" width="3" height="7"/><rect x="11" y="6" width="3" height="12"/><rect x="17" y="14" width="3" height="4"/>',
+    eye:'<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+    inbox:'<path d="M4 13l3-9h10l3 9v6H4z"/><path d="M4 13h5l1 2h4l1-2h5"/>',
+    scan:'<path d="M4 8V4h4M20 8V4h-4M4 16v4h4M20 16v4h-4"/><circle cx="11" cy="11" r="3"/><path d="M13.5 13.5 16 16"/>',
+    lock:'<rect x="4" y="10" width="16" height="11"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
+    folder:'<path d="M3 7h6l2 2h10v10H3z"/>',
+    toolbox:'<rect x="3" y="8" width="18" height="12"/><path d="M8 8V5h8v3M3 13h18M10 13v2h4v-2"/>',
+    shield:'<path d="M12 3 5 6v6c0 4 3 6.5 7 8 4-1.5 7-4 7-8V6z"/>',
+    shieldcheck:'<path d="M12 3 5 6v6c0 4 3 6.5 7 8 4-1.5 7-4 7-8V6z"/><path d="M9 12l2 2 4-4"/>',
+    trend:'<path d="M3 17l5-5 4 4 7-8"/><path d="M16 8h5v5"/>',
+    pulse:'<path d="M3 12h4l2-6 4 14 2-8h6"/>',
+    clipboard:'<rect x="5" y="4" width="14" height="17"/><rect x="9" y="2" width="6" height="4"/><path d="M9 11h6M9 15h5"/>',
+    users:'<circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M2 20a6 6 0 0 1 12 0M10 20a6 6 0 0 1 12 0"/>',
+    refresh:'<path d="M20.5 12a8.5 8.5 0 1 1-2.4-5.9M20.5 4v4h-4"/>',
+    gear:'<circle cx="12" cy="12" r="3.2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/>',
+    alert:'<path d="M12 3 2 20h20z"/><path d="M12 10v5M12 18h.01"/>',
+    cloud:'<path d="M7 18a4 4 0 0 1 0-8 5 5 0 0 1 9.5-1.5A3.5 3.5 0 0 1 18 18z"/>',
+    key:'<circle cx="8" cy="15" r="5"/><path d="M11.5 11.5 21 2M17 6l3 3"/>',
+    globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>',
+    flag:'<path d="M5 21V4M5 4h13l-2.5 4L18 12H5"/>',
+    layers:'<path d="M12 3 3 8l9 5 9-5z"/><path d="M3 13l9 5 9-5"/>',
+    network:'<circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M6 8.5v2a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3v-2M12 13.5v2"/>',
+    target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4"/>'
+  };
+  function svgOf(name, col){
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="'+(col||'currentColor')+
+      '" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+(ICON[name]||'')+'</svg>';
+  }
   var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
   var total = slides.length, cur = 0;
   var dots = document.getElementById('dots');
@@ -612,51 +709,25 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
 
   slides.forEach(function(_,i){
     var d = document.createElement('span');
-    d.addEventListener('click', function(){ go(i, i < cur); });
+    d.addEventListener('click', function(){ go(i); });
     dots.appendChild(d);
   });
   var dotEls = dots.children;
 
+  // inject flat icons into [data-ic] placeholders
+  document.querySelectorAll('[data-ic]').forEach(function(e){ e.innerHTML = svgOf(e.getAttribute('data-ic')); });
+
   function pad(n){ return (n<10?'0':'')+n; }
-  function frags(s){ return Array.prototype.slice.call(s.querySelectorAll('.frag')); }
-  function shownCount(s){ return frags(s).filter(function(e){return e.classList.contains('show');}).length; }
-  function setFrags(s, all){
-    frags(s).forEach(function(e){ e.classList.remove('current'); e.classList.toggle('show', !!all); });
-  }
-  function updateProgress(){
-    var s=slides[cur], f=frags(s);
-    var frac = f.length ? shownCount(s)/f.length : 1;
-    pfill.style.width = ((cur + frac)/total*100)+'%';
-  }
+  function setFrags(s, all){ /* animations removed: content is always fully shown */ }
   function render(){
     slides.forEach(function(s,i){ s.classList.toggle('active', i===cur); });
     for (var i=0;i<dotEls.length;i++){ dotEls[i].classList.toggle('on', i===cur); }
     counter.textContent = pad(cur+1)+' / '+pad(total);
-    updateProgress();
+    pfill.style.width = ((cur+1)/total*100)+'%';
   }
-  function go(i, revealAll){
-    cur = Math.max(0, Math.min(total-1, i));
-    setFrags(slides[cur], !!revealAll);
-    render();
-  }
-  // click-by-click: reveal the next fragment first, only then change slide
-  function next(){
-    var s=slides[cur], f=frags(s), shown=shownCount(s);
-    if(shown < f.length){
-      f.forEach(function(e){ e.classList.remove('current'); });
-      f[shown].classList.add('show'); f[shown].classList.add('current');
-      updateProgress(); return;
-    }
-    if(cur < total-1) go(cur+1, false);
-  }
-  function prev(){
-    var s=slides[cur], f=frags(s), shown=shownCount(s);
-    if(shown > 0){
-      f[shown-1].classList.remove('show'); f[shown-1].classList.remove('current');
-      updateProgress(); return;
-    }
-    if(cur > 0) go(cur-1, true); // step back into the previous slide fully built
-  }
+  function go(i){ cur = Math.max(0, Math.min(total-1, i)); render(); }
+  function next(){ go(cur+1); }
+  function prev(){ go(cur-1); }
 
   document.getElementById('next').addEventListener('click', next);
   document.getElementById('prev').addEventListener('click', prev);
@@ -664,8 +735,8 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
   document.addEventListener('keydown', function(e){
     if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){ e.preventDefault(); next(); }
     else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); prev(); }
-    else if(e.key==='Home'){ go(0, false); }
-    else if(e.key==='End'){ go(total-1, true); }
+    else if(e.key==='Home'){ go(0); }
+    else if(e.key==='End'){ go(total-1); }
     else if(e.key==='f'||e.key==='F'){ toggleFs(); }
   });
 
@@ -871,6 +942,21 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
         else if(topbar==='left') S(sl,x,y,4,h,C.grn4);
       }
 
+      // ---- icon / logo helpers (flat SVG embedded as image; PNG fallback auto) ----
+      function b64(str){ return (typeof btoa!=='undefined') ? btoa(str) : Buffer.from(str).toString('base64'); }
+      function iconImg(sl,name,x,y,sz,col){
+        try{ sl.addImage({ data:'data:image/svg+xml;base64,'+b64(svgOf(name,'#'+col)), x:I(x),y:I(y),w:I(sz),h:I(sz) }); }catch(e){}
+      }
+      function iconTile(sl,x,y,sz,bg,name,col){ S(sl,x,y,sz,sz,bg); iconImg(sl,name,x+sz*0.25,y+sz*0.25,sz*0.5,col); }
+      function logoChip(sl,x,y,initials,markBg,markFg,name){
+        var mw=22, nameW=name.length*6.7+12, w=mw+10+nameW;
+        S(sl,x,y,w,26,'33198F','5C42B2',1);
+        S(sl,x+3,y+2,mw,mw,markBg);
+        T(sl,initials,x+3,y+2,mw,mw,{f:FD,s:8,b:true,c:markFg,align:'center',valign:'middle'});
+        T(sl,name,x+mw+9,y,nameW,26,{f:FD,s:10,b:true,c:C.wht,valign:'middle'});
+        return w;
+      }
+
       // ---- SLIDE 1 — TITLE --------------------------------------------------
       (function(){
         var s=pptx.addSlide(); s.background={color:C.ind8};
@@ -900,21 +986,18 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
         accent(s,54,170);
         RT(s,[['Open-weight gives you more ',0],['control over execution',1],['. It does not, on its own, give you ',0],['trust',1],[' in the model or the AI system built around it.',0]],
           54,186,1080,40,{s:13,c:C.ink5,lh:1.3});
-        // left card
         card(s,54,250,560,240);
-        iconBox(s,72,268,34,C.grn50,'✓',C.grn7);
+        iconTile(s,72,268,34,C.grn50,'check',C.grn7);
         T(s,'What open-weight DOES give',118,270,470,30,{f:FD,s:14,b:true,c:C.ind7,valign:'middle'});
         var l2a=['Weights accessible & deployable on controlled infrastructure','Less dependency on a single external API provider','More sovereignty over where and how inference runs'];
         s.addText(l2a.map(function(t){return {text:'✓   '+t,options:{fontFace:FB,fontSize:12.5,color:C.ink6,breakLine:true,paraSpaceAfter:10}};}),
           {x:I(72),y:I(316),w:I(524),h:I(160),valign:'top',margin:0,lineSpacingMultiple:1.15});
-        // right card
         card(s,664,250,562,240);
-        iconBox(s,682,268,34,'FBE9E7','✗',C.dgr);
+        iconTile(s,682,268,34,'FBE9E7','x',C.dgr);
         T(s,'What it does NOT give',728,270,470,30,{f:FD,s:14,b:true,c:C.ind7,valign:'middle'});
         var l2b=['Training data, training code, eval methods or reproducibility','Evidence it is unbiased, safe, lawful or robust','Any guarantee it is free from hidden behaviors'];
         s.addText(l2b.map(function(t){return {text:'✗   '+t,options:{fontFace:FB,fontSize:12.5,color:C.ink6,breakLine:true,paraSpaceAfter:10}};}),
           {x:I(682),y:I(316),w:I(528),h:I(160),valign:'top',margin:0,lineSpacingMultiple:1.15});
-        // bottom band
         S(s,54,512,1172,72,C.ind9);
         badge(s,72,528,'The real question',C.grn4,C.ind9);
         T(s,'Not “Can we host this model?” but “Can we trust the results of this AI system for this use case?”',
@@ -930,7 +1013,6 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
         brand(s,true); eyebrow(s,'Why host internally',54,84,true);
         T(s,'Controlled hosting cuts availability & confidentiality risk',54,112,720,72,{f:FD,s:25,b:true,c:C.wht,lh:1.05});
         accent(s,54,196);
-        // risk-shift diagram
         S(s,54,214,300,62,'3A1430','C0473A',1);
         T(s,'FROM',66,222,280,14,{f:FM,s:9,c:'FFB4A8',cs:1});
         T(s,'External API dependency',66,238,280,24,{f:FD,s:14,b:true,c:C.wht});
@@ -958,70 +1040,85 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
         T(s,'The real risk is results integrity — not just the model',54,112,1140,46,{f:FD,s:25,b:true,c:C.ind7});
         accent(s,54,170);
         T(s,'Integrity must hold across the whole chain, not the model alone.',54,188,560,24,{s:14,c:C.ink5});
-        var pts=[[C.dgr,[['A ',0],['correct model',1],[' + wrong, outdated or poisoned context = a wrong result.',0]]],
-                 [C.dgr,[['A ',0],['safe model',1],[' + poorly controlled prompt, RAG or tools = unsafe behavior.',0]]],
-                 [C.dgr,[['A ',0],['well-hosted model',1],[' can still be biased, misleading or low-quality.',0]]],
-                 [C.ind6,[['For agents: was the ',0],['right tool',1],[' called, with the ',0],['right permissions',1],[', at the ',0],['right time',1],['?',0]]]];
-        pts.forEach(function(d,i){ var y=226+i*46; T(s,d[0]===C.dgr?'!':'⚙',54,y,16,20,{s:14,b:true,c:d[0]});
-          RT(s,d[1],76,y,520,42,{s:12.5,c:C.ink6,lh:1.18}); });
-        S(s,54,418,560,58,C.ink05); S(s,54,418,4,58,C.ind6);
+        var pts=[['alert',C.dgr,[['A ',0],['correct model',1],[' + wrong, outdated or poisoned context = a wrong result.',0]]],
+                 ['alert',C.dgr,[['A ',0],['safe model',1],[' + poorly controlled prompt, RAG or tools = unsafe behavior.',0]]],
+                 ['alert',C.dgr,[['A ',0],['well-hosted model',1],[' can still be biased, misleading or low-quality.',0]]],
+                 ['gear',C.ind6,[['For agents: was the ',0],['right tool',1],[' called, with the ',0],['right permissions',1],[', at the ',0],['right time',1],['?',0]]]];
+        pts.forEach(function(d,i){ var y=224+i*46; iconImg(s,d[0],54,y,16,d[1]); RT(s,d[2],78,y-2,520,42,{s:12.5,c:C.ink6,lh:1.18}); });
+        S(s,54,414,560,60,C.ink05); S(s,54,414,4,60,C.ind6);
         RT(s,[['Goal: ',1,C.ink9],['approve an AI ',0,C.ink7],['system',1,C.ink9],[' for a use case, data scope & autonomy — not certify a model in isolation.',0,C.ink7]],
-          70,426,536,46,{s:12,lh:1.2});
-        // right: integrity layers
+          70,422,536,48,{s:12,lh:1.2});
         T(s,'WHERE INTEGRITY CAN FAIL',664,196,560,16,{f:FM,s:10,c:C.ink4,cs:2});
-        var layers=[['🤖','Model integrity'],['📦','Packaging integrity'],['📝','Prompt integrity'],['📚','Context & RAG integrity'],['🔧','Tool & agent integrity'],['📊','Output integrity'],['👁','Monitoring integrity']];
+        var layers=[['cpu','Model integrity'],['box','Packaging integrity'],['doc','Prompt integrity'],['db','Context & RAG integrity'],['wrench','Tool & agent integrity'],['bars','Output integrity'],['eye','Monitoring integrity']];
         layers.forEach(function(d,i){ var y=220+i*44; S(s,664,y,560,38,C.ind50); S(s,664,y,4,38,C.ind6);
-          T(s,d[0],678,y,30,38,{s:15,valign:'middle'});
-          T(s,d[1],712,y,500,38,{f:FD,s:13.5,b:true,c:C.ink9,valign:'middle'}); });
+          iconImg(s,d[0],678,y+10,18,C.ind6);
+          T(s,d[1],706,y,506,38,{f:FD,s:13.5,b:true,c:C.ink9,valign:'middle'}); });
         page(s,'04',false,'Model · Data · Prompt · Context · Tools · Output');
       })();
 
-      // ---- SLIDE 5 — GRADED TRUST ------------------------------------------
+      // ---- SLIDE 5 — GRADED TRUST (concentric) -----------------------------
       (function(){
         var s=pptx.addSlide(); s.background={color:C.wht};
         brand(s); eyebrow(s,'Grade the trust',54,84);
         T(s,'Trust must be graded, not assumed',54,112,1100,46,{f:FD,s:27,b:true,c:C.ind7});
         accent(s,54,176);
-        T(s,'Trust should be proportional to use-case criticality and the level of evidence available.',54,192,1080,24,{s:13,c:C.ink5});
-        var L=[['L5','Continuous assurance','High-impact production',C.grn7,C.grn4,C.ind9,1113,C.grn50],
-               ['L4','Contractual assurance','Regulated / business-critical',C.ind7,C.ind6,C.wht,1031,C.wht],
-               ['L3','Independent testing','Sensitive internal use',C.ind6,C.ind6,C.wht,955,C.wht],
-               ['L2','Supply chain evidence','Internal productivity',C.tl5,C.tl5,C.wht,879,C.wht],
-               ['L1','Basic documentation','Low-risk experimentation',C.tl5,C.tl5,C.wht,803,C.wht],
-               ['L0','Vendor claim only','No production use',C.ink4,C.ink4,C.wht,727,C.wht]];
-        L.forEach(function(d,i){ var y=234+i*50, h=42;
-          S(s,54,y,d[6],h,d[7]==='FFFFFF'?C.wht:d[7],C.ink1,1); S(s,54,y,5,h,d[3]);
-          badge(s,68,y+11,d[0],d[4],d[5]);
-          T(s,d[1],132,y,260,h,{f:FD,s:13.5,b:true,c:C.ink9,valign:'middle'});
-          T(s,d[2],392,y,360,h,{s:12.5,c:C.ink5,valign:'middle'}); });
+        var cx=326, cy=440;
+        function ring(d,col,fill){ s.addShape(pptx.ShapeType.ellipse,{x:I(cx-d/2),y:I(cy-d/2),w:I(d),h:I(d),
+          fill:fill?{color:fill}:{type:'none'}, line:{color:col,width:2.5}}); }
+        ring(392,'A8A4B8'); ring(326,'6EC3C9'); ring(262,'228D95'); ring(198,'5A2BE0'); ring(134,'36169B'); ring(74,'088A42','04F06A');
+        var tags=[['L0',392,'A8A4B8'],['L1',326,'18636A'],['L2',262,'18636A'],['L3',198,'36169B'],['L4',134,'36169B']];
+        tags.forEach(function(t){ T(s,t[0],cx-16,cy-t[1]/2-4,32,16,{f:FM,s:9,b:true,c:t[2],align:'center'}); });
+        T(s,'L5',cx-16,cy-8,32,16,{f:FD,s:11,b:true,c:C.ind9,align:'center'});
+        var L=[['L0 · Vendor claim only','No production use',C.ink4],
+               ['L1 · Basic documentation','Low-risk experimentation',C.teal3||'6EC3C9'],
+               ['L2 · Supply chain evidence','Internal productivity',C.tl5],
+               ['L3 · Independent testing','Sensitive internal use','5A2BE0'],
+               ['L4 · Contractual assurance','Regulated / business-critical',C.ind7],
+               ['L5 · Continuous assurance','High-impact production',C.grn7]];
+        L.forEach(function(d,i){ var x=700,y=240+i*52,w=526,h=44;
+          S(s,x,y,w,h, i===5?C.grn50:C.wht, C.ink1,1); S(s,x,y,5,h,d[2]);
+          T(s,d[0],x+18,y,300,h,{f:FD,s:13,b:true,c:C.ink9,valign:'middle'});
+          T(s,d[1],x+300,y,w-310,h,{s:11.5,c:C.ink5,valign:'middle'}); });
         RT(s,[['Combine both: an ',0,C.ink5],['approved-model catalogue',1,C.ink9],[' × ',0,C.ink5],['use-case-specific approval',1,C.ink9],['.',0,C.ink5]],
-          54,548,1100,24,{s:12.5,lh:1.2});
-        page(s,'05',false,'From no evidence to continuous assurance');
+          54,640,640,24,{s:12,lh:1.2});
+        page(s,'05',false,'Deeper trust requires deeper evidence');
       })();
 
-      // ---- SLIDE 6 — DEFENSE IN DEPTH (dark) -------------------------------
+      // ---- SLIDE 6 — DEFENSE IN DEPTH (tech diagram, dark) -----------------
       (function(){
         var s=pptx.addSlide(); s.background={color:C.ind8};
         brand(s,true); eyebrow(s,'Architecture',54,84,true);
         T(s,'Defense-in-depth for open-weight AI',54,112,1100,46,{f:FD,s:28,b:true,c:C.wht});
         accent(s,54,176);
-        T(s,'Layered controls across the full lifecycle and runtime — no single control carries the trust.',54,192,1120,24,{s:13,c:C.mut});
-        var st=[['📥','Intake','Approved sources & trusted repos; licence & intended-use review.'],
-                ['🔍','Artifact security','Malware/serialization scans; hashes, signatures, AI-BOM.'],
-                ['🔒','Runtime','Sandboxed load; hardened containers; network & secret isolation.'],
-                ['📁','Data','Least privilege for RAG, search & document retrieval.'],
-                ['🧰','Prompt & tools','System prompts & tool permissions as sensitive config.'],
-                ['🛡','Output','Guardrails, DLP, policy validation, human review.'],
-                ['📈','Monitoring','Drift, anomalies, unexpected tool use, quality decay.']];
-        var bw=160.5;
-        st.forEach(function(d,i){ var x=54+i*(bw+8), y=240, h=200; glass(s,x,y,bw,h,'top');
-          T(s,d[0],x+12,y+12,bw-20,28,{s:18});
-          T(s,d[1],x+12,y+44,bw-20,34,{f:FD,s:12.5,b:true,c:C.wht,lh:1.05});
-          T(s,d[2],x+12,y+80,bw-22,110,{s:9.5,c:C.mut,lh:1.25}); });
-        S(s,54,470,1172,62,'15402A',C.grn7,1);
-        T(s,'🔬',66,470,40,62,{s:18,align:'center',valign:'middle'});
-        RT(s,[['For high-risk use cases, add ',0,C.wht],['internal model observability',1,C.grnLt],[' to detect deeper behavioral deviations — not just bad inputs and outputs.',0,C.wht]],
-          112,470,1100,62,{s:13,lh:1.2,valign:'middle'});
+        function dbox(x,y,w,h,name,title,desc,hi){
+          S(s,x,y,w,h, hi?'18402A':C.glass, hi?C.grn4:C.glassBd, hi?1.5:1);
+          iconImg(s,name,x+14,y+12,20,hi?C.grnLt:C.grnLt);
+          T(s,title,x+42,y+12,w-50,20,{f:FD,s:12,b:true,c:C.wht,valign:'middle'});
+          T(s,desc,x+14,y+38,w-26,h-44,{s:9,c:C.mut,lh:1.2});
+        }
+        var oy=212;
+        // sandbox container (dashed)
+        s.addShape(pptx.ShapeType.rect,{x:I(410),y:I(oy+22),w:I(486),h:I(264),fill:{color:'34197E'},line:{color:'04F06A',width:1.25,dashType:'dash'}});
+        T(s,'RUNTIME · SANDBOXED · ISOLATED',426,oy+14,300,16,{f:FM,s:9,c:C.grn4,cs:1});
+        dbox(54,oy+96,150,72,'inbox','Intake','Approved sources & licence review');
+        dbox(232,oy+96,150,72,'scan','Artifact','Scans, hashes, signatures, AI-BOM');
+        dbox(563,oy+56,180,64,'cpu','Open-weight model','Sandboxed load, hardened container',true);
+        dbox(434,oy+180,200,64,'folder','Data · RAG','Least-privilege retrieval');
+        dbox(672,oy+180,200,64,'toolbox','Prompt & tools','Permissions as sensitive config');
+        dbox(924,oy+96,150,72,'shield','Output','Guardrails, DLP, human review');
+        // connectors
+        T(s,'→',206,oy+118,28,30,{f:FD,s:22,c:C.grn4,align:'center',valign:'middle'});
+        T(s,'→',384,oy+118,28,30,{f:FD,s:22,c:C.grn4,align:'center',valign:'middle'});
+        T(s,'→',898,oy+118,28,30,{f:FD,s:22,c:C.grn4,align:'center',valign:'middle'});
+        T(s,'↑',524,oy+150,28,28,{f:FD,s:20,c:C.grn4,align:'center',valign:'middle'});
+        T(s,'↑',762,oy+150,28,28,{f:FD,s:20,c:C.grn4,align:'center',valign:'middle'});
+        // monitoring baseline
+        S(s,54,oy+300,1020,48,'15402A',C.grn7,1);
+        iconImg(s,'pulse',70,oy+312,22,C.grn4);
+        RT(s,[['Continuous monitoring & internal model observability',1,C.wht],['  — drift, anomalies, unexpected tool use, behavioral deviation',0,C.mut]],
+          104,oy+300,950,48,{s:12,lh:1.1,valign:'middle'});
+        iconImg(s,'lock',1110,oy+96,40,C.grn4);
+        T(s,'No single layer carries the trust',1042,oy+150,180,40,{s:10.5,c:C.mut,align:'center',lh:1.3});
         page(s,'06',true,'');
       })();
 
@@ -1031,44 +1128,47 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
         brand(s); eyebrow(s,'Target operating model',54,84);
         T(s,'Who owns AI trust? A shared accountability model',54,112,1140,46,{f:FD,s:25,b:true,c:C.ind7});
         accent(s,54,170);
-        T(s,'FUNCTION',66,190,230,14,{f:FM,s:9.5,c:C.ink4,cs:1});
-        T(s,'OWNS',300,190,900,14,{f:FM,s:9.5,c:C.ink4,cs:1});
-        var R=[['AI / Data Science',C.ind6,'Model selection, evaluation, benchmarking, performance monitoring',C.ink05],
-               ['Cybersecurity',C.dgr,'Threat modeling, supply-chain controls, runtime hardening, red teaming, monitoring',C.wht],
-               ['Legal & Compliance',C.ind6,'Licensing, copyright, AI Act exposure, contractual clauses, regulatory duties',C.ink05],
-               ['Data Office',C.tl5,'Data classification, RAG governance, sensitive-data exposure, retention',C.wht],
-               ['Architecture & Cloud',C.tl5,'Hosting patterns, isolation, scalability, observability, resilience',C.ink05],
-               ['Business Owner',C.grn7,'Use-case criticality, expected outcomes, acceptable risk, human validation',C.wht],
-               ['Risk & Internal Control',C.grn7,'Approval workflows, evidence retention, periodic reassessment, risk acceptance',C.ink05]];
+        T(s,'FUNCTION',92,190,236,14,{f:FM,s:9.5,c:C.ink4,cs:1});
+        T(s,'OWNS',330,190,880,14,{f:FM,s:9.5,c:C.ink4,cs:1});
+        var R=[['cpu','AI / Data Science',C.ind6,'Model selection, evaluation, benchmarking, performance monitoring',C.ink05],
+               ['shield','Cybersecurity',C.dgr,'Threat modeling, supply-chain controls, runtime hardening, red teaming',C.wht],
+               ['flag','Legal & Compliance',C.ind6,'Licensing, copyright, AI Act exposure, contractual clauses, regulatory duties',C.ink05],
+               ['db','Data Office',C.tl5,'Data classification, RAG governance, sensitive-data exposure, retention',C.wht],
+               ['cloud','Architecture & Cloud',C.tl5,'Hosting patterns, isolation, scalability, observability, resilience',C.ink05],
+               ['target','Business Owner',C.grn7,'Use-case criticality, expected outcomes, acceptable risk, human validation',C.wht],
+               ['clipboard','Risk & Internal Control',C.grn7,'Approval workflows, evidence retention, periodic reassessment, risk acceptance',C.ink05]];
         R.forEach(function(d,i){ var y=210+i*44, h=40;
-          S(s,54,y,1172,h,d[3]); S(s,54,y,4,h,d[1]);
-          T(s,d[0],66,y,236,h,{f:FD,s:12.5,b:true,c:C.ind7,valign:'middle'});
-          T(s,d[2],306,y,910,h,{s:12,c:C.ink6,valign:'middle'}); });
+          S(s,54,y,1172,h,d[4]); S(s,54,y,4,h,d[2]);
+          iconImg(s,d[0],68,y+11,18,d[2]);
+          T(s,d[1],96,y,232,h,{f:FD,s:12.5,b:true,c:C.ind7,valign:'middle'});
+          T(s,d[3],332,y,884,h,{s:12,c:C.ink6,valign:'middle'}); });
         S(s,54,524,1172,56,C.ind9);
         badge(s,70,540,'Decision',C.grn4,C.ind9);
         T(s,'Model + Use Case + Data + Autonomy + Evidence  =  Approval',186,524,1030,56,{f:FM,s:14,c:C.wht,valign:'middle'});
         page(s,'07',false,'Approve for a class of usage — never generically');
       })();
 
-      // ---- SLIDE 8 — MARKET THREE-WAVE (dark) ------------------------------
+      // ---- SLIDE 8 — MARKET THREE-WAVE + LOGOS (dark) ----------------------
       (function(){
         var s=pptx.addSlide(); s.background={color:C.ind8};
         brand(s,true); eyebrow(s,'Market view',54,84,true);
         T(s,'How the market is tackling the problem',54,112,1100,46,{f:FD,s:25,b:true,c:C.wht});
         accent(s,54,170);
-        var W=[['WAVE 1','Supply-chain security','Scan model artifacts & dependencies.',
-                [['Hugging Face',1],[' — malware, pickle & secret scanning; ',0],['Protect AI',1],[' partnership at Hub scale. ',0],['Azure AI',1],[' — HiddenLayer Model Scanner on the curated catalogue.',0]]],
-               ['WAVE 2','Runtime protection','Secure prompts, outputs, tools & runtime.',
-                [['Protect AI',1],[' — AI security lifecycle, inventory, runtime protection. ',0],['HiddenLayer',1],[' — model scanning, AI runtime security, red teaming.',0]]],
-               ['WAVE 3','Internal model observability','Observe behavior during inference.',
-                [['Realm Labs',1],[' (RSAC 2026 finalist) — “model MRI”, real-time misbehavior. ',0],['Starseer',1],[' — mechanistic interpretability, glass-box observability.',0]]]];
+        var W=[['scan','WAVE 1','Supply-chain security','Scan model artifacts & dependencies — malware, pickle & secret scanning.',
+                [['HF','FFB000',C.ind9,'Hugging Face'],['AZ','2E8DEF',C.wht,'Azure AI'],['PA','6C4BF0',C.wht,'Protect AI']]],
+               ['shieldcheck','WAVE 2','Runtime protection','Secure prompts, outputs, tools & runtime; inventory and red teaming.',
+                [['PA','6C4BF0',C.wht,'Protect AI'],['HL','16A99B',C.wht,'HiddenLayer']]],
+               ['pulse','WAVE 3','Internal model observability','Observe behavior during inference — the “model MRI” category.',
+                [['RL','04F06A','0C0820','Realm Labs'],['ST','E8557A',C.wht,'Starseer']]]];
         var cw=380;
-        W.forEach(function(d,i){ var x=54+i*396, y=200, h=300; glass(s,x,y,cw,h,'top');
-          T(s,d[0],x+18,y+16,cw-30,14,{f:FM,s:10,c:C.grn4,cs:1});
-          T(s,d[1],x+18,y+32,cw-30,46,{f:FD,s:16,b:true,c:C.wht,lh:1.05});
-          T(s,d[2],x+18,y+80,cw-32,20,{s:11.5,i:true,c:C.mut});
-          RT(s,d[3],x+18,y+108,cw-34,180,{s:11.5,c:C.mut,lh:1.3}); });
-        var p8=(photos.s8&&photos.s8.rect)?photos.s8.rect:{x:54,y:520,w:1172,h:64};
+        W.forEach(function(d,i){ var x=54+i*396, y=196, h=312; glass(s,x,y,cw,h,'top');
+          iconImg(s,d[0],x+18,y+16,20,C.grn4);
+          T(s,d[1],x+46,y+16,cw-50,18,{f:FM,s:10,c:C.grn4,cs:1,valign:'middle'});
+          T(s,d[2],x+18,y+44,cw-30,46,{f:FD,s:15.5,b:true,c:C.wht,lh:1.05});
+          T(s,d[3],x+18,y+92,cw-32,60,{s:11,c:C.mut,lh:1.3});
+          d[4].forEach(function(g,j){ logoChip(s,x+18,y+h-12-(d[4].length-j)*30, g[0],g[1],g[2],g[3]); });
+        });
+        var p8=(photos.s8&&photos.s8.rect)?photos.s8.rect:{x:54,y:524,w:1172,h:60};
         photo(s, photos.s8, function(){ S(s,p8.x,p8.y,p8.w,p8.h,C.tl7); });
         badge(s,p8.x+16,p8.y+(p8.h-19)/2,'Direction',C.grn4,C.ind9);
         T(s,'External guardrails → runtime protection → deeper model & runtime assurance',
@@ -1098,13 +1198,14 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
           S(s,cx+w/2-7,293,14,14,d[3]);
           T(s,d[1],cx+3,314,w-6,30,{f:FD,s:10.5,b:true,c:C.ink9,align:'center',lh:1.05});
           T(s,d[2],cx+3,346,w-6,110,{s:8.4,c:C.ink6,align:'center',lh:1.12}); });
-        var cards=[[C.ind6,'📋  Evidence pack','Document decisions, tests, residual risks and compensating controls before the gate.'],
-                   [C.tl5,'🤝  Cross-functional gate','No single owner approves: business, cyber, legal, data and risk decide together.'],
-                   [C.dgr,'🔄  Reassess on change','Model, prompt, RAG source, toolset or use-case change → trigger re-homologation.']];
+        var cards=[['clipboard',C.ind6,'Evidence pack','Document decisions, tests, residual risks and compensating controls before the gate.',C.ind50],
+                   ['users',C.tl7,'Cross-functional gate','No single owner approves: business, cyber, legal, data and risk decide together.',C.tlSub],
+                   ['refresh',C.dgr,'Reassess on change','Model, prompt, RAG source, toolset or use-case change → trigger re-homologation.','FBE9E7']];
         var cw=378.7;
         cards.forEach(function(d,i){ var x=54+i*396.7,y=480,h=160; card(s,x,y,cw,h);
-          T(s,d[1],x+18,y+16,cw-30,24,{f:FD,s:13,b:true,c:C.ind7});
-          T(s,d[2],x+18,y+46,cw-34,100,{s:10.5,c:C.ink5,lh:1.25}); });
+          iconTile(s,x+18,y+16,34,d[4],d[0],d[1]);
+          T(s,d[2],x+62,y+18,cw-72,30,{f:FD,s:13,b:true,c:C.ind7,valign:'middle'});
+          T(s,d[3],x+18,y+58,cw-34,90,{s:10.5,c:C.ink5,lh:1.25}); });
         page(s,'09',false,'Intake → Continuous assurance');
       })();
 
@@ -1119,7 +1220,7 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
                ['3–6 MONTHS · INDUSTRIALIZE',['Enterprise model catalogue','AI gateway for prompts / tools / RAG / outputs','DLP, logging, monitoring, escalation','AI Security Review Board']],
                ['6–12 MONTHS · SCALE',['Automated evidence packs & reassessment','Integrate with SOC, GRC, model registry','Tools: scanning, runtime, observability','Extend to agentic & tool-calling','Project-by-project → continuous assurance']]];
         var cw=378.7;
-        P.forEach(function(d,i){ var x=54+i*396.7,y=206,h=246; glass(s,x,y,cw,h);
+        P.forEach(function(d,i){ var x=54+i*396.7,y=206,h=246; glass(s,x,y,cw,h); S(s,x,y,cw,3,C.grn4);
           T(s,d[0],x+18,y+18,cw-30,22,{f:FD,s:12.5,b:true,c:C.grn4,cs:1});
           var items=d[1].map(function(t){ return {text:'•  '+t, options:{fontFace:FB,fontSize:11,color:C.mut,breakLine:true,paraSpaceAfter:6}}; });
           s.addText(items,{x:I(x+18),y:I(y+50),w:I(cw-34),h:I(h-64),valign:'top',margin:0,lineSpacingMultiple:1.18}); });
@@ -1152,7 +1253,7 @@ body.exporting .slide,body.exporting .frag{transition:none!important;animation:n
   }
   window.addEventListener('resize', fit);
   window.addEventListener('orientationchange', function(){ setTimeout(fit, 120); });
-  fit(); go(0, false);
+  fit(); go(0);
 })();
 </script>
 </body>
