@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">EBIOS-RM Risk Analysis animated usage preview</title>
+  <desc id="desc">Animated agent mockup accelerating deliverables production during an EBIOS-RM risk analysis: workshops, risk matrix and deliverables.</desc>
+  <style>
+    text{font-family:Inter,Arial,sans-serif;letter-spacing:0}
+    .bg{fill:url(#bg)}
+    .shell{fill:#fff;stroke:#d7e7ef;stroke-width:2}
+    .nav{fill:url(#nav)}
+    .navText{font-size:13px;font-weight:850;fill:#fff}
+    .subNav{font-size:10px;font-weight:850;fill:#d6f5ef}
+    .panel{fill:#fff;stroke:#e3eef3;stroke-width:2;filter:url(#shadow)}
+    .soft{fill:#f7fbfe;stroke:#d9e8ee;stroke-width:2}
+    .title{font-size:22px;font-weight:850;fill:#112b43}
+    .muted{font-size:12px;font-weight:700;fill:#64788b}
+    .tiny{font-size:11px;font-weight:800;fill:#64788b}
+    .good{fill:#2ed39b}
+    .todo{fill:#f0c84b}
+    .gap{fill:#ea7e26}
+    .critical{fill:#e2476a}
+    .btn{fill:#451dc7}
+    .btnText{font-size:13px;font-weight:850;fill:#fff}
+
+    #workshops>g>.ai{opacity:0;animation:wsIn 8s ease-in-out infinite}
+    #workshops>g:nth-child(1)>.ai{animation-delay:.1s}
+    #workshops>g:nth-child(2)>.ai{animation-delay:.35s}
+    #workshops>g:nth-child(3)>.ai{animation-delay:.6s}
+    #workshops>g:nth-child(4)>.ai{animation-delay:.85s}
+    #workshops>g:nth-child(5)>.ai{animation-delay:1.1s}
+    #riskDots>circle{animation:pulse 2.4s ease-in-out infinite}
+    #riskDots>circle:nth-child(2){animation-delay:.4s}
+    #riskDots>circle:nth-child(3){animation-delay:.8s}
+    #matrix>rect{opacity:0;animation:cellIn 8s ease-in-out infinite}
+    #matrix>rect:nth-child(1){animation-delay:1.5s}
+    #matrix>rect:nth-child(2){animation-delay:1.58s}
+    #matrix>rect:nth-child(3){animation-delay:1.66s}
+    #matrix>rect:nth-child(4){animation-delay:1.74s}
+    #matrix>rect:nth-child(5){animation-delay:1.82s}
+    #matrix>rect:nth-child(6){animation-delay:1.9s}
+    #matrix>rect:nth-child(7){animation-delay:1.98s}
+    #matrix>rect:nth-child(8){animation-delay:2.06s}
+    #matrix>rect:nth-child(9){animation-delay:2.14s}
+    #deliverables>g>.ai{opacity:0;animation:slideIn 8s ease-in-out infinite}
+    #deliverables>g:nth-child(1)>.ai{animation-delay:3.3s}
+    #deliverables>g:nth-child(2)>.ai{animation-delay:3.6s}
+    #deliverables>g:nth-child(3)>.ai{animation-delay:3.9s}
+    #btnDraft{animation:tap 8s ease-in-out infinite}
+
+    @keyframes wsIn{0%{opacity:.2;transform:translateX(-10px)}9%,90%{opacity:1;transform:translateX(0)}100%{opacity:1;transform:translateX(0)}}
+    @keyframes cellIn{0%{opacity:0}6%,92%{opacity:1}100%{opacity:1}}
+    @keyframes slideIn{0%{opacity:0;transform:translateX(14px)}9%,92%{opacity:1;transform:translateX(0)}100%{opacity:1;transform:translateX(0)}}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+    @keyframes tap{0%,46%,100%{transform:translateY(0)}50%{transform:translateY(2px)}54%{transform:translateY(0)}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;opacity:1!important;transform:none!important}}
+  </style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="540"><stop stop-color="#d8ecef"/><stop offset=".55" stop-color="#eaf5f5"/><stop offset="1" stop-color="#f8fbff"/></linearGradient>
+    <linearGradient id="nav" x1="54" y1="42" x2="906" y2="42"><stop stop-color="#451dc7"/><stop offset=".58" stop-color="#5a2be0"/><stop offset="1" stop-color="#228d95"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="10" stdDeviation="13" flood-color="#0e4153" flood-opacity=".14"/></filter>
+  </defs>
+  <rect class="bg" width="960" height="540"/>
+  <rect class="shell" x="54" y="42" width="852" height="456"/>
+  <rect class="nav" x="54" y="42" width="852" height="62"/>
+  <text x="84" y="70" class="navText">EBIOS-RM Risk Analysis</text>
+  <text x="84" y="88" class="subNav">DELIVERABLES ACCELERATOR</text>
+
+  <rect class="panel" x="86" y="132" width="262" height="324"/>
+  <text x="112" y="166" class="title">Workshops</text>
+  <text x="112" y="190" class="muted">EBIOS-RM method</text>
+  <g id="workshops" transform="translate(112 222)">
+    <g transform="translate(0 0)"><g class="ai"><circle cx="10" cy="10" r="8" class="good"/><text x="30" y="15" class="muted">W1 &#183; Scope &amp; assets</text></g></g>
+    <g transform="translate(0 40)"><g class="ai"><circle cx="10" cy="10" r="8" class="good"/><text x="30" y="15" class="muted">W2 &#183; Risk origins</text></g></g>
+    <g transform="translate(0 80)"><g class="ai"><circle cx="10" cy="10" r="8" class="todo"/><text x="30" y="15" class="muted">W3 &#183; Scenarios</text></g></g>
+    <g transform="translate(0 120)"><g class="ai"><circle cx="10" cy="10" r="8" class="gap"/><text x="30" y="15" class="muted">W4 &#183; Operational</text></g></g>
+    <g transform="translate(0 160)"><g class="ai"><circle cx="10" cy="10" r="8" class="gap"/><text x="30" y="15" class="muted">W5 &#183; Treatment</text></g></g>
+  </g>
+  <g id="btnDraft">
+    <rect x="112" y="408" width="172" height="34" class="btn"/>
+    <text x="138" y="430" class="btnText">Draft outputs</text>
+  </g>
+
+  <rect class="panel" x="382" y="132" width="238" height="324"/>
+  <text x="408" y="166" class="title">Risk matrix</text>
+  <text x="408" y="190" class="muted">Likelihood &#215; impact</text>
+  <g transform="translate(408 214)">
+    <g id="matrix">
+      <rect width="58" height="58" fill="#fff7dd"/>
+      <rect x="62" width="58" height="58" fill="#fff0e7"/>
+      <rect x="124" width="58" height="58" fill="#fdecef"/>
+      <rect y="62" width="58" height="58" fill="#e5f8f5"/>
+      <rect x="62" y="62" width="58" height="58" fill="#fff7dd"/>
+      <rect x="124" y="62" width="58" height="58" fill="#fff0e7"/>
+      <rect y="124" width="58" height="58" fill="#e5f8f5"/>
+      <rect x="62" y="124" width="58" height="58" fill="#e5f8f5"/>
+      <rect x="124" y="124" width="58" height="58" fill="#fff7dd"/>
+    </g>
+    <g id="riskDots">
+      <circle cx="153" cy="29" r="11" class="critical"/>
+      <circle cx="91" cy="91" r="11" class="gap"/>
+      <circle cx="29" cy="153" r="11" class="good"/>
+    </g>
+  </g>
+  <text x="408" y="430" class="tiny">3 priority scenarios</text>
+
+  <rect class="panel" x="654" y="132" width="220" height="324"/>
+  <text x="680" y="166" class="title">Deliverables</text>
+  <text x="680" y="190" class="muted">Generated drafts</text>
+  <g id="deliverables" transform="translate(680 218)">
+    <g transform="translate(0 0)"><g class="ai"><rect width="168" height="44" class="soft"/><path d="M18 31h22M28 31V13M22 21l6-6 6 6" fill="none" stroke="#451dc7" stroke-width="3"/><text x="54" y="29" class="muted">Risk register</text></g></g>
+    <g transform="translate(0 58)"><g class="ai"><rect width="168" height="44" class="soft"/><path d="M18 31h22M28 31V13M22 21l6-6 6 6" fill="none" stroke="#451dc7" stroke-width="3"/><text x="54" y="29" class="muted">Scenario sheets</text></g></g>
+    <g transform="translate(0 116)"><g class="ai"><rect width="168" height="44" class="soft"/><path d="M18 31h22M28 31V13M22 21l6-6 6 6" fill="none" stroke="#451dc7" stroke-width="3"/><text x="54" y="29" class="muted">Treatment plan</text></g></g>
+  </g>
+  <rect x="680" y="406" width="148" height="34" fill="#0f8794"/>
+  <text x="704" y="428" class="btnText">Export deck</text>
+</svg>
