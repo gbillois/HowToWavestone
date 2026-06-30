@@ -1,0 +1,56 @@
+name: Build inline HTML
+
+# Manually triggered from the repo's "Actions" tab (Run workflow button).
+# Consolidates all pages into a single self-contained howto290626.html with
+# every image re-encoded to WebP, then uploads it as a downloadable artifact.
+on:
+  workflow_dispatch:
+    inputs:
+      webp_quality:
+        description: "WebP quality (1-100, higher = better/larger)"
+        required: false
+        default: "80"
+      webp_max_width:
+        description: "Max image width in px (0 = keep original size)"
+        required: false
+        default: "1280"
+      output_file:
+        description: "Output filename"
+        required: false
+        default: "howto290626.html"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install Pillow
+
+      - name: Build consolidated inline HTML
+        env:
+          WEBP_QUALITY: ${{ inputs.webp_quality }}
+          WEBP_MAX_WIDTH: ${{ inputs.webp_max_width }}
+          OUTPUT_FILE: ${{ inputs.output_file }}
+        run: python3 tools/build_inline_html.py
+
+      - name: Report file size
+        run: ls -lh "${{ inputs.output_file }}"
+
+      - name: Upload consolidated HTML
+        uses: actions/upload-artifact@v4
+        with:
+          name: consolidated-inline-html
+          path: ${{ inputs.output_file }}
+          if-no-files-found: error
+          retention-days: 30
