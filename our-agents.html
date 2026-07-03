@@ -74,6 +74,7 @@
   .principle span{font-size:13.5px;color:var(--ws-ink-600)}
 
   .showcase{display:grid;gap:24px;margin-top:30px}
+  .showcase[hidden]{display:none}
   .usecase{
     display:grid;grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:24px;align-items:center;
     border:1.5px solid var(--ws-ink-100);background:#fff;box-shadow:var(--ws-shadow-md);overflow:hidden;
@@ -85,7 +86,9 @@
   .media::after{content:"";position:absolute;left:18px;right:18px;bottom:18px;height:4px;background:var(--ws-gradient-accent)}
   .body{padding:28px 28px 30px}
   .tag{display:inline-block;font-family:var(--ws-font-mono);font-size:11px;font-weight:600;color:var(--ws-indigo-700);background:var(--ws-indigo-50);padding:4px 10px;margin-bottom:14px}
-  .usecase h2{font-family:var(--ws-font-display);font-size:28px;line-height:1.14;color:var(--ws-ink-900);letter-spacing:0;margin-bottom:10px}
+  .usecase h2{font-family:var(--ws-font-display);font-size:28px;line-height:1.14;color:var(--ws-ink-900);letter-spacing:0;margin-bottom:8px}
+  .owner{font-family:var(--ws-font-mono);font-size:12px;font-weight:600;color:var(--ws-ink-500);margin-bottom:12px}
+  .owner b{color:var(--ws-ink-700);font-weight:700}
   .usecase p{font-size:15px;color:var(--ws-ink-600);line-height:1.6}
   .chips{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 20px}
   .chip{font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-ink-600);background:var(--ws-ink-50);padding:5px 9px}
@@ -130,6 +133,7 @@
   .agent-thumb img{max-width:100%;max-height:100%;display:block}
   .agent-cell b{display:block;font-family:var(--ws-font-display);font-size:15px;line-height:1.2;color:var(--ws-ink-900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .agent-cell small{display:block;margin-top:3px;font-family:var(--ws-font-mono);font-size:10.5px;color:var(--ws-indigo-600);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .agent-cell small.owner-cell{color:var(--ws-ink-500)}
   .table-tag{display:inline-block;font-family:var(--ws-font-mono);font-size:11px;font-weight:600;color:var(--ws-indigo-700);background:var(--ws-indigo-50);padding:4px 8px}
   .table-actions{display:flex;gap:7px;flex-wrap:wrap}
   .table-actions .action{padding:7px 9px;font-size:11.5px;gap:6px}
@@ -139,10 +143,6 @@
     .tool-count{white-space:normal}
     .agent-table-wrap{margin-left:24px;margin-right:24px}
   }
-
-  .build-note{margin-top:34px;border:1px solid var(--ws-indigo-100);background:var(--ws-indigo-50);padding:18px 20px}
-  .build-note .lab{font-family:var(--ws-font-body);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:0;color:var(--ws-indigo-600);margin-bottom:6px}
-  .build-note p{font-size:14px;color:var(--ws-ink-700)}
 
   footer{max-width:1120px;margin:64px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
   footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
@@ -236,6 +236,7 @@
       <div class="body">
         <span class="tag" data-i18n="uc1.tag">Cyber crisis exercise</span>
         <h2>CrisisMaker</h2>
+        <p class="owner">Owner&nbsp;: <b>Hugo TRICARD</b></p>
         <p data-i18n="uc1.body">Un studio navigateur pour concevoir des exercices de crise cyber : sc&eacute;nario, acteurs, stimuli, timeline, contr&ocirc;les qualit&eacute;, exports de facilitation et d&eacute;brief interactif ou vid&eacute;o.</p>
         <div class="chips">
           <span class="chip" data-i18n="uc1.chip1">Timeline d'injects</span>
@@ -294,6 +295,7 @@
       <div class="body">
         <span class="tag" data-i18n="uc4.tag">Post-Mythos readiness</span>
         <h2>Mythos Readiness Assessment</h2>
+        <p class="owner">Owner&nbsp;: <b>Vincent ROYER</b></p>
         <p data-i18n="uc4.body">Un questionnaire de diagnostic post-Mythos pour qualifier rapidement la maturit&eacute; cyber, importer un plan existant au format XLSX, PPTX ou PDF, et pr&eacute;-remplir les r&eacute;ponses avec un LLM configurable.</p>
         <div class="chips">
           <span class="chip" data-i18n="uc4.chip1">Questionnaire s&eacute;cu</span>
@@ -321,6 +323,7 @@
       <div class="body">
         <span class="tag" data-i18n="uc3.tag">Interactive radar mapping</span>
         <h2>RadarMapper</h2>
+        <p class="owner">Owner&nbsp;: <b>Marc HE</b></p>
         <p data-i18n="uc3.body">Un &eacute;diteur HTML/JavaScript pour transformer un visuel radar en exp&eacute;rience cliquable : import de donn&eacute;es, mapping LLM, ajustement des zones, popups enrichies et exports CMS.</p>
         <div class="chips">
           <span class="chip" data-i18n="uc3.chip1">Zones cliquables</span>
@@ -348,6 +351,7 @@
       <div class="body">
         <span class="tag" data-i18n="uc5.tag">Identity analysis</span>
         <h2>Smart Identity Analyzer</h2>
+        <p class="owner">Owner&nbsp;: <b>Anatole CATHERIN</b></p>
         <p data-i18n="uc5.body">Vos fichiers d'identit&eacute;s d&eacute;cod&eacute;s en local : l'analyse va plus vite, les r&egrave;gles de transformation s'&eacute;crivent toutes seules et la moindre incoh&eacute;rence ne passe plus inaper&ccedil;ue.</p>
         <div class="chips">
           <span class="chip" data-i18n="uc5.chip1">Analyse de fichiers</span>
@@ -372,13 +376,14 @@
       </div>
     </article>
 
-    <article class="usecase" data-category="assessment" data-search="auto ti web autotiweb pentest test intrusion black-box boite noire deterministe application web analyse ia local outil">
+    <article class="usecase" data-category="assessment" data-search="web recon accelerator auto ti web autotiweb pentest test intrusion black-box boite noire deterministe application web analyse ia local outil recon reconnaissance">
       <div class="media">
-        <img src="assets/showcase/autotiweb.svg" data-i18n-alt="img.autotiweb" alt="Miniature de Auto-TI-Web montrant un test d'intrusion black-box deterministe et une analyse des resultats par IA">
+        <img src="assets/showcase/autotiweb.svg" data-i18n-alt="img.autotiweb" alt="Miniature de Web Recon Accelerator montrant un test d'intrusion black-box deterministe et une analyse des resultats par IA">
       </div>
       <div class="body">
         <span class="tag" data-i18n="uc6.tag">Black-box web pentest</span>
-        <h2>Auto-TI-Web</h2>
+        <h2>Web Recon Accelerator</h2>
+        <p class="owner">Owner&nbsp;: <b>Corentin GOETGHEBEUR</b></p>
         <p data-i18n="uc6.body">Le pentest web en pilote automatique : des tests black-box d&eacute;terministes et reproductibles, dont l'IA trie et d&eacute;crypte les r&eacute;sultats &mdash; le tout sans quitter votre poste.</p>
         <div class="chips">
           <span class="chip" data-i18n="uc6.chip1">Black-box</span>
@@ -403,13 +408,14 @@
       </div>
     </article>
 
-    <article class="usecase" data-category="assessment" data-search="ebios rm risk analysis analyse risque agent livrables deliverables ateliers scenarios matrice traitement methode anssi">
+    <article class="usecase" data-category="assessment" data-search="booster risk analysis rm ebios rm risk analysis analyse risque agent livrables deliverables ateliers scenarios matrice traitement methode anssi">
       <div class="media">
-        <img src="assets/showcase/ebiosrm.svg" data-i18n-alt="img.ebiosrm" alt="Miniature de EBIOS-RM Risk Analysis montrant les ateliers, la matrice de risque et les livrables generes">
+        <img src="assets/showcase/ebiosrm.svg" data-i18n-alt="img.ebiosrm" alt="Miniature de Booster Risk Analysis RM montrant les ateliers, la matrice de risque et les livrables generes">
       </div>
       <div class="body">
         <span class="tag" data-i18n="uc7.tag">EBIOS-RM risk analysis</span>
-        <h2>EBIOS-RM Risk Analysis</h2>
+        <h2>Booster Risk Analysis RM</h2>
+        <p class="owner">Owner&nbsp;: <b>Jean-Fran&ccedil;ois DI TOMMASO YEKPE</b></p>
         <p data-i18n="uc7.body">Votre copilote EBIOS-RM : il transforme les ateliers en livrables pr&ecirc;ts &agrave; pr&eacute;senter et fait passer l'analyse de risque de la th&eacute;orie au rendu en un temps record.</p>
         <div class="chips">
           <span class="chip" data-i18n="uc7.chip1">EBIOS-RM</span>
@@ -458,7 +464,7 @@
           <td>
             <div class="agent-cell">
               <span class="agent-thumb"><img src="assets/showcase/crisismaker.svg" data-i18n-alt="img.crisis" alt="Miniature animee de CrisisMaker montrant un scenario, des stimuli et un export debrief"></span>
-              <span><b>CrisisMaker</b><small data-i18n="uc1.tag">Cyber crisis exercise</small></span>
+              <span><b>CrisisMaker</b><small data-i18n="uc1.tag">Cyber crisis exercise</small><small class="owner-cell">Owner&nbsp;: Hugo TRICARD</small></span>
             </div>
           </td>
           <td><span class="table-tag" data-i18n="filter.crisis">Crise cyber</span></td>
@@ -493,7 +499,7 @@
           <td>
             <div class="agent-cell">
               <span class="agent-thumb"><img src="assets/showcase/mythos.svg" data-i18n-alt="img.mythos" alt="Miniature animee de Mythos Readiness montrant un questionnaire cyber, un ingest plan et une synthese LLM"></span>
-              <span><b>Mythos Readiness Assessment</b><small data-i18n="uc4.tag">Post-Mythos readiness</small></span>
+              <span><b>Mythos Readiness Assessment</b><small data-i18n="uc4.tag">Post-Mythos readiness</small><small class="owner-cell">Owner&nbsp;: Vincent ROYER</small></span>
             </div>
           </td>
           <td><span class="table-tag" data-i18n="filter.assessment">Diagnostic</span></td>
@@ -510,7 +516,7 @@
           <td>
             <div class="agent-cell">
               <span class="agent-thumb"><img src="assets/showcase/radarmapper.svg" data-i18n-alt="img.radar" alt="Miniature animee de RadarMapper montrant un radar, des zones cliquables, un popup et un export"></span>
-              <span><b>RadarMapper</b><small data-i18n="uc3.tag">Interactive radar mapping</small></span>
+              <span><b>RadarMapper</b><small data-i18n="uc3.tag">Interactive radar mapping</small><small class="owner-cell">Owner&nbsp;: Marc HE</small></span>
             </div>
           </td>
           <td><span class="table-tag" data-i18n="filter.mapping">Mapping</span></td>
@@ -527,7 +533,7 @@
           <td>
             <div class="agent-cell">
               <span class="agent-thumb"><img src="assets/showcase/smartidentity.svg" data-i18n-alt="img.smartidentity" alt="Miniature de Smart Identity Analyzer montrant l'analyse des fichiers d'identites, des regles de transformation et des incoherences"></span>
-              <span><b>Smart Identity Analyzer</b><small data-i18n="uc5.tag">Identity analysis</small></span>
+              <span><b>Smart Identity Analyzer</b><small data-i18n="uc5.tag">Identity analysis</small><small class="owner-cell">Owner&nbsp;: Anatole CATHERIN</small></span>
             </div>
           </td>
           <td><span class="table-tag" data-i18n="filter.assessment">Diagnostic</span></td>
@@ -541,11 +547,11 @@
             </div>
           </td>
         </tr>
-        <tr data-category="assessment" data-search="auto ti web autotiweb pentest test intrusion black-box boite noire deterministe application web analyse ia local outil" data-name="auto-ti-web" data-category-label="diagnostic assessment pentest" data-capabilities="black-box tests deterministes pentest analyse ia" data-outputs="findings rapport analyse ia">
+        <tr data-category="assessment" data-search="web recon accelerator auto ti web autotiweb pentest test intrusion black-box boite noire deterministe application web analyse ia local outil recon reconnaissance" data-name="web recon accelerator" data-category-label="diagnostic assessment pentest" data-capabilities="black-box tests deterministes pentest analyse ia" data-outputs="findings rapport analyse ia">
           <td>
             <div class="agent-cell">
               <span class="agent-thumb"><img src="assets/showcase/autotiweb.svg" data-i18n-alt="img.autotiweb" alt="Miniature de Auto-TI-Web montrant un test d'intrusion black-box deterministe et une analyse des resultats par IA"></span>
-              <span><b>Auto-TI-Web</b><small data-i18n="uc6.tag">Black-box web pentest</small></span>
+              <span><b>Web Recon Accelerator</b><small data-i18n="uc6.tag">Black-box web pentest</small><small class="owner-cell">Owner&nbsp;: Corentin GOETGHEBEUR</small></span>
             </div>
           </td>
           <td><span class="table-tag" data-i18n="filter.assessment">Diagnostic</span></td>
@@ -559,11 +565,11 @@
             </div>
           </td>
         </tr>
-        <tr data-category="assessment" data-search="ebios rm risk analysis analyse risque agent livrables deliverables ateliers scenarios matrice traitement methode anssi" data-name="ebios-rm risk analysis" data-category-label="diagnostic assessment risque ebios" data-capabilities="ateliers scenarios matrice risque livrables" data-outputs="livrables registre scenarios traitement">
+        <tr data-category="assessment" data-search="booster risk analysis rm ebios rm risk analysis analyse risque agent livrables deliverables ateliers scenarios matrice traitement methode anssi" data-name="booster risk analysis rm" data-category-label="diagnostic assessment risque ebios" data-capabilities="ateliers scenarios matrice risque livrables" data-outputs="livrables registre scenarios traitement">
           <td>
             <div class="agent-cell">
               <span class="agent-thumb"><img src="assets/showcase/ebiosrm.svg" data-i18n-alt="img.ebiosrm" alt="Miniature de EBIOS-RM Risk Analysis montrant les ateliers, la matrice de risque et les livrables generes"></span>
-              <span><b>EBIOS-RM Risk Analysis</b><small data-i18n="uc7.tag">EBIOS-RM risk analysis</small></span>
+              <span><b>Booster Risk Analysis RM</b><small data-i18n="uc7.tag">EBIOS-RM risk analysis</small><small class="owner-cell">Owner&nbsp;: Jean-Fran&ccedil;ois DI TOMMASO YEKPE</small></span>
             </div>
           </td>
           <td><span class="table-tag" data-i18n="filter.assessment">Diagnostic</span></td>
@@ -585,12 +591,6 @@
     <div class="empty-state" id="agentEmpty" data-i18n="tools.empty">Aucun agent ne correspond &agrave; cette recherche.</div>
   </section>
 
-  <section class="wrap">
-    <div class="build-note">
-      <div class="lab" data-i18n="note.lab">Miniatures</div>
-      <p data-i18n="note.body">Les miniatures sont des SVG anim&eacute;s versionn&eacute;s dans le site. Elles jouent le r&ocirc;le d'un GIF, mais restent plus l&eacute;g&egrave;res, nettes sur &eacute;cran haute densit&eacute; et faciles &agrave; maintenir dans Git.</p>
-    </div>
-  </section>
 </main>
 
 <footer>
