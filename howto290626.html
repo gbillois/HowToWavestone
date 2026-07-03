@@ -164,11 +164,6 @@
     <span class="tag formation" data-i18n="c3.tag">Showcase</span>
     <h2 data-i18n="c3.h2">Cyber Agents showcase</h2>
     <p data-i18n="c3.p">Nos applications maison, issues de nos d&eacute;p&ocirc;ts&nbsp;: CrisisMaker, CyberBenchExplorer et RadarMapper. Chaque carte inclut une miniature anim&eacute;e et des liens vers la d&eacute;mo et le code source.</p>
-    <div class="chips">
-      <span class="chip">CrisisMaker</span>
-      <span class="chip">CyberBenchExplorer</span>
-      <span class="chip">RadarMapper</span>
-    </div>
     <span class="cta" data-i18n="c3.cta">Explorer nos agents <span class="arrow">&#8594;</span></span>
   </a>
 
@@ -2395,8 +2390,8 @@ __WS_CLOSE_SCRIPT__
   .agent-cell{display:flex;align-items:center;gap:12px;min-width:0;color:var(--ws-ink-900)}
   .agent-thumb{width:72px;height:44px;flex:0 0 72px;background:linear-gradient(180deg,#eaf5f5 0,#f8fbff 100%);border:1px solid var(--ws-ink-100);display:grid;place-items:center;overflow:hidden}
   .agent-thumb img{max-width:100%;max-height:100%;display:block}
-  .agent-cell b{display:block;font-family:var(--ws-font-display);font-size:15px;line-height:1.2;color:var(--ws-ink-900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .agent-cell small{display:block;margin-top:3px;font-family:var(--ws-font-mono);font-size:10.5px;color:var(--ws-indigo-600);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .agent-cell b{display:block;font-family:var(--ws-font-display);font-size:15px;line-height:1.2;color:var(--ws-ink-900);white-space:normal;overflow-wrap:break-word}
+  .agent-cell small{display:block;margin-top:3px;font-family:var(--ws-font-mono);font-size:10.5px;color:var(--ws-indigo-600);white-space:normal;overflow-wrap:break-word}
   .agent-cell small.owner-cell{color:var(--ws-ink-500)}
   .table-tag{display:inline-block;font-family:var(--ws-font-mono);font-size:11px;font-weight:600;color:var(--ws-indigo-700);background:var(--ws-indigo-50);padding:4px 8px}
   .table-actions{display:flex;gap:7px;flex-wrap:wrap}
