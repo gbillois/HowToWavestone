@@ -96,16 +96,6 @@
   .card-icon.learn{background:var(--ws-indigo-50);color:var(--ws-indigo-600)}
   .card-icon.build{background:var(--ws-green-50);color:var(--ws-green-700)}
 
-  /* ---------- feature block (full width) ---------- */
-  .card.feature{grid-column:1 / -1;background:var(--ws-gradient-brand);color:#fff;border-color:transparent}
-  .card.feature:hover{border-color:transparent}
-  .card.feature .card-icon{background:rgba(255,255,255,.14);color:#fff}
-  .card.feature .tag{color:#fff;background:rgba(255,255,255,.16)}
-  .card.feature h2{color:#fff}
-  .card.feature p{color:rgba(255,255,255,.85)}
-  .card.feature p strong{color:#fff;font-weight:600}
-  .card.feature .cta{color:var(--ws-green-400)}
-
   .card .tag{
     display:inline-block;font-family:var(--ws-font-mono);font-size:10.5px;font-weight:600;
     letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 11px;
@@ -191,11 +181,16 @@
     <span class="cta" data-i18n="c2.cta">D&eacute;couvrir les principes <span class="arrow">&#8594;</span></span>
   </a>
 
-  <a class="card feature" href="https://digiplace.sharepoint.com/sites/AIGlobalHub/SitePages/AI-&-ME.aspx?csf=1&web=1&e=uWcp7i&CID=12e43fb3-8d27-4e64-b8b9-108cfe47a1ca&xsdata=MDV8MDJ8fGE3MWVlYTk0YWIzNTRmYjJkNzE4MDhkZWRiNWUyNzBhfDVkZTk2Yzk2Yzg3YzRkY2VhYWQ5ZjVjNTU3YjUyYWMxfDB8MHw2MzkxODkzOTQ1NjE2MTk3MzZ8VW5rbm93bnxWR1ZoYlhOVFpXTjFjbWwwZVZObGNuWnBZMlY4ZXlKRFFTSTZJbFJsWVcxelgwRlVVRk5sY25acFkyVmZVMUJQVEU5R0lpd2lWaUk2SWpBdU1DNHdNREF3SWl3aVVDSTZJbGRwYmpNeUlpd2lRVTRpT2lKUGRHaGxjaUlzSWxkVUlqb3hNWDA9fDF8TDJOb1lYUnpMekU1T20xbFpYUnBibWRmVG1wVk1FOUVaR3RhVkVsMFQwUk5NRnBwTURCT2FrRXdURmRKTkU0eVVYUk5iVVY1VGxkVmVrOUhSVEJaYlZadFFIUm9jbVZoWkM1Mk1pOXRaWE56WVdkbGN5OHhOemd6TXpReU5qVXpOamc0fDIxZDVkZWU1MzA1ZjQyNzMzYTlmMDhkZWRiNWUyNzBhfDNlZGRmYTFhMDlmYTQwZmI5OWFlNzE5M2JiMGNlODc0&sdata=UU15ejlUQmVSTG5DRjNvTDFQWHlvQkJyRkVVMlhNRERDNHQxZENVK1JEVT0%3D&ovuser=5de96c96-c87c-4dce-aad9-f5c557b52ac1%2Cgerome.billois%40wavestone.com&TeamsCID=37062a02-4af6-4ede-abf0-fd3349a70164&OR=Teams-HL&CT=1783342657687&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiI0OS8yNjA1MjkwNjEyMSJ9" target="_blank" rel="noopener noreferrer">
-    <div class="card-icon"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 3 6 3s6-2 6-3v-5"/><path d="M22 10v6"/></svg></div>
-    <span class="tag" data-i18n="c6.tag">AI&amp;Me &middot; Initiative globale</span>
+  <a class="card" href="https://digiplace.sharepoint.com/sites/AIGlobalHub/SitePages/AI-&-ME.aspx?csf=1&web=1&e=uWcp7i&CID=12e43fb3-8d27-4e64-b8b9-108cfe47a1ca&xsdata=MDV8MDJ8fGE3MWVlYTk0YWIzNTRmYjJkNzE4MDhkZWRiNWUyNzBhfDVkZTk2Yzk2Yzg3YzRkY2VhYWQ5ZjVjNTU3YjUyYWMxfDB8MHw2MzkxODkzOTQ1NjE2MTk3MzZ8VW5rbm93bnxWR1ZoYlhOVFpXTjFjbWwwZVZObGNuWnBZMlY4ZXlKRFFTSTZJbFJsWVcxelgwRlVVRk5sY25acFkyVmZVMUJQVEU5R0lpd2lWaUk2SWpBdU1DNHdNREF3SWl3aVVDSTZJbGRwYmpNeUlpd2lRVTRpT2lKUGRHaGxjaUlzSWxkVUlqb3hNWDA9fDF8TDJOb1lYUnpMekU1T20xbFpYUnBibWRmVG1wVk1FOUVaR3RhVkVsMFQwUk5NRnBwTURCT2FrRXdURmRKTkU0eVVYUk5iVVY1VGxkVmVrOUhSVEJaYlZadFFIUm9jbVZoWkM1Mk1pOXRaWE56WVdkbGN5OHhOemd6TXpReU5qVXpOamc0fDIxZDVkZWU1MzA1ZjQyNzMzYTlmMDhkZWRiNWUyNzBhfDNlZGRmYTFhMDlmYTQwZmI5OWFlNzE5M2JiMGNlODc0&sdata=UU15ejlUQmVSTG5DRjNvTDFQWHlvQkJyRkVVMlhNRERDNHQxZENVK1JEVT0%3D&ovuser=5de96c96-c87c-4dce-aad9-f5c557b52ac1%2Cgerome.billois%40wavestone.com&TeamsCID=37062a02-4af6-4ede-abf0-fd3349a70164&OR=Teams-HL&CT=1783342657687&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiI0OS8yNjA1MjkwNjEyMSJ9" target="_blank" rel="noopener noreferrer">
+    <div class="card-icon learn"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 3 6 3s6-2 6-3v-5"/><path d="M22 10v6"/></svg></div>
+    <span class="tag formation" data-i18n="c6.tag">AI&amp;Me</span>
     <h2 data-i18n="c6.h2">D&eacute;couvrir et se former &agrave; l'IA</h2>
-    <p data-i18n="c6.p">AI&amp;Me est une initiative globale et conviviale, pens&eacute;e pour rendre l'IA accessible et aider chaque Wavie &agrave; b&acirc;tir des comp&eacute;tences en IA utiles et durables, gr&acirc;ce &agrave; des contenus d'apprentissage s&eacute;lectionn&eacute;s.<br><br><strong>Votre mont&eacute;e en comp&eacute;tences IA, votre responsabilit&eacute;.</strong> AI&amp;Me vous donne les outils &mdash; mais votre d&eacute;veloppement commence par vous. Vous n'apprenez pas seulement &agrave; propos de l'IA&nbsp;: vous apprenez &agrave; l'int&eacute;grer dans votre quotidien professionnel.<br><br>Pour rester pertinent et comp&eacute;titif, continuez &agrave; renforcer vos capacit&eacute;s en IA. Une mont&eacute;e en comp&eacute;tences continue est essentielle pour rester pr&ecirc;t pour l'avenir&nbsp;! AI&amp;Me permet &agrave; tous les Wavies de participer &agrave; notre parcours de mont&eacute;e en comp&eacute;tences en IA.</p>
+    <p data-i18n="c6.p">D&eacute;couvrez l'initiative mondiale d'apprentissage de l'IA de Wavestone. Commencez &agrave; ma&icirc;triser tous les concepts et les outils gr&acirc;ce &agrave; une plateforme interactive.</p>
+    <div class="chips" data-i18n="c6.chips">
+      <span class="chip">Initiative globale</span>
+      <span class="chip">Plateforme interactive</span>
+      <span class="chip">Tous les Wavies</span>
+    </div>
     <span class="cta" data-i18n="c6.cta">Explorer AI&amp;Me <span class="arrow">&#8599;</span></span>
   </a>
 
@@ -247,9 +242,10 @@ window.WS_I18N = {
     "c2.p": "The six principles behind every agent: decoupled from the client&rsquo;s infrastructure and from the LLM, usable locally without admin rights, deterministic first, collaborative through a simple JSON file, and managed through a usage budget.",
     "c2.chips": "<span class=\"chip\">6 principles</span><span class=\"chip\">Portable</span><span class=\"chip\">Deterministic</span><span class=\"chip\">Multi-client</span>",
     "c2.cta": "Explore the principles <span class=\"arrow\">&#8594;</span>",
-    "c6.tag": "AI&amp;Me &middot; Global initiative",
+    "c6.tag": "AI&amp;Me",
     "c6.h2": "Discover and learn AI",
-    "c6.p": "AI&amp;Me is a global, user-friendly initiative designed to make AI accessible and help every Wavie build meaningful, future-proof AI skills through curated learning content.<br><br><strong>Your AI upskilling path, your responsibility.</strong> AI&amp;Me gives you the tools &mdash; but your development starts with you. With AI&amp;Me, you&rsquo;re not just learning about AI: you&rsquo;re learning to make AI part of your daily work life.<br><br>To stay relevant and competitive, you need to keep strengthening your AI capabilities. Continuous upskilling is essential to remain future-ready! AI&amp;Me enables all Wavies to participate in our AI upskilling journey.",
+    "c6.p": "Discover Wavestone&rsquo;s global AI learning initiative. Start learning all the concepts and the tools through an interactive platform.",
+    "c6.chips": "<span class=\"chip\">Global initiative</span><span class=\"chip\">Interactive platform</span><span class=\"chip\">All Wavies</span>",
     "c6.cta": "Explore AI&amp;Me <span class=\"arrow\">&#8599;</span>",
     "c3.tag": "Showcase",
     "c3.h2": "Cyber Agents showcase",
@@ -281,9 +277,10 @@ window.WS_I18N = {
     "c2.p": "Die sechs Prinzipien hinter jedem Agenten: entkoppelt von der Kundeninfrastruktur und vom LLM, lokal ohne Admin-Rechte nutzbar, zuerst deterministisch, kollaborativ &uuml;ber eine einfache JSON-Datei und durch ein Nutzungsbudget gesteuert.",
     "c2.chips": "<span class=\"chip\">6 Prinzipien</span><span class=\"chip\">Portabel</span><span class=\"chip\">Deterministisch</span><span class=\"chip\">Mandanten&uuml;bergreifend</span>",
     "c2.cta": "Die Prinzipien entdecken <span class=\"arrow\">&#8594;</span>",
-    "c6.tag": "AI&amp;Me &middot; Globale Initiative",
+    "c6.tag": "AI&amp;Me",
     "c6.h2": "KI entdecken und lernen",
-    "c6.p": "AI&amp;Me ist eine globale, benutzerfreundliche Initiative, die KI zug&auml;nglich machen und jeden Wavie dabei unterst&uuml;tzen soll, sinnvolle und zukunftssichere KI-Kompetenzen &uuml;ber kuratierte Lerninhalte aufzubauen.<br><br><strong>Dein KI-Kompetenzaufbau, deine Verantwortung.</strong> AI&amp;Me gibt dir die Werkzeuge &ndash; doch deine Entwicklung beginnt bei dir. Mit AI&amp;Me lernst du nicht nur etwas &uuml;ber KI: Du lernst, KI zu einem Teil deines Arbeitsalltags zu machen.<br><br>Um relevant und wettbewerbsf&auml;hig zu bleiben, musst du deine KI-F&auml;higkeiten kontinuierlich ausbauen. Kontinuierlicher Kompetenzaufbau ist entscheidend, um zukunftsf&auml;hig zu bleiben! AI&amp;Me erm&ouml;glicht es allen Wavies, an unserer KI-Lernreise teilzunehmen.",
+    "c6.p": "Entdecke die globale KI-Lerninitiative von Wavestone. Beginne, alle Konzepte und Werkzeuge &uuml;ber eine interaktive Plattform zu lernen.",
+    "c6.chips": "<span class=\"chip\">Globale Initiative</span><span class=\"chip\">Interaktive Plattform</span><span class=\"chip\">Alle Wavies</span>",
     "c6.cta": "AI&amp;Me erkunden <span class=\"arrow\">&#8599;</span>",
     "c3.tag": "Showcase",
     "c3.h2": "Cyber Agents showcase",
