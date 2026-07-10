@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wavestone CYB AI Maker &mdash; Mod&egrave;le &eacute;conomique des tokens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-warning:#C8861A;
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ws-white);color:var(--ws-ink-900);font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  .eyebrow{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid var(--ws-green-400)}
+
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:6px 13px;transition:.18s var(--ws-ease)}
+  .bar a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-left:auto}
+  .bar-in .langsel{margin-left:10px}
+
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1040px;margin:0 auto;padding:64px 24px 56px}
+  .hero .eyebrow{color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(34px,6vw,60px);line-height:1.04;letter-spacing:-.025em;margin:22px 0 16px;max-width:22ch}
+  .hero .lede{font-size:19px;line-height:1.5;color:rgba(255,255,255,.82);max-width:64ch}
+
+  .sec-head{margin:52px 0 6px}
+  .sec-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:26px;letter-spacing:-.015em;color:var(--ws-indigo-600);margin-top:8px}
+  .sec-head p.sub{font-size:15px;color:var(--ws-ink-600);margin-top:10px;max-width:70ch}
+
+  .cases{display:grid;gap:20px;margin-top:24px;grid-template-columns:1fr}
+  @media(min-width:800px){.cases{grid-template-columns:1fr 1fr}}
+  .case-card{position:relative;background:#fff;border:1.5px solid var(--ws-ink-100);border-radius:16px;padding:26px 24px;box-shadow:var(--ws-shadow-sm);transition:.22s var(--ws-ease);display:flex;flex-direction:column}
+  .case-card:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-3px);border-color:var(--ws-indigo-200)}
+  .case-card .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--ws-indigo-50);color:var(--ws-indigo-600);margin-bottom:14px}
+  .case-card .tag{display:inline-block;font-family:var(--ws-font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-indigo-600);background:var(--ws-indigo-50);border-radius:999px;padding:4px 11px;margin-bottom:10px;width:fit-content}
+  .case-card h3{font-family:var(--ws-font-display);font-weight:700;font-size:19px;color:var(--ws-ink-900);line-height:1.25;margin-bottom:10px}
+  .case-card > p{font-size:14.5px;color:var(--ws-ink-600);line-height:1.6;margin-bottom:16px}
+  .mini-steps{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:6px}
+  .mini-steps li{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:var(--ws-ink-700);line-height:1.55}
+  .mini-steps li .num{flex:0 0 auto;width:22px;height:22px;border-radius:7px;background:var(--ws-indigo-50);color:var(--ws-indigo-600);font-family:var(--ws-font-mono);font-weight:600;font-size:12px;display:grid;place-items:center;margin-top:1px}
+  .mini-steps li b{color:var(--ws-ink-900)}
+  .case-card .lk{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-family:var(--ws-font-mono);font-size:12.5px;border:1px solid var(--ws-ink-200);border-radius:999px;padding:8px 14px;margin-top:16px;width:fit-content;transition:.18s var(--ws-ease)}
+  .case-card .lk:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600);transform:translateY(-1px)}
+
+  .note{margin-top:20px;background:#FBF1DD;border:1px solid #F0DBA8;border-left:4px solid var(--ws-warning);border-radius:12px;padding:16px 18px;display:flex;gap:12px;align-items:flex-start}
+  .note svg{flex:0 0 auto;color:var(--ws-warning);margin-top:2px}
+  .note p{font-size:14px;color:var(--ws-ink-700);line-height:1.6}
+  .note p b{color:var(--ws-ink-900)}
+
+  .tblwrap{margin-top:28px;overflow-x:auto;border:1px solid var(--ws-ink-100);border-radius:16px}
+  table.recap{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+  table.recap th,table.recap td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--ws-ink-100);vertical-align:top}
+  table.recap thead th{font-family:var(--ws-font-display);font-weight:700;font-size:13px;color:var(--ws-indigo-600);background:var(--ws-indigo-50)}
+  table.recap tbody th{font-family:var(--ws-font-mono);font-weight:600;font-size:12.5px;color:var(--ws-ink-500);white-space:nowrap}
+  table.recap td{color:var(--ws-ink-700);line-height:1.5}
+  table.recap tbody tr:last-child th,table.recap tbody tr:last-child td{border-bottom:none}
+  table.recap td b{color:var(--ws-ink-900)}
+
+  .res{margin-top:28px}
+  .res-card{background:#fff;border:1px solid var(--ws-ink-100);border-radius:16px;padding:20px 22px;box-shadow:var(--ws-shadow-sm);border-color:var(--ws-green-400);box-shadow:0 0 0 1px var(--ws-green-400),var(--ws-shadow-sm)}
+  .res-card h3{font-family:var(--ws-font-display);font-weight:600;font-size:17px;color:var(--ws-indigo-600);margin-bottom:14px;display:flex;align-items:center;gap:9px}
+  .res-card h3 .star{color:var(--ws-green-700)}
+  .res-cta{display:flex;align-items:center;justify-content:space-between;gap:12px;text-decoration:none;background:var(--ws-green-400);border-radius:11px;padding:13px 16px;transition:.18s var(--ws-ease)}
+  .res-cta:hover{background:var(--ws-green-300)}
+  .res-cta .nm{font-family:var(--ws-font-display);font-weight:700;font-size:15px;color:var(--ws-indigo-900)}
+  .res-cta .go{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-indigo-900);white-space:nowrap}
+  .cap{font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-ink-400);margin-top:12px;display:flex;gap:6px;align-items:flex-start}
+
+  footer{max-width:1040px;margin:60px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+  footer a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:8px 14px;transition:.18s var(--ws-ease)}
+  footer a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+  *,*::before,*::after{border-radius:0!important}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
+    <div class="nav-links">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
+      <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+      <a class="jump" href="token-economics.html" data-i18n="nav.tokeneco">Mod&egrave;le &eacute;conomique</a>
+      <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1040 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,300 Q260,180 540,250 T1100,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <span class="eyebrow" data-i18n="hero.eyebrow">Gouvernance &amp; budget IA</span>
+    <h1 data-i18n="hero.title">Le mod&egrave;le &eacute;conomique des tokens</h1>
+    <p class="lede" data-i18n="hero.lede">Chaque appel &agrave; un mod&egrave;le d'IA consomme des tokens factur&eacute;s &agrave; l'usage. La fa&ccedil;on de budg&eacute;tiser et de suivre cette consommation d&eacute;pend d'un seul crit&egrave;re&nbsp;: l'usage se fait-il dans le cadre d'une mission client, ou en interne&nbsp;?</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="cases.eyebrow">Deux cas, deux circuits</span>
+    <h2 data-i18n="cases.h2">Comment financer et suivre votre consommation de tokens</h2>
+    <p class="sub" data-i18n="cases.sub">Le circuit &agrave; suivre &mdash; budget, suivi, obtention de la cl&eacute; API &mdash; n'est pas le m&ecirc;me selon que l'usage est factur&eacute; &agrave; un client ou r&eacute;alis&eacute; en interne.</p>
+  </div>
+
+  <div class="cases">
+
+    <article class="case-card">
+      <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><rect x="2" y="7" width="20" height="14"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+      <span class="tag" data-i18n="c1.tag">Usage client</span>
+      <h3 data-i18n="c1.h3">Usage li&eacute; &agrave; une mission client</h3>
+      <p data-i18n="c1.p">Lorsque l'IA est utilis&eacute;e dans le cadre d'une mission factur&eacute;e, le co&ucirc;t des tokens est port&eacute; par le client et doit &ecirc;tre anticip&eacute; d&egrave;s le chiffrage.</p>
+      <ol class="mini-steps">
+        <li><span class="num">1</span><span data-i18n="c1.s1"><b>Budg&eacute;tiser dans la proposition commerciale</b> &mdash; provisionner une ligne &laquo;&nbsp;usage IA / tokens&nbsp;&raquo; d&egrave;s le chiffrage de la propal, dimensionn&eacute;e selon les volumes d'appels pr&eacute;vus.</span></li>
+        <li><span class="num">2</span><span data-i18n="c1.s2"><b>Suivre la consommation dans Wavekeeper</b> &mdash; une fois la mission d&eacute;marr&eacute;e, la consommation r&eacute;elle de tokens est suivie dans Wavekeeper, au m&ecirc;me titre que le reste du budget de la mission.</span></li>
+        <li><span class="num">3</span><span data-i18n="c1.s3"><b>Obtenir la cl&eacute; auprès du product owner de l'outil</b> &mdash; la cl&eacute; API donnant acc&egrave;s &agrave; l'outil utilis&eacute; dans la propal (CrisisMaker, CyberBenchmark Helper&hellip;) est fournie par le <b>product owner</b> de cet outil, qui la rattache &agrave; la mission.</span></li>
+      </ol>
+    </article>
+
+    <article class="case-card">
+      <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><rect x="4" y="2" width="16" height="20"/><line x1="9" y1="7" x2="9" y2="7"/><line x1="15" y1="7" x2="15" y2="7"/><line x1="9" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="15" y2="12"/><line x1="9" y1="17" x2="15" y2="17"/></svg></div>
+      <span class="tag" data-i18n="c2.tag">Usage interne</span>
+      <h3 data-i18n="c2.h3">Usage interne, hors mission</h3>
+      <p data-i18n="c2.p">Pour les agents utilis&eacute;s en interne &mdash; R&amp;D, outillage, exp&eacute;rimentation &mdash; il n'y a pas de propal, donc pas de budget client d&eacute;di&eacute;. Le financement se fait sur budget interne, apr&egrave;s validation.</p>
+      <ol class="mini-steps">
+        <li><span class="num">1</span><span data-i18n="c2.s1"><b>Faire une demande au CDM</b> &mdash; toute consommation de tokens hors mission doit &ecirc;tre valid&eacute;e par un Chef De Mission (CDM), qui autorise le besoin et son financement sur budget interne.</span></li>
+        <li><span class="num">2</span><span data-i18n="c2.s2"><b>Cr&eacute;er la cl&eacute; API</b> &mdash; une fois la demande valid&eacute;e, la cl&eacute; se cr&eacute;e selon la proc&eacute;dure standard.</span></li>
+      </ol>
+      <a class="lk" href="api-key.html" data-i18n="c2.link">voir la proc&eacute;dure de cl&eacute; API &#8594;</a>
+    </article>
+
+  </div>
+
+  <div class="note">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <p data-i18n="note.body">Un usage de tokens non budg&eacute;t&eacute; en propal fait courir un risque de d&eacute;passement &agrave; la mission&nbsp;: anticipez toujours le volume pr&eacute;vu avant de chiffrer, et faites confirmer ce budget par le product owner de l'outil concern&eacute;.</p>
+  </div>
+
+  <div class="tblwrap">
+    <table class="recap">
+      <thead>
+        <tr>
+          <th data-i18n="tbl.h0">Crit&egrave;re</th>
+          <th data-i18n="tbl.h1">Usage client (mission)</th>
+          <th data-i18n="tbl.h2">Usage interne (hors mission)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th data-i18n="tbl.r0">Budget</th>
+          <td data-i18n="tbl.r0c1">Provisionn&eacute; dans la <b>proposition commerciale</b></td>
+          <td data-i18n="tbl.r0c2"><b>Budget interne</b>, apr&egrave;s validation du CDM</td>
+        </tr>
+        <tr>
+          <th data-i18n="tbl.r1">Suivi</th>
+          <td data-i18n="tbl.r1c1">Consommation suivie dans <b>Wavekeeper</b></td>
+          <td data-i18n="tbl.r1c2">Suivi interne pilot&eacute; par le CDM</td>
+        </tr>
+        <tr>
+          <th data-i18n="tbl.r2">Cl&eacute; API</th>
+          <td data-i18n="tbl.r2c1">D&eacute;livr&eacute;e par le <b>product owner</b> de l'outil utilis&eacute; dans la propal</td>
+          <td data-i18n="tbl.r2c2">Cr&eacute;&eacute;e apr&egrave;s validation, via la <a href="api-key.html">proc&eacute;dure cl&eacute; API</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="res">
+    <div class="res-card">
+      <h3><span class="star"><svg width="0.85em" height="0.85em" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span> <span data-i18n="res.title">Obtenir une cl&eacute; API</span></h3>
+      <a class="res-cta" href="api-key.html">
+        <span class="nm" data-i18n="res.cta">Voir la proc&eacute;dure de cr&eacute;ation de cl&eacute; API</span><span class="go" data-i18n="res.go">page cl&eacute; API &#8594;</span>
+      </a>
+      <div class="cap"><span>&#8505;</span><span data-i18n="res.note">Quel que soit le cas &mdash; client ou interne &mdash; la cl&eacute; se cr&eacute;e toujours via cette m&ecirc;me proc&eacute;dure, une fois le budget valid&eacute;.</span></div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span class="src" data-i18n="footer.src">Mod&egrave;le &eacute;conomique des tokens &mdash; Wavestone CYB &middot; AI Maker Initiative</span>
+  <a class="jump" href="index.html" data-i18n="back">&#8592; retour &agrave; l'accueil</a>
+</footer>
+
+<script>
+window.WS_I18N = {
+  en: {
+    "__title": "Wavestone CYB AI Maker &mdash; Token economics model",
+    "nav.home": "Home",
+    "nav.usecases": "Playbook",
+    "nav.principles": "Agent principles",
+    "nav.agents": "Our agents",
+    "nav.tokeneco": "Economics model",
+    "nav.apikey": "API key",
+    "hero.eyebrow": "Governance &amp; AI budget",
+    "hero.title": "The token economics model",
+    "hero.lede": "Every call to an AI model consumes tokens billed by usage. How you budget and track that consumption depends on a single criterion: is the usage part of a client engagement, or internal?",
+    "cases.eyebrow": "Two cases, two paths",
+    "cases.h2": "How to fund and track your token consumption",
+    "cases.sub": "The path to follow &mdash; budget, tracking, obtaining the API key &mdash; differs depending on whether the usage is billed to a client or run internally.",
+    "c1.tag": "Client usage",
+    "c1.h3": "Usage tied to a client engagement",
+    "c1.p": "When AI is used as part of a billed engagement, the token cost is borne by the client and must be anticipated at the costing stage.",
+    "c1.s1": "<b>Budget it in the commercial proposal</b> &mdash; provision a dedicated &ldquo;AI usage / tokens&rdquo; line as early as the proposal costing, sized to the expected call volumes.",
+    "c1.s2": "<b>Track consumption in Wavekeeper</b> &mdash; once the engagement starts, actual token consumption is tracked in Wavekeeper, just like the rest of the engagement budget.",
+    "c1.s3": "<b>Get the key from the tool's product owner</b> &mdash; the API key granting access to the tool used in the proposal (CrisisMaker, CyberBenchmark Helper&hellip;) is provided by that tool's <b>product owner</b>, who assigns it to the engagement.",
+    "c2.tag": "Internal usage",
+    "c2.h3": "Internal usage, outside any engagement",
+    "c2.p": "For agents used internally &mdash; R&amp;D, tooling, experimentation &mdash; there is no proposal, and therefore no dedicated client budget. Funding comes from the internal budget, after approval.",
+    "c2.s1": "<b>Submit a request to the CDM</b> &mdash; any token consumption outside an engagement must be approved by an engagement manager (CDM), who authorizes the need and its funding from the internal budget.",
+    "c2.s2": "<b>Create the API key</b> &mdash; once the request is approved, the key is created following the standard procedure.",
+    "c2.link": "see the API key procedure &#8594;",
+    "note.body": "Unbudgeted token usage in a proposal puts the engagement at risk of overrun: always anticipate the expected volume before costing, and have that budget confirmed by the relevant tool's product owner.",
+    "tbl.h0": "Criterion",
+    "tbl.h1": "Client usage (engagement)",
+    "tbl.h2": "Internal usage (no engagement)",
+    "tbl.r0": "Budget",
+    "tbl.r0c1": "Provisioned in the <b>commercial proposal</b>",
+    "tbl.r0c2": "<b>Internal budget</b>, after CDM approval",
+    "tbl.r1": "Tracking",
+    "tbl.r1c1": "Consumption tracked in <b>Wavekeeper</b>",
+    "tbl.r1c2": "Internal tracking led by the CDM",
+    "tbl.r2": "API key",
+    "tbl.r2c1": "Issued by the <b>product owner</b> of the tool used in the proposal",
+    "tbl.r2c2": "Created after approval, via the <a href=\"api-key.html\">API key procedure</a>",
+    "res.title": "Get an API key",
+    "res.cta": "See the API key creation procedure",
+    "res.go": "API key page &#8594;",
+    "res.note": "In both cases &mdash; client or internal &mdash; the key is always created via this same procedure, once the budget is approved.",
+    "footer.src": "Token economics model &mdash; Wavestone CYB &middot; AI Maker Initiative",
+    "back": "&#8592; back to home"
+  },
+  de: {
+    "__title": "Wavestone CYB AI Maker &mdash; Token-Wirtschaftsmodell",
+    "nav.home": "Start",
+    "nav.usecases": "Playbook",
+    "nav.principles": "Agenten-Prinzipien",
+    "nav.agents": "Unsere Agenten",
+    "nav.tokeneco": "Wirtschaftsmodell",
+    "nav.apikey": "API-Schl&uuml;ssel",
+    "hero.eyebrow": "Governance &amp; KI-Budget",
+    "hero.title": "Das Token-Wirtschaftsmodell",
+    "hero.lede": "Jeder Aufruf eines KI-Modells verbraucht Tokens, die nach Nutzung abgerechnet werden. Wie du diese Nutzung budgetierst und verfolgst, h&auml;ngt von einem einzigen Kriterium ab: Erfolgt die Nutzung im Rahmen eines Kundenauftrags oder intern?",
+    "cases.eyebrow": "Zwei F&auml;lle, zwei Wege",
+    "cases.h2": "Wie du deinen Token-Verbrauch finanzierst und verfolgst",
+    "cases.sub": "Der zu befolgende Weg &mdash; Budget, Nachverfolgung, Erhalt des API-Schl&uuml;ssels &mdash; unterscheidet sich je danach, ob die Nutzung einem Kunden verrechnet oder intern durchgef&uuml;hrt wird.",
+    "c1.tag": "Kundennutzung",
+    "c1.h3": "Nutzung im Rahmen eines Kundenauftrags",
+    "c1.p": "Wird KI im Rahmen eines abgerechneten Auftrags genutzt, tr&auml;gt der Kunde die Token-Kosten &mdash; diese m&uuml;ssen bereits bei der Kalkulation ber&uuml;cksichtigt werden.",
+    "c1.s1": "<b>Im Angebot budgetieren</b> &mdash; bereits bei der Angebotskalkulation eine eigene Position &bdquo;KI-Nutzung / Tokens&ldquo; vorsehen, dimensioniert nach den erwarteten Aufrufmengen.",
+    "c1.s2": "<b>Verbrauch in Wavekeeper verfolgen</b> &mdash; nach Auftragsstart wird der tats&auml;chliche Token-Verbrauch in Wavekeeper verfolgt, genau wie das &uuml;brige Auftragsbudget.",
+    "c1.s3": "<b>Schl&uuml;ssel vom Product Owner des Tools erhalten</b> &mdash; der API-Schl&uuml;ssel f&uuml;r das im Angebot genutzte Tool (CrisisMaker, CyberBenchmark Helper&hellip;) wird vom <b>Product Owner</b> dieses Tools bereitgestellt, der ihn dem Auftrag zuordnet.",
+    "c2.tag": "Interne Nutzung",
+    "c2.h3": "Interne Nutzung, au&szlig;erhalb eines Auftrags",
+    "c2.p": "F&uuml;r intern genutzte Agenten &mdash; F&amp;E, Tooling, Experimente &mdash; gibt es kein Angebot und somit kein eigenes Kundenbudget. Die Finanzierung erfolgt nach Freigabe aus dem internen Budget.",
+    "c2.s1": "<b>Antrag beim CDM stellen</b> &mdash; jeder Token-Verbrauch au&szlig;erhalb eines Auftrags muss von einem Engagement Manager (CDM) freigegeben werden, der den Bedarf und dessen Finanzierung aus dem internen Budget genehmigt.",
+    "c2.s2": "<b>API-Schl&uuml;ssel erstellen</b> &mdash; nach Freigabe des Antrags wird der Schl&uuml;ssel nach dem Standardverfahren erstellt.",
+    "c2.link": "Verfahren f&uuml;r API-Schl&uuml;ssel ansehen &#8594;",
+    "note.body": "Nicht budgetierte Token-Nutzung in einem Angebot birgt das Risiko einer &Uuml;berschreitung f&uuml;r den Auftrag: sieh das erwartete Volumen immer vor der Kalkulation vor und lasse dieses Budget vom Product Owner des betreffenden Tools best&auml;tigen.",
+    "tbl.h0": "Kriterium",
+    "tbl.h1": "Kundennutzung (Auftrag)",
+    "tbl.h2": "Interne Nutzung (kein Auftrag)",
+    "tbl.r0": "Budget",
+    "tbl.r0c1": "Vorgesehen im <b>Angebot</b>",
+    "tbl.r0c2": "<b>Internes Budget</b>, nach Freigabe durch den CDM",
+    "tbl.r1": "Nachverfolgung",
+    "tbl.r1c1": "Verbrauch wird in <b>Wavekeeper</b> verfolgt",
+    "tbl.r1c2": "Interne Nachverfolgung durch den CDM",
+    "tbl.r2": "API-Schl&uuml;ssel",
+    "tbl.r2c1": "Ausgestellt vom <b>Product Owner</b> des im Angebot genutzten Tools",
+    "tbl.r2c2": "Nach Freigabe erstellt, &uuml;ber das <a href=\"api-key.html\">API-Schl&uuml;ssel-Verfahren</a>",
+    "res.title": "Einen API-Schl&uuml;ssel erhalten",
+    "res.cta": "Verfahren f&uuml;r die Erstellung eines API-Schl&uuml;ssels ansehen",
+    "res.go": "API-Schl&uuml;ssel-Seite &#8594;",
+    "res.note": "In beiden F&auml;llen &mdash; Kunde oder intern &mdash; wird der Schl&uuml;ssel nach Freigabe des Budgets stets nach demselben Verfahren erstellt.",
+    "footer.src": "Token-Wirtschaftsmodell &mdash; Wavestone CYB &middot; AI Maker Initiative",
+    "back": "&#8592; zur&uuml;ck zur Startseite"
+  }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/mobile-nav.js"></script>
+
+</body>
+</html>
