@@ -38,6 +38,7 @@ PAGES = [
     "playbook.html",
     "agent-principles.html",
     "our-agents.html",
+    "token-economics.html",
     "api-key.html",
     "web-app-guide.html",
     "local-app-guide.html",
