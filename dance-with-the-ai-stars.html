@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="__title">Wavestone CYB AI Maker &mdash; Dance With the AI Stars</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-teal-500:#228D95;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ws-white);color:var(--ws-ink-900);font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  .eyebrow{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid var(--ws-green-400)}
+
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1120px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:6px 13px;transition:.18s var(--ws-ease)}
+  .bar a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-left:auto}
+
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1120px;margin:0 auto;padding:64px 24px 56px;text-align:center}
+  .hero .eyebrow{color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(36px,6.2vw,62px);line-height:1.05;letter-spacing:-.025em;margin:22px auto 16px;max-width:20ch}
+  .hero h1 .ac{color:var(--ws-green-400)}
+  .hero .lede{font-size:19px;line-height:1.55;color:rgba(255,255,255,.82);max-width:62ch;margin:0 auto}
+
+  .stage{padding:44px 0 8px}
+  .stage-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+
+  .proj-card{
+    position:relative;text-decoration:none;display:flex;flex-direction:column;
+    background:#fff;border:1.5px solid var(--ws-ink-100);
+    box-shadow:var(--ws-shadow-md);overflow:hidden;transition:.25s var(--ws-ease);
+  }
+  .proj-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ws-gradient-accent);opacity:0;transition:opacity .25s var(--ws-ease)}
+  .proj-card.filled:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-4px);border-color:var(--ws-indigo-200)}
+  .proj-card.filled:hover::before{opacity:1}
+
+  .proj-media{position:relative;height:132px;background:var(--ws-gradient-brand);display:flex;align-items:center;justify-content:center;overflow:hidden;flex:0 0 auto}
+  .proj-media .num{position:absolute;top:10px;left:12px;font-family:var(--ws-font-mono);font-size:11px;font-weight:700;color:rgba(255,255,255,.55)}
+  .proj-media svg.wave{position:absolute;inset:0;width:100%;height:100%}
+  .proj-media .glyph{position:relative;width:52px;height:52px;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.35);display:grid;place-items:center;color:#fff}
+
+  .proj-body{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1}
+  .proj-card .tag{display:inline-block;font-family:var(--ws-font-mono);font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 11px;margin-bottom:12px;width:fit-content;color:var(--ws-indigo-700);background:var(--ws-indigo-50)}
+  .proj-card h2{font-family:var(--ws-font-display);font-weight:700;font-size:20px;letter-spacing:-.01em;color:var(--ws-ink-900);margin-bottom:8px;line-height:1.25}
+  .proj-card p{font-size:14px;color:var(--ws-ink-500);line-height:1.55;flex:1}
+  .proj-card .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+  .proj-card .chip{font-family:var(--ws-font-mono);font-size:10px;color:var(--ws-ink-600);background:var(--ws-ink-50);padding:4px 9px}
+  .proj-card .cta{display:inline-flex;align-items:center;gap:8px;font-family:var(--ws-font-mono);font-size:12.5px;font-weight:600;color:var(--ws-indigo-600);margin-top:18px;transition:.18s var(--ws-ease)}
+  .proj-card.filled:hover .cta{gap:12px}
+  .cta .arrow{transition:transform .18s var(--ws-ease)}
+  .proj-card.filled:hover .cta .arrow{transform:translateX(3px)}
+
+  /* placeholder state */
+  .proj-card.placeholder{cursor:default}
+  .proj-card.placeholder .proj-media{background:var(--ws-ink-50)}
+  .proj-card.placeholder .proj-media .glyph{background:#fff;border-color:var(--ws-ink-200);color:var(--ws-ink-300)}
+  .proj-card.placeholder .proj-media .num{color:var(--ws-ink-300)}
+  .proj-card.placeholder{border-style:dashed;border-color:var(--ws-ink-200)}
+  .proj-card.placeholder h2{color:var(--ws-ink-400)}
+  .proj-card.placeholder p{color:var(--ws-ink-400)}
+  .proj-card.placeholder .tag{color:var(--ws-ink-400);background:var(--ws-ink-50)}
+  .soon-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--ws-font-mono);font-size:11px;font-weight:600;color:var(--ws-ink-400);margin-top:18px}
+  .soon-badge .dot{width:6px;height:6px;background:var(--ws-ink-300);border-radius:50%}
+
+  .stats-strip{margin-top:52px;border:1.5px solid var(--ws-ink-100);background:var(--ws-ink-50);padding:26px 28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px;text-align:center}
+  .stats-strip .s b{display:block;font-family:var(--ws-font-display);font-weight:800;font-size:28px;color:var(--ws-indigo-600);line-height:1}
+  .stats-strip .s span{display:block;font-size:12px;color:var(--ws-ink-500);margin-top:6px}
+
+  footer{max-width:1120px;margin:60px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+  footer a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:8px 14px;transition:.18s var(--ws-ease)}
+  footer a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus)}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  *,*::before,*::after{border-radius:0!important}
+  .brand .dot,.stats-strip .s b{border-radius:0!important}
+  .soon-badge .dot{border-radius:50%!important}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
+    <div class="nav-links">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
+      <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+      <a class="jump" href="dance-with-the-ai-stars.html" data-i18n="nav.dais">Dance With the AI Stars</a>
+      <a class="jump" href="token-economics.html" data-i18n="nav.tokeneco">Mod&egrave;le &eacute;conomique</a>
+      <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1120 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,300 Q280,180 580,250 T1180,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,330 Q320,210 600,285 T1180,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <span class="eyebrow" data-i18n="hero.eyebrow">Initiative CYB AI Maker</span>
+    <h1 data-i18n="hero.title">Dance With the <span class="ac">AI Stars</span></h1>
+    <p class="lede" data-i18n="hero.lede">Six projets internes, six &eacute;quipes, une m&ecirc;me ambition&nbsp;: transformer une expertise m&eacute;tier en agent IA op&eacute;rationnel. D&eacute;couvrez comment chaque &eacute;quipe r&eacute;invente sa m&eacute;thodologie gr&acirc;ce &agrave; l'intelligence artificielle.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="stage">
+    <div class="stage-grid">
+
+      <a class="proj-card filled" href="usecase-nis2-compliance.html">
+        <div class="proj-media">
+          <span class="num">01</span>
+          <svg class="wave" viewBox="0 0 300 132" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <path d="M-20,110 Q80,60 150,90 T320,70" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/>
+            <path d="M-20,120 Q90,80 160,100 T320,90" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".5"/>
+          </svg>
+          <div class="glyph"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><circle cx="12" cy="9" r="7"/></svg></div>
+        </div>
+        <div class="proj-body">
+          <span class="tag">NIS2 &middot; Compliance</span>
+          <h2>AI-Powered Compliance Assistant</h2>
+          <p>Cartographie automatique des 27 r&eacute;f&eacute;rentiels nationaux NIS2 &mdash; un pipeline Azure OpenAI qui remplace des semaines de mapping manuel par quelques jours.</p>
+          <div class="chips">
+            <span class="chip">27 r&eacute;f&eacute;rentiels</span>
+            <span class="chip">19 projets livr&eacute;s</span>
+            <span class="chip">&#8722;80% de co&ucirc;t</span>
+          </div>
+          <span class="cta">D&eacute;couvrir le projet <span class="arrow">&#8594;</span></span>
+        </div>
+      </a>
+
+      <div class="proj-card placeholder">
+        <div class="proj-media">
+          <span class="num">02</span>
+          <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        </div>
+        <div class="proj-body">
+          <span class="tag">Projet #2</span>
+          <h2>Bient&ocirc;t r&eacute;v&eacute;l&eacute;</h2>
+          <p>Cette carte sera compl&eacute;t&eacute;e avec le prochain projet de l'initiative Dance With the AI Stars.</p>
+          <span class="soon-badge"><span class="dot"></span>&Agrave; venir</span>
+        </div>
+      </div>
+
+      <div class="proj-card placeholder">
+        <div class="proj-media">
+          <span class="num">03</span>
+          <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        </div>
+        <div class="proj-body">
+          <span class="tag">Projet #3</span>
+          <h2>Bient&ocirc;t r&eacute;v&eacute;l&eacute;</h2>
+          <p>Cette carte sera compl&eacute;t&eacute;e avec le prochain projet de l'initiative Dance With the AI Stars.</p>
+          <span class="soon-badge"><span class="dot"></span>&Agrave; venir</span>
+        </div>
+      </div>
+
+      <div class="proj-card placeholder">
+        <div class="proj-media">
+          <span class="num">04</span>
+          <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        </div>
+        <div class="proj-body">
+          <span class="tag">Projet #4</span>
+          <h2>Bient&ocirc;t r&eacute;v&eacute;l&eacute;</h2>
+          <p>Cette carte sera compl&eacute;t&eacute;e avec le prochain projet de l'initiative Dance With the AI Stars.</p>
+          <span class="soon-badge"><span class="dot"></span>&Agrave; venir</span>
+        </div>
+      </div>
+
+      <div class="proj-card placeholder">
+        <div class="proj-media">
+          <span class="num">05</span>
+          <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        </div>
+        <div class="proj-body">
+          <span class="tag">Projet #5</span>
+          <h2>Bient&ocirc;t r&eacute;v&eacute;l&eacute;</h2>
+          <p>Cette carte sera compl&eacute;t&eacute;e avec le prochain projet de l'initiative Dance With the AI Stars.</p>
+          <span class="soon-badge"><span class="dot"></span>&Agrave; venir</span>
+        </div>
+      </div>
+
+      <div class="proj-card placeholder">
+        <div class="proj-media">
+          <span class="num">06</span>
+          <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        </div>
+        <div class="proj-body">
+          <span class="tag">Projet #6</span>
+          <h2>Bient&ocirc;t r&eacute;v&eacute;l&eacute;</h2>
+          <p>Cette carte sera compl&eacute;t&eacute;e avec le prochain projet de l'initiative Dance With the AI Stars.</p>
+          <span class="soon-badge"><span class="dot"></span>&Agrave; venir</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="stats-strip">
+      <div class="s"><b>6</b><span>projets Dance With the AI Stars</span></div>
+      <div class="s"><b>1</b><span>use case d&eacute;taill&eacute; aujourd'hui</span></div>
+      <div class="s"><b>10</b><span>Wavies impliqu&eacute;s sur le premier projet</span></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="src" data-i18n="footer.src">Dance With the AI Stars &mdash; Wavestone CYB &middot; AI Maker Initiative</span>
+  <a class="jump" href="index.html" data-i18n="back">&#8592; retour &agrave; l'accueil</a>
+</footer>
+
+<script src="assets/mobile-nav.js"></script>
+
+</body>
+</html>
