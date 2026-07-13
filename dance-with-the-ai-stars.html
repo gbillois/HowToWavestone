@@ -48,8 +48,10 @@
   .hero .wave{position:absolute;inset:0;pointer-events:none}
   .hero-in{position:relative;max-width:1120px;margin:0 auto;padding:64px 24px 56px;text-align:center}
   .hero .eyebrow{color:#fff}
-  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(36px,6.2vw,62px);line-height:1.05;letter-spacing:-.025em;margin:22px auto 16px;max-width:20ch}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(36px,6.2vw,62px);line-height:1.05;letter-spacing:-.025em;margin:22px auto 16px;max-width:22ch}
   .hero h1 .ac{color:var(--ws-green-400)}
+  .hero h1 .disco{display:inline-block;font-size:.72em;vertical-align:-.08em;margin-right:.14em;animation:disco-spin 7s linear infinite;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
+  @keyframes disco-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
   .hero .lede{font-size:19px;line-height:1.55;color:rgba(255,255,255,.82);max-width:62ch;margin:0 auto}
 
   .stage{padding:44px 0 8px}
@@ -143,7 +145,7 @@
   </svg>
   <div class="hero-in">
     <span class="eyebrow" data-i18n="hero.eyebrow">Initiative CYB AI Maker</span>
-    <h1 data-i18n="hero.title">Dance With the <span class="ac">AI Stars</span></h1>
+    <h1 data-i18n="hero.title"><span class="disco" aria-hidden="true">&#129705;</span>Dance With the <span class="ac">AI Stars</span></h1>
     <p class="lede" data-i18n="hero.lede">Six projets internes, six &eacute;quipes, une m&ecirc;me ambition&nbsp;: transformer une expertise m&eacute;tier en agent IA op&eacute;rationnel. D&eacute;couvrez comment chaque &eacute;quipe r&eacute;invente sa m&eacute;thodologie gr&acirc;ce &agrave; l'intelligence artificielle.</p>
   </div>
 </header>
@@ -291,7 +293,7 @@ window.WS_I18N = {
     "nav.tokeneco": "Economics model",
     "nav.apikey": "API key",
     "hero.eyebrow": "CYB AI Maker initiative",
-    "hero.title": "Dance With the <span class=\"ac\">AI Stars</span>",
+    "hero.title": "<span class=\"disco\" aria-hidden=\"true\">&#129705;</span>Dance With the <span class=\"ac\">AI Stars</span>",
     "hero.lede": "Six internal projects, six teams, one shared ambition: turning business expertise into an operational AI agent. See how each team is reinventing its methodology with artificial intelligence.",
     "card1.tag": "AI benchmarking",
     "card1.h2": "The CyberBench Orchestrator",
@@ -332,7 +334,7 @@ window.WS_I18N = {
     "nav.tokeneco": "Wirtschaftsmodell",
     "nav.apikey": "API-Schl&uuml;ssel",
     "hero.eyebrow": "CYB-AI-Maker-Initiative",
-    "hero.title": "Dance With the <span class=\"ac\">AI Stars</span>",
+    "hero.title": "<span class=\"disco\" aria-hidden=\"true\">&#129705;</span>Dance With the <span class=\"ac\">AI Stars</span>",
     "hero.lede": "Sechs interne Projekte, sechs Teams, ein gemeinsamer Anspruch: Fachwissen in einen einsatzf&auml;higen KI-Agenten zu verwandeln. Entdecke, wie jedes Team seine Methodik mit k&uuml;nstlicher Intelligenz neu erfindet.",
     "card1.tag": "KI-Benchmarking",
     "card1.h2": "The CyberBench Orchestrator",
