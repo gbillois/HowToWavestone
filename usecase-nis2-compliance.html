@@ -494,7 +494,7 @@
   grid.innerHTML = TEAM.map(function(m){
     const teamsUrl = "https://teams.microsoft.com/l/chat/0/0?users=" + encodeURIComponent(m.email);
     return '<a class="member" href="' + teamsUrl + '" target="_blank" rel="noopener noreferrer" title="Ouvrir la conversation Teams avec ' + m.name + '">'
-      + '<img class="avatar" src="' + m.photo + '" alt="' + m.name + '">'
+      // + '<img class="avatar" src="' + m.photo + '" alt="' + m.name + '">'
       + '<span class="name">' + m.name + '</span>'
       + '<span class="role" data-i18n="team.' + m.slug + '.role">' + m.role + '</span>'
       + '<span class="teams-ic">' + teamsIcon + ' Teams</span>'
