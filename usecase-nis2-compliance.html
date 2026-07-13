@@ -164,20 +164,18 @@
   .team-locations{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
   .loc-pill{font-family:var(--ws-font-mono);font-size:11.5px;font-weight:600;color:var(--ws-ink-600);background:var(--ws-ink-50);padding:5px 11px;display:inline-flex;align-items:center;gap:6px}
   .loc-pill svg{width:12px;height:12px}
-  .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-top:18px}
-  .member{background:#fff;border:1.5px solid var(--ws-ink-100);padding:18px;text-align:left;text-decoration:none;display:flex;flex-direction:column;transition:.2s var(--ws-ease)}
+  .team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(min-width:600px){.team-grid{grid-template-columns:repeat(3,1fr)}}
+  @media(min-width:900px){.team-grid{grid-template-columns:repeat(5,1fr)}}
+  .member{background:#fff;border:1.5px solid var(--ws-ink-100);padding:18px 14px 16px;text-align:center;text-decoration:none;display:flex;flex-direction:column;align-items:center;transition:.2s var(--ws-ease)}
   .member:hover{border-color:var(--ws-indigo-600);box-shadow:var(--ws-shadow-md);transform:translateY(-3px)}
-  .member-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-  .member .avatar-wrap{position:relative;flex:0 0 auto}
-  .member .avatar{display:block;width:56px;height:56px;border-radius:50%;object-fit:cover;background:var(--ws-ink-50);border:2px solid var(--ws-white);box-shadow:0 0 0 2px var(--ws-ink-100)}
+  .member .avatar{width:76px;height:76px;border-radius:50%;object-fit:cover;background:var(--ws-ink-50);margin-bottom:12px;border:2px solid var(--ws-white);box-shadow:0 0 0 2px var(--ws-ink-100)}
   .member:hover .avatar{box-shadow:0 0 0 2px var(--ws-indigo-500)}
-  .member .flag{position:absolute;bottom:-2px;right:-2px;font-size:14px;line-height:1;background:#fff;border-radius:50%;width:18px;height:18px;display:grid;place-items:center;box-shadow:0 0 0 1.5px #fff}
-  .member .name{display:block;font-family:var(--ws-font-display);font-weight:600;font-size:14px;color:var(--ws-ink-900);line-height:1.3}
-  .member .role-tag{display:block;font-family:var(--ws-font-mono);font-size:10.5px;font-weight:600;color:var(--ws-indigo-600);margin-top:3px;line-height:1.3}
-  .member .desc{font-size:12px;color:var(--ws-ink-600);line-height:1.55;flex:1}
-  .member .teams-ic{margin-top:12px;display:flex;align-items:center;gap:6px;font-family:var(--ws-font-mono);font-size:10.5px;font-weight:600;color:var(--ws-indigo-600);padding-top:10px;border-top:1px solid var(--ws-ink-100)}
-  .member .teams-ic svg{width:12px;height:12px;transition:transform .18s var(--ws-ease)}
-  .member:hover .teams-ic svg{transform:translateX(2px)}
+  .member .name{font-family:var(--ws-font-display);font-weight:600;font-size:13.5px;color:var(--ws-ink-900);line-height:1.3}
+  .member .role{font-family:var(--ws-font-mono);font-size:10.5px;color:var(--ws-ink-400);font-style:italic;margin-top:4px}
+  .member .teams-ic{margin-top:9px;display:flex;align-items:center;gap:5px;font-family:var(--ws-font-mono);font-size:10px;color:var(--ws-indigo-600);opacity:0;transition:.18s var(--ws-ease)}
+  .member:hover .teams-ic{opacity:1}
+  .member .teams-ic svg{width:12px;height:12px}
 
   footer{max-width:1080px;margin:60px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
   footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
@@ -187,7 +185,7 @@
   :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
   @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
   *,*::before,*::after{border-radius:0!important}
-  .member .avatar,.member .flag{border-radius:50%!important}
+  .member .avatar{border-radius:50%!important}
   .brand .dot{border-radius:50%!important}
 </style>
 </head>
@@ -472,34 +470,23 @@
     <span class="loc-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>UK</span>
   </div>
 
-  <p class="team-note" data-i18n="team.note">Note&nbsp;: r&ocirc;les synth&eacute;tis&eacute;s &agrave; partir des chantiers du projet (pas de titres officiels) ; pays par d&eacute;faut &#127467;&#127479; &mdash; &agrave; confirmer par l'&eacute;quipe.</p>
+  <p class="team-note" data-i18n="team.note">Liste extraite de la pr&eacute;sentation projet. Les r&ocirc;les affich&eacute;s ci-dessous sont des espaces r&eacute;serv&eacute;s &agrave; compl&eacute;ter.</p>
 
   <div class="team-grid" id="team-grid"></div>
 
   <script>
   // Structure extensible : ajouter un objet ici suffit pour faire apparaître un nouveau membre.
-  // roleKey/descKey pointent vers window.WS_I18N pour la traduction EN/DE ; roleFr/descFr sont le texte français par défaut.
   const TEAM = [
-    { slug:"aurelien", name:"Aurélien Brun",  flag:"🇫🇷", photo:"assets/team/aurelien-brun.png",  email:"aurelien.brun@wavestone.com",
-      roleFr:"Pilotage &amp; roadmap", descFr:"Pilotage du projet et cadrage de la feuille de route &laquo;&nbsp;From challenge to scale&nbsp;&raquo;." },
-    { slug:"salome", name:"Salomé Thauvin", flag:"🇫🇷", photo:"assets/team/salome-thauvin.png", email:"salome.thauvin@wavestone.com",
-      roleFr:"Pr&eacute;-traitement &amp; harmonisation", descFr:"Conception du pipeline de pr&eacute;-traitement et harmonisation ENISA des r&eacute;f&eacute;rentiels." },
-    { slug:"emma", name:"Emma Fadda", flag:"🇫🇷", photo:"assets/team/emma-fadda.png", email:"emma.fadda@wavestone.com",
-      roleFr:"Moteur de mapping", descFr:"D&eacute;veloppement du moteur de mapping directionnel et du scoring de similarit&eacute;." },
-    { slug:"devika", name:"Devika Vasisht", flag:"🇫🇷", photo:"assets/team/devika-vasisht.png", email:"devika.vasisht@wavestone.com",
-      roleFr:"Coordination UK", descFr:"Coordination avec le bureau UK et structuration des livrables de synth&egrave;se." },
-    { slug:"roxane", name:"Roxane Pearson", flag:"🇫🇷", photo:"assets/team/roxane-pearson.png", email:"roxane.pearson@wavestone.com",
-      roleFr:"Qualit&eacute; &amp; contr&ocirc;le", descFr:"Qualit&eacute; des mappings et v&eacute;rification des d&eacute;cisions du juge final." },
-    { slug:"ouala", name:"Ouala Barhoumi", flag:"🇫🇷", photo:"assets/team/ouala-barhoumi.png", email:"ouala.barhoumi@wavestone.com",
-      roleFr:"Extraction des exigences", descFr:"Extraction et atomisation des exigences r&eacute;glementaires depuis les r&eacute;f&eacute;rentiels sources." },
-    { slug:"louis", name:"Louis Michel", flag:"🇫🇷", photo:"assets/team/louis-michel.png", email:"louis.michel@wavestone.com",
-      roleFr:"Int&eacute;gration Azure OpenAI", descFr:"Int&eacute;gration Azure OpenAI et orchestration des appels aux mod&egrave;les du pipeline." },
-    { slug:"marie", name:"Marie Deblache", flag:"🇫🇷", photo:"assets/team/marie-deblache.png", email:"marie.deblache@wavestone.com",
-      roleFr:"Plan d'action &amp; rem&eacute;diation", descFr:"&Eacute;laboration du plan d'action et des recommandations de rem&eacute;diation." },
-    { slug:"wassim", name:"Wassim Alidra", flag:"🇫🇷", photo:"assets/team/wassim-alidra.png", email:"wassim.alidra@wavestone.com",
-      roleFr:"Analyse r&eacute;glementaire", descFr:"Analyse comparative des r&eacute;f&eacute;rentiels NIS2 et benchmark des outils du march&eacute;." },
-    { slug:"landza", name:"Landza Houdi", flag:"🇫🇷", photo:"assets/team/landza-houdi.png", email:"landza.houdi@wavestone.com",
-      roleFr:"Automatisation du pipeline", descFr:"Structuration du script Python et automatisation de bout en bout du pipeline." }
+    { name: "Aurélien Brun",   role: "Rôle à préciser", photo: "assets/team/aurelien-brun.png",  email: "aurelien.brun@wavestone.com" },
+    { name: "Salomé Thauvin",  role: "Rôle à préciser", photo: "assets/team/salome-thauvin.png", email: "salome.thauvin@wavestone.com" },
+    { name: "Emma Fadda",        role: "Rôle à préciser", photo: "assets/team/emma-fadda.png",      email: "emma.fadda@wavestone.com" },
+    { name: "Devika Vasisht",    role: "Rôle à préciser", photo: "assets/team/devika-vasisht.png",  email: "devika.vasisht@wavestone.com" },
+    { name: "Roxane Pearson",    role: "Rôle à préciser", photo: "assets/team/roxane-pearson.png",  email: "roxane.pearson@wavestone.com" },
+    { name: "Ouala Barhoumi",    role: "Rôle à préciser", photo: "assets/team/ouala-barhoumi.png",  email: "ouala.barhoumi@wavestone.com" },
+    { name: "Louis Michel",      role: "Rôle à préciser", photo: "assets/team/louis-michel.png",    email: "louis.michel@wavestone.com" },
+    { name: "Marie Deblache",    role: "Rôle à préciser", photo: "assets/team/marie-deblache.png",  email: "marie.deblache@wavestone.com" },
+    { name: "Wassim Alidra",     role: "Rôle à préciser", photo: "assets/team/wassim-alidra.png",   email: "wassim.alidra@wavestone.com" },
+    { name: "Landza Houdi",      role: "Rôle à préciser", photo: "assets/team/landza-houdi.png",    email: "landza.houdi@wavestone.com" }
   ];
 
   const grid = document.getElementById("team-grid");
@@ -507,11 +494,9 @@
   grid.innerHTML = TEAM.map(function(m){
     const teamsUrl = "https://teams.microsoft.com/l/chat/0/0?users=" + encodeURIComponent(m.email);
     return '<a class="member" href="' + teamsUrl + '" target="_blank" rel="noopener noreferrer" title="Ouvrir la conversation Teams avec ' + m.name + '">'
-      + '<div class="member-top">'
-      +   '<div class="avatar-wrap"><img class="avatar" src="' + m.photo + '" alt="' + m.name + '"><span class="flag">' + m.flag + '</span></div>'
-      +   '<div><span class="name">' + m.name + '</span><span class="role-tag" data-i18n="team.' + m.slug + '.role">' + m.roleFr + '</span></div>'
-      + '</div>'
-      + '<span class="desc" data-i18n="team.' + m.slug + '.desc">' + m.descFr + '</span>'
+      + '<img class="avatar" src="' + m.photo + '" alt="' + m.name + '">'
+      + '<span class="name">' + m.name + '</span>'
+      + '<span class="role" data-i18n="team.rolePlaceholder">' + m.role + '</span>'
       + '<span class="teams-ic">' + teamsIcon + ' Teams</span>'
       + '</a>';
   }).join("");
@@ -618,27 +603,8 @@ window.WS_I18N = {
     "sec4.eyebrow": "04 &middot; The Wavies behind the project",
     "sec4.h2": "Project team",
     "sec4.sub": "Click a member to open a Microsoft Teams conversation directly.",
-    "team.note": "Note: roles summarized from the project's workstreams (not official titles); country defaults to &#127467;&#127479; &mdash; to be confirmed by the team.",
-    "team.aurelien.role": "Steering &amp; roadmap",
-    "team.aurelien.desc": "Leads the project and shapes the &ldquo;From challenge to scale&rdquo; roadmap.",
-    "team.salome.role": "Pre-processing &amp; harmonization",
-    "team.salome.desc": "Designs the pre-processing pipeline and the ENISA harmonization of frameworks.",
-    "team.emma.role": "Mapping engine",
-    "team.emma.desc": "Develops the directional mapping engine and similarity scoring.",
-    "team.devika.role": "UK coordination",
-    "team.devika.desc": "Coordinates with the UK office and structures the synthesis deliverables.",
-    "team.roxane.role": "Quality &amp; control",
-    "team.roxane.desc": "Owns mapping quality and reviews the final judge's decisions.",
-    "team.ouala.role": "Requirement extraction",
-    "team.ouala.desc": "Extracts and atomizes regulatory requirements from the source frameworks.",
-    "team.louis.role": "Azure OpenAI integration",
-    "team.louis.desc": "Integrates Azure OpenAI and orchestrates the pipeline's model calls.",
-    "team.marie.role": "Action plan &amp; remediation",
-    "team.marie.desc": "Builds the action plan and remediation recommendations.",
-    "team.wassim.role": "Regulatory analysis",
-    "team.wassim.desc": "Runs comparative NIS2 framework analysis and market tooling benchmarks.",
-    "team.landza.role": "Pipeline automation",
-    "team.landza.desc": "Structures the Python script and automates the pipeline end to end.",
+    "team.note": "List extracted from the project presentation. The roles below are placeholders to be completed.",
+    "team.rolePlaceholder": "Role to be specified",
     "footer.src": "AI-Powered NIS2 Intelligence &amp; Compliance Assistant &mdash; Dance With the AI Stars &middot; Wavestone CYB AI Maker",
     "footer.back": "&#8592; back to the 6 projects"
   },
@@ -734,27 +700,8 @@ window.WS_I18N = {
     "sec4.eyebrow": "04 &middot; Die Wavies hinter dem Projekt",
     "sec4.h2": "Projektteam",
     "sec4.sub": "Klicke auf ein Mitglied, um direkt eine Microsoft-Teams-Unterhaltung zu &ouml;ffnen.",
-    "team.note": "Hinweis: Rollen anhand der Projekt-Workstreams zusammengefasst (keine offiziellen Titel); Land standardm&auml;&szlig;ig &#127467;&#127479; &mdash; vom Team zu best&auml;tigen.",
-    "team.aurelien.role": "Steuerung &amp; Roadmap",
-    "team.aurelien.desc": "Leitet das Projekt und gestaltet die Roadmap &bdquo;From challenge to scale&ldquo;.",
-    "team.salome.role": "Vorverarbeitung &amp; Harmonisierung",
-    "team.salome.desc": "Entwirft die Vorverarbeitungs-Pipeline und die ENISA-Harmonisierung der Regelwerke.",
-    "team.emma.role": "Mapping-Engine",
-    "team.emma.desc": "Entwickelt die Engine f&uuml;r gerichtetes Mapping und das &Auml;hnlichkeits-Scoring.",
-    "team.devika.role": "UK-Koordination",
-    "team.devika.desc": "Koordiniert mit dem UK-B&uuml;ro und strukturiert die Synthese-Liefergegenst&auml;nde.",
-    "team.roxane.role": "Qualit&auml;t &amp; Kontrolle",
-    "team.roxane.desc": "Verantwortet die Mapping-Qualit&auml;t und pr&uuml;ft die Entscheidungen des finalen Pr&uuml;fers.",
-    "team.ouala.role": "Anforderungsextraktion",
-    "team.ouala.desc": "Extrahiert und atomisiert regulatorische Anforderungen aus den Quell-Regelwerken.",
-    "team.louis.role": "Azure-OpenAI-Integration",
-    "team.louis.desc": "Integriert Azure OpenAI und orchestriert die Modellaufrufe der Pipeline.",
-    "team.marie.role": "Aktionsplan &amp; Abhilfe",
-    "team.marie.desc": "Erstellt den Aktionsplan und die Abhilfeempfehlungen.",
-    "team.wassim.role": "Regulatorische Analyse",
-    "team.wassim.desc": "F&uuml;hrt vergleichende NIS2-Regelwerksanalysen und Markt-Tool-Benchmarks durch.",
-    "team.landza.role": "Pipeline-Automatisierung",
-    "team.landza.desc": "Strukturiert das Python-Skript und automatisiert die Pipeline durchg&auml;ngig.",
+    "team.note": "Liste aus der Projektpräsentation entnommen. Die untenstehenden Rollen sind Platzhalter, die noch vervollständigt werden.",
+    "team.rolePlaceholder": "Rolle noch zu bestimmen",
     "footer.src": "AI-Powered NIS2 Intelligence &amp; Compliance Assistant &mdash; Dance With the AI Stars &middot; Wavestone CYB AI Maker",
     "footer.back": "&#8592; zur&uuml;ck zu den 6 Projekten"
   }
