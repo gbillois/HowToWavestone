@@ -470,23 +470,23 @@
     <span class="loc-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>UK</span>
   </div>
 
-  <p class="team-note" data-i18n="team.note">Liste extraite de la pr&eacute;sentation projet. Les r&ocirc;les affich&eacute;s ci-dessous sont des espaces r&eacute;serv&eacute;s &agrave; compl&eacute;ter.</p>
+  <p class="team-note" data-i18n="team.note">R&ocirc;les extraits de la pr&eacute;sentation projet.</p>
 
   <div class="team-grid" id="team-grid"></div>
 
   <script>
   // Structure extensible : ajouter un objet ici suffit pour faire apparaître un nouveau membre.
   const TEAM = [
-    { name: "Aurélien Brun",   role: "Rôle à préciser", photo: "assets/team/aurelien-brun.png",  email: "aurelien.brun@wavestone.com" },
-    { name: "Salomé Thauvin",  role: "Rôle à préciser", photo: "assets/team/salome-thauvin.png", email: "salome.thauvin@wavestone.com" },
-    { name: "Emma Fadda",        role: "Rôle à préciser", photo: "assets/team/emma-fadda.png",      email: "emma.fadda@wavestone.com" },
-    { name: "Devika Vasisht",    role: "Rôle à préciser", photo: "assets/team/devika-vasisht.png",  email: "devika.vasisht@wavestone.com" },
-    { name: "Roxane Pearson",    role: "Rôle à préciser", photo: "assets/team/roxane-pearson.png",  email: "roxane.pearson@wavestone.com" },
-    { name: "Ouala Barhoumi",    role: "Rôle à préciser", photo: "assets/team/ouala-barhoumi.png",  email: "ouala.barhoumi@wavestone.com" },
-    { name: "Louis Michel",      role: "Rôle à préciser", photo: "assets/team/louis-michel.png",    email: "louis.michel@wavestone.com" },
-    { name: "Marie Deblache",    role: "Rôle à préciser", photo: "assets/team/marie-deblache.png",  email: "marie.deblache@wavestone.com" },
-    { name: "Wassim Alidra",     role: "Rôle à préciser", photo: "assets/team/wassim-alidra.png",   email: "wassim.alidra@wavestone.com" },
-    { name: "Landza Houdi",      role: "Rôle à préciser", photo: "assets/team/landza-houdi.png",    email: "landza.houdi@wavestone.com" }
+    { slug: "aurelien", name: "Aurélien Brun",  role: "Stagiaire &middot; Paris",          photo: "assets/team/aurelien-brun.png",  email: "aurelien.brun@wavestone.com" },
+    { slug: "salome",   name: "Salomé Thauvin", role: "Analyste &middot; Paris",           photo: "assets/team/salome-thauvin.png", email: "salome.thauvin@wavestone.com" },
+    { slug: "emma",     name: "Emma Fadda",     role: "Consultant &middot; Paris",         photo: "assets/team/emma-fadda.png",      email: "emma.fadda@wavestone.com" },
+    { slug: "devika",   name: "Devika Vasisht", role: "Senior Consultant &middot; UK",     photo: "assets/team/devika-vasisht.png",  email: "devika.vasisht@wavestone.com" },
+    { slug: "roxane",   name: "Roxane Pearson", role: "Senior Manager &middot; UK",        photo: "assets/team/roxane-pearson.png", email: "roxane.pearson@wavestone.com" },
+    { slug: "ouala",    name: "Ouala Barhoumi", role: "Senior Manager &middot; Paris",     photo: "assets/team/ouala-barhoumi.png",  email: "ouala.barhoumi@wavestone.com" },
+    { slug: "louis",    name: "Louis Michel",   role: "Manager &middot; Nantes",           photo: "assets/team/louis-michel.png",    email: "louis.michel@wavestone.com" },
+    { slug: "marie",    name: "Marie Deblache", role: "Analyste &middot; Paris",           photo: "assets/team/marie-deblache.png",  email: "marie.deblache@wavestone.com" },
+    { slug: "wassim",   name: "Wassim Alidra",  role: "Manager &middot; Paris",            photo: "assets/team/wassim-alidra.png",   email: "wassim.alidra@wavestone.com" },
+    { slug: "landza",   name: "Landza Houdi",   role: "Consultant &middot; Paris",         photo: "assets/team/landza-houdi.png",    email: "landza.houdi@wavestone.com" }
   ];
 
   const grid = document.getElementById("team-grid");
@@ -496,7 +496,7 @@
     return '<a class="member" href="' + teamsUrl + '" target="_blank" rel="noopener noreferrer" title="Ouvrir la conversation Teams avec ' + m.name + '">'
       + '<img class="avatar" src="' + m.photo + '" alt="' + m.name + '">'
       + '<span class="name">' + m.name + '</span>'
-      + '<span class="role" data-i18n="team.rolePlaceholder">' + m.role + '</span>'
+      + '<span class="role" data-i18n="team.' + m.slug + '.role">' + m.role + '</span>'
       + '<span class="teams-ic">' + teamsIcon + ' Teams</span>'
       + '</a>';
   }).join("");
@@ -603,8 +603,17 @@ window.WS_I18N = {
     "sec4.eyebrow": "04 &middot; The Wavies behind the project",
     "sec4.h2": "Project team",
     "sec4.sub": "Click a member to open a Microsoft Teams conversation directly.",
-    "team.note": "List extracted from the project presentation. The roles below are placeholders to be completed.",
-    "team.rolePlaceholder": "Role to be specified",
+    "team.note": "Roles extracted from the project presentation.",
+    "team.aurelien.role": "Intern &middot; Paris",
+    "team.salome.role": "Analyst &middot; Paris",
+    "team.emma.role": "Consultant &middot; Paris",
+    "team.devika.role": "Senior Consultant &middot; UK",
+    "team.roxane.role": "Senior Manager &middot; UK",
+    "team.ouala.role": "Senior Manager &middot; Paris",
+    "team.louis.role": "Manager &middot; Nantes",
+    "team.marie.role": "Analyst &middot; Paris",
+    "team.wassim.role": "Manager &middot; Paris",
+    "team.landza.role": "Consultant &middot; Paris",
     "footer.src": "AI-Powered NIS2 Intelligence &amp; Compliance Assistant &mdash; Dance With the AI Stars &middot; Wavestone CYB AI Maker",
     "footer.back": "&#8592; back to the 6 projects"
   },
@@ -700,8 +709,17 @@ window.WS_I18N = {
     "sec4.eyebrow": "04 &middot; Die Wavies hinter dem Projekt",
     "sec4.h2": "Projektteam",
     "sec4.sub": "Klicke auf ein Mitglied, um direkt eine Microsoft-Teams-Unterhaltung zu &ouml;ffnen.",
-    "team.note": "Liste aus der Projektpräsentation entnommen. Die untenstehenden Rollen sind Platzhalter, die noch vervollständigt werden.",
-    "team.rolePlaceholder": "Rolle noch zu bestimmen",
+    "team.note": "Rollen aus der Projektpräsentation entnommen.",
+    "team.aurelien.role": "Praktikant/in &middot; Paris",
+    "team.salome.role": "Analyst &middot; Paris",
+    "team.emma.role": "Consultant &middot; Paris",
+    "team.devika.role": "Senior Consultant &middot; UK",
+    "team.roxane.role": "Senior Manager &middot; UK",
+    "team.ouala.role": "Senior Manager &middot; Paris",
+    "team.louis.role": "Manager &middot; Nantes",
+    "team.marie.role": "Analyst &middot; Paris",
+    "team.wassim.role": "Manager &middot; Paris",
+    "team.landza.role": "Consultant &middot; Paris",
     "footer.src": "AI-Powered NIS2 Intelligence &amp; Compliance Assistant &mdash; Dance With the AI Stars &middot; Wavestone CYB AI Maker",
     "footer.back": "&#8592; zur&uuml;ck zu den 6 Projekten"
   }
