@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wavestone CYB AI Maker &mdash; AI-Powered Compliance Assistant (NIS2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-teal-500:#228D95;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-warning:#C8861A;
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ws-white);color:var(--ws-ink-900);font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+  a{color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .eyebrow{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid var(--ws-green-400)}
+
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1080px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:6px 13px;transition:.18s var(--ws-ease)}
+  .bar a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-left:auto}
+
+  .crumb{max-width:1080px;margin:18px auto 0;padding:0 24px}
+  .crumb a{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-500);text-decoration:none}
+  .crumb a:hover{color:var(--ws-indigo-600)}
+
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px;margin-top:14px}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1080px;margin:0 auto;padding:48px 24px 52px}
+  .hero .eyebrow{color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(32px,5.6vw,54px);line-height:1.05;letter-spacing:-.02em;margin:18px 0 14px;max-width:24ch}
+  .hero .lede{font-size:18px;line-height:1.5;color:rgba(255,255,255,.85);max-width:66ch}
+  .hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .hero-tag{font-family:var(--ws-font-mono);font-size:12px;font-weight:600;color:#fff;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);padding:6px 11px}
+
+  .sec-head{margin:56px 0 22px}
+  .sec-head .eyebrow{color:var(--ws-indigo-600);border-bottom-color:var(--ws-green-400)}
+  .sec-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:27px;letter-spacing:-.015em;color:var(--ws-ink-900);margin-top:8px}
+  .sec-head p.sub{font-size:15px;color:var(--ws-ink-600);margin-top:10px;max-width:74ch}
+
+  /* ---- section 1: presentation ---- */
+  .pres-grid{display:grid;grid-template-columns:1fr;gap:16px}
+  @media(min-width:820px){.pres-grid{grid-template-columns:1fr 1fr}}
+  .pres-card{background:#fff;border:1.5px solid var(--ws-ink-100);padding:24px 24px 22px;box-shadow:var(--ws-shadow-sm)}
+  .pres-card h3{display:flex;align-items:center;gap:10px;font-family:var(--ws-font-display);font-weight:700;font-size:15.5px;color:var(--ws-indigo-600);margin-bottom:12px}
+  .pres-card h3 .ic{width:30px;height:30px;flex:0 0 auto;background:var(--ws-indigo-50);color:var(--ws-indigo-600);display:grid;place-items:center}
+  .pres-card p{font-size:14.5px;color:var(--ws-ink-700);line-height:1.65}
+  .pres-card p + p{margin-top:10px}
+  .pres-card ul{margin-top:4px;padding-left:0;list-style:none;display:grid;gap:8px}
+  .pres-card ul li{font-size:14.5px;color:var(--ws-ink-700);line-height:1.5;display:flex;gap:9px;align-items:flex-start}
+  .pres-card ul li::before{content:"";flex:0 0 auto;width:6px;height:6px;margin-top:7px;background:var(--ws-green-400)}
+  .pres-card.value{border-color:var(--ws-green-400);box-shadow:0 0 0 1px var(--ws-green-400),var(--ws-shadow-sm)}
+  .pres-card .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+  .pres-card .stat{text-align:left}
+  .pres-card .stat b{display:block;font-family:var(--ws-font-display);font-weight:800;font-size:23px;color:var(--ws-indigo-600);line-height:1}
+  .pres-card .stat span{display:block;font-size:11.5px;color:var(--ws-ink-500);margin-top:5px;line-height:1.35}
+
+  /* ---- section 2: architecture ---- */
+  .arch-note{font-size:14.5px;color:var(--ws-ink-600);max-width:78ch;margin-bottom:26px;line-height:1.65}
+  .arch-note b{color:var(--ws-ink-900)}
+  .pipeline{display:flex;flex-direction:column;gap:0}
+  .arch-row{display:flex;align-items:stretch;gap:0}
+  .arch-io{flex:0 0 148px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+  .io-box{background:var(--ws-ink-50);border:1.5px dashed var(--ws-ink-300);padding:12px 14px;font-family:var(--ws-font-mono);font-size:11.5px;color:var(--ws-ink-600);text-align:center;line-height:1.4}
+  .io-box b{display:block;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-ink-800);margin-bottom:3px}
+  .arch-connector{flex:0 0 40px;display:flex;align-items:center;justify-content:center;color:var(--ws-ink-300)}
+  .arch-connector svg{width:28px;height:16px}
+  .steps{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:900px){
+    .arch-row{flex-direction:column;gap:16px}
+    .arch-io{flex-direction:row;flex:none;width:100%}
+    .arch-connector{transform:rotate(90deg);flex:none;height:24px}
+    .steps{grid-template-columns:1fr}
+  }
+  .step{background:#fff;border:1.5px solid var(--ws-ink-100);box-shadow:var(--ws-shadow-sm);display:flex;flex-direction:column}
+  .step-head{background:var(--ws-indigo-800);color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px}
+  .step-head .n{font-family:var(--ws-font-mono);font-size:11px;font-weight:700;color:var(--ws-indigo-900);background:var(--ws-green-400);width:22px;height:22px;flex:0 0 auto;display:grid;place-items:center}
+  .step-head b{font-family:var(--ws-font-display);font-size:14px;letter-spacing:-.01em}
+  .step-body{padding:16px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .step-goal{font-size:12.5px;color:var(--ws-ink-500);font-style:italic;line-height:1.45;padding-bottom:10px;border-bottom:1px solid var(--ws-ink-100)}
+  .task{display:flex;flex-direction:column;gap:4px}
+  .task b{font-family:var(--ws-font-display);font-size:13.5px;color:var(--ws-ink-900)}
+  .task p{font-size:12.5px;color:var(--ws-ink-600);line-height:1.5}
+  .model-pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--ws-font-mono);font-size:10.5px;font-weight:600;color:var(--ws-teal-500);background:#E2F1F2;padding:3px 9px;width:fit-content;margin-top:2px}
+  .model-pill.py{color:var(--ws-indigo-600);background:var(--ws-indigo-50)}
+  .arrow-down{display:none}
+  @media(max-width:900px){
+    .arrow-down{display:flex;justify-content:center;color:var(--ws-ink-300);margin:2px 0}
+  }
+
+  /* ---- section 3: retour d'experience ---- */
+  .xp-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:16px}
+  @media(min-width:760px){.xp-grid{grid-template-columns:1fr 1fr}}
+  @media(min-width:1080px){.xp-grid{grid-template-columns:repeat(3,1fr)}}
+  .xp-card{background:#fff;border:1.5px solid var(--ws-ink-100);padding:22px;box-shadow:var(--ws-shadow-sm);display:flex;flex-direction:column;transition:.22s var(--ws-ease)}
+  .xp-card:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-3px);border-color:var(--ws-indigo-200)}
+  .xp-card .tag{display:inline-block;font-family:var(--ws-font-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-indigo-600);background:var(--ws-indigo-50);padding:4px 10px;margin-bottom:12px;width:fit-content}
+  .xp-card h3{font-family:var(--ws-font-display);font-weight:700;font-size:16px;color:var(--ws-ink-900);margin-bottom:8px;line-height:1.3}
+  .xp-card p{font-size:13.5px;color:var(--ws-ink-600);line-height:1.6}
+  .xp-card ul{margin-top:8px;padding-left:0;list-style:none;display:grid;gap:6px}
+  .xp-card ul li{font-size:13px;color:var(--ws-ink-700);line-height:1.5;display:flex;gap:8px}
+  .xp-card ul li::before{content:"\2192";flex:0 0 auto;color:var(--ws-green-700);font-weight:700}
+  .xp-card.wide{grid-column:1 / -1}
+  .xp-card .quote{font-family:var(--ws-font-display);font-weight:600;font-size:15.5px;color:var(--ws-indigo-700);line-height:1.4;font-style:normal}
+
+  .compare{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+  .compare th,.compare td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--ws-ink-100);vertical-align:top}
+  .compare thead th{font-family:var(--ws-font-mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--ws-ink-500)}
+  .compare tbody th{font-family:var(--ws-font-display);font-weight:600;font-size:12.5px;color:var(--ws-ink-900);white-space:nowrap}
+  .compare td.manual{color:var(--ws-ink-500)}
+  .compare td.agent{color:var(--ws-ink-900);font-weight:600}
+  .compare td.agent b{color:var(--ws-green-700)}
+  .compare tbody tr:last-child th,.compare tbody tr:last-child td{border-bottom:none}
+
+  .xp-note{margin-top:6px;background:#FBF1DD;border:1px solid #F0DBA8;border-left:4px solid var(--ws-warning);padding:14px 16px;display:flex;gap:10px;align-items:flex-start}
+  .xp-note svg{flex:0 0 auto;color:var(--ws-warning);margin-top:2px}
+  .xp-note p{font-size:13px;color:var(--ws-ink-700);line-height:1.6}
+
+  /* ---- section 4: team ---- */
+  .team-note{font-size:14px;color:var(--ws-ink-600);max-width:74ch;margin-bottom:22px;line-height:1.6}
+  .team-locations{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+  .loc-pill{font-family:var(--ws-font-mono);font-size:11.5px;font-weight:600;color:var(--ws-ink-600);background:var(--ws-ink-50);padding:5px 11px;display:inline-flex;align-items:center;gap:6px}
+  .loc-pill svg{width:12px;height:12px}
+  .team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(min-width:600px){.team-grid{grid-template-columns:repeat(3,1fr)}}
+  @media(min-width:900px){.team-grid{grid-template-columns:repeat(5,1fr)}}
+  .member{background:#fff;border:1.5px solid var(--ws-ink-100);padding:18px 14px 16px;text-align:center;text-decoration:none;display:flex;flex-direction:column;align-items:center;transition:.2s var(--ws-ease)}
+  .member:hover{border-color:var(--ws-indigo-600);box-shadow:var(--ws-shadow-md);transform:translateY(-3px)}
+  .member .avatar{width:76px;height:76px;border-radius:50%;object-fit:cover;background:var(--ws-ink-50);margin-bottom:12px;border:2px solid var(--ws-white);box-shadow:0 0 0 2px var(--ws-ink-100)}
+  .member:hover .avatar{box-shadow:0 0 0 2px var(--ws-indigo-500)}
+  .member .name{font-family:var(--ws-font-display);font-weight:600;font-size:13.5px;color:var(--ws-ink-900);line-height:1.3}
+  .member .role{font-family:var(--ws-font-mono);font-size:10.5px;color:var(--ws-ink-400);font-style:italic;margin-top:4px}
+  .member .teams-ic{margin-top:9px;display:flex;align-items:center;gap:5px;font-family:var(--ws-font-mono);font-size:10px;color:var(--ws-indigo-600);opacity:0;transition:.18s var(--ws-ease)}
+  .member:hover .teams-ic{opacity:1}
+  .member .teams-ic svg{width:12px;height:12px}
+  .team-fill{display:flex;flex-direction:column;align-items:center;justify-content:center;border:1.5px dashed var(--ws-ink-200);color:var(--ws-ink-400);font-family:var(--ws-font-mono);font-size:11px;padding:18px 14px;min-height:100%}
+
+  footer{max-width:1080px;margin:60px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+  footer a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:8px 14px;transition:.18s var(--ws-ease)}
+  footer a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+  *,*::before,*::after{border-radius:0!important}
+  .member .avatar{border-radius:50%!important}
+  .brand .dot{border-radius:50%!important}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
+    <div class="nav-links">
+      <a class="jump" href="index.html">Accueil</a>
+      <a class="jump" href="dance-with-the-ai-stars.html">Dance With the AI Stars</a>
+      <a class="jump" href="playbook.html">Playbook</a>
+      <a class="jump" href="our-agents.html">Nos agents</a>
+    </div>
+  </div>
+</div>
+
+<div class="crumb"><a href="dance-with-the-ai-stars.html">&#8592; Dance With the AI Stars</a></div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1080 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,260 Q260,150 540,210 T1140,180" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,280 Q300,180 560,240 T1140,210" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <span class="eyebrow">NIS2 &middot; Compliance &middot; GRC</span>
+    <h1>AI-Powered Compliance Assistant</h1>
+    <p class="lede">Tous les r&eacute;f&eacute;rentiels nationaux NIS2, automatiquement cartographi&eacute;s et interconnect&eacute;s. De la complexit&eacute; r&eacute;glementaire &agrave; la clart&eacute; &mdash; en quelques jours au lieu de quelques semaines.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">27 variantes nationales NIS2</span>
+      <span class="hero-tag">Pipeline Azure OpenAI</span>
+      <span class="hero-tag">19 mappings livr&eacute;s</span>
+      <span class="hero-tag">&#8722;80% de co&ucirc;t vs mapping manuel</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ 1. PRESENTATION ============ -->
+  <div class="sec-head" id="presentation">
+    <span class="eyebrow">01 &middot; Le projet</span>
+    <h2>Pr&eacute;sentation du projet</h2>
+    <p class="sub">N&eacute; des Wavestone Innovation Days (WID), ce projet transforme un exercice r&eacute;glementaire long et manuel en un pipeline IA reproductible.</p>
+  </div>
+
+  <div class="pres-grid">
+
+    <div class="pres-card">
+      <h3><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>Contexte</h3>
+      <p>La directive europ&eacute;enne <b>NIS2</b> se d&eacute;cline en <b>27 r&eacute;f&eacute;rentiels nationaux</b> diff&eacute;rents : les entreprises multinationales doivent se conformer &agrave; chaque variante locale. Pour le WID, l'&eacute;quipe a &eacute;tudi&eacute; 12 de ces r&eacute;f&eacute;rentiels &mdash; un travail long et fastidieux pour les consultants.</p>
+      <p>Un premier essai avec Copilot a donn&eacute; des r&eacute;sultats prometteurs mais plafonn&eacute;s, non scalables. L'approche IA d&eacute;di&eacute;e pr&eacute;sent&eacute;e lors du WID a convaincu les clients, avec une demande d&eacute;j&agrave; confirm&eacute;e (TotalEnergies).</p>
+    </div>
+
+    <div class="pres-card">
+      <h3><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span>Objectifs</h3>
+      <ul>
+        <li>Automatiser la cartographie des exigences r&eacute;glementaires entre r&eacute;f&eacute;rentiels NIS2 pays &agrave; grande &eacute;chelle.</li>
+        <li>Lib&eacute;rer le temps consultant consacr&eacute; aux t&acirc;ches de mapping &agrave; faible valeur ajout&eacute;e.</li>
+        <li>Atteindre 90% de pr&eacute;cision des donn&eacute;es (contre 75% aujourd'hui).</li>
+        <li>&Eacute;tendre la m&eacute;thode &agrave; d'autres r&eacute;glementations (DORA, ISO, zones US/Asie).</li>
+      </ul>
+    </div>
+
+    <div class="pres-card">
+      <h3><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="3" y="3" width="18" height="18"/><path d="M7 15l3-3 2 2 5-6"/></svg></span>L'agent en une phrase</h3>
+      <p>Un pipeline orchestr&eacute; en Python qui extrait les donn&eacute;es d'entr&eacute;e depuis des fichiers Excel, g&egrave;re la configuration de l'agent, appelle l'API <b>Azure OpenAI</b> avec les mod&egrave;les s&eacute;lectionn&eacute;s selon la complexit&eacute; de chaque t&acirc;che, et produit le mapping final entre r&eacute;f&eacute;rentiels.</p>
+      <p>Trois &eacute;tapes &mdash; pr&eacute;-traitement, mapping, synth&egrave;se &mdash; d&eacute;taill&eacute;es dans l'architecture ci-dessous.</p>
+    </div>
+
+    <div class="pres-card value">
+      <h3><span class="ic" style="background:var(--ws-green-50);color:var(--ws-green-700)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>Valeur apport&eacute;e</h3>
+      <p>Pour un engagement type : <b>1&nbsp;905&euro;</b> (agent + 1,5 jour consultant) contre <b>8&nbsp;000&ndash;10&nbsp;000&euro;</b> en mapping manuel, livr&eacute; en <b>~3 jours</b> au lieu de ~2 semaines.</p>
+      <div class="stat-row">
+        <div class="stat"><b>19</b><span>projets de mapping NIS2 r&eacute;alis&eacute;s</span></div>
+        <div class="stat"><b>15</b><span>r&eacute;f&eacute;rentiels pays cartographi&eacute;s</span></div>
+        <div class="stat"><b>1&nbsp;200+</b><span>heures de mapping manuel remplac&eacute;es</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ 2. ARCHITECTURE ============ -->
+  <div class="sec-head" id="architecture">
+    <span class="eyebrow">02 &middot; Sous le capot</span>
+    <h2>Architecture de l'agent</h2>
+    <p class="sub">Un pipeline en trois &eacute;tapes, chacune confi&eacute;e au mod&egrave;le le plus adapt&eacute; &agrave; sa complexit&eacute; &mdash; du plus l&eacute;ger (nano) au plus capable, orchestr&eacute; par un script Python.</p>
+  </div>
+
+  <p class="arch-note">Deux r&eacute;f&eacute;rentiels (<b>Framework A</b> et <b>Framework B</b>) entrent dans le pipeline sous forme de fichiers Excel. Ils en ressortent sous la forme d'un <b>r&eacute;f&eacute;rentiel mapp&eacute;</b> : un rapport de correspondance exigence par exigence, avec &eacute;carts et actions de rem&eacute;diation.</p>
+
+  <div class="pipeline">
+    <div class="arch-row">
+      <div class="arch-io">
+        <div class="io-box"><b>Framework A</b>R&eacute;f&eacute;rentiel national #1</div>
+        <div class="io-box"><b>Framework B</b>R&eacute;f&eacute;rentiel national #2</div>
+      </div>
+      <div class="arch-connector">
+        <svg viewBox="0 0 28 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M0 8h24M18 2l6 6-6 6"/></svg>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-head"><span class="n">1</span><b>Pr&eacute;-traitement</b></div>
+          <div class="step-body">
+            <div class="step-goal">Rendre les r&eacute;f&eacute;rentiels comparables entre eux.</div>
+            <div class="task">
+              <b>Harmonisation ENISA</b>
+              <p>Standardisation des cat&eacute;gories d'exigences selon les cat&eacute;gories ENISA.</p>
+              <span class="model-pill">GPT&#8209;5.4 nano</span>
+            </div>
+            <div class="task">
+              <b>Atomisation &amp; extraction</b>
+              <p>D&eacute;coupage des exigences complexes en obligations atomiques, extraction des champs cl&eacute;s, calcul des embeddings s&eacute;mantiques.</p>
+              <span class="model-pill">GPT&#8209;5.4 nano</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arrow-down"><svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 0v18M2 14l6 6 6-6"/></svg></div>
+
+        <div class="step">
+          <div class="step-head"><span class="n">2</span><b>Mapping</b></div>
+          <div class="step-body">
+            <div class="step-goal">Cartographier les exigences une par une.</div>
+            <div class="task">
+              <b>Mapping directionnel</b>
+              <p>Calcul d'un score de similarit&eacute; entre chaque exigence, bas&eacute; sur les embeddings et la structure de l'exigence.</p>
+              <span class="model-pill">GPT&#8209;5.4 mini</span>
+            </div>
+            <div class="task">
+              <b>Juge final</b>
+              <p>V&eacute;rification et correction des d&eacute;cisions de mapping directionnel.</p>
+              <span class="model-pill">GPT&#8209;5.4</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arrow-down"><svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 0v18M2 14l6 6 6-6"/></svg></div>
+
+        <div class="step">
+          <div class="step-head"><span class="n">3</span><b>Synth&egrave;se</b></div>
+          <div class="step-body">
+            <div class="step-goal">Structurer le r&eacute;sultat pour le rendre lisible et exploitable.</div>
+            <div class="task">
+              <b>Synth&egrave;se parente</b>
+              <p>Reconstruction des exigences originales &agrave; partir des obligations atomiques.</p>
+              <span class="model-pill py">Script Python</span>
+            </div>
+            <div class="task">
+              <b>&Eacute;carts &amp; plan d'action</b>
+              <p>G&eacute;n&eacute;ration d'explications claires des &eacute;carts, suggestion d'actions de rem&eacute;diation.</p>
+              <span class="model-pill">GPT&#8209;5.4 mini</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-connector">
+        <svg viewBox="0 0 28 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M0 8h24M18 2l6 6-6 6"/></svg>
+      </div>
+      <div class="arch-io">
+        <div class="io-box" style="border-style:solid;border-color:var(--ws-green-400);background:var(--ws-green-50)"><b>Mapped framework</b>Rapport de correspondance + &eacute;carts</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 3. RETOUR D'EXPERIENCE ============ -->
+  <div class="sec-head" id="retour-experience">
+    <span class="eyebrow">03 &middot; Sur le terrain</span>
+    <h2>Retour d'exp&eacute;rience</h2>
+    <p class="sub">Ce que le projet a d&eacute;j&agrave; d&eacute;montr&eacute; en mission, chiffres et validation client &agrave; l'appui.</p>
+  </div>
+
+  <div class="xp-grid">
+
+    <div class="xp-card wide">
+      <span class="tag">Validation client</span>
+      <p class="quote">&laquo;&nbsp;Notre approche pilot&eacute;e par l'IA a convaincu les clients d&egrave;s sa pr&eacute;sentation au WID.&nbsp;&raquo;</p>
+      <p style="margin-top:10px">La cartographie NIS2 assist&eacute;e par IA pr&eacute;sent&eacute;e lors du Wavestone Innovation Days a directement d&eacute;bouch&eacute; sur une demande client confirm&eacute;e (TotalEnergies), validant le passage du prototype &agrave; un outil de mission.</p>
+    </div>
+
+    <div class="xp-card">
+      <span class="tag">B&eacute;n&eacute;fices constat&eacute;s</span>
+      <h3>Gain op&eacute;rationnel mesur&eacute;</h3>
+      <p>Sur un engagement de mapping NIS2 type, l'agent d&eacute;place l'effort du temps consultant vers du temps de calcul.</p>
+      <table class="compare">
+        <thead><tr><th>Crit&egrave;re</th><th>Manuel*</th><th>Agent</th></tr></thead>
+        <tbody>
+          <tr><th>D&eacute;lai</th><td class="manual">~2 semaines</td><td class="agent"><b>~3 jours</b></td></tr>
+          <tr><th>Co&ucirc;t</th><td class="manual">8&ndash;10k&euro;</td><td class="agent"><b>1&nbsp;905&euro;</b></td></tr>
+          <tr><th>Effort</th><td class="manual">5&ndash;8 j analyste + 1&ndash;2 j senior</td><td class="agent"><b>~1,5 j</b> consultant form&eacute;</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="xp-card">
+      <span class="tag">Avantage comp&eacute;titif</span>
+      <h3>Face aux outils GRC du march&eacute;</h3>
+      <p>Malgr&eacute; la popularit&eacute; croissante des outils GRC, l'agent Wavestone garde un avantage :</p>
+      <ul>
+        <li>Moins co&ucirc;teux &agrave; d&eacute;ployer (licences GRC jusqu'&agrave; 131k&euro;/an)</li>
+        <li>Pas de formation utilisateur (jusqu'&agrave; 6&ndash;8h/employ&eacute; &eacute;conomis&eacute;es)</li>
+        <li>Sorties personnalis&eacute;es, con&ccedil;u avec des experts NIS2</li>
+      </ul>
+    </div>
+
+    <div class="xp-card">
+      <span class="tag">Points d'am&eacute;lioration</span>
+      <h3>Axes de progr&egrave;s identifi&eacute;s</h3>
+      <p>La pr&eacute;cision des donn&eacute;es est aujourd'hui de <b>~75%</b>, avec un objectif fix&eacute; &agrave; <b>90%</b>. L'effort de contr&ocirc;le qualit&eacute; reste &eacute;lev&eacute; en d&eacute;but de vie de l'agent, avant de d&eacute;cro&icirc;tre &agrave; mesure des am&eacute;liorations continues.</p>
+      <ul>
+        <li>Am&eacute;lioration continue du mod&egrave;le et du pipeline</li>
+        <li>Extension pr&eacute;vue &agrave; DORA, ISO et r&eacute;f&eacute;rentiels US/Asie</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="xp-note">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <p>* Chiffres bas&eacute;s sur un engagement NIS2 r&eacute;el men&eacute; &agrave; terme. Le co&ucirc;t &laquo;&nbsp;agent&nbsp;&raquo; (~5&euro;) correspond &agrave; la consommation de tokens du pipeline.</p>
+  </div>
+
+  <!-- ============ 4. EQUIPE ============ -->
+  <div class="sec-head" id="equipe">
+    <span class="eyebrow">04 &middot; Les Wavies derri&egrave;re le projet</span>
+    <h2>&Eacute;quipe du projet</h2>
+    <p class="sub">Cliquez sur un membre pour ouvrir directement une conversation Microsoft Teams.</p>
+  </div>
+
+  <div class="team-locations">
+    <span class="loc-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Paris</span>
+    <span class="loc-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Nantes</span>
+    <span class="loc-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>UK</span>
+  </div>
+
+  <p class="team-note">Liste extraite de la pr&eacute;sentation projet. Les r&ocirc;les affich&eacute;s ci-dessous sont des espaces r&eacute;serv&eacute;s &agrave; compl&eacute;ter &mdash; voir la note de livraison.</p>
+
+  <div class="team-grid" id="team-grid"></div>
+
+  <script>
+  // Structure extensible : ajouter un objet ici suffit pour faire apparaître un nouveau membre.
+  const TEAM = [
+    { name: "Aurélien Brun",   role: "Rôle à préciser", photo: "assets/team/aurelien-brun.png",  email: "aurelien.brun@wavestone.com" },
+    { name: "Salomé Thauvin",  role: "Rôle à préciser", photo: "assets/team/salome-thauvin.png", email: "salome.thauvin@wavestone.com" },
+    { name: "Emma Fadda",        role: "Rôle à préciser", photo: "assets/team/emma-fadda.png",      email: "emma.fadda@wavestone.com" },
+    { name: "Devika Vasisht",    role: "Rôle à préciser", photo: "assets/team/devika-vasisht.png",  email: "devika.vasisht@wavestone.com" },
+    { name: "Roxane Pearson",    role: "Rôle à préciser", photo: "assets/team/roxane-pearson.png",  email: "roxane.pearson@wavestone.com" },
+    { name: "Ouala Barhoumi",    role: "Rôle à préciser", photo: "assets/team/ouala-barhoumi.png",  email: "ouala.barhoumi@wavestone.com" },
+    { name: "Louis Michel",      role: "Rôle à préciser", photo: "assets/team/louis-michel.png",    email: "louis.michel@wavestone.com" },
+    { name: "Marie Deblache",    role: "Rôle à préciser", photo: "assets/team/marie-deblache.png",  email: "marie.deblache@wavestone.com" },
+    { name: "Wassim Alidra",     role: "Rôle à préciser", photo: "assets/team/wassim-alidra.png",   email: "wassim.alidra@wavestone.com" },
+    { name: "Landza Houdi",      role: "Rôle à préciser", photo: "assets/team/landza-houdi.png",    email: "landza.houdi@wavestone.com" }
+  ];
+
+  const grid = document.getElementById("team-grid");
+  const teamsIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 3 6 3s6-2 6-3v-5"/></svg>';
+  grid.innerHTML = TEAM.map(function(m){
+    const teamsUrl = "https://teams.microsoft.com/l/chat/0/0?users=" + encodeURIComponent(m.email);
+    return '<a class="member" href="' + teamsUrl + '" target="_blank" rel="noopener noreferrer" title="Ouvrir la conversation Teams avec ' + m.name + '">'
+      + '<img class="avatar" src="' + m.photo + '" alt="' + m.name + '">'
+      + '<span class="name">' + m.name + '</span>'
+      + '<span class="role">' + m.role + '</span>'
+      + '<span class="teams-ic">' + teamsIcon + ' Teams</span>'
+      + '</a>';
+  }).join("");
+  </script>
+
+</div>
+
+<footer>
+  <span class="src">AI-Powered Compliance Assistant (NIS2) &mdash; Dance With the AI Stars &middot; Wavestone CYB AI Maker</span>
+  <a class="jump" href="dance-with-the-ai-stars.html">&#8592; retour aux 6 projets</a>
+</footer>
+
+<script src="assets/mobile-nav.js"></script>
+
+</body>
+</html>

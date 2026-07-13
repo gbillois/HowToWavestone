@@ -1,0 +1,37 @@
+name: PR Preview
+
+# Automatically publishes a live preview of the site for every pull
+# request, updated on each push. The link is posted as a PR comment.
+# Requires GitHub Pages to be enabled once (Settings -> Pages -> source:
+# "Deploy from a branch" -> branch: gh-pages -> folder: / (root)).
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+
+concurrency: preview-${{ github.ref }}
+
+jobs:
+  deploy-preview:
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+
+  remove-preview:
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: rossjrw/pr-preview-action@v1
+        with:
+          action: remove
