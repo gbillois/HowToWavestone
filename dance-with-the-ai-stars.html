@@ -13,7 +13,7 @@
     --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
     --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
     --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
-    --ws-teal-500:#228D95;
+    --ws-teal-500:#228D95; --ws-teal-50:#E2F1F2; --ws-teal-700:#18636A;
     --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
     --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
     --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
@@ -61,34 +61,45 @@
     box-shadow:var(--ws-shadow-md);overflow:hidden;transition:.25s var(--ws-ease);
   }
   .proj-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ws-gradient-accent);opacity:0;transition:opacity .25s var(--ws-ease)}
-  .proj-card.filled:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-4px);border-color:var(--ws-indigo-200)}
-  .proj-card.filled:hover::before{opacity:1}
+  .proj-card.filled:hover{box-shadow:0 20px 40px rgba(69,29,199,.22);transform:translateY(-5px)}
+
+  /* filled card: always-on emphasis so it stands out among the 5 placeholders */
+  .proj-card.filled{border-color:var(--ws-indigo-300,var(--ws-indigo-200));box-shadow:var(--ws-shadow-lg),0 0 0 1px var(--ws-indigo-100)}
+  .proj-card.filled::before{opacity:1}
+  .pilot-badge{position:absolute;top:12px;right:12px;z-index:2;display:inline-flex;align-items:center;gap:5px;font-family:var(--ws-font-mono);font-size:10px;font-weight:700;letter-spacing:.04em;color:var(--ws-indigo-900);background:var(--ws-green-400);padding:5px 10px;box-shadow:var(--ws-shadow-sm)}
+  .pilot-badge svg{width:11px;height:11px}
 
   .proj-media{position:relative;height:132px;background:var(--ws-gradient-brand);display:flex;align-items:center;justify-content:center;overflow:hidden;flex:0 0 auto}
   .proj-media .num{position:absolute;top:10px;left:12px;font-family:var(--ws-font-mono);font-size:11px;font-weight:700;color:rgba(255,255,255,.55)}
   .proj-media svg.wave{position:absolute;inset:0;width:100%;height:100%}
   .proj-media .glyph{position:relative;width:52px;height:52px;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.35);display:grid;place-items:center;color:#fff}
+  .proj-media .illus{position:relative;width:100%;height:100%}
+  .proj-media .illus svg{display:block;width:100%;height:100%}
 
   .proj-body{padding:22px 22px 24px;display:flex;flex-direction:column;flex:1}
   .proj-card .tag{display:inline-block;font-family:var(--ws-font-mono);font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 11px;margin-bottom:12px;width:fit-content;color:var(--ws-indigo-700);background:var(--ws-indigo-50)}
+  .proj-card.filled .tag{color:var(--ws-green-700);background:var(--ws-green-50)}
   .proj-card h2{font-family:var(--ws-font-display);font-weight:700;font-size:20px;letter-spacing:-.01em;color:var(--ws-ink-900);margin-bottom:8px;line-height:1.25}
   .proj-card p{font-size:14px;color:var(--ws-ink-500);line-height:1.55;flex:1}
   .proj-card .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
   .proj-card .chip{font-family:var(--ws-font-mono);font-size:10px;color:var(--ws-ink-600);background:var(--ws-ink-50);padding:4px 9px}
+  .proj-card.filled .chip.c-indigo{color:var(--ws-indigo-700);background:var(--ws-indigo-50)}
+  .proj-card.filled .chip.c-green{color:var(--ws-green-700);background:var(--ws-green-50)}
+  .proj-card.filled .chip.c-teal{color:var(--ws-teal-700);background:var(--ws-teal-50)}
   .proj-card .cta{display:inline-flex;align-items:center;gap:8px;font-family:var(--ws-font-mono);font-size:12.5px;font-weight:600;color:var(--ws-indigo-600);margin-top:18px;transition:.18s var(--ws-ease)}
   .proj-card.filled:hover .cta{gap:12px}
   .cta .arrow{transition:transform .18s var(--ws-ease)}
   .proj-card.filled:hover .cta .arrow{transform:translateX(3px)}
 
   /* placeholder state */
-  .proj-card.placeholder{cursor:default}
+  .proj-card.placeholder:hover{box-shadow:var(--ws-shadow-md);transform:translateY(-2px);border-color:var(--ws-ink-300)}
   .proj-card.placeholder .proj-media{background:var(--ws-ink-50)}
-  .proj-card.placeholder .proj-media .glyph{background:#fff;border-color:var(--ws-ink-200);color:var(--ws-ink-300)}
+  .proj-card.placeholder .proj-media .glyph{background:#fff;border-color:var(--ws-ink-200);color:var(--ws-indigo-400,var(--ws-ink-400))}
   .proj-card.placeholder .proj-media .num{color:var(--ws-ink-300)}
   .proj-card.placeholder{border-style:dashed;border-color:var(--ws-ink-200)}
-  .proj-card.placeholder h2{color:var(--ws-ink-400)}
-  .proj-card.placeholder p{color:var(--ws-ink-400)}
-  .proj-card.placeholder .tag{color:var(--ws-ink-400);background:var(--ws-ink-50)}
+  .proj-card.placeholder h2{color:var(--ws-ink-700)}
+  .proj-card.placeholder p{color:var(--ws-ink-500)}
+  .proj-card.placeholder .tag{color:var(--ws-ink-500);background:var(--ws-ink-50)}
   .soon-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--ws-font-mono);font-size:11px;font-weight:600;color:var(--ws-ink-400);margin-top:18px}
   .soon-badge .dot{width:6px;height:6px;background:var(--ws-ink-300);border-radius:50%}
 
@@ -141,99 +152,124 @@
   <div class="stage">
     <div class="stage-grid">
 
-      <a class="proj-card filled" href="usecase-nis2-compliance.html">
+      <!-- 01: CyberBench Orchestrator (skeleton) -->
+      <a class="proj-card placeholder" href="usecase-cyberbench-orchestrator.html">
         <div class="proj-media">
           <span class="num">01</span>
-          <svg class="wave" viewBox="0 0 300 132" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-            <path d="M-20,110 Q80,60 150,90 T320,70" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="1.5"/>
-            <path d="M-20,120 Q90,80 160,100 T320,90" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".5"/>
-          </svg>
-          <div class="glyph"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4"/><circle cx="12" cy="9" r="7"/></svg></div>
+          <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M3 16a9 9 0 1 1 18 0"/><line x1="12" y1="16" x2="16" y2="10"/><circle cx="12" cy="16" r="1"/></svg></div>
         </div>
         <div class="proj-body">
-          <span class="tag">NIS2 &middot; Compliance</span>
-          <h2>AI-Powered Compliance Assistant</h2>
-          <p>Cartographie automatique des 27 r&eacute;f&eacute;rentiels nationaux NIS2 &mdash; un pipeline Azure OpenAI qui remplace des semaines de mapping manuel par quelques jours.</p>
-          <div class="chips">
-            <span class="chip">27 r&eacute;f&eacute;rentiels</span>
-            <span class="chip">19 projets livr&eacute;s</span>
-            <span class="chip">&#8722;80% de co&ucirc;t</span>
-          </div>
-          <span class="cta">D&eacute;couvrir le projet <span class="arrow">&#8594;</span></span>
+          <span class="tag" data-i18n="card1.tag">Benchmarking IA</span>
+          <h2 data-i18n="card1.h2">The CyberBench Orchestrator</h2>
+          <p data-i18n="card1.p">Orchestration de benchmarks pour &eacute;valuer et comparer des mod&egrave;les et agents IA.</p>
+          <span class="soon-badge"><span class="dot"></span><span data-i18n="soon.badge">&Agrave; venir</span></span>
         </div>
       </a>
 
-      <div class="proj-card placeholder">
+      <!-- 02: CTI Exposure Scout (skeleton) -->
+      <a class="proj-card placeholder" href="usecase-cti-exposure-scout.html">
         <div class="proj-media">
           <span class="num">02</span>
-          <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><circle cx="11" cy="11" r="2.5"/></svg></div>
         </div>
         <div class="proj-body">
-          <span class="tag">Projet #2</span>
-          <h2>Bient&ocirc;t r&eacute;v&eacute;l&eacute;</h2>
-          <p>Cette carte sera compl&eacute;t&eacute;e avec le prochain projet de l'initiative Dance With the AI Stars.</p>
-          <span class="soon-badge"><span class="dot"></span>&Agrave; venir</span>
+          <span class="tag" data-i18n="card2.tag">Threat Intelligence</span>
+          <h2 data-i18n="card2.h2">The CTI Exposure Scout</h2>
+          <p data-i18n="card2.p">D&eacute;tection et suivi de l'exposition d'une organisation &agrave; partir de sources de cyber threat intelligence.</p>
+          <span class="soon-badge"><span class="dot"></span><span data-i18n="soon.badge">&Agrave; venir</span></span>
         </div>
-      </div>
+      </a>
 
-      <div class="proj-card placeholder">
+      <!-- 03: NIS2 Intelligence & Compliance Assistant (filled, flagship) -->
+      <a class="proj-card filled" href="usecase-nis2-compliance.html">
+        <div class="pilot-badge"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span data-i18n="pilot.badge">Cas d'usage complet</span></div>
         <div class="proj-media">
           <span class="num">03</span>
-          <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <div class="illus">
+            <svg viewBox="0 0 300 132" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="14" y="18" width="58" height="76" fill="#2D1380" stroke="#866CDB" stroke-width="1.2"/>
+              <rect x="24" y="32" width="32" height="4" fill="rgba(255,255,255,.7)"/>
+              <rect x="24" y="42" width="38" height="3" fill="rgba(255,255,255,.32)"/>
+              <rect x="24" y="50" width="38" height="3" fill="rgba(255,255,255,.32)"/>
+              <rect x="24" y="58" width="26" height="3" fill="rgba(255,255,255,.32)"/>
+              <rect x="86" y="6" width="58" height="76" fill="#36169B" stroke="#866CDB" stroke-width="1.2"/>
+              <rect x="96" y="20" width="32" height="4" fill="rgba(255,255,255,.7)"/>
+              <rect x="96" y="30" width="38" height="3" fill="rgba(255,255,255,.32)"/>
+              <rect x="96" y="38" width="38" height="3" fill="rgba(255,255,255,.32)"/>
+              <rect x="96" y="46" width="26" height="3" fill="rgba(255,255,255,.32)"/>
+              <path d="M72,58 Q118,86 160,92" stroke="#04F06A" stroke-width="1.6" stroke-dasharray="3 4" opacity=".85"/>
+              <path d="M144,48 Q152,66 160,84" stroke="#04F06A" stroke-width="1.6" stroke-dasharray="3 4" opacity=".85"/>
+              <rect x="160" y="16" width="88" height="104" fill="#fff" stroke="#04F06A" stroke-width="1.8"/>
+              <rect x="172" y="32" width="46" height="6" fill="#1E0D57"/>
+              <rect x="172" y="46" width="58" height="3.5" fill="#CFCCDC"/>
+              <rect x="172" y="54" width="58" height="3.5" fill="#CFCCDC"/>
+              <rect x="172" y="62" width="40" height="3.5" fill="#CFCCDC"/>
+              <circle cx="224" cy="28" r="11" fill="#04F06A"/>
+              <path d="M218,28 l3.5,3.5 7,-7" stroke="#1E0D57" stroke-width="2.2" fill="none" stroke-linecap="square" stroke-linejoin="miter"/>
+            </svg>
+          </div>
         </div>
         <div class="proj-body">
-          <span class="tag">Projet #3</span>
-          <h2>Bient&ocirc;t r&eacute;v&eacute;l&eacute;</h2>
-          <p>Cette carte sera compl&eacute;t&eacute;e avec le prochain projet de l'initiative Dance With the AI Stars.</p>
-          <span class="soon-badge"><span class="dot"></span>&Agrave; venir</span>
+          <span class="tag">NIS2 &middot; Compliance</span>
+          <h2 data-i18n="card3.h2">AI-Powered NIS2 Intelligence &amp; Compliance Assistant</h2>
+          <p data-i18n="card3.p">Cartographie automatique des 27 r&eacute;f&eacute;rentiels nationaux NIS2 &mdash; un pipeline Azure OpenAI qui remplace des semaines de mapping manuel par quelques jours.</p>
+          <div class="chips">
+            <span class="chip c-indigo" data-i18n="card3.chip1">27 r&eacute;f&eacute;rentiels</span>
+            <span class="chip c-green" data-i18n="card3.chip2">19 projets livr&eacute;s</span>
+            <span class="chip c-teal" data-i18n="card3.chip3">&#8722;80% de co&ucirc;t</span>
+          </div>
+          <span class="cta"><span data-i18n="card3.cta">D&eacute;couvrir le projet</span> <span class="arrow">&#8594;</span></span>
         </div>
-      </div>
+      </a>
 
-      <div class="proj-card placeholder">
+      <!-- 04: Cyber-by-Design Project Assistant (SAM) (skeleton) -->
+      <a class="proj-card placeholder" href="usecase-cyber-by-design-sam.html">
         <div class="proj-media">
           <span class="num">04</span>
-          <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 2 4 6v6c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-4z"/><circle cx="12" cy="11" r="2.5"/></svg></div>
         </div>
         <div class="proj-body">
-          <span class="tag">Projet #4</span>
-          <h2>Bient&ocirc;t r&eacute;v&eacute;l&eacute;</h2>
-          <p>Cette carte sera compl&eacute;t&eacute;e avec le prochain projet de l'initiative Dance With the AI Stars.</p>
-          <span class="soon-badge"><span class="dot"></span>&Agrave; venir</span>
+          <span class="tag" data-i18n="card4.tag">Security by Design</span>
+          <h2 data-i18n="card4.h2">Cyber-by-Design Project Assistant (SAM)</h2>
+          <p data-i18n="card4.p">Assistant IA pour int&eacute;grer la s&eacute;curit&eacute; d&egrave;s la conception des projets clients.</p>
+          <span class="soon-badge"><span class="dot"></span><span data-i18n="soon.badge">&Agrave; venir</span></span>
         </div>
-      </div>
+      </a>
 
-      <div class="proj-card placeholder">
+      <!-- 05: The Deliverable Purifier (skeleton) -->
+      <a class="proj-card placeholder" href="usecase-deliverable-purifier.html">
         <div class="proj-media">
           <span class="num">05</span>
-          <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M4 4h16l-6 8v6l-4 2v-8L4 4z"/></svg></div>
         </div>
         <div class="proj-body">
-          <span class="tag">Projet #5</span>
-          <h2>Bient&ocirc;t r&eacute;v&eacute;l&eacute;</h2>
-          <p>Cette carte sera compl&eacute;t&eacute;e avec le prochain projet de l'initiative Dance With the AI Stars.</p>
-          <span class="soon-badge"><span class="dot"></span>&Agrave; venir</span>
+          <span class="tag" data-i18n="card5.tag">Qualit&eacute; livrables</span>
+          <h2 data-i18n="card5.h2">The Deliverable Purifier</h2>
+          <p data-i18n="card5.p">Contr&ocirc;le et nettoyage automatis&eacute; des livrables avant remise au client.</p>
+          <span class="soon-badge"><span class="dot"></span><span data-i18n="soon.badge">&Agrave; venir</span></span>
         </div>
-      </div>
+      </a>
 
-      <div class="proj-card placeholder">
+      <!-- 06: The Web Recon Accelerator (skeleton) -->
+      <a class="proj-card placeholder" href="usecase-web-recon-accelerator.html">
         <div class="proj-media">
           <span class="num">06</span>
-          <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg></div>
         </div>
         <div class="proj-body">
-          <span class="tag">Projet #6</span>
-          <h2>Bient&ocirc;t r&eacute;v&eacute;l&eacute;</h2>
-          <p>Cette carte sera compl&eacute;t&eacute;e avec le prochain projet de l'initiative Dance With the AI Stars.</p>
-          <span class="soon-badge"><span class="dot"></span>&Agrave; venir</span>
+          <span class="tag" data-i18n="card6.tag">Reconnaissance</span>
+          <h2 data-i18n="card6.h2">The Web Recon Accelerator</h2>
+          <p data-i18n="card6.p">Acc&eacute;l&eacute;ration des phases de reconnaissance web lors des tests d'intrusion.</p>
+          <span class="soon-badge"><span class="dot"></span><span data-i18n="soon.badge">&Agrave; venir</span></span>
         </div>
-      </div>
+      </a>
 
     </div>
 
     <div class="stats-strip">
-      <div class="s"><b>6</b><span>projets Dance With the AI Stars</span></div>
-      <div class="s"><b>1</b><span>use case d&eacute;taill&eacute; aujourd'hui</span></div>
-      <div class="s"><b>10</b><span>Wavies impliqu&eacute;s sur le premier projet</span></div>
+      <div class="s"><b>6</b><span data-i18n="stats.s1">projets Dance With the AI Stars</span></div>
+      <div class="s"><b>1</b><span data-i18n="stats.s2">use case d&eacute;taill&eacute; aujourd'hui</span></div>
+      <div class="s"><b>10</b><span data-i18n="stats.s3">Wavies impliqu&eacute;s sur le premier projet</span></div>
     </div>
   </div>
 </div>
@@ -243,6 +279,93 @@
   <a class="jump" href="index.html" data-i18n="back">&#8592; retour &agrave; l'accueil</a>
 </footer>
 
+<script>
+window.WS_I18N = {
+  en: {
+    "__title": "Wavestone CYB AI Maker &mdash; Dance With the AI Stars",
+    "nav.home": "Home",
+    "nav.usecases": "Playbook",
+    "nav.principles": "Agent principles",
+    "nav.agents": "Our agents",
+    "nav.dais": "Dance With the AI Stars",
+    "nav.tokeneco": "Economics model",
+    "nav.apikey": "API key",
+    "hero.eyebrow": "CYB AI Maker initiative",
+    "hero.title": "Dance With the <span class=\"ac\">AI Stars</span>",
+    "hero.lede": "Six internal projects, six teams, one shared ambition: turning business expertise into an operational AI agent. See how each team is reinventing its methodology with artificial intelligence.",
+    "card1.tag": "AI benchmarking",
+    "card1.h2": "The CyberBench Orchestrator",
+    "card1.p": "Orchestrating benchmarks to evaluate and compare AI models and agents.",
+    "card2.tag": "Threat Intelligence",
+    "card2.h2": "The CTI Exposure Scout",
+    "card2.p": "Detecting and tracking an organization's exposure from cyber threat intelligence sources.",
+    "card3.h2": "AI-Powered NIS2 Intelligence &amp; Compliance Assistant",
+    "card3.p": "Automatic mapping of the 27 national NIS2 frameworks &mdash; an Azure OpenAI pipeline that replaces weeks of manual mapping with a few days.",
+    "card3.chip1": "27 frameworks",
+    "card3.chip2": "19 projects delivered",
+    "card3.chip3": "&#8722;80% cost",
+    "card3.cta": "Discover the project",
+    "pilot.badge": "Complete use case",
+    "card4.tag": "Security by Design",
+    "card4.h2": "Cyber-by-Design Project Assistant (SAM)",
+    "card4.p": "AI assistant to build security in from the design phase of client projects.",
+    "card5.tag": "Deliverable quality",
+    "card5.h2": "The Deliverable Purifier",
+    "card5.p": "Automated review and clean-up of deliverables before they reach the client.",
+    "card6.tag": "Reconnaissance",
+    "card6.h2": "The Web Recon Accelerator",
+    "card6.p": "Speeding up web reconnaissance phases during penetration tests.",
+    "soon.badge": "Coming soon",
+    "stats.s1": "Dance With the AI Stars projects",
+    "stats.s2": "detailed use case today",
+    "stats.s3": "Wavies involved in the first project",
+    "footer.src": "Dance With the AI Stars &mdash; Wavestone CYB &middot; AI Maker Initiative",
+    "back": "&#8592; back to home"
+  },
+  de: {
+    "__title": "Wavestone CYB AI Maker &mdash; Dance With the AI Stars",
+    "nav.home": "Start",
+    "nav.usecases": "Playbook",
+    "nav.principles": "Agenten-Prinzipien",
+    "nav.agents": "Unsere Agenten",
+    "nav.dais": "Dance With the AI Stars",
+    "nav.tokeneco": "Wirtschaftsmodell",
+    "nav.apikey": "API-Schl&uuml;ssel",
+    "hero.eyebrow": "CYB-AI-Maker-Initiative",
+    "hero.title": "Dance With the <span class=\"ac\">AI Stars</span>",
+    "hero.lede": "Sechs interne Projekte, sechs Teams, ein gemeinsamer Anspruch: Fachwissen in einen einsatzf&auml;higen KI-Agenten zu verwandeln. Entdecke, wie jedes Team seine Methodik mit k&uuml;nstlicher Intelligenz neu erfindet.",
+    "card1.tag": "KI-Benchmarking",
+    "card1.h2": "The CyberBench Orchestrator",
+    "card1.p": "Orchestrierung von Benchmarks zur Bewertung und zum Vergleich von KI-Modellen und -Agenten.",
+    "card2.tag": "Threat Intelligence",
+    "card2.h2": "The CTI Exposure Scout",
+    "card2.p": "Erkennung und Verfolgung der Exponierung einer Organisation anhand von Cyber-Threat-Intelligence-Quellen.",
+    "card3.h2": "AI-Powered NIS2 Intelligence &amp; Compliance Assistant",
+    "card3.p": "Automatisches Mapping der 27 nationalen NIS2-Regelwerke &mdash; eine Azure-OpenAI-Pipeline, die Wochen manuellen Mappings durch wenige Tage ersetzt.",
+    "card3.chip1": "27 Regelwerke",
+    "card3.chip2": "19 gelieferte Projekte",
+    "card3.chip3": "&#8722;80% Kosten",
+    "card3.cta": "Projekt entdecken",
+    "pilot.badge": "Vollst&auml;ndiger Use Case",
+    "card4.tag": "Security by Design",
+    "card4.h2": "Cyber-by-Design Project Assistant (SAM)",
+    "card4.p": "KI-Assistent, um Sicherheit von Beginn an in die Konzeption von Kundenprojekten einzubauen.",
+    "card5.tag": "Qualit&auml;t der Liefergegenst&auml;nde",
+    "card5.h2": "The Deliverable Purifier",
+    "card5.p": "Automatisierte Pr&uuml;fung und Bereinigung von Liefergegenst&auml;nden vor der &Uuml;bergabe an den Kunden.",
+    "card6.tag": "Reconnaissance",
+    "card6.h2": "The Web Recon Accelerator",
+    "card6.p": "Beschleunigung der Web-Reconnaissance-Phasen bei Penetrationstests.",
+    "soon.badge": "Demn&auml;chst",
+    "stats.s1": "Dance-With-the-AI-Stars-Projekte",
+    "stats.s2": "detaillierter Use Case heute",
+    "stats.s3": "beteiligte Wavies am ersten Projekt",
+    "footer.src": "Dance With the AI Stars &mdash; Wavestone CYB &middot; AI Maker Initiative",
+    "back": "&#8592; zur&uuml;ck zur Startseite"
+  }
+};
+</script>
+<script src="assets/i18n.js"></script>
 <script src="assets/mobile-nav.js"></script>
 
 </body>
