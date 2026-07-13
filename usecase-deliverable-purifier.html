@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="__title">Wavestone CYB AI Maker &mdash; The Deliverable Purifier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-400:#866CDB; --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-teal-500:#228D95;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-warning:#C8861A;
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ws-white);color:var(--ws-ink-900);font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+  a{color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .eyebrow{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid var(--ws-green-400)}
+
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1080px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:6px 13px;transition:.18s var(--ws-ease)}
+  .bar a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-left:auto}
+
+  .crumb{max-width:1080px;margin:18px auto 0;padding:0 24px}
+  .crumb a{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-500);text-decoration:none}
+  .crumb a:hover{color:var(--ws-indigo-600)}
+
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px;margin-top:14px}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1080px;margin:0 auto;padding:48px 24px 44px;display:grid;grid-template-columns:1fr;gap:28px;align-items:center}
+  @media(min-width:860px){.hero-in{grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);padding:56px 24px 40px}}
+  .hero .eyebrow{color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(30px,4.6vw,46px);line-height:1.08;letter-spacing:-.02em;margin:18px 0 14px;max-width:26ch}
+  .hero .lede{font-size:17.5px;line-height:1.55;color:rgba(255,255,255,.85);max-width:66ch}
+  .hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .hero-tag{font-family:var(--ws-font-mono);font-size:12px;font-weight:600;color:#fff;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);padding:6px 11px}
+  .hero-illus{width:100%;max-width:340px;justify-self:center;filter:drop-shadow(0 14px 24px rgba(14,9,40,.35))}
+  .hero-illus svg{display:block;width:100%;height:auto}
+  @media(max-width:859px){.hero-illus{max-width:240px;order:-1}}
+  .hero-in.simple{grid-template-columns:1fr;text-align:center}
+
+  /* ---- empty-state (skeleton use case pages) ---- */
+  .empty-state{border:1.5px dashed var(--ws-ink-200);background:var(--ws-ink-50);padding:48px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
+  .empty-state .ic{width:52px;height:52px;background:#fff;border:1.5px solid var(--ws-ink-200);color:var(--ws-ink-400);display:grid;place-items:center}
+  .empty-state h3{font-family:var(--ws-font-display);font-weight:700;font-size:16px;color:var(--ws-ink-600)}
+  .empty-state p{font-size:13.5px;color:var(--ws-ink-500);max-width:52ch}
+
+  .sec-head{margin:56px 0 22px}
+  .sec-head .eyebrow{color:var(--ws-indigo-600);border-bottom-color:var(--ws-green-400)}
+  .sec-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:27px;letter-spacing:-.015em;color:var(--ws-ink-900);margin-top:8px}
+  .sec-head p.sub{font-size:15px;color:var(--ws-ink-600);margin-top:10px;max-width:74ch}
+
+  /* ---- section 1: presentation ---- */
+  .pres-grid{display:grid;grid-template-columns:1fr;gap:16px}
+  @media(min-width:820px){.pres-grid{grid-template-columns:1fr 1fr}}
+  .pres-card{background:#fff;border:1.5px solid var(--ws-ink-100);border-top:3px solid var(--ws-ink-100);padding:24px 24px 22px;box-shadow:var(--ws-shadow-sm)}
+  .pres-card h3{display:flex;align-items:center;gap:10px;font-family:var(--ws-font-display);font-weight:700;font-size:15.5px;color:var(--ws-indigo-600);margin-bottom:12px}
+  .pres-card h3 .ic{width:30px;height:30px;flex:0 0 auto;background:var(--ws-indigo-50);color:var(--ws-indigo-600);display:grid;place-items:center}
+  .pres-card p{font-size:14.5px;color:var(--ws-ink-700);line-height:1.65}
+  .pres-card p + p{margin-top:10px}
+  .pres-card ul{margin-top:4px;padding-left:0;list-style:none;display:grid;gap:8px}
+  .pres-card ul li{font-size:14.5px;color:var(--ws-ink-700);line-height:1.5;display:flex;gap:9px;align-items:flex-start}
+  .pres-card ul li::before{content:"";flex:0 0 auto;width:6px;height:6px;margin-top:7px;background:var(--ws-green-400)}
+  .pres-card.contexte{border-top-color:var(--ws-teal-500)}
+  .pres-card.objectifs{border-top-color:var(--ws-indigo-500)}
+  .pres-card.agent{border-top-color:#5226E0}
+  .pres-card.value{border-top-color:var(--ws-green-400);box-shadow:0 0 0 1px var(--ws-green-400),var(--ws-shadow-sm)}
+  .pres-card .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+  .pres-card .stat{text-align:left}
+  .pres-card .stat b{display:block;font-family:var(--ws-font-display);font-weight:800;font-size:23px;color:var(--ws-indigo-600);line-height:1}
+  .pres-card .stat span{display:block;font-size:11.5px;color:var(--ws-ink-500);margin-top:5px;line-height:1.35}
+
+  /* ---- section 2: architecture ---- */
+  .arch-note{font-size:14.5px;color:var(--ws-ink-600);max-width:78ch;margin-bottom:26px;line-height:1.65}
+  .arch-note b{color:var(--ws-ink-900)}
+  .pipeline{display:flex;flex-direction:column;gap:0}
+  .arch-row{display:flex;align-items:stretch;gap:0}
+  .arch-io{flex:0 0 148px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+  .io-box{background:var(--ws-ink-50);border:1.5px dashed var(--ws-ink-300);padding:12px 14px;font-family:var(--ws-font-mono);font-size:11.5px;color:var(--ws-ink-600);text-align:center;line-height:1.4}
+  .io-box b{display:block;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-ink-800);margin-bottom:3px}
+  .arch-connector{flex:0 0 40px;display:flex;align-items:center;justify-content:center;color:var(--ws-ink-300)}
+  .arch-connector svg{width:28px;height:16px}
+  .steps{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:900px){
+    .arch-row{flex-direction:column;gap:16px}
+    .arch-io{flex-direction:row;flex:none;width:100%}
+    .arch-connector{transform:rotate(90deg);flex:none;height:24px}
+    .steps{grid-template-columns:1fr}
+  }
+  .step{background:#fff;border:1.5px solid var(--ws-ink-100);box-shadow:var(--ws-shadow-sm);display:flex;flex-direction:column}
+  .step-head{background:var(--ws-indigo-800);color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px}
+  .step:nth-child(3) .step-head{background:linear-gradient(90deg,var(--ws-indigo-800),var(--ws-teal-500))}
+  .step:nth-child(5) .step-head{background:linear-gradient(90deg,var(--ws-indigo-800),var(--ws-green-700))}
+  .step-head .n{font-family:var(--ws-font-mono);font-size:11px;font-weight:700;color:var(--ws-indigo-900);background:var(--ws-green-400);width:22px;height:22px;flex:0 0 auto;display:grid;place-items:center}
+  .step-head b{font-family:var(--ws-font-display);font-size:14px;letter-spacing:-.01em}
+  .step-body{padding:16px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .step-goal{font-size:12.5px;color:var(--ws-ink-500);font-style:italic;line-height:1.45;padding-bottom:10px;border-bottom:1px solid var(--ws-ink-100)}
+  .task{display:flex;flex-direction:column;gap:4px}
+  .task b{font-family:var(--ws-font-display);font-size:13.5px;color:var(--ws-ink-900)}
+  .task p{font-size:12.5px;color:var(--ws-ink-600);line-height:1.5}
+  .model-pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--ws-font-mono);font-size:10.5px;font-weight:600;color:var(--ws-teal-500);background:#E2F1F2;padding:3px 9px;width:fit-content;margin-top:2px}
+  .model-pill.py{color:var(--ws-indigo-600);background:var(--ws-indigo-50)}
+  .arrow-down{display:none}
+  @media(max-width:900px){
+    .arrow-down{display:flex;justify-content:center;color:var(--ws-ink-300);margin:2px 0}
+  }
+
+  /* ---- section 3: retour d'experience ---- */
+  .xp-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:16px}
+  @media(min-width:760px){.xp-grid{grid-template-columns:1fr 1fr}}
+  @media(min-width:1080px){.xp-grid{grid-template-columns:repeat(3,1fr)}}
+  .xp-card{background:#fff;border:1.5px solid var(--ws-ink-100);padding:22px;box-shadow:var(--ws-shadow-sm);display:flex;flex-direction:column;transition:.22s var(--ws-ease)}
+  .xp-card:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-3px);border-color:var(--ws-indigo-200)}
+  .xp-card .tag{display:inline-block;font-family:var(--ws-font-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-indigo-600);background:var(--ws-indigo-50);padding:4px 10px;margin-bottom:12px;width:fit-content}
+  .xp-card h3{font-family:var(--ws-font-display);font-weight:700;font-size:16px;color:var(--ws-ink-900);margin-bottom:8px;line-height:1.3}
+  .xp-card p{font-size:13.5px;color:var(--ws-ink-600);line-height:1.6}
+  .xp-card ul{margin-top:8px;padding-left:0;list-style:none;display:grid;gap:6px}
+  .xp-card ul li{font-size:13px;color:var(--ws-ink-700);line-height:1.5;display:flex;gap:8px}
+  .xp-card ul li::before{content:"\2192";flex:0 0 auto;color:var(--ws-green-700);font-weight:700}
+  .xp-card.wide{grid-column:1 / -1;background:linear-gradient(135deg,var(--ws-indigo-900),var(--ws-indigo-700));border-color:var(--ws-indigo-700)}
+  .xp-card.wide .tag{color:var(--ws-green-300);background:rgba(255,255,255,.1)}
+  .xp-card.wide .quote{font-family:var(--ws-font-display);font-weight:600;font-size:17px;color:#fff;line-height:1.4;font-style:normal}
+  .xp-card.wide p:not(.quote){color:rgba(255,255,255,.75)}
+
+  .compare{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+  .compare th,.compare td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--ws-ink-100);vertical-align:top}
+  .compare thead th{font-family:var(--ws-font-mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--ws-ink-500)}
+  .compare tbody th{font-family:var(--ws-font-display);font-weight:600;font-size:12.5px;color:var(--ws-ink-900);white-space:nowrap}
+  .compare td.manual{color:var(--ws-ink-500)}
+  .compare td.agent{color:var(--ws-ink-900);font-weight:600}
+  .compare td.agent b{color:var(--ws-green-700)}
+  .compare tbody tr:last-child th,.compare tbody tr:last-child td{border-bottom:none}
+
+  .xp-note{margin-top:6px;background:#FBF1DD;border:1px solid #F0DBA8;border-left:4px solid var(--ws-warning);padding:14px 16px;display:flex;gap:10px;align-items:flex-start}
+  .xp-note svg{flex:0 0 auto;color:var(--ws-warning);margin-top:2px}
+  .xp-note p{font-size:13px;color:var(--ws-ink-700);line-height:1.6}
+
+  /* ---- section 4: team ---- */
+  .team-note{font-size:13px;color:var(--ws-ink-500);max-width:74ch;margin-bottom:22px;line-height:1.6;font-family:var(--ws-font-mono)}
+  .team-locations{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+  .loc-pill{font-family:var(--ws-font-mono);font-size:11.5px;font-weight:600;color:var(--ws-ink-600);background:var(--ws-ink-50);padding:5px 11px;display:inline-flex;align-items:center;gap:6px}
+  .loc-pill svg{width:12px;height:12px}
+  .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-top:18px}
+  .member{background:#fff;border:1.5px solid var(--ws-ink-100);padding:18px;text-align:left;text-decoration:none;display:flex;flex-direction:column;transition:.2s var(--ws-ease)}
+  .member:hover{border-color:var(--ws-indigo-600);box-shadow:var(--ws-shadow-md);transform:translateY(-3px)}
+  .member-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .member .avatar-wrap{position:relative;flex:0 0 auto}
+  .member .avatar{display:block;width:56px;height:56px;border-radius:50%;object-fit:cover;background:var(--ws-ink-50);border:2px solid var(--ws-white);box-shadow:0 0 0 2px var(--ws-ink-100)}
+  .member:hover .avatar{box-shadow:0 0 0 2px var(--ws-indigo-500)}
+  .member .flag{position:absolute;bottom:-2px;right:-2px;font-size:14px;line-height:1;background:#fff;border-radius:50%;width:18px;height:18px;display:grid;place-items:center;box-shadow:0 0 0 1.5px #fff}
+  .member .name{display:block;font-family:var(--ws-font-display);font-weight:600;font-size:14px;color:var(--ws-ink-900);line-height:1.3}
+  .member .role-tag{display:block;font-family:var(--ws-font-mono);font-size:10.5px;font-weight:600;color:var(--ws-indigo-600);margin-top:3px;line-height:1.3}
+  .member .desc{font-size:12px;color:var(--ws-ink-600);line-height:1.55;flex:1}
+  .member .teams-ic{margin-top:12px;display:flex;align-items:center;gap:6px;font-family:var(--ws-font-mono);font-size:10.5px;font-weight:600;color:var(--ws-indigo-600);padding-top:10px;border-top:1px solid var(--ws-ink-100)}
+  .member .teams-ic svg{width:12px;height:12px;transition:transform .18s var(--ws-ease)}
+  .member:hover .teams-ic svg{transform:translateX(2px)}
+
+  footer{max-width:1080px;margin:60px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+  footer a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:8px 14px;transition:.18s var(--ws-ease)}
+  footer a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+  *,*::before,*::after{border-radius:0!important}
+  .member .avatar,.member .flag{border-radius:50%!important}
+  .brand .dot{border-radius:50%!important}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
+    <div class="nav-links">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="dance-with-the-ai-stars.html" data-i18n="nav.dais">Dance With the AI Stars</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+    </div>
+  </div>
+</div>
+
+<div class="crumb"><a href="dance-with-the-ai-stars.html" data-i18n="crumb.back">&#8592; Dance With the AI Stars</a></div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1080 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,260 Q260,150 540,210 T1140,180" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,280 Q300,180 560,240 T1140,210" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in simple">
+    <div>
+      <span class="eyebrow" data-i18n="hero.eyebrow">Qualit&eacute; livrables</span>
+      <h1>The Deliverable Purifier</h1>
+      <p class="lede" data-i18n="hero.lede">Contr&ocirc;le et nettoyage automatis&eacute; des livrables avant remise au client.</p>
+      <div class="hero-tags">
+        <span class="hero-tag" data-i18n="hero.soon">&#128337; Page en construction</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="sec-head" id="presentation">
+    <span class="eyebrow" data-i18n="sec1.eyebrow">01 &middot; Le projet</span>
+    <h2 data-i18n="sec1.h2">Pr&eacute;sentation du projet</h2>
+  </div>
+  <div class="empty-state">
+    <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+    <h3 data-i18n="empty1.h3">Contenu &agrave; venir</h3>
+    <p data-i18n="empty1.p">La pr&eacute;sentation d&eacute;taill&eacute;e de ce projet (contexte, objectifs, valeur) sera publi&eacute;e prochainement.</p>
+  </div>
+
+  <div class="sec-head" id="architecture">
+    <span class="eyebrow" data-i18n="sec2.eyebrow">02 &middot; Sous le capot</span>
+    <h2 data-i18n="sec2.h2">Architecture de l'agent</h2>
+  </div>
+  <div class="empty-state">
+    <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 2 2 8l10 6 10-6-10-6z"/><path d="M2 14l10 6 10-6"/></svg></div>
+    <h3 data-i18n="empty2.h3">Contenu &agrave; venir</h3>
+    <p data-i18n="empty2.p">Le sch&eacute;ma d'architecture de l'agent sera publi&eacute; prochainement.</p>
+  </div>
+
+  <div class="sec-head" id="retour-experience">
+    <span class="eyebrow" data-i18n="sec3.eyebrow">03 &middot; Sur le terrain</span>
+    <h2 data-i18n="sec3.h2">Retour d'exp&eacute;rience</h2>
+  </div>
+  <div class="empty-state">
+    <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+    <h3 data-i18n="empty3.h3">Contenu &agrave; venir</h3>
+    <p data-i18n="empty3.p">Les retours de mission et b&eacute;n&eacute;fices mesur&eacute;s seront publi&eacute;s prochainement.</p>
+  </div>
+
+  <div class="sec-head" id="equipe">
+    <span class="eyebrow" data-i18n="sec4.eyebrow">04 &middot; Les Wavies derri&egrave;re le projet</span>
+    <h2 data-i18n="sec4.h2">&Eacute;quipe du projet</h2>
+  </div>
+  <div class="empty-state">
+    <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+    <h3 data-i18n="empty4.h3">Contenu &agrave; venir</h3>
+    <p data-i18n="empty4.p">L'&eacute;quipe du projet sera annonc&eacute;e prochainement.</p>
+  </div>
+
+</div>
+
+<footer>
+  <span class="src" data-i18n="footer.src">The Deliverable Purifier &mdash; Dance With the AI Stars &middot; Wavestone CYB AI Maker</span>
+  <a class="jump" href="dance-with-the-ai-stars.html" data-i18n="footer.back">&#8592; retour aux 6 projets</a>
+</footer>
+
+<script>
+window.WS_I18N = {
+  en: {
+    "__title": "Wavestone CYB AI Maker &mdash; The Deliverable Purifier",
+    "nav.home": "Home",
+    "nav.dais": "Dance With the AI Stars",
+    "nav.usecases": "Playbook",
+    "nav.agents": "Our agents",
+    "crumb.back": "&#8592; Dance With the AI Stars",
+    "hero.eyebrow": "Deliverable quality",
+    "hero.lede": "Automated review and clean-up of deliverables before they reach the client.",
+    "hero.soon": "&#128337; Page under construction",
+    "sec1.eyebrow": "01 &middot; The project",
+    "sec1.h2": "Project overview",
+    "sec2.eyebrow": "02 &middot; Under the hood",
+    "sec2.h2": "Agent architecture",
+    "sec3.eyebrow": "03 &middot; In the field",
+    "sec3.h2": "Lessons learned",
+    "sec4.eyebrow": "04 &middot; The Wavies behind the project",
+    "sec4.h2": "Project team",
+    "empty1.h3": "Coming soon",
+    "empty1.p": "The detailed presentation of this project (context, objectives, value) will be published soon.",
+    "empty2.h3": "Coming soon",
+    "empty2.p": "The agent's architecture diagram will be published soon.",
+    "empty3.h3": "Coming soon",
+    "empty3.p": "Mission feedback and measured benefits will be published soon.",
+    "empty4.h3": "Coming soon",
+    "empty4.p": "The project team will be announced soon.",
+    "footer.src": "The Deliverable Purifier &mdash; Dance With the AI Stars &middot; Wavestone CYB AI Maker",
+    "footer.back": "&#8592; back to the 6 projects"
+  },
+  de: {
+    "__title": "Wavestone CYB AI Maker &mdash; The Deliverable Purifier",
+    "nav.home": "Start",
+    "nav.dais": "Dance With the AI Stars",
+    "nav.usecases": "Playbook",
+    "nav.agents": "Unsere Agenten",
+    "crumb.back": "&#8592; Dance With the AI Stars",
+    "hero.eyebrow": "Qualit&auml;t der Liefergegenst&auml;nde",
+    "hero.lede": "Automatisierte Pr&uuml;fung und Bereinigung von Liefergegenst&auml;nden vor der &Uuml;bergabe an den Kunden.",
+    "hero.soon": "&#128337; Seite im Aufbau",
+    "sec1.eyebrow": "01 &middot; Das Projekt",
+    "sec1.h2": "Projekt&uuml;bersicht",
+    "sec2.eyebrow": "02 &middot; Unter der Haube",
+    "sec2.h2": "Architektur des Agenten",
+    "sec3.eyebrow": "03 &middot; In der Praxis",
+    "sec3.h2": "Erfahrungsbericht",
+    "sec4.eyebrow": "04 &middot; Die Wavies hinter dem Projekt",
+    "sec4.h2": "Projektteam",
+    "empty1.h3": "Demn&auml;chst",
+    "empty1.p": "Die detaillierte Projektpr&auml;sentation (Kontext, Ziele, Mehrwert) wird in K&uuml;rze ver&ouml;ffentlicht.",
+    "empty2.h3": "Demn&auml;chst",
+    "empty2.p": "Das Architekturdiagramm des Agenten wird in K&uuml;rze ver&ouml;ffentlicht.",
+    "empty3.h3": "Demn&auml;chst",
+    "empty3.p": "Erfahrungsberichte und gemessene Vorteile werden in K&uuml;rze ver&ouml;ffentlicht.",
+    "empty4.h3": "Demn&auml;chst",
+    "empty4.p": "Das Projektteam wird in K&uuml;rze bekannt gegeben.",
+    "footer.src": "The Deliverable Purifier &mdash; Dance With the AI Stars &middot; Wavestone CYB AI Maker",
+    "footer.back": "&#8592; zur&uuml;ck zu den 6 Projekten"
+  }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/mobile-nav.js"></script>
+
+</body>
+</html>
