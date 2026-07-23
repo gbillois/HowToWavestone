@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Mythos Readiness Assessment animated usage preview</title>
+  <desc id="desc">Animated browser app mockup showing a cyber questionnaire, file ingest, LLM analysis and readiness summary.</desc>
+  <style>
+    text{font-family:Inter,Arial,sans-serif;letter-spacing:0}
+    .bg{fill:url(#bg)}
+    .shell{fill:#fff;stroke:#d7e7ef;stroke-width:2}
+    .nav{fill:url(#nav)}
+    .navText{font-size:13px;font-weight:850;fill:#fff}
+    .subNav{font-size:10px;font-weight:850;fill:#d6f5ef}
+    .panel{fill:#fff;stroke:#e3eef3;stroke-width:2;filter:url(#shadow)}
+    .soft{fill:#f7fbfe;stroke:#d9e8ee;stroke-width:2}
+    .title{font-size:22px;font-weight:850;fill:#112b43}
+    .muted{font-size:12px;font-weight:700;fill:#64788b}
+    .tiny{font-size:11px;font-weight:800;fill:#64788b}
+    .pill{fill:#eef4ff;stroke:#d8e1ff;stroke-width:2}
+    .pillText{font-size:11px;font-weight:850;fill:#451dc7}
+    .good{fill:#2ed39b}
+    .todo{fill:#f0c84b}
+    .gap{fill:#ea7e26}
+    .critical{fill:#451dc7}
+    .btn{fill:#451dc7}
+    .btnText{font-size:13px;font-weight:850;fill:#fff}
+    .barBg{fill:#e8eef4}
+    .barFill{fill:url(#accent)}
+    #tabDash{animation:tabDash 8s linear infinite}
+    #tabIngest{animation:tabIngest 8s linear infinite}
+    #tabConfig{animation:tabConfig 8s linear infinite}
+    #fileCard{animation:fileCard 8s ease-in-out infinite}
+    #progressFill{animation:progress 8s ease-in-out infinite}
+    #apiTrace{animation:apiTrace 8s ease-in-out infinite}
+    #answerRows g{animation:answerRows 8s ease-in-out infinite}
+    #answerRows g:nth-child(2){animation-delay:.18s}
+    #answerRows g:nth-child(3){animation-delay:.36s}
+    #answerRows g:nth-child(4){animation-delay:.54s}
+    #summary{animation:summary 8s ease-in-out infinite}
+    @keyframes tabDash{0%,22%,100%{opacity:1}23%,99%{opacity:.38}}
+    @keyframes tabIngest{0%,22%,82%,100%{opacity:.38}23%,81%{opacity:1}}
+    @keyframes tabConfig{0%,82%,100%{opacity:.38}83%,96%{opacity:1}}
+    @keyframes fileCard{0%,18%{opacity:.2;transform:translateY(22px)}28%,100%{opacity:1;transform:translateY(0)}}
+    @keyframes progress{0%,34%{transform:scaleX(.08)}46%{transform:scaleX(.55)}62%,100%{transform:scaleX(1)}}
+    @keyframes apiTrace{0%,40%{opacity:0;transform:translateY(16px)}48%,78%{opacity:1;transform:translateY(0)}86%,100%{opacity:.28}}
+    @keyframes answerRows{0%,50%{opacity:.2;transform:translateX(-14px)}62%,100%{opacity:1;transform:translateX(0)}}
+    @keyframes summary{0%,58%{opacity:0;transform:translateY(20px)}68%,100%{opacity:1;transform:translateY(0)}}
+  </style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="540"><stop stop-color="#d8ecef"/><stop offset=".55" stop-color="#eaf5f5"/><stop offset="1" stop-color="#f8fbff"/></linearGradient>
+    <linearGradient id="nav" x1="54" y1="42" x2="906" y2="42"><stop stop-color="#451dc7"/><stop offset=".58" stop-color="#5a2be0"/><stop offset="1" stop-color="#228d95"/></linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#04f06a"/><stop offset="1" stop-color="#5cf59e"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="10" stdDeviation="13" flood-color="#0e4153" flood-opacity=".14"/></filter>
+  </defs>
+  <rect class="bg" width="960" height="540"/>
+  <rect class="shell" x="54" y="42" width="852" height="456"/>
+  <rect class="nav" x="54" y="42" width="852" height="62"/>
+  <text x="84" y="70" class="navText">Mythos Readiness Assessment</text>
+  <text x="84" y="88" class="subNav">POST-MYTHOS DIAGNOSTIC</text>
+  <g transform="translate(456 42)">
+    <rect id="tabDash" x="0" y="0" width="116" height="62" fill="rgba(255,255,255,.16)"/>
+    <text x="24" y="38" class="navText">Dashboard</text>
+    <rect id="tabIngest" x="116" y="0" width="116" height="62" fill="rgba(255,255,255,.16)"/>
+    <text x="148" y="38" class="navText">Ingest</text>
+    <rect id="tabConfig" x="232" y="0" width="116" height="62" fill="rgba(255,255,255,.16)"/>
+    <text x="256" y="38" class="navText">Config</text>
+  </g>
+
+  <rect class="panel" x="86" y="132" width="262" height="324"/>
+  <text x="112" y="166" class="title">Questionnaire</text>
+  <text x="112" y="190" class="muted">Readiness by control family</text>
+  <g id="answerRows" transform="translate(112 222)">
+    <g>
+      <circle cx="10" cy="10" r="8" class="good"/>
+      <text x="30" y="15" class="muted">Attack surface mapped</text>
+      <rect x="176" y="2" width="42" height="16" class="pill"/>
+      <text x="185" y="14" class="pillText">done</text>
+    </g>
+    <g transform="translate(0 44)">
+      <circle cx="10" cy="10" r="8" class="todo"/>
+      <text x="30" y="15" class="muted">Patch fast lane</text>
+      <rect x="176" y="2" width="42" height="16" class="pill"/>
+      <text x="188" y="14" class="pillText">gap</text>
+    </g>
+    <g transform="translate(0 88)">
+      <circle cx="10" cy="10" r="8" class="critical"/>
+      <text x="30" y="15" class="muted">AI defense team</text>
+      <rect x="176" y="2" width="42" height="16" class="pill"/>
+      <text x="185" y="14" class="pillText">plan</text>
+    </g>
+    <g transform="translate(0 132)">
+      <circle cx="10" cy="10" r="8" class="gap"/>
+      <text x="30" y="15" class="muted">Governance gate</text>
+      <rect x="176" y="2" width="42" height="16" class="pill"/>
+      <text x="188" y="14" class="pillText">new</text>
+    </g>
+  </g>
+  <rect x="112" y="396" width="172" height="34" class="btn"/>
+  <text x="142" y="418" class="btnText">Apply answers</text>
+
+  <rect class="panel" x="382" y="132" width="238" height="324"/>
+  <text x="408" y="166" class="title">Ingest plan</text>
+  <text x="408" y="190" class="muted">XLSX, PPTX or PDF input</text>
+  <g id="fileCard" transform="translate(408 220)">
+    <rect width="172" height="54" class="soft"/>
+    <path d="M22 38h32M38 38V16M28 26l10-10 10 10" fill="none" stroke="#451dc7" stroke-width="3"/>
+    <text x="70" y="31" class="muted">client-plan.xlsx</text>
+  </g>
+  <rect x="408" y="304" width="172" height="12" class="barBg"/>
+  <rect id="progressFill" x="408" y="304" width="172" height="12" class="barFill" style="transform-origin:408px 310px"/>
+  <text x="408" y="342" class="tiny">LLM analysis in progress</text>
+  <g id="apiTrace" transform="translate(408 368)">
+    <rect width="172" height="54" fill="#16121f"/>
+    <text x="14" y="23" font-size="11" font-weight="800" fill="#d8f7e5">POST /v1/messages</text>
+    <text x="14" y="41" font-size="11" font-weight="800" fill="#bfc5d4">status 200 - JSON</text>
+  </g>
+
+  <rect class="panel" x="654" y="132" width="220" height="324"/>
+  <text x="680" y="166" class="title">Summary</text>
+  <text x="680" y="190" class="muted">Planned vs missing actions</text>
+  <g id="summary" transform="translate(680 222)">
+    <rect width="154" height="44" fill="#e5f8f5" stroke="#bfe9dc" stroke-width="2"/>
+    <circle cx="24" cy="22" r="8" class="good"/>
+    <text x="44" y="27" class="muted">12 planned</text>
+    <rect y="68" width="154" height="44" fill="#fff7dd" stroke="#f1df9c" stroke-width="2"/>
+    <circle cx="24" cy="90" r="8" class="todo"/>
+    <text x="44" y="95" class="muted">7 partial</text>
+    <rect y="136" width="154" height="44" fill="#fff0e7" stroke="#f0c1a0" stroke-width="2"/>
+    <circle cx="24" cy="158" r="8" class="gap"/>
+    <text x="44" y="163" class="muted">5 missing</text>
+  </g>
+  <rect x="680" y="406" width="136" height="34" fill="#0f8794"/>
+  <text x="704" y="428" class="btnText">Review gaps</text>
+</svg>

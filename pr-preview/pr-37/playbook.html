@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wavestone CYB AI Maker — Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* --- Wavestone tokens (extrait du design system) --- */
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-teal-500:#228D95;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-warning:#C8861A;
+
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ws-white);color:var(--ws-ink-900);
+    font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;
+    padding-bottom:80px;
+  }
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+
+  .eyebrow{
+    display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    padding-bottom:4px;border-bottom:2px solid var(--ws-green-400);
+  }
+
+  /* ---------- sticky brand bar ---------- */
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);border-radius:999px;padding:6px 13px;transition:.18s var(--ws-ease)}
+  .bar a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  /* ---------- hero (brand gradient) ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1040px;margin:0 auto;padding:64px 24px 56px}
+  .hero .eyebrow{color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(36px,6.4vw,64px);line-height:1.02;letter-spacing:-.025em;margin:22px 0 16px;max-width:16ch}
+  .hero h1 .ac{color:var(--ws-green-400)}
+  .hero .lede{font-size:19px;line-height:1.5;color:rgba(255,255,255,.82);max-width:62ch}
+  .hero .tagline{font-family:var(--ws-font-mono);font-size:12.5px;color:rgba(255,255,255,.6);margin-top:22px;letter-spacing:.02em}
+
+  /* ---------- chooser ---------- */
+  .sec-head{margin:56px 0 6px}
+  .sec-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:28px;letter-spacing:-.015em;color:var(--ws-indigo-600);margin-top:8px}
+  .sec-head p{color:var(--ws-ink-500);margin-top:6px;font-size:15px}
+
+  .chooser{display:grid;gap:14px;margin-top:22px;grid-template-columns:1fr}
+  @media(min-width:720px){.chooser{grid-template-columns:1fr 1fr}}
+  .tile{
+    position:relative;text-align:left;cursor:pointer;background:var(--ws-white);
+    border:1.5px solid var(--ws-ink-100);border-radius:18px;padding:22px 22px 20px;
+    box-shadow:var(--ws-shadow-sm);transition:.2s var(--ws-ease);overflow:hidden;
+  }
+  .tile:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-2px);border-color:var(--ws-indigo-200)}
+  .tile.active{border-color:var(--ws-indigo-600);box-shadow:var(--ws-shadow-brand)}
+  .tile.active::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ws-gradient-accent)}
+  .tile .idx{font-family:var(--ws-font-mono);font-size:13px;font-weight:600;color:var(--ws-indigo-600)}
+  .tile.soon .idx{color:var(--ws-ink-400)}
+  .tile h3{font-family:var(--ws-font-display);font-weight:600;font-size:18.5px;color:var(--ws-ink-900);margin:8px 0 6px;line-height:1.2;max-width:34ch}
+  .tile p{font-size:14px;color:var(--ws-ink-500);line-height:1.5}
+  .stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:13px}
+  .chip{font-family:var(--ws-font-mono);font-size:11px;letter-spacing:.02em;color:var(--ws-indigo-700);background:var(--ws-indigo-50);border-radius:999px;padding:4px 10px}
+  .badge-soon{position:absolute;top:18px;right:18px;font-family:var(--ws-font-body);font-weight:700;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-warning);background:#FBF1DD;border-radius:6px;padding:4px 8px}
+  .badge-ok{position:absolute;top:18px;right:18px;font-family:var(--ws-font-body);font-weight:700;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-green-700);background:var(--ws-green-50);border-radius:6px;padding:4px 8px}
+
+  /* ---------- panels ---------- */
+  .panels{margin-top:34px}
+  .panel{display:none;animation:fade .4s var(--ws-ease)}
+  .panel.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+  .panel-head{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;border-bottom:1px solid var(--ws-ink-100);padding-bottom:16px}
+  .panel-head .t .eyebrow{color:var(--ws-ink-900)}
+  .panel-head .t h2{font-family:var(--ws-font-display);font-weight:700;font-size:25px;color:var(--ws-indigo-600);margin-top:10px;letter-spacing:-.01em;max-width:24ch}
+  .panel-head .t .sub{color:var(--ws-ink-500);font-size:14.5px;margin-top:5px;max-width:64ch}
+  .prog{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-500);white-space:nowrap}
+  .prog b{color:var(--ws-indigo-600)}
+
+  /* ---------- CI/CD chain (high level) ---------- */
+  .flow-lab{font-family:var(--ws-font-body);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ws-indigo-600);margin-top:24px}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px;padding:16px 18px;background:var(--ws-ink-50);border:1px solid var(--ws-ink-100)}
+  .flow .fn{display:inline-flex;align-items:center;font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-700);background:#fff;border:1px solid var(--ws-ink-200);padding:7px 11px}
+  .flow .fn.hl{border-color:var(--ws-green-400);color:var(--ws-green-700);background:var(--ws-green-50);font-weight:600}
+  .flow .fa{color:var(--ws-ink-400);font-weight:700}
+
+  /* steps with pipeline spine */
+  .steps{position:relative;margin-top:24px}
+  .spine{position:absolute;left:21px;top:22px;bottom:22px;width:2px;background:var(--ws-ink-100);z-index:0}
+  .spine-fill{position:absolute;left:0;top:0;width:100%;height:0;background:var(--ws-gradient-accent);transition:height .5s var(--ws-ease)}
+  .step{position:relative;z-index:1;display:flex;gap:18px;padding-bottom:20px}
+  .node{flex:0 0 44px;width:44px;height:44px;border-radius:13px;background:#fff;border:1.5px solid var(--ws-ink-200);display:grid;place-items:center;font-family:var(--ws-font-mono);font-weight:600;font-size:15px;color:var(--ws-indigo-600);cursor:pointer;user-select:none;transition:.22s var(--ws-ease)}
+  .node:hover{border-color:var(--ws-indigo-600)}
+  .node .ck{display:none;font-size:20px;color:#fff;line-height:1}
+  .step.done .node{background:var(--ws-indigo-600);border-color:var(--ws-indigo-600);color:#fff}
+  .step.done .node .nm{display:none}
+  .step.done .node .ck{display:block}
+  .scard{flex:1;background:#fff;border:1px solid var(--ws-ink-100);border-radius:14px;padding:16px 18px;box-shadow:var(--ws-shadow-sm);transition:.22s var(--ws-ease)}
+  .step.done .scard{opacity:.7;border-color:var(--ws-green-50)}
+  .scard h4{font-family:var(--ws-font-display);font-weight:600;font-size:16.5px;color:var(--ws-ink-900);display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .scard .do{margin-top:7px;font-size:14.5px;color:var(--ws-ink-600)}
+  .scard .do code{font-family:var(--ws-font-mono);font-size:.85em;background:var(--ws-ink-50);border-radius:5px;padding:1px 6px}
+  .mini{font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ws-green-700);background:var(--ws-green-50);border-radius:999px;padding:3px 8px;font-weight:600}
+  .mini.opt{color:var(--ws-ink-500);background:var(--ws-ink-50)}
+
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .lk{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-family:var(--ws-font-mono);font-size:12.5px;border:1px solid var(--ws-ink-200);border-radius:999px;padding:7px 13px;background:#fff;color:var(--ws-ink-900);transition:.18s var(--ws-ease)}
+  .lk:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600);transform:translateY(-1px)}
+  .lk .ar{color:var(--ws-ink-400);transition:.18s var(--ws-ease)}
+  .lk:hover .ar{color:var(--ws-indigo-600)}
+
+  /* prompt card (neon green on deep indigo — signature DS combo) */
+  .prompt{position:relative;background:var(--ws-indigo-950);border-radius:14px;padding:16px 18px;margin-top:14px;font-family:var(--ws-font-mono);font-size:13.5px;color:#EAE7F6;box-shadow:var(--ws-shadow-md)}
+  .prompt .who{color:rgba(255,255,255,.5);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+  .prompt .txt{color:var(--ws-green-300);line-height:1.5}
+  .prompt .txt::before{content:"\2192  ";color:rgba(255,255,255,.35)}
+  .copy{position:absolute;top:13px;right:13px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.7);font-family:var(--ws-font-mono);font-size:11px;border-radius:999px;padding:5px 11px;cursor:pointer;transition:.18s var(--ws-ease)}
+  .copy:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+  .copy.ok{color:var(--ws-green-300);border-color:var(--ws-green-400)}
+
+  /* note / governance */
+  .note{margin-top:18px;background:var(--ws-indigo-50);border:1px solid var(--ws-indigo-100);border-left:4px solid var(--ws-indigo-600);border-radius:12px;padding:16px 18px}
+  .note .lab{font-family:var(--ws-font-body);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ws-indigo-600);margin-bottom:7px}
+  .note p{font-size:14px;color:var(--ws-ink-700);line-height:1.55}
+  .note p+p{margin-top:8px}
+  .note b{color:var(--ws-ink-900)}
+
+  /* à venir */
+  .soon-card{margin-top:24px;background:linear-gradient(180deg,var(--ws-ink-50),#fff 70%);border:1.5px dashed var(--ws-ink-200);border-radius:18px;padding:30px 26px;text-align:center}
+  .soon-card .ring{width:54px;height:54px;border-radius:50%;border:2px dashed var(--ws-indigo-200);display:grid;place-items:center;margin:0 auto 14px;color:var(--ws-indigo-600);font-size:22px}
+  .soon-card h3{font-family:var(--ws-font-display);font-weight:700;font-size:21px;color:var(--ws-indigo-600)}
+  .soon-card p{color:var(--ws-ink-500);font-size:15px;max-width:56ch;margin:10px auto 0;line-height:1.55}
+
+  /* infos utiles */
+  .res{margin-top:22px;display:grid;gap:16px;grid-template-columns:1fr}
+  @media(min-width:720px){.res{grid-template-columns:1fr 1fr}}
+  .res-card{background:#fff;border:1px solid var(--ws-ink-100);border-radius:16px;padding:20px 22px;box-shadow:var(--ws-shadow-sm)}
+  .res-card.key{border-color:var(--ws-green-400);box-shadow:0 0 0 1px var(--ws-green-400),var(--ws-shadow-sm)}
+  .res-card h3{font-family:var(--ws-font-display);font-weight:600;font-size:17px;color:var(--ws-indigo-600);margin-bottom:14px;display:flex;align-items:center;gap:9px}
+  .res-card h3 .star{color:var(--ws-green-700)}
+  .res-list{list-style:none;display:grid;gap:9px}
+  .res-list a{display:flex;align-items:center;justify-content:space-between;gap:12px;text-decoration:none;border:1px solid var(--ws-ink-100);border-radius:10px;padding:11px 14px;transition:.18s var(--ws-ease)}
+  .res-list a:hover{border-color:var(--ws-indigo-600);background:var(--ws-indigo-50)}
+  .res-list .nm{font-weight:600;font-size:14px;color:var(--ws-ink-900)}
+  .res-list .u{font-family:var(--ws-font-mono);font-size:11.5px;color:var(--ws-ink-400);display:block;margin-top:2px}
+  .res-list .go{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-indigo-600);white-space:nowrap}
+  .res-cta{display:flex;align-items:center;justify-content:space-between;gap:12px;text-decoration:none;background:var(--ws-green-400);border-radius:11px;padding:13px 16px;transition:.18s var(--ws-ease)}
+  .res-cta:hover{background:var(--ws-green-300)}
+  .res-cta .nm{font-family:var(--ws-font-display);font-weight:700;font-size:15px;color:var(--ws-indigo-900)}
+  .res-cta .go{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-indigo-900)}
+  .cap{font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-warning);margin-top:10px;display:flex;gap:6px;align-items:flex-start}
+
+  footer{max-width:1040px;margin:64px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+  .reset{font-family:var(--ws-font-mono);font-size:12.5px;border:1px solid var(--ws-ink-200);background:#fff;border-radius:999px;padding:8px 14px;cursor:pointer;color:var(--ws-ink-500);transition:.18s var(--ws-ease)}
+  .reset:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+  /* On narrow screens let the status badge sit above the title instead of
+     overlapping it when the heading wraps under the absolute badge. */
+  @media(max-width:560px){
+    .badge-ok,.badge-soon{position:static;display:inline-block;margin-bottom:6px}
+    .tile h3{margin-top:2px}
+  }
+
+  /* ---------- launcher cards ---------- */
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-left:auto}
+  .bar-in .langsel{margin-left:10px}
+  a.tile{text-decoration:none;display:block}
+  .tile.soon{cursor:default}
+  .tile.soon:hover{box-shadow:var(--ws-shadow-sm);transform:none;border-color:var(--ws-ink-100)}
+  .tile .open{display:inline-flex;align-items:center;gap:7px;margin-top:14px;font-family:var(--ws-font-mono);font-size:12.5px;font-weight:600;color:var(--ws-indigo-600)}
+  .tile .flow{margin-top:12px;padding:10px 12px}
+  .tile .flow .fn{font-size:11px;padding:5px 8px}
+
+  /* square corners */
+  *,*::before,*::after{border-radius:0!important}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html" style="text-decoration:none"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
+    <div class="nav-links">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
+      <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+      <a class="jump" href="dance-with-the-ai-stars.html" data-i18n="nav.dais">Dance With the AI Stars</a>
+      <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1040 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,300 Q260,180 540,250 T1100,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <span class="eyebrow" data-i18n="hero.eyebrow">Playbook</span>
+    <h1 data-i18n="hero.title">Que veux-tu <span class="ac">construire</span> ?</h1>
+    <p class="lede" data-i18n="hero.lede">Choisis un playbook. Pour chacun&nbsp;: la cha&icirc;ne CI/CD &agrave; haut niveau, puis le how-to d&eacute;taill&eacute; quand il existe &mdash; sinon, il arrive bient&ocirc;t.</p>
+    <p class="tagline" data-i18n="hero.tagline"># environnement wavestone &middot; licence claude entreprise &middot; sans droits admin</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- CHOOSER / LAUNCHER -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="chooser.eyebrow">Par o&ugrave; commencer</span>
+    <h2 data-i18n="chooser.h2">Quel playbook te faut-il ?</h2>
+    <p data-i18n="chooser.p">Choisis un playbook&nbsp;: ouvre son guide de mise en &oelig;uvre, ou d&eacute;couvre la cha&icirc;ne CI/CD pr&eacute;vue.</p>
+  </div>
+
+  <div class="chooser" id="chooser">
+
+    <a class="tile" href="web-app-guide.html">
+      <span class="badge-ok" data-i18n="badge.ok">Guide dispo</span>
+      <h3 data-i18n="tile.static.h3">Site web statique</h3>
+      <p data-i18n="tile.static.p">Un site statique publi&eacute; en ligne via GitHub Pages, accessible par une URL.</p>
+      <div class="flow" data-i18n="static.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Repo Git</span><span class="fa">&rarr;</span><span class="fn">GitHub Pages</span><span class="fa">&rarr;</span><span class="fn hl">Site en ligne</span></div>
+      <span class="open" data-i18n="cta.open">Ouvrir le guide &#8594;</span>
+    </a>
+
+    <div class="tile soon">
+      <span class="badge-soon" data-i18n="badge.soon">&Agrave; venir</span>
+      <h3 data-i18n="tile.db.h3">Application web avec base de donn&eacute;es</h3>
+      <p data-i18n="tile.db.p">Front, backend et base de donn&eacute;es centralis&eacute;e, h&eacute;berg&eacute;s en ligne.</p>
+      <div class="flow" data-i18n="db.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Repo Git</span><span class="fa">&rarr;</span><span class="fn">Build &amp; d&eacute;ploiement</span><span class="fa">&rarr;</span><span class="fn hl">H&eacute;bergeur web + base de donn&eacute;es</span></div>
+    </div>
+
+    <a class="tile" href="local-app-guide.html">
+      <span class="badge-ok" data-i18n="badge.ok">Guide dispo</span>
+      <h3 data-i18n="tile.desktop.h3">Application bureau</h3>
+      <p data-i18n="tile.desktop.p">Une app qui tourne sur ta machine &mdash; du fichier HTML au script Python.</p>
+      <div class="flow" data-i18n="desktop.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Code</span><span class="fa">&rarr;</span><span class="fn">Repo Git</span><span class="fa">&rarr;</span><span class="fn hl">Ta machine</span></div>
+      <span class="open" data-i18n="cta.open">Ouvrir le guide &#8594;</span>
+    </a>
+
+    <div class="tile soon">
+      <span class="badge-soon" data-i18n="badge.soon">&Agrave; venir</span>
+      <h3 data-i18n="tile.mobile.h3">Application mobile</h3>
+      <p data-i18n="tile.mobile.p">Une app native iOS ou Android, publi&eacute;e sur les stores.</p>
+      <div class="flow" data-i18n="mobile.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">Claude (IA)</span><span class="fa">&rarr;</span><span class="fn">Repo Git</span><span class="fa">&rarr;</span><span class="fn">Build natif</span><span class="fa">&rarr;</span><span class="fn">Store</span><span class="fa">&rarr;</span><span class="fn hl">T&eacute;l&eacute;phone</span></div>
+    </div>
+
+    <div class="tile soon">
+      <span class="badge-soon" data-i18n="badge.soon">&Agrave; venir</span>
+      <h3 data-i18n="tile.copilot.h3">Agent Copilot</h3>
+      <p data-i18n="tile.copilot.p">Un agent dans l'&eacute;cosyst&egrave;me Microsoft Copilot.</p>
+      <div class="flow" data-i18n="copilot.flow"><span class="fn">Id&eacute;e</span><span class="fa">&rarr;</span><span class="fn">D&eacute;finition de l'agent</span><span class="fa">&rarr;</span><span class="fn">Copilot Studio</span><span class="fa">&rarr;</span><span class="fn">Test</span><span class="fa">&rarr;</span><span class="fn hl">D&eacute;ploiement M365</span></div>
+    </div>
+
+    <a class="tile" href="api-key.html">
+      <span class="badge-ok" data-i18n="badge.ok">Guide dispo</span>
+      <h3 data-i18n="tile.apikey.h3">Ajouter une cl&eacute; API</h3>
+      <p data-i18n="tile.apikey.p">Obtenir une cl&eacute; API Wavestone pour appeler les mod&egrave;les dans un p&eacute;rim&egrave;tre s&eacute;curis&eacute;.</p>
+      <div class="flow" data-i18n="apikey.flow"><span class="fn">Demande</span><span class="fa">&rarr;</span><span class="fn">Power Apps Wavestone</span><span class="fa">&rarr;</span><span class="fn">Validation</span><span class="fa">&rarr;</span><span class="fn">Cl&eacute; API</span><span class="fa">&rarr;</span><span class="fn hl">Int&eacute;gration projet</span></div>
+      <span class="open" data-i18n="cta.openkey">Voir la proc&eacute;dure &#8594;</span>
+    </a>
+
+  </div>
+
+  <!-- GOVERNANCE NOTE -->
+  <div class="note">
+    <div class="lab" data-i18n="pL3.gov.lab">Gouvernance Wavestone &mdash; H&eacute;bergement interne</div>
+    <p data-i18n="pL3.gov.p1">Pour les <b>donn&eacute;es clients sensibles</b>, deux options internes sont disponibles :</p>
+    <p data-i18n="pL3.gov.p2">&bull; <b>Microsoft Azure</b> <span style="font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);padding:2px 8px;font-weight:600">recommand&eacute;</span> &mdash; environnement int&eacute;gr&eacute; &agrave; l'&eacute;cosyst&egrave;me Wavestone (Azure SQL, Azure OpenAI, Blob Storage, App Service). Privil&eacute;gi&eacute; pour rester dans le p&eacute;rim&egrave;tre ma&icirc;tris&eacute;.</p>
+    <p data-i18n="pL3.gov.p3">&bull; <b>Amazon Web Services (AWS)</b> &mdash; alternative disponible pour certains sc&eacute;narios (DynamoDB, S3, Lambda, Bedrock). &Agrave; valider avec la gouvernance IT.</p>
+    <p data-i18n="pL3.gov.p4">Les <b>cl&eacute;s API Wavestone</b> permettent dans les deux cas de rester dans un p&eacute;rim&egrave;tre s&eacute;curis&eacute; et trac&eacute;.</p>
+  </div>
+
+  <!-- ============ INFOS UTILES ============ -->
+  <div class="sec-head" id="infos">
+    <span class="eyebrow" data-i18n="infos.eyebrow">Ressources</span>
+    <h2 data-i18n="infos.h2">Infos &amp; liens utiles</h2>
+    <p data-i18n="infos.p">Tous les acc&egrave;s et t&eacute;l&eacute;chargements, au m&ecirc;me endroit.</p>
+  </div>
+
+  <div class="res">
+    <div class="res-card key">
+      <h3><span class="star"><svg width="0.85em" height="0.85em" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span> <span data-i18n="infos.key.h3">Acc&egrave;s &amp; cl&eacute;s Wavestone</span></h3>
+      <a class="res-cta" href="api-key.html">
+        <span class="nm" data-i18n="infos.key.cta">Cr&eacute;er une cl&eacute; API Wavestone</span><span class="go" data-i18n="infos.key.go">Voir la proc&eacute;dure &#8594;</span>
+      </a>
+      <ul class="res-list" style="margin-top:9px">
+        <li><a href="https://apps.powerapps.com/play/e/03198640-3be3-ebd9-90cf-49ed52db3158/a/cb325a04-ac43-4133-9f1a-af3fc3845f8c?tenantId=5de96c96-c87c-4dce-aad9-f5c557b52ac1&amp;hint=26ff1bb4-0493-416f-a06f-0c1c4f1d6245&amp;source=sharebutton&amp;sourcetime=1781518515405" target="_blank" rel="noopener"><span><span class="nm" data-i18n="infos.key.poc">Demander un compte POC</span><span class="u">apps.powerapps.com</span></span><span class="go">Power Apps &#8599;</span></a></li>
+      </ul>
+      <div class="cap" style="color:var(--ws-ink-400)" data-i18n="infos.key.cap">&#8505; La cr&eacute;ation d'une cl&eacute; API et la demande d'un compte POC se font dans la m&ecirc;me application Power Apps Wavestone.</div>
+    </div>
+
+    <div class="res-card">
+      <h3 data-i18n="infos.dl.h3">T&eacute;l&eacute;chargements</h3>
+      <ul class="res-list">
+        <li><a href="https://claude.ai/new" target="_blank" rel="noopener"><span><span class="nm">Claude</span><span class="u">claude.ai/new</span></span><span class="go">&#8599;</span></a></li>
+        <li><a href="https://github.com/" target="_blank" rel="noopener"><span><span class="nm" data-i18n="infos.dl.github">GitHub (compte)</span><span class="u">github.com</span></span><span class="go">&#8599;</span></a></li>
+        <li><a href="https://pages.github.com/" target="_blank" rel="noopener"><span><span class="nm">GitHub Pages</span><span class="u">pages.github.com</span></span><span class="go">&#8599;</span></a></li>
+        <li><a href="https://git-scm.com/install/" target="_blank" rel="noopener"><span><span class="nm">Git</span><span class="u">git-scm.com/install</span></span><span class="go">&#8599;</span></a></li>
+        <li><a href="https://desktop.github.com/download/" target="_blank" rel="noopener"><span><span class="nm">GitHub Desktop</span><span class="u">desktop.github.com/download</span></span><span class="go">&#8599;</span></a></li>
+        <li><a href="https://code.visualstudio.com/" target="_blank" rel="noopener"><span><span class="nm">Visual Studio Code</span><span class="u">code.visualstudio.com</span></span><span class="go">&#8599;</span></a></li>
+        <li><a href="https://code.claude.com/docs/en/vs-code" target="_blank" rel="noopener"><span><span class="nm" data-i18n="infos.dl.ext">Extension Claude Code (VS Code)</span><span class="u">code.claude.com/docs/en/vs-code</span></span><span class="go">&#8599;</span></a></li>
+        <li><a href="https://apps.microsoft.com/detail/9nq7512cxl7t" target="_blank" rel="noopener"><span><span class="nm">Python Install Manager</span><span class="u">Microsoft Store &middot; python.org</span></span><span class="go">&#8599;</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span class="src" data-i18n="footer.src">Wavestone CYB &middot; AI Maker Initiative &mdash; guide de d&eacute;marrage</span>
+</footer>
+
+<script>
+window.WS_I18N = {
+  en: {
+    "__title": "Wavestone CYB AI Maker — Playbook",
+    "nav.home": "Home",
+    "nav.usecases": "Playbook",
+    "nav.principles": "Agent principles",
+    "nav.agents": "Our agents",
+    "nav.apikey": "API key",
+    "hero.eyebrow": "Playbook",
+    "hero.title": "What do you want to <span class=\"ac\">build</span>?",
+    "hero.lede": "Pick a playbook. For each one: the high-level CI/CD chain, then the detailed how-to when it exists &mdash; otherwise, it's coming soon.",
+    "hero.tagline": "# wavestone environment &middot; claude enterprise licence &middot; no admin rights",
+    "chooser.eyebrow": "Where to start",
+    "chooser.h2": "Which playbook do you need?",
+    "chooser.p": "Pick a playbook: open its implementation guide, or discover the planned CI/CD chain.",
+    "badge.ok": "Guide ready",
+    "badge.soon": "Coming soon",
+    "cta.open": "Open the guide &#8594;",
+    "cta.openkey": "See the procedure &#8594;",
+    "tile.static.h3": "Static website",
+    "tile.static.p": "A static site published online via GitHub Pages, reachable through a URL.",
+    "static.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">GitHub Pages</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Live website</span>",
+    "tile.db.h3": "Database-backed web app",
+    "tile.db.p": "Front end, backend and a centralised database, hosted online.",
+    "db.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Build &amp; deploy</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Web host + database</span>",
+    "tile.desktop.h3": "Desktop application",
+    "tile.desktop.p": "An app that runs on your machine &mdash; from an HTML file to a Python script.",
+    "desktop.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Code</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git repo</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Your machine</span>",
+    "tile.mobile.h3": "Mobile app",
+    "tile.mobile.p": "A native iOS or Android app, published to the stores.",
+    "mobile.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (AI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Native build</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Store</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Phone</span>",
+    "tile.copilot.h3": "Copilot agent",
+    "tile.copilot.p": "An agent in the Microsoft Copilot ecosystem.",
+    "copilot.flow": "<span class=\"fn\">Idea</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Agent definition</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Copilot Studio</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Test</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">M365 deployment</span>",
+    "tile.apikey.h3": "Add an API key",
+    "tile.apikey.p": "Get a Wavestone API key to call the models within a secure perimeter.",
+    "apikey.flow": "<span class=\"fn\">Request</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Wavestone Power Apps</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Validation</span><span class=\"fa\">&rarr;</span><span class=\"fn\">API key</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Project integration</span>",
+    "pL3.gov.lab": "Wavestone governance &mdash; internal hosting",
+    "pL3.gov.p1": "For <b>sensitive client data</b>, two internal options are available:",
+    "pL3.gov.p2": "&bull; <b>Microsoft Azure</b> <span style=\"font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);padding:2px 8px;font-weight:600\">recommended</span> &mdash; environment integrated with the Wavestone ecosystem (Azure SQL, Azure OpenAI, Blob Storage, App Service). Preferred to stay within the controlled perimeter.",
+    "pL3.gov.p3": "&bull; <b>Amazon Web Services (AWS)</b> &mdash; alternative available for some scenarios (DynamoDB, S3, Lambda, Bedrock). To be validated with IT governance.",
+    "pL3.gov.p4": "In both cases, <b>Wavestone API keys</b> keep you within a secure, traceable perimeter.",
+    "infos.eyebrow": "Resources",
+    "infos.h2": "Info &amp; useful links",
+    "infos.p": "All the access and downloads, in one place.",
+    "infos.key.h3": "Wavestone access &amp; keys",
+    "infos.key.cta": "Create a Wavestone API key",
+    "infos.key.go": "See the procedure &#8594;",
+    "infos.key.poc": "Request a POC account",
+    "infos.key.cap": "&#8505; Creating an API key and requesting a POC account are done in the same Wavestone Power Apps application.",
+    "infos.dl.h3": "Downloads",
+    "infos.dl.github": "GitHub (account)",
+    "infos.dl.ext": "Claude Code extension (VS Code)",
+    "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; getting-started guide"
+  },
+  de: {
+    "__title": "Wavestone CYB AI Maker — Playbook",
+    "nav.home": "Start",
+    "nav.usecases": "Playbook",
+    "nav.principles": "Agenten-Prinzipien",
+    "nav.agents": "Unsere Agenten",
+    "nav.apikey": "API-Schl&uuml;ssel",
+    "hero.eyebrow": "Playbook",
+    "hero.title": "Was willst du <span class=\"ac\">bauen</span>?",
+    "hero.lede": "W&auml;hle ein Playbook. F&uuml;r jedes: die CI/CD-Kette auf hoher Ebene, dann das detaillierte How-to, sofern vorhanden &mdash; sonst kommt es bald.",
+    "hero.tagline": "# wavestone-umgebung &middot; claude-enterprise-lizenz &middot; ohne admin-rechte",
+    "chooser.eyebrow": "Wo anfangen",
+    "chooser.h2": "Welches Playbook brauchst du?",
+    "chooser.p": "W&auml;hle ein Playbook: &Ouml;ffne seinen Umsetzungsleitfaden oder entdecke die geplante CI/CD-Kette.",
+    "badge.ok": "Anleitung da",
+    "badge.soon": "Demn&auml;chst",
+    "cta.open": "Zum Leitfaden &#8594;",
+    "cta.openkey": "Zur Anleitung &#8594;",
+    "tile.static.h3": "Statische Website",
+    "tile.static.p": "Eine statische Website, &uuml;ber GitHub Pages online ver&ouml;ffentlicht und per URL erreichbar.",
+    "static.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git-Repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">GitHub Pages</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Live-Website</span>",
+    "tile.db.h3": "Web-App mit Datenbank",
+    "tile.db.p": "Frontend, Backend und eine zentrale Datenbank, online gehostet.",
+    "db.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git-Repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Build &amp; Deployment</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Webhoster + Datenbank</span>",
+    "tile.desktop.h3": "Desktop-Anwendung",
+    "tile.desktop.p": "Eine App, die auf deinem Rechner l&auml;uft &mdash; von der HTML-Datei bis zum Python-Skript.",
+    "desktop.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Code</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git-Repo</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Dein Rechner</span>",
+    "tile.mobile.h3": "Mobile App",
+    "tile.mobile.p": "Eine native iOS- oder Android-App, in den Stores ver&ouml;ffentlicht.",
+    "mobile.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Claude (KI)</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Git-Repo</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Nativer Build</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Store</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Smartphone</span>",
+    "tile.copilot.h3": "Copilot-Agent",
+    "tile.copilot.p": "Ein Agent im Microsoft-Copilot-&Ouml;kosystem.",
+    "copilot.flow": "<span class=\"fn\">Idee</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Agenten-Definition</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Copilot Studio</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Test</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">M365-Deployment</span>",
+    "tile.apikey.h3": "API-Schl&uuml;ssel hinzuf&uuml;gen",
+    "tile.apikey.p": "Einen Wavestone-API-Schl&uuml;ssel erhalten, um die Modelle in einem sicheren Perimeter aufzurufen.",
+    "apikey.flow": "<span class=\"fn\">Anfrage</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Wavestone Power Apps</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Validierung</span><span class=\"fa\">&rarr;</span><span class=\"fn\">API-Schl&uuml;ssel</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Projekt-Integration</span>",
+    "pL3.gov.lab": "Wavestone-Governance &mdash; internes Hosting",
+    "pL3.gov.p1": "F&uuml;r <b>sensible Kundendaten</b> stehen zwei interne Optionen zur Verf&uuml;gung:",
+    "pL3.gov.p2": "&bull; <b>Microsoft Azure</b> <span style=\"font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);padding:2px 8px;font-weight:600\">empfohlen</span> &mdash; in das Wavestone-&Ouml;kosystem integrierte Umgebung (Azure SQL, Azure OpenAI, Blob Storage, App Service). Bevorzugt, um im kontrollierten Perimeter zu bleiben.",
+    "pL3.gov.p3": "&bull; <b>Amazon Web Services (AWS)</b> &mdash; Alternative f&uuml;r bestimmte Szenarien (DynamoDB, S3, Lambda, Bedrock). Mit der IT-Governance abzustimmen.",
+    "pL3.gov.p4": "In beiden F&auml;llen halten dich die <b>Wavestone-API-Schl&uuml;ssel</b> in einem sicheren, nachvollziehbaren Perimeter.",
+    "infos.eyebrow": "Ressourcen",
+    "infos.h2": "Infos &amp; n&uuml;tzliche Links",
+    "infos.p": "Alle Zug&auml;nge und Downloads an einem Ort.",
+    "infos.key.h3": "Wavestone-Zugang &amp; -Schl&uuml;ssel",
+    "infos.key.cta": "Einen Wavestone-API-Schl&uuml;ssel erstellen",
+    "infos.key.go": "Zur Anleitung &#8594;",
+    "infos.key.poc": "Ein POC-Konto anfragen",
+    "infos.key.cap": "&#8505; Das Erstellen eines API-Schl&uuml;ssels und das Anfragen eines POC-Kontos erfolgen in derselben Wavestone-Power-Apps-Anwendung.",
+    "infos.dl.h3": "Downloads",
+    "infos.dl.github": "GitHub (Konto)",
+    "infos.dl.ext": "Claude-Code-Erweiterung (VS Code)",
+    "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; Einstiegsleitfaden"
+  }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/mobile-nav.js"></script>
+</body>
+</html>

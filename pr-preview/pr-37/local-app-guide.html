@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cr&eacute;er une application locale avec l&rsquo;IA &mdash; Wavestone CYB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-teal-500:#228D95;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-warning:#C8861A;
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ws-white);color:var(--ws-ink-900);font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  .eyebrow{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid var(--ws-green-400)}
+
+  /* ---------- sticky brand bar ---------- */
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .dot{width:9px;height:9px;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .nav a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:6px 12px;transition:.18s var(--ws-ease)}
+  .nav a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+  .langsel{display:flex;border:1px solid var(--ws-ink-200);overflow:hidden}
+  .langsel button{font-family:var(--ws-font-mono);font-size:12px;padding:6px 11px;background:#fff;border:none;border-left:1px solid var(--ws-ink-100);color:var(--ws-ink-500);cursor:pointer;transition:.15s var(--ws-ease)}
+  .langsel button:first-child{border-left:none}
+  .langsel button.on{background:var(--ws-indigo-600);color:#fff;font-weight:600}
+  .langsel button:hover:not(.on){color:var(--ws-indigo-600)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1040px;margin:0 auto;padding:60px 24px 52px}
+  .hero .eyebrow{color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(34px,6vw,60px);line-height:1.04;letter-spacing:-.025em;margin:22px 0 16px;max-width:18ch}
+  .hero h1 .ac{color:var(--ws-green-400)}
+  .hero .lede{font-size:18.5px;line-height:1.55;color:rgba(255,255,255,.85);max-width:60ch}
+  .meta-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+  .meta-chips span{font-family:var(--ws-font-mono);font-size:11.5px;color:rgba(255,255,255,.9);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:6px 12px}
+  .host-tip{display:flex;gap:10px;align-items:flex-start;margin-top:22px;background:rgba(4,240,106,.12);border:1px solid rgba(4,240,106,.35);border-left:4px solid var(--ws-green-400);padding:12px 16px;max-width:62ch}
+  .host-tip svg{flex:0 0 auto;color:var(--ws-green-300);margin-top:2px}
+  .host-tip p{font-size:13.5px;color:rgba(255,255,255,.92);line-height:1.5}
+  .host-tip b{color:#fff}
+
+  /* ---------- section heads ---------- */
+  .sec-head{margin:60px 0 6px}
+  .sec-head .eyebrow{color:var(--ws-ink-900)}
+  .sec-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:30px;letter-spacing:-.02em;color:var(--ws-indigo-600);margin-top:10px}
+  .sec-head p{color:var(--ws-ink-500);margin-top:6px;font-size:15.5px;max-width:64ch}
+
+  /* ---------- concept bricks ---------- */
+  .rail{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:28px 0 22px;font-family:var(--ws-font-mono);font-size:13px}
+  .rail .n{padding:9px 16px;border:1px solid var(--ws-ink-200);background:#fff;color:var(--ws-ink-700);box-shadow:var(--ws-shadow-sm)}
+  .rail .n.idea{border-color:var(--ws-indigo-200);color:var(--ws-indigo-700)}
+  .rail .n.live{background:var(--ws-green-400);border-color:var(--ws-green-400);color:var(--ws-indigo-900);font-weight:600}
+  .rail .ar{color:var(--ws-ink-300);font-size:18px;animation:slide 1.8s var(--ws-ease) infinite}
+  @keyframes slide{0%,100%{transform:translateX(0);opacity:.4}50%{transform:translateX(4px);opacity:1}}
+
+  .bricks{display:flex;flex-direction:column;gap:14px}
+  @media(min-width:820px){.bricks{flex-direction:row;align-items:stretch}}
+  .brick{flex:1;position:relative;background:#fff;border:1.5px solid var(--ws-ink-100);padding:24px 22px 22px;box-shadow:var(--ws-shadow-sm);opacity:0;transform:translateY(12px);animation:rise .6s var(--ws-ease) forwards}
+  .brick::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--ws-gradient-accent);transform:scaleX(0);transform-origin:left;animation:grow .6s var(--ws-ease) forwards}
+  .brick:nth-child(1),.brick:nth-child(1)::before{animation-delay:.05s}
+  .brick:nth-child(3),.brick:nth-child(3)::before{animation-delay:.25s}
+  .brick:nth-child(5),.brick:nth-child(5)::before{animation-delay:.45s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @keyframes grow{to{transform:scaleX(1)}}
+  .b-arrow{display:none;flex:0 0 auto;align-items:center;color:var(--ws-ink-300);font-size:24px}
+  @media(min-width:820px){.b-arrow{display:flex}}
+  .bk-no{font-family:var(--ws-font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-indigo-600)}
+  .bk-ic{width:46px;height:46px;background:var(--ws-indigo-50);color:var(--ws-indigo-600);display:grid;place-items:center;margin:12px 0 14px}
+  .brick:nth-child(5) .bk-ic{background:var(--ws-green-50);color:var(--ws-green-700)}
+  .brick h3{font-family:var(--ws-font-display);font-weight:600;font-size:19px;color:var(--ws-ink-900);margin-bottom:7px;line-height:1.2}
+  .brick p{font-size:14.5px;color:var(--ws-ink-500);line-height:1.55}
+  .brick p b{color:var(--ws-ink-900)}
+  .brick .tool{font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-indigo-700);background:var(--ws-indigo-50);padding:3px 9px;margin-top:13px;display:inline-block}
+
+  /* ---------- phase / steps (pipeline spine) ---------- */
+  .phase{margin-top:18px}
+  .phase-head{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;border-bottom:1px solid var(--ws-ink-100);padding-bottom:16px;margin-top:30px}
+  .phase-head .eyebrow{color:var(--ws-ink-900)}
+  .phase-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:26px;color:var(--ws-indigo-600);margin-top:10px;letter-spacing:-.015em}
+  .phase-head .sub{color:var(--ws-ink-500);font-size:14.5px;margin-top:5px;max-width:60ch}
+  .prog{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-500);white-space:nowrap}
+  .prog b{color:var(--ws-indigo-600)}
+
+  .steps{position:relative;margin-top:24px}
+  .spine{position:absolute;left:21px;top:22px;bottom:22px;width:2px;background:var(--ws-ink-100);z-index:0}
+  .spine-fill{position:absolute;left:0;top:0;width:100%;height:0;background:var(--ws-gradient-accent);transition:height .5s var(--ws-ease)}
+  .step{position:relative;z-index:1;display:flex;gap:18px;padding-bottom:20px}
+  .node{flex:0 0 44px;width:44px;height:44px;background:#fff;border:1.5px solid var(--ws-ink-200);display:grid;place-items:center;font-family:var(--ws-font-mono);font-weight:600;font-size:15px;color:var(--ws-indigo-600);cursor:pointer;user-select:none;transition:.22s var(--ws-ease)}
+  .node:hover{border-color:var(--ws-indigo-600)}
+  .node .ck{display:none;font-size:20px;color:#fff;line-height:1}
+  .step.done .node{background:var(--ws-indigo-600);border-color:var(--ws-indigo-600);color:#fff}
+  .step.done .node .nm{display:none}
+  .step.done .node .ck{display:block}
+  .scard{flex:1;background:#fff;border:1px solid var(--ws-ink-100);padding:18px 20px;box-shadow:var(--ws-shadow-sm);transition:.22s var(--ws-ease);min-width:0}
+  .step.done .scard{opacity:.72;border-color:var(--ws-green-50)}
+  .scard h4{font-family:var(--ws-font-display);font-weight:600;font-size:17px;color:var(--ws-ink-900);display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .scard .do{margin-top:8px;font-size:14.5px;color:var(--ws-ink-600);line-height:1.55}
+  .scard .do b{color:var(--ws-ink-900)}
+  code{font-family:var(--ws-font-mono);font-size:.85em;background:var(--ws-ink-50);padding:1px 6px}
+  .mini{font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ws-green-700);background:var(--ws-green-50);padding:3px 8px;font-weight:600}
+  .mini.opt{color:var(--ws-ink-500);background:var(--ws-ink-50)}
+
+  .clicks{list-style:none;counter-reset:c;margin-top:13px;display:grid;gap:8px}
+  .clicks li{counter-increment:c;position:relative;padding-left:32px;font-size:14px;color:var(--ws-ink-700);line-height:1.5}
+  .clicks li::before{content:counter(c);position:absolute;left:0;top:1px;width:22px;height:22px;background:var(--ws-indigo-50);color:var(--ws-indigo-700);font-family:var(--ws-font-mono);font-weight:600;font-size:11px;display:grid;place-items:center}
+  .clicks b{color:var(--ws-ink-900)}
+  .ui-lbl{font-family:var(--ws-font-mono);font-size:.9em;background:var(--ws-ink-900);color:#fff;padding:1px 7px}
+
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .lk{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-family:var(--ws-font-mono);font-size:12.5px;border:1px solid var(--ws-ink-200);padding:7px 13px;background:#fff;color:var(--ws-ink-900);transition:.18s var(--ws-ease)}
+  .lk:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600);transform:translateY(-1px)}
+  .lk .ar{color:var(--ws-ink-400)}
+  .lk:hover .ar{color:var(--ws-indigo-600)}
+
+  /* ---------- screenshots ---------- */
+  .shots{display:grid;gap:14px;margin-top:16px;grid-template-columns:1fr}
+  @media(min-width:600px){.shots.two{grid-template-columns:1fr 1fr}}
+  figure.shot{margin:0;border:1px solid var(--ws-ink-200);background:#fff;box-shadow:var(--ws-shadow-md);overflow:hidden;display:flex;flex-direction:column}
+  figure.shot a.zoom{display:block;line-height:0;cursor:zoom-in}
+
+  /* ---------- lightbox (in-page zoom) ---------- */
+  .lb{position:fixed;inset:0;z-index:200;background:rgba(20,12,46,.9);display:none;align-items:center;justify-content:center;padding:32px;cursor:zoom-out}
+  .lb.on{display:flex}
+  .lb img{max-width:95vw;max-height:90vh;width:auto;height:auto;box-shadow:0 24px 70px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.14);cursor:default}
+  .lb-close{position:fixed;top:18px;right:22px;width:44px;height:44px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.32);color:#fff;font-size:24px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:.18s var(--ws-ease)}
+  .lb-close:hover{background:rgba(255,255,255,.24)}
+  figure.shot img{display:block;width:100%;height:auto;background:var(--ws-ink-50);border-bottom:1px solid var(--ws-ink-100)}
+  figure.shot figcaption{display:flex;gap:9px;align-items:flex-start;font-family:var(--ws-font-mono);font-size:11.5px;color:var(--ws-ink-500);padding:10px 13px;background:#fff;line-height:1.5}
+  figure.shot .sn{flex:0 0 auto;width:18px;height:18px;background:var(--ws-indigo-600);color:#fff;font-family:var(--ws-font-mono);font-weight:600;font-size:10.5px;display:grid;place-items:center;margin-top:1px}
+
+  /* prompt card */
+  .prompt{position:relative;background:var(--ws-indigo-950);padding:16px 18px;margin-top:14px;font-family:var(--ws-font-mono);font-size:13.5px;color:#EAE7F6;box-shadow:var(--ws-shadow-md)}
+  .prompt .who{color:rgba(255,255,255,.5);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:9px}
+  .prompt .txt{color:var(--ws-green-300);line-height:1.6}
+  .prompt .txt::before{content:"\2192  ";color:rgba(255,255,255,.35)}
+  .copy{position:absolute;top:13px;right:13px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.7);font-family:var(--ws-font-mono);font-size:11px;padding:5px 11px;cursor:pointer;transition:.18s var(--ws-ease)}
+  .copy:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+  .copy.ok{color:var(--ws-green-300);border-color:var(--ws-green-400)}
+
+  /* note */
+  .note{margin-top:16px;background:var(--ws-indigo-50);border:1px solid var(--ws-indigo-100);border-left:4px solid var(--ws-indigo-600);padding:14px 16px}
+  .note.green{background:var(--ws-green-50);border-color:var(--ws-green-400);border-left-color:var(--ws-green-700)}
+  .note .lab{font-family:var(--ws-font-body);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ws-indigo-600);margin-bottom:6px}
+  .note.green .lab{color:var(--ws-green-700)}
+  .note p{font-size:13.8px;color:var(--ws-ink-700);line-height:1.55}
+  .note b{color:var(--ws-ink-900)}
+
+  /* iterate / tips grids */
+  .idea-grid{display:grid;gap:14px;grid-template-columns:1fr;margin-top:22px}
+  @media(min-width:760px){.idea-grid{grid-template-columns:1fr 1fr}}
+  .tips{display:grid;gap:16px;grid-template-columns:1fr;margin-top:22px}
+  @media(min-width:760px){.tips{grid-template-columns:repeat(3,1fr)}}
+  .tip{background:#fff;border:1.5px solid var(--ws-ink-100);padding:22px 20px;box-shadow:var(--ws-shadow-sm);transition:.2s var(--ws-ease)}
+  .tip:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-3px);border-color:var(--ws-indigo-200)}
+  .tip .ti{width:42px;height:42px;background:var(--ws-indigo-50);color:var(--ws-indigo-600);display:grid;place-items:center;margin-bottom:14px}
+  .tip h3{font-family:var(--ws-font-display);font-weight:600;font-size:17.5px;color:var(--ws-ink-900);margin-bottom:7px;line-height:1.25}
+  .tip p{font-size:14px;color:var(--ws-ink-500);line-height:1.55}
+  .tip p b{color:var(--ws-ink-900)}
+
+  footer{max-width:1040px;margin:64px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+  .reset{font-family:var(--ws-font-mono);font-size:12.5px;border:1px solid var(--ws-ink-200);background:#fff;padding:8px 14px;cursor:pointer;color:var(--ws-ink-500);transition:.18s var(--ws-ease)}
+  .reset:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus)}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.brick{opacity:1;transform:none}.brick::before{transform:scaleX(1)}}
+  /* square corners — DS identity */
+  *,*::before,*::after{border-radius:0!important}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
+    <div class="nav">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
+      <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+      <a class="jump" href="dance-with-the-ai-stars.html" data-i18n="nav.dais">Dance With the AI Stars</a>
+      <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
+      <div class="langsel" role="group" aria-label="Language">
+        <button data-lang="fr">FR</button>
+        <button data-lang="en">EN</button>
+        <button data-lang="de">DE</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1040 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,300 Q260,180 540,250 T1100,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <span class="eyebrow" data-i18n="hero.eyebrow">Playbook &middot; Application bureau</span>
+    <h1 data-i18n="hero.title">Cr&eacute;er une application <span class="ac">locale</span> avec l&rsquo;IA</h1>
+    <p class="lede" data-i18n="hero.lede">D&rsquo;une id&eacute;e &agrave; une app qui tourne sur ta propre machine, &eacute;tape par &eacute;tape &mdash; rien d&rsquo;h&eacute;berg&eacute; en ligne. Suis le d&eacute;roul&eacute;, coche chaque &eacute;tape, copie les prompts.</p>
+    <div class="meta-chips">
+      <span data-i18n="hero.chip1"># 100% sur ta machine</span>
+      <span data-i18n="hero.chip2"># sans droits admin</span>
+      <span data-i18n="hero.chip3"># ~30 min</span>
+      <span data-i18n="hero.chip4"># Git &middot; VS Code &middot; Python &middot; Claude Code</span>
+    </div>
+    <div class="host-tip">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg>
+      <p data-i18n="hero.tip"><b>Astuce&nbsp;:</b> d&eacute;roule la page de haut en bas. Clique sur les <b>num&eacute;ros</b> pour cocher les &eacute;tapes valid&eacute;es et sur <b>copier</b> pour r&eacute;cup&eacute;rer un prompt. Le s&eacute;lecteur de langue est en haut &agrave; droite.</p>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ A — CONCEPT ============ -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="a.eyebrow">Le concept</span>
+    <h2 data-i18n="a.title">Trois briques, et c&rsquo;est tout</h2>
+    <p data-i18n="a.intro">Cr&eacute;er une app en local repose sur trois briques qui s&rsquo;encha&icirc;nent. Comprends-les une fois, tu comprends tout le reste.</p>
+  </div>
+
+  <div class="rail">
+    <span class="n idea" data-i18n="a.rail1">Une id&eacute;e</span>
+    <span class="ar" aria-hidden="true">&#8594;</span>
+    <span class="n" data-i18n="a.rail2">Du code</span>
+    <span class="ar" aria-hidden="true">&#8594;</span>
+    <span class="n live" data-i18n="a.rail3">Une app qui tourne</span>
+  </div>
+
+  <div class="bricks">
+    <div class="brick">
+      <span class="bk-no" data-i18n="a.b1.tag">Brique 1</span>
+      <div class="bk-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M12 3l1.9 4.6L18.5 9l-4.6 1.9L12 15l-1.9-4.1L5.5 9l4.6-1.4L12 3z"/><path d="M19 14l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2z"/></svg></div>
+      <h3 data-i18n="a.b1.title">Un agent IA &eacute;crit le code</h3>
+      <p data-i18n="a.b1.body">&Agrave; partir d&rsquo;une id&eacute;e en langage naturel, Claude g&eacute;n&egrave;re le code <b>directement sur ta machine</b>. C&rsquo;est lui qui fait le travail d&rsquo;&eacute;criture.</p>
+      <span class="tool" data-i18n="a.b1.tool">Claude Code</span>
+    </div>
+    <div class="b-arrow" aria-hidden="true">&#8594;</div>
+    <div class="brick">
+      <span class="bk-no" data-i18n="a.b2.tag">Brique 2</span>
+      <div class="bk-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M3 7l9-4 9 4v10l-9 4-9-4V7z"/><path d="M3 7l9 4 9-4"/><path d="M12 11v10"/></svg></div>
+      <h3 data-i18n="a.b2.title">Git versionne et sauvegarde</h3>
+      <p data-i18n="a.b2.body">Le code est historis&eacute; <b>en local</b> et synchronis&eacute; sur GitHub&nbsp;: une sauvegarde fiable, et la possibilit&eacute; de travailler en commun.</p>
+      <span class="tool" data-i18n="a.b2.tool">Git &middot; GitHub</span>
+    </div>
+    <div class="b-arrow" aria-hidden="true">&#8594;</div>
+    <div class="brick">
+      <span class="bk-no" data-i18n="a.b3.tag">Brique 3</span>
+      <div class="bk-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><rect x="2" y="3" width="20" height="14"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <h3 data-i18n="a.b3.title">Ta machine ex&eacute;cute</h3>
+      <p data-i18n="a.b3.body">L&rsquo;app tourne directement sur ton poste&nbsp;: un fichier <code>HTML</code> ouvert dans le navigateur, ou un script <code>Python</code> lanc&eacute; dans le terminal.</p>
+      <span class="tool" data-i18n="a.b3.tool">Navigateur &middot; Python</span>
+    </div>
+  </div>
+
+  <!-- ============ B — PHASE 1 : SETUP ============ -->
+  <div class="phase-head">
+    <div class="t">
+      <span class="eyebrow" data-i18n="b.eyebrow">&Eacute;tape 1 &mdash; Pr&eacute;parer</span>
+      <h2 data-i18n="b.title">Pr&eacute;parer ton poste</h2>
+      <div class="sub" data-i18n="b.sub">&Agrave; faire une seule fois. Tout s&rsquo;installe sans droits admin. Comptez 15&nbsp;min.</div>
+    </div>
+    <div class="prog"><b class="dn">0</b>/<span class="tot">6</span> <span data-i18n="word.steps">&eacute;tapes</span></div>
+  </div>
+
+  <div class="phase">
+    <div class="steps">
+      <div class="spine"><div class="spine-fill"></div></div>
+
+      <!-- B1 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="b1.title">Tester Claude + cr&eacute;er un GitHub</h4>
+          <div class="do" data-i18n="b1.body">Connecte-toi &agrave; Claude (compte Wavestone) et cr&eacute;e un compte GitHub gratuit pour stocker et versionner ton code.</div>
+          <div class="links"><a class="lk" href="https://claude.ai/new" target="_blank" rel="noopener">claude.ai/new <span class="ar">&#8599;</span></a><a class="lk" href="https://github.com/" target="_blank" rel="noopener">github.com <span class="ar">&#8599;</span></a></div>
+        </div>
+      </div>
+
+      <!-- B2 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="b2.title">Installer Git</h4>
+          <div class="do" data-i18n="b2.body">T&eacute;l&eacute;charge et installe Git (version Windows). Pas d&rsquo;interface&nbsp;: c&rsquo;est le composant qui suit les modifications de tes fichiers.</div>
+          <div class="links"><a class="lk" href="https://git-scm.com/install/" target="_blank" rel="noopener">git-scm.com/install <span class="ar">&#8599;</span></a></div>
+        </div>
+      </div>
+
+      <!-- B3 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="b3.title">Installer GitHub Desktop</h4>
+          <div class="do" data-i18n="b3.body">Le client qui synchronise tes repositories entre le web et ta machine (<code>Documents/GitHub</code>). Connecte ton compte GitHub. C&rsquo;est lui qui permet la <b>sauvegarde et le travail en commun</b>.</div>
+          <div class="links"><a class="lk" href="https://desktop.github.com/download/" target="_blank" rel="noopener">desktop.github.com <span class="ar">&#8599;</span></a></div>
+        </div>
+      </div>
+
+      <!-- B4 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">4</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="b4.title">Installer Visual Studio Code</h4>
+          <div class="do" data-i18n="b4.body">L&rsquo;&eacute;diteur dans lequel tu travailleras. T&eacute;l&eacute;charge pour Windows, puis Suivant &rarr; Installer.</div>
+          <div class="links"><a class="lk" href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com <span class="ar">&#8599;</span></a></div>
+        </div>
+      </div>
+
+      <!-- B5 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">5</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="b5.title">Installer Python <span class="mini opt" data-i18n="b5.tag">pour le code avanc&eacute;</span></h4>
+          <div class="do" data-i18n="b5.body">Installe le <b>Python Install Manager</b> (recommand&eacute; via le Microsoft Store). Utile d&egrave;s que Claude doit g&eacute;n&eacute;rer et ex&eacute;cuter du Python en local.</div>
+          <div class="links"><a class="lk" href="https://apps.microsoft.com/detail/9nq7512cxl7t" target="_blank" rel="noopener">Microsoft Store <span class="ar">&#8599;</span></a><a class="lk" href="https://www.python.org/downloads/" target="_blank" rel="noopener">python.org <span class="ar">&#8599;</span></a></div>
+        </div>
+      </div>
+
+      <!-- B6 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">6</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="b6.title">Extension Claude Code + premier fichier</h4>
+          <div class="do" data-i18n="b6.body">Dans VS Code&nbsp;: Extensions (<code>Ctrl+Shift+X</code>) &rarr; cherche <b>&laquo;&nbsp;Claude Code&nbsp;&raquo;</b> (Anthropic) &rarr; Installer. Connecte ton compte Claude, ouvre un dossier de ta machine, puis demande ton premier fichier dans le panneau Claude (ic&ocirc;ne&nbsp;+).</div>
+          <div class="links"><a class="lk" href="https://code.claude.com/docs/en/vs-code" target="_blank" rel="noopener" data-i18n="b6.lk1">guide officiel <span class="ar">&#8599;</span></a><a class="lk" href="vscode:extension/anthropic.claude-code" data-i18n="b6.lk2">ouvrir dans VS&nbsp;Code <span class="ar">&#8599;</span></a></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ C — PHASE 2 : FIRST APP ============ -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="c.eyebrow">&Eacute;tape 2 &mdash; Construire</span>
+    <h2 data-i18n="c.title">Cr&eacute;er ta premi&egrave;re app</h2>
+    <p data-i18n="c.intro">Ouvre un dossier dans VS Code, puis demande &agrave; Claude Code de cr&eacute;er un fichier. Voici deux prompts pour d&eacute;marrer&nbsp;:</p>
+  </div>
+
+  <div class="idea-grid">
+    <div class="prompt">
+      <button class="copy">copier</button>
+      <div class="who" data-i18n="c.prompt1.who">Exemple &mdash; page simple</div>
+      <div class="txt" data-i18n="c.prompt1.txt">Cr&eacute;e-moi une page HTML autonome nomm&eacute;e tetris.html : un Tetris minimaliste qui d&eacute;marre sur la touche Entr&eacute;e.</div>
+    </div>
+    <div class="prompt">
+      <button class="copy">copier</button>
+      <div class="who" data-i18n="c.prompt2.who">Exemple &mdash; script Python local</div>
+      <div class="txt" data-i18n="c.prompt2.txt">Cr&eacute;e-moi un script Python qui utilise en local faster-whisper pour transcrire mes fichiers audio et vid&eacute;o sur ma machine.</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="lab" data-i18n="c.note.lab">Human in the loop</div>
+    <p data-i18n="c.note.p">En local, Claude demande ta permission avant d&rsquo;ex&eacute;cuter une commande. Lis ce qu&rsquo;il propose, puis valide &mdash; rien ne se lance dans ton dos.</p>
+  </div>
+
+  <!-- ============ D — PHASE 3 : GO FURTHER ============ -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="d.eyebrow">Aller plus loin</span>
+    <h2 data-i18n="d.title">Il n&rsquo;y a pas de limite &agrave; l&rsquo;imagination</h2>
+    <p data-i18n="d.intro">Une fois la boucle ma&icirc;tris&eacute;e, tu peux tout construire en local. Et l&rsquo;IA reste ton meilleur alli&eacute; &agrave; chaque blocage.</p>
+  </div>
+
+  <div class="tips">
+    <div class="tip">
+      <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12" y2="17"/></svg></div>
+      <h3 data-i18n="d1.title">Bloqu&eacute;&nbsp;? Demande &agrave; l&rsquo;IA</h3>
+      <p data-i18n="d1.body">Toutes les questions sont permises&nbsp;: comment utiliser l&rsquo;outil, comment ajouter tel &eacute;l&eacute;ment, comment lancer ton script. L&rsquo;IA est aussi ton <b>tuteur</b>.</p>
+    </div>
+    <div class="tip">
+      <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+      <h3 data-i18n="d2.title">N&rsquo;oublie pas l&rsquo;audit de s&eacute;curit&eacute;&nbsp;!</h3>
+      <p data-i18n="d2.body">Avant de partager ton app, demande &agrave; l&rsquo;IA&nbsp;: &laquo;&nbsp;Fais un audit de s&eacute;curit&eacute; de mon application et corrige les vuln&eacute;rabilit&eacute;s.&nbsp;&raquo; Un r&eacute;flexe simple qui &eacute;vite bien des erreurs.</p>
+    </div>
+    <div class="tip">
+      <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><polyline points="23 4 23 10 17 10"/><path d="M20.5 15a9 9 0 1 1-2.1-9.4L23 10"/></svg></div>
+      <h3 data-i18n="d3.title">La boucle ne change pas</h3>
+      <p data-i18n="d3.body"><b>Id&eacute;e &rarr; prompt &rarr; ex&eacute;cution locale &rarr; it&eacute;ration.</b> Ce rythme, tu le connais d&eacute;sormais. &Agrave; toi de jouer&nbsp;!</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="lb-close" id="lbClose" aria-label="Fermer">&times;</button>
+  <img id="lbImg" src="" alt="">
+</div>
+
+<footer>
+  <span class="src" data-i18n="footer.src">Application locale &mdash; Wavestone CYB &middot; AI Maker</span>
+  <button class="reset" id="reset" data-i18n="footer.reset">r&eacute;initialiser la progression</button>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------------- i18n ---------------- */
+  var I18N = {
+    en:{
+      "nav.home":"Home","nav.usecases":"Playbook","nav.principles":"Agent principles","nav.agents":"Our agents","nav.apikey":"API key",
+      "hero.eyebrow":"Playbook &middot; Desktop application",
+      "hero.title":"Build a <span class=\"ac\">local</span> application with AI",
+      "hero.lede":"From an idea to an app that runs on your own machine, step by step &mdash; nothing hosted online. Follow the flow, tick off each step, copy the prompts.",
+      "hero.chip1":"# 100% on your machine","hero.chip2":"# no admin rights","hero.chip3":"# ~30 min","hero.chip4":"# Git &middot; VS Code &middot; Python &middot; Claude Code",
+      "hero.tip":"<b>Tip:</b> scroll the page top to bottom. Click the <b>numbers</b> to tick off completed steps and <b>copy</b> to grab a prompt. The language switch is top right.",
+      "a.eyebrow":"The concept","a.title":"Three building blocks, that&rsquo;s it",
+      "a.intro":"Building a local app rests on three building blocks that chain together. Understand them once and you understand everything else.",
+      "a.rail1":"An idea","a.rail2":"Some code","a.rail3":"An app that runs",
+      "a.b1.tag":"Block 1","a.b1.title":"An AI agent writes the code","a.b1.body":"From an idea in plain language, Claude generates the code <b>right on your machine</b>. It does the writing for you.","a.b1.tool":"Claude Code",
+      "a.b2.tag":"Block 2","a.b2.title":"Git versions and backs up","a.b2.body":"The code is versioned <b>locally</b> and synced to GitHub: a reliable backup, plus the ability to work together.","a.b2.tool":"Git &middot; GitHub",
+      "a.b3.tag":"Block 3","a.b3.title":"Your machine runs it","a.b3.body":"The app runs directly on your computer: an <code>HTML</code> file opened in the browser, or a <code>Python</code> script launched in the terminal.","a.b3.tool":"Browser &middot; Python",
+      "b.eyebrow":"Step 1 &mdash; Prepare","b.title":"Set up your machine","b.sub":"Done once. Everything installs without admin rights. Allow 15 min.",
+      "word.steps":"steps",
+      "b1.title":"Try Claude + create a GitHub","b1.body":"Sign in to Claude (Wavestone account) and create a free GitHub account to store and version your code.",
+      "b2.title":"Install Git","b2.body":"Download and install Git (Windows build). No interface: it&rsquo;s the component that tracks the changes to your files.",
+      "b3.title":"Install GitHub Desktop","b3.body":"The client that syncs your repositories between the web and your machine (<code>Documents/GitHub</code>). Connect your GitHub account. It&rsquo;s what enables <b>backup and working together</b>.",
+      "b4.title":"Install Visual Studio Code","b4.body":"The editor you&rsquo;ll work in. Download for Windows, then Next &rarr; Install.",
+      "b5.title":"Install Python <span class=\"mini opt\">for advanced code</span>","b5.tag":"for advanced code","b5.body":"Install the <b>Python Install Manager</b> (recommended via the Microsoft Store). Useful as soon as Claude needs to generate and run Python locally.",
+      "b6.title":"Claude Code extension + first file","b6.body":"In VS Code: Extensions (<code>Ctrl+Shift+X</code>) &rarr; search <b>&ldquo;Claude Code&rdquo;</b> (Anthropic) &rarr; Install. Connect your Claude account, open a folder on your machine, then ask for your first file in the Claude panel (the&nbsp;+ icon).",
+      "b6.lk1":"official guide <span class=\"ar\">&#8599;</span>","b6.lk2":"open in VS&nbsp;Code <span class=\"ar\">&#8599;</span>",
+      "c.eyebrow":"Step 2 &mdash; Build","c.title":"Build your first app","c.intro":"Open a folder in VS Code, then ask Claude Code to create a file. Here are two prompts to get started:",
+      "c.prompt1.who":"Example &mdash; simple page","c.prompt1.txt":"Build me a self-contained HTML page named tetris.html: a minimalist Tetris that starts on the Enter key.",
+      "c.prompt2.who":"Example &mdash; local Python script","c.prompt2.txt":"Build me a Python script that uses faster-whisper locally to transcribe my audio and video files on my machine.",
+      "c.note.lab":"Human in the loop","c.note.p":"Locally, Claude asks your permission before running a command. Read what it proposes, then approve &mdash; nothing runs behind your back.",
+      "d.eyebrow":"Go further","d.title":"There&rsquo;s no limit to imagination","d.intro":"Once you&rsquo;ve mastered the loop, you can build anything locally. And the AI stays your best ally whenever you get stuck.",
+      "d1.title":"Stuck? Ask the AI","d1.body":"Any question is fair game: how to use the tool, how to add a given element, how to run your script. The AI is also your <b>tutor</b>.",
+      "d2.title":"Don&rsquo;t forget the security audit!","d2.body":"Before sharing your app, ask the AI: &ldquo;Run a security audit of my application and fix the vulnerabilities.&rdquo; A simple reflex that prevents a lot of mistakes.",
+      "d3.title":"The loop never changes","d3.body":"<b>Idea &rarr; prompt &rarr; local run &rarr; iteration.</b> You know this rhythm now. Over to you!",
+      "footer.src":"Local application &mdash; Wavestone CYB &middot; AI Maker","footer.reset":"reset progress",
+      "__title":"Build a local application with AI &mdash; Wavestone CYB"
+    },
+    de:{
+      "nav.home":"Start","nav.usecases":"Playbook","nav.principles":"Agenten-Prinzipien","nav.agents":"Unsere Agenten","nav.apikey":"API-Schl&uuml;ssel",
+      "hero.eyebrow":"Playbook &middot; Desktop-Anwendung",
+      "hero.title":"Eine <span class=\"ac\">lokale</span> Anwendung mit KI bauen",
+      "hero.lede":"Von der Idee zu einer App, die auf deinem eigenen Rechner l&auml;uft, Schritt f&uuml;r Schritt &mdash; nichts online gehostet. Folge dem Ablauf, hake jeden Schritt ab, kopiere die Prompts.",
+      "hero.chip1":"# 100% auf deinem Rechner","hero.chip2":"# ohne Adminrechte","hero.chip3":"# ~30 Min","hero.chip4":"# Git &middot; VS Code &middot; Python &middot; Claude Code",
+      "hero.tip":"<b>Tipp:</b> scrolle die Seite von oben nach unten. Klicke die <b>Zahlen</b> an, um erledigte Schritte abzuhaken, und <b>kopieren</b>, um einen Prompt zu &uuml;bernehmen. Die Sprachauswahl ist oben rechts.",
+      "a.eyebrow":"Das Konzept","a.title":"Drei Bausteine, mehr nicht",
+      "a.intro":"Eine lokale App zu bauen beruht auf drei Bausteinen, die ineinandergreifen. Versteh sie einmal, und du verstehst alles Weitere.",
+      "a.rail1":"Eine Idee","a.rail2":"Code","a.rail3":"Eine App, die l&auml;uft",
+      "a.b1.tag":"Baustein 1","a.b1.title":"Ein KI-Agent schreibt den Code","a.b1.body":"Aus einer Idee in nat&uuml;rlicher Sprache erzeugt Claude den Code <b>direkt auf deinem Rechner</b>. Er &uuml;bernimmt das Schreiben f&uuml;r dich.","a.b1.tool":"Claude Code",
+      "a.b2.tag":"Baustein 2","a.b2.title":"Git versioniert und sichert","a.b2.body":"Der Code wird <b>lokal</b> versioniert und mit GitHub synchronisiert: eine verl&auml;ssliche Sicherung und die M&ouml;glichkeit, gemeinsam zu arbeiten.","a.b2.tool":"Git &middot; GitHub",
+      "a.b3.tag":"Baustein 3","a.b3.title":"Dein Rechner f&uuml;hrt sie aus","a.b3.body":"Die App l&auml;uft direkt auf deinem Computer: eine <code>HTML</code>-Datei im Browser ge&ouml;ffnet oder ein <code>Python</code>-Skript im Terminal gestartet.","a.b3.tool":"Browser &middot; Python",
+      "b.eyebrow":"Schritt 1 &mdash; Vorbereiten","b.title":"Deinen Rechner einrichten","b.sub":"Einmalig. Alles installiert sich ohne Adminrechte. Plant 15 Min ein.",
+      "word.steps":"Schritte",
+      "b1.title":"Claude testen + GitHub erstellen","b1.body":"Melde dich bei Claude an (Wavestone-Konto) und erstelle ein kostenloses GitHub-Konto, um deinen Code zu speichern und zu versionieren.",
+      "b2.title":"Git installieren","b2.body":"Lade Git herunter und installiere es (Windows-Version). Keine Oberfl&auml;che: es ist die Komponente, die die &Auml;nderungen an deinen Dateien verfolgt.",
+      "b3.title":"GitHub Desktop installieren","b3.body":"Der Client, der deine Repositories zwischen Web und Rechner synchronisiert (<code>Documents/GitHub</code>). Verbinde dein GitHub-Konto. Er erm&ouml;glicht die <b>Sicherung und die gemeinsame Arbeit</b>.",
+      "b4.title":"Visual Studio Code installieren","b4.body":"Der Editor, in dem du arbeiten wirst. Lade ihn f&uuml;r Windows herunter, dann Weiter &rarr; Installieren.",
+      "b5.title":"Python installieren <span class=\"mini opt\">f&uuml;r fortgeschrittenen Code</span>","b5.tag":"f&uuml;r fortgeschrittenen Code","b5.body":"Installiere den <b>Python Install Manager</b> (empfohlen &uuml;ber den Microsoft Store). N&uuml;tzlich, sobald Claude lokal Python erzeugen und ausf&uuml;hren muss.",
+      "b6.title":"Claude-Code-Erweiterung + erste Datei","b6.body":"In VS Code: Erweiterungen (<code>Ctrl+Shift+X</code>) &rarr; suche <b>&bdquo;Claude Code&ldquo;</b> (Anthropic) &rarr; Installieren. Verbinde dein Claude-Konto, &ouml;ffne einen Ordner auf deinem Rechner, dann fordere deine erste Datei im Claude-Panel an (das&nbsp;+-Symbol).",
+      "b6.lk1":"offizieller Leitfaden <span class=\"ar\">&#8599;</span>","b6.lk2":"in VS&nbsp;Code &ouml;ffnen <span class=\"ar\">&#8599;</span>",
+      "c.eyebrow":"Schritt 2 &mdash; Bauen","c.title":"Deine erste App bauen","c.intro":"&Ouml;ffne einen Ordner in VS Code, dann bitte Claude Code, eine Datei zu erstellen. Hier zwei Prompts f&uuml;r den Start:",
+      "c.prompt1.who":"Beispiel &mdash; einfache Seite","c.prompt1.txt":"Erstelle mir eine eigenst&auml;ndige HTML-Seite namens tetris.html: ein minimalistisches Tetris, das mit der Enter-Taste startet.",
+      "c.prompt2.who":"Beispiel &mdash; lokales Python-Skript","c.prompt2.txt":"Erstelle mir ein Python-Skript, das lokal faster-whisper nutzt, um meine Audio- und Videodateien auf meinem Rechner zu transkribieren.",
+      "c.note.lab":"Human in the loop","c.note.p":"Lokal fragt Claude um deine Erlaubnis, bevor ein Befehl ausgef&uuml;hrt wird. Lies, was vorgeschlagen wird, dann best&auml;tige &mdash; nichts l&auml;uft hinter deinem R&uuml;cken.",
+      "d.eyebrow":"Weitergehen","d.title":"Der Vorstellungskraft sind keine Grenzen gesetzt","d.intro":"Sobald du die Schleife beherrschst, kannst du alles lokal bauen. Und die KI bleibt dein bester Verb&uuml;ndeter, wann immer du feststeckst.",
+      "d1.title":"Festgefahren? Frag die KI","d1.body":"Jede Frage ist erlaubt: wie man das Tool nutzt, wie man ein Element hinzuf&uuml;gt, wie man dein Skript startet. Die KI ist auch dein <b>Tutor</b>.",
+      "d2.title":"Vergiss den Sicherheits-Audit nicht!","d2.body":"Bevor du deine App teilst, bitte die KI: &bdquo;F&uuml;hre einen Sicherheits-Audit meiner Anwendung durch und behebe die Schwachstellen.&ldquo; Ein einfacher Reflex, der viele Fehler vermeidet.",
+      "d3.title":"Die Schleife bleibt gleich","d3.body":"<b>Idee &rarr; Prompt &rarr; lokale Ausf&uuml;hrung &rarr; Iteration.</b> Diesen Rhythmus kennst du jetzt. Du bist dran!",
+      "footer.src":"Lokale Anwendung &mdash; Wavestone CYB &middot; AI Maker","footer.reset":"Fortschritt zur&uuml;cksetzen",
+      "__title":"Eine lokale Anwendung mit KI bauen &mdash; Wavestone CYB"
+    }
+  };
+
+  var LABELS = { fr:{copy:"copier",copied:"copié ✓"}, en:{copy:"copy",copied:"copied ✓"}, de:{copy:"kopieren",copied:"kopiert ✓"} };
+
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('[data-i18n]'));
+  var ORIG = {};
+  nodes.forEach(function(n){ ORIG[n.getAttribute('data-i18n')] = n.innerHTML; });
+  var ORIG_TITLE = document.title;
+  var cur = 'fr';
+
+  function apply(lang){
+    if(lang!=='fr' && !I18N[lang]) lang='fr';
+    cur = lang;
+    document.documentElement.lang = lang;
+    nodes.forEach(function(n){
+      var k = n.getAttribute('data-i18n');
+      var v = (lang==='fr') ? ORIG[k] : (I18N[lang][k]!=null ? I18N[lang][k] : ORIG[k]);
+      if(v!=null) n.innerHTML = v;
+    });
+    document.title = (lang==='fr') ? ORIG_TITLE : (I18N[lang]['__title']!=null ? I18N[lang]['__title'] : ORIG_TITLE);
+    document.querySelectorAll('.copy').forEach(function(c){ if(!c.classList.contains('ok')) c.textContent = LABELS[lang].copy; });
+    document.querySelectorAll('.langsel button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-lang')===lang); });
+    try{ localStorage.setItem('ws_lang', lang); }catch(e){}
+  }
+
+  document.querySelectorAll('.langsel button').forEach(function(b){
+    b.addEventListener('click', function(){ apply(b.getAttribute('data-lang')); });
+  });
+
+  /* language: saved choice > browser language > English (improvement over the FR default) */
+  var saved=null; try{ saved=localStorage.getItem('ws_lang'); }catch(e){}
+  function wsDetect(){
+    if(saved && ['fr','en','de'].indexOf(saved)>-1) return saved;
+    var ls=navigator.languages||[navigator.language||navigator.userLanguage||''];
+    for(var i=0;i<ls.length;i++){ var c=(ls[i]||'').slice(0,2).toLowerCase(); if(['fr','en','de'].indexOf(c)>-1) return c; }
+    return 'en';
+  }
+  apply(wsDetect());
+
+  /* ---------------- step progress per phase ---------------- */
+  document.querySelectorAll('.phase').forEach(function(ph){
+    var steps = ph.querySelectorAll('.step');
+    if(!steps.length) return;
+    var fill = ph.querySelector('.spine-fill');
+    var head = ph.previousElementSibling;
+    var dn = head && head.querySelector ? head.querySelector('.prog .dn') : null;
+    function refresh(){
+      var d = ph.querySelectorAll('.step.done').length;
+      if(dn) dn.textContent = d;
+      if(fill) fill.style.height = (d/steps.length*100)+'%';
+    }
+    steps.forEach(function(step){
+      var node = step.querySelector('.node');
+      function toggle(){
+        step.classList.toggle('done');
+        node.setAttribute('aria-pressed', step.classList.contains('done'));
+        refresh();
+      }
+      node.addEventListener('click', toggle);
+      node.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); toggle(); } });
+    });
+    refresh();
+  });
+
+  /* ---------------- copy prompts ---------------- */
+  document.querySelectorAll('.copy').forEach(function(c){
+    c.addEventListener('click', function(){
+      var txt = c.parentElement.querySelector('.txt').textContent.trim();
+      var ok = function(){ c.textContent = LABELS[cur].copied; c.classList.add('ok'); setTimeout(function(){ c.classList.remove('ok'); c.textContent = LABELS[cur].copy; },1600); };
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok, ok); }
+      else { var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); ok(); }
+    });
+  });
+
+  /* ---------------- lightbox (in-page zoom) ---------------- */
+  var lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbClose = document.getElementById('lbClose');
+  function openLb(src){ lbImg.src = src; lb.classList.add('on'); lb.setAttribute('aria-hidden','false'); }
+  function closeLb(){ lb.classList.remove('on'); lb.setAttribute('aria-hidden','true'); lbImg.src = ''; }
+  document.querySelectorAll('figure.shot a.zoom').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); openLb(a.getAttribute('href')); });
+  });
+  lb.addEventListener('click', function(e){ if(e.target !== lbImg) closeLb(); });
+  lbClose.addEventListener('click', closeLb);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && lb.classList.contains('on')) closeLb(); });
+
+  /* ---------------- reset ---------------- */
+  document.getElementById('reset').addEventListener('click', function(){
+    document.querySelectorAll('.step.done').forEach(function(s){ s.classList.remove('done'); s.querySelector('.node').setAttribute('aria-pressed','false'); });
+    document.querySelectorAll('.phase').forEach(function(ph){
+      var fill=ph.querySelector('.spine-fill'); if(fill) fill.style.height='0';
+      var head=ph.previousElementSibling; var dn=head&&head.querySelector?head.querySelector('.prog .dn'):null; if(dn) dn.textContent='0';
+    });
+    window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
+  });
+})();
+</script>
+<script src="assets/mobile-nav.js"></script>
+</body>
+</html>

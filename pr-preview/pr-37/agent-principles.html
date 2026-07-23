@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe coding @ Wavestone — Philosophie des agents CYB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* --- Wavestone tokens (extrait du design system) --- */
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-teal-500:#228D95;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-warning:#C8861A;
+
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ws-white);color:var(--ws-ink-900);
+    font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;
+    padding-bottom:80px;
+  }
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+
+  .eyebrow{
+    display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    padding-bottom:4px;border-bottom:2px solid var(--ws-green-400);
+  }
+
+  /* ---------- sticky brand bar ---------- */
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);border-radius:999px;padding:6px 13px;transition:.18s var(--ws-ease)}
+  .bar a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-left:auto}
+  .bar-in .langsel{margin-left:10px}
+
+  /* ---------- hero (brand gradient) ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1040px;margin:0 auto;padding:64px 24px 56px}
+  .hero .eyebrow{color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(34px,6vw,60px);line-height:1.04;letter-spacing:-.025em;margin:22px 0 16px;max-width:20ch}
+  .hero h1 .ac{color:var(--ws-green-400)}
+  .hero .lede{font-size:19px;line-height:1.5;color:rgba(255,255,255,.82);max-width:64ch}
+  .hero .tagline{font-family:var(--ws-font-mono);font-size:12.5px;color:rgba(255,255,255,.6);margin-top:22px;letter-spacing:.02em}
+
+  /* ---------- intro ---------- */
+  .sec-head{margin:56px 0 6px}
+  .sec-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:28px;letter-spacing:-.015em;color:var(--ws-indigo-600);margin-top:8px}
+  .sec-head p{color:var(--ws-ink-500);margin-top:6px;font-size:15px;max-width:70ch}
+
+  /* ---------- principles ---------- */
+  .principles{display:grid;gap:18px;margin-top:26px;grid-template-columns:1fr}
+  @media(min-width:760px){.principles{grid-template-columns:1fr 1fr}}
+
+  .pcard{
+    position:relative;background:var(--ws-white);border:1.5px solid var(--ws-ink-100);
+    border-radius:18px;padding:26px 24px 22px;box-shadow:var(--ws-shadow-sm);
+    transition:.22s var(--ws-ease);overflow:hidden;display:flex;flex-direction:column;
+  }
+  .pcard:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-3px);border-color:var(--ws-indigo-200)}
+  .pcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ws-gradient-accent);opacity:0;transition:opacity .22s var(--ws-ease)}
+  .pcard:hover::before{opacity:1}
+  /* premier principe en pleine largeur, mis en avant */
+  .pcard.lead{grid-column:1/-1;border-color:var(--ws-indigo-200);box-shadow:var(--ws-shadow-md)}
+
+  .pcard .top{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+  .pcard .ico{
+    flex:0 0 50px;width:50px;height:50px;border-radius:14px;display:grid;place-items:center;
+    font-size:24px;background:var(--ws-indigo-50);color:var(--ws-indigo-600);
+  }
+  .pcard.lead .ico{background:var(--ws-green-50);color:var(--ws-green-700)}
+  .pcard .num{font-family:var(--ws-font-mono);font-size:12px;font-weight:600;color:var(--ws-indigo-600)}
+  .pcard h3{font-family:var(--ws-font-display);font-weight:700;font-size:19px;letter-spacing:-.01em;color:var(--ws-ink-900);margin-top:3px;line-height:1.22}
+  .pcard p{font-size:14.5px;color:var(--ws-ink-600);line-height:1.55}
+  .pcard p+p{margin-top:9px}
+  .pcard b{color:var(--ws-ink-900)}
+
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:15px}
+  .tag{font-family:var(--ws-font-mono);font-size:11px;letter-spacing:.02em;color:var(--ws-indigo-700);background:var(--ws-indigo-50);border-radius:999px;padding:4px 10px}
+  .tag.green{color:var(--ws-green-700);background:var(--ws-green-50)}
+
+  /* ---------- principe -> ce que ça change ---------- */
+  .why{margin-top:14px;border-top:1px dashed var(--ws-ink-100);padding-top:12px;font-size:13.5px;color:var(--ws-ink-500);display:flex;gap:9px;align-items:flex-start}
+  .why .arr{color:var(--ws-green-700);font-weight:700;flex:0 0 auto}
+  .why b{color:var(--ws-ink-700)}
+
+  /* ---------- synthèse / note ---------- */
+  .note{margin-top:30px;background:var(--ws-indigo-50);border:1px solid var(--ws-indigo-100);border-left:4px solid var(--ws-indigo-600);border-radius:12px;padding:18px 20px}
+  .note .lab{font-family:var(--ws-font-body);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ws-indigo-600);margin-bottom:7px}
+  .note p{font-size:14.5px;color:var(--ws-ink-700);line-height:1.6}
+  .note p+p{margin-top:9px}
+  .note b{color:var(--ws-ink-900)}
+
+  /* ---------- en pratique (chips récap) ---------- */
+  .recap{margin-top:30px;background:var(--ws-indigo-950);border-radius:18px;padding:26px 26px 24px;color:#EAE7F6}
+  .recap .eyebrow{color:#fff;border-color:var(--ws-green-400)}
+  .recap h3{font-family:var(--ws-font-display);font-weight:700;font-size:21px;color:#fff;margin:14px 0 4px}
+  .recap p{font-size:14.5px;color:rgba(255,255,255,.74);line-height:1.6;max-width:66ch}
+  .recap ul{list-style:none;margin-top:16px;display:grid;gap:10px}
+  @media(min-width:680px){.recap ul{grid-template-columns:1fr 1fr}}
+  .recap li{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:rgba(255,255,255,.88);line-height:1.5}
+  .recap li .ck{flex:0 0 auto;color:var(--ws-green-300);font-weight:700;font-family:var(--ws-font-mono)}
+
+  /* ---------- nav cta ---------- */
+  .nav-cta{margin-top:32px;display:grid;gap:14px;grid-template-columns:1fr}
+  @media(min-width:680px){.nav-cta{grid-template-columns:1fr 1fr}}
+  .ncard{display:flex;align-items:center;gap:14px;text-decoration:none;background:#fff;border:1.5px solid var(--ws-ink-100);border-radius:16px;padding:18px 20px;box-shadow:var(--ws-shadow-sm);transition:.2s var(--ws-ease)}
+  .ncard:hover{border-color:var(--ws-indigo-200);box-shadow:var(--ws-shadow-md);transform:translateY(-2px)}
+  .ncard .ni{flex:0 0 44px;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:21px;background:var(--ws-indigo-50);color:var(--ws-indigo-600)}
+  .ncard .nt{font-family:var(--ws-font-display);font-weight:600;font-size:16px;color:var(--ws-ink-900)}
+  .ncard .nd{font-size:13px;color:var(--ws-ink-500);margin-top:2px}
+  .ncard .go{margin-left:auto;font-family:var(--ws-font-mono);font-size:13px;color:var(--ws-indigo-600)}
+
+  footer{max-width:1040px;margin:64px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+  /* square corners */
+  *,*::before,*::after{border-radius:0!important}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
+    <div class="nav-links">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
+      <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+      <a class="jump" href="dance-with-the-ai-stars.html" data-i18n="nav.dais">Dance With the AI Stars</a>
+      <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1040 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,300 Q260,180 540,250 T1100,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <span class="eyebrow" data-i18n="hero.eyebrow">Philosophie de conception</span>
+    <h1 data-i18n="hero.title">Comment on con&ccedil;oit les <span class="ac">agents CYB</span></h1>
+    <p class="lede" data-i18n="hero.lede">Des principes simples, pens&eacute;s pour le terrain&nbsp;: un agent qu'on peut utiliser <b style="color:#fff">imm&eacute;diatement</b>, partout, sans d&eacute;pendre d'une infrastructure client, d'un mod&egrave;le pr&eacute;cis, ou d'une connexion.</p>
+    <p class="tagline" data-i18n="hero.tagline"># d&eacute;coupl&eacute; &middot; portable &middot; d&eacute;terministe &middot; multi-clients</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="esprit.eyebrow">L'esprit</span>
+    <h2 data-i18n="esprit.title">Six principes qui guident chaque agent</h2>
+    <p data-i18n="esprit.intro">Nos missions sont multi-clients, multi-environnements, souvent contraintes (pas de droits admin, donn&eacute;es sensibles, r&eacute;seaux ferm&eacute;s). Pour qu'un agent CYB soit utile partout d&egrave;s le premier jour, on le con&ccedil;oit en suivant six r&egrave;gles de bon sens.</p>
+  </div>
+
+  <div class="principles">
+
+    <!-- 1 -->
+    <article class="pcard lead">
+      <div class="top">
+        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/><line x1="10" y1="12" x2="14" y2="12"/></svg></div>
+        <div>
+          <span class="num" data-i18n="p1.num">Principe 01</span>
+          <h3 data-i18n="p1.title">D&eacute;coupl&eacute; de l'infrastructure client</h3>
+        </div>
+      </div>
+      <p data-i18n="p1.p1">L'agent doit pouvoir &ecirc;tre utilis&eacute; <b>imm&eacute;diatement</b>, sans d&eacute;ploiement ni d&eacute;pendance &agrave; l'environnement d'un client. La forme par d&eacute;faut est une <b>page HTML autonome</b>&nbsp;: un seul fichier, t&eacute;l&eacute;chargeable, qui s'ex&eacute;cute dans n'importe quel navigateur standard.</p>
+      <p data-i18n="p1.p2">Pas de serveur &agrave; monter, pas d'installation, rien &agrave; faire valider par une DSI avant de commencer. On ouvre le fichier, &ccedil;a marche.</p>
+      <div class="tags">
+        <span class="tag green" data-i18n="p1.tag1">1 fichier HTML</span>
+        <span class="tag green" data-i18n="p1.tag2">T&eacute;l&eacute;chargeable</span>
+        <span class="tag green" data-i18n="p1.tag3">Navigateur standard</span>
+        <span class="tag" data-i18n="p1.tag4">Z&eacute;ro install</span>
+      </div>
+      <div class="why"><span class="arr">&#8594;</span><span data-i18n="p1.why"><b>Ce que &ccedil;a change&nbsp;:</b> on d&eacute;marre une mission en minutes, sur le poste du client comme sur le n&ocirc;tre, sans d&eacute;pendre de leur infra.</span></div>
+    </article>
+
+    <!-- 2 -->
+    <article class="pcard">
+      <div class="top">
+        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+        <div>
+          <span class="num" data-i18n="p2.num">Principe 02</span>
+          <h3 data-i18n="p2.title">D&eacute;coupl&eacute; du LLM</h3>
+        </div>
+      </div>
+      <p data-i18n="p2.p1">Aucun agent n'est mari&eacute; &agrave; un mod&egrave;le. On s'appuie sur une <b>cl&eacute; API standard</b> pour pouvoir changer de fournisseur &agrave; tout moment&nbsp;: mod&egrave;les Wavestone, acc&egrave;s via <b>Azure</b>, mod&egrave;les <b>du client</b>, ou <b>LLM locaux</b>.</p>
+      <p data-i18n="p2.p2">Le mod&egrave;le devient un param&egrave;tre, pas une fondation. Si le contexte de la mission impose tel ou tel fournisseur, l'agent s'y adapte.</p>
+      <div class="tags">
+        <span class="tag" data-i18n="p2.tag1">Cl&eacute; API standard</span>
+        <span class="tag" data-i18n="p2.tag2">Azure</span>
+        <span class="tag" data-i18n="p2.tag3">Mod&egrave;le client</span>
+        <span class="tag" data-i18n="p2.tag4">LLM local</span>
+      </div>
+      <div class="why"><span class="arr">&#8594;</span><span data-i18n="p2.why"><b>Ce que &ccedil;a change&nbsp;:</b> on respecte la gouvernance de chaque client et on ne subit pas le verrouillage d'un seul fournisseur.</span></div>
+    </article>
+
+    <!-- 3 -->
+    <article class="pcard">
+      <div class="top">
+        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="2" y="3" width="20" height="14"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div>
+          <span class="num" data-i18n="p3.num">Principe 03</span>
+          <h3 data-i18n="p3.title">L'usage local toujours possible</h3>
+        </div>
+      </div>
+      <p data-i18n="p3.p1">Pour les cas les plus complexes ou les plus sensibles, l'agent doit fonctionner <b>en local</b>, <b>sans droits d'administrateur</b>&nbsp;: avec du <b>Python</b> portable et des <b>mod&egrave;les d'IA locaux</b>.</p>
+      <p data-i18n="p3.p2">R&eacute;seau ferm&eacute;, donn&eacute;es qui ne doivent pas sortir, poste verrouill&eacute;&nbsp;: l'agent reste op&eacute;rationnel sans rien demander &agrave; personne.</p>
+      <div class="tags">
+        <span class="tag" data-i18n="p3.tag1">Sans admin</span>
+        <span class="tag" data-i18n="p3.tag2">Python portable</span>
+        <span class="tag" data-i18n="p3.tag3">Mod&egrave;les locaux</span>
+        <span class="tag" data-i18n="p3.tag4">Hors-ligne</span>
+      </div>
+      <div class="why"><span class="arr">&#8594;</span><span data-i18n="p3.why"><b>Ce que &ccedil;a change&nbsp;:</b> aucune donn&eacute;e sensible ne quitte le poste, m&ecirc;me dans les environnements les plus contraints.</span></div>
+    </article>
+
+    <!-- 4 -->
+    <article class="pcard">
+      <div class="top">
+        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div>
+        <div>
+          <span class="num" data-i18n="p4.num">Principe 04</span>
+          <h3 data-i18n="p4.title">Minimiser les appels au LLM</h3>
+        </div>
+      </div>
+      <p data-i18n="p4.p1">On vise au maximum des <b>syst&egrave;mes d&eacute;terministes</b>&nbsp;: la logique qui peut &ecirc;tre cod&eacute;e en dur l'est. Le LLM n'est appel&eacute; que l&agrave; o&ugrave; il apporte vraiment de la valeur.</p>
+      <p data-i18n="p4.p2">R&eacute;sultat&nbsp;: un agent qui travaille <b>m&ecirc;me sans connexion</b>, de mani&egrave;re <b>fiable et reproductible</b>, sans co&ucirc;t d'API inutile ni d&eacute;pendance permanente &agrave; un mod&egrave;le.</p>
+      <div class="tags">
+        <span class="tag" data-i18n="p4.tag1">D&eacute;terministe</span>
+        <span class="tag" data-i18n="p4.tag2">Fiable</span>
+        <span class="tag" data-i18n="p4.tag3">Reproductible</span>
+        <span class="tag" data-i18n="p4.tag4">Sobre en tokens</span>
+      </div>
+      <div class="why"><span class="arr">&#8594;</span><span data-i18n="p4.why"><b>Ce que &ccedil;a change&nbsp;:</b> des r&eacute;sultats pr&eacute;visibles, moins de co&ucirc;ts, et un fonctionnement garanti m&ecirc;me hors-ligne.</span></div>
+    </article>
+
+    <!-- 5 -->
+    <article class="pcard">
+      <div class="top">
+        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div>
+          <span class="num" data-i18n="p5.num">Principe 05</span>
+          <h3 data-i18n="p5.title">Multi-utilisateurs, sans usine &agrave; gaz</h3>
+        </div>
+      </div>
+      <p data-i18n="p5.p1">Pas de gestion complexe de droits ni de base de donn&eacute;es centralis&eacute;e. Le partage et la collaboration passent par <b>l'export / import de fichiers JSON</b>.</p>
+      <p data-i18n="p5.p2">On garde nos habitudes de travail en &eacute;quipe, <b>multi-clients</b> et <b>multi-environnements</b>&nbsp;: chacun travaille de son c&ocirc;t&eacute;, puis on s'&eacute;change un simple fichier pour se synchroniser.</p>
+      <div class="tags">
+        <span class="tag" data-i18n="p5.tag1">Export / import JSON</span>
+        <span class="tag" data-i18n="p5.tag2">Sans base de donn&eacute;es</span>
+        <span class="tag" data-i18n="p5.tag3">Sans gestion de droits</span>
+        <span class="tag" data-i18n="p5.tag4">Travail d'&eacute;quipe</span>
+      </div>
+      <div class="why"><span class="arr">&#8594;</span><span data-i18n="p5.why"><b>Ce que &ccedil;a change&nbsp;:</b> on collabore entre missions et environnements sans monter d'infrastructure partag&eacute;e.</span></div>
+    </article>
+
+    <!-- 6 -->
+    <article class="pcard">
+      <div class="top">
+        <div class="ico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div>
+          <span class="num" data-i18n="p6.num">Principe 06</span>
+          <h3 data-i18n="p6.title">Cost Management par mission</h3>
+        </div>
+      </div>
+      <p data-i18n="p6.p1">Quand une mission utilise des agents IA, la <b>proposition commerciale</b> doit mentionner un <b>budget d'usage num&eacute;rique</b>. Ce budget est associ&eacute; &agrave; une <b>cl&eacute; API</b> donn&eacute;e au chef de projet.</p>
+      <p data-i18n="p6.p2">Le chef de projet renseigne cette cl&eacute; dans l'outillage, peut la partager avec son &eacute;quipe, et suit la consommation comme on suit la consommation de jours sur une mission.</p>
+      <div class="tags">
+        <span class="tag green" data-i18n="p6.tag1">Budget d'usage</span>
+        <span class="tag green" data-i18n="p6.tag2">Cl&eacute; API mission</span>
+        <span class="tag" data-i18n="p6.tag3">Chef de projet</span>
+        <span class="tag" data-i18n="p6.tag4">Suivi conso</span>
+      </div>
+      <div class="why"><span class="arr">&#8594;</span><span data-i18n="p6.why"><b>Ce que &ccedil;a change&nbsp;:</b> l'usage IA devient pilotable, explicite dans la propal, et suivi au m&ecirc;me titre que le delivery.</span></div>
+    </article>
+
+  </div>
+
+  <div class="note">
+    <div class="lab" data-i18n="note.lab">Le fil rouge</div>
+    <p data-i18n="note.p1"><b>Autonomie, portabilit&eacute; et sobri&eacute;t&eacute;.</b> Chaque principe pousse dans la m&ecirc;me direction&nbsp;: un agent qu'on peut sortir n'importe o&ugrave;, brancher sur n'importe quel mod&egrave;le (ou aucun), et faire tourner de mani&egrave;re fiable &mdash; sans rien demander &agrave; l'infrastructure du client.</p>
+    <p data-i18n="note.p2">C'est ce qui rend nos agents CYB <b>utilisables d&egrave;s le premier jour</b> d'une mission, et ce qui leur permet de <b>passer &agrave; l'&eacute;chelle</b> quand le besoin grandit.</p>
+  </div>
+
+  <div class="recap">
+    <span class="eyebrow" data-i18n="recap.eyebrow">En une phrase</span>
+    <h3 data-i18n="recap.title">Un agent CYB, c'est&hellip;</h3>
+    <p data-i18n="recap.intro">&hellip;un outil le plus autonome possible, qu'on emporte partout et qu'on partage par fichier.</p>
+    <ul>
+      <li><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="recap.li1">Une <b>page HTML autonome</b>, t&eacute;l&eacute;chargeable, qui s'ouvre dans un navigateur standard.</span></li>
+      <li><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="recap.li2"><b>Ind&eacute;pendant du LLM</b>&nbsp;: cl&eacute; API standard, Azure, mod&egrave;le client ou LLM local.</span></li>
+      <li><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="recap.li3"><b>Utilisable en local</b> sans droits admin&nbsp;: Python portable et mod&egrave;les locaux.</span></li>
+      <li><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="recap.li4"><b>D&eacute;terministe d'abord</b>&nbsp;: fiable, reproductible, fonctionne hors-ligne.</span></li>
+      <li><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="recap.li5"><b>Collaboratif</b> par export / import JSON, sans base ni gestion de droits.</span></li>
+      <li><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><polyline points="20 6 9 17 4 12"/></svg></span><span data-i18n="recap.li6"><b>Budg&eacute;t&eacute; par mission</b>&nbsp;: cl&eacute; API, enveloppe d'usage et suivi de consommation.</span></li>
+    </ul>
+  </div>
+
+  <div class="nav-cta">
+    <a class="ncard" href="api-key.html">
+      <span class="ni"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M11.4 11.6 22 1"/><path d="m15.5 6.5 3 3L22 6l-3-3"/></svg></span>
+      <span>
+        <span class="nt" data-i18n="cta1.title">Cr&eacute;er une cl&eacute; API</span>
+        <span class="nd" data-i18n="cta1.desc">Proc&eacute;dure, validation CDM et r&egrave;gles de s&eacute;curit&eacute;.</span>
+      </span>
+      <span class="go">&#8594;</span>
+    </a>
+    <a class="ncard" href="playbook.html">
+      <span class="ni"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
+      <span>
+        <span class="nt" data-i18n="cta2.title">Choisir un playbook</span>
+        <span class="nd" data-i18n="cta2.desc">Du tout-en-ligne aux appels API Wavestone.</span>
+      </span>
+      <span class="go">&#8594;</span>
+    </a>
+    <a class="ncard" href="our-agents.html">
+      <span class="ni"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="3" y="3" width="18" height="18"/><path d="M7 15l3-3 2 2 5-6"/><path d="M7 19h10"/></svg></span>
+      <span>
+        <span class="nt" data-i18n="cta3.title">Voir nos agents</span>
+        <span class="nd" data-i18n="cta3.desc">Explorer CrisisMaker, CyberBenchmark Helper et RadarMapper.</span>
+      </span>
+      <span class="go">&#8594;</span>
+    </a>
+  </div>
+
+</div>
+
+<footer>
+  <span class="src" data-i18n="footer.src">Philosophie de conception des agents CYB &mdash; Wavestone CYB &middot; AI Maker Initiative</span>
+  <a class="jump" href="index.html" style="font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);border-radius:999px;padding:8px 14px" data-i18n="footer.home">&#8592; retour &agrave; l'accueil</a>
+</footer>
+
+<script>
+window.WS_I18N = {
+  en: {
+    "nav.home": "Home",
+    "nav.usecases": "Playbook",
+    "nav.principles": "Agent principles",
+    "nav.agents": "Our agents",
+    "nav.apikey": "API key",
+    "hero.eyebrow": "Design philosophy",
+    "hero.title": "How we design <span class=\"ac\">CYB agents</span>",
+    "hero.lede": "Simple principles, built for the field: an agent you can use <b style=\"color:#fff\">right away</b>, anywhere, without depending on a client's infrastructure, a specific model, or a connection.",
+    "hero.tagline": "# decoupled &middot; portable &middot; deterministic &middot; multi-client",
+    "esprit.eyebrow": "The mindset",
+    "esprit.title": "Six principles that guide every agent",
+    "esprit.intro": "Our engagements are multi-client, multi-environment, and often constrained (no admin rights, sensitive data, closed networks). For a CYB agent to be useful everywhere from day one, we design it following six common-sense rules.",
+    "p1.num": "Principle 01",
+    "p1.title": "Decoupled from client infrastructure",
+    "p1.p1": "The agent must be usable <b>immediately</b>, with no deployment or dependency on a client's environment. The default form is a <b>standalone HTML page</b>: a single, downloadable file that runs in any standard browser.",
+    "p1.p2": "No server to set up, no installation, nothing to get approved by an IT department before starting. You open the file, it works.",
+    "p1.tag1": "1 HTML file",
+    "p1.tag2": "Downloadable",
+    "p1.tag3": "Standard browser",
+    "p1.tag4": "Zero install",
+    "p1.why": "<b>What it changes:</b> we start an engagement in minutes, on the client's machine as well as ours, without depending on their infrastructure.",
+    "p2.num": "Principle 02",
+    "p2.title": "Decoupled from the LLM",
+    "p2.p1": "No agent is wedded to a model. We rely on a <b>standard API key</b> so we can switch provider at any time: Wavestone models, access via <b>Azure</b>, <b>client</b> models, or <b>local LLMs</b>.",
+    "p2.p2": "The model becomes a parameter, not a foundation. If the engagement context requires a given provider, the agent adapts to it.",
+    "p2.tag1": "Standard API key",
+    "p2.tag2": "Azure",
+    "p2.tag3": "Client model",
+    "p2.tag4": "Local LLM",
+    "p2.why": "<b>What it changes:</b> we respect each client's governance and avoid being locked into a single provider.",
+    "p3.num": "Principle 03",
+    "p3.title": "Local use always possible",
+    "p3.p1": "For the most complex or most sensitive cases, the agent must run <b>locally</b>, <b>without administrator rights</b>: with portable <b>Python</b> and <b>local AI models</b>.",
+    "p3.p2": "Closed network, data that must not leave, a locked-down machine: the agent stays operational without asking anyone for anything.",
+    "p3.tag1": "No admin",
+    "p3.tag2": "Portable Python",
+    "p3.tag3": "Local models",
+    "p3.tag4": "Offline",
+    "p3.why": "<b>What it changes:</b> no sensitive data ever leaves the machine, even in the most constrained environments.",
+    "p4.num": "Principle 04",
+    "p4.title": "Minimise LLM calls",
+    "p4.p1": "We aim as much as possible for <b>deterministic systems</b>: any logic that can be hard-coded is. The LLM is called only where it truly adds value.",
+    "p4.p2": "The result: an agent that works <b>even without a connection</b>, in a <b>reliable and reproducible</b> way, with no needless API cost or permanent dependency on a model.",
+    "p4.tag1": "Deterministic",
+    "p4.tag2": "Reliable",
+    "p4.tag3": "Reproducible",
+    "p4.tag4": "Token-frugal",
+    "p4.why": "<b>What it changes:</b> predictable results, lower costs, and guaranteed operation even offline.",
+    "p5.num": "Principle 05",
+    "p5.title": "Multi-user, without the overkill",
+    "p5.p1": "No complex rights management nor centralised database. Sharing and collaboration happen through <b>exporting / importing JSON files</b>.",
+    "p5.p2": "We keep our teamwork habits, <b>multi-client</b> and <b>multi-environment</b>: everyone works on their own side, then we exchange a simple file to sync up.",
+    "p5.tag1": "JSON export / import",
+    "p5.tag2": "No database",
+    "p5.tag3": "No rights management",
+    "p5.tag4": "Teamwork",
+    "p5.why": "<b>What it changes:</b> we collaborate across engagements and environments without setting up shared infrastructure.",
+    "p6.num": "Principle 06",
+    "p6.title": "Cost Management by engagement",
+    "p6.p1": "When an engagement uses AI agents, the <b>commercial proposal</b> must mention a <b>digital usage budget</b>. This budget is linked to an <b>API key</b> given to the project manager.",
+    "p6.p2": "The project manager enters this key in the tooling, can share it with the team, and tracks consumption the same way we track consumed days on an engagement.",
+    "p6.tag1": "Usage budget",
+    "p6.tag2": "Engagement API key",
+    "p6.tag3": "Project manager",
+    "p6.tag4": "Consumption tracking",
+    "p6.why": "<b>What it changes:</b> AI usage becomes manageable, explicit in the proposal, and tracked just like delivery consumption.",
+    "note.lab": "The common thread",
+    "note.p1": "<b>Autonomy, portability and frugality.</b> Every principle pushes in the same direction: an agent you can take anywhere, plug onto any model (or none), and run reliably &mdash; without asking anything of the client's infrastructure.",
+    "note.p2": "That is what makes our CYB agents <b>usable from day one</b> of an engagement, and what lets them <b>scale up</b> as the need grows.",
+    "recap.eyebrow": "In one sentence",
+    "recap.title": "A CYB agent is&hellip;",
+    "recap.intro": "&hellip;a tool that is as autonomous as possible, that you carry everywhere and share by file.",
+    "recap.li1": "A <b>standalone HTML page</b>, downloadable, that opens in a standard browser.",
+    "recap.li2": "<b>Independent of the LLM</b>: standard API key, Azure, client model or local LLM.",
+    "recap.li3": "<b>Usable locally</b> without admin rights: portable Python and local models.",
+    "recap.li4": "<b>Deterministic first</b>: reliable, reproducible, works offline.",
+    "recap.li5": "<b>Collaborative</b> through JSON export / import, with no database or rights management.",
+    "recap.li6": "<b>Budgeted by engagement</b>: API key, usage envelope and consumption tracking.",
+    "cta1.title": "Create an API key",
+    "cta1.desc": "Procedure, CDM sign-off and security rules.",
+    "cta2.title": "Choose a playbook",
+    "cta2.desc": "From fully online to Wavestone API calls.",
+    "cta3.title": "See our agents",
+    "cta3.desc": "Explore CrisisMaker, CyberBenchmark Helper and RadarMapper.",
+    "footer.src": "CYB agent design philosophy &mdash; Wavestone CYB &middot; AI Maker Initiative",
+    "footer.home": "&#8592; back to home",
+    "__title": "AI Maker @ Wavestone CYB — CYB agent design philosophy"
+  },
+  de: {
+    "nav.home": "Start",
+    "nav.usecases": "Playbook",
+    "nav.principles": "Agenten-Prinzipien",
+    "nav.agents": "Unsere Agenten",
+    "nav.apikey": "API-Schl&uuml;ssel",
+    "hero.eyebrow": "Designphilosophie",
+    "hero.title": "Wie wir <span class=\"ac\">CYB-Agenten</span> entwerfen",
+    "hero.lede": "Einfache Prinzipien, f&uuml;r die Praxis gedacht: ein Agent, den man <b style=\"color:#fff\">sofort</b> nutzen kann, &uuml;berall, ohne von der Infrastruktur eines Kunden, einem bestimmten Modell oder einer Verbindung abh&auml;ngig zu sein.",
+    "hero.tagline": "# entkoppelt &middot; portabel &middot; deterministisch &middot; multi-Kunde",
+    "esprit.eyebrow": "Der Geist",
+    "esprit.title": "Sechs Prinzipien, die jeden Agenten leiten",
+    "esprit.intro": "Unsere Eins&auml;tze sind multi-Kunde, multi-Umgebung und oft eingeschr&auml;nkt (keine Adminrechte, sensible Daten, geschlossene Netze). Damit ein CYB-Agent ab dem ersten Tag &uuml;berall n&uuml;tzlich ist, entwerfen wir ihn nach sechs gesunden Menschenverstand-Regeln.",
+    "p1.num": "Prinzip 01",
+    "p1.title": "Entkoppelt von der Kundeninfrastruktur",
+    "p1.p1": "Der Agent muss <b>sofort</b> einsetzbar sein, ohne Bereitstellung oder Abh&auml;ngigkeit von der Umgebung eines Kunden. Die Standardform ist eine <b>eigenst&auml;ndige HTML-Seite</b>: eine einzige, herunterladbare Datei, die in jedem Standardbrowser l&auml;uft.",
+    "p1.p2": "Kein Server aufzusetzen, keine Installation, nichts, das vor dem Start von einer IT-Abteilung freigegeben werden muss. Man &ouml;ffnet die Datei, es funktioniert.",
+    "p1.tag1": "1 HTML-Datei",
+    "p1.tag2": "Herunterladbar",
+    "p1.tag3": "Standardbrowser",
+    "p1.tag4": "Null Installation",
+    "p1.why": "<b>Was sich &auml;ndert:</b> Wir starten einen Einsatz in Minuten, auf dem Rechner des Kunden ebenso wie auf unserem, ohne von dessen Infrastruktur abh&auml;ngig zu sein.",
+    "p2.num": "Prinzip 02",
+    "p2.title": "Entkoppelt vom LLM",
+    "p2.p1": "Kein Agent ist an ein Modell gebunden. Wir setzen auf einen <b>Standard-API-Schl&uuml;ssel</b>, um jederzeit den Anbieter wechseln zu k&ouml;nnen: Wavestone-Modelle, Zugang &uuml;ber <b>Azure</b>, Modelle <b>des Kunden</b> oder <b>lokale LLMs</b>.",
+    "p2.p2": "Das Modell wird zum Parameter, nicht zum Fundament. Verlangt der Kontext des Einsatzes einen bestimmten Anbieter, passt sich der Agent an.",
+    "p2.tag1": "Standard-API-Schl&uuml;ssel",
+    "p2.tag2": "Azure",
+    "p2.tag3": "Kundenmodell",
+    "p2.tag4": "Lokales LLM",
+    "p2.why": "<b>Was sich &auml;ndert:</b> Wir respektieren die Governance jedes Kunden und geraten nicht in die Abh&auml;ngigkeit von einem einzigen Anbieter.",
+    "p3.num": "Prinzip 03",
+    "p3.title": "Lokale Nutzung immer m&ouml;glich",
+    "p3.p1": "F&uuml;r die komplexesten oder sensibelsten F&auml;lle muss der Agent <b>lokal</b> funktionieren, <b>ohne Administratorrechte</b>: mit portablem <b>Python</b> und <b>lokalen KI-Modellen</b>.",
+    "p3.p2": "Geschlossenes Netz, Daten, die nicht nach drau&szlig;en d&uuml;rfen, ein gesperrter Rechner: Der Agent bleibt einsatzbereit, ohne irgendjemanden um etwas bitten zu m&uuml;ssen.",
+    "p3.tag1": "Ohne Admin",
+    "p3.tag2": "Portables Python",
+    "p3.tag3": "Lokale Modelle",
+    "p3.tag4": "Offline",
+    "p3.why": "<b>Was sich &auml;ndert:</b> Keine sensiblen Daten verlassen den Rechner, selbst in den am st&auml;rksten eingeschr&auml;nkten Umgebungen.",
+    "p4.num": "Prinzip 04",
+    "p4.title": "LLM-Aufrufe minimieren",
+    "p4.p1": "Wir streben so weit wie m&ouml;glich <b>deterministische Systeme</b> an: Logik, die fest codiert werden kann, wird es. Das LLM wird nur dort aufgerufen, wo es wirklich Mehrwert bringt.",
+    "p4.p2": "Das Ergebnis: ein Agent, der <b>auch ohne Verbindung</b> arbeitet, auf <b>zuverl&auml;ssige und reproduzierbare</b> Weise, ohne unn&ouml;tige API-Kosten oder dauerhafte Abh&auml;ngigkeit von einem Modell.",
+    "p4.tag1": "Deterministisch",
+    "p4.tag2": "Zuverl&auml;ssig",
+    "p4.tag3": "Reproduzierbar",
+    "p4.tag4": "Token-sparsam",
+    "p4.why": "<b>Was sich &auml;ndert:</b> vorhersehbare Ergebnisse, geringere Kosten und garantierter Betrieb auch offline.",
+    "p5.num": "Prinzip 05",
+    "p5.title": "Multi-User, ohne &Uuml;berbau",
+    "p5.p1": "Keine komplexe Rechteverwaltung und keine zentrale Datenbank. Teilen und Zusammenarbeit erfolgen &uuml;ber den <b>Export / Import von JSON-Dateien</b>.",
+    "p5.p2": "Wir behalten unsere Teamarbeit-Gewohnheiten bei, <b>multi-Kunde</b> und <b>multi-Umgebung</b>: jeder arbeitet f&uuml;r sich, dann tauschen wir eine einfache Datei aus, um uns zu synchronisieren.",
+    "p5.tag1": "JSON-Export / -Import",
+    "p5.tag2": "Ohne Datenbank",
+    "p5.tag3": "Ohne Rechteverwaltung",
+    "p5.tag4": "Teamarbeit",
+    "p5.why": "<b>Was sich &auml;ndert:</b> Wir arbeiten &uuml;ber Eins&auml;tze und Umgebungen hinweg zusammen, ohne eine gemeinsame Infrastruktur aufzubauen.",
+    "p6.num": "Prinzip 06",
+    "p6.title": "Cost Management pro Einsatz",
+    "p6.p1": "Wenn ein Einsatz KI-Agenten nutzt, muss das <b>kommerzielle Angebot</b> ein <b>digitales Nutzungsbudget</b> nennen. Dieses Budget ist mit einem <b>API-Schl&uuml;ssel</b> verbunden, der dem Projektleiter gegeben wird.",
+    "p6.p2": "Der Projektleiter hinterlegt diesen Schl&uuml;ssel im Tooling, kann ihn mit seinem Team teilen und verfolgt den Verbrauch so, wie man verbrauchte Tage in einem Einsatz verfolgt.",
+    "p6.tag1": "Nutzungsbudget",
+    "p6.tag2": "API-Schl&uuml;ssel Einsatz",
+    "p6.tag3": "Projektleiter",
+    "p6.tag4": "Verbrauchsverfolgung",
+    "p6.why": "<b>Was sich &auml;ndert:</b> KI-Nutzung wird steuerbar, im Angebot explizit gemacht und wie die Delivery-Verbrauchssteuerung verfolgt.",
+    "note.lab": "Der rote Faden",
+    "note.p1": "<b>Autonomie, Portabilit&auml;t und Sparsamkeit.</b> Jedes Prinzip dr&auml;ngt in dieselbe Richtung: ein Agent, den man &uuml;berallhin mitnehmen, an jedes Modell (oder keines) anschlie&szlig;en und zuverl&auml;ssig betreiben kann &mdash; ohne irgendetwas von der Infrastruktur des Kunden zu verlangen.",
+    "note.p2": "Das macht unsere CYB-Agenten <b>ab dem ersten Tag</b> eines Einsatzes nutzbar und l&auml;sst sie <b>skalieren</b>, wenn der Bedarf w&auml;chst.",
+    "recap.eyebrow": "In einem Satz",
+    "recap.title": "Ein CYB-Agent ist&hellip;",
+    "recap.intro": "&hellip;ein m&ouml;glichst autonomes Werkzeug, das man &uuml;berallhin mitnimmt und per Datei teilt.",
+    "recap.li1": "Eine <b>eigenst&auml;ndige HTML-Seite</b>, herunterladbar, die sich in einem Standardbrowser &ouml;ffnet.",
+    "recap.li2": "<b>Unabh&auml;ngig vom LLM</b>: Standard-API-Schl&uuml;ssel, Azure, Kundenmodell oder lokales LLM.",
+    "recap.li3": "<b>Lokal nutzbar</b> ohne Adminrechte: portables Python und lokale Modelle.",
+    "recap.li4": "<b>Deterministisch zuerst</b>: zuverl&auml;ssig, reproduzierbar, funktioniert offline.",
+    "recap.li5": "<b>Kollaborativ</b> per JSON-Export / -Import, ohne Datenbank oder Rechteverwaltung.",
+    "recap.li6": "<b>Pro Einsatz budgetiert</b>: API-Schl&uuml;ssel, Nutzungsrahmen und Verbrauchsverfolgung.",
+    "cta1.title": "Einen API-Schlüssel erstellen",
+    "cta1.desc": "Vorgehen, CDM-Freigabe und Sicherheitsregeln.",
+    "cta2.title": "Ein Playbook w&auml;hlen",
+    "cta2.desc": "Von vollst&auml;ndig online bis zu Wavestone-API-Aufrufen.",
+    "cta3.title": "Unsere Agenten ansehen",
+    "cta3.desc": "CrisisMaker, CyberBenchmark Helper und RadarMapper erkunden.",
+    "footer.src": "Designphilosophie der CYB-Agenten &mdash; Wavestone CYB &middot; AI Maker Initiative",
+    "footer.home": "&#8592; zur&uuml;ck zur Startseite",
+    "__title": "AI Maker @ Wavestone CYB — Designphilosophie der CYB-Agenten"
+  }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/mobile-nav.js"></script>
+
+</body>
+</html>
