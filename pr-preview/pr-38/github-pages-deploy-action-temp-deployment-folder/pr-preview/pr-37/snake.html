@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cyber Academy — Snake Skills Challenge</title>
+<style>
+  :root{
+    --indigo-600:#451DC7; --indigo-700:#36169B; --indigo-800:#2D1380;
+    --indigo-900:#1E0D57; --indigo-950:#150939; --indigo-50:#F1EEFB;
+    --green-400:#04F06A; --green-500:#06D964; --green-700:#088A42;
+    --teal-400:#3E9BA3; --danger:#D8412F; --warning:#C8861A;
+    --ink-900:#16121F; --ink-500:#6B6580; --ink-200:#CFCCDC;
+    --white:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:radial-gradient(1200px 800px at 50% -10%,var(--indigo-800),var(--indigo-950));
+    color:var(--white);
+    min-height:100vh;
+    display:flex;flex-direction:column;align-items:center;
+    padding:24px 16px 48px;
+  }
+  header{text-align:center;margin-bottom:18px;}
+  header .badge{
+    display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--green-400);
+    border:1px solid rgba(4,240,106,.35);border-radius:999px;
+    padding:5px 14px;margin-bottom:12px;
+  }
+  header h1{font-size:30px;font-weight:800;line-height:1.1;}
+  header h1 span{color:var(--green-400);}
+  header p{color:var(--ink-200);margin-top:8px;font-size:15px;max-width:560px;}
+
+  .stage{
+    position:relative;width:min(560px,100%);
+  }
+  .hud{
+    display:flex;justify-content:space-between;align-items:center;
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);
+    border-radius:14px;padding:12px 18px;margin-bottom:14px;
+  }
+  .hud .stat{text-align:center;flex:1;}
+  .hud .stat .label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-200);}
+  .hud .stat .value{font-size:22px;font-weight:800;margin-top:2px;}
+  .hud .stat .value.ok{color:var(--green-400);}
+  .hud .divider{width:1px;align-self:stretch;background:rgba(255,255,255,.12);margin:0 8px;}
+
+  .board-wrap{
+    position:relative;border-radius:18px;overflow:hidden;
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 24px 60px rgba(0,0,0,.45);
+    background:#120a33;
+  }
+  canvas{display:block;width:100%;height:auto;image-rendering:pixelated;background:#120a33;}
+
+  /* Overlays */
+  .overlay{
+    position:absolute;inset:0;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;text-align:center;
+    background:rgba(15,8,45,.92);backdrop-filter:blur(3px);
+    padding:28px;gap:14px;
+  }
+  .overlay.hidden{display:none;}
+  .overlay h2{font-size:26px;font-weight:800;}
+  .overlay h2 .em{color:var(--green-400);}
+  .overlay p{color:var(--ink-200);max-width:420px;line-height:1.5;font-size:15px;}
+
+  .btn{
+    cursor:pointer;border:none;border-radius:12px;
+    font-size:15px;font-weight:700;padding:13px 26px;
+    background:var(--green-500);color:var(--indigo-950);
+    transition:transform .08s ease,filter .15s ease;
+  }
+  .btn:hover{filter:brightness(1.07);}
+  .btn:active{transform:translateY(1px);}
+  .btn.secondary{background:rgba(255,255,255,.12);color:var(--white);}
+
+  /* Question modal */
+  .question .cat{
+    font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--green-400);border:1px solid rgba(4,240,106,.35);
+    border-radius:999px;padding:4px 12px;
+  }
+  .question .qnum{color:var(--ink-200);font-size:13px;}
+  .question h3{font-size:20px;font-weight:700;line-height:1.35;max-width:460px;}
+  .answers{display:flex;flex-direction:column;gap:10px;width:100%;max-width:460px;margin-top:4px;}
+  .answer{
+    cursor:pointer;text-align:left;width:100%;
+    background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+    color:var(--white);border-radius:12px;padding:14px 16px;font-size:15px;
+    line-height:1.4;transition:background .12s ease,border-color .12s ease,transform .08s ease;
+  }
+  .answer:hover:not(:disabled){background:rgba(255,255,255,.13);border-color:rgba(255,255,255,.3);}
+  .answer:active:not(:disabled){transform:translateY(1px);}
+  .answer.correct{background:rgba(6,217,100,.22);border-color:var(--green-400);}
+  .answer.wrong{background:rgba(216,65,47,.22);border-color:var(--danger);}
+  .answer:disabled{cursor:default;opacity:.92;}
+  .feedback{font-size:14px;min-height:20px;color:var(--ink-200);max-width:460px;}
+  .feedback.good{color:var(--green-400);}
+  .feedback.bad{color:#ff9a8f;}
+
+  /* Results */
+  .score-ring{
+    font-size:46px;font-weight:800;
+    width:140px;height:140px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    border:6px solid var(--green-400);margin-bottom:6px;
+  }
+  .score-ring.fail{border-color:var(--warning);}
+  .verdict{font-size:24px;font-weight:800;}
+  .verdict.pass{color:var(--green-400);}
+  .verdict.fail{color:var(--warning);}
+
+  .controls-hint{color:var(--ink-200);font-size:13px;margin-top:16px;text-align:center;}
+  .controls-hint kbd{
+    background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+    border-radius:5px;padding:1px 7px;font-family:inherit;font-size:12px;font-weight:600;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="badge">Cyber Academy · Skills Validation</div>
+    <h1>Snake <span>Skills</span> Challenge</h1>
+    <p>Steer the snake to capture data blocks. Each block triggers a cybersecurity
+       question. Answer <strong>10 questions</strong> across IAM, GRC, SOC and AI Security.</p>
+  </header>
+
+  <div class="stage">
+    <div class="hud">
+      <div class="stat"><div class="label">Questions</div><div class="value" id="hud-progress">0 / 10</div></div>
+      <div class="divider"></div>
+      <div class="stat"><div class="label">Correct</div><div class="value ok" id="hud-correct">0</div></div>
+      <div class="divider"></div>
+      <div class="stat"><div class="label">Length</div><div class="value" id="hud-length">3</div></div>
+    </div>
+
+    <div class="board-wrap">
+      <canvas id="board" width="560" height="560"></canvas>
+
+      <!-- Start -->
+      <div class="overlay" id="overlay-start">
+        <h2>Ready to validate your skills?</h2>
+        <p>Use the <strong>arrow keys</strong> or <strong>WASD</strong> to move.
+           Avoid the walls and your own tail. Eat 10 data blocks to complete the challenge.</p>
+        <button class="btn" id="btn-start">Start challenge</button>
+      </div>
+
+      <!-- Question -->
+      <div class="overlay hidden question" id="overlay-question">
+        <span class="cat" id="q-cat">IAM</span>
+        <div class="qnum" id="q-num">Question 1 of 10</div>
+        <h3 id="q-text"></h3>
+        <div class="answers" id="q-answers"></div>
+        <div class="feedback" id="q-feedback"></div>
+      </div>
+
+      <!-- Game over (died early) -->
+      <div class="overlay hidden" id="overlay-over">
+        <h2>Game Over</h2>
+        <p id="over-text"></p>
+        <button class="btn" id="btn-retry-over">Try again</button>
+      </div>
+
+      <!-- Results -->
+      <div class="overlay hidden" id="overlay-results">
+        <div class="score-ring" id="result-ring">0/10</div>
+        <div class="verdict" id="result-verdict"></div>
+        <p id="result-text"></p>
+        <button class="btn" id="btn-restart">Play again</button>
+      </div>
+    </div>
+
+    <div class="controls-hint">
+      Controls: <kbd>↑</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> or <kbd>W</kbd> <kbd>A</kbd> <kbd>S</kbd> <kbd>D</kbd>
+    </div>
+  </div>
+
+<script>
+/* ============================================================
+   QUESTION BANK — 30 questions across IAM / GRC / SOC / AI Security
+   Each question: one clearly wrong, one almost right, one correct.
+   ============================================================ */
+const QUESTION_BANK = [
+  // ---------- IAM ----------
+  { cat:"IAM", q:"What does the principle of least privilege state?",
+    options:[
+      { t:"Give every user administrator rights so no one is ever blocked.", kind:"wrong" },
+      { t:"Grant broad access by default, then remove unused permissions later.", kind:"almost" },
+      { t:"Grant users only the minimum access rights needed to do their job.", kind:"correct" } ] },
+
+  { cat:"IAM", q:"Multi-factor authentication (MFA) requires…",
+    options:[
+      { t:"A single, longer and more complex password.", kind:"wrong" },
+      { t:"Two passwords entered one after another for extra security.", kind:"almost" },
+      { t:"At least two factors of different types (know / have / are).", kind:"correct" } ] },
+
+  { cat:"IAM", q:"In Role-Based Access Control (RBAC), permissions are assigned to…",
+    options:[
+      { t:"The firewall, which then allows or blocks each individual user.", kind:"wrong" },
+      { t:"Individual users directly, then grouped into roles for reporting.", kind:"almost" },
+      { t:"Roles, and users inherit permissions by being assigned to roles.", kind:"correct" } ] },
+
+  { cat:"IAM", q:"What is the primary purpose of Privileged Access Management (PAM)?",
+    options:[
+      { t:"Speed up the corporate VPN for remote workers.", kind:"wrong" },
+      { t:"Force all employees to rotate their passwords every 30 days.", kind:"almost" },
+      { t:"Control, monitor and secure accounts with elevated privileges.", kind:"correct" } ] },
+
+  { cat:"IAM", q:"What does Single Sign-On (SSO) provide?",
+    options:[
+      { t:"Automatic account lockout after a single failed login.", kind:"wrong" },
+      { t:"One shared password used by the whole team across all apps.", kind:"almost" },
+      { t:"One authentication to reach many apps via a trusted identity provider.", kind:"correct" } ] },
+
+  { cat:"IAM", q:"In the Joiner-Mover-Leaver lifecycle, the 'Leaver' step should…",
+    options:[
+      { t:"Archive the employee's chair and laptop in storage.", kind:"wrong" },
+      { t:"Disable email but keep other access for a few months, just in case.", kind:"almost" },
+      { t:"Promptly revoke all access when the person leaves the organization.", kind:"correct" } ] },
+
+  { cat:"IAM", q:"What is the goal of an access recertification (review) campaign?",
+    options:[
+      { t:"Increase internet bandwidth for the audit team.", kind:"wrong" },
+      { t:"Reset everyone's permissions to default once per year automatically.", kind:"almost" },
+      { t:"Periodically confirm users still need the access rights they hold.", kind:"correct" } ] },
+
+  // ---------- GRC ----------
+  { cat:"GRC", q:"In risk management, risk is most commonly expressed as a function of…",
+    options:[
+      { t:"The amount of money spent on security tools.", kind:"wrong" },
+      { t:"The total number of vulnerabilities found in a scan.", kind:"almost" },
+      { t:"The likelihood of a threat occurring and its potential impact.", kind:"correct" } ] },
+
+  { cat:"GRC", q:"ISO/IEC 27001 is a standard for…",
+    options:[
+      { t:"The physical dimensions of standard server racks.", kind:"wrong" },
+      { t:"An approved checklist of antivirus products for enterprises.", kind:"almost" },
+      { t:"Establishing and maintaining an Information Security Management System.", kind:"correct" } ] },
+
+  { cat:"GRC", q:"'Transferring' a risk typically means…",
+    options:[
+      { t:"Deleting the risk from the register so it disappears.", kind:"wrong" },
+      { t:"Moving the risky system to another internal department.", kind:"almost" },
+      { t:"Shifting the financial impact to a third party, e.g. via insurance.", kind:"correct" } ] },
+
+  { cat:"GRC", q:"Under the GDPR, a personal data breach must generally be notified to the supervisory authority within…",
+    options:[
+      { t:"Only if the company decides the breach is newsworthy.", kind:"wrong" },
+      { t:"30 days, the same deadline as a data subject access request.", kind:"almost" },
+      { t:"72 hours of the organization becoming aware of it.", kind:"correct" } ] },
+
+  { cat:"GRC", q:"In the 'Three Lines of Defense' model, internal audit is…",
+    options:[
+      { t:"The marketing team that runs the awareness posters.", kind:"wrong" },
+      { t:"The second line, owning day-to-day risk management.", kind:"almost" },
+      { t:"The third line, providing independent assurance.", kind:"correct" } ] },
+
+  { cat:"GRC", q:"What does 'risk appetite' refer to?",
+    options:[
+      { t:"How hungry board members are during long meetings.", kind:"wrong" },
+      { t:"The complete list of all risks logged in the risk register.", kind:"almost" },
+      { t:"The amount and type of risk an organization is willing to accept.", kind:"correct" } ] },
+
+  { cat:"GRC", q:"A Business Impact Analysis (BIA) primarily helps to…",
+    options:[
+      { t:"Design the company logo for marketing campaigns.", kind:"wrong" },
+      { t:"List every piece of hardware the company owns.", kind:"almost" },
+      { t:"Identify critical processes and the impact of their disruption over time.", kind:"correct" } ] },
+
+  // ---------- SOC ----------
+  { cat:"SOC", q:"What does a SIEM platform primarily do?",
+    options:[
+      { t:"Manage the company's payroll and HR records.", kind:"wrong" },
+      { t:"Store backups of all employee files for recovery.", kind:"almost" },
+      { t:"Collect, correlate and analyze logs/events to detect incidents.", kind:"correct" } ] },
+
+  { cat:"SOC", q:"In a SOC, the MTTR metric measures…",
+    options:[
+      { t:"The maximum temperature tolerated by the server room.", kind:"wrong" },
+      { t:"The mean time the team spends in daily stand-up meetings.", kind:"almost" },
+      { t:"The mean time to respond to (or resolve) an incident.", kind:"correct" } ] },
+
+  { cat:"SOC", q:"SOAR tooling is mainly used to…",
+    options:[
+      { t:"Render 3D models of the data center floor plan.", kind:"wrong" },
+      { t:"Store raw network packets for long-term archival.", kind:"almost" },
+      { t:"Automate and orchestrate repetitive incident-response workflows.", kind:"correct" } ] },
+
+  { cat:"SOC", q:"A 'false positive' alert is…",
+    options:[
+      { t:"An alert that was emailed to the wrong recipient by mistake.", kind:"wrong" },
+      { t:"A real attack that the SIEM completely failed to detect.", kind:"almost" },
+      { t:"An alert that flags benign activity as if it were malicious.", kind:"correct" } ] },
+
+  { cat:"SOC", q:"Endpoint Detection and Response (EDR) focuses on…",
+    options:[
+      { t:"Managing employee vacation and leave requests.", kind:"wrong" },
+      { t:"Filtering spam email at the mail gateway.", kind:"almost" },
+      { t:"Detecting and responding to threats on endpoints like laptops/servers.", kind:"correct" } ] },
+
+  { cat:"SOC", q:"Which sequence reflects the NIST incident-response lifecycle?",
+    options:[
+      { t:"Marketing → Sales → Support → Billing.", kind:"wrong" },
+      { t:"Detection → Preparation → Recovery → Containment.", kind:"almost" },
+      { t:"Preparation → Detection & Analysis → Containment/Eradication/Recovery → Post-incident.", kind:"correct" } ] },
+
+  { cat:"SOC", q:"Threat hunting is best described as…",
+    options:[
+      { t:"Hunting for the cheapest price on security software licenses.", kind:"wrong" },
+      { t:"Waiting for SIEM alerts and then investigating each one.", kind:"almost" },
+      { t:"Proactively searching for hidden threats not caught by existing alerts.", kind:"correct" } ] },
+
+  { cat:"SOC", q:"A SOC 'detection use case' is…",
+    options:[
+      { t:"A padded case for carrying analysts' laptops safely.", kind:"wrong" },
+      { t:"A business justification document for buying a new firewall.", kind:"almost" },
+      { t:"A defined scenario and logic used to identify specific malicious activity.", kind:"correct" } ] },
+
+  // ---------- AI Security ----------
+  { cat:"AI Security", q:"Prompt injection is an attack where…",
+    options:[
+      { t:"A needle is physically injected into the GPU hardware.", kind:"wrong" },
+      { t:"An attacker floods the model with requests to slow it down.", kind:"almost" },
+      { t:"Crafted input manipulates an LLM into ignoring its instructions or guardrails.", kind:"correct" } ] },
+
+  { cat:"AI Security", q:"Data poisoning attacks an AI model by…",
+    options:[
+      { t:"Spilling coffee on the data scientist's keyboard.", kind:"wrong" },
+      { t:"Sending malicious prompts to the model after it is deployed.", kind:"almost" },
+      { t:"Corrupting the training data to alter the model's learned behavior.", kind:"correct" } ] },
+
+  { cat:"AI Security", q:"A membership inference attack tries to determine…",
+    options:[
+      { t:"The monthly subscription price of the AI vendor.", kind:"wrong" },
+      { t:"Which cloud provider is hosting the model.", kind:"almost" },
+      { t:"Whether a specific record was part of the model's training data.", kind:"correct" } ] },
+
+  { cat:"AI Security", q:"An LLM 'hallucination' is…",
+    options:[
+      { t:"A visual glitch displayed on the user's monitor.", kind:"wrong" },
+      { t:"The model refusing to answer a sensitive question.", kind:"almost" },
+      { t:"Confident output that is factually incorrect or fabricated.", kind:"correct" } ] },
+
+  { cat:"AI Security", q:"The OWASP Top 10 for LLM Applications is…",
+    options:[
+      { t:"A leaderboard ranking the top 10 AI startups by revenue.", kind:"wrong" },
+      { t:"A ranking of the ten fastest large language models.", kind:"almost" },
+      { t:"A list of the most critical security risks for LLM-based applications.", kind:"correct" } ] },
+
+  { cat:"AI Security", q:"Adversarial examples are inputs that…",
+    options:[
+      { t:"Are examples written by the company's legal adversaries.", kind:"wrong" },
+      { t:"Are simply huge inputs that exceed the model's context window.", kind:"almost" },
+      { t:"Are subtly perturbed to make the model produce wrong predictions.", kind:"correct" } ] },
+
+  { cat:"AI Security", q:"AI 'guardrails' are mechanisms that…",
+    options:[
+      { t:"Physical rails installed around the server racks.", kind:"wrong" },
+      { t:"Encrypt the model weights while they are stored at rest.", kind:"almost" },
+      { t:"Constrain and filter model inputs/outputs to keep behavior safe and compliant.", kind:"correct" } ] },
+
+  { cat:"AI Security", q:"'Shadow AI' refers to…",
+    options:[
+      { t:"The shadow rendered behind an AI assistant's 3D avatar.", kind:"wrong" },
+      { t:"AI models that only run during overnight batch jobs.", kind:"almost" },
+      { t:"Use of AI tools by employees without organizational approval or oversight.", kind:"correct" } ] },
+];
+
+/* ============================================================
+   GAME CONFIG
+   ============================================================ */
+const TOTAL_QUESTIONS = 10;
+const PASS_THRESHOLD = 8;          // "above 8/10" => 9 or 10
+const GRID = 20;                   // cells per side
+const CELL = 28;                   // px per cell (canvas 560)
+const TICK_MS = 130;               // snake speed
+
+const canvas = document.getElementById('board');
+const ctx = canvas.getContext('2d');
+
+let snake, dir, nextDir, food, loopId;
+let quizQuestions, qIndex, correctCount;
+let state = 'start'; // start | running | question | over | results
+
+/* ---------- utilities ---------- */
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function placeFood(){
+  let p;
+  do {
+    p = { x:Math.floor(Math.random()*GRID), y:Math.floor(Math.random()*GRID) };
+  } while (snake.some(s => s.x===p.x && s.y===p.y));
+  food = p;
+}
+
+/* ---------- HUD ---------- */
+function updateHud(){
+  document.getElementById('hud-progress').textContent = qIndex + " / " + TOTAL_QUESTIONS;
+  document.getElementById('hud-correct').textContent = correctCount;
+  document.getElementById('hud-length').textContent = snake.length;
+}
+
+/* ---------- overlays ---------- */
+function showOverlay(id){
+  ['overlay-start','overlay-question','overlay-over','overlay-results']
+    .forEach(o => document.getElementById(o).classList.toggle('hidden', o !== id));
+}
+function hideOverlays(){
+  ['overlay-start','overlay-question','overlay-over','overlay-results']
+    .forEach(o => document.getElementById(o).classList.add('hidden'));
+}
+
+/* ============================================================
+   GAME FLOW
+   ============================================================ */
+function startGame(){
+  snake = [ {x:8,y:10}, {x:7,y:10}, {x:6,y:10} ];
+  dir = {x:1,y:0};
+  nextDir = {x:1,y:0};
+  quizQuestions = shuffle(QUESTION_BANK).slice(0, TOTAL_QUESTIONS)
+                    .map(q => ({ ...q, options: shuffle(q.options) }));
+  qIndex = 0;
+  correctCount = 0;
+  placeFood();
+  updateHud();
+  hideOverlays();
+  state = 'running';
+  draw();
+  startLoop();
+}
+
+function startLoop(){
+  clearInterval(loopId);
+  loopId = setInterval(tick, TICK_MS);
+}
+function stopLoop(){ clearInterval(loopId); }
+
+function tick(){
+  if(state !== 'running') return;
+  dir = nextDir;
+  const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+
+  // wall or self collision
+  if(head.x<0 || head.y<0 || head.x>=GRID || head.y>=GRID ||
+     snake.some(s => s.x===head.x && s.y===head.y)){
+    return gameOver();
+  }
+
+  snake.unshift(head);
+
+  if(head.x===food.x && head.y===food.y){
+    // eat -> ask a question (snake keeps the new segment = grows)
+    updateHud();
+    draw();
+    askQuestion();
+  } else {
+    snake.pop();
+    draw();
+  }
+}
+
+function askQuestion(){
+  state = 'question';
+  stopLoop();
+  const item = quizQuestions[qIndex];
+
+  document.getElementById('q-cat').textContent = item.cat;
+  document.getElementById('q-num').textContent = "Question " + (qIndex+1) + " of " + TOTAL_QUESTIONS;
+  document.getElementById('q-text').textContent = item.q;
+  const fb = document.getElementById('q-feedback');
+  fb.textContent = ""; fb.className = "feedback";
+
+  const wrap = document.getElementById('q-answers');
+  wrap.innerHTML = "";
+  item.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'answer';
+    btn.textContent = opt.t;
+    btn.addEventListener('click', () => answer(opt, btn, item));
+    wrap.appendChild(btn);
+  });
+
+  showOverlay('overlay-question');
+}
+
+function answer(opt, btn, item){
+  const buttons = document.querySelectorAll('#q-answers .answer');
+  buttons.forEach(b => b.disabled = true);
+
+  const isCorrect = opt.kind === 'correct';
+  if(isCorrect) correctCount++;
+
+  // highlight chosen + reveal the correct one
+  btn.classList.add(isCorrect ? 'correct' : 'wrong');
+  buttons.forEach((b,i) => {
+    if(item.options[i].kind === 'correct') b.classList.add('correct');
+  });
+
+  const fb = document.getElementById('q-feedback');
+  if(isCorrect){
+    fb.textContent = "Correct — well played.";
+    fb.className = "feedback good";
+  } else if(opt.kind === 'almost'){
+    fb.textContent = "So close — that answer is only partially right.";
+    fb.className = "feedback bad";
+  } else {
+    fb.textContent = "Not quite. The correct answer is highlighted in green.";
+    fb.className = "feedback bad";
+  }
+
+  updateHud();
+  qIndex++;
+
+  setTimeout(() => {
+    if(qIndex >= TOTAL_QUESTIONS){
+      finish();
+    } else {
+      placeFood();
+      hideOverlays();
+      state = 'running';
+      draw();
+      startLoop();
+    }
+  }, 1300);
+}
+
+function gameOver(){
+  state = 'over';
+  stopLoop();
+  document.getElementById('over-text').textContent =
+    "The snake crashed after " + qIndex + " of " + TOTAL_QUESTIONS +
+    " questions (" + correctCount + " correct so far). " +
+    "You need to complete all 10 to validate your skills — give it another go!";
+  showOverlay('overlay-over');
+}
+
+function finish(){
+  state = 'results';
+  stopLoop();
+  const passed = correctCount > PASS_THRESHOLD; // strictly above 8 => 9 or 10
+
+  const ring = document.getElementById('result-ring');
+  ring.textContent = correctCount + "/" + TOTAL_QUESTIONS;
+  ring.classList.toggle('fail', !passed);
+
+  const verdict = document.getElementById('result-verdict');
+  verdict.textContent = passed ? "✓ Skills validated" : "Keep training";
+  verdict.className = "verdict " + (passed ? "pass" : "fail");
+
+  document.getElementById('result-text').textContent = passed
+    ? "Outstanding — you scored above 8/10 across IAM, GRC, SOC and AI Security. Module complete!"
+    : "You scored " + correctCount + "/10. You need more than 8 correct to validate. Review the module and try again.";
+
+  showOverlay('overlay-results');
+}
+
+/* ============================================================
+   RENDERING
+   ============================================================ */
+function draw(){
+  // background grid
+  ctx.fillStyle = '#120a33';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.strokeStyle = 'rgba(255,255,255,0.04)';
+  ctx.lineWidth = 1;
+  for(let i=1;i<GRID;i++){
+    ctx.beginPath(); ctx.moveTo(i*CELL,0); ctx.lineTo(i*CELL,canvas.height); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0,i*CELL); ctx.lineTo(canvas.width,i*CELL); ctx.stroke();
+  }
+
+  // food (data block)
+  const fx = food.x*CELL, fy = food.y*CELL;
+  ctx.fillStyle = '#04F06A';
+  roundRect(fx+5, fy+5, CELL-10, CELL-10, 5);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(18,10,51,0.65)';
+  ctx.font = 'bold 13px monospace';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('01', fx+CELL/2, fy+CELL/2+1);
+
+  // snake
+  snake.forEach((s,i) => {
+    const x = s.x*CELL, y = s.y*CELL;
+    if(i===0){
+      ctx.fillStyle = '#06D964';
+    } else {
+      ctx.fillStyle = i % 2 ? '#5A2BE0' : '#6C5CE0';
+    }
+    roundRect(x+2, y+2, CELL-4, CELL-4, 6);
+    ctx.fill();
+  });
+
+  // eyes on head
+  const h = snake[0];
+  ctx.fillStyle = '#150939';
+  const hx = h.x*CELL, hy = h.y*CELL;
+  const ex = dir.x, ey = dir.y;
+  // simple two-dot eyes offset by direction of travel
+  const off = 5;
+  const eyes = [];
+  if(ey===0){ eyes.push({x:hx+CELL/2+ex*4, y:hy+CELL/2-off}); eyes.push({x:hx+CELL/2+ex*4, y:hy+CELL/2+off}); }
+  else      { eyes.push({x:hx+CELL/2-off, y:hy+CELL/2+ey*4}); eyes.push({x:hx+CELL/2+off, y:hy+CELL/2+ey*4}); }
+  eyes.forEach(p => { ctx.beginPath(); ctx.arc(p.x,p.y,2.6,0,Math.PI*2); ctx.fill(); });
+}
+
+function roundRect(x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r);
+  ctx.arcTo(x,y,x+w,y,r);
+  ctx.closePath();
+}
+
+/* ============================================================
+   INPUT
+   ============================================================ */
+const KEYMAP = {
+  ArrowUp:{x:0,y:-1}, ArrowDown:{x:0,y:1}, ArrowLeft:{x:-1,y:0}, ArrowRight:{x:1,y:0},
+  w:{x:0,y:-1}, s:{x:0,y:1}, a:{x:-1,y:0}, d:{x:1,y:0},
+  W:{x:0,y:-1}, S:{x:0,y:1}, A:{x:-1,y:0}, D:{x:1,y:0}
+};
+document.addEventListener('keydown', (e) => {
+  const nd = KEYMAP[e.key];
+  if(!nd) return;
+  if(state === 'running') e.preventDefault();
+  if(state !== 'running') return;
+  // disallow 180° reversal
+  if(nd.x === -dir.x && nd.y === -dir.y) return;
+  nextDir = nd;
+});
+
+/* buttons */
+document.getElementById('btn-start').addEventListener('click', startGame);
+document.getElementById('btn-restart').addEventListener('click', startGame);
+document.getElementById('btn-retry-over').addEventListener('click', startGame);
+
+/* initial paint */
+snake = [ {x:8,y:10}, {x:7,y:10}, {x:6,y:10} ];
+dir = {x:1,y:0};
+food = {x:13,y:10};
+draw();
+</script>
+</body>
+</html>
