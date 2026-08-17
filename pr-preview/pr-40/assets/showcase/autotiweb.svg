@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Auto-TI-Web animated usage preview</title>
+  <desc id="desc">Animated local app mockup showing a deterministic black-box web-application penetration test and AI-assisted output analysis.</desc>
+  <style>
+    text{font-family:Inter,Arial,sans-serif;letter-spacing:0}
+    .bg{fill:url(#bg)}
+    .shell{fill:#fff;stroke:#d7e7ef;stroke-width:2}
+    .nav{fill:url(#nav)}
+    .navText{font-size:13px;font-weight:850;fill:#fff}
+    .subNav{font-size:10px;font-weight:850;fill:#d6f5ef}
+    .panel{fill:#fff;stroke:#e3eef3;stroke-width:2;filter:url(#shadow)}
+    .soft{fill:#f7fbfe;stroke:#d9e8ee;stroke-width:2}
+    .title{font-size:22px;font-weight:850;fill:#112b43}
+    .muted{font-size:12px;font-weight:700;fill:#64788b}
+    .tiny{font-size:11px;font-weight:800;fill:#64788b}
+    .good{fill:#2ed39b}
+    .todo{fill:#f0c84b}
+    .gap{fill:#ea7e26}
+    .critical{fill:#e2476a}
+    .btn{fill:#451dc7}
+    .btnText{font-size:13px;font-weight:850;fill:#fff}
+    .mono{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+
+    #tests>g>.ai{opacity:0;animation:popIn 8s ease-in-out infinite}
+    #tests>g:nth-child(1)>.ai{animation-delay:.2s}
+    #tests>g:nth-child(2)>.ai{animation-delay:.5s}
+    #tests>g:nth-child(3)>.ai{animation-delay:.8s}
+    #caret{animation:blink 1s step-end infinite}
+    #log>text{opacity:0;animation:logIn 8s linear infinite}
+    #log>text:nth-child(1){animation-delay:.3s}
+    #log>text:nth-child(2){animation-delay:.7s}
+    #log>text:nth-child(3){animation-delay:1.1s}
+    #log>text:nth-child(4){animation-delay:1.5s}
+    #log>text:nth-child(5){animation-delay:1.9s}
+    #log>text:nth-child(6){animation-delay:2.3s}
+    #log>text:nth-child(7){animation-delay:2.7s}
+    #log>text:nth-child(8){animation-delay:3.1s}
+    #findings>g>.ai{opacity:0;animation:findIn 8s ease-in-out infinite}
+    #findings>g:nth-child(1)>.ai{animation-delay:3.7s}
+    #findings>g:nth-child(2)>.ai{animation-delay:4s}
+    #findings>g:nth-child(3)>.ai{animation-delay:4.3s}
+    .dot{animation:pulse 2s ease-in-out infinite}
+    #btnRun{animation:tap 8s ease-in-out infinite}
+
+    @keyframes popIn{0%{opacity:0;transform:translateY(6px)}10%,90%{opacity:1;transform:translateY(0)}100%{opacity:1;transform:translateY(0)}}
+    @keyframes logIn{0%{opacity:0;transform:translateX(-8px)}6%,94%{opacity:1;transform:translateX(0)}100%{opacity:1;transform:translateX(0)}}
+    @keyframes findIn{0%{opacity:0;transform:translateY(10px)}8%,92%{opacity:1;transform:translateY(0)}100%{opacity:1;transform:translateY(0)}}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+    @keyframes blink{0%,55%{opacity:1}56%,100%{opacity:0}}
+    @keyframes tap{0%,46%,100%{transform:translateY(0)}50%{transform:translateY(2px)}54%{transform:translateY(0)}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;opacity:1!important;transform:none!important}}
+  </style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="540"><stop stop-color="#d8ecef"/><stop offset=".55" stop-color="#eaf5f5"/><stop offset="1" stop-color="#f8fbff"/></linearGradient>
+    <linearGradient id="nav" x1="54" y1="42" x2="906" y2="42"><stop stop-color="#451dc7"/><stop offset=".58" stop-color="#5a2be0"/><stop offset="1" stop-color="#228d95"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="10" stdDeviation="13" flood-color="#0e4153" flood-opacity=".14"/></filter>
+  </defs>
+  <rect class="bg" width="960" height="540"/>
+  <rect class="shell" x="54" y="42" width="852" height="456"/>
+  <rect class="nav" x="54" y="42" width="852" height="62"/>
+  <text x="84" y="70" class="navText">Auto-TI-Web</text>
+  <text x="84" y="88" class="subNav">BLACK-BOX WEB PENTEST</text>
+
+  <rect class="panel" x="86" y="132" width="262" height="324"/>
+  <text x="112" y="166" class="title">Target</text>
+  <text x="112" y="190" class="muted">Black-box scope</text>
+  <g transform="translate(112 214)">
+    <rect width="210" height="34" class="soft"/>
+    <text x="14" y="22" class="muted mono">https://app.client.io</text>
+  </g>
+  <text x="112" y="284" class="title" style="font-size:15px">Deterministic tests</text>
+  <g id="tests" transform="translate(112 300)">
+    <g transform="translate(0 0)"><g class="ai"><circle cx="10" cy="10" r="8" class="good"/><text x="30" y="15" class="muted">Auth &amp; session</text></g></g>
+    <g transform="translate(0 34)"><g class="ai"><circle cx="10" cy="10" r="8" class="good"/><text x="30" y="15" class="muted">Network exposition</text></g></g>
+    <g transform="translate(0 68)"><g class="ai"><circle cx="10" cy="10" r="8" class="todo"/><text x="30" y="15" class="muted">Access control</text></g></g>
+  </g>
+  <g id="btnRun">
+    <rect x="112" y="408" width="172" height="34" class="btn"/>
+    <text x="138" y="430" class="btnText">Run pentest</text>
+  </g>
+
+  <rect class="panel" x="382" y="132" width="238" height="324"/>
+  <text x="408" y="166" class="title">Raw output</text>
+  <text x="408" y="190" class="muted">Tool logs</text>
+  <g transform="translate(408 212)">
+    <rect width="190" height="216" fill="#16121f"/>
+    <g id="log">
+      <text x="14" y="30" font-size="11" font-weight="800" fill="#d8f7e5" class="mono">[*] crawling routes</text>
+      <text x="14" y="54" font-size="11" font-weight="800" fill="#bfc5d4" class="mono">200 /login</text>
+      <text x="14" y="78" font-size="11" font-weight="800" fill="#bfc5d4" class="mono">302 /admin</text>
+      <text x="14" y="102" font-size="11" font-weight="800" fill="#f0c84b" class="mono">[!] verbose error</text>
+      <text x="14" y="126" font-size="11" font-weight="800" fill="#bfc5d4" class="mono">payload set 7/9</text>
+      <text x="14" y="150" font-size="11" font-weight="800" fill="#ff8aa3" class="mono">[!] reflected input</text>
+      <text x="14" y="174" font-size="11" font-weight="800" fill="#bfc5d4" class="mono">tls grade A</text>
+      <text x="14" y="198" font-size="11" font-weight="800" fill="#d8f7e5" class="mono">done in 42s</text>
+    </g>
+    <rect id="caret" x="14" y="190" width="8" height="13" fill="#04f06a"/>
+  </g>
+
+  <rect class="panel" x="654" y="132" width="220" height="324"/>
+  <text x="680" y="166" class="title">AI analysis</text>
+  <text x="680" y="190" class="muted">Triaged findings</text>
+  <g id="findings" transform="translate(680 222)">
+    <g transform="translate(0 0)"><g class="ai"><rect width="168" height="44" fill="#fdecef" stroke="#f3b9c6" stroke-width="2"/><circle class="dot" cx="24" cy="22" r="8" fill="#e2476a"/><text x="44" y="27" class="muted">Service exposition</text></g></g>
+    <g transform="translate(0 58)"><g class="ai"><rect width="168" height="44" fill="#fff0e7" stroke="#f0c1a0" stroke-width="2"/><circle class="dot" cx="24" cy="22" r="8" fill="#ea7e26"/><text x="44" y="27" class="muted">Broken access</text></g></g>
+    <g transform="translate(0 116)"><g class="ai"><rect width="168" height="44" fill="#fff7dd" stroke="#f1df9c" stroke-width="2"/><circle class="dot" cx="24" cy="22" r="8" fill="#f0c84b"/><text x="44" y="27" class="muted">Info disclosure</text></g></g>
+  </g>
+  <rect x="680" y="406" width="148" height="34" fill="#0f8794"/>
+  <text x="704" y="428" class="btnText">Export report</text>
+</svg>

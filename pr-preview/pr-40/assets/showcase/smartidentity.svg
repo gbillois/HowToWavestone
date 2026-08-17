@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Smart Identity Analyzer animated usage preview</title>
+  <desc id="desc">Animated local app mockup showing identity files analysis, proposed transformation rules and detected inconsistencies.</desc>
+  <style>
+    text{font-family:Inter,Arial,sans-serif;letter-spacing:0}
+    .bg{fill:url(#bg)}
+    .shell{fill:#fff;stroke:#d7e7ef;stroke-width:2}
+    .nav{fill:url(#nav)}
+    .navText{font-size:13px;font-weight:850;fill:#fff}
+    .subNav{font-size:10px;font-weight:850;fill:#d6f5ef}
+    .panel{fill:#fff;stroke:#e3eef3;stroke-width:2;filter:url(#shadow)}
+    .soft{fill:#f7fbfe;stroke:#d9e8ee;stroke-width:2}
+    .title{font-size:22px;font-weight:850;fill:#112b43}
+    .muted{font-size:12px;font-weight:700;fill:#64788b}
+    .tiny{font-size:11px;font-weight:800;fill:#64788b}
+    .pill{fill:#eef4ff;stroke:#d8e1ff;stroke-width:2}
+    .pillText{font-size:11px;font-weight:850;fill:#451dc7}
+    .good{fill:#2ed39b}
+    .todo{fill:#f0c84b}
+    .gap{fill:#ea7e26}
+    .btn{fill:#451dc7}
+    .btnText{font-size:13px;font-weight:850;fill:#fff}
+
+    #scan{animation:scan 8s ease-in-out infinite}
+    #fileRows>g>.ai{opacity:0;animation:rowIn 8s ease-in-out infinite}
+    #fileRows>g:nth-child(1)>.ai{animation-delay:.1s}
+    #fileRows>g:nth-child(2)>.ai{animation-delay:.3s}
+    #fileRows>g:nth-child(3)>.ai{animation-delay:.5s}
+    #fileRows>g:nth-child(4)>.ai{animation-delay:.7s}
+    #rules>g>.ai{opacity:0;animation:popIn 8s ease-in-out infinite}
+    #rules>g:nth-child(1)>.ai{animation-delay:1.7s}
+    #rules>g:nth-child(2)>.ai{animation-delay:1.95s}
+    #rules>g:nth-child(3)>.ai{animation-delay:2.2s}
+    #rules>g:nth-child(4)>.ai{animation-delay:2.45s}
+    #issues>g>.ai{opacity:0;animation:slideIn 8s ease-in-out infinite}
+    #issues>g:nth-child(1)>.ai{animation-delay:3.1s}
+    #issues>g:nth-child(2)>.ai{animation-delay:3.35s}
+    #issues>g:nth-child(3)>.ai{animation-delay:3.6s}
+    .dot{animation:pulse 2.2s ease-in-out infinite}
+    #btnAnalyze{animation:tap 8s ease-in-out infinite}
+
+    @keyframes scan{0%{transform:translateY(0);opacity:0}6%{opacity:.85}40%{transform:translateY(150px);opacity:.85}48%,100%{transform:translateY(150px);opacity:0}}
+    @keyframes rowIn{0%{opacity:0;transform:translateX(-12px)}10%,92%{opacity:1;transform:translateX(0)}100%{opacity:1;transform:translateX(0)}}
+    @keyframes popIn{0%{opacity:0;transform:translateY(8px)}8%,92%{opacity:1;transform:translateY(0)}100%{opacity:1;transform:translateY(0)}}
+    @keyframes slideIn{0%{opacity:0;transform:translateX(14px)}9%,92%{opacity:1;transform:translateX(0)}100%{opacity:1;transform:translateX(0)}}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.45}}
+    @keyframes tap{0%,46%,100%{transform:translateY(0)}50%{transform:translateY(2px)}54%{transform:translateY(0)}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;opacity:1!important;transform:none!important}}
+  </style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="540"><stop stop-color="#d8ecef"/><stop offset=".55" stop-color="#eaf5f5"/><stop offset="1" stop-color="#f8fbff"/></linearGradient>
+    <linearGradient id="nav" x1="54" y1="42" x2="906" y2="42"><stop stop-color="#451dc7"/><stop offset=".58" stop-color="#5a2be0"/><stop offset="1" stop-color="#228d95"/></linearGradient>
+    <linearGradient id="scanGrad" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#04f06a" stop-opacity="0"/><stop offset=".5" stop-color="#04f06a" stop-opacity=".55"/><stop offset="1" stop-color="#04f06a" stop-opacity="0"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="10" stdDeviation="13" flood-color="#0e4153" flood-opacity=".14"/></filter>
+  </defs>
+  <rect class="bg" width="960" height="540"/>
+  <rect class="shell" x="54" y="42" width="852" height="456"/>
+  <rect class="nav" x="54" y="42" width="852" height="62"/>
+  <text x="84" y="70" class="navText">Smart Identity Analyzer</text>
+  <text x="84" y="88" class="subNav">LOCAL IAM TOOL</text>
+
+  <rect class="panel" x="86" y="132" width="262" height="324"/>
+  <text x="112" y="166" class="title">Identity files</text>
+  <text x="112" y="190" class="muted">Imported HR &amp; AD extracts</text>
+  <g id="fileRows" transform="translate(112 218)">
+    <g transform="translate(0 0)"><g class="ai"><rect width="210" height="36" class="soft"/><text x="14" y="23" class="muted">j.dupont &#183; Finance &#183; active</text></g></g>
+    <g transform="translate(0 46)"><g class="ai"><rect width="210" height="36" class="soft"/><text x="14" y="23" class="muted">a.martin &#183; IT &#183; active</text></g></g>
+    <g transform="translate(0 92)"><g class="ai"><rect width="210" height="36" class="soft"/><text x="14" y="23" class="muted">m.bernard &#183; HR &#183; leaver</text></g></g>
+    <g transform="translate(0 138)"><g class="ai"><rect width="210" height="36" class="soft"/><text x="14" y="23" class="muted">l.petit &#183; ? &#183; active</text></g></g>
+  </g>
+  <rect id="scan" x="112" y="218" width="210" height="24" fill="url(#scanGrad)"/>
+  <g id="btnAnalyze">
+    <rect x="112" y="408" width="172" height="34" class="btn"/>
+    <text x="138" y="430" class="btnText">Analyze files</text>
+  </g>
+
+  <rect class="panel" x="382" y="132" width="238" height="324"/>
+  <text x="408" y="166" class="title">Transformations</text>
+  <text x="408" y="190" class="muted">Proposed mappings</text>
+  <g id="rules" transform="translate(408 222)">
+    <g transform="translate(0 0)"><g class="ai"><circle cx="10" cy="10" r="8" class="good"/><text x="30" y="15" class="muted">Dept &#8594; cost center</text><rect x="150" y="2" width="42" height="16" class="pill"/><text x="160" y="14" class="pillText">auto</text></g></g>
+    <g transform="translate(0 44)"><g class="ai"><circle cx="10" cy="10" r="8" class="good"/><text x="30" y="15" class="muted">Role &#8594; group</text><rect x="150" y="2" width="42" height="16" class="pill"/><text x="160" y="14" class="pillText">auto</text></g></g>
+    <g transform="translate(0 88)"><g class="ai"><circle cx="10" cy="10" r="8" class="todo"/><text x="30" y="15" class="muted">Title &#8594; profile</text><rect x="150" y="2" width="42" height="16" class="pill"/><text x="153" y="14" class="pillText">check</text></g></g>
+    <g transform="translate(0 132)"><g class="ai"><circle cx="10" cy="10" r="8" class="good"/><text x="30" y="15" class="muted">Status &#8594; lifecycle</text><rect x="150" y="2" width="42" height="16" class="pill"/><text x="160" y="14" class="pillText">auto</text></g></g>
+  </g>
+
+  <rect class="panel" x="654" y="132" width="220" height="324"/>
+  <text x="680" y="166" class="title">Inconsistencies</text>
+  <text x="680" y="190" class="muted">Detected anomalies</text>
+  <g id="issues" transform="translate(680 222)">
+    <g transform="translate(0 0)"><g class="ai"><rect width="168" height="44" fill="#fff0e7" stroke="#f0c1a0" stroke-width="2"/><circle class="dot" cx="24" cy="22" r="8" fill="#ea7e26"/><text x="44" y="27" class="muted">Missing department</text></g></g>
+    <g transform="translate(0 58)"><g class="ai"><rect width="168" height="44" fill="#fff7dd" stroke="#f1df9c" stroke-width="2"/><circle class="dot" cx="24" cy="22" r="8" fill="#f0c84b"/><text x="44" y="27" class="muted">Duplicate identity</text></g></g>
+    <g transform="translate(0 116)"><g class="ai"><rect width="168" height="44" fill="#fff0e7" stroke="#f0c1a0" stroke-width="2"/><circle class="dot" cx="24" cy="22" r="8" fill="#ea7e26"/><text x="44" y="27" class="muted">Active leaver</text></g></g>
+  </g>
+  <rect x="680" y="406" width="148" height="34" fill="#0f8794"/>
+  <text x="704" y="428" class="btnText">Review issues</text>
+</svg>

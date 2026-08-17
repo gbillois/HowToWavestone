@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">RadarMapper animated usage preview</title>
+  <desc id="desc">Animated radar editor mockup showing import, zone editing, LLM matching, popup preview and export.</desc>
+  <style>
+    text{font-family:Inter,Arial,sans-serif;letter-spacing:0}
+    .bg{fill:url(#bg)}
+    .shell{fill:#fff;stroke:#d7e7ef;stroke-width:2}
+    .nav{fill:url(#nav)}
+    .white{fill:#fff}
+    .navText{font-size:13px;font-weight:850;fill:#fff}
+    .title{font-size:20px;font-weight:850;fill:#112b43}
+    .muted{font-size:12px;font-weight:700;fill:#64788b}
+    .panel{fill:#fff;stroke:#e3eef3;stroke-width:2;filter:url(#shadow)}
+    .stage{fill:#f7fbfb;stroke:#dceaf0;stroke-width:2}
+    .radar{fill:#fff;stroke:#cfe2ea;stroke-width:2}
+    .sector{fill:none;stroke:#d9e8ee;stroke-width:2}
+    .zone{stroke-width:4;fill-opacity:.18}
+    .todo{fill:#ea7e26;stroke:#b85914}
+    .match{fill:#3679e6;stroke:#255fbe}
+    .done{fill:#2ed39b;stroke:#158f64}
+    .multi{fill:#7a4ec9;stroke:#623aac}
+    .btn{fill:#13a59e}
+    #prepare{animation:prepare 7s linear infinite}
+    #edit{animation:edit 7s linear infinite}
+    #export{animation:export 7s linear infinite}
+    #zoneCursor{animation:cursor 7s ease-in-out infinite}
+    #z1{animation:z1 7s ease-in-out infinite}
+    #z2{animation:z2 7s ease-in-out infinite}
+    #z3{animation:z3 7s ease-in-out infinite}
+    #popup{animation:popup 7s ease-in-out infinite}
+    #exportToast{animation:toast 7s ease-in-out infinite}
+    @keyframes prepare{0%,25%,100%{opacity:1}26%,99%{opacity:.42}}
+    @keyframes edit{0%,25%,68%,100%{opacity:.42}26%,67%{opacity:1}}
+    @keyframes export{0%,68%,100%{opacity:.42}69%,94%{opacity:1}}
+    @keyframes cursor{0%,100%{transform:translate(720px,402px)}20%{transform:translate(332px,350px)}42%{transform:translate(490px,250px)}63%{transform:translate(610px,182px)}82%{transform:translate(758px,142px)}}
+    @keyframes z1{0%,22%{opacity:.18}32%,100%{opacity:1}}
+    @keyframes z2{0%,36%{opacity:.18}46%,100%{opacity:1}}
+    @keyframes z3{0%,50%{opacity:.18}60%,100%{opacity:1}}
+    @keyframes popup{0%,58%{opacity:0;transform:translateY(20px)}66%,86%{opacity:1;transform:translateY(0)}92%,100%{opacity:0}}
+    @keyframes toast{0%,72%{opacity:0;transform:translateY(22px)}80%,94%{opacity:1;transform:translateY(0)}100%{opacity:0}}
+  </style>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="540"><stop stop-color="#d8ecef"/><stop offset=".52" stop-color="#eaf5f5"/><stop offset="1" stop-color="#f8fbff"/></linearGradient>
+    <linearGradient id="nav" x1="54" y1="42" x2="906" y2="42"><stop stop-color="#0d3f61"/><stop offset=".58" stop-color="#0f8794"/><stop offset="1" stop-color="#249b83"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="10" stdDeviation="13" flood-color="#0e4153" flood-opacity=".14"/></filter>
+  </defs>
+  <rect class="bg" width="960" height="540"/>
+  <rect class="shell" x="54" y="42" width="852" height="456"/>
+  <rect class="nav" x="54" y="42" width="852" height="62"/>
+  <text x="84" y="70" class="navText">Clickable Zone Editor - Cyber Radar</text>
+  <text x="84" y="88" font-size="10" font-weight="850" fill="#d6f5ef">RADAR MAPPER</text>
+  <g transform="translate(508 42)">
+    <rect id="prepare" x="0" y="0" width="112" height="62" fill="rgba(255,255,255,.14)"/><text x="33" y="38" class="navText">Prepare</text>
+    <rect id="edit" x="112" y="0" width="112" height="62" fill="rgba(255,255,255,.14)"/><text x="152" y="38" class="navText">Edit</text>
+    <rect id="export" x="224" y="0" width="112" height="62" fill="rgba(255,255,255,.14)"/><text x="260" y="38" class="navText">Export</text>
+  </g>
+  <rect class="stage" x="86" y="132" width="560" height="324"/>
+  <g transform="translate(160 164)">
+    <rect class="radar" width="410" height="260"/>
+    <circle class="sector" cx="205" cy="130" r="92"/><circle class="sector" cx="205" cy="130" r="54"/>
+    <line class="sector" x1="205" y1="38" x2="205" y2="222"/><line class="sector" x1="113" y1="130" x2="297" y2="130"/><line class="sector" x1="140" y1="65" x2="270" y2="195"/><line class="sector" x1="270" y1="65" x2="140" y2="195"/>
+    <text x="153" y="127" font-size="18" font-weight="850" fill="#0f8794">CYBER</text>
+    <text x="158" y="149" font-size="18" font-weight="850" fill="#0f8794">RADAR</text>
+    <path id="z1" class="zone todo" d="M246 70 308 82 296 126 238 114z"/>
+    <path id="z2" class="zone match" d="M94 154 150 144 166 194 112 206z"/>
+    <path id="z3" class="zone done" d="M236 152 306 158 292 216 224 206z"/>
+    <path class="zone multi" d="M148 60 196 44 212 92 162 104z" opacity=".82"/>
+  </g>
+  <rect class="panel" x="676" y="132" width="198" height="324"/>
+  <text x="702" y="166" class="title">Zone content</text>
+  <text x="702" y="190" class="muted">Match organization data</text>
+  <rect x="702" y="218" width="134" height="30" fill="#f7fbfe" stroke="#cbdde6" stroke-width="2"/>
+  <rect x="702" y="268" width="146" height="70" fill="#f7fbfe" stroke="#cbdde6" stroke-width="2"/>
+  <rect class="btn" x="702" y="362" width="118" height="34"/>
+  <text x="724" y="384" font-size="13" font-weight="850" fill="#fff">Save zone</text>
+  <g id="popup" transform="translate(546 190)">
+    <rect width="176" height="92" fill="#fff" stroke="#cbdde6" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="16" y="15" width="46" height="24" fill="#e5f8f5"/>
+    <text x="74" y="32" font-size="13" font-weight="850" fill="#112b43">Selected org</text>
+    <text x="16" y="60" class="muted">Popup preview with URL</text>
+    <text x="16" y="78" font-size="12" font-weight="850" fill="#0f8794">Visit website</text>
+  </g>
+  <g id="exportToast" transform="translate(608 454)">
+    <rect width="266" height="34" fill="#16121f" opacity=".94"/>
+    <circle cx="20" cy="17" r="6" fill="#2ed39b"/>
+    <text x="38" y="22" font-size="12" font-weight="850" fill="#fff">Clickable radar exported</text>
+  </g>
+  <path id="zoneCursor" fill="#451dc7" d="M0 0 0 34 9 25 17 43 27 39 18 21 31 21z"/>
+</svg>
