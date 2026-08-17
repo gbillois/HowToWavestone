@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="__title">Wavestone CYB &middot; AI Maker Initiative &mdash; Showcase agents</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-teal-500:#228D95;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-blue:#0F8794; --ws-amber:#C8861A;
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ws-white);color:var(--ws-ink-900);
+    font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;
+    padding-bottom:72px;
+  }
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .dot{width:9px;height:9px;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-left:auto}
+  .bar-in .langsel{margin-left:10px}
+  .jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:6px 13px;transition:.18s var(--ws-ease)}
+  .jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1120px;margin:0 auto;padding:64px 24px 52px}
+  .eyebrow{
+    display:inline-block;font-weight:700;font-size:12px;letter-spacing:0;text-transform:uppercase;
+    padding-bottom:4px;border-bottom:2px solid var(--ws-green-400);
+  }
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(36px,6vw,64px);line-height:1.04;letter-spacing:0;margin:22px 0 16px;max-width:17ch}
+  .hero h1 .ac{color:var(--ws-green-400)}
+  .hero .lede{font-size:19px;line-height:1.5;color:rgba(255,255,255,.82);max-width:68ch}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .hero-pill{font-family:var(--ws-font-mono);font-size:12px;font-weight:600;color:#fff;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.08);padding:6px 10px}
+
+  .intro{padding:42px 0 10px}
+  .intro-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:28px;align-items:start}
+  @media(max-width:760px){.intro-grid{grid-template-columns:1fr}}
+  .intro h2{font-family:var(--ws-font-display);font-size:28px;line-height:1.18;color:var(--ws-indigo-600);letter-spacing:0;margin-bottom:10px}
+  .intro p{color:var(--ws-ink-600);font-size:15.5px;max-width:72ch}
+  .principles{display:grid;gap:10px}
+  .principle{border-left:4px solid var(--ws-green-400);background:var(--ws-ink-50);padding:12px 14px}
+  .principle b{display:block;font-family:var(--ws-font-display);font-size:15px;color:var(--ws-ink-900);margin-bottom:2px}
+  .principle span{font-size:13.5px;color:var(--ws-ink-600)}
+
+  .showcase{display:grid;gap:24px;margin-top:30px}
+  .showcase[hidden]{display:none}
+  .usecase{
+    display:grid;grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:24px;align-items:center;
+    border:1.5px solid var(--ws-ink-100);background:#fff;box-shadow:var(--ws-shadow-md);overflow:hidden;
+  }
+  @media(max-width:820px){.usecase{grid-template-columns:1fr}}
+  .media{position:relative;min-height:280px;background:linear-gradient(180deg,#eaf5f5 0,#f8fbff 100%);border-right:1px solid var(--ws-ink-100);display:grid;place-items:center;padding:18px}
+  @media(max-width:820px){.media{border-right:0;border-bottom:1px solid var(--ws-ink-100);min-height:auto}}
+  .media img{display:block;width:100%;height:auto;box-shadow:0 16px 34px rgba(14,65,83,.18)}
+  .media::after{content:"";position:absolute;left:18px;right:18px;bottom:18px;height:4px;background:var(--ws-gradient-accent)}
+  .body{padding:28px 28px 30px}
+  .tag{display:inline-block;font-family:var(--ws-font-mono);font-size:11px;font-weight:600;color:var(--ws-indigo-700);background:var(--ws-indigo-50);padding:4px 10px;margin-bottom:14px}
+  .usecase h2{font-family:var(--ws-font-display);font-size:28px;line-height:1.14;color:var(--ws-ink-900);letter-spacing:0;margin-bottom:8px}
+  .owner{font-family:var(--ws-font-mono);font-size:12px;font-weight:600;color:var(--ws-ink-500);margin-bottom:12px}
+  .owner b{color:var(--ws-ink-700);font-weight:700}
+  .usecase p{font-size:15px;color:var(--ws-ink-600);line-height:1.6}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 20px}
+  .chip{font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-ink-600);background:var(--ws-ink-50);padding:5px 9px}
+  .actions{display:flex;flex-wrap:wrap;gap:10px}
+  .action{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-family:var(--ws-font-mono);font-size:12.5px;font-weight:600;border:1px solid var(--ws-ink-200);padding:8px 12px;transition:.18s var(--ws-ease)}
+  .action.primary{border-color:var(--ws-indigo-600);background:var(--ws-indigo-600);color:#fff}
+  .action:hover{transform:translateY(-1px);box-shadow:var(--ws-shadow-sm)}
+  .action.primary:hover{background:var(--ws-indigo-700)}
+  .action svg{width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:square;stroke-linejoin:miter}
+
+  .agent-tools{margin-top:26px;border:1.5px solid var(--ws-ink-100);background:#fff;box-shadow:var(--ws-shadow-sm);padding:18px;display:grid;gap:14px}
+  .search-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center}
+  .searchbox{position:relative}
+  .searchbox svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:17px;height:17px;stroke:var(--ws-ink-400);stroke-width:2;fill:none;stroke-linecap:square;stroke-linejoin:miter;pointer-events:none}
+  .searchbox input{width:100%;height:44px;border:1px solid var(--ws-ink-200);background:var(--ws-ink-50);font-family:var(--ws-font-body);font-size:14.5px;color:var(--ws-ink-900);padding:0 14px 0 42px;transition:.18s var(--ws-ease)}
+  .searchbox input::placeholder{color:var(--ws-ink-400)}
+  .searchbox input:focus{border-color:var(--ws-indigo-600);background:#fff}
+  .tool-count{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-500);white-space:nowrap}
+  .tool-row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .filters,.view-toggle{display:flex;gap:7px;flex-wrap:wrap}
+  .filter-btn,.view-btn{height:34px;border:1px solid var(--ws-ink-200);background:#fff;color:var(--ws-ink-600);font-family:var(--ws-font-mono);font-size:12px;font-weight:600;padding:0 11px;display:inline-flex;align-items:center;gap:7px;cursor:pointer;transition:.18s var(--ws-ease)}
+  .filter-btn:hover,.view-btn:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+  .filter-btn.is-active,.view-btn.is-active{border-color:var(--ws-indigo-600);background:var(--ws-indigo-600);color:#fff}
+  .view-btn svg{width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:square;stroke-linejoin:miter}
+  .empty-state{display:none;margin-top:18px;border:1.5px dashed var(--ws-ink-200);background:var(--ws-ink-50);padding:22px;text-align:center;color:var(--ws-ink-600);font-size:14.5px}
+  .empty-state.show{display:block}
+  .agent-table-wrap{display:block;margin-top:30px;overflow-x:auto;border:1.5px solid var(--ws-ink-100);background:#fff;box-shadow:var(--ws-shadow-sm)}
+  .agent-table-wrap[hidden]{display:none}
+  .agent-table{width:100%;min-width:980px;border-collapse:collapse;table-layout:fixed}
+  .agent-table th{background:var(--ws-ink-50);border-bottom:1.5px solid var(--ws-ink-200);border-right:1px solid var(--ws-ink-100);text-align:left;vertical-align:middle}
+  .agent-table th:last-child,.agent-table td:last-child{border-right:0}
+  .sort-btn{width:100%;min-height:42px;padding:10px 12px;border:0;background:transparent;color:var(--ws-ink-700);font-family:var(--ws-font-mono);font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:0;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:8px;cursor:pointer}
+  .sort-btn:hover{color:var(--ws-indigo-600);background:#fff}
+  .sort-btn::after{content:"";width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid currentColor;opacity:.25;flex:0 0 auto}
+  .sort-btn.is-sorted::after{opacity:1}
+  .sort-btn.is-desc::after{transform:rotate(180deg)}
+  .agent-table td{border-bottom:1px solid var(--ws-ink-100);border-right:1px solid var(--ws-ink-100);padding:12px;vertical-align:middle;color:var(--ws-ink-600);font-size:13.5px;line-height:1.45}
+  .agent-table tbody tr:last-child td{border-bottom:0}
+  .agent-table tbody tr:hover td{background:var(--ws-ink-50)}
+  .agent-cell{display:flex;align-items:center;gap:12px;min-width:0;color:var(--ws-ink-900)}
+  .agent-thumb{width:72px;height:44px;flex:0 0 72px;background:linear-gradient(180deg,#eaf5f5 0,#f8fbff 100%);border:1px solid var(--ws-ink-100);display:grid;place-items:center;overflow:hidden}
+  .agent-thumb img{max-width:100%;max-height:100%;display:block}
+  .agent-cell b{display:block;font-family:var(--ws-font-display);font-size:15px;line-height:1.2;color:var(--ws-ink-900);white-space:normal;overflow-wrap:break-word}
+  .agent-cell small{display:block;margin-top:3px;font-family:var(--ws-font-mono);font-size:10.5px;color:var(--ws-indigo-600);white-space:normal;overflow-wrap:break-word}
+  .agent-cell small.owner-cell{color:var(--ws-ink-500)}
+  .table-tag{display:inline-block;font-family:var(--ws-font-mono);font-size:11px;font-weight:600;color:var(--ws-indigo-700);background:var(--ws-indigo-50);padding:4px 8px}
+  .table-actions{display:flex;gap:7px;flex-wrap:wrap}
+  .table-actions .action{padding:7px 9px;font-size:11.5px;gap:6px}
+  .table-actions .action svg{width:13px;height:13px}
+  @media(max-width:820px){
+    .search-row{grid-template-columns:1fr}
+    .tool-count{white-space:normal}
+    .agent-table-wrap{margin-left:24px;margin-right:24px}
+  }
+
+  footer{max-width:1120px;margin:64px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus)}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  *,*::before,*::after{border-radius:0!important}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
+    <div class="nav-links">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
+      <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+      <a class="jump" href="dance-with-the-ai-stars.html" data-i18n="nav.dais">Dance With the AI Stars</a>
+      <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1040 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,300 Q260,180 540,250 T1100,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <span class="eyebrow" data-i18n="hero.eyebrow">Showcase</span>
+    <h1 data-i18n="hero.title">Des <span class="ac">agents</span> Wavestone concrets</h1>
+    <p class="lede" data-i18n="hero.lede">Quatre outils autonomes issus des d&eacute;p&ocirc;ts locaux, pens&eacute;s pour transformer vite une expertise terrain en application utilisable.</p>
+    <div class="hero-meta">
+      <span class="hero-pill" data-i18n="hero.pill1">Static-first</span>
+      <span class="hero-pill" data-i18n="hero.pill2">Local browser apps</span>
+      <span class="hero-pill" data-i18n="hero.pill3">GitHub Pages</span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="intro">
+    <div class="wrap intro-grid">
+      <div>
+        <h2 data-i18n="intro.h2">Ce que ces exemples montrent</h2>
+        <p data-i18n="intro.body">Chaque outil illustre une logique de delivery pragmatique : partir d'un besoin m&eacute;tier tr&egrave;s sp&eacute;cifique, livrer une interface directement testable, garder les donn&eacute;es c&ocirc;t&eacute; navigateur quand c'est possible, et industrialiser seulement ce qui le m&eacute;rite.</p>
+      </div>
+      <div class="principles">
+        <div class="principle"><b data-i18n="prin1.label">Un usage avant une plateforme</b><span data-i18n="prin1.body">Chaque outil r&eacute;sout un flux de travail identifiable, sans attendre une architecture lourde.</span></div>
+        <div class="principle"><b data-i18n="prin2.label">Un artefact partageable</b><span data-i18n="prin2.body">HTML autonome, export PPTX, package ZIP, snippets CMS ou rapport interactif.</span></div>
+        <div class="principle"><b data-i18n="prin3.label">Une IA encadr&eacute;e</b><span data-i18n="prin3.body">Les assistants aident &agrave; produire, contr&ocirc;ler ou enrichir, mais l'utilisateur garde la main.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="agent-tools" aria-label="Recherche et filtres des agents">
+      <div class="search-row">
+        <label class="searchbox">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
+          <input id="agentSearch" type="search" data-i18n-placeholder="tools.search.placeholder" placeholder="Rechercher un agent, un export, une capacit&eacute;..." autocomplete="off">
+        </label>
+        <div class="tool-count" aria-live="polite"><span id="agentCount">4</span> <span data-i18n="tools.count">agents affich&eacute;s</span></div>
+      </div>
+      <div class="tool-row">
+        <div class="filters" role="group" aria-label="Filtres agents">
+          <button class="filter-btn is-active" type="button" data-filter="all" data-i18n="filter.all">Tous</button>
+          <button class="filter-btn" type="button" data-filter="crisis" data-i18n="filter.crisis">Crise cyber</button>
+          <button class="filter-btn" type="button" data-filter="assessment" data-i18n="filter.assessment">Diagnostic</button>
+          <button class="filter-btn" type="button" data-filter="mapping" data-i18n="filter.mapping">Mapping</button>
+        </div>
+        <div class="view-toggle" role="group" aria-label="Affichage des agents">
+          <button class="view-btn is-active" type="button" data-view="cards" data-i18n-aria-label="view.cards.label" aria-label="Affichage en blocs">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            <span data-i18n="view.cards">Blocs</span>
+          </button>
+          <button class="view-btn" type="button" data-view="list" data-i18n-aria-label="view.list.label" aria-label="Affichage en lignes">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h1M3 12h1M3 18h1"/></svg>
+            <span data-i18n="view.list">Lignes</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap showcase" id="agentShowcase" aria-label="Agents Wavestone">
+    <article class="usecase" data-category="crisis" data-search="crisismaker cyber crisis exercise crise cyber scenario stimuli timeline crisis checker debrief html video facilitation exercice">
+      <div class="media">
+        <img src="assets/showcase/crisismaker.svg" data-i18n-alt="img.crisis" alt="Miniature animee de CrisisMaker montrant un scenario, des stimuli et un export debrief">
+      </div>
+      <div class="body">
+        <span class="tag" data-i18n="uc1.tag">Cyber crisis exercise</span>
+        <h2>CrisisMaker</h2>
+        <p class="owner">Owner&nbsp;: <b>Hugo TRICARD</b></p>
+        <p data-i18n="uc1.body">Un studio navigateur pour concevoir des exercices de crise cyber : sc&eacute;nario, acteurs, stimuli, timeline, contr&ocirc;les qualit&eacute;, exports de facilitation et d&eacute;brief interactif ou vid&eacute;o.</p>
+        <div class="chips">
+          <span class="chip" data-i18n="uc1.chip1">Timeline d'injects</span>
+          <span class="chip" data-i18n="uc1.chip2">Crisis Checker</span>
+          <span class="chip" data-i18n="uc1.chip3">Debrief HTML</span>
+          <span class="chip" data-i18n="uc1.chip4">Video Debrief</span>
+        </div>
+        <div class="actions">
+          <a class="action primary" href="https://cowork-website.cloudexperienceassets.com/api/files/crisismaker.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            <span data-i18n="uc1.demo">Ouvrir la demo</span>
+          </a>
+          <a class="action" href="https://github.com/gbillois/CrisisMaker" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span data-i18n="uc1.repo">Voir le repo</span>
+          </a>
+          <a class="action" href="https://digiplace.sharepoint.com/:p:/r/sites/WIX-GLOBALCYBERSECURITY/_layouts/15/Doc.aspx?sourcedoc=%7B4C98EF69-6648-40C7-9393-B104D1D0B9D3%7D&amp;file=CrisisMaker%20-%20Pr%C3%A9sentation%20-%20vWID.pptx&amp;action=edit&amp;mobileredirect=true" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13"/><path d="M12 17v4M8 21h8"/></svg>
+            <span data-i18n="action.present">Voir la pr&eacute;sentation</span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <article class="usecase" data-category="assessment" data-search="cyberbenchmark helper cyberbenchexplorer workspace benchmark assessment evaluation ingest business checks radar matrix pptx excel scores referentiels livrables">
+      <div class="media">
+        <img src="assets/showcase/cyberbench.svg" data-i18n-alt="img.cyberbench" alt="Miniature animee de CyberBenchmark Helper montrant import, checks, matrice, radar et export PPTX">
+      </div>
+      <div class="body">
+        <span class="tag" data-i18n="uc2.tag">Cyberbenchmark workspace</span>
+        <h2>CyberBenchmark Helper</h2>
+        <p data-i18n="uc2.body">Un workspace autonome pour ing&eacute;rer une &eacute;valuation Cyberbenchmark, v&eacute;rifier les r&egrave;gles m&eacute;tier, explorer les scores, comparer les r&eacute;f&eacute;rentiels et exporter les livrables client.</p>
+        <div class="chips">
+          <span class="chip" data-i18n="uc2.chip1">Ingest</span>
+          <span class="chip" data-i18n="uc2.chip2">Business checks</span>
+          <span class="chip" data-i18n="uc2.chip3">Radar &amp; matrix</span>
+          <span class="chip" data-i18n="uc2.chip4">PPTX / Excel</span>
+        </div>
+        <div class="actions">
+          <a class="action primary" href="https://gbillois.github.io/CyberBenchExplorer/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            <span data-i18n="uc2.demo">Ouvrir la demo</span>
+          </a>
+          <a class="action" href="https://github.com/gbillois/CyberBenchExplorer" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span data-i18n="uc2.repo">Voir le repo</span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <article class="usecase" data-category="assessment" data-search="mythos readiness assessment post-mythos questionnaire diagnostic maturite cyber xlsx pptx pdf ingest plan llm configurable reponses api debug">
+      <div class="media">
+        <img src="assets/showcase/mythos.svg" data-i18n-alt="img.mythos" alt="Miniature animee de Mythos Readiness montrant un questionnaire cyber, un ingest plan et une synthese LLM">
+      </div>
+      <div class="body">
+        <span class="tag" data-i18n="uc4.tag">Post-Mythos readiness</span>
+        <h2>Mythos Readiness Assessment</h2>
+        <p class="owner">Owner&nbsp;: <b>Vincent ROYER</b></p>
+        <p data-i18n="uc4.body">Un questionnaire de diagnostic post-Mythos pour qualifier rapidement la maturit&eacute; cyber, importer un plan existant au format XLSX, PPTX ou PDF, et pr&eacute;-remplir les r&eacute;ponses avec un LLM configurable.</p>
+        <div class="chips">
+          <span class="chip" data-i18n="uc4.chip1">Questionnaire s&eacute;cu</span>
+          <span class="chip" data-i18n="uc4.chip2">Ingest plan</span>
+          <span class="chip" data-i18n="uc4.chip3">Multi-LLM</span>
+          <span class="chip" data-i18n="uc4.chip4">Debug API</span>
+        </div>
+        <div class="actions">
+          <a class="action primary" href="https://royvinz.github.io/mythos-readyness-assessment/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            <span data-i18n="uc4.demo">Ouvrir la demo</span>
+          </a>
+          <a class="action" href="https://github.com/royvinz/mythos-readyness-assessment" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span data-i18n="uc4.repo">Voir le repo</span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <article class="usecase" data-category="mapping" data-search="radarmapper interactive radar mapping zones cliquables llm popups cms snippet export html javascript import donnees">
+      <div class="media">
+        <img src="assets/showcase/radarmapper.svg" data-i18n-alt="img.radar" alt="Miniature animee de RadarMapper montrant un radar, des zones cliquables, un popup et un export">
+      </div>
+      <div class="body">
+        <span class="tag" data-i18n="uc3.tag">Interactive radar mapping</span>
+        <h2>RadarMapper</h2>
+        <p class="owner">Owner&nbsp;: <b>Marc HE</b></p>
+        <p data-i18n="uc3.body">Un &eacute;diteur HTML/JavaScript pour transformer un visuel radar en exp&eacute;rience cliquable : import de donn&eacute;es, mapping LLM, ajustement des zones, popups enrichies et exports CMS.</p>
+        <div class="chips">
+          <span class="chip" data-i18n="uc3.chip1">Zones cliquables</span>
+          <span class="chip" data-i18n="uc3.chip2">Mapping LLM</span>
+          <span class="chip" data-i18n="uc3.chip3">Popups</span>
+          <span class="chip" data-i18n="uc3.chip4">Snippet CMS</span>
+        </div>
+        <div class="actions">
+          <a class="action primary" href="https://gbillois.github.io/RadarMapper/RadarMapper.html" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            <span data-i18n="uc3.demo">Ouvrir la demo</span>
+          </a>
+          <a class="action" href="https://github.com/gbillois/RadarMapper" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span data-i18n="uc3.repo">Voir le repo</span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <article class="usecase" data-category="assessment" data-search="smart identity analyzer iam identites identity analyse fichiers regles transformation incoherences local outil iga">
+      <div class="media">
+        <img src="assets/showcase/smartidentity.svg" data-i18n-alt="img.smartidentity" alt="Miniature de Smart Identity Analyzer montrant l'analyse des fichiers d'identites, des regles de transformation et des incoherences">
+      </div>
+      <div class="body">
+        <span class="tag" data-i18n="uc5.tag">Identity analysis</span>
+        <h2>Smart Identity Analyzer</h2>
+        <p class="owner">Owner&nbsp;: <b>Anatole CATHERIN</b></p>
+        <p data-i18n="uc5.body">Vos fichiers d'identit&eacute;s d&eacute;cod&eacute;s en local : l'analyse va plus vite, les r&egrave;gles de transformation s'&eacute;crivent toutes seules et la moindre incoh&eacute;rence ne passe plus inaper&ccedil;ue.</p>
+        <div class="chips">
+          <span class="chip" data-i18n="uc5.chip1">Analyse de fichiers</span>
+          <span class="chip" data-i18n="uc5.chip2">R&egrave;gles de transformation</span>
+          <span class="chip" data-i18n="uc5.chip3">D&eacute;tection d'incoh&eacute;rences</span>
+          <span class="chip" data-i18n="uc5.chip4">Local</span>
+        </div>
+        <div class="actions">
+          <span class="action primary" aria-disabled="true" style="opacity:.5;cursor:not-allowed;pointer-events:none">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            <span data-i18n="uc5.demo">Bient&ocirc;t disponible</span>
+          </span>
+          <a class="action" href="https://gitlab.wavestone-app.com/ia-and-iam/smart-identity-analyzer" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span data-i18n="uc5.repo">Voir le repo</span>
+          </a>
+          <a class="action" href="https://digiplace.sharepoint.com/sites/WIC-CDT-IDENTITYANDACCESSMANAGEMENT/SitePages/Smart-Identity-Analyzer---Data-Quality.aspx" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13"/><path d="M12 17v4M8 21h8"/></svg>
+            <span data-i18n="action.present">Voir la pr&eacute;sentation</span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <article class="usecase" data-category="assessment" data-search="web recon accelerator auto ti web autotiweb pentest test intrusion black-box boite noire deterministe application web analyse ia local outil recon reconnaissance">
+      <div class="media">
+        <img src="assets/showcase/autotiweb.svg" data-i18n-alt="img.autotiweb" alt="Miniature de Web Recon Accelerator montrant un test d'intrusion black-box deterministe et une analyse des resultats par IA">
+      </div>
+      <div class="body">
+        <span class="tag" data-i18n="uc6.tag">Black-box web pentest</span>
+        <h2>Web Recon Accelerator</h2>
+        <p class="owner">Owner&nbsp;: <b>Corentin GOETGHEBEUR</b></p>
+        <p data-i18n="uc6.body">Le pentest web en pilote automatique : des tests black-box d&eacute;terministes et reproductibles, dont l'IA trie et d&eacute;crypte les r&eacute;sultats &mdash; le tout sans quitter votre poste.</p>
+        <div class="chips">
+          <span class="chip" data-i18n="uc6.chip1">Black-box</span>
+          <span class="chip" data-i18n="uc6.chip2">Tests d&eacute;terministes</span>
+          <span class="chip" data-i18n="uc6.chip3">Analyse IA</span>
+          <span class="chip" data-i18n="uc6.chip4">Application web</span>
+        </div>
+        <div class="actions">
+          <span class="action primary" aria-disabled="true" style="opacity:.5;cursor:not-allowed;pointer-events:none">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            <span data-i18n="uc6.demo">Bient&ocirc;t disponible</span>
+          </span>
+          <a class="action" href="https://gitlab.wavestone-app.com/audit/auto-ti-web" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span data-i18n="uc6.repo">Voir le repo</span>
+          </a>
+          <a class="action" href="https://digiplace.sharepoint.com/:p:/r/sites/WIX-GLOBALCYBERSECURITY/_layouts/15/Doc.aspx?sourcedoc=%7B78C20B33-127D-4437-8761-0302FBB6AAAE%7D&amp;file=WID%20-%20AI4Pentest%20%26%20AI%20Web%20Accelerators.pptx&amp;action=edit&amp;mobileredirect=true" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13"/><path d="M12 17v4M8 21h8"/></svg>
+            <span data-i18n="action.present">Voir la pr&eacute;sentation</span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <article class="usecase" data-category="assessment" data-search="booster risk analysis rm ebios rm risk analysis analyse risque agent livrables deliverables ateliers scenarios matrice traitement methode anssi">
+      <div class="media">
+        <img src="assets/showcase/ebiosrm.svg" data-i18n-alt="img.ebiosrm" alt="Miniature de Booster Risk Analysis RM montrant les ateliers, la matrice de risque et les livrables generes">
+      </div>
+      <div class="body">
+        <span class="tag" data-i18n="uc7.tag">EBIOS-RM risk analysis</span>
+        <h2>Booster Risk Analysis RM</h2>
+        <p class="owner">Owner&nbsp;: <b>Jean-Fran&ccedil;ois DI TOMMASO YEKPE</b></p>
+        <p data-i18n="uc7.body">Votre copilote EBIOS-RM : il transforme les ateliers en livrables pr&ecirc;ts &agrave; pr&eacute;senter et fait passer l'analyse de risque de la th&eacute;orie au rendu en un temps record.</p>
+        <div class="chips">
+          <span class="chip" data-i18n="uc7.chip1">EBIOS-RM</span>
+          <span class="chip" data-i18n="uc7.chip2">Ateliers</span>
+          <span class="chip" data-i18n="uc7.chip3">Analyse de risque</span>
+          <span class="chip" data-i18n="uc7.chip4">Livrables</span>
+        </div>
+        <div class="actions">
+          <span class="action primary" aria-disabled="true" style="opacity:.5;cursor:not-allowed;pointer-events:none">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            <span data-i18n="uc7.demo">Bient&ocirc;t disponible</span>
+          </span>
+          <span class="action" aria-disabled="true" style="opacity:.5;cursor:not-allowed;pointer-events:none">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span data-i18n="uc7.repo">N/A</span>
+          </span>
+          <a class="action" href="https://digiplace.sharepoint.com/:p:/r/sites/WIX-GLOBALCYBERSECURITY/_layouts/15/Doc.aspx?sourcedoc=%7BE858938E-D4EB-407A-B93D-E8A48FDEB12B%7D&amp;file=WID%20Presentation%20-%20IA%20for%20Risk%20Analysis%20v1.0.pptx&amp;action=edit&amp;mobileredirect=true" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13"/><path d="M12 17v4M8 21h8"/></svg>
+            <span data-i18n="action.present">Voir la pr&eacute;sentation</span>
+          </a>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="wrap agent-table-wrap" id="agentTableWrap" aria-label="Liste des agents Wavestone" hidden>
+    <table class="agent-table" id="agentTable">
+      <colgroup>
+        <col style="width:25%">
+        <col style="width:14%">
+        <col style="width:25%">
+        <col style="width:20%">
+        <col style="width:16%">
+      </colgroup>
+      <thead>
+        <tr>
+          <th scope="col" aria-sort="ascending"><button class="sort-btn is-sorted" type="button" data-sort="name" data-i18n="table.agent">Agent</button></th>
+          <th scope="col"><button class="sort-btn" type="button" data-sort="category" data-i18n="table.category">Type</button></th>
+          <th scope="col"><button class="sort-btn" type="button" data-sort="capabilities" data-i18n="table.capabilities">Capacit&eacute;s</button></th>
+          <th scope="col"><button class="sort-btn" type="button" data-sort="outputs" data-i18n="table.outputs">Exports</button></th>
+          <th scope="col"><button class="sort-btn" type="button" data-sort="links" data-i18n="table.links">Liens</button></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr data-category="crisis" data-search="crisismaker cyber crisis exercise crise cyber scenario stimuli timeline crisis checker debrief html video facilitation exercice" data-name="crisismaker" data-category-label="crise cyber" data-capabilities="scenario stimuli timeline controles checker" data-outputs="debrief html video facilitation" data-links="demo repo">
+          <td>
+            <div class="agent-cell">
+              <span class="agent-thumb"><img src="assets/showcase/crisismaker.svg" data-i18n-alt="img.crisis" alt="Miniature animee de CrisisMaker montrant un scenario, des stimuli et un export debrief"></span>
+              <span><b>CrisisMaker</b><small data-i18n="uc1.tag">Cyber crisis exercise</small><small class="owner-cell">Owner&nbsp;: Hugo TRICARD</small></span>
+            </div>
+          </td>
+          <td><span class="table-tag" data-i18n="filter.crisis">Crise cyber</span></td>
+          <td data-i18n="row.uc1.capabilities">Sc&eacute;nario, stimuli, timeline, contr&ocirc;les qualit&eacute;</td>
+          <td data-i18n="row.uc1.outputs">Debrief HTML, vid&eacute;o, exports facilitation</td>
+          <td>
+            <div class="table-actions">
+              <a class="action primary" href="https://gbillois.github.io/CrisisMaker/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg><span data-i18n="uc1.demo">Ouvrir la demo</span></a>
+              <a class="action" href="https://github.com/gbillois/CrisisMaker" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span data-i18n="uc1.repo">Voir le repo</span></a>
+              <a class="action" href="https://digiplace.sharepoint.com/:p:/r/sites/WIX-GLOBALCYBERSECURITY/_layouts/15/Doc.aspx?sourcedoc=%7B4C98EF69-6648-40C7-9393-B104D1D0B9D3%7D&amp;file=CrisisMaker%20-%20Pr%C3%A9sentation%20-%20vWID.pptx&amp;action=edit&amp;mobileredirect=true" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13"/><path d="M12 17v4M8 21h8"/></svg><span data-i18n="action.present">Voir la pr&eacute;sentation</span></a>
+            </div>
+          </td>
+        </tr>
+        <tr data-category="assessment" data-search="cyberbenchmark helper cyberbenchexplorer workspace benchmark assessment evaluation ingest business checks radar matrix pptx excel scores referentiels livrables" data-name="cyberbenchmark helper" data-category-label="diagnostic assessment benchmark" data-capabilities="ingest checks scores radar matrix referentiels" data-outputs="pptx excel livrables">
+          <td>
+            <div class="agent-cell">
+              <span class="agent-thumb"><img src="assets/showcase/cyberbench.svg" data-i18n-alt="img.cyberbench" alt="Miniature animee de CyberBenchmark Helper montrant import, checks, matrice, radar et export PPTX"></span>
+              <span><b>CyberBenchmark Helper</b><small data-i18n="uc2.tag">Cyberbenchmark workspace</small></span>
+            </div>
+          </td>
+          <td><span class="table-tag" data-i18n="filter.assessment">Diagnostic</span></td>
+          <td data-i18n="row.uc2.capabilities">Ingest, business checks, scores, radar &amp; matrix</td>
+          <td data-i18n="row.uc2.outputs">PPTX, Excel, livrables client</td>
+          <td>
+            <div class="table-actions">
+              <a class="action primary" href="https://gbillois.github.io/CyberBenchExplorer/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg><span data-i18n="uc2.demo">Ouvrir la demo</span></a>
+              <a class="action" href="https://github.com/gbillois/CyberBenchExplorer" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span data-i18n="uc2.repo">Voir le repo</span></a>
+            </div>
+          </td>
+        </tr>
+        <tr data-category="assessment" data-search="mythos readiness assessment post-mythos questionnaire diagnostic maturite cyber xlsx pptx pdf ingest plan llm configurable reponses api debug" data-name="mythos readiness assessment" data-category-label="diagnostic assessment mythos" data-capabilities="questionnaire ingest plan multi llm api debug" data-outputs="xlsx pptx pdf reponses synthese">
+          <td>
+            <div class="agent-cell">
+              <span class="agent-thumb"><img src="assets/showcase/mythos.svg" data-i18n-alt="img.mythos" alt="Miniature animee de Mythos Readiness montrant un questionnaire cyber, un ingest plan et une synthese LLM"></span>
+              <span><b>Mythos Readiness Assessment</b><small data-i18n="uc4.tag">Post-Mythos readiness</small><small class="owner-cell">Owner&nbsp;: Vincent ROYER</small></span>
+            </div>
+          </td>
+          <td><span class="table-tag" data-i18n="filter.assessment">Diagnostic</span></td>
+          <td data-i18n="row.uc4.capabilities">Questionnaire s&eacute;cu, ingest plan, multi-LLM</td>
+          <td data-i18n="row.uc4.outputs">XLSX, PPTX, PDF, r&eacute;ponses pr&eacute;-remplies</td>
+          <td>
+            <div class="table-actions">
+              <a class="action primary" href="https://royvinz.github.io/mythos-readyness-assessment/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg><span data-i18n="uc4.demo">Ouvrir la demo</span></a>
+              <a class="action" href="https://github.com/royvinz/mythos-readyness-assessment" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span data-i18n="uc4.repo">Voir le repo</span></a>
+            </div>
+          </td>
+        </tr>
+        <tr data-category="mapping" data-search="radarmapper interactive radar mapping zones cliquables llm popups cms snippet export html javascript import donnees" data-name="radarmapper" data-category-label="mapping radar interactif" data-capabilities="zones cliquables llm popups cms mapping" data-outputs="snippet cms html export">
+          <td>
+            <div class="agent-cell">
+              <span class="agent-thumb"><img src="assets/showcase/radarmapper.svg" data-i18n-alt="img.radar" alt="Miniature animee de RadarMapper montrant un radar, des zones cliquables, un popup et un export"></span>
+              <span><b>RadarMapper</b><small data-i18n="uc3.tag">Interactive radar mapping</small><small class="owner-cell">Owner&nbsp;: Marc HE</small></span>
+            </div>
+          </td>
+          <td><span class="table-tag" data-i18n="filter.mapping">Mapping</span></td>
+          <td data-i18n="row.uc3.capabilities">Zones cliquables, mapping LLM, popups</td>
+          <td data-i18n="row.uc3.outputs">Snippet CMS, HTML, export</td>
+          <td>
+            <div class="table-actions">
+              <a class="action primary" href="https://gbillois.github.io/RadarMapper/RadarMapper.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg><span data-i18n="uc3.demo">Ouvrir la demo</span></a>
+              <a class="action" href="https://github.com/gbillois/RadarMapper" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span data-i18n="uc3.repo">Voir le repo</span></a>
+            </div>
+          </td>
+        </tr>
+        <tr data-category="assessment" data-search="smart identity analyzer iam identites identity analyse fichiers regles transformation incoherences local outil iga" data-name="smart identity analyzer" data-category-label="diagnostic assessment iam identite" data-capabilities="analyse fichiers regles transformation incoherences" data-outputs="regles incoherences local">
+          <td>
+            <div class="agent-cell">
+              <span class="agent-thumb"><img src="assets/showcase/smartidentity.svg" data-i18n-alt="img.smartidentity" alt="Miniature de Smart Identity Analyzer montrant l'analyse des fichiers d'identites, des regles de transformation et des incoherences"></span>
+              <span><b>Smart Identity Analyzer</b><small data-i18n="uc5.tag">Identity analysis</small><small class="owner-cell">Owner&nbsp;: Anatole CATHERIN</small></span>
+            </div>
+          </td>
+          <td><span class="table-tag" data-i18n="filter.assessment">Diagnostic</span></td>
+          <td data-i18n="row.uc5.capabilities">Analyse de fichiers, r&egrave;gles de transformation, incoh&eacute;rences</td>
+          <td data-i18n="row.uc5.outputs">R&egrave;gles propos&eacute;es, incoh&eacute;rences d&eacute;tect&eacute;es</td>
+          <td>
+            <div class="table-actions">
+              <span class="action primary" aria-disabled="true" style="opacity:.5;cursor:not-allowed;pointer-events:none"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-i18n="uc5.demo">Bient&ocirc;t disponible</span></span>
+              <a class="action" href="https://gitlab.wavestone-app.com/ia-and-iam/smart-identity-analyzer" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span data-i18n="uc5.repo">Voir le repo</span></a>
+              <a class="action" href="https://digiplace.sharepoint.com/sites/WIC-CDT-IDENTITYANDACCESSMANAGEMENT/SitePages/Smart-Identity-Analyzer---Data-Quality.aspx" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13"/><path d="M12 17v4M8 21h8"/></svg><span data-i18n="action.present">Voir la pr&eacute;sentation</span></a>
+            </div>
+          </td>
+        </tr>
+        <tr data-category="assessment" data-search="web recon accelerator auto ti web autotiweb pentest test intrusion black-box boite noire deterministe application web analyse ia local outil recon reconnaissance" data-name="web recon accelerator" data-category-label="diagnostic assessment pentest" data-capabilities="black-box tests deterministes pentest analyse ia" data-outputs="findings rapport analyse ia">
+          <td>
+            <div class="agent-cell">
+              <span class="agent-thumb"><img src="assets/showcase/autotiweb.svg" data-i18n-alt="img.autotiweb" alt="Miniature de Auto-TI-Web montrant un test d'intrusion black-box deterministe et une analyse des resultats par IA"></span>
+              <span><b>Web Recon Accelerator</b><small data-i18n="uc6.tag">Black-box web pentest</small><small class="owner-cell">Owner&nbsp;: Corentin GOETGHEBEUR</small></span>
+            </div>
+          </td>
+          <td><span class="table-tag" data-i18n="filter.assessment">Diagnostic</span></td>
+          <td data-i18n="row.uc6.capabilities">Black-box, tests d&eacute;terministes, analyse IA</td>
+          <td data-i18n="row.uc6.outputs">R&eacute;sultats triag&eacute;s, rapport</td>
+          <td>
+            <div class="table-actions">
+              <span class="action primary" aria-disabled="true" style="opacity:.5;cursor:not-allowed;pointer-events:none"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-i18n="uc6.demo">Bient&ocirc;t disponible</span></span>
+              <a class="action" href="https://gitlab.wavestone-app.com/audit/auto-ti-web" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span data-i18n="uc6.repo">Voir le repo</span></a>
+              <a class="action" href="https://digiplace.sharepoint.com/:p:/r/sites/WIX-GLOBALCYBERSECURITY/_layouts/15/Doc.aspx?sourcedoc=%7B78C20B33-127D-4437-8761-0302FBB6AAAE%7D&amp;file=WID%20-%20AI4Pentest%20%26%20AI%20Web%20Accelerators.pptx&amp;action=edit&amp;mobileredirect=true" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13"/><path d="M12 17v4M8 21h8"/></svg><span data-i18n="action.present">Voir la pr&eacute;sentation</span></a>
+            </div>
+          </td>
+        </tr>
+        <tr data-category="assessment" data-search="booster risk analysis rm ebios rm risk analysis analyse risque agent livrables deliverables ateliers scenarios matrice traitement methode anssi" data-name="booster risk analysis rm" data-category-label="diagnostic assessment risque ebios" data-capabilities="ateliers scenarios matrice risque livrables" data-outputs="livrables registre scenarios traitement">
+          <td>
+            <div class="agent-cell">
+              <span class="agent-thumb"><img src="assets/showcase/ebiosrm.svg" data-i18n-alt="img.ebiosrm" alt="Miniature de EBIOS-RM Risk Analysis montrant les ateliers, la matrice de risque et les livrables generes"></span>
+              <span><b>Booster Risk Analysis RM</b><small data-i18n="uc7.tag">EBIOS-RM risk analysis</small><small class="owner-cell">Owner&nbsp;: Jean-Fran&ccedil;ois DI TOMMASO YEKPE</small></span>
+            </div>
+          </td>
+          <td><span class="table-tag" data-i18n="filter.assessment">Diagnostic</span></td>
+          <td data-i18n="row.uc7.capabilities">Ateliers, sc&eacute;narios, matrice de risque, livrables</td>
+          <td data-i18n="row.uc7.outputs">Livrables EBIOS-RM g&eacute;n&eacute;r&eacute;s</td>
+          <td>
+            <div class="table-actions">
+              <span class="action primary" aria-disabled="true" style="opacity:.5;cursor:not-allowed;pointer-events:none"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-i18n="uc7.demo">Bient&ocirc;t disponible</span></span>
+              <span class="action" aria-disabled="true" style="opacity:.5;cursor:not-allowed;pointer-events:none"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span data-i18n="uc7.repo">N/A</span></span>
+              <a class="action" href="https://digiplace.sharepoint.com/:p:/r/sites/WIX-GLOBALCYBERSECURITY/_layouts/15/Doc.aspx?sourcedoc=%7BE858938E-D4EB-407A-B93D-E8A48FDEB12B%7D&amp;file=WID%20Presentation%20-%20IA%20for%20Risk%20Analysis%20v1.0.pptx&amp;action=edit&amp;mobileredirect=true" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13"/><path d="M12 17v4M8 21h8"/></svg><span data-i18n="action.present">Voir la pr&eacute;sentation</span></a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="wrap">
+    <div class="empty-state" id="agentEmpty" data-i18n="tools.empty">Aucun agent ne correspond &agrave; cette recherche.</div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="src" data-i18n="footer.src">Wavestone CYB &middot; AI Maker Initiative &mdash; showcase agents</span>
+  <a class="jump" href="index.html" data-i18n="footer.home">&#8592; retour &agrave; l'accueil</a>
+</footer>
+
+<script>
+window.WS_I18N = {
+  en: {
+    "nav.home": "Home",
+    "nav.usecases": "Playbook",
+    "nav.principles": "Agent principles",
+    "nav.agents": "Our agents",
+    "nav.apikey": "API key",
+    "hero.eyebrow": "Showcase",
+    "hero.title": "Concrete Wavestone <span class=\"ac\">agents</span>",
+    "hero.lede": "Four standalone tools built from local repositories, designed to quickly turn field expertise into a usable application.",
+    "hero.pill1": "Static-first",
+    "hero.pill2": "Local browser apps",
+    "hero.pill3": "GitHub Pages",
+    "intro.h2": "What these examples show",
+    "intro.body": "Each tool illustrates a pragmatic delivery mindset: start from a very specific business need, ship a directly testable interface, keep data on the browser side whenever possible, and industrialise only what deserves it.",
+    "prin1.label": "A purpose before a platform",
+    "prin1.body": "Each tool solves an identifiable workflow, without waiting for heavy architecture.",
+    "prin2.label": "A shareable artefact",
+    "prin2.body": "Standalone HTML, PPTX export, ZIP package, CMS snippets or an interactive report.",
+    "prin3.label": "AI kept on a leash",
+    "prin3.body": "The assistants help produce, control or enrich, but the user stays in charge.",
+    "uc1.tag": "Cyber crisis exercise",
+    "uc1.body": "A browser studio to design cyber crisis exercises: scenario, actors, stimuli, timeline, quality controls, facilitation exports and an interactive or video debrief.",
+    "uc1.chip1": "Inject timeline",
+    "uc1.chip2": "Crisis Checker",
+    "uc1.chip3": "Debrief HTML",
+    "uc1.chip4": "Video Debrief",
+    "uc1.demo": "Open the demo",
+    "uc1.repo": "View the repo",
+    "uc2.tag": "Cyberbenchmark workspace",
+    "uc2.body": "A standalone workspace to ingest a Cyberbenchmark assessment, check business rules, explore the scores, compare frameworks and export client deliverables.",
+    "uc2.chip1": "Ingest",
+    "uc2.chip2": "Business checks",
+    "uc2.chip3": "Radar &amp; matrix",
+    "uc2.chip4": "PPTX / Excel",
+    "uc2.demo": "Open the demo",
+    "uc2.repo": "View the repo",
+    "uc4.tag": "Post-Mythos readiness",
+    "uc4.body": "A post-Mythos diagnostic questionnaire to quickly qualify cyber maturity, import an existing plan as XLSX, PPTX or PDF, and pre-fill answers with a configurable LLM.",
+    "uc4.chip1": "Security questionnaire",
+    "uc4.chip2": "Ingest plan",
+    "uc4.chip3": "Multi-LLM",
+    "uc4.chip4": "API debug",
+    "uc4.demo": "Open the demo",
+    "uc4.repo": "View the repo",
+    "uc3.tag": "Interactive radar mapping",
+    "uc3.body": "An HTML/JavaScript editor to turn a radar visual into a clickable experience: data import, LLM mapping, zone adjustment, enriched popups and CMS exports.",
+    "uc3.chip1": "Clickable zones",
+    "uc3.chip2": "LLM mapping",
+    "uc3.chip3": "Popups",
+    "uc3.chip4": "CMS snippet",
+    "uc3.demo": "Open the demo",
+    "uc3.repo": "View the repo",
+    "action.present": "View presentation",
+    "uc5.tag": "Identity analysis",
+    "uc5.body": "Your identity files, decoded locally: analysis runs faster, transformation rules write themselves and not a single inconsistency slips through.",
+    "uc5.chip1": "File analysis",
+    "uc5.chip2": "Transformation rules",
+    "uc5.chip3": "Inconsistency detection",
+    "uc5.chip4": "Local",
+    "uc5.demo": "Upcoming",
+    "uc5.repo": "View the repo",
+    "uc6.tag": "Black-box web pentest",
+    "uc6.body": "Web pentesting on autopilot: deterministic, repeatable black-box tests whose output AI triages and decodes for you &mdash; all without leaving your machine.",
+    "uc6.chip1": "Black-box",
+    "uc6.chip2": "Deterministic tests",
+    "uc6.chip3": "AI analysis",
+    "uc6.chip4": "Web application",
+    "uc6.demo": "Upcoming",
+    "uc6.repo": "View the repo",
+    "uc7.tag": "EBIOS-RM risk analysis",
+    "uc7.body": "Your EBIOS-RM copilot: it turns workshops into presentation-ready deliverables and takes the risk analysis from theory to finished output in record time.",
+    "uc7.chip1": "EBIOS-RM",
+    "uc7.chip2": "Workshops",
+    "uc7.chip3": "Risk analysis",
+    "uc7.chip4": "Deliverables",
+    "uc7.demo": "Upcoming",
+    "uc7.repo": "N/A",
+    "tools.search.placeholder": "Search for an agent, export, capability...",
+    "tools.count": "agents shown",
+    "tools.empty": "No agent matches this search.",
+    "filter.all": "All",
+    "filter.crisis": "Cyber crisis",
+    "filter.assessment": "Assessment",
+    "filter.mapping": "Mapping",
+    "view.cards": "Cards",
+    "view.cards.label": "Card view",
+    "view.list": "Rows",
+    "view.list.label": "Row view",
+    "table.agent": "Agent",
+    "table.category": "Type",
+    "table.capabilities": "Capabilities",
+    "table.outputs": "Exports",
+    "table.links": "Links",
+    "row.uc1.capabilities": "Scenario, stimuli, timeline, quality controls",
+    "row.uc1.outputs": "Debrief HTML, video, facilitation exports",
+    "row.uc2.capabilities": "Ingest, business checks, scores, radar &amp; matrix",
+    "row.uc2.outputs": "PPTX, Excel, client deliverables",
+    "row.uc4.capabilities": "Security questionnaire, ingest plan, multi-LLM",
+    "row.uc4.outputs": "XLSX, PPTX, PDF, pre-filled answers",
+    "row.uc3.capabilities": "Clickable zones, LLM mapping, popups",
+    "row.uc3.outputs": "CMS snippet, HTML, export",
+    "row.uc5.capabilities": "File analysis, transformation rules, inconsistencies",
+    "row.uc5.outputs": "Proposed rules, detected inconsistencies",
+    "row.uc6.capabilities": "Black-box, deterministic tests, AI analysis",
+    "row.uc6.outputs": "Triaged findings, report",
+    "row.uc7.capabilities": "Workshops, scenarios, risk matrix, deliverables",
+    "row.uc7.outputs": "Generated EBIOS-RM deliverables",
+    "note.lab": "Thumbnails",
+    "note.body": "The thumbnails are animated SVGs versioned in the site. They play the role of a GIF, but stay lighter, sharp on high-density screens and easy to maintain in Git.",
+    "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; showcase agents",
+    "footer.home": "&#8592; back to home",
+    "img.crisis": "Animated thumbnail of CrisisMaker showing a scenario, stimuli and a debrief export",
+    "img.cyberbench": "Animated thumbnail of CyberBenchmark Helper showing import, checks, matrix, radar and PPTX export",
+    "img.mythos": "Animated thumbnail of Mythos Readiness showing a cyber questionnaire, an ingest plan and an LLM summary",
+    "img.radar": "Animated thumbnail of RadarMapper showing a radar, clickable zones, a popup and an export",
+    "img.smartidentity": "Thumbnail of Smart Identity Analyzer showing identity files analysis, transformation rules and inconsistencies",
+    "img.autotiweb": "Thumbnail of Auto-TI-Web showing a deterministic black-box web pentest and AI output analysis",
+    "img.ebiosrm": "Thumbnail of EBIOS-RM Risk Analysis showing workshops, a risk matrix and generated deliverables",
+    "__title": "Wavestone CYB &middot; AI Maker Initiative &mdash; Showcase agents"
+  },
+  de: {
+    "nav.home": "Start",
+    "nav.usecases": "Playbook",
+    "nav.principles": "Agenten-Prinzipien",
+    "nav.agents": "Unsere Agenten",
+    "nav.apikey": "API-Schl&uuml;ssel",
+    "hero.eyebrow": "Showcase",
+    "hero.title": "Konkrete Wavestone-<span class=\"ac\">Agenten</span>",
+    "hero.lede": "Vier eigenst&auml;ndige Tools aus lokalen Repositories, entwickelt, um Praxiswissen schnell in eine nutzbare Anwendung zu verwandeln.",
+    "hero.pill1": "Static-first",
+    "hero.pill2": "Local browser apps",
+    "hero.pill3": "GitHub Pages",
+    "intro.h2": "Was diese Beispiele zeigen",
+    "intro.body": "Jedes Tool veranschaulicht eine pragmatische Delivery-Logik: von einem sehr spezifischen fachlichen Bedarf ausgehen, eine direkt testbare Oberfl&auml;che liefern, Daten nach M&ouml;glichkeit im Browser halten und nur das industrialisieren, was es verdient.",
+    "prin1.label": "Ein Einsatzzweck vor einer Plattform",
+    "prin1.body": "Jedes Tool l&ouml;st einen klar erkennbaren Workflow, ohne auf eine schwere Architektur zu warten.",
+    "prin2.label": "Ein teilbares Artefakt",
+    "prin2.body": "Eigenst&auml;ndiges HTML, PPTX-Export, ZIP-Paket, CMS-Snippets oder ein interaktiver Bericht.",
+    "prin3.label": "Eine eingerahmte KI",
+    "prin3.body": "Die Assistenten helfen beim Erstellen, Pr&uuml;fen oder Anreichern, aber der Nutzer beh&auml;lt die Kontrolle.",
+    "uc1.tag": "Cyber-Krisen&uuml;bung",
+    "uc1.body": "Ein Browser-Studio zur Gestaltung von Cyber-Krisen&uuml;bungen: Szenario, Akteure, Stimuli, Timeline, Qualit&auml;tskontrollen, Moderationsexporte und ein interaktives oder Video-Debrief.",
+    "uc1.chip1": "Inject-Timeline",
+    "uc1.chip2": "Crisis Checker",
+    "uc1.chip3": "Debrief HTML",
+    "uc1.chip4": "Video Debrief",
+    "uc1.demo": "Demo &ouml;ffnen",
+    "uc1.repo": "Repo ansehen",
+    "uc2.tag": "Cyberbenchmark-Workspace",
+    "uc2.body": "Ein eigenst&auml;ndiger Workspace, um eine Cyberbenchmark-Bewertung einzulesen, Fachregeln zu pr&uuml;fen, Scores zu erkunden, Referenzrahmen zu vergleichen und Kundenlieferobjekte zu exportieren.",
+    "uc2.chip1": "Ingest",
+    "uc2.chip2": "Business checks",
+    "uc2.chip3": "Radar &amp; matrix",
+    "uc2.chip4": "PPTX / Excel",
+    "uc2.demo": "Demo &ouml;ffnen",
+    "uc2.repo": "Repo ansehen",
+    "uc4.tag": "Post-Mythos-Readiness",
+    "uc4.body": "Ein Post-Mythos-Diagnosefragebogen, um die Cyber-Reife schnell einzuordnen, einen bestehenden Plan als XLSX, PPTX oder PDF zu importieren und Antworten mit einem konfigurierbaren LLM vorzubef&uuml;llen.",
+    "uc4.chip1": "Security-Fragebogen",
+    "uc4.chip2": "Ingest plan",
+    "uc4.chip3": "Multi-LLM",
+    "uc4.chip4": "API-Debug",
+    "uc4.demo": "Demo &ouml;ffnen",
+    "uc4.repo": "Repo ansehen",
+    "uc3.tag": "Interaktives Radar-Mapping",
+    "uc3.body": "Ein HTML/JavaScript-Editor, um ein Radar-Visual in ein anklickbares Erlebnis zu verwandeln: Datenimport, LLM-Mapping, Zonenanpassung, angereicherte Popups und CMS-Exporte.",
+    "uc3.chip1": "Anklickbare Zonen",
+    "uc3.chip2": "LLM-Mapping",
+    "uc3.chip3": "Popups",
+    "uc3.chip4": "CMS-Snippet",
+    "uc3.demo": "Demo &ouml;ffnen",
+    "uc3.repo": "Repo ansehen",
+    "action.present": "Pr&auml;sentation ansehen",
+    "uc5.tag": "Identit&auml;tsanalyse",
+    "uc5.body": "Ihre Identit&auml;tsdateien, lokal entschl&uuml;sselt: Die Analyse l&auml;uft schneller, Transformationsregeln schreiben sich von selbst und keine Inkonsistenz bleibt mehr unentdeckt.",
+    "uc5.chip1": "Dateianalyse",
+    "uc5.chip2": "Transformationsregeln",
+    "uc5.chip3": "Inkonsistenz-Erkennung",
+    "uc5.chip4": "Lokal",
+    "uc5.demo": "Demn&auml;chst",
+    "uc5.repo": "Repo ansehen",
+    "uc6.tag": "Black-Box-Web-Pentest",
+    "uc6.body": "Web-Pentesting im Autopilot: deterministische, reproduzierbare Black-Box-Tests, deren Ergebnisse die KI f&uuml;r Sie triagiert und entschl&uuml;sselt &mdash; ganz ohne Ihren Rechner zu verlassen.",
+    "uc6.chip1": "Black-Box",
+    "uc6.chip2": "Deterministische Tests",
+    "uc6.chip3": "KI-Analyse",
+    "uc6.chip4": "Webanwendung",
+    "uc6.demo": "Demn&auml;chst",
+    "uc6.repo": "Repo ansehen",
+    "uc7.tag": "EBIOS-RM-Risikoanalyse",
+    "uc7.body": "Ihr EBIOS-RM-Copilot: Er verwandelt Workshops in pr&auml;sentationsfertige Lieferobjekte und bringt die Risikoanalyse in Rekordzeit von der Theorie zum fertigen Ergebnis.",
+    "uc7.chip1": "EBIOS-RM",
+    "uc7.chip2": "Workshops",
+    "uc7.chip3": "Risikoanalyse",
+    "uc7.chip4": "Lieferobjekte",
+    "uc7.demo": "Demn&auml;chst",
+    "uc7.repo": "N/A",
+    "tools.search.placeholder": "Agent, Export oder Funktion suchen...",
+    "tools.count": "Agenten angezeigt",
+    "tools.empty": "Kein Agent entspricht dieser Suche.",
+    "filter.all": "Alle",
+    "filter.crisis": "Cyber-Krise",
+    "filter.assessment": "Assessment",
+    "filter.mapping": "Mapping",
+    "view.cards": "Bl&ouml;cke",
+    "view.cards.label": "Blockansicht",
+    "view.list": "Zeilen",
+    "view.list.label": "Zeilenansicht",
+    "table.agent": "Agent",
+    "table.category": "Typ",
+    "table.capabilities": "Funktionen",
+    "table.outputs": "Exporte",
+    "table.links": "Links",
+    "row.uc1.capabilities": "Szenario, Stimuli, Timeline, Qualit&auml;tskontrollen",
+    "row.uc1.outputs": "Debrief HTML, Video, Moderationsexporte",
+    "row.uc2.capabilities": "Ingest, Business Checks, Scores, Radar &amp; Matrix",
+    "row.uc2.outputs": "PPTX, Excel, Kundenlieferobjekte",
+    "row.uc4.capabilities": "Security-Fragebogen, Ingest plan, Multi-LLM",
+    "row.uc4.outputs": "XLSX, PPTX, PDF, vorbef&uuml;llte Antworten",
+    "row.uc3.capabilities": "Anklickbare Zonen, LLM-Mapping, Popups",
+    "row.uc3.outputs": "CMS-Snippet, HTML, Export",
+    "row.uc5.capabilities": "Dateianalyse, Transformationsregeln, Inkonsistenzen",
+    "row.uc5.outputs": "Vorgeschlagene Regeln, erkannte Inkonsistenzen",
+    "row.uc6.capabilities": "Black-Box, deterministische Tests, KI-Analyse",
+    "row.uc6.outputs": "Triagierte Ergebnisse, Bericht",
+    "row.uc7.capabilities": "Workshops, Szenarien, Risikomatrix, Lieferobjekte",
+    "row.uc7.outputs": "Generierte EBIOS-RM-Lieferobjekte",
+    "note.lab": "Vorschaubilder",
+    "note.body": "Die Vorschaubilder sind animierte SVGs, die im Site versioniert sind. Sie &uuml;bernehmen die Rolle eines GIFs, bleiben aber leichter, scharf auf hochaufl&ouml;senden Bildschirmen und einfach in Git zu pflegen.",
+    "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; Showcase-Agenten",
+    "footer.home": "&#8592; zur&uuml;ck zur Startseite",
+    "img.crisis": "Animiertes Vorschaubild von CrisisMaker mit Szenario, Stimuli und einem Debrief-Export",
+    "img.cyberbench": "Animiertes Vorschaubild von CyberBenchmark Helper mit Import, Checks, Matrix, Radar und PPTX-Export",
+    "img.mythos": "Animiertes Vorschaubild von Mythos Readiness mit Cyber-Fragebogen, Ingest-Plan und LLM-Zusammenfassung",
+    "img.radar": "Animiertes Vorschaubild von RadarMapper mit Radar, anklickbaren Zonen, einem Popup und einem Export",
+    "img.smartidentity": "Vorschaubild von Smart Identity Analyzer mit Analyse von Identit&auml;tsdateien, Transformationsregeln und Inkonsistenzen",
+    "img.autotiweb": "Vorschaubild von Auto-TI-Web mit deterministischem Black-Box-Web-Pentest und KI-Ergebnisanalyse",
+    "img.ebiosrm": "Vorschaubild von EBIOS-RM Risk Analysis mit Workshops, einer Risikomatrix und generierten Lieferobjekten",
+    "__title": "Wavestone CYB &middot; AI Maker Initiative &mdash; Showcase-Agenten"
+  }
+};
+</script>
+<script>
+(function () {
+  'use strict';
+
+  var search = document.getElementById('agentSearch');
+  var showcase = document.getElementById('agentShowcase');
+  var tableWrap = document.getElementById('agentTableWrap');
+  var tableBody = document.querySelector('#agentTable tbody');
+  var empty = document.getElementById('agentEmpty');
+  var count = document.getElementById('agentCount');
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.usecase[data-category]'));
+  var rows = Array.prototype.slice.call(document.querySelectorAll('#agentTable tbody tr[data-category]'));
+  var filterBtns = Array.prototype.slice.call(document.querySelectorAll('.filter-btn'));
+  var viewBtns = Array.prototype.slice.call(document.querySelectorAll('.view-btn'));
+  var sortBtns = Array.prototype.slice.call(document.querySelectorAll('.sort-btn[data-sort]'));
+  var activeFilter = 'all';
+  var sortState = { key: 'name', dir: 'asc' };
+
+  function normalize(value) {
+    return (value || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  function applyFilters() {
+    var query = normalize(search ? search.value : '');
+    var visible = 0;
+
+    cards.forEach(function (card) {
+      var matchesFilter = activeFilter === 'all' || card.getAttribute('data-category') === activeFilter;
+      var haystack = normalize(card.getAttribute('data-search') + ' ' + card.textContent);
+      var matchesSearch = !query || haystack.indexOf(query) !== -1;
+      var show = matchesFilter && matchesSearch;
+
+      card.hidden = !show;
+      if (show) visible += 1;
+    });
+
+    rows.forEach(function (row) {
+      var matchesFilter = activeFilter === 'all' || row.getAttribute('data-category') === activeFilter;
+      var haystack = normalize(row.getAttribute('data-search') + ' ' + row.textContent);
+      var matchesSearch = !query || haystack.indexOf(query) !== -1;
+      row.hidden = !(matchesFilter && matchesSearch);
+    });
+
+    if (count) count.textContent = String(visible);
+    if (empty) empty.classList.toggle('show', visible === 0);
+  }
+
+  function sortValue(row, key) {
+    if (key === 'category') return normalize(row.getAttribute('data-category-label'));
+    return normalize(row.getAttribute('data-' + key) || row.textContent);
+  }
+
+  function applySort() {
+    if (!tableBody) return;
+    var sorted = rows.slice().sort(function (a, b) {
+      var av = sortValue(a, sortState.key);
+      var bv = sortValue(b, sortState.key);
+      if (av < bv) return sortState.dir === 'asc' ? -1 : 1;
+      if (av > bv) return sortState.dir === 'asc' ? 1 : -1;
+      return sortValue(a, 'name') < sortValue(b, 'name') ? -1 : 1;
+    });
+
+    sorted.forEach(function (row) { tableBody.appendChild(row); });
+    rows = sorted;
+
+    sortBtns.forEach(function (btn) {
+      var isSorted = btn.getAttribute('data-sort') === sortState.key;
+      var th = btn.closest('th');
+      btn.classList.toggle('is-sorted', isSorted);
+      btn.classList.toggle('is-desc', isSorted && sortState.dir === 'desc');
+      btn.setAttribute('aria-pressed', isSorted ? 'true' : 'false');
+      if (th) th.setAttribute('aria-sort', isSorted ? (sortState.dir === 'asc' ? 'ascending' : 'descending') : 'none');
+    });
+  }
+
+  function setFilter(value) {
+    activeFilter = value;
+    filterBtns.forEach(function (btn) {
+      var on = btn.getAttribute('data-filter') === value;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    applyFilters();
+  }
+
+  function setView(value) {
+    if (!showcase) return;
+    var isList = value === 'list';
+    showcase.hidden = isList;
+    if (tableWrap) tableWrap.hidden = !isList;
+    viewBtns.forEach(function (btn) {
+      var on = btn.getAttribute('data-view') === value;
+      btn.classList.toggle('is-active', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+    try { sessionStorage.setItem('ws_agents_view', value); } catch (e) { /* ignore */ }
+  }
+
+  filterBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () { setFilter(btn.getAttribute('data-filter')); });
+  });
+
+  viewBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () { setView(btn.getAttribute('data-view')); });
+  });
+
+  sortBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var key = btn.getAttribute('data-sort');
+      sortState.dir = sortState.key === key && sortState.dir === 'asc' ? 'desc' : 'asc';
+      sortState.key = key;
+      applySort();
+    });
+  });
+
+  if (search) search.addEventListener('input', applyFilters);
+
+  var savedView = 'cards';
+  try { savedView = sessionStorage.getItem('ws_agents_view') || 'cards'; } catch (e) { /* ignore */ }
+  setFilter('all');
+  applySort();
+  setView(savedView === 'list' ? 'list' : 'cards');
+})();
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/mobile-nav.js"></script>
+
+</body>
+</html>

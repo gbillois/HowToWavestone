@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="__title">Wavestone CYB AI Maker &mdash; AI-Powered NIS2 Intelligence &amp; Compliance Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-400:#866CDB; --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-teal-500:#228D95;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-warning:#C8861A;
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ws-white);color:var(--ws-ink-900);font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+  a{color:inherit}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .eyebrow{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid var(--ws-green-400)}
+
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1080px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:6px 13px;transition:.18s var(--ws-ease)}
+  .bar a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-left:auto}
+
+  .crumb{max-width:1080px;margin:18px auto 0;padding:0 24px}
+  .crumb a{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-500);text-decoration:none}
+  .crumb a:hover{color:var(--ws-indigo-600)}
+
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px;margin-top:14px}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1080px;margin:0 auto;padding:48px 24px 44px;display:grid;grid-template-columns:1fr;gap:28px;align-items:center}
+  @media(min-width:860px){.hero-in{grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);padding:56px 24px 40px}}
+  .hero .eyebrow{color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(30px,4.6vw,46px);line-height:1.08;letter-spacing:-.02em;margin:18px 0 14px;max-width:26ch}
+  .hero .lede{font-size:17.5px;line-height:1.55;color:rgba(255,255,255,.85);max-width:66ch}
+  .hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .hero-tag{font-family:var(--ws-font-mono);font-size:12px;font-weight:600;color:#fff;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);padding:6px 11px}
+  .hero-illus{width:100%;max-width:340px;justify-self:center;filter:drop-shadow(0 14px 24px rgba(14,9,40,.35))}
+  .hero-illus svg{display:block;width:100%;height:auto}
+  @media(max-width:859px){.hero-illus{max-width:240px;order:-1}}
+  .hero-in.simple{grid-template-columns:1fr;text-align:center}
+
+  /* ---- empty-state (skeleton use case pages) ---- */
+  .empty-state{border:1.5px dashed var(--ws-ink-200);background:var(--ws-ink-50);padding:48px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
+  .empty-state .ic{width:52px;height:52px;background:#fff;border:1.5px solid var(--ws-ink-200);color:var(--ws-ink-400);display:grid;place-items:center}
+  .empty-state h3{font-family:var(--ws-font-display);font-weight:700;font-size:16px;color:var(--ws-ink-600)}
+  .empty-state p{font-size:13.5px;color:var(--ws-ink-500);max-width:52ch}
+
+  .sec-head{margin:56px 0 22px}
+  .sec-head .eyebrow{color:var(--ws-indigo-600);border-bottom-color:var(--ws-green-400)}
+  .sec-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:27px;letter-spacing:-.015em;color:var(--ws-ink-900);margin-top:8px}
+  .sec-head p.sub{font-size:15px;color:var(--ws-ink-600);margin-top:10px;max-width:74ch}
+
+  /* ---- section 1: presentation ---- */
+  .pres-grid{display:grid;grid-template-columns:1fr;gap:16px}
+  @media(min-width:820px){.pres-grid{grid-template-columns:1fr 1fr}}
+  .pres-card{background:#fff;border:1.5px solid var(--ws-ink-100);border-top:3px solid var(--ws-ink-100);padding:24px 24px 22px;box-shadow:var(--ws-shadow-sm)}
+  .pres-card h3{display:flex;align-items:center;gap:10px;font-family:var(--ws-font-display);font-weight:700;font-size:15.5px;color:var(--ws-indigo-600);margin-bottom:12px}
+  .pres-card h3 .ic{width:30px;height:30px;flex:0 0 auto;background:var(--ws-indigo-50);color:var(--ws-indigo-600);display:grid;place-items:center}
+  .pres-card p{font-size:14.5px;color:var(--ws-ink-700);line-height:1.65}
+  .pres-card p + p{margin-top:10px}
+  .pres-card ul{margin-top:4px;padding-left:0;list-style:none;display:grid;gap:8px}
+  .pres-card ul li{font-size:14.5px;color:var(--ws-ink-700);line-height:1.5;display:flex;gap:9px;align-items:flex-start}
+  .pres-card ul li::before{content:"";flex:0 0 auto;width:6px;height:6px;margin-top:7px;background:var(--ws-green-400)}
+  .pres-card.contexte{border-top-color:var(--ws-teal-500)}
+  .pres-card.objectifs{border-top-color:var(--ws-indigo-500)}
+  .pres-card.agent{border-top-color:#5226E0}
+  .pres-card.value{border-top-color:var(--ws-green-400);box-shadow:0 0 0 1px var(--ws-green-400),var(--ws-shadow-sm)}
+  .pres-card .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+  .pres-card .stat{text-align:left}
+  .pres-card .stat b{display:block;font-family:var(--ws-font-display);font-weight:800;font-size:23px;color:var(--ws-indigo-600);line-height:1}
+  .pres-card .stat span{display:block;font-size:11.5px;color:var(--ws-ink-500);margin-top:5px;line-height:1.35}
+
+  /* ---- section 2: architecture ---- */
+  .arch-note{font-size:14.5px;color:var(--ws-ink-600);max-width:78ch;margin-bottom:26px;line-height:1.65}
+  .arch-note b{color:var(--ws-ink-900)}
+  .pipeline{display:flex;flex-direction:column;gap:0}
+  .arch-row{display:flex;align-items:stretch;gap:0}
+  .arch-io{flex:0 0 148px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+  .io-box{background:var(--ws-ink-50);border:1.5px dashed var(--ws-ink-300);padding:12px 14px;font-family:var(--ws-font-mono);font-size:11.5px;color:var(--ws-ink-600);text-align:center;line-height:1.4}
+  .io-box b{display:block;font-family:var(--ws-font-display);font-size:13px;color:var(--ws-ink-800);margin-bottom:3px}
+  .arch-connector{flex:0 0 40px;display:flex;align-items:center;justify-content:center;color:var(--ws-ink-300)}
+  .arch-connector svg{width:28px;height:16px}
+  .steps{flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  @media(max-width:900px){
+    .arch-row{flex-direction:column;gap:16px}
+    .arch-io{flex-direction:row;flex:none;width:100%}
+    .arch-connector{transform:rotate(90deg);flex:none;height:24px}
+    .steps{grid-template-columns:1fr}
+  }
+  .step{background:#fff;border:1.5px solid var(--ws-ink-100);box-shadow:var(--ws-shadow-sm);display:flex;flex-direction:column}
+  .step-head{background:var(--ws-indigo-800);color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px}
+  .step:nth-child(3) .step-head{background:linear-gradient(90deg,var(--ws-indigo-800),var(--ws-teal-500))}
+  .step:nth-child(5) .step-head{background:linear-gradient(90deg,var(--ws-indigo-800),var(--ws-green-700))}
+  .step-head .n{font-family:var(--ws-font-mono);font-size:11px;font-weight:700;color:var(--ws-indigo-900);background:var(--ws-green-400);width:22px;height:22px;flex:0 0 auto;display:grid;place-items:center}
+  .step-head b{font-family:var(--ws-font-display);font-size:14px;letter-spacing:-.01em}
+  .step-body{padding:16px;display:flex;flex-direction:column;gap:12px;flex:1}
+  .step-goal{font-size:12.5px;color:var(--ws-ink-500);font-style:italic;line-height:1.45;padding-bottom:10px;border-bottom:1px solid var(--ws-ink-100)}
+  .task{display:flex;flex-direction:column;gap:4px}
+  .task b{font-family:var(--ws-font-display);font-size:13.5px;color:var(--ws-ink-900)}
+  .task p{font-size:12.5px;color:var(--ws-ink-600);line-height:1.5}
+  .model-pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--ws-font-mono);font-size:10.5px;font-weight:600;color:var(--ws-teal-500);background:#E2F1F2;padding:3px 9px;width:fit-content;margin-top:2px}
+  .model-pill.py{color:var(--ws-indigo-600);background:var(--ws-indigo-50)}
+  .arrow-down{display:none}
+  @media(max-width:900px){
+    .arrow-down{display:flex;justify-content:center;color:var(--ws-ink-300);margin:2px 0}
+  }
+
+  /* ---- section 3: retour d'experience ---- */
+  .xp-grid{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:16px}
+  @media(min-width:760px){.xp-grid{grid-template-columns:1fr 1fr}}
+  @media(min-width:1080px){.xp-grid{grid-template-columns:repeat(3,1fr)}}
+  .xp-card{background:#fff;border:1.5px solid var(--ws-ink-100);padding:22px;box-shadow:var(--ws-shadow-sm);display:flex;flex-direction:column;transition:.22s var(--ws-ease)}
+  .xp-card:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-3px);border-color:var(--ws-indigo-200)}
+  .xp-card .tag{display:inline-block;font-family:var(--ws-font-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-indigo-600);background:var(--ws-indigo-50);padding:4px 10px;margin-bottom:12px;width:fit-content}
+  .xp-card h3{font-family:var(--ws-font-display);font-weight:700;font-size:16px;color:var(--ws-ink-900);margin-bottom:8px;line-height:1.3}
+  .xp-card p{font-size:13.5px;color:var(--ws-ink-600);line-height:1.6}
+  .xp-card ul{margin-top:8px;padding-left:0;list-style:none;display:grid;gap:6px}
+  .xp-card ul li{font-size:13px;color:var(--ws-ink-700);line-height:1.5;display:flex;gap:8px}
+  .xp-card ul li::before{content:"\2192";flex:0 0 auto;color:var(--ws-green-700);font-weight:700}
+  .xp-card.wide{grid-column:1 / -1;background:linear-gradient(135deg,var(--ws-indigo-900),var(--ws-indigo-700));border-color:var(--ws-indigo-700)}
+  .xp-card.wide .tag{color:var(--ws-green-300);background:rgba(255,255,255,.1)}
+  .xp-card.wide .quote{font-family:var(--ws-font-display);font-weight:600;font-size:17px;color:#fff;line-height:1.4;font-style:normal}
+  .xp-card.wide p:not(.quote){color:rgba(255,255,255,.75)}
+
+  .compare{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+  .compare th,.compare td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--ws-ink-100);vertical-align:top}
+  .compare thead th{font-family:var(--ws-font-mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--ws-ink-500)}
+  .compare tbody th{font-family:var(--ws-font-display);font-weight:600;font-size:12.5px;color:var(--ws-ink-900);white-space:nowrap}
+  .compare td.manual{color:var(--ws-ink-500)}
+  .compare td.agent{color:var(--ws-ink-900);font-weight:600}
+  .compare td.agent b{color:var(--ws-green-700)}
+  .compare tbody tr:last-child th,.compare tbody tr:last-child td{border-bottom:none}
+
+  .xp-note{margin-top:6px;background:#FBF1DD;border:1px solid #F0DBA8;border-left:4px solid var(--ws-warning);padding:14px 16px;display:flex;gap:10px;align-items:flex-start}
+  .xp-note svg{flex:0 0 auto;color:var(--ws-warning);margin-top:2px}
+  .xp-note p{font-size:13px;color:var(--ws-ink-700);line-height:1.6}
+
+  /* ---- section 4: team ---- */
+  .team-note{font-size:13px;color:var(--ws-ink-500);max-width:74ch;margin-bottom:22px;line-height:1.6;font-family:var(--ws-font-mono)}
+  .team-locations{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+  .loc-pill{font-family:var(--ws-font-mono);font-size:11.5px;font-weight:600;color:var(--ws-ink-600);background:var(--ws-ink-50);padding:5px 11px;display:inline-flex;align-items:center;gap:6px}
+  .loc-pill svg{width:12px;height:12px}
+  .team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(min-width:600px){.team-grid{grid-template-columns:repeat(3,1fr)}}
+  @media(min-width:900px){.team-grid{grid-template-columns:repeat(5,1fr)}}
+  .member{background:#fff;border:1.5px solid var(--ws-ink-100);padding:18px 14px 16px;text-align:center;text-decoration:none;display:flex;flex-direction:column;align-items:center;transition:.2s var(--ws-ease)}
+  .member:hover{border-color:var(--ws-indigo-600);box-shadow:var(--ws-shadow-md);transform:translateY(-3px)}
+  .member .avatar{width:76px;height:76px;border-radius:50%;object-fit:cover;background:var(--ws-ink-50);margin-bottom:12px;border:2px solid var(--ws-white);box-shadow:0 0 0 2px var(--ws-ink-100)}
+  .member:hover .avatar{box-shadow:0 0 0 2px var(--ws-indigo-500)}
+  .member .name{font-family:var(--ws-font-display);font-weight:600;font-size:13.5px;color:var(--ws-ink-900);line-height:1.3}
+  .member .role{font-family:var(--ws-font-mono);font-size:10.5px;color:var(--ws-ink-400);font-style:italic;margin-top:4px}
+  .member .teams-ic{margin-top:9px;display:flex;align-items:center;gap:5px;font-family:var(--ws-font-mono);font-size:10px;color:var(--ws-indigo-600);opacity:0;transition:.18s var(--ws-ease)}
+  .member:hover .teams-ic{opacity:1}
+  .member .teams-ic svg{width:12px;height:12px}
+
+  footer{max-width:1080px;margin:60px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+  footer a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:8px 14px;transition:.18s var(--ws-ease)}
+  footer a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
+  @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+  *,*::before,*::after{border-radius:0!important}
+  .member .avatar{border-radius:50%!important}
+  .brand .dot{border-radius:50%!important}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
+    <div class="nav-links">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="dance-with-the-ai-stars.html" data-i18n="nav.dais">Dance With the AI Stars</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+    </div>
+  </div>
+</div>
+
+<div class="crumb"><a href="dance-with-the-ai-stars.html" data-i18n="crumb.back">&#8592; Dance With the AI Stars</a></div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1080 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,260 Q260,150 540,210 T1140,180" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,280 Q300,180 560,240 T1140,210" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <div>
+      <span class="eyebrow" data-i18n="hero.eyebrow">NIS2 &middot; Compliance &middot; GRC</span>
+      <h1 data-i18n="hero.title">AI-Powered NIS2 Intelligence &amp; Compliance Assistant</h1>
+      <p class="lede" data-i18n="hero.lede">Tous les r&eacute;f&eacute;rentiels nationaux NIS2, automatiquement cartographi&eacute;s et interconnect&eacute;s. De la complexit&eacute; r&eacute;glementaire &agrave; la clart&eacute; &mdash; en quelques jours au lieu de quelques semaines.</p>
+      <div class="hero-tags">
+        <span class="hero-tag" data-i18n="hero.tag1">27 variantes nationales NIS2</span>
+        <span class="hero-tag" data-i18n="hero.tag2">Pipeline Azure OpenAI</span>
+        <span class="hero-tag" data-i18n="hero.tag3">19 mappings livr&eacute;s</span>
+        <span class="hero-tag" data-i18n="hero.tag4">&#8722;80% de co&ucirc;t vs mapping manuel</span>
+      </div>
+    </div>
+    <div class="hero-illus">
+      <svg viewBox="0 0 440 320" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="36" cy="272" r="3" fill="rgba(255,255,255,.35)"/>
+        <circle cx="66" cy="292" r="2" fill="rgba(255,255,255,.25)"/>
+        <circle cx="412" cy="46" r="3" fill="rgba(4,240,106,.45)"/>
+        <circle cx="392" cy="70" r="2" fill="rgba(4,240,106,.3)"/>
+        <path d="M36,272 L66,292" stroke="rgba(255,255,255,.2)" stroke-width="1"/>
+        <path d="M412,46 L392,70" stroke="rgba(4,240,106,.25)" stroke-width="1"/>
+        <g transform="translate(26,44)">
+          <rect x="0" y="0" width="116" height="148" fill="#2D1380" stroke="#866CDB" stroke-width="1.5"/>
+          <rect x="16" y="22" width="66" height="7" fill="rgba(255,255,255,.75)"/>
+          <rect x="16" y="40" width="84" height="5" fill="rgba(255,255,255,.35)"/>
+          <rect x="16" y="52" width="84" height="5" fill="rgba(255,255,255,.35)"/>
+          <rect x="16" y="64" width="58" height="5" fill="rgba(255,255,255,.35)"/>
+          <rect x="16" y="90" width="84" height="5" fill="rgba(255,255,255,.22)"/>
+          <rect x="16" y="102" width="68" height="5" fill="rgba(255,255,255,.22)"/>
+          <circle cx="98" cy="16" r="12" fill="#04F06A"/>
+          <text x="98" y="20.5" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="700" fill="#1E0D57">A</text>
+        </g>
+        <g transform="translate(176,8)">
+          <rect x="0" y="0" width="116" height="148" fill="#36169B" stroke="#866CDB" stroke-width="1.5"/>
+          <rect x="16" y="22" width="66" height="7" fill="rgba(255,255,255,.75)"/>
+          <rect x="16" y="40" width="84" height="5" fill="rgba(255,255,255,.35)"/>
+          <rect x="16" y="52" width="84" height="5" fill="rgba(255,255,255,.35)"/>
+          <rect x="16" y="64" width="58" height="5" fill="rgba(255,255,255,.35)"/>
+          <rect x="16" y="90" width="84" height="5" fill="rgba(255,255,255,.22)"/>
+          <rect x="16" y="102" width="68" height="5" fill="rgba(255,255,255,.22)"/>
+          <circle cx="98" cy="16" r="12" fill="#5CF59E"/>
+          <text x="98" y="20.5" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="700" fill="#1E0D57">B</text>
+        </g>
+        <path d="M146,110 Q206,150 264,172" stroke="#04F06A" stroke-width="2" stroke-dasharray="4 5" opacity=".85"/>
+        <path d="M236,158 Q252,166 264,178" stroke="#04F06A" stroke-width="2" stroke-dasharray="4 5" opacity=".85"/>
+        <g transform="translate(264,128)">
+          <rect x="0" y="0" width="150" height="168" fill="#ffffff" stroke="#04F06A" stroke-width="2.5"/>
+          <rect x="18" y="26" width="86" height="8" fill="#1E0D57"/>
+          <rect x="18" y="48" width="106" height="5" fill="#CFCCDC"/>
+          <rect x="18" y="60" width="106" height="5" fill="#CFCCDC"/>
+          <rect x="18" y="72" width="74" height="5" fill="#CFCCDC"/>
+          <rect x="18" y="98" width="106" height="5" fill="#E6E4EE"/>
+          <rect x="18" y="110" width="64" height="5" fill="#E6E4EE"/>
+          <circle cx="120" cy="22" r="17" fill="#04F06A"/>
+          <path d="M112,22 l5.5,5.5 11,-11" stroke="#1E0D57" stroke-width="3" fill="none" stroke-linecap="square" stroke-linejoin="miter"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ 1. PRESENTATION ============ -->
+  <div class="sec-head" id="presentation">
+    <span class="eyebrow" data-i18n="sec1.eyebrow">01 &middot; Le projet</span>
+    <h2 data-i18n="sec1.h2">Pr&eacute;sentation du projet</h2>
+    <p class="sub" data-i18n="sec1.sub">N&eacute; des Wavestone Innovation Days (WID), ce projet transforme un exercice r&eacute;glementaire long et manuel en un pipeline IA reproductible.</p>
+  </div>
+
+  <div class="pres-grid">
+
+    <div class="pres-card contexte">
+      <h3><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="4" y="2" width="16" height="20"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="13" y2="15"/></svg></span><span data-i18n="pres.contexte.h3">Contexte</span></h3>
+      <p data-i18n="pres.contexte.p1">La directive europ&eacute;enne <b>NIS2</b> se d&eacute;cline en <b>27 r&eacute;f&eacute;rentiels nationaux</b> diff&eacute;rents : les entreprises multinationales doivent se conformer &agrave; chaque variante locale. Pour le WID, l'&eacute;quipe a &eacute;tudi&eacute; 12 de ces r&eacute;f&eacute;rentiels &mdash; un travail long et fastidieux pour les consultants.</p>
+      <p data-i18n="pres.contexte.p2">Un premier essai avec Copilot a donn&eacute; des r&eacute;sultats prometteurs mais plafonn&eacute;s, non scalables. L'approche IA d&eacute;di&eacute;e pr&eacute;sent&eacute;e lors du WID a convaincu les clients, avec une demande d&eacute;j&agrave; confirm&eacute;e chez un grand acteur fran&ccedil;ais du secteur de l'&eacute;nergie.</p>
+    </div>
+
+    <div class="pres-card objectifs">
+      <h3><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><span data-i18n="pres.objectifs.h3">Objectifs</span></h3>
+      <ul>
+        <li data-i18n="pres.objectifs.li1">Automatiser la cartographie des exigences r&eacute;glementaires entre r&eacute;f&eacute;rentiels NIS2 pays &agrave; grande &eacute;chelle.</li>
+        <li data-i18n="pres.objectifs.li2">Lib&eacute;rer le temps consultant consacr&eacute; aux t&acirc;ches de mapping &agrave; faible valeur ajout&eacute;e.</li>
+        <li data-i18n="pres.objectifs.li3">Atteindre 90% de pr&eacute;cision des donn&eacute;es (contre 75% aujourd'hui).</li>
+        <li data-i18n="pres.objectifs.li4">&Eacute;tendre la m&eacute;thode &agrave; d'autres r&eacute;glementations (DORA, ISO, zones US/Asie).</li>
+      </ul>
+    </div>
+
+    <div class="pres-card agent">
+      <h3><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="3" y="3" width="18" height="18"/><path d="M7 15l3-3 2 2 5-6"/></svg></span><span data-i18n="pres.agent.h3">L'agent en une phrase</span></h3>
+      <p data-i18n="pres.agent.p1">Un pipeline orchestr&eacute; en Python qui extrait les donn&eacute;es d'entr&eacute;e depuis des fichiers Excel, g&egrave;re la configuration de l'agent, appelle l'API <b>Azure OpenAI</b> avec les mod&egrave;les s&eacute;lectionn&eacute;s selon la complexit&eacute; de chaque t&acirc;che, et produit le mapping final entre r&eacute;f&eacute;rentiels.</p>
+      <p data-i18n="pres.agent.p2">Trois &eacute;tapes &mdash; pr&eacute;-traitement, mapping, synth&egrave;se &mdash; d&eacute;taill&eacute;es dans l'architecture ci-dessous.</p>
+    </div>
+
+    <div class="pres-card value">
+      <h3><span class="ic" style="background:var(--ws-green-50);color:var(--ws-green-700)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><span data-i18n="pres.valeur.h3">Valeur apport&eacute;e</span></h3>
+      <p data-i18n="pres.valeur.p1">Pour un engagement type : <b>1&nbsp;905&euro;</b> (agent + 1,5 jour consultant) contre <b>8&nbsp;000&ndash;10&nbsp;000&euro;</b> en mapping manuel, livr&eacute; en <b>~3 jours</b> au lieu de ~2 semaines.</p>
+      <div class="stat-row">
+        <div class="stat"><b>19</b><span data-i18n="pres.valeur.stat1">projets de mapping NIS2 r&eacute;alis&eacute;s</span></div>
+        <div class="stat"><b>15</b><span data-i18n="pres.valeur.stat2">r&eacute;f&eacute;rentiels pays cartographi&eacute;s</span></div>
+        <div class="stat"><b>1&nbsp;200+</b><span data-i18n="pres.valeur.stat3">heures de mapping manuel remplac&eacute;es</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ 2. ARCHITECTURE ============ -->
+  <div class="sec-head" id="architecture">
+    <span class="eyebrow" data-i18n="sec2.eyebrow">02 &middot; Sous le capot</span>
+    <h2 data-i18n="sec2.h2">Architecture de l'agent</h2>
+    <p class="sub" data-i18n="sec2.sub">Un pipeline en trois &eacute;tapes, chacune confi&eacute;e au mod&egrave;le le plus adapt&eacute; &agrave; sa complexit&eacute; &mdash; du plus l&eacute;ger (nano) au plus capable, orchestr&eacute; par un script Python.</p>
+  </div>
+
+  <p class="arch-note" data-i18n="arch.note">Deux r&eacute;f&eacute;rentiels (<b>Framework A</b> et <b>Framework B</b>) entrent dans le pipeline sous forme de fichiers Excel. Ils en ressortent sous la forme d'un <b>r&eacute;f&eacute;rentiel mapp&eacute;</b> : un rapport de correspondance exigence par exigence, avec &eacute;carts et actions de rem&eacute;diation.</p>
+
+  <div class="pipeline">
+    <div class="arch-row">
+      <div class="arch-io">
+        <div class="io-box"><b>Framework A</b><span data-i18n="arch.io.a.sub">R&eacute;f&eacute;rentiel national #1</span></div>
+        <div class="io-box"><b>Framework B</b><span data-i18n="arch.io.b.sub">R&eacute;f&eacute;rentiel national #2</span></div>
+      </div>
+      <div class="arch-connector">
+        <svg viewBox="0 0 28 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M0 8h24M18 2l6 6-6 6"/></svg>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-head"><span class="n">1</span><b data-i18n="step1.title">Pr&eacute;-traitement</b></div>
+          <div class="step-body">
+            <div class="step-goal" data-i18n="step1.goal">Rendre les r&eacute;f&eacute;rentiels comparables entre eux.</div>
+            <div class="task">
+              <b>Harmonisation ENISA</b>
+              <p data-i18n="step1.task1.desc">Standardisation des cat&eacute;gories d'exigences selon les cat&eacute;gories ENISA.</p>
+              <span class="model-pill">GPT&#8209;5.4 nano</span>
+            </div>
+            <div class="task">
+              <b data-i18n="step1.task2.title">Atomisation &amp; extraction</b>
+              <p data-i18n="step1.task2.desc">D&eacute;coupage des exigences complexes en obligations atomiques, extraction des champs cl&eacute;s, calcul des embeddings s&eacute;mantiques.</p>
+              <span class="model-pill">GPT&#8209;5.4 nano</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arrow-down"><svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 0v18M2 14l6 6 6-6"/></svg></div>
+
+        <div class="step">
+          <div class="step-head"><span class="n">2</span><b data-i18n="step2.title">Mapping</b></div>
+          <div class="step-body">
+            <div class="step-goal" data-i18n="step2.goal">Cartographier les exigences une par une.</div>
+            <div class="task">
+              <b data-i18n="step2.task1.title">Mapping directionnel</b>
+              <p data-i18n="step2.task1.desc">Calcul d'un score de similarit&eacute; entre chaque exigence, bas&eacute; sur les embeddings et la structure de l'exigence.</p>
+              <span class="model-pill">GPT&#8209;5.4 mini</span>
+            </div>
+            <div class="task">
+              <b data-i18n="step2.task2.title">Juge final</b>
+              <p data-i18n="step2.task2.desc">V&eacute;rification et correction des d&eacute;cisions de mapping directionnel.</p>
+              <span class="model-pill">GPT&#8209;5.4</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arrow-down"><svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 0v18M2 14l6 6 6-6"/></svg></div>
+
+        <div class="step">
+          <div class="step-head"><span class="n">3</span><b data-i18n="step3.title">Synth&egrave;se</b></div>
+          <div class="step-body">
+            <div class="step-goal" data-i18n="step3.goal">Structurer le r&eacute;sultat pour le rendre lisible et exploitable.</div>
+            <div class="task">
+              <b data-i18n="step3.task1.title">Synth&egrave;se parente</b>
+              <p data-i18n="step3.task1.desc">Reconstruction des exigences originales &agrave; partir des obligations atomiques.</p>
+              <span class="model-pill py">Script Python</span>
+            </div>
+            <div class="task">
+              <b data-i18n="step3.task2.title">&Eacute;carts &amp; plan d'action</b>
+              <p data-i18n="step3.task2.desc">G&eacute;n&eacute;ration d'explications claires des &eacute;carts, suggestion d'actions de rem&eacute;diation.</p>
+              <span class="model-pill">GPT&#8209;5.4 mini</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-connector">
+        <svg viewBox="0 0 28 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M0 8h24M18 2l6 6-6 6"/></svg>
+      </div>
+      <div class="arch-io">
+        <div class="io-box" style="border-style:solid;border-color:var(--ws-green-400);background:var(--ws-green-50)"><b>Mapped framework</b><span data-i18n="arch.io.out.sub">Rapport de correspondance + &eacute;carts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 3. RETOUR D'EXPERIENCE ============ -->
+  <div class="sec-head" id="retour-experience">
+    <span class="eyebrow" data-i18n="sec3.eyebrow">03 &middot; Sur le terrain</span>
+    <h2 data-i18n="sec3.h2">Retour d'exp&eacute;rience</h2>
+    <p class="sub" data-i18n="sec3.sub">Ce que le projet a d&eacute;j&agrave; d&eacute;montr&eacute; en mission, chiffres et validation client &agrave; l'appui.</p>
+  </div>
+
+  <div class="xp-grid">
+
+    <div class="xp-card wide">
+      <span class="tag" data-i18n="xp.validation.tag">Validation client</span>
+      <p class="quote" data-i18n="xp.validation.quote">&laquo;&nbsp;Notre approche pilot&eacute;e par l'IA a convaincu les clients d&egrave;s sa pr&eacute;sentation au WID.&nbsp;&raquo;</p>
+      <p style="margin-top:10px" data-i18n="xp.validation.body">La cartographie NIS2 assist&eacute;e par IA pr&eacute;sent&eacute;e lors du Wavestone Innovation Days a directement d&eacute;bouch&eacute; sur une demande client confirm&eacute;e chez un grand acteur fran&ccedil;ais du secteur de l'&eacute;nergie, validant le passage du prototype &agrave; un outil de mission.</p>
+    </div>
+
+    <div class="xp-card">
+      <span class="tag" data-i18n="xp.gain.tag">B&eacute;n&eacute;fices constat&eacute;s</span>
+      <h3 data-i18n="xp.gain.h3">Gain op&eacute;rationnel mesur&eacute;</h3>
+      <p data-i18n="xp.gain.p">Sur un engagement de mapping NIS2 type, l'agent d&eacute;place l'effort du temps consultant vers du temps de calcul.</p>
+      <table class="compare">
+        <thead><tr><th data-i18n="xp.gain.th0">Crit&egrave;re</th><th data-i18n="xp.gain.th1">Manuel*</th><th data-i18n="xp.gain.th2">Agent</th></tr></thead>
+        <tbody>
+          <tr><th data-i18n="xp.gain.r0">D&eacute;lai</th><td class="manual" data-i18n="xp.gain.r0c1">~2 semaines</td><td class="agent"><b data-i18n="xp.gain.r0c2">~3 jours</b></td></tr>
+          <tr><th data-i18n="xp.gain.r1">Co&ucirc;t</th><td class="manual">8&ndash;10k&euro;</td><td class="agent"><b>1&nbsp;905&euro;</b></td></tr>
+          <tr><th data-i18n="xp.gain.r2">Effort</th><td class="manual" data-i18n="xp.gain.r2c1">5&ndash;8 j analyste + 1&ndash;2 j senior</td><td class="agent"><b data-i18n="xp.gain.r2c2">~1,5 j</b> <span data-i18n="xp.gain.r2c2b">consultant form&eacute;</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="xp-card">
+      <span class="tag" data-i18n="xp.competitif.tag">Avantage comp&eacute;titif</span>
+      <h3 data-i18n="xp.competitif.h3">Face aux outils GRC du march&eacute;</h3>
+      <p data-i18n="xp.competitif.p">Malgr&eacute; la popularit&eacute; croissante des outils GRC, l'agent Wavestone garde un avantage :</p>
+      <ul>
+        <li data-i18n="xp.competitif.li1">Moins co&ucirc;teux &agrave; d&eacute;ployer (licences GRC jusqu'&agrave; 131k&euro;/an)</li>
+        <li data-i18n="xp.competitif.li2">Pas de formation utilisateur (jusqu'&agrave; 6&ndash;8h/employ&eacute; &eacute;conomis&eacute;es)</li>
+        <li data-i18n="xp.competitif.li3">Sorties personnalis&eacute;es, con&ccedil;u avec des experts NIS2</li>
+      </ul>
+    </div>
+
+    <div class="xp-card">
+      <span class="tag" data-i18n="xp.amelioration.tag">Points d'am&eacute;lioration</span>
+      <h3 data-i18n="xp.amelioration.h3">Axes de progr&egrave;s identifi&eacute;s</h3>
+      <p data-i18n="xp.amelioration.p">La pr&eacute;cision des donn&eacute;es est aujourd'hui de <b>~75%</b>, avec un objectif fix&eacute; &agrave; <b>90%</b>. L'effort de contr&ocirc;le qualit&eacute; reste &eacute;lev&eacute; en d&eacute;but de vie de l'agent, avant de d&eacute;cro&icirc;tre &agrave; mesure des am&eacute;liorations continues.</p>
+      <ul>
+        <li data-i18n="xp.amelioration.li1">Am&eacute;lioration continue du mod&egrave;le et du pipeline</li>
+        <li data-i18n="xp.amelioration.li2">Extension pr&eacute;vue &agrave; DORA, ISO et r&eacute;f&eacute;rentiels US/Asie</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="xp-note">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <p data-i18n="xp.note">* Chiffres bas&eacute;s sur un engagement NIS2 r&eacute;el men&eacute; &agrave; terme. Le co&ucirc;t &laquo;&nbsp;agent&nbsp;&raquo; (~5&euro;) correspond &agrave; la consommation de tokens du pipeline.</p>
+  </div>
+
+  <!-- ============ 4. EQUIPE ============ -->
+  <div class="sec-head" id="equipe">
+    <span class="eyebrow" data-i18n="sec4.eyebrow">04 &middot; Les Wavies derri&egrave;re le projet</span>
+    <h2 data-i18n="sec4.h2">&Eacute;quipe du projet</h2>
+    <p class="sub" data-i18n="sec4.sub">Cliquez sur un membre pour ouvrir directement une conversation Microsoft Teams.</p>
+  </div>
+
+  <div class="team-locations">
+    <span class="loc-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Paris</span>
+    <span class="loc-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Nantes</span>
+    <span class="loc-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>UK</span>
+  </div>
+
+  <p class="team-note" data-i18n="team.note">R&ocirc;les extraits de la pr&eacute;sentation projet.</p>
+
+  <div class="team-grid" id="team-grid"></div>
+
+  <script>
+  // Structure extensible : ajouter un objet ici suffit pour faire apparaître un nouveau membre.
+  const TEAM = [
+    { slug: "aurelien", name: "Aurélien Brun",  role: "Stagiaire &middot; Paris",          photo: "assets/team/aurelien-brun.png",  email: "aurelien.brun@wavestone.com" },
+    { slug: "salome",   name: "Salomé Thauvin", role: "Analyste &middot; Paris",           photo: "assets/team/salome-thauvin.png", email: "salome.thauvin@wavestone.com" },
+    { slug: "emma",     name: "Emma Fadda",     role: "Consultant &middot; Paris",         photo: "assets/team/emma-fadda.png",      email: "emma.fadda@wavestone.com" },
+    { slug: "devika",   name: "Devika Vasisht", role: "Senior Consultant &middot; UK",     photo: "assets/team/devika-vasisht.png",  email: "devika.vasisht@wavestone.com" },
+    { slug: "roxane",   name: "Roxane Pearson", role: "Senior Manager &middot; UK",        photo: "assets/team/roxane-pearson.png", email: "roxane.pearson@wavestone.com" },
+    { slug: "ouala",    name: "Ouala Barhoumi", role: "Senior Manager &middot; Paris",     photo: "assets/team/ouala-barhoumi.png",  email: "ouala.barhoumi@wavestone.com" },
+    { slug: "louis",    name: "Louis Michel",   role: "Manager &middot; Nantes",           photo: "assets/team/louis-michel.png",    email: "louis.michel@wavestone.com" },
+    { slug: "marie",    name: "Marie Deblache", role: "Analyste &middot; Paris",           photo: "assets/team/marie-deblache.png",  email: "marie.deblache@wavestone.com" },
+    { slug: "wassim",   name: "Wassim Alidra",  role: "Manager &middot; Paris",            photo: "assets/team/wassim-alidra.png",   email: "wassim.alidra@wavestone.com" },
+    { slug: "landza",   name: "Landza Houdi",   role: "Consultant &middot; Paris",         photo: "assets/team/landza-houdi.png",    email: "landza.houdi@wavestone.com" }
+  ];
+
+  const grid = document.getElementById("team-grid");
+  const teamsIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 3 6 3s6-2 6-3v-5"/></svg>';
+  grid.innerHTML = TEAM.map(function(m){
+    const teamsUrl = "https://teams.microsoft.com/l/chat/0/0?users=" + encodeURIComponent(m.email);
+    return '<a class="member" href="' + teamsUrl + '" target="_blank" rel="noopener noreferrer" title="Ouvrir la conversation Teams avec ' + m.name + '">'
+      // + '<img class="avatar" src="' + m.photo + '" alt="' + m.name + '">'
+      + '<span class="name">' + m.name + '</span>'
+      + '<span class="role" data-i18n="team.' + m.slug + '.role">' + m.role + '</span>'
+      + '<span class="teams-ic">' + teamsIcon + ' Teams</span>'
+      + '</a>';
+  }).join("");
+  </script>
+
+</div>
+
+<footer>
+  <span class="src" data-i18n="footer.src">AI-Powered NIS2 Intelligence &amp; Compliance Assistant &mdash; Dance With the AI Stars &middot; Wavestone CYB AI Maker</span>
+  <a class="jump" href="dance-with-the-ai-stars.html" data-i18n="footer.back">&#8592; retour aux 6 projets</a>
+</footer>
+
+<script>
+window.WS_I18N = {
+  en: {
+    "__title": "Wavestone CYB AI Maker &mdash; AI-Powered NIS2 Intelligence &amp; Compliance Assistant",
+    "nav.home": "Home",
+    "nav.dais": "Dance With the AI Stars",
+    "nav.usecases": "Playbook",
+    "nav.agents": "Our agents",
+    "crumb.back": "&#8592; Dance With the AI Stars",
+    "hero.eyebrow": "NIS2 &middot; Compliance &middot; GRC",
+    "hero.title": "AI-Powered NIS2 Intelligence &amp; Compliance Assistant",
+    "hero.lede": "Every national NIS2 framework, automatically mapped and interconnected. From regulatory complexity to clarity &mdash; in days instead of weeks.",
+    "hero.tag1": "27 national NIS2 variants",
+    "hero.tag2": "Azure OpenAI pipeline",
+    "hero.tag3": "19 mappings delivered",
+    "hero.tag4": "&#8722;80% cost vs. manual mapping",
+    "sec1.eyebrow": "01 &middot; The project",
+    "sec1.h2": "Project overview",
+    "sec1.sub": "Born from the Wavestone Innovation Days (WID), this project turns a long, manual regulatory exercise into a reproducible AI pipeline.",
+    "pres.contexte.h3": "Context",
+    "pres.contexte.p1": "The European <b>NIS2</b> directive breaks down into <b>27 different national frameworks</b>: multinational companies must comply with every local variant. For the WID, the team studied 12 of these frameworks &mdash; long, tedious work for consultants.",
+    "pres.contexte.p2": "A first attempt with Copilot gave promising but capped, non-scalable results. The dedicated AI approach presented at the WID won clients over, with demand already confirmed from a major French energy-sector player.",
+    "pres.objectifs.h3": "Objectives",
+    "pres.objectifs.li1": "Automate requirement mapping across country NIS2 frameworks at scale.",
+    "pres.objectifs.li2": "Free up consultant time spent on low-value mapping tasks.",
+    "pres.objectifs.li3": "Reach 90% data accuracy (up from 75% today).",
+    "pres.objectifs.li4": "Extend the method to other regulations (DORA, ISO, US/Asia regions).",
+    "pres.agent.h3": "The agent in one sentence",
+    "pres.agent.p1": "A Python-orchestrated pipeline that extracts input data from Excel files, manages the agent's configuration, calls the <b>Azure OpenAI</b> API with models selected by task complexity, and produces the final mapping between frameworks.",
+    "pres.agent.p2": "Three stages &mdash; pre-processing, mapping, synthesis &mdash; detailed in the architecture below.",
+    "pres.valeur.h3": "Value delivered",
+    "pres.valeur.p1": "For a typical engagement: <b>&euro;1,905</b> (agent + 1.5 consultant day) versus <b>&euro;8,000&ndash;10,000</b> for manual mapping, delivered in <b>~3 days</b> instead of ~2 weeks.",
+    "pres.valeur.stat1": "NIS2 mapping projects completed",
+    "pres.valeur.stat2": "country frameworks mapped",
+    "pres.valeur.stat3": "manual mapping hours replaced",
+    "sec2.eyebrow": "02 &middot; Under the hood",
+    "sec2.h2": "Agent architecture",
+    "sec2.sub": "A three-stage pipeline, each stage handled by the model best suited to its complexity &mdash; from the lightest (nano) to the most capable &mdash; orchestrated by a Python script.",
+    "arch.note": "Two frameworks (<b>Framework A</b> and <b>Framework B</b>) enter the pipeline as Excel files. They come out as a <b>mapped framework</b>: a requirement-by-requirement correspondence report, with gaps and remediation actions.",
+    "arch.io.a.sub": "National framework #1",
+    "arch.io.b.sub": "National framework #2",
+    "arch.io.out.sub": "Correspondence report + gaps",
+    "step1.title": "Pre-processing",
+    "step1.goal": "Make the frameworks comparable with each other.",
+    "step1.task1.desc": "Standardizing requirement categories according to ENISA categories.",
+    "step1.task2.title": "Atomization &amp; extraction",
+    "step1.task2.desc": "Breaking down complex requirements into atomic obligations, extracting key fields, computing semantic embeddings.",
+    "step2.title": "Mapping",
+    "step2.goal": "Map requirements one by one.",
+    "step2.task1.title": "Directional mapping",
+    "step2.task1.desc": "Computing a similarity score between each requirement, based on embeddings and requirement structure.",
+    "step2.task2.title": "Final judge",
+    "step2.task2.desc": "Verifying and correcting directional mapping decisions.",
+    "step3.title": "Synthesis",
+    "step3.goal": "Structure the result to make it readable and usable.",
+    "step3.task1.title": "Parent synthesis",
+    "step3.task1.desc": "Reconstructing original requirements from atomic obligations.",
+    "step3.task2.title": "Gaps &amp; action plan",
+    "step3.task2.desc": "Generating clear gap explanations, suggesting remediation actions.",
+    "sec3.eyebrow": "03 &middot; In the field",
+    "sec3.h2": "Lessons learned",
+    "sec3.sub": "What the project has already proven in the field, backed by figures and client validation.",
+    "xp.validation.tag": "Client validation",
+    "xp.validation.quote": "&ldquo;Our AI-driven approach won clients over as soon as it was presented at the WID.&rdquo;",
+    "xp.validation.body": "The AI-assisted NIS2 mapping presented at the Wavestone Innovation Days directly led to confirmed client demand from a major French energy-sector player, validating the move from prototype to a mission-ready tool.",
+    "xp.gain.tag": "Observed benefits",
+    "xp.gain.h3": "Measured operational gain",
+    "xp.gain.p": "On a typical NIS2 mapping engagement, the agent shifts effort from consultant time to compute time.",
+    "xp.gain.th0": "Criterion",
+    "xp.gain.th1": "Manual*",
+    "xp.gain.th2": "Agent",
+    "xp.gain.r0": "Timeline",
+    "xp.gain.r0c1": "~2 weeks",
+    "xp.gain.r0c2": "~3 days",
+    "xp.gain.r1": "Cost",
+    "xp.gain.r2": "Effort",
+    "xp.gain.r2c1": "5&ndash;8 analyst days + 1&ndash;2 senior days",
+    "xp.gain.r2c2": "~1.5 days",
+    "xp.gain.r2c2b": "trained consultant",
+    "xp.competitif.tag": "Competitive edge",
+    "xp.competitif.h3": "Versus market GRC tools",
+    "xp.competitif.p": "Despite the growing popularity of GRC tools, the Wavestone agent keeps an edge:",
+    "xp.competitif.li1": "Cheaper to deploy (GRC licenses up to &euro;131k/year)",
+    "xp.competitif.li2": "No user training needed (up to 6&ndash;8h saved per employee)",
+    "xp.competitif.li3": "Customized outputs, built with NIS2 experts",
+    "xp.amelioration.tag": "Areas for improvement",
+    "xp.amelioration.h3": "Identified progress areas",
+    "xp.amelioration.p": "Data accuracy currently stands at <b>~75%</b>, with a target of <b>90%</b>. Quality-control effort remains high early in the agent's life, before decreasing as continuous improvements are made.",
+    "xp.amelioration.li1": "Continuous improvement of the model and pipeline",
+    "xp.amelioration.li2": "Planned extension to DORA, ISO and US/Asia frameworks",
+    "xp.note": "* Figures based on a completed real-world NIS2 engagement. The &ldquo;agent&rdquo; cost (~&euro;5) corresponds to the pipeline's token consumption.",
+    "sec4.eyebrow": "04 &middot; The Wavies behind the project",
+    "sec4.h2": "Project team",
+    "sec4.sub": "Click a member to open a Microsoft Teams conversation directly.",
+    "team.note": "Roles extracted from the project presentation.",
+    "team.aurelien.role": "Intern &middot; Paris",
+    "team.salome.role": "Analyst &middot; Paris",
+    "team.emma.role": "Consultant &middot; Paris",
+    "team.devika.role": "Senior Consultant &middot; UK",
+    "team.roxane.role": "Senior Manager &middot; UK",
+    "team.ouala.role": "Senior Manager &middot; Paris",
+    "team.louis.role": "Manager &middot; Nantes",
+    "team.marie.role": "Analyst &middot; Paris",
+    "team.wassim.role": "Manager &middot; Paris",
+    "team.landza.role": "Consultant &middot; Paris",
+    "footer.src": "AI-Powered NIS2 Intelligence &amp; Compliance Assistant &mdash; Dance With the AI Stars &middot; Wavestone CYB AI Maker",
+    "footer.back": "&#8592; back to the 6 projects"
+  },
+  de: {
+    "__title": "Wavestone CYB AI Maker &mdash; AI-Powered NIS2 Intelligence &amp; Compliance Assistant",
+    "nav.home": "Start",
+    "nav.dais": "Dance With the AI Stars",
+    "nav.usecases": "Playbook",
+    "nav.agents": "Unsere Agenten",
+    "crumb.back": "&#8592; Dance With the AI Stars",
+    "hero.eyebrow": "NIS2 &middot; Compliance &middot; GRC",
+    "hero.title": "AI-Powered NIS2 Intelligence &amp; Compliance Assistant",
+    "hero.lede": "Alle nationalen NIS2-Regelwerke, automatisch kartiert und miteinander verbunden. Von regulatorischer Komplexit&auml;t zu Klarheit &mdash; in wenigen Tagen statt Wochen.",
+    "hero.tag1": "27 nationale NIS2-Varianten",
+    "hero.tag2": "Azure-OpenAI-Pipeline",
+    "hero.tag3": "19 gelieferte Mappings",
+    "hero.tag4": "&#8722;80% Kosten ggü. manuellem Mapping",
+    "sec1.eyebrow": "01 &middot; Das Projekt",
+    "sec1.h2": "Projekt&uuml;bersicht",
+    "sec1.sub": "Entstanden bei den Wavestone Innovation Days (WID), verwandelt dieses Projekt eine lange, manuelle regulatorische &Uuml;bung in eine reproduzierbare KI-Pipeline.",
+    "pres.contexte.h3": "Kontext",
+    "pres.contexte.p1": "Die europ&auml;ische <b>NIS2</b>-Richtlinie gliedert sich in <b>27 unterschiedliche nationale Regelwerke</b>: multinationale Unternehmen m&uuml;ssen jede lokale Variante einhalten. F&uuml;r den WID hat das Team 12 dieser Regelwerke untersucht &mdash; eine lange, m&uuml;hsame Arbeit f&uuml;r die Consultants.",
+    "pres.contexte.p2": "Ein erster Versuch mit Copilot lieferte vielversprechende, aber begrenzte und nicht skalierbare Ergebnisse. Der beim WID vorgestellte dedizierte KI-Ansatz &uuml;berzeugte die Kunden &mdash; mit bereits best&auml;tigter Nachfrage eines gro&szlig;en franz&ouml;sischen Akteurs der Energiebranche.",
+    "pres.objectifs.h3": "Ziele",
+    "pres.objectifs.li1": "Automatisierung des Anforderungs-Mappings zwischen l&auml;nderspezifischen NIS2-Regelwerken im gro&szlig;en Ma&szlig;stab.",
+    "pres.objectifs.li2": "Freisetzung von Consultant-Zeit, die f&uuml;r wenig wertsch&ouml;pfende Mapping-Aufgaben aufgewendet wird.",
+    "pres.objectifs.li3": "90% Datengenauigkeit erreichen (gegen&uuml;ber 75% heute).",
+    "pres.objectifs.li4": "Die Methode auf weitere Regularien ausweiten (DORA, ISO, US-/Asien-Regionen).",
+    "pres.agent.h3": "Der Agent in einem Satz",
+    "pres.agent.p1": "Eine in Python orchestrierte Pipeline, die Eingabedaten aus Excel-Dateien extrahiert, die Konfiguration des Agenten verwaltet, die <b>Azure-OpenAI</b>-API mit je nach Aufgabenkomplexit&auml;t ausgew&auml;hlten Modellen aufruft und das finale Mapping zwischen den Regelwerken erstellt.",
+    "pres.agent.p2": "Drei Schritte &mdash; Vorverarbeitung, Mapping, Synthese &mdash; im Architekturteil unten im Detail.",
+    "pres.valeur.h3": "Erzielter Mehrwert",
+    "pres.valeur.p1": "F&uuml;r einen typischen Einsatz: <b>1.905&nbsp;&euro;</b> (Agent + 1,5 Consultant-Tage) statt <b>8.000&ndash;10.000&nbsp;&euro;</b> beim manuellen Mapping, geliefert in <b>~3 Tagen</b> statt ~2 Wochen.",
+    "pres.valeur.stat1": "abgeschlossene NIS2-Mapping-Projekte",
+    "pres.valeur.stat2": "kartierte L&auml;nder-Regelwerke",
+    "pres.valeur.stat3": "ersetzte Stunden manuellen Mappings",
+    "sec2.eyebrow": "02 &middot; Unter der Haube",
+    "sec2.h2": "Architektur des Agenten",
+    "sec2.sub": "Eine dreistufige Pipeline, bei der jede Stufe von dem f&uuml;r ihre Komplexit&auml;t am besten geeigneten Modell &uuml;bernommen wird &mdash; vom leichtesten (nano) bis zum leistungsf&auml;higsten &mdash; orchestriert durch ein Python-Skript.",
+    "arch.note": "Zwei Regelwerke (<b>Framework A</b> und <b>Framework B</b>) gehen als Excel-Dateien in die Pipeline ein. Heraus kommt ein <b>gemapptes Regelwerk</b>: ein Anforderung-f&uuml;r-Anforderung-Abgleichbericht mit L&uuml;cken und Abhilfema&szlig;nahmen.",
+    "arch.io.a.sub": "Nationales Regelwerk #1",
+    "arch.io.b.sub": "Nationales Regelwerk #2",
+    "arch.io.out.sub": "Abgleichbericht + L&uuml;cken",
+    "step1.title": "Vorverarbeitung",
+    "step1.goal": "Die Regelwerke untereinander vergleichbar machen.",
+    "step1.task1.desc": "Standardisierung der Anforderungskategorien gem&auml;&szlig; den ENISA-Kategorien.",
+    "step1.task2.title": "Atomisierung &amp; Extraktion",
+    "step1.task2.desc": "Zerlegung komplexer Anforderungen in atomare Pflichten, Extraktion der Schl&uuml;sselfelder, Berechnung semantischer Embeddings.",
+    "step2.title": "Mapping",
+    "step2.goal": "Anforderungen einzeln kartieren.",
+    "step2.task1.title": "Gerichtetes Mapping",
+    "step2.task1.desc": "Berechnung eines &Auml;hnlichkeits-Scores zwischen den Anforderungen auf Basis von Embeddings und Anforderungsstruktur.",
+    "step2.task2.title": "Finaler Pr&uuml;fer",
+    "step2.task2.desc": "&Uuml;berpr&uuml;fung und Korrektur der Entscheidungen des gerichteten Mappings.",
+    "step3.title": "Synthese",
+    "step3.goal": "Das Ergebnis so strukturieren, dass es lesbar und nutzbar ist.",
+    "step3.task1.title": "&Uuml;bergeordnete Synthese",
+    "step3.task1.desc": "Rekonstruktion der urspr&uuml;nglichen Anforderungen aus den atomaren Pflichten.",
+    "step3.task2.title": "L&uuml;cken &amp; Aktionsplan",
+    "step3.task2.desc": "Erstellung klarer Erkl&auml;rungen zu den L&uuml;cken, Vorschlag von Abhilfema&szlig;nahmen.",
+    "sec3.eyebrow": "03 &middot; In der Praxis",
+    "sec3.h2": "Erfahrungsbericht",
+    "sec3.sub": "Was das Projekt in der Praxis bereits bewiesen hat, belegt durch Zahlen und Kundenvalidierung.",
+    "xp.validation.tag": "Kundenvalidierung",
+    "xp.validation.quote": "&bdquo;Unser KI-gest&uuml;tzter Ansatz &uuml;berzeugte die Kunden bereits bei der Pr&auml;sentation auf dem WID.&ldquo;",
+    "xp.validation.body": "Das KI-gest&uuml;tzte NIS2-Mapping, das bei den Wavestone Innovation Days vorgestellt wurde, f&uuml;hrte direkt zu einer best&auml;tigten Kundennachfrage eines gro&szlig;en franz&ouml;sischen Akteurs der Energiebranche und best&auml;tigte damit den &Uuml;bergang vom Prototyp zu einem einsatzbereiten Tool.",
+    "xp.gain.tag": "Beobachtete Vorteile",
+    "xp.gain.h3": "Gemessener operativer Nutzen",
+    "xp.gain.p": "Bei einem typischen NIS2-Mapping-Einsatz verlagert der Agent den Aufwand von Consultant-Zeit auf Rechenzeit.",
+    "xp.gain.th0": "Kriterium",
+    "xp.gain.th1": "Manuell*",
+    "xp.gain.th2": "Agent",
+    "xp.gain.r0": "Dauer",
+    "xp.gain.r0c1": "~2 Wochen",
+    "xp.gain.r0c2": "~3 Tage",
+    "xp.gain.r1": "Kosten",
+    "xp.gain.r2": "Aufwand",
+    "xp.gain.r2c1": "5&ndash;8 Analysten-Tage + 1&ndash;2 Senior-Tage",
+    "xp.gain.r2c2": "~1,5 Tage",
+    "xp.gain.r2c2b": "geschulter Consultant",
+    "xp.competitif.tag": "Wettbewerbsvorteil",
+    "xp.competitif.h3": "Im Vergleich zu GRC-Tools am Markt",
+    "xp.competitif.p": "Trotz der wachsenden Beliebtheit von GRC-Tools beh&auml;lt der Wavestone-Agent einen Vorteil:",
+    "xp.competitif.li1": "G&uuml;nstiger im Einsatz (GRC-Lizenzen bis zu 131.000&nbsp;&euro;/Jahr)",
+    "xp.competitif.li2": "Keine Nutzerschulung n&ouml;tig (bis zu 6&ndash;8 Std. pro Mitarbeitendem gespart)",
+    "xp.competitif.li3": "Individuelle Ergebnisse, entwickelt mit NIS2-Experten",
+    "xp.amelioration.tag": "Verbesserungspotenzial",
+    "xp.amelioration.h3": "Identifizierte Entwicklungsfelder",
+    "xp.amelioration.p": "Die Datengenauigkeit liegt derzeit bei <b>~75%</b>, das Ziel liegt bei <b>90%</b>. Der Aufwand f&uuml;r die Qualit&auml;tskontrolle ist zu Beginn der Agenten-Nutzung hoch und sinkt mit fortlaufenden Verbesserungen.",
+    "xp.amelioration.li1": "Kontinuierliche Verbesserung von Modell und Pipeline",
+    "xp.amelioration.li2": "Geplante Erweiterung auf DORA, ISO und US-/Asien-Regelwerke",
+    "xp.note": "* Zahlen basieren auf einem abgeschlossenen realen NIS2-Einsatz. Die &bdquo;Agent&ldquo;-Kosten (~5&nbsp;&euro;) entsprechen dem Token-Verbrauch der Pipeline.",
+    "sec4.eyebrow": "04 &middot; Die Wavies hinter dem Projekt",
+    "sec4.h2": "Projektteam",
+    "sec4.sub": "Klicke auf ein Mitglied, um direkt eine Microsoft-Teams-Unterhaltung zu &ouml;ffnen.",
+    "team.note": "Rollen aus der Projektpräsentation entnommen.",
+    "team.aurelien.role": "Praktikant/in &middot; Paris",
+    "team.salome.role": "Analyst &middot; Paris",
+    "team.emma.role": "Consultant &middot; Paris",
+    "team.devika.role": "Senior Consultant &middot; UK",
+    "team.roxane.role": "Senior Manager &middot; UK",
+    "team.ouala.role": "Senior Manager &middot; Paris",
+    "team.louis.role": "Manager &middot; Nantes",
+    "team.marie.role": "Analyst &middot; Paris",
+    "team.wassim.role": "Manager &middot; Paris",
+    "team.landza.role": "Consultant &middot; Paris",
+    "footer.src": "AI-Powered NIS2 Intelligence &amp; Compliance Assistant &mdash; Dance With the AI Stars &middot; Wavestone CYB AI Maker",
+    "footer.back": "&#8592; zur&uuml;ck zu den 6 Projekten"
+  }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/mobile-nav.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wavestone CYB AI Maker Initiative</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-teal-500:#228D95;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ws-white);color:var(--ws-ink-900);
+    font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;
+    min-height:100vh;display:flex;flex-direction:column;
+  }
+  a{color:inherit}
+
+  /* ---------- bar ---------- */
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-left:auto}
+  .bar-in .langsel{margin-left:10px}
+  .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);border-radius:999px;padding:6px 13px;transition:.18s var(--ws-ease)}
+  .bar a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px;flex-shrink:0}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1040px;margin:0 auto;padding:72px 24px 64px;text-align:center}
+  .hero .eyebrow{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid var(--ws-green-400);color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(36px,6.4vw,64px);line-height:1.05;letter-spacing:-.025em;margin:24px auto 18px;max-width:18ch}
+  .hero h1 .ac{color:var(--ws-green-400)}
+  .hero .lede{font-size:19px;line-height:1.55;color:rgba(255,255,255,.82);max-width:56ch;margin:0 auto}
+
+  /* ---------- cards ---------- */
+  .cards{max-width:1040px;margin:-40px auto 0;padding:0 24px;position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:20px;flex:1}
+  @media(max-width:640px){.cards{grid-template-columns:1fr;margin-top:-28px}}
+
+  .card{
+    position:relative;text-decoration:none;display:flex;flex-direction:column;
+    background:var(--ws-white);border:1.5px solid var(--ws-ink-100);border-radius:20px;
+    padding:32px 28px 28px;box-shadow:var(--ws-shadow-md);
+    transition:.25s var(--ws-ease);overflow:hidden;
+  }
+  .card:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-4px);border-color:var(--ws-indigo-200)}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ws-gradient-accent);opacity:0;transition:opacity .25s var(--ws-ease)}
+  .card:hover::before{opacity:1}
+
+  .card-icon{
+    width:56px;height:56px;border-radius:16px;display:grid;place-items:center;
+    font-size:26px;margin-bottom:18px;
+  }
+  .card-icon.learn{background:var(--ws-indigo-50);color:var(--ws-indigo-600)}
+  .card-icon.build{background:var(--ws-green-50);color:var(--ws-green-700)}
+
+  .card .tag{
+    display:inline-block;font-family:var(--ws-font-mono);font-size:10.5px;font-weight:600;
+    letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 11px;
+    margin-bottom:14px;width:fit-content;
+  }
+  .tag.formation{color:var(--ws-indigo-700);background:var(--ws-indigo-50)}
+  .tag.pratique{color:var(--ws-green-700);background:var(--ws-green-50)}
+
+  .card h2{font-family:var(--ws-font-display);font-weight:700;font-size:24px;letter-spacing:-.015em;color:var(--ws-ink-900);margin-bottom:8px}
+  .card p{font-size:15px;color:var(--ws-ink-500);line-height:1.55;flex:1}
+
+  .card .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+  .card .chip{font-family:var(--ws-font-mono);font-size:10.5px;letter-spacing:.02em;color:var(--ws-ink-600);background:var(--ws-ink-50);border-radius:999px;padding:4px 10px}
+
+  .card .cta{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--ws-font-mono);font-size:13px;font-weight:600;
+    color:var(--ws-indigo-600);margin-top:20px;
+    transition:.18s var(--ws-ease);
+  }
+  .card:hover .cta{gap:12px}
+  .cta .arrow{transition:transform .18s var(--ws-ease)}
+  .card:hover .cta .arrow{transform:translateX(3px)}
+
+  /* ---------- footer ---------- */
+  footer{max-width:1040px;margin:56px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);width:100%;text-align:center}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  /* square corners */
+  *,*::before,*::after{border-radius:0!important}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <span class="brand"><span class="dot"></span>Wavestone CYB &middot; AI Maker</span>
+    <div class="nav-links">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
+      <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+      <a class="jump" href="dance-with-the-ai-stars.html" data-i18n="nav.dais">Dance With the AI Stars</a>
+      <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1040 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,300 Q260,180 540,250 T1100,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <span class="eyebrow" data-i18n="hero.eyebrow">Portail AI Making Cybers&eacute;curit&eacute;</span>
+    <h1>Wavestone CYB <span class="ac">AI Maker Initiative</span></h1>
+    <p class="lede" data-i18n="hero.lede">Bienvenue sur le portail AI Making Cybers&eacute;curit&eacute; de Wavestone. Vous y trouverez nos m&eacute;thodologies pour concevoir des applications, la pr&eacute;sentation des principes de fonctionnement que nous avons retenus, et des liens vers nos propres applications.</p>
+  </div>
+</header>
+
+<div class="cards">
+
+  <a class="card" href="our-agents.html">
+    <div class="card-icon learn"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="3" y="3" width="18" height="18"/><path d="M7 15l3-3 2 2 5-6"/><path d="M7 19h10"/></svg></div>
+    <span class="tag formation" data-i18n="c3.tag">Showcase</span>
+    <h2 data-i18n="c3.h2">Cyber Agents showcase</h2>
+    <p data-i18n="c3.p">Nos applications maison, issues de nos d&eacute;p&ocirc;ts&nbsp;: CrisisMaker, CyberBenchmark Helper et RadarMapper. Chaque carte inclut une miniature anim&eacute;e et des liens vers la d&eacute;mo et le code source.</p>
+    <span class="cta" data-i18n="c3.cta">Explorer nos agents <span class="arrow">&#8594;</span></span>
+  </a>
+
+  <a class="card" href="agent-principles.html">
+    <div class="card-icon build"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="4" y="4" width="16" height="16"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg></div>
+    <span class="tag pratique" data-i18n="c2.tag">Philosophie</span>
+    <h2 data-i18n="c2.h2">Les principes de conception des agents chez CYB</h2>
+    <p data-i18n="c2.p">Les six principes qui guident chaque agent&nbsp;: d&eacute;coupl&eacute; de l'infrastructure client et du LLM, utilisable en local sans droits admin, d&eacute;terministe d'abord, collaboratif par simple fichier JSON, et pilot&eacute; par budget d'usage.</p>
+    <div class="chips" data-i18n="c2.chips">
+      <span class="chip">6 principes</span>
+      <span class="chip">Portable</span>
+      <span class="chip">D&eacute;terministe</span>
+      <span class="chip">Multi-clients</span>
+    </div>
+    <span class="cta" data-i18n="c2.cta">D&eacute;couvrir les principes <span class="arrow">&#8594;</span></span>
+  </a>
+
+  <a class="card" href="https://digiplace.sharepoint.com/sites/AIGlobalHub/SitePages/AI-&-ME.aspx?csf=1&web=1&e=uWcp7i&CID=12e43fb3-8d27-4e64-b8b9-108cfe47a1ca&xsdata=MDV8MDJ8fGE3MWVlYTk0YWIzNTRmYjJkNzE4MDhkZWRiNWUyNzBhfDVkZTk2Yzk2Yzg3YzRkY2VhYWQ5ZjVjNTU3YjUyYWMxfDB8MHw2MzkxODkzOTQ1NjE2MTk3MzZ8VW5rbm93bnxWR1ZoYlhOVFpXTjFjbWwwZVZObGNuWnBZMlY4ZXlKRFFTSTZJbFJsWVcxelgwRlVVRk5sY25acFkyVmZVMUJQVEU5R0lpd2lWaUk2SWpBdU1DNHdNREF3SWl3aVVDSTZJbGRwYmpNeUlpd2lRVTRpT2lKUGRHaGxjaUlzSWxkVUlqb3hNWDA9fDF8TDJOb1lYUnpMekU1T20xbFpYUnBibWRmVG1wVk1FOUVaR3RhVkVsMFQwUk5NRnBwTURCT2FrRXdURmRKTkU0eVVYUk5iVVY1VGxkVmVrOUhSVEJaYlZadFFIUm9jbVZoWkM1Mk1pOXRaWE56WVdkbGN5OHhOemd6TXpReU5qVXpOamc0fDIxZDVkZWU1MzA1ZjQyNzMzYTlmMDhkZWRiNWUyNzBhfDNlZGRmYTFhMDlmYTQwZmI5OWFlNzE5M2JiMGNlODc0&sdata=UU15ejlUQmVSTG5DRjNvTDFQWHlvQkJyRkVVMlhNRERDNHQxZENVK1JEVT0%3D&ovuser=5de96c96-c87c-4dce-aad9-f5c557b52ac1%2Cgerome.billois%40wavestone.com&TeamsCID=37062a02-4af6-4ede-abf0-fd3349a70164&OR=Teams-HL&CT=1783342657687&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiI0OS8yNjA1MjkwNjEyMSJ9" target="_blank" rel="noopener noreferrer">
+    <div class="card-icon learn"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 3 6 3s6-2 6-3v-5"/><path d="M22 10v6"/></svg></div>
+    <span class="tag formation" data-i18n="c6.tag">AI&amp;Me</span>
+    <h2 data-i18n="c6.h2">D&eacute;couvrir et se former &agrave; l'IA</h2>
+    <p data-i18n="c6.p">D&eacute;couvrez l'initiative mondiale d'apprentissage de l'IA de Wavestone. Commencez &agrave; ma&icirc;triser tous les concepts et les outils gr&acirc;ce &agrave; une plateforme interactive.</p>
+    <div class="chips" data-i18n="c6.chips">
+      <span class="chip">Initiative globale</span>
+      <span class="chip">Plateforme interactive</span>
+      <span class="chip">Tous les Wavies</span>
+    </div>
+    <span class="cta" data-i18n="c6.cta">Explorer AI&amp;Me <span class="arrow">&#8599;</span></span>
+  </a>
+
+  <a class="card" href="playbook.html">
+    <div class="card-icon build"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div>
+    <span class="tag pratique" data-i18n="c5.tag">Playbook</span>
+    <h2 data-i18n="c5.h2">Start building: the playbooks</h2>
+    <p data-i18n="c5.p">Six playbooks pour passer de l'id&eacute;e au code&nbsp;: site web statique, application web avec base de donn&eacute;es, application bureau, application mobile, agent Copilot, ajout d'une cl&eacute; API. Cha&icirc;ne CI/CD &agrave; haut niveau et how-to d&eacute;taill&eacute;s.</p>
+    <div class="chips" data-i18n="c5.chips">
+      <span class="chip">Site web statique</span>
+      <span class="chip">Application bureau</span>
+      <span class="chip">Agent Copilot</span>
+    </div>
+    <span class="cta" data-i18n="c5.cta">Voir les playbooks <span class="arrow">&#8594;</span></span>
+  </a>
+
+  <a class="card" href="api-key.html">
+    <div class="card-icon learn"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M11.4 11.6 22 1"/><path d="m15.5 6.5 3 3L22 6l-3-3"/></svg></div>
+    <span class="tag pratique" data-i18n="c4.tag">Acc&egrave;s</span>
+    <h2 data-i18n="c4.h2">Cr&eacute;er une cl&eacute; API pour votre projet</h2>
+    <p data-i18n="c4.p">La proc&eacute;dure pour obtenir une cl&eacute; API Wavestone, la validation requise par le CDM, et la marche &agrave; suivre lorsqu'il s'agit d'utiliser CrisisMaker ou CyberBenchmark Helper.</p>
+    <div class="chips" data-i18n="c4.chips">
+      <span class="chip">Cl&eacute; API</span>
+      <span class="chip">Validation CDM</span>
+      <span class="chip">Power Apps</span>
+    </div>
+    <span class="cta" data-i18n="c4.cta">Obtenir une cl&eacute; <span class="arrow">&#8594;</span></span>
+  </a>
+
+  <a class="card" href="token-economics.html">
+    <div class="card-icon build"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+    <span class="tag pratique" data-i18n="c7.tag">Gouvernance</span>
+    <h2 data-i18n="c7.h2">Le mod&egrave;le &eacute;conomique des tokens</h2>
+    <p data-i18n="c7.p">Comment budg&eacute;tiser et suivre l'usage de tokens&nbsp;: budget en propal et suivi dans Wavekeeper pour les missions client, demande au CDM pour l'usage interne hors mission.</p>
+    <div class="chips" data-i18n="c7.chips">
+      <span class="chip">Propal &amp; Wavekeeper</span>
+      <span class="chip">Usage interne</span>
+      <span class="chip">CDM</span>
+    </div>
+    <span class="cta" data-i18n="c7.cta">Comprendre le mod&egrave;le <span class="arrow">&#8594;</span></span>
+  </a>
+
+</div>
+
+<footer>
+  <span class="src" data-i18n="footer.src">Wavestone CYB &middot; AI Maker Initiative &mdash; hub d'innovation IA interne</span>
+</footer>
+
+<script>
+window.WS_I18N = {
+  en: {
+    "__title": "Wavestone CYB AI Maker Initiative",
+    "nav.home": "Home",
+    "nav.usecases": "Playbook",
+    "nav.principles": "Agent principles",
+    "nav.agents": "Our agents",
+    "nav.apikey": "API key",
+    "hero.eyebrow": "Cybersecurity AI Making portal",
+    "hero.lede": "Welcome to Wavestone&rsquo;s Cybersecurity AI Making portal. Here you&rsquo;ll find our methodologies for designing applications, an overview of the operating principles we&rsquo;ve adopted, and links to our own applications.",
+    "c2.tag": "Philosophy",
+    "c2.h2": "Our design principles for CYB agents",
+    "c2.p": "The six principles behind every agent: decoupled from the client&rsquo;s infrastructure and from the LLM, usable locally without admin rights, deterministic first, collaborative through a simple JSON file, and managed through a usage budget.",
+    "c2.chips": "<span class=\"chip\">6 principles</span><span class=\"chip\">Portable</span><span class=\"chip\">Deterministic</span><span class=\"chip\">Multi-client</span>",
+    "c2.cta": "Explore the principles <span class=\"arrow\">&#8594;</span>",
+    "c6.tag": "AI&amp;Me",
+    "c6.h2": "Discover and learn AI",
+    "c6.p": "Discover Wavestone&rsquo;s global AI learning initiative. Start learning all the concepts and the tools through an interactive platform.",
+    "c6.chips": "<span class=\"chip\">Global initiative</span><span class=\"chip\">Interactive platform</span><span class=\"chip\">All Wavies</span>",
+    "c6.cta": "Explore AI&amp;Me <span class=\"arrow\">&#8599;</span>",
+    "c3.tag": "Showcase",
+    "c3.h2": "Cyber Agents showcase",
+    "c3.p": "Our in-house applications, straight from our repositories: CrisisMaker, CyberBenchmark Helper and RadarMapper. Each card includes an animated thumbnail and links to the demo and the source code.",
+    "c3.cta": "Explore our agents <span class=\"arrow\">&#8594;</span>",
+    "c4.tag": "Access",
+    "c4.h2": "Create an API key for your project",
+    "c4.p": "How to obtain a Wavestone API key, the sign-off required from the engagement manager (CDM), and what to do when it&rsquo;s for using CrisisMaker or CyberBenchmark Helper.",
+    "c4.chips": "<span class=\"chip\">API key</span><span class=\"chip\">CDM sign-off</span><span class=\"chip\">Power Apps</span>",
+    "c4.cta": "Get a key <span class=\"arrow\">&#8594;</span>",
+    "c5.tag": "Playbook",
+    "c5.h2": "Start building: the playbooks",
+    "c5.p": "Six playbooks from idea to code: static website, database-backed web app, desktop application, mobile app, Copilot agent, add an API key. High-level CI/CD chain and detailed how-tos.",
+    "c5.chips": "<span class=\"chip\">Static website</span><span class=\"chip\">Desktop app</span><span class=\"chip\">Copilot agent</span>",
+    "c5.cta": "See the playbooks <span class=\"arrow\">&#8594;</span>",
+    "c7.tag": "Governance",
+    "c7.h2": "The token economics model",
+    "c7.p": "How to budget and track token usage: budgeted in the proposal and tracked in Wavekeeper for client engagements, requested from the CDM for internal usage outside a mission.",
+    "c7.chips": "<span class=\"chip\">Proposal &amp; Wavekeeper</span><span class=\"chip\">Internal usage</span><span class=\"chip\">CDM</span>",
+    "c7.cta": "Understand the model <span class=\"arrow\">&#8594;</span>",
+    "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; internal AI innovation hub"
+  },
+  de: {
+    "__title": "Wavestone CYB AI Maker Initiative",
+    "nav.home": "Start",
+    "nav.usecases": "Playbook",
+    "nav.principles": "Agenten-Prinzipien",
+    "nav.agents": "Unsere Agenten",
+    "nav.apikey": "API-Schl&uuml;ssel",
+    "hero.eyebrow": "Cybersecurity-AI-Making-Portal",
+    "hero.lede": "Willkommen im Cybersecurity-AI-Making-Portal von Wavestone. Hier findest du unsere Methoden zum Entwerfen von Anwendungen, eine &Uuml;bersicht der von uns gew&auml;hlten Funktionsprinzipien und Links zu unseren eigenen Anwendungen.",
+    "c2.tag": "Philosophie",
+    "c2.h2": "Unsere Designprinzipien f&uuml;r CYB-Agenten",
+    "c2.p": "Die sechs Prinzipien hinter jedem Agenten: entkoppelt von der Kundeninfrastruktur und vom LLM, lokal ohne Admin-Rechte nutzbar, zuerst deterministisch, kollaborativ &uuml;ber eine einfache JSON-Datei und durch ein Nutzungsbudget gesteuert.",
+    "c2.chips": "<span class=\"chip\">6 Prinzipien</span><span class=\"chip\">Portabel</span><span class=\"chip\">Deterministisch</span><span class=\"chip\">Mandanten&uuml;bergreifend</span>",
+    "c2.cta": "Die Prinzipien entdecken <span class=\"arrow\">&#8594;</span>",
+    "c6.tag": "AI&amp;Me",
+    "c6.h2": "KI entdecken und lernen",
+    "c6.p": "Entdecke die globale KI-Lerninitiative von Wavestone. Beginne, alle Konzepte und Werkzeuge &uuml;ber eine interaktive Plattform zu lernen.",
+    "c6.chips": "<span class=\"chip\">Globale Initiative</span><span class=\"chip\">Interaktive Plattform</span><span class=\"chip\">Alle Wavies</span>",
+    "c6.cta": "AI&amp;Me erkunden <span class=\"arrow\">&#8599;</span>",
+    "c3.tag": "Showcase",
+    "c3.h2": "Cyber Agents showcase",
+    "c3.p": "Unsere hauseigenen Anwendungen, direkt aus unseren Repositories: CrisisMaker, CyberBenchmark Helper und RadarMapper. Jede Karte enth&auml;lt ein animiertes Vorschaubild und Links zur Demo und zum Quellcode.",
+    "c3.cta": "Unsere Agenten erkunden <span class=\"arrow\">&#8594;</span>",
+    "c4.tag": "Zugang",
+    "c4.h2": "Einen API-Schl&uuml;ssel f&uuml;r dein Projekt erstellen",
+    "c4.p": "Wie du einen Wavestone-API-Schl&uuml;ssel erh&auml;ltst, die erforderliche Freigabe durch den Engagement Manager (CDM) und das Vorgehen, wenn es um die Nutzung von CrisisMaker oder CyberBenchmark Helper geht.",
+    "c4.chips": "<span class=\"chip\">API-Schl&uuml;ssel</span><span class=\"chip\">CDM-Freigabe</span><span class=\"chip\">Power Apps</span>",
+    "c4.cta": "Schl&uuml;ssel anfordern <span class=\"arrow\">&#8594;</span>",
+    "c5.tag": "Playbook",
+    "c5.h2": "Start building: the playbooks",
+    "c5.p": "Sechs Playbooks von der Idee zum Code: statische Website, Web-App mit Datenbank, Desktop-Anwendung, mobile App, Copilot-Agent, API-Schl&uuml;ssel hinzuf&uuml;gen. CI/CD-Kette auf hoher Ebene und detaillierte How-tos.",
+    "c5.chips": "<span class=\"chip\">Statische Website</span><span class=\"chip\">Desktop-App</span><span class=\"chip\">Copilot-Agent</span>",
+    "c5.cta": "Die Playbooks ansehen <span class=\"arrow\">&#8594;</span>",
+    "c7.tag": "Governance",
+    "c7.h2": "Das Token-Wirtschaftsmodell",
+    "c7.p": "Wie man die Token-Nutzung budgetiert und verfolgt: im Angebot budgetiert und in Wavekeeper verfolgt f&uuml;r Kundenauftr&auml;ge, beim CDM beantragt f&uuml;r interne Nutzung au&szlig;erhalb eines Auftrags.",
+    "c7.chips": "<span class=\"chip\">Angebot &amp; Wavekeeper</span><span class=\"chip\">Interne Nutzung</span><span class=\"chip\">CDM</span>",
+    "c7.cta": "Das Modell verstehen <span class=\"arrow\">&#8594;</span>",
+    "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; interner KI-Innovations-Hub"
+  }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/mobile-nav.js"></script>
+
+</body>
+</html>

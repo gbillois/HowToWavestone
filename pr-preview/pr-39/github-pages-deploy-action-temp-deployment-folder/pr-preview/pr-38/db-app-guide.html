@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cr&eacute;er une application web avec base de donn&eacute;es &mdash; Wavestone CYB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-teal-500:#228D95;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-warning:#C8861A;
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ws-white);color:var(--ws-ink-900);font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  .eyebrow{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid var(--ws-green-400)}
+
+  /* ---------- sticky brand bar ---------- */
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .dot{width:9px;height:9px;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .nav a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:6px 12px;transition:.18s var(--ws-ease)}
+  .nav a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+  .langsel{display:flex;border:1px solid var(--ws-ink-200);overflow:hidden}
+  .langsel button{font-family:var(--ws-font-mono);font-size:12px;padding:6px 11px;background:#fff;border:none;border-left:1px solid var(--ws-ink-100);color:var(--ws-ink-500);cursor:pointer;transition:.15s var(--ws-ease)}
+  .langsel button:first-child{border-left:none}
+  .langsel button.on{background:var(--ws-indigo-600);color:#fff;font-weight:600}
+  .langsel button:hover:not(.on){color:var(--ws-indigo-600)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1040px;margin:0 auto;padding:60px 24px 52px}
+  .hero .eyebrow{color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(34px,6vw,60px);line-height:1.04;letter-spacing:-.025em;margin:22px 0 16px;max-width:20ch}
+  .hero h1 .ac{color:var(--ws-green-400)}
+  .hero .lede{font-size:18.5px;line-height:1.55;color:rgba(255,255,255,.85);max-width:60ch}
+  .meta-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+  .meta-chips span{font-family:var(--ws-font-mono);font-size:11.5px;color:rgba(255,255,255,.9);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:6px 12px}
+  .host-tip{display:flex;gap:10px;align-items:flex-start;margin-top:22px;background:rgba(4,240,106,.12);border:1px solid rgba(4,240,106,.35);border-left:4px solid var(--ws-green-400);padding:12px 16px;max-width:62ch}
+  .host-tip svg{flex:0 0 auto;color:var(--ws-green-300);margin-top:2px}
+  .host-tip p{font-size:13.5px;color:rgba(255,255,255,.92);line-height:1.5}
+  .host-tip b{color:#fff}
+
+  /* ---------- section heads ---------- */
+  .sec-head{margin:60px 0 6px}
+  .sec-head .eyebrow{color:var(--ws-ink-900)}
+  .sec-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:30px;letter-spacing:-.02em;color:var(--ws-indigo-600);margin-top:10px}
+  .sec-head p{color:var(--ws-ink-500);margin-top:6px;font-size:15.5px;max-width:64ch}
+
+  /* ---------- concept bricks ---------- */
+  .rail{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:28px 0 22px;font-family:var(--ws-font-mono);font-size:13px}
+  .rail .n{padding:9px 16px;border:1px solid var(--ws-ink-200);background:#fff;color:var(--ws-ink-700);box-shadow:var(--ws-shadow-sm)}
+  .rail .n.idea{border-color:var(--ws-indigo-200);color:var(--ws-indigo-700)}
+  .rail .n.live{background:var(--ws-green-400);border-color:var(--ws-green-400);color:var(--ws-indigo-900);font-weight:600}
+  .rail .ar{color:var(--ws-ink-300);font-size:18px;animation:slide 1.8s var(--ws-ease) infinite}
+  @keyframes slide{0%,100%{transform:translateX(0);opacity:.4}50%{transform:translateX(4px);opacity:1}}
+
+  .bricks{display:flex;flex-direction:column;gap:14px}
+  @media(min-width:820px){.bricks{flex-direction:row;align-items:stretch}}
+  .brick{flex:1;position:relative;background:#fff;border:1.5px solid var(--ws-ink-100);padding:24px 22px 22px;box-shadow:var(--ws-shadow-sm);opacity:0;transform:translateY(12px);animation:rise .6s var(--ws-ease) forwards}
+  .brick::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--ws-gradient-accent);transform:scaleX(0);transform-origin:left;animation:grow .6s var(--ws-ease) forwards}
+  .brick:nth-child(1),.brick:nth-child(1)::before{animation-delay:.05s}
+  .brick:nth-child(3),.brick:nth-child(3)::before{animation-delay:.25s}
+  .brick:nth-child(5),.brick:nth-child(5)::before{animation-delay:.45s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @keyframes grow{to{transform:scaleX(1)}}
+  .b-arrow{display:none;flex:0 0 auto;align-items:center;color:var(--ws-ink-300);font-size:24px}
+  @media(min-width:820px){.b-arrow{display:flex}}
+  .bk-no{font-family:var(--ws-font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-indigo-600)}
+  .bk-ic{width:46px;height:46px;background:var(--ws-indigo-50);color:var(--ws-indigo-600);display:grid;place-items:center;margin:12px 0 14px}
+  .brick:nth-child(5) .bk-ic{background:var(--ws-green-50);color:var(--ws-green-700)}
+  .brick h3{font-family:var(--ws-font-display);font-weight:600;font-size:19px;color:var(--ws-ink-900);margin-bottom:7px;line-height:1.2}
+  .brick p{font-size:14.5px;color:var(--ws-ink-500);line-height:1.55}
+  .brick p b{color:var(--ws-ink-900)}
+  .brick .tool{font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-indigo-700);background:var(--ws-indigo-50);padding:3px 9px;margin-top:13px;display:inline-block}
+
+  /* ---------- phase / steps (pipeline spine) ---------- */
+  .phase{margin-top:18px}
+  .phase-head{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;border-bottom:1px solid var(--ws-ink-100);padding-bottom:16px;margin-top:30px}
+  .phase-head .eyebrow{color:var(--ws-ink-900)}
+  .phase-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:26px;color:var(--ws-indigo-600);margin-top:10px;letter-spacing:-.015em}
+  .phase-head .sub{color:var(--ws-ink-500);font-size:14.5px;margin-top:5px;max-width:60ch}
+  .prog{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-500);white-space:nowrap}
+  .prog b{color:var(--ws-indigo-600)}
+
+  .steps{position:relative;margin-top:24px}
+  .spine{position:absolute;left:21px;top:22px;bottom:22px;width:2px;background:var(--ws-ink-100);z-index:0}
+  .spine-fill{position:absolute;left:0;top:0;width:100%;height:0;background:var(--ws-gradient-accent);transition:height .5s var(--ws-ease)}
+  .step{position:relative;z-index:1;display:flex;gap:18px;padding-bottom:20px}
+  .node{flex:0 0 44px;width:44px;height:44px;background:#fff;border:1.5px solid var(--ws-ink-200);display:grid;place-items:center;font-family:var(--ws-font-mono);font-weight:600;font-size:15px;color:var(--ws-indigo-600);cursor:pointer;user-select:none;transition:.22s var(--ws-ease)}
+  .node:hover{border-color:var(--ws-indigo-600)}
+  .node .ck{display:none;font-size:20px;color:#fff;line-height:1}
+  .step.done .node{background:var(--ws-indigo-600);border-color:var(--ws-indigo-600);color:#fff}
+  .step.done .node .nm{display:none}
+  .step.done .node .ck{display:block}
+  .scard{flex:1;background:#fff;border:1px solid var(--ws-ink-100);padding:18px 20px;box-shadow:var(--ws-shadow-sm);transition:.22s var(--ws-ease);min-width:0}
+  .step.done .scard{opacity:.72;border-color:var(--ws-green-50)}
+  .scard h4{font-family:var(--ws-font-display);font-weight:600;font-size:17px;color:var(--ws-ink-900);display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .scard .do{margin-top:8px;font-size:14.5px;color:var(--ws-ink-600);line-height:1.55}
+  .scard .do b{color:var(--ws-ink-900)}
+  code{font-family:var(--ws-font-mono);font-size:.85em;background:var(--ws-ink-50);padding:1px 6px}
+  .mini{font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ws-green-700);background:var(--ws-green-50);padding:3px 8px;font-weight:600}
+  .mini.opt{color:var(--ws-ink-500);background:var(--ws-ink-50)}
+  .mini.warn{color:var(--ws-warning);background:#FBF1DD}
+
+  .clicks{list-style:none;counter-reset:c;margin-top:13px;display:grid;gap:8px}
+  .clicks li{counter-increment:c;position:relative;padding-left:32px;font-size:14px;color:var(--ws-ink-700);line-height:1.5}
+  .clicks li::before{content:counter(c);position:absolute;left:0;top:1px;width:22px;height:22px;background:var(--ws-indigo-50);color:var(--ws-indigo-700);font-family:var(--ws-font-mono);font-weight:600;font-size:11px;display:grid;place-items:center}
+  .clicks b{color:var(--ws-ink-900)}
+  .ui-lbl{font-family:var(--ws-font-mono);font-size:.9em;background:var(--ws-ink-900);color:#fff;padding:1px 7px}
+
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .lk{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-family:var(--ws-font-mono);font-size:12.5px;border:1px solid var(--ws-ink-200);padding:7px 13px;background:#fff;color:var(--ws-ink-900);transition:.18s var(--ws-ease)}
+  .lk:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600);transform:translateY(-1px)}
+  .lk .ar{color:var(--ws-ink-400)}
+  .lk:hover .ar{color:var(--ws-indigo-600)}
+
+  /* prompt card */
+  .prompt{position:relative;background:var(--ws-indigo-950);padding:16px 18px;margin-top:14px;font-family:var(--ws-font-mono);font-size:13.5px;color:#EAE7F6;box-shadow:var(--ws-shadow-md)}
+  .prompt .who{color:rgba(255,255,255,.5);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:9px}
+  .prompt .txt{color:var(--ws-green-300);line-height:1.6}
+  .prompt .txt::before{content:"\2192  ";color:rgba(255,255,255,.35)}
+  .copy{position:absolute;top:13px;right:13px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.7);font-family:var(--ws-font-mono);font-size:11px;padding:5px 11px;cursor:pointer;transition:.18s var(--ws-ease)}
+  .copy:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+  .copy.ok{color:var(--ws-green-300);border-color:var(--ws-green-400)}
+
+  /* note */
+  .note{margin-top:16px;background:var(--ws-indigo-50);border:1px solid var(--ws-indigo-100);border-left:4px solid var(--ws-indigo-600);padding:14px 16px}
+  .note.green{background:var(--ws-green-50);border-color:var(--ws-green-400);border-left-color:var(--ws-green-700)}
+  .note.warn{background:#FBF1DD;border-color:#F0DBA8;border-left-color:var(--ws-warning)}
+  .note .lab{font-family:var(--ws-font-body);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ws-indigo-600);margin-bottom:6px}
+  .note.green .lab{color:var(--ws-green-700)}
+  .note.warn .lab{color:var(--ws-warning)}
+  .note p{font-size:13.8px;color:var(--ws-ink-700);line-height:1.55}
+  .note p+p{margin-top:8px}
+  .note b{color:var(--ws-ink-900)}
+
+  /* iterate / tips grids */
+  .idea-grid{display:grid;gap:14px;grid-template-columns:1fr;margin-top:22px}
+  @media(min-width:760px){.idea-grid{grid-template-columns:1fr 1fr}}
+  .tips{display:grid;gap:16px;grid-template-columns:1fr;margin-top:22px}
+  @media(min-width:760px){.tips{grid-template-columns:repeat(3,1fr)}}
+  .tip{background:#fff;border:1.5px solid var(--ws-ink-100);padding:22px 20px;box-shadow:var(--ws-shadow-sm);transition:.2s var(--ws-ease)}
+  .tip:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-3px);border-color:var(--ws-indigo-200)}
+  .tip .ti{width:42px;height:42px;background:var(--ws-indigo-50);color:var(--ws-indigo-600);display:grid;place-items:center;margin-bottom:14px}
+  .tip h3{font-family:var(--ws-font-display);font-weight:600;font-size:17.5px;color:var(--ws-ink-900);margin-bottom:7px;line-height:1.25}
+  .tip p{font-size:14px;color:var(--ws-ink-500);line-height:1.55}
+  .tip p b{color:var(--ws-ink-900)}
+
+  footer{max-width:1040px;margin:64px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+  .reset{font-family:var(--ws-font-mono);font-size:12.5px;border:1px solid var(--ws-ink-200);background:#fff;padding:8px 14px;cursor:pointer;color:var(--ws-ink-500);transition:.18s var(--ws-ease)}
+  .reset:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus)}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.brick{opacity:1;transform:none}.brick::before{transform:scaleX(1)}}
+  /* square corners — DS identity */
+  *,*::before,*::after{border-radius:0!important}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
+    <div class="nav">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
+      <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+      <a class="jump" href="dance-with-the-ai-stars.html" data-i18n="nav.dais">Dance With the AI Stars</a>
+      <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
+      <div class="langsel" role="group" aria-label="Language">
+        <button data-lang="fr">FR</button>
+        <button data-lang="en">EN</button>
+        <button data-lang="de">DE</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1040 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,300 Q260,180 540,250 T1100,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <span class="eyebrow" data-i18n="hero.eyebrow">Playbook &middot; Application web avec base de donn&eacute;es</span>
+    <h1 data-i18n="hero.title">Cr&eacute;er une application web avec <span class="ac">base de donn&eacute;es</span></h1>
+    <p class="lede" data-i18n="hero.lede">Front, backend et base de donn&eacute;es centralis&eacute;e, h&eacute;berg&eacute;s en ligne &mdash; &eacute;tape par &eacute;tape. Suis le d&eacute;roul&eacute;, coche chaque &eacute;tape, copie les prompts.</p>
+    <div class="meta-chips">
+      <span data-i18n="hero.chip1"># h&eacute;berg&eacute; en ligne</span>
+      <span data-i18n="hero.chip2"># accessible par URL</span>
+      <span data-i18n="hero.chip3"># ~1h en autonomie</span>
+      <span data-i18n="hero.chip4"># Git &middot; CI/CD &middot; Azure/AWS &middot; Claude ou Codex</span>
+    </div>
+    <div class="host-tip">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg>
+      <p data-i18n="hero.tip"><b>Astuce&nbsp;:</b> d&eacute;roule la page de haut en bas. Clique sur les <b>num&eacute;ros</b> pour cocher les &eacute;tapes valid&eacute;es et sur <b>copier</b> pour r&eacute;cup&eacute;rer un prompt. Le s&eacute;lecteur de langue est en haut &agrave; droite.</p>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ A — CONCEPT ============ -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="a.eyebrow">Le concept</span>
+    <h2 data-i18n="a.title">Cinq maillons, une app en ligne</h2>
+    <p data-i18n="a.intro">Une application web avec base de donn&eacute;es ajoute deux briques &agrave; la version locale&nbsp;: un <b>d&eacute;ploiement automatis&eacute;</b> et un <b>h&eacute;bergeur qui fait tourner l'app et la base en permanence</b>.</p>
+  </div>
+
+  <div class="rail">
+    <span class="n idea" data-i18n="a.rail1">Id&eacute;e</span>
+    <span class="ar" aria-hidden="true">&#8594;</span>
+    <span class="n" data-i18n="a.rail2">Claude / Codex</span>
+    <span class="ar" aria-hidden="true">&#8594;</span>
+    <span class="n" data-i18n="a.rail3">Repo Git</span>
+    <span class="ar" aria-hidden="true">&#8594;</span>
+    <span class="n" data-i18n="a.rail4">Build &amp; d&eacute;ploiement</span>
+    <span class="ar" aria-hidden="true">&#8594;</span>
+    <span class="n live" data-i18n="a.rail5">H&eacute;bergeur web + base de donn&eacute;es</span>
+  </div>
+
+  <div class="bricks">
+    <div class="brick">
+      <span class="bk-no" data-i18n="a.b1.tag">Brique 1</span>
+      <div class="bk-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M12 3l1.9 4.6L18.5 9l-4.6 1.9L12 15l-1.9-4.1L5.5 9l4.6-1.4L12 3z"/><path d="M19 14l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8.8-2z"/></svg></div>
+      <h3 data-i18n="a.b1.title">Un agent IA &eacute;crit l'app compl&egrave;te</h3>
+      <p data-i18n="a.b1.body">&Agrave; partir d'une id&eacute;e en langage naturel, l'agent g&eacute;n&egrave;re le <b>frontend</b>, le <b>backend</b> (API) et le <b>sch&eacute;ma de base de donn&eacute;es</b> (tables, migrations).</p>
+      <span class="tool" data-i18n="a.b1.tool">Claude &middot; ou ChatGPT (Codex)</span>
+    </div>
+    <div class="b-arrow" aria-hidden="true">&#8594;</div>
+    <div class="brick">
+      <span class="bk-no" data-i18n="a.b2.tag">Brique 2</span>
+      <div class="bk-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M3 7l9-4 9 4v10l-9 4-9-4V7z"/><path d="M3 7l9 4 9-4"/><path d="M12 11v10"/></svg></div>
+      <h3 data-i18n="a.b2.title">Git versionne, la CI/CD d&eacute;ploie</h3>
+      <p data-i18n="a.b2.body">Le code est envoy&eacute; sur GitHub. &Agrave; chaque <code>push</code>, un pipeline <b>build &amp; d&eacute;ploiement</b> reconstruit l'app et la republie automatiquement.</p>
+      <span class="tool" data-i18n="a.b2.tool">Git &middot; GitHub Actions</span>
+    </div>
+    <div class="b-arrow" aria-hidden="true">&#8594;</div>
+    <div class="brick">
+      <span class="bk-no" data-i18n="a.b3.tag">Brique 3</span>
+      <div class="bk-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div>
+      <h3 data-i18n="a.b3.title">L'h&eacute;bergeur fait tourner l'ensemble</h3>
+      <p data-i18n="a.b3.body">L'app et sa <b>base de donn&eacute;es centralis&eacute;e</b> tournent en permanence chez un h&eacute;bergeur, accessibles par une <b>URL publique</b> &mdash; disponibles pour tous, tout le temps.</p>
+      <span class="tool" data-i18n="a.b3.tool">Azure &middot; AWS</span>
+    </div>
+  </div>
+
+  <!-- ============ B — PHASE 1 : SETUP ============ -->
+  <div class="phase-head">
+    <div class="t">
+      <span class="eyebrow" data-i18n="b.eyebrow">&Eacute;tape 1 &mdash; Pr&eacute;parer</span>
+      <h2 data-i18n="b.title">Pr&eacute;parer ton environnement</h2>
+      <div class="sub" data-i18n="b.sub">&Agrave; faire une seule fois. Comptez 20&nbsp;min, y compris la cr&eacute;ation des comptes h&eacute;bergeur.</div>
+    </div>
+    <div class="prog"><b class="dn">0</b>/<span class="tot">4</span> <span data-i18n="word.steps">&eacute;tapes</span></div>
+  </div>
+
+  <div class="phase">
+    <div class="steps">
+      <div class="spine"><div class="spine-fill"></div></div>
+
+      <!-- B1 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="b1.title">D&eacute;j&agrave; pr&ecirc;t&nbsp;? V&eacute;rifie ton poste</h4>
+          <div class="do" data-i18n="b1.body">Compte Claude/ChatGPT, Git, GitHub, VS Code, extension Claude Code ou Codex&nbsp;: si tu as d&eacute;j&agrave; suivi un de nos guides, tout est pr&ecirc;t &mdash; passe &agrave; l'&eacute;tape suivante. Sinon, suis d'abord la phase &laquo;&nbsp;Pr&eacute;parer&nbsp;&raquo; d'un de nos guides existants&nbsp;:</div>
+          <div class="links"><a class="lk" href="local-app-guide.html#setup" data-i18n="b1.lk1">guide application locale (Claude Code) <span class="ar">&#8594;</span></a><a class="lk" href="web-app-guide.html#setup" data-i18n="b1.lk2">atelier vibe coding (Codex) <span class="ar">&#8594;</span></a></div>
+        </div>
+      </div>
+
+      <!-- B2 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="b4.title">Choisir un h&eacute;bergeur web + base de donn&eacute;es</h4>
+          <div class="do" data-i18n="b4.body">Pour un p&eacute;rim&egrave;tre Wavestone ma&icirc;tris&eacute;, privil&eacute;gie <b>Microsoft Azure</b> (App Service + Azure Database) &mdash; voir la note de gouvernance ci-dessous. Demande &agrave; ton agent IA de te recommander la formule la plus simple pour ton cas d'usage.</div>
+        </div>
+      </div>
+
+      <!-- B3 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="b5.title">Cr&eacute;er une base de donn&eacute;es vide</h4>
+          <div class="do" data-i18n="b5.body">Cr&eacute;e une instance de base de donn&eacute;es manag&eacute;e chez ton h&eacute;bergeur (ex&nbsp;: Azure Database for PostgreSQL). R&eacute;cup&egrave;re la <b>cha&icirc;ne de connexion</b> &mdash; tu en auras besoin &agrave; l'&eacute;tape de d&eacute;ploiement.</div>
+        </div>
+      </div>
+
+      <!-- B4 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">4</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="b6.title">Pr&eacute;voir la gestion des secrets <span class="mini warn" data-i18n="b6.tag">important</span></h4>
+          <div class="do" data-i18n="b6.body">La cha&icirc;ne de connexion et les cl&eacute;s API ne doivent <b>jamais</b> appara&icirc;tre dans le code commit&eacute;. Elles se configurent en <b>variables d'environnement</b>, c&ocirc;t&eacute; h&eacute;bergeur ou en secrets GitHub Actions.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ C — PHASE 2 : BUILD ============ -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="c.eyebrow">&Eacute;tape 2 &mdash; Construire</span>
+    <h2 data-i18n="c.title">Construire ton app avec l'IA</h2>
+    <p data-i18n="c.intro">Demande &agrave; ton agent IA (Claude Code ou Codex) de cr&eacute;er ton application. Voici deux prompts pour d&eacute;marrer&nbsp;:</p>
+  </div>
+
+  <div class="idea-grid">
+    <div class="prompt">
+      <button class="copy">copier</button>
+      <div class="who" data-i18n="c.prompt1.who">Exemple &mdash; app avec formulaire &amp; base de donn&eacute;es</div>
+      <div class="txt" data-i18n="c.prompt1.txt">Cr&eacute;e-moi une application web avec un formulaire de contact&nbsp;: un frontend simple, une API backend qui enregistre chaque soumission dans une base de donn&eacute;es PostgreSQL, et un script de migration pour cr&eacute;er la table.</div>
+    </div>
+    <div class="prompt">
+      <button class="copy">copier</button>
+      <div class="who" data-i18n="c.prompt2.who">Exemple &mdash; page d'administration</div>
+      <div class="txt" data-i18n="c.prompt2.txt">Ajoute une page d'administration qui liste toutes les entr&eacute;es de la base de donn&eacute;es, prot&eacute;g&eacute;e par une authentification simple par mot de passe.</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="lab" data-i18n="c.note.lab">Human in the loop</div>
+    <p data-i18n="c.note.p">Ton agent IA te propose les commandes avant de les ex&eacute;cuter&nbsp;: lis ce qu'il propose, puis valide. Pour du code qui touche &agrave; une base de donn&eacute;es, relis particuli&egrave;rement les migrations avant de les valider.</p>
+  </div>
+
+  <div class="note warn">
+    <div class="lab" data-i18n="c.warn.lab">Donn&eacute;es de test uniquement</div>
+    <p data-i18n="c.warn.p">Ne mets <b>aucune donn&eacute;e client r&eacute;elle ni information confidentielle</b> dans une base de donn&eacute;es de d&eacute;monstration ou de POC. Utilise des donn&eacute;es fictives.</p>
+  </div>
+
+  <!-- ============ D — PHASE 3 : DEPLOY ============ -->
+  <div class="phase-head">
+    <div class="t">
+      <span class="eyebrow" data-i18n="d.eyebrow">&Eacute;tape 3 &mdash; D&eacute;ployer</span>
+      <h2 data-i18n="d.title">Mettre l'app en ligne</h2>
+      <div class="sub" data-i18n="d.sub">Une fois le code pr&ecirc;t, connecte-le &agrave; ton h&eacute;bergeur pour qu'il tourne en continu.</div>
+    </div>
+    <div class="prog"><b class="dn">0</b>/<span class="tot">5</span> <span data-i18n="word.steps">&eacute;tapes</span></div>
+  </div>
+
+  <div class="phase">
+    <div class="steps">
+      <div class="spine"><div class="spine-fill"></div></div>
+
+      <!-- D1 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="d1.title">Pousser le code sur GitHub</h4>
+          <div class="do" data-i18n="d1.body">Avec GitHub Desktop ou <code>git push</code>, envoie ton repo sur GitHub. C'est la source unique de v&eacute;rit&eacute; que l'h&eacute;bergeur ira lire.</div>
+        </div>
+      </div>
+
+      <!-- D2 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="d2.title">Connecter le repo &agrave; l'h&eacute;bergeur</h4>
+          <div class="do" data-i18n="d2.body">Dans la console de ton h&eacute;bergeur (ex&nbsp;: Azure App Service), lie ton repo GitHub&nbsp;: un pipeline de <b>build &amp; d&eacute;ploiement</b> se met en place automatiquement &agrave; chaque <code>push</code> sur la branche principale.</div>
+        </div>
+      </div>
+
+      <!-- D3 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="d3.title">Renseigner les variables d'environnement</h4>
+          <div class="do" data-i18n="d3.body">Dans les param&egrave;tres de l'h&eacute;bergeur (jamais dans le code)&nbsp;: colle la <b>cha&icirc;ne de connexion</b> &agrave; la base de donn&eacute;es et les &eacute;ventuelles cl&eacute;s API.</div>
+        </div>
+      </div>
+
+      <!-- D4 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">4</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="d4.title">Lancer le premier d&eacute;ploiement</h4>
+          <div class="do" data-i18n="d4.body">D&eacute;clenche le build et surveille les logs. En cas d'erreur, copie le message et demande &agrave; ton agent IA de t'aider &agrave; le corriger.</div>
+        </div>
+      </div>
+
+      <!-- D5 -->
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">5</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="d5.title">Initialiser le sch&eacute;ma en production</h4>
+          <div class="do" data-i18n="d5.body">Ex&eacute;cute le script de migration sur la base de production pour cr&eacute;er les tables, puis v&eacute;rifie que l'app r&eacute;pond bien &agrave; son URL publique.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ GOVERNANCE NOTE ============ -->
+  <div class="note" style="margin-top:24px">
+    <div class="lab" data-i18n="gov.lab">Gouvernance Wavestone &mdash; H&eacute;bergement en ligne</div>
+    <p data-i18n="gov.p1">Pour les <b>donn&eacute;es clients sensibles</b>, deux options internes sont disponibles&nbsp;:</p>
+    <p data-i18n="gov.p2">&bull; <b>Microsoft Azure</b> <span style="font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);padding:2px 8px;font-weight:600">recommand&eacute;</span> &mdash; App Service + Azure Database (SQL/PostgreSQL), int&eacute;gr&eacute; &agrave; l'&eacute;cosyst&egrave;me Wavestone.</p>
+    <p data-i18n="gov.p3">&bull; <b>Amazon Web Services (AWS)</b> &mdash; alternative disponible pour certains sc&eacute;narios (RDS, Elastic Beanstalk). &Agrave; valider avec la gouvernance IT.</p>
+    <p data-i18n="gov.p4">Dans les deux cas, une <b>cl&eacute; API Wavestone</b> permet de rester dans un p&eacute;rim&egrave;tre s&eacute;curis&eacute; et trac&eacute;.</p>
+  </div>
+
+  <!-- ============ E — GO FURTHER ============ -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="e.eyebrow">Aller plus loin</span>
+    <h2 data-i18n="e.title">Une app en ligne, &agrave; toi de la faire vivre</h2>
+    <p data-i18n="e.intro">Une fois la boucle ma&icirc;tris&eacute;e, chaque nouvelle fonctionnalit&eacute; suit le m&ecirc;me chemin&nbsp;: id&eacute;e, prompt, push, d&eacute;ploiement automatique.</p>
+  </div>
+
+  <div class="tips">
+    <div class="tip">
+      <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12" y2="17"/></svg></div>
+      <h3 data-i18n="e1.title">Bloqu&eacute;&nbsp;? Demande &agrave; l'IA</h3>
+      <p data-i18n="e1.body">Erreur de d&eacute;ploiement, migration qui &eacute;choue, variable d'environnement manquante&nbsp;: colle le message d'erreur &agrave; ton agent IA, il t'aide &agrave; diagnostiquer.</p>
+    </div>
+    <div class="tip">
+      <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+      <h3 data-i18n="e2.title">S&eacute;curise ta base de donn&eacute;es</h3>
+      <p data-i18n="e2.body">Avant d'ouvrir l'app &agrave; d'autres&nbsp;: demande un <b>audit de s&eacute;curit&eacute;</b>, v&eacute;rifie que la base n'est pas accessible publiquement sans authentification, et que les secrets ne sont pas dans le code.</p>
+    </div>
+    <div class="tip">
+      <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><polyline points="23 4 23 10 17 10"/><path d="M20.5 15a9 9 0 1 1-2.1-9.4L23 10"/></svg></div>
+      <h3 data-i18n="e3.title">La boucle ne change pas</h3>
+      <p data-i18n="e3.body"><b>Id&eacute;e &rarr; prompt &rarr; push &rarr; d&eacute;ploiement automatique &rarr; it&eacute;ration.</b> Ce rythme, tu le connais d&eacute;sormais.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span class="src" data-i18n="footer.src">Application web avec base de donn&eacute;es &mdash; Wavestone CYB &middot; AI Maker</span>
+  <button class="reset" id="reset" data-i18n="footer.reset">&#128285; Recommencer</button>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------------- i18n ---------------- */
+  var I18N = {
+    en:{
+      "nav.home":"Home","nav.usecases":"Playbook","nav.principles":"Agent principles","nav.agents":"Our agents","nav.apikey":"API key",
+      "hero.eyebrow":"Playbook &middot; Database-backed web app",
+      "hero.title":"Build a web application with a <span class=\"ac\">database</span>",
+      "hero.lede":"Front end, backend and a centralised database, hosted online &mdash; step by step. Follow the flow, tick off each step, copy the prompts.",
+      "hero.chip1":"# hosted online","hero.chip2":"# reachable by URL","hero.chip3":"# ~1h on your own","hero.chip4":"# Git &middot; CI/CD &middot; Azure/AWS &middot; Claude or Codex",
+      "hero.tip":"<b>Tip:</b> scroll the page top to bottom. Click the <b>numbers</b> to tick off completed steps and <b>copy</b> to grab a prompt. The language switch is top right.",
+      "a.eyebrow":"The concept","a.title":"Five links, one live app",
+      "a.intro":"A database-backed web app adds two building blocks to the local version: an <b>automated deployment</b> and a <b>host that keeps the app and the database running</b>.",
+      "a.rail1":"Idea","a.rail2":"Claude / Codex","a.rail3":"Git repo","a.rail4":"Build &amp; deploy","a.rail5":"Web host + database",
+      "a.b1.tag":"Block 1","a.b1.title":"An AI agent writes the whole app","a.b1.body":"From an idea in plain language, the agent generates the <b>frontend</b>, the <b>backend</b> (API) and the <b>database schema</b> (tables, migrations).","a.b1.tool":"Claude &middot; or ChatGPT (Codex)",
+      "a.b2.tag":"Block 2","a.b2.title":"Git versions, CI/CD deploys","a.b2.body":"The code is pushed to GitHub. On every <code>push</code>, a <b>build &amp; deploy</b> pipeline rebuilds the app and republishes it automatically.","a.b2.tool":"Git &middot; GitHub Actions",
+      "a.b3.tag":"Block 3","a.b3.title":"The host runs everything","a.b3.body":"The app and its <b>centralised database</b> run continuously at a host, reachable through a <b>public URL</b> &mdash; available to everyone, at all times.","a.b3.tool":"Azure &middot; AWS",
+      "b.eyebrow":"Step 1 &mdash; Prepare","b.title":"Set up your environment","b.sub":"Done once. Allow 20 min, including creating your hosting accounts.",
+      "word.steps":"steps",
+      "b1.title":"Already set up? Check your machine","b1.body":"Claude/ChatGPT account, Git, GitHub, VS Code, Claude Code or Codex extension: if you've already followed one of our guides, you're all set &mdash; move to the next step. Otherwise, follow the &ldquo;Prepare&rdquo; phase of one of our existing guides first:",
+      "b1.lk1":"local app guide (Claude Code) <span class=\"ar\">&#8594;</span>","b1.lk2":"vibe coding workshop (Codex) <span class=\"ar\">&#8594;</span>",
+      "b4.title":"Choose a web + database host","b4.body":"For a controlled Wavestone perimeter, favour <b>Microsoft Azure</b> (App Service + Azure Database) &mdash; see the governance note below. Ask your AI agent to recommend the simplest tier for your use case.",
+      "b5.title":"Create an empty database","b5.body":"Create a managed database instance at your host (e.g. Azure Database for PostgreSQL). Grab the <b>connection string</b> &mdash; you'll need it at deployment time.",
+      "b6.title":"Plan for secrets management <span class=\"mini warn\">important</span>","b6.tag":"important","b6.body":"The connection string and API keys must <b>never</b> appear in committed code. They belong in <b>environment variables</b>, set at the host or as GitHub Actions secrets.",
+      "c.eyebrow":"Step 2 &mdash; Build","c.title":"Build your app with AI","c.intro":"Ask your AI agent (Claude Code or Codex) to build your application. Here are two prompts to get started:",
+      "c.prompt1.who":"Example &mdash; app with a form &amp; database","c.prompt1.txt":"Build me a web app with a contact form: a simple frontend, a backend API that stores each submission in a PostgreSQL database, and a migration script that creates the table.",
+      "c.prompt2.who":"Example &mdash; admin page","c.prompt2.txt":"Add an admin page that lists every entry in the database, protected by simple password authentication.",
+      "c.note.lab":"Human in the loop","c.note.p":"Your AI agent asks your permission before running commands: read what it proposes, then approve. For code that touches a database, review migrations especially closely before approving.",
+      "c.warn.lab":"Test data only","c.warn.p":"Never put <b>real client data or confidential information</b> in a demo or POC database. Use fictional data.",
+      "d.eyebrow":"Step 3 &mdash; Deploy","d.title":"Put the app online","d.sub":"Once the code is ready, connect it to your host so it runs continuously.",
+      "d1.title":"Push the code to GitHub","d1.body":"With GitHub Desktop or <code>git push</code>, send your repo to GitHub. It's the single source of truth the host will read from.",
+      "d2.title":"Connect the repo to the host","d2.body":"In your host's console (e.g. Azure App Service), link your GitHub repo: a <b>build &amp; deploy</b> pipeline is set up automatically, firing on every <code>push</code> to the main branch.",
+      "d3.title":"Set the environment variables","d3.body":"In the host's settings (never in the code): paste the <b>database connection string</b> and any API keys.",
+      "d4.title":"Trigger the first deployment","d4.body":"Kick off the build and watch the logs. If something fails, copy the error message and ask your AI agent to help you fix it.",
+      "d5.title":"Initialize the schema in production","d5.body":"Run the migration script against the production database to create the tables, then verify the app responds at its public URL.",
+      "gov.lab":"Wavestone governance &mdash; Online hosting",
+      "gov.p1":"For <b>sensitive client data</b>, two internal options are available:",
+      "gov.p2":"&bull; <b>Microsoft Azure</b> <span style=\"font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);padding:2px 8px;font-weight:600\">recommended</span> &mdash; App Service + Azure Database (SQL/PostgreSQL), integrated with the Wavestone ecosystem.",
+      "gov.p3":"&bull; <b>Amazon Web Services (AWS)</b> &mdash; alternative available for some scenarios (RDS, Elastic Beanstalk). To be validated with IT governance.",
+      "gov.p4":"In both cases, a <b>Wavestone API key</b> keeps you within a secure, traceable perimeter.",
+      "e.eyebrow":"Go further","e.title":"A live app is yours to grow","e.intro":"Once you've mastered the loop, every new feature follows the same path: idea, prompt, push, automatic deployment.",
+      "e1.title":"Stuck? Ask the AI","e1.body":"Deployment error, failing migration, missing environment variable: paste the error message to your AI agent, it helps you diagnose it.",
+      "e2.title":"Secure your database","e2.body":"Before opening the app to others: request a <b>security audit</b>, check the database isn't publicly reachable without authentication, and that secrets aren't in the code.",
+      "e3.title":"The loop never changes","e3.body":"<b>Idea &rarr; prompt &rarr; push &rarr; automatic deployment &rarr; iteration.</b> You know this rhythm now.",
+      "footer.src":"Database-backed web app &mdash; Wavestone CYB &middot; AI Maker","footer.reset":"&#128285; Start over",
+      "__title":"Build a web application with a database — Wavestone CYB"
+    },
+    de:{
+      "nav.home":"Start","nav.usecases":"Playbook","nav.principles":"Agenten-Prinzipien","nav.agents":"Unsere Agenten","nav.apikey":"API-Schl&uuml;ssel",
+      "hero.eyebrow":"Playbook &middot; Web-App mit Datenbank",
+      "hero.title":"Eine Web-App mit <span class=\"ac\">Datenbank</span> bauen",
+      "hero.lede":"Frontend, Backend und eine zentrale Datenbank, online gehostet &mdash; Schritt f&uuml;r Schritt. Folge dem Ablauf, hake jeden Schritt ab, kopiere die Prompts.",
+      "hero.chip1":"# online gehostet","hero.chip2":"# per URL erreichbar","hero.chip3":"# ~1 Std. eigenst&auml;ndig","hero.chip4":"# Git &middot; CI/CD &middot; Azure/AWS &middot; Claude oder Codex",
+      "hero.tip":"<b>Tipp:</b> scrolle die Seite von oben nach unten. Klicke die <b>Zahlen</b> an, um erledigte Schritte abzuhaken, und <b>kopieren</b>, um einen Prompt zu &uuml;bernehmen. Die Sprachauswahl ist oben rechts.",
+      "a.eyebrow":"Das Konzept","a.title":"F&uuml;nf Glieder, eine Live-App",
+      "a.intro":"Eine Web-App mit Datenbank erg&auml;nzt die lokale Version um zwei Bausteine: ein <b>automatisiertes Deployment</b> und einen <b>Host, der App und Datenbank dauerhaft am Laufen h&auml;lt</b>.",
+      "a.rail1":"Idee","a.rail2":"Claude / Codex","a.rail3":"Git-Repo","a.rail4":"Build &amp; Deployment","a.rail5":"Webhoster + Datenbank",
+      "a.b1.tag":"Baustein 1","a.b1.title":"Ein KI-Agent schreibt die gesamte App","a.b1.body":"Aus einer Idee in nat&uuml;rlicher Sprache erzeugt der Agent das <b>Frontend</b>, das <b>Backend</b> (API) und das <b>Datenbankschema</b> (Tabellen, Migrationen).","a.b1.tool":"Claude &middot; oder ChatGPT (Codex)",
+      "a.b2.tag":"Baustein 2","a.b2.title":"Git versioniert, CI/CD deployt","a.b2.body":"Der Code wird zu GitHub gepusht. Bei jedem <code>push</code> baut eine <b>Build-&amp;-Deploy</b>-Pipeline die App neu und ver&ouml;ffentlicht sie automatisch.","a.b2.tool":"Git &middot; GitHub Actions",
+      "a.b3.tag":"Baustein 3","a.b3.title":"Der Host betreibt alles","a.b3.body":"Die App und ihre <b>zentrale Datenbank</b> laufen dauerhaft beim Host, erreichbar &uuml;ber eine <b>&ouml;ffentliche URL</b> &mdash; jederzeit f&uuml;r alle verf&uuml;gbar.","a.b3.tool":"Azure &middot; AWS",
+      "b.eyebrow":"Schritt 1 &mdash; Vorbereiten","b.title":"Deine Umgebung einrichten","b.sub":"Einmalig. Plant 20 Min ein, inklusive Erstellung der Hosting-Konten.",
+      "word.steps":"Schritte",
+      "b1.title":"Schon startklar? Pr&uuml;fe deinen Rechner","b1.body":"Claude-/ChatGPT-Konto, Git, GitHub, VS Code, Claude-Code- oder Codex-Erweiterung: Wenn du bereits einem unserer Leitf&auml;den gefolgt bist, ist alles bereit &mdash; weiter zum n&auml;chsten Schritt. Andernfalls folge zuerst der Phase &bdquo;Vorbereiten&ldquo; eines unserer bestehenden Leitf&auml;den:",
+      "b1.lk1":"Leitfaden lokale App (Claude Code) <span class=\"ar\">&#8594;</span>","b1.lk2":"Vibe-Coding-Workshop (Codex) <span class=\"ar\">&#8594;</span>",
+      "b4.title":"Einen Web- + Datenbank-Host w&auml;hlen","b4.body":"F&uuml;r einen kontrollierten Wavestone-Perimeter bevorzuge <b>Microsoft Azure</b> (App Service + Azure Database) &mdash; siehe Governance-Hinweis unten. Bitte deinen KI-Agenten um eine Empfehlung f&uuml;r die einfachste Stufe f&uuml;r deinen Anwendungsfall.",
+      "b5.title":"Eine leere Datenbank erstellen","b5.body":"Erstelle eine verwaltete Datenbankinstanz bei deinem Host (z.&nbsp;B. Azure Database for PostgreSQL). Notiere dir die <b>Connection-String</b> &mdash; du brauchst sie beim Deployment.",
+      "b6.title":"Secrets-Management einplanen <span class=\"mini warn\">wichtig</span>","b6.tag":"wichtig","b6.body":"Die Connection-String und API-Schl&uuml;ssel d&uuml;rfen <b>niemals</b> im committeten Code stehen. Sie geh&ouml;ren in <b>Umgebungsvariablen</b>, gesetzt beim Host oder als GitHub-Actions-Secrets.",
+      "c.eyebrow":"Schritt 2 &mdash; Bauen","c.title":"Deine App mit KI bauen","c.intro":"Bitte deinen KI-Agenten (Claude Code oder Codex), deine Anwendung zu bauen. Hier zwei Prompts f&uuml;r den Start:",
+      "c.prompt1.who":"Beispiel &mdash; App mit Formular &amp; Datenbank","c.prompt1.txt":"Erstelle mir eine Web-App mit einem Kontaktformular: ein einfaches Frontend, eine Backend-API, die jede Einreichung in einer PostgreSQL-Datenbank speichert, und ein Migrationsskript, das die Tabelle anlegt.",
+      "c.prompt2.who":"Beispiel &mdash; Admin-Seite","c.prompt2.txt":"F&uuml;ge eine Admin-Seite hinzu, die alle Eintr&auml;ge der Datenbank auflistet, gesch&uuml;tzt durch eine einfache Passwort-Authentifizierung.",
+      "c.note.lab":"Human in the loop","c.note.p":"Dein KI-Agent fragt um deine Erlaubnis, bevor Befehle ausgef&uuml;hrt werden: lies, was vorgeschlagen wird, dann best&auml;tige. Bei Code, der eine Datenbank ber&uuml;hrt, pr&uuml;fe Migrationen besonders genau, bevor du sie best&auml;tigst.",
+      "c.warn.lab":"Nur Testdaten","c.warn.p":"Verwende <b>niemals echte Kundendaten oder vertrauliche Informationen</b> in einer Demo- oder POC-Datenbank. Nutze fiktive Daten.",
+      "d.eyebrow":"Schritt 3 &mdash; Deployen","d.title":"Die App online stellen","d.sub":"Sobald der Code fertig ist, verbindest du ihn mit deinem Host, damit er dauerhaft l&auml;uft.",
+      "d1.title":"Den Code zu GitHub pushen","d1.body":"Mit GitHub Desktop oder <code>git push</code> sendest du dein Repo zu GitHub. Es ist die einzige Quelle der Wahrheit, aus der der Host liest.",
+      "d2.title":"Das Repo mit dem Host verbinden","d2.body":"In der Konsole deines Hosts (z.&nbsp;B. Azure App Service) verkn&uuml;pfst du dein GitHub-Repo: eine <b>Build-&amp;-Deploy</b>-Pipeline wird automatisch eingerichtet und l&ouml;st bei jedem <code>push</code> auf den Hauptbranch aus.",
+      "d3.title":"Umgebungsvariablen setzen","d3.body":"In den Host-Einstellungen (nie im Code): f&uuml;ge die <b>Datenbank-Connection-String</b> und eventuelle API-Schl&uuml;ssel ein.",
+      "d4.title":"Das erste Deployment ausl&ouml;sen","d4.body":"Starte den Build und beobachte die Logs. Bei einem Fehler kopiere die Fehlermeldung und bitte deinen KI-Agenten um Hilfe bei der Behebung.",
+      "d5.title":"Das Schema in Produktion initialisieren","d5.body":"F&uuml;hre das Migrationsskript gegen die Produktionsdatenbank aus, um die Tabellen anzulegen, und pr&uuml;fe dann, ob die App unter ihrer &ouml;ffentlichen URL antwortet.",
+      "gov.lab":"Wavestone-Governance &mdash; Online-Hosting",
+      "gov.p1":"F&uuml;r <b>sensible Kundendaten</b> stehen zwei interne Optionen zur Verf&uuml;gung:",
+      "gov.p2":"&bull; <b>Microsoft Azure</b> <span style=\"font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-green-700);background:var(--ws-green-50);padding:2px 8px;font-weight:600\">empfohlen</span> &mdash; App Service + Azure Database (SQL/PostgreSQL), integriert in das Wavestone-&Ouml;kosystem.",
+      "gov.p3":"&bull; <b>Amazon Web Services (AWS)</b> &mdash; Alternative f&uuml;r bestimmte Szenarien (RDS, Elastic Beanstalk). Mit der IT-Governance abzustimmen.",
+      "gov.p4":"In beiden F&auml;llen h&auml;lt dich ein <b>Wavestone-API-Schl&uuml;ssel</b> in einem sicheren, nachvollziehbaren Perimeter.",
+      "e.eyebrow":"Weitergehen","e.title":"Eine Live-App, die du weiterentwickelst","e.intro":"Sobald du die Schleife beherrschst, folgt jede neue Funktion demselben Weg: Idee, Prompt, Push, automatisches Deployment.",
+      "e1.title":"Festgefahren? Frag die KI","e1.body":"Deployment-Fehler, fehlgeschlagene Migration, fehlende Umgebungsvariable: kopiere die Fehlermeldung zu deinem KI-Agenten, er hilft dir bei der Diagnose.",
+      "e2.title":"Sichere deine Datenbank","e2.body":"Bevor du die App f&uuml;r andere &ouml;ffnest: fordere einen <b>Sicherheits-Audit</b> an, pr&uuml;fe, dass die Datenbank nicht ohne Authentifizierung &ouml;ffentlich erreichbar ist, und dass Secrets nicht im Code stehen.",
+      "e3.title":"Die Schleife bleibt gleich","e3.body":"<b>Idee &rarr; Prompt &rarr; Push &rarr; automatisches Deployment &rarr; Iteration.</b> Diesen Rhythmus kennst du jetzt.",
+      "footer.src":"Web-App mit Datenbank &mdash; Wavestone CYB &middot; AI Maker","footer.reset":"&#128285; Neu starten",
+      "__title":"Eine Web-App mit Datenbank bauen — Wavestone CYB"
+    }
+  };
+
+  var LABELS = { fr:{copy:"copier",copied:"copié ✓"}, en:{copy:"copy",copied:"copied ✓"}, de:{copy:"kopieren",copied:"kopiert ✓"} };
+
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('[data-i18n]'));
+  var ORIG = {};
+  nodes.forEach(function(n){ ORIG[n.getAttribute('data-i18n')] = n.innerHTML; });
+  var ORIG_TITLE = document.title;
+  var cur = 'fr';
+
+  function apply(lang){
+    if(lang!=='fr' && !I18N[lang]) lang='fr';
+    cur = lang;
+    document.documentElement.lang = lang;
+    nodes.forEach(function(n){
+      var k = n.getAttribute('data-i18n');
+      var v = (lang==='fr') ? ORIG[k] : (I18N[lang][k]!=null ? I18N[lang][k] : ORIG[k]);
+      if(v!=null) n.innerHTML = v;
+    });
+    document.title = (lang==='fr') ? ORIG_TITLE : (I18N[lang]['__title']!=null ? I18N[lang]['__title'] : ORIG_TITLE);
+    document.querySelectorAll('.copy').forEach(function(c){ if(!c.classList.contains('ok')) c.textContent = LABELS[lang].copy; });
+    document.querySelectorAll('.langsel button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-lang')===lang); });
+    try{ localStorage.setItem('ws_lang', lang); }catch(e){}
+  }
+
+  document.querySelectorAll('.langsel button').forEach(function(b){
+    b.addEventListener('click', function(){ apply(b.getAttribute('data-lang')); });
+  });
+
+  /* language: saved choice > browser language > English (improvement over the FR default) */
+  var saved=null; try{ saved=localStorage.getItem('ws_lang'); }catch(e){}
+  function wsDetect(){
+    if(saved && ['fr','en','de'].indexOf(saved)>-1) return saved;
+    var ls=navigator.languages||[navigator.language||navigator.userLanguage||''];
+    for(var i=0;i<ls.length;i++){ var c=(ls[i]||'').slice(0,2).toLowerCase(); if(['fr','en','de'].indexOf(c)>-1) return c; }
+    return 'en';
+  }
+  apply(wsDetect());
+
+  /* ---------------- step progress per phase ---------------- */
+  document.querySelectorAll('.phase').forEach(function(ph){
+    var steps = ph.querySelectorAll('.step');
+    if(!steps.length) return;
+    var fill = ph.querySelector('.spine-fill');
+    var head = ph.previousElementSibling;
+    var dn = head && head.querySelector ? head.querySelector('.prog .dn') : null;
+    function refresh(){
+      var d = ph.querySelectorAll('.step.done').length;
+      if(dn) dn.textContent = d;
+      if(fill) fill.style.height = (d/steps.length*100)+'%';
+    }
+    steps.forEach(function(step){
+      var node = step.querySelector('.node');
+      function toggle(){
+        step.classList.toggle('done');
+        node.setAttribute('aria-pressed', step.classList.contains('done'));
+        refresh();
+      }
+      node.addEventListener('click', toggle);
+      node.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); toggle(); } });
+    });
+    refresh();
+  });
+
+  /* ---------------- copy prompts ---------------- */
+  document.querySelectorAll('.copy').forEach(function(c){
+    c.addEventListener('click', function(){
+      var txt = c.parentElement.querySelector('.txt').textContent.trim();
+      var ok = function(){ c.textContent = LABELS[cur].copied; c.classList.add('ok'); setTimeout(function(){ c.classList.remove('ok'); c.textContent = LABELS[cur].copy; },1600); };
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok, ok); }
+      else { var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); ok(); }
+    });
+  });
+
+  /* ---------------- reset ---------------- */
+  document.getElementById('reset').addEventListener('click', function(){
+    document.querySelectorAll('.step.done').forEach(function(s){ s.classList.remove('done'); s.querySelector('.node').setAttribute('aria-pressed','false'); });
+    document.querySelectorAll('.phase').forEach(function(ph){
+      var fill=ph.querySelector('.spine-fill'); if(fill) fill.style.height='0';
+      var head=ph.previousElementSibling; var dn=head&&head.querySelector?head.querySelector('.prog .dn'):null; if(dn) dn.textContent='0';
+    });
+    window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
+  });
+})();
+</script>
+<script src="assets/mobile-nav.js"></script>
+</body>
+</html>
