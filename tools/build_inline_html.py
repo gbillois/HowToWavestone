@@ -49,6 +49,7 @@ PAGES = [
     "api-key.html",
     "web-app-guide.html",
     "local-app-guide.html",
+    "db-app-guide.html",
     "CYBAIMakerUpdateSlides.html",
 ]
 
