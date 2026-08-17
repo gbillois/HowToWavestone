@@ -281,7 +281,7 @@
       <h2 data-i18n="b.title">Pr&eacute;parer ton environnement</h2>
       <div class="sub" data-i18n="b.sub">&Agrave; faire une seule fois. Comptez 20&nbsp;min, y compris la cr&eacute;ation des comptes h&eacute;bergeur.</div>
     </div>
-    <div class="prog"><b class="dn">0</b>/<span class="tot">6</span> <span data-i18n="word.steps">&eacute;tapes</span></div>
+    <div class="prog"><b class="dn">0</b>/<span class="tot">4</span> <span data-i18n="word.steps">&eacute;tapes</span></div>
   </div>
 
   <div class="phase">
@@ -292,9 +292,9 @@
       <div class="step">
         <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
         <div class="scard">
-          <h4 data-i18n="b1.title">Tester ton agent IA + cr&eacute;er un GitHub</h4>
-          <div class="do" data-i18n="b1.body">Connecte-toi &agrave; Claude ou ChatGPT (compte Wavestone) et cr&eacute;e un compte GitHub gratuit pour stocker et versionner ton code.</div>
-          <div class="links"><a class="lk" href="https://claude.ai/new" target="_blank" rel="noopener">claude.ai/new <span class="ar">&#8599;</span></a><a class="lk" href="https://github.com/" target="_blank" rel="noopener">github.com <span class="ar">&#8599;</span></a></div>
+          <h4 data-i18n="b1.title">D&eacute;j&agrave; pr&ecirc;t&nbsp;? V&eacute;rifie ton poste</h4>
+          <div class="do" data-i18n="b1.body">Compte Claude/ChatGPT, Git, GitHub, VS Code, extension Claude Code ou Codex&nbsp;: si tu as d&eacute;j&agrave; suivi un de nos guides, tout est pr&ecirc;t &mdash; passe &agrave; l'&eacute;tape suivante. Sinon, suis d'abord la phase &laquo;&nbsp;Pr&eacute;parer&nbsp;&raquo; d'un de nos guides existants&nbsp;:</div>
+          <div class="links"><a class="lk" href="local-app-guide.html#setup" data-i18n="b1.lk1">guide application locale (Claude Code) <span class="ar">&#8594;</span></a><a class="lk" href="web-app-guide.html#setup" data-i18n="b1.lk2">atelier vibe coding (Codex) <span class="ar">&#8594;</span></a></div>
         </div>
       </div>
 
@@ -302,9 +302,8 @@
       <div class="step">
         <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
         <div class="scard">
-          <h4 data-i18n="b2.title">Installer Git, GitHub Desktop, VS Code</h4>
-          <div class="do" data-i18n="b2.body">Les trois outils de base&nbsp;: <b>Git</b> suit les modifications, <b>GitHub Desktop</b> synchronise ton repo avec ta machine, <b>VS Code</b> est l'&eacute;diteur o&ugrave; tu travailleras. Aucun droit admin requis.</div>
-          <div class="links"><a class="lk" href="https://git-scm.com/install/" target="_blank" rel="noopener">git-scm.com <span class="ar">&#8599;</span></a><a class="lk" href="https://desktop.github.com/download/" target="_blank" rel="noopener">desktop.github.com <span class="ar">&#8599;</span></a><a class="lk" href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com <span class="ar">&#8599;</span></a></div>
+          <h4 data-i18n="b4.title">Choisir un h&eacute;bergeur web + base de donn&eacute;es</h4>
+          <div class="do" data-i18n="b4.body">Pour un p&eacute;rim&egrave;tre Wavestone ma&icirc;tris&eacute;, privil&eacute;gie <b>Microsoft Azure</b> (App Service + Azure Database) &mdash; voir la note de gouvernance ci-dessous. Demande &agrave; ton agent IA de te recommander la formule la plus simple pour ton cas d'usage.</div>
         </div>
       </div>
 
@@ -312,33 +311,14 @@
       <div class="step">
         <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
         <div class="scard">
-          <h4 data-i18n="b3.title">Configurer ton agent IA (Claude Code ou Codex)</h4>
-          <div class="do" data-i18n="b3.body">Deux options &eacute;quivalentes &mdash; choisis celle que tu pr&eacute;f&egrave;res. <b>Claude Code</b>&nbsp;: dans VS Code, Extensions (<code>Ctrl+Shift+X</code>) &rarr; cherche <b>&laquo;&nbsp;Claude Code&nbsp;&raquo;</b> (Anthropic) &rarr; Installer, puis connecte ton compte. <b>ChatGPT Codex</b>&nbsp;: <b>accessible gratuitement</b>, id&eacute;al pour d&eacute;marrer sans engagement (usage intensif&nbsp;: pr&eacute;voir un abonnement payant).</div>
-          <div class="links"><a class="lk" href="https://code.claude.com/docs/en/vs-code" target="_blank" rel="noopener" data-i18n="b3.lk1">guide Claude Code <span class="ar">&#8599;</span></a><a class="lk" href="https://chatgpt.com/codex/cloud" target="_blank" rel="noopener" data-i18n="b3.lk2">ChatGPT Codex <span class="ar">&#8599;</span></a></div>
+          <h4 data-i18n="b5.title">Cr&eacute;er une base de donn&eacute;es vide</h4>
+          <div class="do" data-i18n="b5.body">Cr&eacute;e une instance de base de donn&eacute;es manag&eacute;e chez ton h&eacute;bergeur (ex&nbsp;: Azure Database for PostgreSQL). R&eacute;cup&egrave;re la <b>cha&icirc;ne de connexion</b> &mdash; tu en auras besoin &agrave; l'&eacute;tape de d&eacute;ploiement.</div>
         </div>
       </div>
 
       <!-- B4 -->
       <div class="step">
         <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">4</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
-        <div class="scard">
-          <h4 data-i18n="b4.title">Choisir un h&eacute;bergeur web + base de donn&eacute;es</h4>
-          <div class="do" data-i18n="b4.body">Pour un p&eacute;rim&egrave;tre Wavestone ma&icirc;tris&eacute;, privil&eacute;gie <b>Microsoft Azure</b> (App Service + Azure Database) &mdash; voir la note de gouvernance ci-dessous. Demande &agrave; ton agent IA de te recommander la formule la plus simple pour ton cas d'usage.</div>
-        </div>
-      </div>
-
-      <!-- B5 -->
-      <div class="step">
-        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">5</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
-        <div class="scard">
-          <h4 data-i18n="b5.title">Cr&eacute;er une base de donn&eacute;es vide</h4>
-          <div class="do" data-i18n="b5.body">Cr&eacute;e une instance de base de donn&eacute;es manag&eacute;e chez ton h&eacute;bergeur (ex&nbsp;: Azure Database for PostgreSQL). R&eacute;cup&egrave;re la <b>cha&icirc;ne de connexion</b> &mdash; tu en auras besoin &agrave; l'&eacute;tape de d&eacute;ploiement.</div>
-        </div>
-      </div>
-
-      <!-- B6 -->
-      <div class="step">
-        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">6</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
         <div class="scard">
           <h4 data-i18n="b6.title">Pr&eacute;voir la gestion des secrets <span class="mini warn" data-i18n="b6.tag">important</span></h4>
           <div class="do" data-i18n="b6.body">La cha&icirc;ne de connexion et les cl&eacute;s API ne doivent <b>jamais</b> appara&icirc;tre dans le code commit&eacute;. Elles se configurent en <b>variables d'environnement</b>, c&ocirc;t&eacute; h&eacute;bergeur ou en secrets GitHub Actions.</div>
@@ -502,10 +482,8 @@
       "a.b3.tag":"Block 3","a.b3.title":"The host runs everything","a.b3.body":"The app and its <b>centralised database</b> run continuously at a host, reachable through a <b>public URL</b> &mdash; available to everyone, at all times.","a.b3.tool":"Azure &middot; AWS",
       "b.eyebrow":"Step 1 &mdash; Prepare","b.title":"Set up your environment","b.sub":"Done once. Allow 20 min, including creating your hosting accounts.",
       "word.steps":"steps",
-      "b1.title":"Try your AI agent + create a GitHub","b1.body":"Sign in to Claude or ChatGPT (Wavestone account) and create a free GitHub account to store and version your code.",
-      "b2.title":"Install Git, GitHub Desktop, VS Code","b2.body":"The three base tools: <b>Git</b> tracks changes, <b>GitHub Desktop</b> syncs your repo with your machine, <b>VS Code</b> is the editor you'll work in. No admin rights required.",
-      "b3.title":"Set up your AI agent (Claude Code or Codex)","b3.body":"Two equivalent options &mdash; pick whichever you prefer. <b>Claude Code</b>: in VS Code, Extensions (<code>Ctrl+Shift+X</code>) &rarr; search <b>&ldquo;Claude Code&rdquo;</b> (Anthropic) &rarr; Install, then connect your account. <b>ChatGPT Codex</b>: <b>free to access</b>, great for getting started with no commitment (heavy use: plan on a paid subscription).",
-      "b3.lk1":"Claude Code guide <span class=\"ar\">&#8599;</span>","b3.lk2":"ChatGPT Codex <span class=\"ar\">&#8599;</span>",
+      "b1.title":"Already set up? Check your machine","b1.body":"Claude/ChatGPT account, Git, GitHub, VS Code, Claude Code or Codex extension: if you've already followed one of our guides, you're all set &mdash; move to the next step. Otherwise, follow the &ldquo;Prepare&rdquo; phase of one of our existing guides first:",
+      "b1.lk1":"local app guide (Claude Code) <span class=\"ar\">&#8594;</span>","b1.lk2":"vibe coding workshop (Codex) <span class=\"ar\">&#8594;</span>",
       "b4.title":"Choose a web + database host","b4.body":"For a controlled Wavestone perimeter, favour <b>Microsoft Azure</b> (App Service + Azure Database) &mdash; see the governance note below. Ask your AI agent to recommend the simplest tier for your use case.",
       "b5.title":"Create an empty database","b5.body":"Create a managed database instance at your host (e.g. Azure Database for PostgreSQL). Grab the <b>connection string</b> &mdash; you'll need it at deployment time.",
       "b6.title":"Plan for secrets management <span class=\"mini warn\">important</span>","b6.tag":"important","b6.body":"The connection string and API keys must <b>never</b> appear in committed code. They belong in <b>environment variables</b>, set at the host or as GitHub Actions secrets.",
@@ -547,10 +525,8 @@
       "a.b3.tag":"Baustein 3","a.b3.title":"Der Host betreibt alles","a.b3.body":"Die App und ihre <b>zentrale Datenbank</b> laufen dauerhaft beim Host, erreichbar &uuml;ber eine <b>&ouml;ffentliche URL</b> &mdash; jederzeit f&uuml;r alle verf&uuml;gbar.","a.b3.tool":"Azure &middot; AWS",
       "b.eyebrow":"Schritt 1 &mdash; Vorbereiten","b.title":"Deine Umgebung einrichten","b.sub":"Einmalig. Plant 20 Min ein, inklusive Erstellung der Hosting-Konten.",
       "word.steps":"Schritte",
-      "b1.title":"Deinen KI-Agenten testen + GitHub erstellen","b1.body":"Melde dich bei Claude oder ChatGPT an (Wavestone-Konto) und erstelle ein kostenloses GitHub-Konto, um deinen Code zu speichern und zu versionieren.",
-      "b2.title":"Git, GitHub Desktop, VS Code installieren","b2.body":"Die drei Basis-Tools: <b>Git</b> verfolgt &Auml;nderungen, <b>GitHub Desktop</b> synchronisiert dein Repo mit deinem Rechner, <b>VS Code</b> ist der Editor, in dem du arbeitest. Keine Adminrechte n&ouml;tig.",
-      "b3.title":"Deinen KI-Agenten einrichten (Claude Code oder Codex)","b3.body":"Zwei gleichwertige Optionen &mdash; w&auml;hle, was dir lieber ist. <b>Claude Code</b>: in VS Code, Erweiterungen (<code>Ctrl+Shift+X</code>) &rarr; suche <b>&bdquo;Claude Code&ldquo;</b> (Anthropic) &rarr; Installieren, dann Konto verbinden. <b>ChatGPT Codex</b>: <b>kostenlos zug&auml;nglich</b>, ideal f&uuml;r den Einstieg ohne Verpflichtung (bei intensiver Nutzung: kostenpflichtiges Abo einplanen).",
-      "b3.lk1":"Claude-Code-Leitfaden <span class=\"ar\">&#8599;</span>","b3.lk2":"ChatGPT Codex <span class=\"ar\">&#8599;</span>",
+      "b1.title":"Schon startklar? Pr&uuml;fe deinen Rechner","b1.body":"Claude-/ChatGPT-Konto, Git, GitHub, VS Code, Claude-Code- oder Codex-Erweiterung: Wenn du bereits einem unserer Leitf&auml;den gefolgt bist, ist alles bereit &mdash; weiter zum n&auml;chsten Schritt. Andernfalls folge zuerst der Phase &bdquo;Vorbereiten&ldquo; eines unserer bestehenden Leitf&auml;den:",
+      "b1.lk1":"Leitfaden lokale App (Claude Code) <span class=\"ar\">&#8594;</span>","b1.lk2":"Vibe-Coding-Workshop (Codex) <span class=\"ar\">&#8594;</span>",
       "b4.title":"Einen Web- + Datenbank-Host w&auml;hlen","b4.body":"F&uuml;r einen kontrollierten Wavestone-Perimeter bevorzuge <b>Microsoft Azure</b> (App Service + Azure Database) &mdash; siehe Governance-Hinweis unten. Bitte deinen KI-Agenten um eine Empfehlung f&uuml;r die einfachste Stufe f&uuml;r deinen Anwendungsfall.",
       "b5.title":"Eine leere Datenbank erstellen","b5.body":"Erstelle eine verwaltete Datenbankinstanz bei deinem Host (z.&nbsp;B. Azure Database for PostgreSQL). Notiere dir die <b>Connection-String</b> &mdash; du brauchst sie beim Deployment.",
       "b6.title":"Secrets-Management einplanen <span class=\"mini warn\">wichtig</span>","b6.tag":"wichtig","b6.body":"Die Connection-String und API-Schl&uuml;ssel d&uuml;rfen <b>niemals</b> im committeten Code stehen. Sie geh&ouml;ren in <b>Umgebungsvariablen</b>, gesetzt beim Host oder als GitHub-Actions-Secrets.",
