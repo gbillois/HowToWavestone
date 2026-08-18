@@ -249,17 +249,44 @@
         </div>
       </a>
 
-      <!-- 06: The Web Recon Accelerator (skeleton) -->
-      <a class="proj-card placeholder" href="usecase-web-recon-accelerator.html">
+      <!-- 06: The Web Recon Accelerator (filled) -->
+      <a class="proj-card filled" href="usecase-web-recon-accelerator.html">
+        <div class="pilot-badge"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg><span data-i18n="pilot.badge">Cas d'usage complet</span></div>
         <div class="proj-media">
           <span class="num">06</span>
-          <div class="glyph"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><line x1="3" y1="12" x2="21" y2="12"/><path d="M12 3a15 15 0 0 1 0 18a15 15 0 0 1 0-18"/></svg></div>
+          <div class="illus">
+            <svg viewBox="0 0 300 132" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="14" y="10" width="92" height="92" fill="#2D1380" stroke="#866CDB" stroke-width="1.2"/>
+              <circle cx="60" cy="56" r="34" stroke="rgba(255,255,255,.25)" stroke-width="1"/>
+              <circle cx="60" cy="56" r="22" stroke="rgba(255,255,255,.35)" stroke-width="1"/>
+              <circle cx="60" cy="56" r="10" stroke="rgba(255,255,255,.5)" stroke-width="1"/>
+              <line x1="60" y1="22" x2="60" y2="90" stroke="rgba(255,255,255,.25)" stroke-width="1"/>
+              <line x1="26" y1="56" x2="94" y2="56" stroke="rgba(255,255,255,.25)" stroke-width="1"/>
+              <circle cx="60" cy="56" r="3" fill="#04F06A"/>
+              <circle cx="78" cy="40" r="2.5" fill="#04F06A" opacity=".8"/>
+              <circle cx="42" cy="70" r="2" fill="#04F06A" opacity=".6"/>
+              <path d="M106,56 Q134,56 160,72" stroke="#04F06A" stroke-width="1.6" stroke-dasharray="3 4" opacity=".85"/>
+              <path d="M106,40 Q140,30 160,48" stroke="#04F06A" stroke-width="1.6" stroke-dasharray="3 4" opacity=".85"/>
+              <rect x="160" y="16" width="88" height="104" fill="#fff" stroke="#04F06A" stroke-width="1.8"/>
+              <rect x="172" y="32" width="46" height="6" fill="#1E0D57"/>
+              <rect x="172" y="46" width="58" height="3.5" fill="#CFCCDC"/>
+              <rect x="172" y="54" width="58" height="3.5" fill="#CFCCDC"/>
+              <rect x="172" y="62" width="40" height="3.5" fill="#CFCCDC"/>
+              <circle cx="224" cy="28" r="11" fill="#04F06A"/>
+              <path d="M218,28 l3.5,3.5 7,-7" stroke="#1E0D57" stroke-width="2.2" fill="none" stroke-linecap="square" stroke-linejoin="miter"/>
+            </svg>
+          </div>
         </div>
         <div class="proj-body">
-          <span class="tag" data-i18n="card6.tag">Reconnaissance</span>
+          <span class="tag" data-i18n="card6.tag">Pentest Web &middot; Reconnaissance</span>
           <h2 data-i18n="card6.h2">The Web Recon Accelerator</h2>
-          <p data-i18n="card6.p">Acc&eacute;l&eacute;ration des phases de reconnaissance web lors des tests d'intrusion.</p>
-          <span class="soon-badge"><span class="dot"></span><span data-i18n="soon.badge">&Agrave; venir</span></span>
+          <p data-i18n="card6.p">Automatisation de la phase de reconnaissance en bo&icirc;te noire lors des pentests web &mdash; un workflow d&eacute;terministe qui ex&eacute;cute nmap, nuclei et testssl, puis confie l'analyse &agrave; un LLM 100% local.</p>
+          <div class="chips">
+            <span class="chip c-indigo" data-i18n="card6.chip1">~5h gagn&eacute;es / audit</span>
+            <span class="chip c-green" data-i18n="card6.chip2">LLM 100% local</span>
+            <span class="chip c-teal" data-i18n="card6.chip3">Workflow d&eacute;terministe</span>
+          </div>
+          <span class="cta"><span data-i18n="card6.cta">D&eacute;couvrir le projet</span> <span class="arrow">&#8594;</span></span>
         </div>
       </a>
 
@@ -267,7 +294,7 @@
 
     <div class="stats-strip">
       <div class="s"><b>6</b><span data-i18n="stats.s1">projets Dance With the AI Stars</span></div>
-      <div class="s"><b>1</b><span data-i18n="stats.s2">use case d&eacute;taill&eacute; aujourd'hui</span></div>
+      <div class="s"><b>2</b><span data-i18n="stats.s2">use cases d&eacute;taill&eacute;s aujourd'hui</span></div>
       <div class="s"><b>10</b><span data-i18n="stats.s3">Wavies impliqu&eacute;s sur le premier projet</span></div>
     </div>
   </div>
@@ -310,12 +337,16 @@ window.WS_I18N = {
     "card5.tag": "Deliverable quality",
     "card5.h2": "The Deliverable Purifier",
     "card5.p": "Automated review and clean-up of deliverables before they reach the client.",
-    "card6.tag": "Reconnaissance",
+    "card6.tag": "Web Pentest &middot; Reconnaissance",
     "card6.h2": "The Web Recon Accelerator",
-    "card6.p": "Speeding up web reconnaissance phases during penetration tests.",
+    "card6.p": "Automating the black-box reconnaissance phase of web pentests &mdash; a deterministic workflow that runs nmap, nuclei and testssl, then hands the analysis to a fully local LLM.",
+    "card6.chip1": "~5h saved / audit",
+    "card6.chip2": "100% local LLM",
+    "card6.chip3": "Deterministic workflow",
+    "card6.cta": "Discover the project",
     "soon.badge": "Coming soon",
     "stats.s1": "Dance With the AI Stars projects",
-    "stats.s2": "detailed use case today",
+    "stats.s2": "detailed use cases today",
     "stats.s3": "Wavies involved in the first project",
     "footer.src": "Dance With the AI Stars &mdash; Wavestone CYB &middot; AI Maker Initiative",
     "back": "&#8592; back to home"
@@ -350,12 +381,16 @@ window.WS_I18N = {
     "card5.tag": "Qualit&auml;t der Liefergegenst&auml;nde",
     "card5.h2": "The Deliverable Purifier",
     "card5.p": "Automatisierte Pr&uuml;fung und Bereinigung von Liefergegenst&auml;nden vor der &Uuml;bergabe an den Kunden.",
-    "card6.tag": "Reconnaissance",
+    "card6.tag": "Web-Pentest &middot; Reconnaissance",
     "card6.h2": "The Web Recon Accelerator",
-    "card6.p": "Beschleunigung der Web-Reconnaissance-Phasen bei Penetrationstests.",
+    "card6.p": "Automatisierung der Black-Box-Reconnaissance-Phase bei Web-Pentests &mdash; ein deterministischer Workflow, der nmap, nuclei und testssl ausf&uuml;hrt und die Analyse anschlie&szlig;end einem vollst&auml;ndig lokalen LLM &uuml;bertr&auml;gt.",
+    "card6.chip1": "~5h gespart / Audit",
+    "card6.chip2": "100% lokales LLM",
+    "card6.chip3": "Deterministischer Workflow",
+    "card6.cta": "Projekt entdecken",
     "soon.badge": "Demn&auml;chst",
     "stats.s1": "Dance-With-the-AI-Stars-Projekte",
-    "stats.s2": "detaillierter Use Case heute",
+    "stats.s2": "detaillierte Use Cases heute",
     "stats.s3": "beteiligte Wavies am ersten Projekt",
     "footer.src": "Dance With the AI Stars &mdash; Wavestone CYB &middot; AI Maker Initiative",
     "back": "&#8592; zur&uuml;ck zur Startseite"

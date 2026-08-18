@@ -63,12 +63,6 @@
   @media(max-width:859px){.hero-illus{max-width:240px;order:-1}}
   .hero-in.simple{grid-template-columns:1fr;text-align:center}
 
-  /* ---- empty-state (skeleton use case pages) ---- */
-  .empty-state{border:1.5px dashed var(--ws-ink-200);background:var(--ws-ink-50);padding:48px 24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:14px}
-  .empty-state .ic{width:52px;height:52px;background:#fff;border:1.5px solid var(--ws-ink-200);color:var(--ws-ink-400);display:grid;place-items:center}
-  .empty-state h3{font-family:var(--ws-font-display);font-weight:700;font-size:16px;color:var(--ws-ink-600)}
-  .empty-state p{font-size:13.5px;color:var(--ws-ink-500);max-width:52ch}
-
   .sec-head{margin:56px 0 22px}
   .sec-head .eyebrow{color:var(--ws-indigo-600);border-bottom-color:var(--ws-green-400)}
   .sec-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:27px;letter-spacing:-.015em;color:var(--ws-ink-900);margin-top:8px}
@@ -93,6 +87,8 @@
   .pres-card .stat{text-align:left}
   .pres-card .stat b{display:block;font-family:var(--ws-font-display);font-weight:800;font-size:23px;color:var(--ws-indigo-600);line-height:1}
   .pres-card .stat span{display:block;font-size:11.5px;color:var(--ws-ink-500);margin-top:5px;line-height:1.35}
+  .warn-line{margin-top:10px;background:#FBF1DD;border:1px solid #F0DBA8;border-left:3px solid var(--ws-warning);padding:10px 12px;font-size:13px;color:var(--ws-ink-700);line-height:1.55}
+  .warn-line b{color:var(--ws-ink-900)}
 
   /* ---- section 2: architecture ---- */
   .arch-note{font-size:14.5px;color:var(--ws-ink-600);max-width:78ch;margin-bottom:26px;line-height:1.65}
@@ -143,38 +139,25 @@
   .xp-card ul li::before{content:"\2192";flex:0 0 auto;color:var(--ws-green-700);font-weight:700}
   .xp-card.wide{grid-column:1 / -1;background:linear-gradient(135deg,var(--ws-indigo-900),var(--ws-indigo-700));border-color:var(--ws-indigo-700)}
   .xp-card.wide .tag{color:var(--ws-green-300);background:rgba(255,255,255,.1)}
-  .xp-card.wide .quote{font-family:var(--ws-font-display);font-weight:600;font-size:17px;color:#fff;line-height:1.4;font-style:normal}
-  .xp-card.wide p:not(.quote){color:rgba(255,255,255,.75)}
-
-  .compare{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
-  .compare th,.compare td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--ws-ink-100);vertical-align:top}
-  .compare thead th{font-family:var(--ws-font-mono);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--ws-ink-500)}
-  .compare tbody th{font-family:var(--ws-font-display);font-weight:600;font-size:12.5px;color:var(--ws-ink-900);white-space:nowrap}
-  .compare td.manual{color:var(--ws-ink-500)}
-  .compare td.agent{color:var(--ws-ink-900);font-weight:600}
-  .compare td.agent b{color:var(--ws-green-700)}
-  .compare tbody tr:last-child th,.compare tbody tr:last-child td{border-bottom:none}
+  .xp-card.wide .quote{font-family:var(--ws-font-display);font-weight:600;font-size:16px;color:#fff;line-height:1.45;font-style:normal}
+  .xp-card.wide .quote+.quote{margin-top:14px}
+  .xp-card.wide p:not(.quote){color:rgba(255,255,255,.7)}
 
   .xp-note{margin-top:6px;background:#FBF1DD;border:1px solid #F0DBA8;border-left:4px solid var(--ws-warning);padding:14px 16px;display:flex;gap:10px;align-items:flex-start}
   .xp-note svg{flex:0 0 auto;color:var(--ws-warning);margin-top:2px}
   .xp-note p{font-size:13px;color:var(--ws-ink-700);line-height:1.6}
 
-  /* ---- section 4: team ---- */
-  .team-note{font-size:13px;color:var(--ws-ink-500);max-width:74ch;margin-bottom:22px;line-height:1.6;font-family:var(--ws-font-mono)}
-  .team-locations{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
-  .loc-pill{font-family:var(--ws-font-mono);font-size:11.5px;font-weight:600;color:var(--ws-ink-600);background:var(--ws-ink-50);padding:5px 11px;display:inline-flex;align-items:center;gap:6px}
-  .loc-pill svg{width:12px;height:12px}
-  .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px;margin-top:18px}
+  /* ---- section 4: team (solo maker) ---- */
+  .team-note{font-size:14px;color:var(--ws-ink-600);max-width:74ch;margin-bottom:22px;line-height:1.6}
+  .solo-wrap{max-width:340px}
   .member{background:#fff;border:1.5px solid var(--ws-ink-100);padding:18px;text-align:left;text-decoration:none;display:flex;flex-direction:column;transition:.2s var(--ws-ease)}
   .member:hover{border-color:var(--ws-indigo-600);box-shadow:var(--ws-shadow-md);transform:translateY(-3px)}
   .member-top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
-  .member .avatar-wrap{position:relative;flex:0 0 auto}
-  .member .avatar{display:block;width:56px;height:56px;border-radius:50%;object-fit:cover;background:var(--ws-ink-50);border:2px solid var(--ws-white);box-shadow:0 0 0 2px var(--ws-ink-100)}
-  .member:hover .avatar{box-shadow:0 0 0 2px var(--ws-indigo-500)}
-  .member .flag{position:absolute;bottom:-2px;right:-2px;font-size:14px;line-height:1;background:#fff;border-radius:50%;width:18px;height:18px;display:grid;place-items:center;box-shadow:0 0 0 1.5px #fff}
+  .member .avatar-fallback{width:56px;height:56px;border-radius:50%;background:var(--ws-gradient-brand);color:#fff;font-family:var(--ws-font-display);font-weight:700;font-size:18px;display:grid;place-items:center;flex:0 0 auto;border:2px solid var(--ws-white);box-shadow:0 0 0 2px var(--ws-ink-100)}
+  .member:hover .avatar-fallback{box-shadow:0 0 0 2px var(--ws-indigo-500)}
   .member .name{display:block;font-family:var(--ws-font-display);font-weight:600;font-size:14px;color:var(--ws-ink-900);line-height:1.3}
   .member .role-tag{display:block;font-family:var(--ws-font-mono);font-size:10.5px;font-weight:600;color:var(--ws-indigo-600);margin-top:3px;line-height:1.3}
-  .member .desc{font-size:12px;color:var(--ws-ink-600);line-height:1.55;flex:1}
+  .member .desc{font-size:12.5px;color:var(--ws-ink-600);line-height:1.55;flex:1}
   .member .teams-ic{margin-top:12px;display:flex;align-items:center;gap:6px;font-family:var(--ws-font-mono);font-size:10.5px;font-weight:600;color:var(--ws-indigo-600);padding-top:10px;border-top:1px solid var(--ws-ink-100)}
   .member .teams-ic svg{width:12px;height:12px;transition:transform .18s var(--ws-ease)}
   .member:hover .teams-ic svg{transform:translateX(2px)}
@@ -187,7 +170,7 @@
   :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
   @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
   *,*::before,*::after{border-radius:0!important}
-  .member .avatar,.member .flag{border-radius:50%!important}
+  .member .avatar-fallback{border-radius:50%!important}
   .brand .dot{border-radius:50%!important}
 </style>
 </head>
@@ -212,58 +195,240 @@
     <path d="M-50,260 Q260,150 540,210 T1140,180" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
     <path d="M-50,280 Q300,180 560,240 T1140,210" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
   </svg>
-  <div class="hero-in simple">
+  <div class="hero-in">
     <div>
-      <span class="eyebrow" data-i18n="hero.eyebrow">Reconnaissance</span>
+      <span class="eyebrow" data-i18n="hero.eyebrow">Pentest Web &middot; Reconnaissance</span>
       <h1>The Web Recon Accelerator</h1>
-      <p class="lede" data-i18n="hero.lede">Acc&eacute;l&eacute;ration des phases de reconnaissance web lors des tests d'intrusion.</p>
+      <p class="lede" data-i18n="hero.lede">Automatise la phase de tests en bo&icirc;te noire des pentests web&nbsp;: tous les outils habituels ex&eacute;cut&eacute;s automatiquement, analys&eacute;s par un LLM local &mdash; sans jamais envoyer de donn&eacute;e vers une API externe.</p>
       <div class="hero-tags">
-        <span class="hero-tag" data-i18n="hero.soon">&#128337; Page en construction</span>
+        <span class="hero-tag" data-i18n="hero.tag1">Workflow d&eacute;terministe &middot; pas un agent IA</span>
+        <span class="hero-tag" data-i18n="hero.tag2">LLM 100% local</span>
+        <span class="hero-tag" data-i18n="hero.tag3">+5h gagn&eacute;es en moyenne / audit</span>
+        <span class="hero-tag" data-i18n="hero.tag4">nmap &middot; nuclei &middot; testssl</span>
       </div>
+    </div>
+    <div class="hero-illus">
+      <svg viewBox="0 0 440 320" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="412" cy="46" r="3" fill="rgba(4,240,106,.45)"/>
+        <circle cx="392" cy="70" r="2" fill="rgba(4,240,106,.3)"/>
+        <g transform="translate(30,80)">
+          <circle cx="90" cy="90" r="90" fill="none" stroke="#866CDB" stroke-width="2"/>
+          <circle cx="90" cy="90" r="58" fill="none" stroke="#866CDB" stroke-width="1.5" opacity=".7"/>
+          <circle cx="90" cy="90" r="26" fill="none" stroke="#866CDB" stroke-width="1.5" opacity=".5"/>
+          <line x1="90" y1="4" x2="90" y2="176" stroke="#866CDB" stroke-width="1.5" opacity=".55"/>
+          <line x1="4" y1="90" x2="176" y2="90" stroke="#866CDB" stroke-width="1.5" opacity=".55"/>
+          <circle cx="90" cy="90" r="7" fill="#04F06A"/>
+          <circle cx="30" cy="42" r="5" fill="#04F06A" opacity=".85"/>
+          <circle cx="150" cy="34" r="4" fill="#5CF59E" opacity=".85"/>
+          <circle cx="160" cy="128" r="5" fill="#04F06A" opacity=".75"/>
+          <circle cx="20" cy="142" r="4" fill="#5CF59E" opacity=".75"/>
+        </g>
+        <path d="M226,170 Q252,168 268,166" stroke="#04F06A" stroke-width="2" stroke-dasharray="4 5" opacity=".85"/>
+        <g transform="translate(268,90)">
+          <rect x="0" y="0" width="150" height="168" fill="#ffffff" stroke="#04F06A" stroke-width="2.5"/>
+          <rect x="18" y="24" width="86" height="8" fill="#1E0D57"/>
+          <rect x="18" y="46" width="106" height="5" fill="#CFCCDC"/>
+          <rect x="18" y="58" width="106" height="5" fill="#CFCCDC"/>
+          <rect x="18" y="70" width="74" height="5" fill="#CFCCDC"/>
+          <rect x="18" y="96" width="106" height="5" fill="#E6E4EE"/>
+          <rect x="18" y="108" width="64" height="5" fill="#E6E4EE"/>
+          <circle cx="120" cy="20" r="17" fill="#04F06A"/>
+          <path d="M112,20 l5.5,5.5 11,-11" stroke="#1E0D57" stroke-width="3" fill="none" stroke-linecap="square" stroke-linejoin="miter"/>
+        </g>
+      </svg>
     </div>
   </div>
 </header>
 
 <div class="wrap">
 
+  <!-- ============ 1. PRESENTATION ============ -->
   <div class="sec-head" id="presentation">
     <span class="eyebrow" data-i18n="sec1.eyebrow">01 &middot; Le projet</span>
     <h2 data-i18n="sec1.h2">Pr&eacute;sentation du projet</h2>
-  </div>
-  <div class="empty-state">
-    <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
-    <h3 data-i18n="empty1.h3">Contenu &agrave; venir</h3>
-    <p data-i18n="empty1.p">La pr&eacute;sentation d&eacute;taill&eacute;e de ce projet (contexte, objectifs, valeur) sera publi&eacute;e prochainement.</p>
+    <p class="sub" data-i18n="sec1.sub">N&eacute; dans la BT AIR, cet outil transforme l'&eacute;tape de reconnaissance des pentests web &mdash; r&eacute;p&eacute;titive et chronophage &mdash; en un pipeline automatis&eacute; et reproductible.</p>
   </div>
 
+  <div class="pres-grid">
+
+    <div class="pres-card contexte">
+      <h3><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="4" y="2" width="16" height="20"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="13" y2="15"/></svg></span><span data-i18n="pres.contexte.h3">Contexte</span></h3>
+      <p data-i18n="pres.contexte.p1">Les pentests web sont des missions r&eacute;currentes de la BT AIR, qui d&eacute;butent par une &eacute;tape de &laquo;&nbsp;bo&icirc;te noire&nbsp;&raquo;&nbsp;: la reconnaissance, pour obtenir des informations sur l'application cible et identifier les premi&egrave;res vuln&eacute;rabilit&eacute;s.</p>
+      <p data-i18n="pres.contexte.p2">Cette &eacute;tape s'appuie toujours sur les m&ecirc;mes outils et ne n&eacute;cessite g&eacute;n&eacute;ralement pas une grande expertise humaine &mdash; une bonne opportunit&eacute; d'automatisation.</p>
+    </div>
+
+    <div class="pres-card objectifs">
+      <h3><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></span><span data-i18n="pres.objectifs.h3">Objectifs</span></h3>
+      <ul>
+        <li data-i18n="pres.objectifs.li1">Automatiser l'&eacute;tape de tests en bo&icirc;te noire des tests d'intrusion web.</li>
+        <li data-i18n="pres.objectifs.li2">Lib&eacute;rer du temps auditeur pour les phases de test &agrave; plus forte valeur ajout&eacute;e.</li>
+        <li data-i18n="pres.objectifs.li3">Garantir la confidentialit&eacute; totale des donn&eacute;es clients&nbsp;: aucun appel &agrave; une API externe.</li>
+      </ul>
+    </div>
+
+    <div class="pres-card agent">
+      <h3><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><rect x="3" y="3" width="18" height="18"/><path d="M7 15l3-3 2 2 5-6"/></svg></span><span data-i18n="pres.agent.h3">L'outil en une phrase</span></h3>
+      <p data-i18n="pres.agent.p1"><b>Auto-TI-Web</b> (alias &laquo;&nbsp;Web Recon Accelerator&nbsp;&raquo;) ex&eacute;cute automatiquement, via un script Python, tous les outils habituellement utilis&eacute;s par le pentester (nmap, nuclei, testssl&hellip;), puis s'appuie sur un LLM ex&eacute;cut&eacute; en local pour analyser leurs r&eacute;sultats.</p>
+      <div class="warn-line" data-i18n="pres.agent.warn">&#9888;&#65039; <b>Ce n'est pas un agent IA autonome</b>&nbsp;: le choix des outils et leurs param&egrave;tres restent enti&egrave;rement d&eacute;terministes, fix&eacute;s par le script. Seule l'analyse des r&eacute;sultats est confi&eacute;e au LLM.</div>
+    </div>
+
+    <div class="pres-card value">
+      <h3><span class="ic" style="background:var(--ws-green-50);color:var(--ws-green-700)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><span data-i18n="pres.valeur.h3">Valeur apport&eacute;e</span></h3>
+      <p data-i18n="pres.valeur.p1">Gain de temps estim&eacute; de <b>0,5 &agrave; 1 jour</b> par mission de pentest web, sur un total de <b>5 &agrave; 7 jours</b>.</p>
+      <div class="stat-row">
+        <div class="stat"><b>~5h</b><span data-i18n="pres.valeur.stat1">gagn&eacute;es en moyenne par audit</span></div>
+        <div class="stat"><b>0,5&ndash;1j</b><span data-i18n="pres.valeur.stat2">&eacute;conomis&eacute;s par mission (sur 5&ndash;7j)</span></div>
+        <div class="stat"><b>100%</b><span data-i18n="pres.valeur.stat3">traitement local, z&eacute;ro donn&eacute;e externe</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ============ 2. ARCHITECTURE ============ -->
   <div class="sec-head" id="architecture">
     <span class="eyebrow" data-i18n="sec2.eyebrow">02 &middot; Sous le capot</span>
-    <h2 data-i18n="sec2.h2">Architecture de l'agent</h2>
-  </div>
-  <div class="empty-state">
-    <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 2 2 8l10 6 10-6-10-6z"/><path d="M2 14l10 6 10-6"/></svg></div>
-    <h3 data-i18n="empty2.h3">Contenu &agrave; venir</h3>
-    <p data-i18n="empty2.p">Le sch&eacute;ma d'architecture de l'agent sera publi&eacute; prochainement.</p>
+    <h2 data-i18n="sec2.h2">Architecture de l'outil</h2>
+    <p class="sub" data-i18n="sec2.sub">Un pipeline en trois &eacute;tapes&nbsp;: ex&eacute;cution d&eacute;terministe des outils, analyse par un LLM local, puis g&eacute;n&eacute;ration automatique du rapport Wavestone.</p>
   </div>
 
+  <p class="arch-note" data-i18n="arch.note">L'auditeur renseigne l'URL de l'application cible et la langue du rapport souhait&eacute;e. Le workflow retourne un rapport au format Markdown, pr&ecirc;t &agrave; &ecirc;tre converti en rapport Word Wavestone via <b>WReport</b>, le moteur de g&eacute;n&eacute;ration de rapports existant de la BT AIR.</p>
+
+  <div class="pipeline">
+    <div class="arch-row">
+      <div class="arch-io">
+        <div class="io-box"><b data-i18n="arch.io.in1.b">URL cible</b><span data-i18n="arch.io.in1.sub">Application &agrave; auditer</span></div>
+        <div class="io-box"><b data-i18n="arch.io.in2.b">Langue du rapport</b><span data-i18n="arch.io.in2.sub">Fran&ccedil;ais ou anglais</span></div>
+      </div>
+      <div class="arch-connector">
+        <svg viewBox="0 0 28 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M0 8h24M18 2l6 6-6 6"/></svg>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-head"><span class="n">1</span><b data-i18n="step1.title">Ex&eacute;cution des outils</b></div>
+          <div class="step-body">
+            <div class="step-goal" data-i18n="step1.goal">Lancer tous les outils de reconnaissance s&eacute;lectionn&eacute;s.</div>
+            <div class="task">
+              <b data-i18n="step1.task1.title">Scan automatis&eacute;</b>
+              <p data-i18n="step1.task1.desc">Un script Python ex&eacute;cute nmap, nuclei, testssl et les autres outils standards du pentester &mdash; de mani&egrave;re enti&egrave;rement d&eacute;terministe, sans choix laiss&eacute; &agrave; l'IA.</p>
+              <span class="model-pill py">Script Python</span>
+            </div>
+            <div class="task">
+              <b data-i18n="step1.task2.title">Isolation Docker</b>
+              <p data-i18n="step1.task2.desc">Les outils s'ex&eacute;cutent dans des conteneurs pour un environnement reproductible et ma&icirc;tris&eacute;.</p>
+              <span class="model-pill">Docker</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arrow-down"><svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 0v18M2 14l6 6 6-6"/></svg></div>
+
+        <div class="step">
+          <div class="step-head"><span class="n">2</span><b data-i18n="step2.title">Analyse par LLM local</b></div>
+          <div class="step-body">
+            <div class="step-goal" data-i18n="step2.goal">Interpr&eacute;ter les r&eacute;sultats bruts des outils.</div>
+            <div class="task">
+              <b data-i18n="step2.task1.title">Analyse contextuelle</b>
+              <p data-i18n="step2.task1.desc">Le LLM synth&eacute;tise les sorties brutes des outils en constats exploitables pour l'auditeur.</p>
+              <span class="model-pill">Ollama (local)</span>
+            </div>
+            <div class="task">
+              <b data-i18n="step2.task2.title">Confidentialit&eacute; garantie</b>
+              <p data-i18n="step2.task2.desc">Contrainte SMSI&nbsp;: le mod&egrave;le tourne enti&egrave;rement sur le poste de l'auditeur, aucune donn&eacute;e n'est envoy&eacute;e vers une API externe.</p>
+              <span class="model-pill">100% local</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arrow-down"><svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 0v18M2 14l6 6 6-6"/></svg></div>
+
+        <div class="step">
+          <div class="step-head"><span class="n">3</span><b data-i18n="step3.title">G&eacute;n&eacute;ration du rapport</b></div>
+          <div class="step-body">
+            <div class="step-goal" data-i18n="step3.goal">Produire un livrable directement exploitable par l'auditeur.</div>
+            <div class="task">
+              <b data-i18n="step3.task1.title">Export WReport</b>
+              <p data-i18n="step3.task1.desc">Les r&eacute;sultats sont format&eacute;s en Markdown selon le gabarit attendu par WReport, le moteur de g&eacute;n&eacute;ration de rapports de la BT AIR.</p>
+              <span class="model-pill py">Script Python</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-connector">
+        <svg viewBox="0 0 28 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M0 8h24M18 2l6 6-6 6"/></svg>
+      </div>
+      <div class="arch-io">
+        <div class="io-box" style="border-style:solid;border-color:var(--ws-green-400);background:var(--ws-green-50)"><b data-i18n="arch.io.out.b">Rapport Markdown</b><span data-i18n="arch.io.out.sub">Format WReport, pr&ecirc;t pour conversion Word</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 3. RETOUR D'EXPERIENCE ============ -->
   <div class="sec-head" id="retour-experience">
     <span class="eyebrow" data-i18n="sec3.eyebrow">03 &middot; Sur le terrain</span>
     <h2 data-i18n="sec3.h2">Retour d'exp&eacute;rience</h2>
-  </div>
-  <div class="empty-state">
-    <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-    <h3 data-i18n="empty3.h3">Contenu &agrave; venir</h3>
-    <p data-i18n="empty3.p">Les retours de mission et b&eacute;n&eacute;fices mesur&eacute;s seront publi&eacute;s prochainement.</p>
+    <p class="sub" data-i18n="sec3.sub">Ce que l'outil a d&eacute;j&agrave; d&eacute;montr&eacute; en mission.</p>
   </div>
 
-  <div class="sec-head" id="equipe">
-    <span class="eyebrow" data-i18n="sec4.eyebrow">04 &middot; Les Wavies derri&egrave;re le projet</span>
-    <h2 data-i18n="sec4.h2">&Eacute;quipe du projet</h2>
+  <div class="xp-grid">
+
+    <div class="xp-card wide">
+      <span class="tag" data-i18n="xp.validation.tag">Retours auditeurs</span>
+      <p class="quote" data-i18n="xp.validation.quote1">&laquo;&nbsp;I have used it twice and I will use it for every web pentests in the future! It saved me half a day, or even a full day, on each assignment.&nbsp;&raquo;</p>
+      <p class="quote" data-i18n="xp.validation.quote2">&laquo;&nbsp;A massive time-saver for black-box testing. It saved my last audit after a rough start, and I'll be using it as much as possible from now on.&nbsp;&raquo;</p>
+    </div>
+
+    <div class="xp-card">
+      <span class="tag" data-i18n="xp.gain.tag">B&eacute;n&eacute;fices constat&eacute;s</span>
+      <h3 data-i18n="xp.gain.h3">Gain op&eacute;rationnel mesur&eacute;</h3>
+      <p data-i18n="xp.gain.p">Sur un pentest web type, l'outil d&eacute;place l'effort du temps auditeur vers du temps d'ex&eacute;cution automatis&eacute;e&nbsp;: <b>~5h gagn&eacute;es en moyenne par audit</b>, soit <b>0,5 &agrave; 1 jour</b> sur une mission de 5 &agrave; 7 jours.</p>
+    </div>
+
+    <div class="xp-card">
+      <span class="tag" data-i18n="xp.confid.tag">Confidentialit&eacute;</span>
+      <h3 data-i18n="xp.confid.h3">Z&eacute;ro donn&eacute;e envoy&eacute;e &agrave; l'ext&eacute;rieur</h3>
+      <p data-i18n="xp.confid.p">Contrainte SMSI oblige&nbsp;: le LLM tourne en local sur le poste de l'auditeur, via Ollama.</p>
+      <ul>
+        <li data-i18n="xp.confid.li1">Aucun appel &agrave; une API externe</li>
+        <li data-i18n="xp.confid.li2">Compatible avec les contraintes de confidentialit&eacute; client</li>
+        <li data-i18n="xp.confid.li3">Ex&eacute;cution reproductible via Docker</li>
+      </ul>
+    </div>
+
+    <div class="xp-card">
+      <span class="tag" data-i18n="xp.amelioration.tag">Points de vigilance</span>
+      <h3 data-i18n="xp.amelioration.h3">Un outil, pas un agent autonome</h3>
+      <p data-i18n="xp.amelioration.p">Le choix des outils et de leurs param&egrave;tres reste manuel et d&eacute;terministe&nbsp;: l'outil acc&eacute;l&egrave;re l'ex&eacute;cution et l'analyse, il ne remplace pas le jugement de l'auditeur sur la strat&eacute;gie de test.</p>
+      <ul>
+        <li data-i18n="xp.amelioration.li1">Reste un outil d'acc&eacute;l&eacute;ration, pas un agent autonome</li>
+        <li data-i18n="xp.amelioration.li2">V&eacute;rification humaine des r&eacute;sultats avant livraison</li>
+      </ul>
+    </div>
+
   </div>
-  <div class="empty-state">
-    <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-    <h3 data-i18n="empty4.h3">Contenu &agrave; venir</h3>
-    <p data-i18n="empty4.p">L'&eacute;quipe du projet sera annonc&eacute;e prochainement.</p>
+
+  <div class="xp-note">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <p data-i18n="xp.note">* Retours bas&eacute;s sur l'utilisation r&eacute;elle de l'outil lors de missions de pentest web men&eacute;es par la BT AIR.</p>
+  </div>
+
+  <!-- ============ 4. EQUIPE ============ -->
+  <div class="sec-head" id="equipe">
+    <span class="eyebrow" data-i18n="sec4.eyebrow">04 &middot; Le Wavie derri&egrave;re le projet</span>
+    <h2 data-i18n="sec4.h2">&Eacute;quipe du projet</h2>
+    <p class="sub" data-i18n="sec4.sub">Un projet port&eacute; en solo, dans le cadre du concours Dance With the AI Stars. Clique pour ouvrir une conversation Microsoft Teams.</p>
+  </div>
+
+  <div class="solo-wrap">
+    <a class="member" href="https://teams.microsoft.com/l/chat/0/0?users=corentin.goetghebeur%40wavestone.com" target="_blank" rel="noopener noreferrer" title="Ouvrir la conversation Teams avec Corentin Goetghebeur">
+      <div class="member-top">
+        <div class="avatar-fallback">CG</div>
+        <div><span class="name">Corentin Goetghebeur</span><span class="role-tag" data-i18n="team.corentin.role">Maker</span></div>
+      </div>
+      <span class="desc" data-i18n="team.corentin.desc">Con&ccedil;oit et d&eacute;veloppe Auto-TI-Web de bout en bout&nbsp;: script d'ex&eacute;cution des outils, int&eacute;gration du LLM local et export vers WReport.</span>
+      <span class="teams-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 3 6 3s6-2 6-3v-5"/></svg> Teams</span>
+    </a>
   </div>
 
 </div>
@@ -282,25 +447,82 @@ window.WS_I18N = {
     "nav.usecases": "Playbook",
     "nav.agents": "Our agents",
     "crumb.back": "&#8592; Dance With the AI Stars",
-    "hero.eyebrow": "Reconnaissance",
-    "hero.lede": "Speeding up web reconnaissance phases during penetration tests.",
-    "hero.soon": "&#128337; Page under construction",
+    "hero.eyebrow": "Web Pentest &middot; Reconnaissance",
+    "hero.lede": "Automates the black-box testing phase of web pentests: every usual tool run automatically, results analyzed by a local LLM &mdash; with no data ever sent to an external API.",
+    "hero.tag1": "Deterministic workflow &middot; not an AI agent",
+    "hero.tag2": "100% local LLM",
+    "hero.tag3": "+5h saved on average / audit",
+    "hero.tag4": "nmap &middot; nuclei &middot; testssl",
     "sec1.eyebrow": "01 &middot; The project",
     "sec1.h2": "Project overview",
+    "sec1.sub": "Born within the AIR business team, this tool turns the reconnaissance phase of web pentests &mdash; repetitive and time-consuming &mdash; into an automated, reproducible pipeline.",
+    "pres.contexte.h3": "Context",
+    "pres.contexte.p1": "Web pentests are recurring engagements for the AIR business team, starting with a &ldquo;black-box&rdquo; phase: reconnaissance, to gather information about the target application and spot the first vulnerabilities.",
+    "pres.contexte.p2": "This phase always relies on the same tools and generally doesn't require deep human expertise &mdash; a good opportunity for automation.",
+    "pres.objectifs.h3": "Objectives",
+    "pres.objectifs.li1": "Automate the black-box testing phase of web penetration tests.",
+    "pres.objectifs.li2": "Free up auditor time for higher-value testing phases.",
+    "pres.objectifs.li3": "Guarantee full client data confidentiality: no calls to any external API.",
+    "pres.agent.h3": "The tool in one sentence",
+    "pres.agent.p1": "<b>Auto-TI-Web</b> (aka &ldquo;Web Recon Accelerator&rdquo;) automatically runs, via a Python script, every tool the pentester normally uses (nmap, nuclei, testssl&hellip;), then relies on a locally-run LLM to analyze their results.",
+    "pres.agent.warn": "&#9888;&#65039; <b>This is not an autonomous AI agent</b>: the choice of tools and their parameters remains entirely deterministic, fixed by the script. Only the results analysis is handed to the LLM.",
+    "pres.valeur.h3": "Value delivered",
+    "pres.valeur.p1": "Estimated time savings of <b>0.5 to 1 day</b> per web pentest engagement, out of a total of <b>5 to 7 days</b>.",
+    "pres.valeur.stat1": "saved on average per audit",
+    "pres.valeur.stat2": "saved per engagement (out of 5&ndash;7 days)",
+    "pres.valeur.stat3": "local processing, zero external data",
     "sec2.eyebrow": "02 &middot; Under the hood",
-    "sec2.h2": "Agent architecture",
+    "sec2.h2": "Tool architecture",
+    "sec2.sub": "A three-stage pipeline: deterministic tool execution, local LLM analysis, then automatic generation of the Wavestone report.",
+    "arch.note": "The auditor provides the target application's URL and the desired report language. The workflow returns a Markdown report, ready to be converted into a Wavestone Word report via <b>WReport</b>, the AIR business team's existing report-generation engine.",
+    "arch.io.in1.b": "Target URL",
+    "arch.io.in1.sub": "Application to audit",
+    "arch.io.in2.b": "Report language",
+    "arch.io.in2.sub": "French or English",
+    "arch.io.out.b": "Markdown report",
+    "arch.io.out.sub": "WReport format, ready for Word conversion",
+    "step1.title": "Tool execution",
+    "step1.goal": "Launch every selected reconnaissance tool.",
+    "step1.task1.title": "Automated scan",
+    "step1.task1.desc": "A Python script runs nmap, nuclei, testssl and the pentester's other standard tools &mdash; entirely deterministically, with no choice left to the AI.",
+    "step1.task2.title": "Docker isolation",
+    "step1.task2.desc": "Tools run inside containers for a reproducible, controlled environment.",
+    "step2.title": "Local LLM analysis",
+    "step2.goal": "Interpret the tools' raw results.",
+    "step2.task1.title": "Contextual analysis",
+    "step2.task1.desc": "The LLM synthesizes the tools' raw output into actionable findings for the auditor.",
+    "step2.task2.title": "Guaranteed confidentiality",
+    "step2.task2.desc": "ISMS constraint: the model runs entirely on the auditor's machine, no data is sent to any external API.",
+    "step3.title": "Report generation",
+    "step3.goal": "Produce a deliverable the auditor can use directly.",
+    "step3.task1.title": "WReport export",
+    "step3.task1.desc": "Results are formatted in Markdown to the template expected by WReport, the AIR business team's report-generation engine.",
     "sec3.eyebrow": "03 &middot; In the field",
     "sec3.h2": "Lessons learned",
-    "sec4.eyebrow": "04 &middot; The Wavies behind the project",
+    "sec3.sub": "What the tool has already proven in the field.",
+    "xp.validation.tag": "Auditor feedback",
+    "xp.validation.quote1": "&ldquo;I have used it twice and I will use it for every web pentests in the future! It saved me half a day, or even a full day, on each assignment.&rdquo;",
+    "xp.validation.quote2": "&ldquo;A massive time-saver for black-box testing. It saved my last audit after a rough start, and I'll be using it as much as possible from now on.&rdquo;",
+    "xp.gain.tag": "Observed benefits",
+    "xp.gain.h3": "Measured operational gain",
+    "xp.gain.p": "On a typical web pentest, the tool shifts effort from auditor time to automated execution time: <b>~5h saved on average per audit</b>, i.e. <b>0.5 to 1 day</b> on a 5-to-7-day engagement.",
+    "xp.confid.tag": "Confidentiality",
+    "xp.confid.h3": "Zero data leaves the premises",
+    "xp.confid.p": "ISMS constraint: the LLM runs locally on the auditor's machine, via Ollama.",
+    "xp.confid.li1": "No calls to any external API",
+    "xp.confid.li2": "Compatible with client confidentiality requirements",
+    "xp.confid.li3": "Reproducible execution via Docker",
+    "xp.amelioration.tag": "Points to watch",
+    "xp.amelioration.h3": "A tool, not an autonomous agent",
+    "xp.amelioration.p": "The choice of tools and their parameters stays manual and deterministic: the tool accelerates execution and analysis, it doesn't replace the auditor's judgment on testing strategy.",
+    "xp.amelioration.li1": "Remains an acceleration tool, not an autonomous agent",
+    "xp.amelioration.li2": "Human review of results before delivery",
+    "xp.note": "* Feedback based on real-world use of the tool during web pentest engagements led by the AIR business team.",
+    "sec4.eyebrow": "04 &middot; The Wavie behind the project",
     "sec4.h2": "Project team",
-    "empty1.h3": "Coming soon",
-    "empty1.p": "The detailed presentation of this project (context, objectives, value) will be published soon.",
-    "empty2.h3": "Coming soon",
-    "empty2.p": "The agent's architecture diagram will be published soon.",
-    "empty3.h3": "Coming soon",
-    "empty3.p": "Mission feedback and measured benefits will be published soon.",
-    "empty4.h3": "Coming soon",
-    "empty4.p": "The project team will be announced soon.",
+    "sec4.sub": "A solo project, submitted to the Dance With the AI Stars competition. Click to open a Microsoft Teams conversation.",
+    "team.corentin.role": "Maker",
+    "team.corentin.desc": "Designs and builds Auto-TI-Web end to end: the tool-execution script, the local LLM integration, and the export to WReport.",
     "footer.src": "The Web Recon Accelerator &mdash; Dance With the AI Stars &middot; Wavestone CYB AI Maker",
     "footer.back": "&#8592; back to the 6 projects"
   },
@@ -311,25 +533,82 @@ window.WS_I18N = {
     "nav.usecases": "Playbook",
     "nav.agents": "Unsere Agenten",
     "crumb.back": "&#8592; Dance With the AI Stars",
-    "hero.eyebrow": "Reconnaissance",
-    "hero.lede": "Beschleunigung der Web-Reconnaissance-Phasen bei Penetrationstests.",
-    "hero.soon": "&#128337; Seite im Aufbau",
+    "hero.eyebrow": "Web-Pentest &middot; Reconnaissance",
+    "hero.lede": "Automatisiert die Black-Box-Phase von Web-Pentests: alle &uuml;blichen Tools werden automatisch ausgef&uuml;hrt, die Ergebnisse von einem lokalen LLM analysiert &mdash; ohne dass je Daten an eine externe API gesendet werden.",
+    "hero.tag1": "Deterministischer Workflow &middot; kein KI-Agent",
+    "hero.tag2": "100% lokales LLM",
+    "hero.tag3": "+5 Std. im Schnitt gespart / Audit",
+    "hero.tag4": "nmap &middot; nuclei &middot; testssl",
     "sec1.eyebrow": "01 &middot; Das Projekt",
     "sec1.h2": "Projekt&uuml;bersicht",
+    "sec1.sub": "Entstanden im Business Team AIR, verwandelt dieses Tool die Reconnaissance-Phase von Web-Pentests &mdash; repetitiv und zeitaufwendig &mdash; in eine automatisierte, reproduzierbare Pipeline.",
+    "pres.contexte.h3": "Kontext",
+    "pres.contexte.p1": "Web-Pentests sind wiederkehrende Auftr&auml;ge des Business Team AIR, die mit einer &bdquo;Black-Box&ldquo;-Phase beginnen: der Reconnaissance, um Informationen &uuml;ber die Zielanwendung zu sammeln und erste Schwachstellen zu identifizieren.",
+    "pres.contexte.p2": "Diese Phase st&uuml;tzt sich stets auf dieselben Tools und erfordert in der Regel keine gro&szlig;e menschliche Expertise &mdash; eine gute Gelegenheit zur Automatisierung.",
+    "pres.objectifs.h3": "Ziele",
+    "pres.objectifs.li1": "Die Black-Box-Testphase von Web-Penetrationstests automatisieren.",
+    "pres.objectifs.li2": "Pr&uuml;fer-Zeit f&uuml;r wertsch&ouml;pfendere Testphasen freisetzen.",
+    "pres.objectifs.li3": "Vollst&auml;ndige Vertraulichkeit der Kundendaten gew&auml;hrleisten: keine Aufrufe an eine externe API.",
+    "pres.agent.h3": "Das Tool in einem Satz",
+    "pres.agent.p1": "<b>Auto-TI-Web</b> (auch &bdquo;Web Recon Accelerator&ldquo;) f&uuml;hrt automatisch, &uuml;ber ein Python-Skript, alle vom Pentester &uuml;blicherweise genutzten Tools aus (nmap, nuclei, testssl&hellip;) und st&uuml;tzt sich dann auf ein lokal ausgef&uuml;hrtes LLM, um deren Ergebnisse zu analysieren.",
+    "pres.agent.warn": "&#9888;&#65039; <b>Dies ist kein autonomer KI-Agent</b>: Die Wahl der Tools und ihrer Parameter bleibt vollst&auml;ndig deterministisch und wird vom Skript festgelegt. Nur die Ergebnisanalyse wird dem LLM &uuml;bertragen.",
+    "pres.valeur.h3": "Erzielter Mehrwert",
+    "pres.valeur.p1": "Gesch&auml;tzte Zeitersparnis von <b>0,5 bis 1 Tag</b> pro Web-Pentest-Auftrag, bei einer Gesamtdauer von <b>5 bis 7 Tagen</b>.",
+    "pres.valeur.stat1": "im Schnitt gespart pro Audit",
+    "pres.valeur.stat2": "gespart pro Auftrag (bei 5&ndash;7 Tagen)",
+    "pres.valeur.stat3": "lokale Verarbeitung, keine externen Daten",
     "sec2.eyebrow": "02 &middot; Unter der Haube",
-    "sec2.h2": "Architektur des Agenten",
+    "sec2.h2": "Architektur des Tools",
+    "sec2.sub": "Eine dreistufige Pipeline: deterministische Tool-Ausf&uuml;hrung, lokale LLM-Analyse, dann automatische Erstellung des Wavestone-Berichts.",
+    "arch.note": "Der Pr&uuml;fer gibt die URL der Zielanwendung und die gew&uuml;nschte Berichtssprache an. Der Workflow liefert einen Bericht im Markdown-Format, bereit zur Umwandlung in einen Wavestone-Word-Bericht &uuml;ber <b>WReport</b>, die bestehende Berichts-Engine des Business Team AIR.",
+    "arch.io.in1.b": "Ziel-URL",
+    "arch.io.in1.sub": "Zu pr&uuml;fende Anwendung",
+    "arch.io.in2.b": "Berichtssprache",
+    "arch.io.in2.sub": "Franz&ouml;sisch oder Englisch",
+    "arch.io.out.b": "Markdown-Bericht",
+    "arch.io.out.sub": "WReport-Format, bereit zur Word-Umwandlung",
+    "step1.title": "Tool-Ausf&uuml;hrung",
+    "step1.goal": "Alle ausgew&auml;hlten Reconnaissance-Tools starten.",
+    "step1.task1.title": "Automatisierter Scan",
+    "step1.task1.desc": "Ein Python-Skript f&uuml;hrt nmap, nuclei, testssl und die weiteren Standard-Tools des Pentesters aus &mdash; vollst&auml;ndig deterministisch, ohne dass die KI eine Wahl trifft.",
+    "step1.task2.title": "Docker-Isolierung",
+    "step1.task2.desc": "Die Tools laufen in Containern, f&uuml;r eine reproduzierbare, kontrollierte Umgebung.",
+    "step2.title": "Lokale LLM-Analyse",
+    "step2.goal": "Die Rohergebnisse der Tools interpretieren.",
+    "step2.task1.title": "Kontextuelle Analyse",
+    "step2.task1.desc": "Das LLM fasst die Rohausgaben der Tools zu verwertbaren Erkenntnissen f&uuml;r den Pr&uuml;fer zusammen.",
+    "step2.task2.title": "Garantierte Vertraulichkeit",
+    "step2.task2.desc": "ISMS-Vorgabe: Das Modell l&auml;uft vollst&auml;ndig auf dem Rechner des Pr&uuml;fers, es werden keine Daten an eine externe API gesendet.",
+    "step3.title": "Berichtserstellung",
+    "step3.goal": "Ein direkt nutzbares Liefergut f&uuml;r den Pr&uuml;fer erzeugen.",
+    "step3.task1.title": "WReport-Export",
+    "step3.task1.desc": "Die Ergebnisse werden im Markdown-Format gem&auml;&szlig; der von WReport erwarteten Vorlage aufbereitet, der Berichts-Engine des Business Team AIR.",
     "sec3.eyebrow": "03 &middot; In der Praxis",
     "sec3.h2": "Erfahrungsbericht",
-    "sec4.eyebrow": "04 &middot; Die Wavies hinter dem Projekt",
+    "sec3.sub": "Was das Tool in der Praxis bereits bewiesen hat.",
+    "xp.validation.tag": "Feedback der Pr&uuml;fer",
+    "xp.validation.quote1": "&bdquo;I have used it twice and I will use it for every web pentests in the future! It saved me half a day, or even a full day, on each assignment.&ldquo;",
+    "xp.validation.quote2": "&bdquo;A massive time-saver for black-box testing. It saved my last audit after a rough start, and I'll be using it as much as possible from now on.&ldquo;",
+    "xp.gain.tag": "Beobachtete Vorteile",
+    "xp.gain.h3": "Gemessener operativer Nutzen",
+    "xp.gain.p": "Bei einem typischen Web-Pentest verlagert das Tool den Aufwand von Pr&uuml;fer-Zeit auf automatisierte Ausf&uuml;hrungszeit: <b>~5 Std. im Schnitt gespart pro Audit</b>, also <b>0,5 bis 1 Tag</b> bei einem 5- bis 7-t&auml;gigen Auftrag.",
+    "xp.confid.tag": "Vertraulichkeit",
+    "xp.confid.h3": "Keine Daten verlassen das Haus",
+    "xp.confid.p": "ISMS-Vorgabe: Das LLM l&auml;uft lokal auf dem Rechner des Pr&uuml;fers, &uuml;ber Ollama.",
+    "xp.confid.li1": "Keine Aufrufe an eine externe API",
+    "xp.confid.li2": "Vereinbar mit den Vertraulichkeitsanforderungen der Kunden",
+    "xp.confid.li3": "Reproduzierbare Ausf&uuml;hrung &uuml;ber Docker",
+    "xp.amelioration.tag": "Beobachtungspunkte",
+    "xp.amelioration.h3": "Ein Tool, kein autonomer Agent",
+    "xp.amelioration.p": "Die Wahl der Tools und ihrer Parameter bleibt manuell und deterministisch: Das Tool beschleunigt Ausf&uuml;hrung und Analyse, ersetzt aber nicht das Urteilsverm&ouml;gen des Pr&uuml;fers zur Teststrategie.",
+    "xp.amelioration.li1": "Bleibt ein Beschleunigungstool, kein autonomer Agent",
+    "xp.amelioration.li2": "Menschliche Pr&uuml;fung der Ergebnisse vor der Lieferung",
+    "xp.note": "* Feedback basierend auf dem realen Einsatz des Tools bei Web-Pentest-Auftr&auml;gen des Business Team AIR.",
+    "sec4.eyebrow": "04 &middot; Der Wavie hinter dem Projekt",
     "sec4.h2": "Projektteam",
-    "empty1.h3": "Demn&auml;chst",
-    "empty1.p": "Die detaillierte Projektpr&auml;sentation (Kontext, Ziele, Mehrwert) wird in K&uuml;rze ver&ouml;ffentlicht.",
-    "empty2.h3": "Demn&auml;chst",
-    "empty2.p": "Das Architekturdiagramm des Agenten wird in K&uuml;rze ver&ouml;ffentlicht.",
-    "empty3.h3": "Demn&auml;chst",
-    "empty3.p": "Erfahrungsberichte und gemessene Vorteile werden in K&uuml;rze ver&ouml;ffentlicht.",
-    "empty4.h3": "Demn&auml;chst",
-    "empty4.p": "Das Projektteam wird in K&uuml;rze bekannt gegeben.",
+    "sec4.sub": "Ein Solo-Projekt, eingereicht f&uuml;r den Dance-With-the-AI-Stars-Wettbewerb. Klicke, um eine Microsoft-Teams-Unterhaltung zu &ouml;ffnen.",
+    "team.corentin.role": "Maker",
+    "team.corentin.desc": "Entwirft und entwickelt Auto-TI-Web End-to-End: das Tool-Ausf&uuml;hrungsskript, die lokale LLM-Integration und den Export zu WReport.",
     "footer.src": "The Web Recon Accelerator &mdash; Dance With the AI Stars &middot; Wavestone CYB AI Maker",
     "footer.back": "&#8592; zur&uuml;ck zu den 6 Projekten"
   }
