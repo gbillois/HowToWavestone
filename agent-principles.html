@@ -128,6 +128,12 @@
   .recap li{display:flex;gap:11px;align-items:flex-start;font-size:14px;color:rgba(255,255,255,.88);line-height:1.5}
   .recap li .ck{flex:0 0 auto;color:var(--ws-green-300);font-weight:700;font-family:var(--ws-font-mono)}
 
+  /* ---------- prompt example ---------- */
+  .prompt-example{margin-top:30px;background:#fff;border:1.5px solid var(--ws-ink-100);box-shadow:var(--ws-shadow-sm);padding:24px}
+  .prompt-example h3{font-family:var(--ws-font-display);font-weight:700;font-size:21px;color:var(--ws-indigo-600);letter-spacing:-.01em;margin:12px 0 6px}
+  .prompt-example p{font-size:14.5px;color:var(--ws-ink-600);line-height:1.6;max-width:70ch}
+  .prompt-example pre{margin-top:16px;max-height:520px;overflow:auto;background:var(--ws-indigo-950);color:#EAE7F6;border:1px solid rgba(255,255,255,.08);padding:18px;font-family:var(--ws-font-mono);font-size:12.5px;line-height:1.55;white-space:pre-wrap}
+
   /* ---------- nav cta ---------- */
   .nav-cta{margin-top:32px;display:grid;gap:14px;grid-template-columns:1fr}
   @media(min-width:680px){.nav-cta{grid-template-columns:1fr 1fr}}
@@ -156,6 +162,7 @@
       <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
       <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
       <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="ai-usage-models.html">Copilot &rarr; Agents</a>
       <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
       <a class="jump" href="dance-with-the-ai-stars.html" data-i18n="nav.dais">Dance With the AI Stars</a>
       <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
@@ -314,6 +321,50 @@
     <p data-i18n="note.p2">C'est ce qui rend nos agents CYB <b>utilisables d&egrave;s le premier jour</b> d'une mission, et ce qui leur permet de <b>passer &agrave; l'&eacute;chelle</b> quand le besoin grandit.</p>
   </div>
 
+  <section class="prompt-example" aria-labelledby="prompt-example-title">
+    <span class="eyebrow" data-i18n="prompt.eyebrow">Exemple de prompt</span>
+    <h3 id="prompt-example-title" data-i18n="prompt.title">Ajouter un appel LLM portable</h3>
+    <p data-i18n="prompt.intro">Un prompt pr&ecirc;t &agrave; donner &agrave; un assistant de code pour ajouter une couche IA tout en conservant les principes d'autonomie, de portabilit&eacute; et de gouvernance client.</p>
+    <pre>Build or modify a local-first, field-ready application.
+
+Core principles:
+- Prefer a standalone HTML file or small static folder that opens in a standard browser.
+- Do not require a server, install step, admin rights, database, or client infrastructure for the core use case.
+- Keep deterministic local logic as the default; call an LLM only where it adds clear value.
+- Make the LLM provider and model runtime settings, never architectural dependencies.
+
+Add an LLM API layer with:
+- explicit client/user approval before any AI call;
+- dynamic provider selection: OpenAI, Anthropic, Mistral, Azure OpenAI / Azure AI Foundry, Ollama Cloud / compatible endpoint, and generic OpenAI-compatible endpoint;
+- dynamic model loading when supported, with curated fallback models when loading fails;
+- a connection test, visible status states, and clear user-facing errors;
+- one centralized client abstraction, e.g. LLMClient, exposing getAvailableModels, testConnection, and generate.
+
+AI settings UX:
+- Add a mandatory checkbox: "I confirm that AI use is authorized for this content and complies with the client's rules."
+- Block all AI calls until checked.
+- Show provider-specific fields: API key, model, base URL, Azure HTTPS endpoint, deployment, and API version as needed.
+- Validate authorization, provider, model, keys, HTTPS endpoints, and normalized base URLs before every call.
+
+Secret handling:
+- Never export, log, embed, or save API keys in project data, prompts, metadata, generated HTML, or downloadable files.
+- Store keys separately from project data, using sessionStorage by default.
+- Use persistent localStorage only behind an explicit "Remember this key on this browser" option.
+- Provide "Clear API keys", use password fields, never reveal full keys, and migrate/remove unsafe legacy storage.
+
+Errors and local constraints:
+- Return contextual errors with operation, provider, model, HTTP status, code, and provider message, but never secrets.
+- Handle missing keys, invalid endpoints, network/CORS failures, non-OK HTTP responses, empty responses, and malformed JSON.
+- If browser CORS blocks a provider, document a compatible endpoint or add an optional strict proxy: HTTPS-only, allowlisted hosts, filtered headers, no secret logs, clean JSON errors.
+
+Acceptance checks:
+- No AI call before approval.
+- Provider switching updates fields, validation, and models.
+- Model loading succeeds or falls back clearly.
+- Exports contain no secrets.
+- The app remains local, portable, and usable without a mandatory server.</pre>
+  </section>
+
   <div class="recap">
     <span class="eyebrow" data-i18n="recap.eyebrow">En une phrase</span>
     <h3 data-i18n="recap.title">Un agent CYB, c'est&hellip;</h3>
@@ -434,6 +485,9 @@ window.WS_I18N = {
     "note.lab": "The common thread",
     "note.p1": "<b>Autonomy, portability and frugality.</b> Every principle pushes in the same direction: an agent you can take anywhere, plug onto any model (or none), and run reliably &mdash; without asking anything of the client's infrastructure.",
     "note.p2": "That is what makes our CYB agents <b>usable from day one</b> of an engagement, and what lets them <b>scale up</b> as the need grows.",
+    "prompt.eyebrow": "Prompt example",
+    "prompt.title": "Add a portable LLM call",
+    "prompt.intro": "A ready-to-use prompt for a coding assistant to add an AI layer while preserving autonomy, portability and client-governance principles.",
     "recap.eyebrow": "In one sentence",
     "recap.title": "A CYB agent is&hellip;",
     "recap.intro": "&hellip;a tool that is as autonomous as possible, that you carry everywhere and share by file.",
@@ -523,6 +577,9 @@ window.WS_I18N = {
     "note.lab": "Der rote Faden",
     "note.p1": "<b>Autonomie, Portabilit&auml;t und Sparsamkeit.</b> Jedes Prinzip dr&auml;ngt in dieselbe Richtung: ein Agent, den man &uuml;berallhin mitnehmen, an jedes Modell (oder keines) anschlie&szlig;en und zuverl&auml;ssig betreiben kann &mdash; ohne irgendetwas von der Infrastruktur des Kunden zu verlangen.",
     "note.p2": "Das macht unsere CYB-Agenten <b>ab dem ersten Tag</b> eines Einsatzes nutzbar und l&auml;sst sie <b>skalieren</b>, wenn der Bedarf w&auml;chst.",
+    "prompt.eyebrow": "Prompt-Beispiel",
+    "prompt.title": "Einen portablen LLM-Aufruf hinzuf&uuml;gen",
+    "prompt.intro": "Ein direkt nutzbarer Prompt f&uuml;r einen Coding Assistant, um eine KI-Schicht hinzuzuf&uuml;gen und dabei Autonomie, Portabilit&auml;t und Kunden-Governance zu bewahren.",
     "recap.eyebrow": "In einem Satz",
     "recap.title": "Ein CYB-Agent ist&hellip;",
     "recap.intro": "&hellip;ein m&ouml;glichst autonomes Werkzeug, das man &uuml;berallhin mitnimmt und per Datei teilt.",

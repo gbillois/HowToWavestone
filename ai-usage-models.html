@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Comprendre les quatre modèles d'usage de l'IA chez CYB : Copilot, Cowork, agent personnel et agent métier conseil.">
+<title>Wavestone CYB AI Maker &mdash; Du Copilot &agrave; l&rsquo;agent m&eacute;tier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ws-indigo-50:#F1EEFB;--ws-indigo-100:#D1CAF2;--ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0;--ws-indigo-600:#451DC7;--ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380;--ws-indigo-900:#1E0D57;--ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E;--ws-green-400:#04F06A;--ws-green-700:#088A42;--ws-green-50:#E1FDED;
+    --ws-teal-500:#228D95;--ws-teal-50:#E2F1F2;
+    --ws-white:#FFFFFF;--ws-ink-50:#F5F4F9;--ws-ink-100:#E6E4EE;--ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8;--ws-ink-400:#817C95;--ws-ink-500:#6B6580;--ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550;--ws-ink-900:#16121F;
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%,#5226E0 0%,#451DC7 38%,#2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);--ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);--ws-ease:cubic-bezier(.2,0,0,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ws-white);color:var(--ws-ink-900);font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:70px}
+  a{color:inherit}.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  .eyebrow{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid var(--ws-green-400)}
+
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .dot{width:9px;height:9px;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-left:auto}.bar-in .langsel{margin-left:10px}
+  .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:6px 13px;transition:.18s var(--ws-ease)}
+  .bar a.jump:hover,.bar a.jump[aria-current="page"]{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600);background:var(--ws-indigo-50)}
+
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff}
+  .hero .lines{position:absolute;inset:0;pointer-events:none;opacity:.9}
+  .hero .lines::before,.hero .lines::after{content:"";position:absolute;left:-5%;right:-5%;height:1px;transform:rotate(-4deg)}
+  .hero .lines::before{top:68%;background:rgba(255,255,255,.17)}.hero .lines::after{top:78%;background:var(--ws-green-400);opacity:.55}
+  .hero-in{position:relative;max-width:1040px;margin:0 auto;padding:68px 24px 60px}
+  .hero .eyebrow{color:#fff}.hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(35px,6vw,60px);line-height:1.04;letter-spacing:-.025em;margin:22px 0 16px;max-width:19ch}
+  .hero h1 .ac{color:var(--ws-green-400)}.hero .lede{font-size:19px;line-height:1.5;color:rgba(255,255,255,.82);max-width:66ch}
+  .hero .tagline{font-family:var(--ws-font-mono);font-size:12.5px;color:rgba(255,255,255,.62);margin-top:22px;letter-spacing:.02em}
+
+  .sec-head{margin:56px 0 22px}.sec-head h2{font-family:var(--ws-font-display);font-size:28px;line-height:1.2;color:var(--ws-indigo-600);letter-spacing:-.015em;margin-top:9px}
+  .sec-head p{color:var(--ws-ink-500);margin-top:7px;font-size:15px;max-width:72ch}
+  .reading-note{display:flex;gap:12px;align-items:flex-start;background:var(--ws-indigo-50);border-left:4px solid var(--ws-indigo-600);padding:17px 19px;color:var(--ws-ink-700);font-size:14.5px}
+  .reading-note strong{color:var(--ws-ink-900)}.reading-note .mark{font-family:var(--ws-font-mono);font-weight:700;color:var(--ws-indigo-600);flex:0 0 auto}
+
+  .map{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:28px;border:1px solid var(--ws-ink-100);box-shadow:var(--ws-shadow-sm)}
+  .map-step{position:relative;padding:22px 18px;background:#fff;border-left:1px solid var(--ws-ink-100);min-height:168px}
+  .map-step:first-child{border-left:none}.map-step:last-child{background:var(--ws-indigo-950);color:#fff}
+  .map-step .n{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-indigo-600);font-weight:600}.map-step:last-child .n{color:var(--ws-green-300)}
+  .map-step h3{font-family:var(--ws-font-display);font-size:17px;line-height:1.2;margin:12px 0 7px}.map-step p{font-size:13.5px;color:var(--ws-ink-500);line-height:1.5}.map-step:last-child p{color:rgba(255,255,255,.7)}
+  .map-step .verb{display:inline-block;margin-top:14px;padding:4px 8px;background:var(--ws-green-50);color:var(--ws-green-700);font-family:var(--ws-font-mono);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em}
+  .map-step:last-child .verb{background:var(--ws-green-400);color:var(--ws-indigo-950)}
+
+  .models{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .model{position:relative;border:1.5px solid var(--ws-ink-100);padding:26px 24px 23px;box-shadow:var(--ws-shadow-sm);background:#fff;overflow:hidden;transition:.22s var(--ws-ease)}
+  .model:hover{transform:translateY(-3px);border-color:var(--ws-indigo-200);box-shadow:var(--ws-shadow-lg)}
+  .model::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--ws-gradient-accent);opacity:0;transition:opacity .22s var(--ws-ease)}.model:hover::before{opacity:1}
+  .model.featured{grid-column:1/-1;background:var(--ws-indigo-950);color:#fff;border-color:var(--ws-indigo-950);display:grid;grid-template-columns:minmax(220px,.75fr) 1.25fr;gap:30px}
+  .model-top{display:flex;gap:15px;align-items:flex-start}.model-number{width:48px;height:48px;display:grid;place-items:center;flex:0 0 auto;background:var(--ws-indigo-50);color:var(--ws-indigo-600);font:700 17px var(--ws-font-mono)}
+  .featured .model-number{background:var(--ws-green-400);color:var(--ws-indigo-950)}
+  .model-kicker{font:600 11px var(--ws-font-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--ws-indigo-600)}.featured .model-kicker{color:var(--ws-green-300)}
+  .model h3{font-family:var(--ws-font-display);font-size:22px;line-height:1.22;margin-top:4px;letter-spacing:-.01em}.model .promise{font-size:15px;color:var(--ws-ink-600);margin-top:17px;line-height:1.6}.featured .promise{color:rgba(255,255,255,.78)}
+  .details{display:grid;gap:12px;margin-top:19px}.detail{border-top:1px dashed var(--ws-ink-100);padding-top:11px}.featured .detail{border-color:rgba(255,255,255,.16)}
+  .detail dt{font:600 11px var(--ws-font-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ws-indigo-600);margin-bottom:4px}.featured .detail dt{color:var(--ws-green-300)}
+  .detail dd{font-size:13.5px;color:var(--ws-ink-600);line-height:1.55}.featured .detail dd{color:rgba(255,255,255,.75)}
+  .featured .details{margin-top:0}.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}.chip{font:500 10.5px var(--ws-font-mono);background:var(--ws-ink-50);color:var(--ws-ink-600);padding:4px 9px}.featured .chip{background:rgba(255,255,255,.09);color:rgba(255,255,255,.82)}
+
+  .comparison{overflow-x:auto;border:1px solid var(--ws-ink-100);box-shadow:var(--ws-shadow-sm)}
+  table{width:100%;border-collapse:collapse;min-width:780px;background:#fff}th,td{padding:15px 14px;text-align:left;border-bottom:1px solid var(--ws-ink-100);vertical-align:top}
+  thead th{background:var(--ws-indigo-950);color:#fff;font:600 13px var(--ws-font-display)}thead th:first-child{color:var(--ws-green-300);font-family:var(--ws-font-mono);font-size:11px;text-transform:uppercase;letter-spacing:.07em}
+  tbody th{font:600 12px var(--ws-font-mono);color:var(--ws-indigo-600);width:18%}tbody td{font-size:13.5px;color:var(--ws-ink-600)}tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
+
+  .maker{margin-top:54px;background:var(--ws-indigo-50);border:1px solid var(--ws-indigo-100);border-left:5px solid var(--ws-green-400);padding:30px;display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}
+  .maker h2{font-family:var(--ws-font-display);color:var(--ws-indigo-600);font-size:27px;line-height:1.2;margin:10px 0}.maker p{font-size:15px;color:var(--ws-ink-700);line-height:1.65}.maker p+p{margin-top:9px}
+  .maker-path{background:#fff;border:1px solid var(--ws-indigo-100);padding:20px}.maker-path ol{list-style:none;display:grid;gap:0;counter-reset:path}.maker-path li{counter-increment:path;display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--ws-ink-100);font-size:13.5px;color:var(--ws-ink-700)}.maker-path li:last-child{border-bottom:0}.maker-path li::before{content:"0" counter(path);font:600 11px var(--ws-font-mono);color:var(--ws-indigo-600)}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.action{display:inline-flex;align-items:center;gap:8px;text-decoration:none;border:1px solid var(--ws-indigo-600);padding:10px 15px;color:var(--ws-indigo-600);font:600 12px var(--ws-font-mono);transition:.18s var(--ws-ease)}.action.primary{background:var(--ws-indigo-600);color:#fff}.action:hover{transform:translateY(-2px);box-shadow:var(--ws-shadow-md)}
+  footer{max-width:1040px;margin:64px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.src{font:12px var(--ws-font-mono);color:var(--ws-ink-400)}
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus)}
+  @media(max-width:820px){.map{grid-template-columns:1fr 1fr}.map-step:nth-child(3){border-left:0;border-top:1px solid var(--ws-ink-100)}.map-step:nth-child(4){border-top:1px solid var(--ws-ink-100)}.maker{grid-template-columns:1fr}.model.featured{grid-template-columns:1fr}}
+  @media(max-width:640px){.hero-in{padding:54px 20px 48px}.wrap{padding:0 20px}.models,.map{grid-template-columns:1fr}.map-step,.map-step:nth-child(3),.map-step:nth-child(4){border-left:0;border-top:1px solid var(--ws-ink-100)}.map-step:first-child{border-top:0}.model.featured{grid-column:auto}.model{padding:23px 20px}.maker{padding:24px 20px}.hero .lede{font-size:17px}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  *,*::before,*::after{border-radius:0!important}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
+    <div class="nav-links">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
+      <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="ai-usage-models.html" aria-current="page">Copilot &rarr; Agents</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+      <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="lines" aria-hidden="true"></div>
+  <div class="hero-in">
+    <span class="eyebrow" data-i18n="hero.eyebrow">Comprendre les usages</span>
+    <h1 data-i18n="hero.title">Du <span class="ac">Copilot</span> &agrave; l&rsquo;agent m&eacute;tier</h1>
+    <p class="lede" data-i18n="hero.lede">Quatre mani&egrave;res de mobiliser l&rsquo;IA&nbsp;: r&eacute;pondre, agir sur des contenus, automatiser un processus ou devenir une v&eacute;ritable application de mission.</p>
+    <p class="tagline" data-i18n="hero.tagline"># conversation &middot; collaboration &middot; automatisation &middot; application</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section aria-labelledby="map-title">
+    <div class="sec-head">
+      <span class="eyebrow" data-i18n="map.eyebrow">Le panorama</span>
+      <h2 id="map-title" data-i18n="map.title">Quatre mod&egrave;les, quatre promesses</h2>
+      <p data-i18n="map.intro">La diff&eacute;rence tient moins au mod&egrave;le d&rsquo;IA qu&rsquo;au p&eacute;rim&egrave;tre qu&rsquo;on lui confie&nbsp;: conversation, acc&egrave;s aux donn&eacute;es, ex&eacute;cution d&rsquo;actions ou conception d&rsquo;un produit m&eacute;tier.</p>
+    </div>
+    <div class="reading-note">
+      <span class="mark">&ne;</span>
+      <p data-i18n="map.note"><strong>Ce n&rsquo;est pas une &eacute;chelle de maturit&eacute;.</strong> Chaque mod&egrave;le r&eacute;pond &agrave; un besoin diff&eacute;rent. Le bon choix est celui qui donne juste assez de capacit&eacute;s pour le cas d&rsquo;usage, avec le bon niveau de contr&ocirc;le humain.</p>
+    </div>
+    <div class="map" aria-label="Panorama des quatre modèles d'usage de l'IA" data-i18n-aria-label="map.aria">
+      <article class="map-step"><span class="n">01</span><h3>Copilot</h3><p data-i18n="map.copilot">Un chatbot simple qui r&eacute;pond aux questions.</p><span class="verb" data-i18n="verb.answer">R&eacute;pondre</span></article>
+      <article class="map-step"><span class="n">02</span><h3>Cowork</h3><p data-i18n="map.cowork">Un collaborateur qui acc&egrave;de aux donn&eacute;es et modifie les fichiers.</p><span class="verb" data-i18n="verb.act">Agir</span></article>
+      <article class="map-step"><span class="n">03</span><h3 data-i18n="personal.title">Agent personnel</h3><p data-i18n="map.personal">Un agent qui automatise des processus, surtout en interne.</p><span class="verb" data-i18n="verb.automate">Automatiser</span></article>
+      <article class="map-step"><span class="n">04</span><h3 data-i18n="business.title">Agent m&eacute;tier conseil</h3><p data-i18n="map.business">Une application de mission cr&eacute;&eacute;e en vibe coding.</p><span class="verb" data-i18n="verb.product">Outiller</span></article>
+    </div>
+  </section>
+
+  <section aria-labelledby="models-title">
+    <div class="sec-head">
+      <span class="eyebrow" data-i18n="models.eyebrow">Dans le d&eacute;tail</span>
+      <h2 id="models-title" data-i18n="models.title">Ce que chaque mod&egrave;le permet vraiment</h2>
+      <p data-i18n="models.intro">Un m&ecirc;me LLM peut se retrouver derri&egrave;re ces quatre exp&eacute;riences. Ce sont ses outils, ses donn&eacute;es, son autonomie et son interface qui changent.</p>
+    </div>
+    <div class="models">
+      <article class="model">
+        <div class="model-top"><span class="model-number">01</span><div><span class="model-kicker" data-i18n="copilot.kicker">Conversation</span><h3>Copilot</h3></div></div>
+        <p class="promise" data-i18n="copilot.promise"><strong>Un chatbot simple qui r&eacute;pond aux questions.</strong> Il explique, reformule, synth&eacute;tise ou produit un premier jet &agrave; partir de ce que l&rsquo;utilisateur lui donne.</p>
+        <dl class="details">
+          <div class="detail"><dt data-i18n="label.use">Usage type</dt><dd data-i18n="copilot.use">Poser une question, explorer un sujet, obtenir une aide ponctuelle ou produire du contenu.</dd></div>
+          <div class="detail"><dt data-i18n="label.boundary">Limite structurante</dt><dd data-i18n="copilot.boundary">Il reste dans la conversation&nbsp;: il ne va pas modifier seul un fichier ou ex&eacute;cuter un processus.</dd></div>
+          <div class="detail"><dt data-i18n="label.control">Contr&ocirc;le humain</dt><dd data-i18n="copilot.control">L&rsquo;utilisateur fournit le contexte, &eacute;value la r&eacute;ponse et r&eacute;alise lui-m&ecirc;me les actions.</dd></div>
+        </dl>
+        <div class="chips"><span class="chip" data-i18n="chip.qa">Questions / r&eacute;ponses</span><span class="chip" data-i18n="chip.draft">Premier jet</span><span class="chip" data-i18n="chip.synthesis">Synth&egrave;se</span></div>
+      </article>
+
+      <article class="model">
+        <div class="model-top"><span class="model-number">02</span><div><span class="model-kicker" data-i18n="cowork.kicker">Collaboration sur les contenus</span><h3>Cowork</h3></div></div>
+        <p class="promise" data-i18n="cowork.promise"><strong>Une capacit&eacute; &agrave; acc&eacute;der aux donn&eacute;es et &agrave; modifier les fichiers.</strong> Cowork ne se contente plus de conseiller&nbsp;: il travaille dans le contexte autoris&eacute; par l&rsquo;utilisateur.</p>
+        <dl class="details">
+          <div class="detail"><dt data-i18n="label.use">Usage type</dt><dd data-i18n="cowork.use">Analyser un ensemble de documents, consolider des informations, mettre &agrave; jour ou cr&eacute;er des fichiers.</dd></div>
+          <div class="detail"><dt data-i18n="label.boundary">Limite structurante</dt><dd data-i18n="cowork.boundary">Son p&eacute;rim&egrave;tre d&eacute;pend des sources, dossiers et actions explicitement autoris&eacute;s.</dd></div>
+          <div class="detail"><dt data-i18n="label.control">Contr&ocirc;le humain</dt><dd data-i18n="cowork.control">L&rsquo;utilisateur cadre la t&acirc;che, v&eacute;rifie les modifications et garde la validation finale.</dd></div>
+        </dl>
+        <div class="chips"><span class="chip" data-i18n="chip.data">Acc&egrave;s aux donn&eacute;es</span><span class="chip" data-i18n="chip.files">Modification de fichiers</span><span class="chip" data-i18n="chip.task">T&acirc;che cadr&eacute;e</span></div>
+      </article>
+
+      <article class="model">
+        <div class="model-top"><span class="model-number">03</span><div><span class="model-kicker" data-i18n="personal.kicker">Automatisation</span><h3 data-i18n="personal.title">Agent personnel</h3></div></div>
+        <p class="promise" data-i18n="personal.promise"><strong>Une capacit&eacute; &agrave; automatiser certains processus.</strong> L&rsquo;agent encha&icirc;ne des &eacute;tapes r&eacute;currentes, r&eacute;agit &agrave; un d&eacute;clencheur et sollicite une validation lorsque c&rsquo;est n&eacute;cessaire.</p>
+        <dl class="details">
+          <div class="detail"><dt data-i18n="label.use">Usage type</dt><dd data-i18n="personal.use">Pr&eacute;parer une veille, trier des demandes, g&eacute;n&eacute;rer un reporting ou orchestrer une routine d&rsquo;&eacute;quipe.</dd></div>
+          <div class="detail"><dt data-i18n="label.boundary">Limite structurante</dt><dd data-i18n="personal.boundary">Il est surtout utile en interne, dans un environnement ma&icirc;tris&eacute; et pour un processus stable.</dd></div>
+          <div class="detail"><dt data-i18n="label.control">Contr&ocirc;le humain</dt><dd data-i18n="personal.control">Les r&egrave;gles, exceptions, droits d&rsquo;acc&egrave;s et points d&rsquo;approbation doivent &ecirc;tre explicites.</dd></div>
+        </dl>
+        <div class="chips"><span class="chip" data-i18n="chip.internal">Interne</span><span class="chip" data-i18n="chip.workflow">Workflow</span><span class="chip" data-i18n="chip.recurring">R&eacute;current</span></div>
+      </article>
+
+      <article class="model featured">
+        <div>
+          <div class="model-top"><span class="model-number">04</span><div><span class="model-kicker" data-i18n="business.kicker">Application de mission</span><h3 data-i18n="business.title">Agent m&eacute;tier conseil</h3></div></div>
+          <p class="promise" data-i18n="business.promise"><strong>Un agent qui devient une application utilis&eacute;e dans nos missions.</strong> Il porte une m&eacute;thode, une interface et des r&egrave;gles m&eacute;tier propres au conseil, au-del&agrave; d&rsquo;une simple conversation.</p>
+          <div class="chips"><span class="chip" data-i18n="chip.mission">Mission client</span><span class="chip" data-i18n="chip.app">Application</span><span class="chip">Vibe coding</span><span class="chip">AI CYB Maker</span></div>
+        </div>
+        <dl class="details">
+          <div class="detail"><dt data-i18n="label.use">Usage type</dt><dd data-i18n="business.use">R&eacute;aliser un diagnostic, explorer un benchmark, simuler une crise, produire un livrable ou guider une d&eacute;marche m&eacute;tier.</dd></div>
+          <div class="detail"><dt data-i18n="label.distinguish">Ce qui le distingue</dt><dd data-i18n="business.boundary">Il est con&ccedil;u comme un produit&nbsp;: cas d&rsquo;usage pr&eacute;cis, parcours utilisateur, logique d&eacute;terministe, donn&eacute;es et sorties attendues.</dd></div>
+          <div class="detail"><dt data-i18n="label.build">Mode de cr&eacute;ation</dt><dd data-i18n="business.build">On le cr&eacute;e en <strong>vibe coding</strong>&nbsp;: les consultants traduisent leur savoir-faire en application, puis testent et am&eacute;liorent rapidement sur le terrain.</dd></div>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="compare-title">
+    <div class="sec-head">
+      <span class="eyebrow" data-i18n="compare.eyebrow">Rep&egrave;res</span>
+      <h2 id="compare-title" data-i18n="compare.title">Les diff&eacute;rences en un coup d&rsquo;&oelig;il</h2>
+      <p data-i18n="compare.intro">Pour choisir, regardez ce que l&rsquo;IA doit pouvoir toucher, la dur&eacute;e du besoin et la nature du r&eacute;sultat attendu.</p>
+    </div>
+    <div class="comparison">
+      <table>
+        <thead><tr><th scope="col" data-i18n="table.dimension">Dimension</th><th scope="col">Copilot</th><th scope="col">Cowork</th><th scope="col" data-i18n="personal.title">Agent personnel</th><th scope="col" data-i18n="business.title">Agent m&eacute;tier conseil</th></tr></thead>
+        <tbody>
+          <tr><th scope="row" data-i18n="table.role">R&ocirc;le</th><td data-i18n="table.role.copilot">R&eacute;pond et conseille</td><td data-i18n="table.role.cowork">Collabore sur les contenus</td><td data-i18n="table.role.personal">Ex&eacute;cute une routine</td><td data-i18n="table.role.business">Outille une m&eacute;thode de conseil</td></tr>
+          <tr><th scope="row" data-i18n="table.context">Contexte</th><td data-i18n="table.context.copilot">Fourni dans la conversation</td><td data-i18n="table.context.cowork">Sources et fichiers autoris&eacute;s</td><td data-i18n="table.context.personal">Outils et processus internes</td><td data-i18n="table.context.business">Donn&eacute;es et cadre de la mission</td></tr>
+          <tr><th scope="row" data-i18n="table.action">Capacit&eacute; d&rsquo;action</th><td data-i18n="table.action.copilot">Aucune action directe</td><td data-i18n="table.action.cowork">Lit, cr&eacute;e et modifie</td><td data-i18n="table.action.personal">Encha&icirc;ne des &eacute;tapes</td><td data-i18n="table.action.business">Fonctions d&eacute;di&eacute;es dans une app</td></tr>
+          <tr><th scope="row" data-i18n="table.output">R&eacute;sultat</th><td data-i18n="table.output.copilot">Une r&eacute;ponse</td><td data-i18n="table.output.cowork">Un contenu ou fichier mis &agrave; jour</td><td data-i18n="table.output.personal">Un processus ex&eacute;cut&eacute;</td><td data-i18n="table.output.business">Une application et ses livrables</td></tr>
+          <tr><th scope="row" data-i18n="table.best">Particuli&egrave;rement utile pour</th><td data-i18n="table.best.copilot">Un besoin ponctuel</td><td data-i18n="table.best.cowork">Une t&acirc;che documentaire</td><td data-i18n="table.best.personal">Une routine interne</td><td data-i18n="table.best.business">Une mission et un savoir-faire r&eacute;utilisable</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="maker" aria-labelledby="maker-title">
+    <div>
+      <span class="eyebrow">AI CYB Maker</span>
+      <h2 id="maker-title" data-i18n="maker.title">Transformer notre savoir-faire en applications de mission</h2>
+      <p data-i18n="maker.p1">L&rsquo;initiative <strong>AI CYB Maker</strong> se concentre sur le quatri&egrave;me mod&egrave;le&nbsp;: permettre aux consultants de cr&eacute;er des agents m&eacute;tier qui incarnent nos m&eacute;thodes et s&rsquo;utilisent concr&egrave;tement dans les missions.</p>
+      <p data-i18n="maker.p2">Le vibe coding raccourcit le chemin entre l&rsquo;id&eacute;e m&eacute;tier et un outil testable. L&rsquo;objectif n&rsquo;est pas de tout automatiser, mais de transformer une expertise r&eacute;p&eacute;table en une application utile, portable et am&eacute;liorable.</p>
+      <div class="actions">
+        <a class="action primary" href="web-app-guide.html" data-i18n="maker.workshop">D&eacute;marrer l&rsquo;atelier &rarr;</a>
+        <a class="action" href="our-agents.html" data-i18n="maker.examples">Voir nos agents &rarr;</a>
+      </div>
+    </div>
+    <div class="maker-path">
+      <ol>
+        <li data-i18n="maker.step1">Partir d&rsquo;un irritant ou d&rsquo;un savoir-faire m&eacute;tier.</li>
+        <li data-i18n="maker.step2">Le traduire en parcours, r&egrave;gles et livrables.</li>
+        <li data-i18n="maker.step3">Construire rapidement une premi&egrave;re application.</li>
+        <li data-i18n="maker.step4">Tester en mission, s&eacute;curiser et am&eacute;liorer.</li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span class="src" data-i18n="footer.src">Du Copilot &agrave; l&rsquo;agent m&eacute;tier &mdash; Wavestone CYB &middot; AI Maker Initiative</span>
+  <a class="action" href="agent-principles.html" data-i18n="footer.principles">Voir les principes de conception &rarr;</a>
+</footer>
+
+<script>
+window.WS_I18N={
+  en:{
+    "__title":"Wavestone CYB AI Maker — From Copilot to business agent",
+    "nav.home":"Home","nav.usecases":"Playbook","nav.principles":"Agent principles","nav.agents":"Our agents","nav.apikey":"API key",
+    "hero.eyebrow":"Understanding AI uses","hero.title":"From <span class=\"ac\">Copilot</span> to business agent","hero.lede":"Four ways to put AI to work: answer, act on content, automate a process, or become a full engagement application.","hero.tagline":"# conversation &middot; collaboration &middot; automation &middot; application",
+    "map.eyebrow":"The landscape","map.title":"Four models, four promises","map.intro":"The difference lies less in the AI model than in the scope entrusted to it: conversation, data access, action execution or the design of a business product.","map.note":"<strong>This is not a maturity ladder.</strong> Each model answers a different need. The right choice provides just enough capability for the use case, with the right level of human control.","map.aria":"Landscape of the four AI usage models","map.copilot":"A simple chatbot that answers questions.","map.cowork":"A collaborator that accesses data and edits files.","map.personal":"An agent that automates processes, primarily internally.","map.business":"An engagement application created through vibe coding.",
+    "verb.answer":"Answer","verb.act":"Act","verb.automate":"Automate","verb.product":"Enable",
+    "personal.title":"Personal agent","business.title":"Consulting business agent",
+    "models.eyebrow":"In detail","models.title":"What each model actually enables","models.intro":"The same LLM may power all four experiences. What changes are its tools, data, autonomy and interface.",
+    "copilot.kicker":"Conversation","copilot.promise":"<strong>A simple chatbot that answers questions.</strong> It explains, rewrites, summarises or produces a first draft from what the user provides.","copilot.use":"Ask a question, explore a topic, get one-off help or produce content.","copilot.boundary":"It stays within the conversation: it does not edit a file or run a process on its own.","copilot.control":"The user provides context, assesses the answer and performs the actions.",
+    "cowork.kicker":"Content collaboration","cowork.promise":"<strong>The ability to access data and edit files.</strong> Cowork goes beyond advice: it works within the context authorised by the user.","cowork.use":"Analyse a set of documents, consolidate information, update or create files.","cowork.boundary":"Its scope depends on the sources, folders and actions explicitly authorised.","cowork.control":"The user frames the task, reviews changes and retains final approval.",
+    "personal.kicker":"Automation","personal.promise":"<strong>The ability to automate selected processes.</strong> The agent chains recurring steps, reacts to a trigger and requests approval where needed.","personal.use":"Prepare monitoring, triage requests, generate reporting or orchestrate a team routine.","personal.boundary":"It is most useful internally, in a controlled environment and for a stable process.","personal.control":"Rules, exceptions, access rights and approval gates must be explicit.",
+    "business.kicker":"Engagement application","business.promise":"<strong>An agent that becomes an application used in our engagements.</strong> It carries a method, an interface and consulting-specific business rules beyond a simple conversation.","business.use":"Run a diagnostic, explore a benchmark, simulate a crisis, produce a deliverable or guide a business approach.","business.boundary":"It is designed as a product: a precise use case, user journey, deterministic logic, data and expected outputs.","business.build":"We create it through <strong>vibe coding</strong>: consultants translate their expertise into an application, then test and improve it quickly in the field.",
+    "label.use":"Typical use","label.boundary":"Defining boundary","label.distinguish":"What sets it apart","label.control":"Human control","label.build":"How it is built",
+    "chip.qa":"Questions / answers","chip.draft":"First draft","chip.synthesis":"Summary","chip.data":"Data access","chip.files":"File editing","chip.task":"Framed task","chip.internal":"Internal","chip.workflow":"Workflow","chip.recurring":"Recurring","chip.mission":"Client engagement","chip.app":"Application",
+    "compare.eyebrow":"Reference points","compare.title":"The differences at a glance","compare.intro":"To choose, consider what the AI must be able to access, how long the need will last and the nature of the expected outcome.",
+    "table.dimension":"Dimension","table.role":"Role","table.role.copilot":"Answers and advises","table.role.cowork":"Collaborates on content","table.role.personal":"Runs a routine","table.role.business":"Enables a consulting method","table.context":"Context","table.context.copilot":"Provided in the conversation","table.context.cowork":"Authorised sources and files","table.context.personal":"Internal tools and processes","table.context.business":"Engagement data and framework","table.action":"Ability to act","table.action.copilot":"No direct action","table.action.cowork":"Reads, creates and edits","table.action.personal":"Chains steps","table.action.business":"Dedicated features in an app","table.output":"Outcome","table.output.copilot":"An answer","table.output.cowork":"Updated content or file","table.output.personal":"An executed process","table.output.business":"An application and its deliverables","table.best":"Particularly useful for","table.best.copilot":"A one-off need","table.best.cowork":"A document task","table.best.personal":"An internal routine","table.best.business":"An engagement and reusable expertise",
+    "maker.title":"Turn our expertise into engagement applications","maker.p1":"The <strong>AI CYB Maker</strong> initiative focuses on the fourth model: enabling consultants to create business agents that embody our methods and are used concretely in engagements.","maker.p2":"Vibe coding shortens the path from a business idea to a testable tool. The goal is not to automate everything, but to turn repeatable expertise into a useful, portable and improvable application.","maker.workshop":"Start the workshop &rarr;","maker.examples":"See our agents &rarr;","maker.step1":"Start with a pain point or business expertise.","maker.step2":"Translate it into a journey, rules and deliverables.","maker.step3":"Quickly build a first application.","maker.step4":"Test in an engagement, secure and improve.","footer.src":"From Copilot to business agent &mdash; Wavestone CYB &middot; AI Maker Initiative","footer.principles":"See the design principles &rarr;"
+  },
+  de:{
+    "__title":"Wavestone CYB AI Maker — Vom Copilot zum Fachagenten",
+    "nav.home":"Start","nav.usecases":"Playbook","nav.principles":"Agenten-Prinzipien","nav.agents":"Unsere Agenten","nav.apikey":"API-Schl&uuml;ssel",
+    "hero.eyebrow":"KI-Nutzungen verstehen","hero.title":"Vom <span class=\"ac\">Copilot</span> zum Fachagenten","hero.lede":"Vier Arten, KI einzusetzen: antworten, Inhalte bearbeiten, einen Prozess automatisieren oder zu einer echten Projektanwendung werden.","hero.tagline":"# konversation &middot; zusammenarbeit &middot; automatisierung &middot; anwendung",
+    "map.eyebrow":"Das Panorama","map.title":"Vier Modelle, vier Versprechen","map.intro":"Der Unterschied liegt weniger im KI-Modell als im anvertrauten Umfang: Konversation, Datenzugriff, Ausf&uuml;hrung von Aktionen oder Gestaltung eines Fachprodukts.","map.note":"<strong>Dies ist keine Reifegradleiter.</strong> Jedes Modell erf&uuml;llt einen anderen Bedarf. Die richtige Wahl bietet genau die n&ouml;tigen F&auml;higkeiten f&uuml;r den Anwendungsfall &mdash; mit der passenden menschlichen Kontrolle.","map.aria":"Panorama der vier KI-Nutzungsmodelle","map.copilot":"Ein einfacher Chatbot, der Fragen beantwortet.","map.cowork":"Ein Mitarbeiter, der auf Daten zugreift und Dateien bearbeitet.","map.personal":"Ein Agent, der vor allem interne Prozesse automatisiert.","map.business":"Eine per Vibe Coding erstellte Projektanwendung.",
+    "verb.answer":"Antworten","verb.act":"Handeln","verb.automate":"Automatisieren","verb.product":"Bef&auml;higen","personal.title":"Pers&ouml;nlicher Agent","business.title":"Beratungs-Fachagent",
+    "models.eyebrow":"Im Detail","models.title":"Was jedes Modell wirklich erm&ouml;glicht","models.intro":"Dasselbe LLM kann hinter allen vier Erlebnissen stehen. Werkzeuge, Daten, Autonomie und Interface unterscheiden sich.",
+    "copilot.kicker":"Konversation","copilot.promise":"<strong>Ein einfacher Chatbot, der Fragen beantwortet.</strong> Er erkl&auml;rt, formuliert um, fasst zusammen oder erstellt einen ersten Entwurf aus den Angaben des Nutzers.","copilot.use":"Eine Frage stellen, ein Thema erkunden, punktuelle Hilfe erhalten oder Inhalte erstellen.","copilot.boundary":"Er bleibt in der Konversation: Er bearbeitet nicht selbstst&auml;ndig eine Datei und f&uuml;hrt keinen Prozess aus.","copilot.control":"Der Nutzer liefert den Kontext, bewertet die Antwort und f&uuml;hrt die Aktionen selbst aus.",
+    "cowork.kicker":"Zusammenarbeit an Inhalten","cowork.promise":"<strong>Die F&auml;higkeit, auf Daten zuzugreifen und Dateien zu &auml;ndern.</strong> Cowork ber&auml;t nicht nur, sondern arbeitet im vom Nutzer autorisierten Kontext.","cowork.use":"Dokumente analysieren, Informationen konsolidieren sowie Dateien aktualisieren oder erstellen.","cowork.boundary":"Sein Umfang h&auml;ngt von ausdr&uuml;cklich freigegebenen Quellen, Ordnern und Aktionen ab.","cowork.control":"Der Nutzer rahmt die Aufgabe, pr&uuml;ft die &Auml;nderungen und beh&auml;lt die finale Freigabe.",
+    "personal.kicker":"Automatisierung","personal.promise":"<strong>Die F&auml;higkeit, ausgew&auml;hlte Prozesse zu automatisieren.</strong> Der Agent verkettet wiederkehrende Schritte, reagiert auf einen Ausl&ouml;ser und holt bei Bedarf Freigaben ein.","personal.use":"Monitoring vorbereiten, Anfragen sortieren, Reports erstellen oder eine Teamroutine orchestrieren.","personal.boundary":"Er ist vor allem intern, in einer kontrollierten Umgebung und f&uuml;r einen stabilen Prozess n&uuml;tzlich.","personal.control":"Regeln, Ausnahmen, Zugriffsrechte und Freigabepunkte m&uuml;ssen explizit sein.",
+    "business.kicker":"Projektanwendung","business.promise":"<strong>Ein Agent, der zu einer in unseren Projekten genutzten Anwendung wird.</strong> Er verk&ouml;rpert Methode, Interface und beratungsbezogene Fachregeln &uuml;ber eine einfache Konversation hinaus.","business.use":"Eine Diagnose durchf&uuml;hren, einen Benchmark erkunden, eine Krise simulieren, ein Ergebnis erstellen oder einen Fachansatz f&uuml;hren.","business.boundary":"Er wird als Produkt konzipiert: pr&auml;ziser Anwendungsfall, Nutzerpfad, deterministische Logik, Daten und erwartete Ergebnisse.","business.build":"Wir erstellen ihn per <strong>Vibe Coding</strong>: Berater &uuml;bersetzen ihr Know-how in eine Anwendung und testen und verbessern sie schnell in der Praxis.",
+    "label.use":"Typische Nutzung","label.boundary":"Pr&auml;gende Grenze","label.distinguish":"Was ihn auszeichnet","label.control":"Menschliche Kontrolle","label.build":"Erstellungsweise","chip.qa":"Fragen / Antworten","chip.draft":"Erster Entwurf","chip.synthesis":"Zusammenfassung","chip.data":"Datenzugriff","chip.files":"Dateibearbeitung","chip.task":"Gerahmte Aufgabe","chip.internal":"Intern","chip.workflow":"Workflow","chip.recurring":"Wiederkehrend","chip.mission":"Kundenprojekt","chip.app":"Anwendung",
+    "compare.eyebrow":"Orientierung","compare.title":"Die Unterschiede auf einen Blick","compare.intro":"Entscheidend sind, worauf die KI zugreifen soll, wie lange der Bedarf besteht und welches Ergebnis erwartet wird.",
+    "table.dimension":"Dimension","table.role":"Rolle","table.role.copilot":"Antwortet und ber&auml;t","table.role.cowork":"Arbeitet an Inhalten mit","table.role.personal":"F&uuml;hrt eine Routine aus","table.role.business":"Unterst&uuml;tzt eine Beratungsmethode","table.context":"Kontext","table.context.copilot":"In der Konversation bereitgestellt","table.context.cowork":"Freigegebene Quellen und Dateien","table.context.personal":"Interne Tools und Prozesse","table.context.business":"Projektdaten und -rahmen","table.action":"Handlungsf&auml;higkeit","table.action.copilot":"Keine direkte Aktion","table.action.cowork":"Liest, erstellt und bearbeitet","table.action.personal":"Verkettet Schritte","table.action.business":"Spezifische Funktionen in einer App","table.output":"Ergebnis","table.output.copilot":"Eine Antwort","table.output.cowork":"Aktualisierter Inhalt oder Datei","table.output.personal":"Ein ausgef&uuml;hrter Prozess","table.output.business":"Eine Anwendung und ihre Ergebnisse","table.best":"Besonders n&uuml;tzlich f&uuml;r","table.best.copilot":"Einen punktuellen Bedarf","table.best.cowork":"Eine Dokumentenaufgabe","table.best.personal":"Eine interne Routine","table.best.business":"Ein Projekt und wiederverwendbares Know-how",
+    "maker.title":"Unser Know-how in Projektanwendungen verwandeln","maker.p1":"Die Initiative <strong>AI CYB Maker</strong> konzentriert sich auf das vierte Modell: Berater sollen Fachagenten erstellen, die unsere Methoden verk&ouml;rpern und konkret in Projekten genutzt werden.","maker.p2":"Vibe Coding verk&uuml;rzt den Weg von der Fachidee zum testbaren Werkzeug. Ziel ist nicht, alles zu automatisieren, sondern wiederholbare Expertise in eine n&uuml;tzliche, portable und verbesserbare Anwendung zu verwandeln.","maker.workshop":"Workshop starten &rarr;","maker.examples":"Unsere Agenten ansehen &rarr;","maker.step1":"Mit einem Problem oder Fachwissen starten.","maker.step2":"In Nutzerpfad, Regeln und Ergebnisse &uuml;bersetzen.","maker.step3":"Schnell eine erste Anwendung bauen.","maker.step4":"Im Projekt testen, absichern und verbessern.","footer.src":"Vom Copilot zum Fachagenten &mdash; Wavestone CYB &middot; AI Maker Initiative","footer.principles":"Designprinzipien ansehen &rarr;"
+  }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/mobile-nav.js"></script>
+</body>
+</html>

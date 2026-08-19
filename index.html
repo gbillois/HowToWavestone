@@ -102,6 +102,9 @@
   .card:hover .cta{gap:12px}
   .cta .arrow{transition:transform .18s var(--ws-ease)}
   .card:hover .cta .arrow{transform:translateX(3px)}
+  .card-wide{grid-column:1/-1}
+  .card-wide p{max-width:76ch}
+  @media(max-width:640px){.card-wide{grid-column:auto}}
 
   /* ---------- footer ---------- */
   footer{max-width:1040px;margin:56px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);width:100%;text-align:center}
@@ -122,6 +125,7 @@
       <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
       <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
       <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="ai-usage-models.html">Copilot &rarr; Agents</a>
       <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
       <a class="jump" href="dance-with-the-ai-stars.html" data-i18n="nav.dais">Dance With the AI Stars</a>
       <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
@@ -163,6 +167,20 @@
       <span class="chip">Multi-clients</span>
     </div>
     <span class="cta" data-i18n="c2.cta">D&eacute;couvrir les principes <span class="arrow">&#8594;</span></span>
+  </a>
+
+  <a class="card card-wide" href="ai-usage-models.html">
+    <div class="card-icon learn" style="font-family:var(--ws-font-mono);font-weight:600">04</div>
+    <span class="tag formation" data-i18n="c8.tag">Panorama IA</span>
+    <h2 data-i18n="c8.h2">Du Copilot &agrave; l&rsquo;agent m&eacute;tier conseil</h2>
+    <p data-i18n="c8.p">Comprendre quatre mod&egrave;les d&rsquo;usage&nbsp;: le chatbot qui r&eacute;pond, Cowork qui agit sur les donn&eacute;es et les fichiers, l&rsquo;agent personnel qui automatise, et l&rsquo;application m&eacute;tier de mission cr&eacute;&eacute;e en vibe coding.</p>
+    <div class="chips" data-i18n="c8.chips">
+      <span class="chip">Copilot</span>
+      <span class="chip">Cowork</span>
+      <span class="chip">Agent personnel</span>
+      <span class="chip">Agent m&eacute;tier</span>
+    </div>
+    <span class="cta" data-i18n="c8.cta">Comparer les mod&egrave;les <span class="arrow">&#8594;</span></span>
   </a>
 
   <a class="card" href="https://digiplace.sharepoint.com/sites/AIGlobalHub/SitePages/AI-&-ME.aspx?csf=1&web=1&e=uWcp7i&CID=12e43fb3-8d27-4e64-b8b9-108cfe47a1ca&xsdata=MDV8MDJ8fGE3MWVlYTk0YWIzNTRmYjJkNzE4MDhkZWRiNWUyNzBhfDVkZTk2Yzk2Yzg3YzRkY2VhYWQ5ZjVjNTU3YjUyYWMxfDB8MHw2MzkxODkzOTQ1NjE2MTk3MzZ8VW5rbm93bnxWR1ZoYlhOVFpXTjFjbWwwZVZObGNuWnBZMlY4ZXlKRFFTSTZJbFJsWVcxelgwRlVVRk5sY25acFkyVmZVMUJQVEU5R0lpd2lWaUk2SWpBdU1DNHdNREF3SWl3aVVDSTZJbGRwYmpNeUlpd2lRVTRpT2lKUGRHaGxjaUlzSWxkVUlqb3hNWDA9fDF8TDJOb1lYUnpMekU1T20xbFpYUnBibWRmVG1wVk1FOUVaR3RhVkVsMFQwUk5NRnBwTURCT2FrRXdURmRKTkU0eVVYUk5iVVY1VGxkVmVrOUhSVEJaYlZadFFIUm9jbVZoWkM1Mk1pOXRaWE56WVdkbGN5OHhOemd6TXpReU5qVXpOamc0fDIxZDVkZWU1MzA1ZjQyNzMzYTlmMDhkZWRiNWUyNzBhfDNlZGRmYTFhMDlmYTQwZmI5OWFlNzE5M2JiMGNlODc0&sdata=UU15ejlUQmVSTG5DRjNvTDFQWHlvQkJyRkVVMlhNRERDNHQxZENVK1JEVT0%3D&ovuser=5de96c96-c87c-4dce-aad9-f5c557b52ac1%2Cgerome.billois%40wavestone.com&TeamsCID=37062a02-4af6-4ede-abf0-fd3349a70164&OR=Teams-HL&CT=1783342657687&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiI0OS8yNjA1MjkwNjEyMSJ9" target="_blank" rel="noopener noreferrer">
@@ -263,6 +281,11 @@ window.WS_I18N = {
     "c7.p": "How to budget and track token usage: budgeted in the proposal and tracked in Wavekeeper for client engagements, requested from the CDM for internal usage outside a mission.",
     "c7.chips": "<span class=\"chip\">Proposal &amp; Wavekeeper</span><span class=\"chip\">Internal usage</span><span class=\"chip\">CDM</span>",
     "c7.cta": "Understand the model <span class=\"arrow\">&#8594;</span>",
+    "c8.tag": "AI landscape",
+    "c8.h2": "From Copilot to consulting business agent",
+    "c8.p": "Understand four usage models: the chatbot that answers, Cowork acting on data and files, the personal agent that automates, and the vibe-coded business application used in engagements.",
+    "c8.chips": "<span class=\"chip\">Copilot</span><span class=\"chip\">Cowork</span><span class=\"chip\">Personal agent</span><span class=\"chip\">Business agent</span>",
+    "c8.cta": "Compare the models <span class=\"arrow\">&#8594;</span>",
     "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; internal AI innovation hub"
   },
   de: {
@@ -303,6 +326,11 @@ window.WS_I18N = {
     "c7.p": "Wie man die Token-Nutzung budgetiert und verfolgt: im Angebot budgetiert und in Wavekeeper verfolgt f&uuml;r Kundenauftr&auml;ge, beim CDM beantragt f&uuml;r interne Nutzung au&szlig;erhalb eines Auftrags.",
     "c7.chips": "<span class=\"chip\">Angebot &amp; Wavekeeper</span><span class=\"chip\">Interne Nutzung</span><span class=\"chip\">CDM</span>",
     "c7.cta": "Das Modell verstehen <span class=\"arrow\">&#8594;</span>",
+    "c8.tag": "KI-Panorama",
+    "c8.h2": "Vom Copilot zum Beratungs-Fachagenten",
+    "c8.p": "Vier Nutzungsmodelle verstehen: der antwortende Chatbot, Cowork f&uuml;r Daten und Dateien, der automatisierende pers&ouml;nliche Agent und die per Vibe Coding erstellte Fachanwendung f&uuml;r Projekte.",
+    "c8.chips": "<span class=\"chip\">Copilot</span><span class=\"chip\">Cowork</span><span class=\"chip\">Pers&ouml;nlicher Agent</span><span class=\"chip\">Fachagent</span>",
+    "c8.cta": "Modelle vergleichen <span class=\"arrow\">&#8594;</span>",
     "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; interner KI-Innovations-Hub"
   }
 };
