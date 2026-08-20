@@ -37,6 +37,7 @@ PAGES = [
     "index.html",
     "playbook.html",
     "agent-principles.html",
+    "ai-usage-models.html",
     "our-agents.html",
     "dance-with-the-ai-stars.html",
     "usecase-cyberbench-orchestrator.html",
