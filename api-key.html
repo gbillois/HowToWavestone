@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wavestone CYB AI Maker &mdash; Cr&eacute;er une cl&eacute; API</title>
+<title>Wavestone CYB AI Maker &mdash; Cr&eacute;er une cl&eacute; API Azure</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -87,6 +87,91 @@
   footer a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:8px 14px;transition:.18s var(--ws-ease)}
   footer a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
 
+  /* ---------- tutoriel hands-on (m&ecirc;me syst&egrave;me que le guide static web site) ---------- */
+  .bar-in{flex-wrap:wrap}
+  .hero h1 .ac{color:var(--ws-green-400)}
+  .meta-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+  .meta-chips span{font-family:var(--ws-font-mono);font-size:11.5px;color:rgba(255,255,255,.9);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:6px 12px}
+  .host-tip{display:flex;gap:10px;align-items:flex-start;margin-top:22px;background:rgba(4,240,106,.12);border:1px solid rgba(4,240,106,.35);border-left:4px solid var(--ws-green-400);padding:12px 16px;max-width:68ch}
+  .host-tip svg{flex:0 0 auto;color:var(--ws-green-300);margin-top:2px}
+  .host-tip p{font-size:13.5px;color:rgba(255,255,255,.92);line-height:1.5}
+  .host-tip b{color:#fff}
+  .sec-head{margin-top:60px}
+  .sec-head h2{font-size:30px;letter-spacing:-.02em;margin-top:10px}
+  .sec-head p{color:var(--ws-ink-500);margin-top:6px;font-size:15.5px;max-width:66ch}
+  .rail{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:28px 0 22px;font-family:var(--ws-font-mono);font-size:13px}
+  .rail .n{padding:9px 16px;border:1px solid var(--ws-ink-200);background:#fff;color:var(--ws-ink-700);box-shadow:var(--ws-shadow-sm)}
+  .rail .n.live{background:var(--ws-green-400);border-color:var(--ws-green-400);color:var(--ws-indigo-900);font-weight:600}
+  .rail .ar{color:var(--ws-ink-300);font-size:18px}
+
+  .phase{margin-top:18px}
+  .phase-head{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;border-bottom:1px solid var(--ws-ink-100);padding-bottom:16px;margin-top:46px}
+  .phase-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:26px;color:var(--ws-indigo-600);margin-top:10px;letter-spacing:-.015em}
+  .phase-head .sub{color:var(--ws-ink-500);font-size:14.5px;margin-top:5px;max-width:64ch}
+  .prog{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-500);white-space:nowrap}
+  .prog b{color:var(--ws-indigo-600)}
+  .steps{position:relative;display:block;margin-top:24px}
+  .spine{position:absolute;left:21px;top:22px;bottom:22px;width:2px;background:var(--ws-ink-100);z-index:0}
+  .spine-fill{position:absolute;left:0;top:0;width:100%;height:0;background:var(--ws-gradient-accent);transition:height .5s var(--ws-ease)}
+  .step{position:relative;z-index:1;display:flex;gap:18px;padding-bottom:20px}
+  .node{flex:0 0 44px;width:44px;height:44px;background:#fff;border:1.5px solid var(--ws-ink-200);display:grid;place-items:center;font-family:var(--ws-font-mono);font-weight:600;font-size:15px;color:var(--ws-indigo-600);cursor:pointer;user-select:none;transition:.22s var(--ws-ease)}
+  .node:hover{border-color:var(--ws-indigo-600)}
+  .node .ck{display:none;font-size:20px;color:#fff;line-height:1}
+  .step.done .node{background:var(--ws-indigo-600);border-color:var(--ws-indigo-600);color:#fff}
+  .step.done .node .nm{display:none}
+  .step.done .node .ck{display:block}
+  .step .scard{position:relative;flex:1;display:block;min-width:0;padding:18px 20px;border:1px solid var(--ws-ink-100);box-shadow:var(--ws-shadow-sm);transform:none}
+  .step .scard:hover{transform:none;border-color:var(--ws-ink-100);box-shadow:var(--ws-shadow-sm)}
+  .step.done .scard{opacity:.72;border-color:var(--ws-green-50)}
+  .scard h4{font-family:var(--ws-font-display);font-weight:600;font-size:17px;color:var(--ws-ink-900);display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .scard .do{margin-top:8px;font-size:14.5px;color:var(--ws-ink-600);line-height:1.55}
+  .scard .do b{color:var(--ws-ink-900)}
+  code{font-family:var(--ws-font-mono);font-size:.85em;background:var(--ws-ink-50);padding:1px 6px}
+  .clicks{list-style:none;counter-reset:c;margin-top:13px;display:grid;gap:8px}
+  .clicks li{counter-increment:c;position:relative;padding-left:32px;font-size:14px;color:var(--ws-ink-700);line-height:1.5}
+  .clicks li::before{content:counter(c);position:absolute;left:0;top:1px;width:22px;height:22px;background:var(--ws-indigo-50);color:var(--ws-indigo-700);font-family:var(--ws-font-mono);font-weight:600;font-size:11px;display:grid;place-items:center}
+  .clicks b{color:var(--ws-ink-900)}
+  .ui-lbl{font-family:var(--ws-font-mono);font-size:.9em;background:var(--ws-ink-900);color:#fff;padding:1px 7px}
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .links .lk{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-family:var(--ws-font-mono);font-size:12.5px;border:1px solid var(--ws-ink-200);padding:7px 13px;background:#fff;color:var(--ws-ink-900);transition:.18s var(--ws-ease)}
+  .links .lk:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600);transform:translateY(-1px)}
+  .lk .ar{color:var(--ws-ink-400)}
+
+  .shots{display:grid;gap:14px;margin-top:16px;grid-template-columns:1fr}
+  @media(min-width:650px){.shots.two{grid-template-columns:1fr 1fr}}
+  .shots.narrow{max-width:520px}
+  figure.shot{margin:0;border:1px solid var(--ws-ink-200);background:#fff;box-shadow:var(--ws-shadow-md);overflow:hidden;display:flex;flex-direction:column}
+  figure.shot a.zoom{display:block;line-height:0;cursor:zoom-in}
+  figure.shot img{display:block;width:100%;height:auto;background:var(--ws-ink-50);border-bottom:1px solid var(--ws-ink-100)}
+  figure.shot figcaption{display:flex;gap:9px;align-items:flex-start;font-family:var(--ws-font-mono);font-size:11.5px;color:var(--ws-ink-500);padding:10px 13px;background:#fff;line-height:1.5}
+  figure.shot .sn{flex:0 0 auto;width:18px;height:18px;background:var(--ws-indigo-600);color:#fff;font-family:var(--ws-font-mono);font-weight:600;font-size:10.5px;display:grid;place-items:center;margin-top:1px}
+  .lb{position:fixed;inset:0;z-index:200;background:rgba(20,12,46,.9);display:none;align-items:center;justify-content:center;padding:32px;cursor:zoom-out}
+  .lb.on{display:flex}
+  .lb img{max-width:95vw;max-height:90vh;width:auto;height:auto;box-shadow:0 24px 70px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.14);cursor:default}
+  .lb-close{position:fixed;top:18px;right:22px;width:44px;height:44px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.32);color:#fff;font-size:24px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:.18s var(--ws-ease)}
+  .lb-close:hover{background:rgba(255,255,255,.24)}
+
+  .note{display:block;margin-top:16px;padding:14px 16px;background:var(--ws-indigo-50);border:1px solid var(--ws-indigo-100);border-left:4px solid var(--ws-indigo-600)}
+  .note.green{background:var(--ws-green-50);border-color:var(--ws-green-400);border-left-color:var(--ws-green-700)}
+  .note.warn{background:#FBF1DD;border-color:#F0DBA8;border-left-color:var(--ws-warning)}
+  .note .lab{color:var(--ws-indigo-600);margin-bottom:6px}
+  .note.green .lab{color:var(--ws-green-700)}
+  .note.warn .lab{color:var(--ws-warning)}
+  .note p{font-size:13.8px;line-height:1.55}
+  .key-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:14px}
+  @media(min-width:720px){.key-grid{grid-template-columns:repeat(3,1fr)}}
+  .key-item{border:1px solid var(--ws-indigo-100);background:#fff;padding:13px 14px}
+  .key-item b{display:block;font-family:var(--ws-font-display);font-size:14px;color:var(--ws-indigo-700);margin-bottom:4px}
+  .key-item span{font-size:13px;color:var(--ws-ink-600);line-height:1.45}
+  .key-item code{word-break:break-all}
+  .security-list{list-style:none;display:grid;gap:10px;margin-top:12px}
+  .security-list li{position:relative;padding-left:26px;font-size:14px;color:var(--ws-ink-700)}
+  .security-list li::before{content:'\2713';position:absolute;left:0;top:0;color:var(--ws-green-700);font-weight:700}
+  .res-card{margin-top:20px}
+  .reset{font-family:var(--ws-font-mono);font-size:12.5px;border:1px solid var(--ws-ink-200);background:#fff;padding:8px 14px;cursor:pointer;color:var(--ws-ink-500);transition:.18s var(--ws-ease)}
+  .reset:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+  @media(max-width:560px){.hero-in{padding-top:46px}.step{gap:10px}.node{flex-basis:38px;width:38px;height:38px}.spine{left:18px}.step .scard{padding:16px 14px}.res-cta{align-items:flex-start;flex-direction:column}}
+
   :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus);border-radius:8px}
   @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
   *,*::before,*::after{border-radius:0!important}
@@ -115,94 +200,281 @@
     <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
   </svg>
   <div class="hero-in">
-    <span class="eyebrow" data-i18n="hero.eyebrow">Acc&egrave;s &amp; gouvernance</span>
-    <h1 data-i18n="hero.title">Cr&eacute;er une cl&eacute; API pour votre projet</h1>
-    <p class="lede" data-i18n="hero.lede">Pour appeler un mod&egrave;le d'IA depuis votre application, il vous faut une cl&eacute; API Wavestone. Voici la proc&eacute;dure, la validation requise, et le cas particulier de nos applications maison.</p>
+    <span class="eyebrow" data-i18n="hero.eyebrow">Tutoriel hands-on</span>
+    <h1 data-i18n="hero.title">Cr&eacute;er et utiliser une <span class="ac">cl&eacute; API Azure</span></h1>
+    <p class="lede" data-i18n="hero.lede">Du compte POC &agrave; la premi&egrave;re connexion r&eacute;ussie&nbsp;: suivez le parcours dans Azure Microsoft Foundry, cochez chaque &eacute;tape et zoomez sur les captures d&rsquo;&eacute;cran.</p>
+    <div class="meta-chips">
+      <span data-i18n="hero.chip1"># 100% navigateur</span>
+      <span data-i18n="hero.chip2"># validation CDM requise</span>
+      <span data-i18n="hero.chip3"># budget d&eacute;mo&nbsp;: 20&nbsp;$</span>
+      <span data-i18n="hero.chip4"># Azure &middot; Microsoft Foundry</span>
+    </div>
+    <div class="host-tip">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+      <p data-i18n="hero.notice"><b>Pr&eacute;requis&nbsp;:</b> demandez d&rsquo;abord un <b>compte POC</b> dans Power Apps et attendez la validation de votre <b>Chef de Mission (CDM)</b>. Pour la plupart des d&eacute;monstrations, un budget de <b>20&nbsp;$</b> suffit.</p>
+    </div>
   </div>
 </header>
 
-<div class="wrap">
+<main class="wrap">
 
   <div class="sec-head">
-    <span class="eyebrow" data-i18n="steps.eyebrow">La marche &agrave; suivre</span>
-    <h2 data-i18n="steps.h2">Trois &eacute;tapes pour obtenir une cl&eacute;</h2>
+    <span class="eyebrow" data-i18n="overview.eyebrow">Le parcours</span>
+    <h2 data-i18n="overview.title">De la demande &agrave; la connexion test&eacute;e</h2>
+    <p data-i18n="overview.intro">Le tutoriel couvre la cr&eacute;ation de la ressource Foundry, le d&eacute;ploiement d&rsquo;un mod&egrave;le et la r&eacute;cup&eacute;ration des trois informations n&eacute;cessaires &agrave; votre application.</p>
   </div>
 
-  <div class="steps">
-    <article class="scard">
-      <div class="n">1</div>
-      <h3 data-i18n="s1.title">Suivre la proc&eacute;dure Power Apps</h3>
-      <p data-i18n="s1.body">La cr&eacute;ation des cl&eacute;s API se fait dans l'application <b>Power Apps Wavestone</b> d&eacute;di&eacute;e. Le product manager du produit peut cr&eacute;er les cl&eacute;s et les associer aux personnes qui en ont besoin.</p>
-      <a class="lk" href="https://apps.powerapps.com/play/e/03198640-3be3-ebd9-90cf-49ed52db3158/a/cb325a04-ac43-4133-9f1a-af3fc3845f8c?tenantId=5de96c96-c87c-4dce-aad9-f5c557b52ac1&amp;hint=26ff1bb4-0493-416f-a06f-0c1c4f1d6245&amp;source=sharebutton&amp;sourcetime=1781518515405" target="_blank" rel="noopener" data-i18n="s1.link">ouvrir Power Apps &#8599;</a>
-    </article>
-
-    <article class="scard">
-      <div class="n">2</div>
-      <h3 data-i18n="s2.title">Faire valider par le CDM</h3>
-      <p data-i18n="s2.body">Toute cl&eacute; doit &ecirc;tre <b>valid&eacute;e par votre Chef de Mission (CDM)</b> avant utilisation&nbsp;: c'est lui qui ent&eacute;rine le besoin et l'usage des appels d'API dans le cadre de la mission.</p>
-    </article>
-
-    <article class="scard">
-      <div class="n">3</div>
-      <h3 data-i18n="s3.title">Associer la cl&eacute; &agrave; l'utilisateur</h3>
-      <p data-i18n="s3.body">Une fois cr&eacute;&eacute;e et valid&eacute;e, la cl&eacute; est associ&eacute;e &agrave; la personne (chef de projet / utilisateur) qui r&eacute;alise la mission, puis utilis&eacute;e dans le code pour les appels au mod&egrave;le.</p>
-    </article>
+  <div class="rail" aria-label="Parcours du tutoriel">
+    <span class="n" data-i18n="rail.1">Compte POC</span><span class="ar">&rarr;</span>
+    <span class="n" data-i18n="rail.2">Validation CDM</span><span class="ar">&rarr;</span>
+    <span class="n" data-i18n="rail.3">Ressource Foundry</span><span class="ar">&rarr;</span>
+    <span class="n" data-i18n="rail.4">Mod&egrave;le d&eacute;ploy&eacute;</span><span class="ar">&rarr;</span>
+    <span class="n live" data-i18n="rail.5">Connexion test&eacute;e</span>
   </div>
 
-  <div class="note">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-    <div>
-      <div class="lab" data-i18n="important.lab">Cas CrisisMaker &amp; CyberBenchmark Helper</div>
-      <p data-i18n="important.body">Si la cl&eacute; est destin&eacute;e &agrave; utiliser <b>CrisisMaker</b> ou <b>CyberBenchmark Helper</b>, ne cr&eacute;ez pas de cl&eacute; vous-m&ecirc;me&nbsp;: <b>adressez-vous directement &agrave; l'&eacute;quipe projet</b>, qui vous fournira l'acc&egrave;s adapt&eacute; &agrave; l'application.</p>
-    </div>
+  <div class="note warn">
+    <div class="lab" data-i18n="special.lab">Cas CrisisMaker &amp; CyberBenchmark Helper</div>
+    <p data-i18n="special.body">Si la cl&eacute; sert &agrave; utiliser <b>CrisisMaker</b> ou <b>CyberBenchmark Helper</b>, ne cr&eacute;ez pas de ressource vous-m&ecirc;me&nbsp;: <b>adressez-vous directement &agrave; l&rsquo;&eacute;quipe du produit</b>, qui vous fournira l&rsquo;acc&egrave;s adapt&eacute;.</p>
   </div>
 
   <div class="res">
     <div class="res-card">
-      <h3><span class="star"><svg width="0.85em" height="0.85em" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span> <span data-i18n="res.title">Acc&egrave;s &amp; cl&eacute;s Wavestone</span></h3>
+      <h3 data-i18n="res.title">Commencer par la demande de compte POC</h3>
       <a class="res-cta" href="https://apps.powerapps.com/play/e/03198640-3be3-ebd9-90cf-49ed52db3158/a/cb325a04-ac43-4133-9f1a-af3fc3845f8c?tenantId=5de96c96-c87c-4dce-aad9-f5c557b52ac1&amp;hint=26ff1bb4-0493-416f-a06f-0c1c4f1d6245&amp;source=sharebutton&amp;sourcetime=1781518515405" target="_blank" rel="noopener">
-        <span class="nm" data-i18n="res.cta">Cr&eacute;er une cl&eacute; API Wavestone</span><span class="go">Power Apps &#8599;</span>
+        <span class="nm" data-i18n="res.cta">Ouvrir l&rsquo;application Power Apps Wavestone</span><span class="go">Power Apps &#8599;</span>
       </a>
-      <div class="cap"><span>&#8505;</span><span data-i18n="res.note">La cr&eacute;ation d'une cl&eacute; API et la demande d'un compte POC se font dans la m&ecirc;me application Power Apps Wavestone.</span></div>
+      <div class="cap"><span>&#8505;</span><span data-i18n="res.note">La demande de compte POC et les op&eacute;rations li&eacute;es &agrave; l&rsquo;acc&egrave;s Azure se font dans cette m&ecirc;me application.</span></div>
     </div>
   </div>
+
+  <div class="phase-head">
+    <div><span class="eyebrow" data-i18n="p1.eyebrow">Phase 1 &mdash; Demander</span><h2 data-i18n="p1.title">Obtenir le compte POC et la validation</h2><div class="sub" data-i18n="p1.sub">Cette phase pr&eacute;c&egrave;de toute action dans Azure.</div></div>
+    <div class="prog"><b class="dn">0</b>/<span class="tot">2</span> <span data-i18n="word.steps">&eacute;tapes</span></div>
+  </div>
+  <div class="phase"><div class="steps"><div class="spine"><div class="spine-fill"></div></div>
+    <div class="step"><div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck">&#10003;</span></div><article class="scard">
+      <h4 data-i18n="p1s1.title">Demander la cr&eacute;ation d&rsquo;un compte POC</h4>
+      <div class="do" data-i18n="p1s1.body">Dans l&rsquo;application Azure Platform, s&eacute;lectionnez <b>Request the creation of a new POC account</b> et compl&eacute;tez les informations demand&eacute;es.</div>
+      <ol class="clicks" data-i18n="p1s1.clicks"><li>Ouvrez l&rsquo;application Power Apps.</li><li>S&eacute;lectionnez <span class="ui-lbl">Request the creation of a new POC account</span>.</li><li>Renseignez le besoin, les membres et le budget. Pour une d&eacute;monstration standard, indiquez <b>20&nbsp;$</b>.</li><li>Envoyez la demande pour validation.</li></ol>
+      <div class="shots narrow"><figure class="shot"><a class="zoom" href="assets/screens/api-key-azure-01.png" target="_blank" rel="noopener"><img src="assets/screens/api-key-azure-01.png" loading="lazy" alt="Formulaire Azure Platform avec l'option de cr&eacute;ation d'un compte POC"></a><figcaption><span class="sn">1</span><span data-i18n="cap.01">Choisissez la cr&eacute;ation d&rsquo;un nouveau compte POC.</span></figcaption></figure></div>
+      <div class="links"><a class="lk" href="https://apps.powerapps.com/play/e/03198640-3be3-ebd9-90cf-49ed52db3158/a/cb325a04-ac43-4133-9f1a-af3fc3845f8c?tenantId=5de96c96-c87c-4dce-aad9-f5c557b52ac1&amp;hint=26ff1bb4-0493-416f-a06f-0c1c4f1d6245&amp;source=sharebutton&amp;sourcetime=1781518515405" target="_blank" rel="noopener">Power Apps <span class="ar">&#8599;</span></a></div>
+    </article></div>
+    <div class="step"><div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck">&#10003;</span></div><article class="scard">
+      <h4 data-i18n="p1s2.title">Attendre l&rsquo;accord du CDM</h4>
+      <div class="do" data-i18n="p1s2.body">La demande doit &ecirc;tre <b>approuv&eacute;e par votre Chef de Mission</b>. Une fois l&rsquo;accord obtenu, ouvrez le portail Azure depuis le lien re&ccedil;u par e-mail de l&rsquo;&eacute;quipe Azure Platform, ou directement depuis le portail.</div>
+      <div class="links"><a class="lk" href="https://portal.azure.com/" target="_blank" rel="noopener">portal.azure.com <span class="ar">&#8599;</span></a></div>
+      <div class="note green"><div class="lab" data-i18n="word.keypoint">&Agrave; retenir</div><p data-i18n="p1s2.note">Ne poursuivez pas tant que le compte POC n&rsquo;est pas visible dans Azure et que l&rsquo;approbation n&rsquo;est pas confirm&eacute;e.</p></div>
+    </article></div>
+  </div></div>
+
+  <div class="phase-head">
+    <div><span class="eyebrow" data-i18n="p2.eyebrow">Phase 2 &mdash; Cr&eacute;er</span><h2 data-i18n="p2.title">Cr&eacute;er la ressource Microsoft Foundry</h2><div class="sub" data-i18n="p2.sub">Utilisez l&rsquo;abonnement Self Service et la r&eacute;gion West Europe.</div></div>
+    <div class="prog"><b class="dn">0</b>/<span class="tot">4</span> <span data-i18n="word.steps">&eacute;tapes</span></div>
+  </div>
+  <div class="phase"><div class="steps"><div class="spine"><div class="spine-fill"></div></div>
+    <div class="step"><div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck">&#10003;</span></div><article class="scard">
+      <h4 data-i18n="p2s1.title">Lancer la cr&eacute;ation d&rsquo;une ressource</h4><div class="do" data-i18n="p2s1.body">Dans l&rsquo;accueil Azure, cliquez sur <span class="ui-lbl">Create a resource</span>.</div>
+      <div class="shots"><figure class="shot"><a class="zoom" href="assets/screens/api-key-azure-02.png" target="_blank" rel="noopener"><img src="assets/screens/api-key-azure-02.png" loading="lazy" alt="Raccourci Create a resource dans le portail Azure"></a><figcaption><span class="sn">1</span><span data-i18n="cap.02">Depuis Azure services, ouvrez &laquo;&nbsp;Create a resource&nbsp;&raquo;.</span></figcaption></figure></div>
+    </article></div>
+    <div class="step"><div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck">&#10003;</span></div><article class="scard">
+      <h4 data-i18n="p2s2.title">Choisir Microsoft Foundry</h4><div class="do" data-i18n="p2s2.body">Recherchez <b>Microsoft Foundry</b>, puis s&eacute;lectionnez l&rsquo;abonnement <span class="ui-lbl">Self Service</span> et le plan <span class="ui-lbl">Microsoft Foundry</span>.</div>
+      <div class="shots"><figure class="shot"><a class="zoom" href="assets/screens/api-key-azure-03.png" target="_blank" rel="noopener"><img src="assets/screens/api-key-azure-03.png" loading="lazy" alt="Offre Microsoft Foundry avec abonnement Self Service"></a><figcaption><span class="sn">2</span><span data-i18n="cap.03">V&eacute;rifiez l&rsquo;abonnement et le plan avant de cliquer sur &laquo;&nbsp;Create&nbsp;&raquo;.</span></figcaption></figure></div>
+    </article></div>
+    <div class="step"><div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck">&#10003;</span></div><article class="scard">
+      <h4 data-i18n="p2s3.title">Configurer la ressource et le projet</h4><div class="do" data-i18n="p2s3.body">Renseignez les quatre champs structurants, puis lancez la revue de la configuration.</div>
+      <ol class="clicks" data-i18n="p2s3.clicks"><li>Dans <b>Resource group</b>, choisissez le nom retenu lors de la demande du compte POC.</li><li>Donnez un nom explicite &agrave; la ressource.</li><li>Choisissez <span class="ui-lbl">(Europe) West Europe</span>.</li><li>Donnez un nom au premier projet, puis cliquez sur <span class="ui-lbl">Review + create</span>.</li></ol>
+      <div class="shots"><figure class="shot"><a class="zoom" href="assets/screens/api-key-azure-04.png" target="_blank" rel="noopener"><img src="assets/screens/api-key-azure-04.png" loading="lazy" alt="Configuration d'une ressource Foundry avec quatre champs rep&eacute;r&eacute;s"></a><figcaption><span class="sn">3</span><span data-i18n="cap.04">Groupe de ressources, nom, r&eacute;gion et nom du projet.</span></figcaption></figure></div>
+    </article></div>
+    <div class="step"><div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">4</span><span class="ck">&#10003;</span></div><article class="scard">
+      <h4 data-i18n="p2s4.title">Ouvrir le portail Foundry</h4><div class="do" data-i18n="p2s4.body">Une fois le d&eacute;ploiement termin&eacute;, ouvrez la ressource puis cliquez sur <span class="ui-lbl">Go to Foundry portal</span>.</div>
+      <div class="shots"><figure class="shot"><a class="zoom" href="assets/screens/api-key-azure-05.png" target="_blank" rel="noopener"><img src="assets/screens/api-key-azure-05.png" loading="lazy" alt="Page Azure d'une ressource Foundry avec le bouton Go to Foundry portal"></a><figcaption><span class="sn">4</span><span data-i18n="cap.05">Ouvrez la ressource d&eacute;ploy&eacute;e, puis basculez vers Foundry.</span></figcaption></figure></div>
+    </article></div>
+  </div></div>
+
+  <div class="phase-head">
+    <div><span class="eyebrow" data-i18n="p3.eyebrow">Phase 3 &mdash; D&eacute;ployer</span><h2 data-i18n="p3.title">D&eacute;ployer un mod&egrave;le et r&eacute;cup&eacute;rer la cl&eacute;</h2><div class="sub" data-i18n="p3.sub">La cl&eacute; devient utilisable une fois un mod&egrave;le d&eacute;ploy&eacute;.</div></div>
+    <div class="prog"><b class="dn">0</b>/<span class="tot">5</span> <span data-i18n="word.steps">&eacute;tapes</span></div>
+  </div>
+  <div class="phase"><div class="steps"><div class="spine"><div class="spine-fill"></div></div>
+    <div class="step"><div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck">&#10003;</span></div><article class="scard">
+      <h4 data-i18n="p3s1.title">Afficher les d&eacute;ploiements</h4><div class="do" data-i18n="p3s1.body">Dans la nouvelle interface Foundry, cliquez sur <span class="ui-lbl">View deployments</span> dans la carte <b>Use a model</b>.</div>
+      <div class="shots"><figure class="shot"><a class="zoom" href="assets/screens/api-key-azure-06.png" target="_blank" rel="noopener"><img src="assets/screens/api-key-azure-06.png" loading="lazy" alt="Accueil Microsoft Foundry avec le bouton View deployments"></a><figcaption><span class="sn">1</span><span data-i18n="cap.06">Depuis l&rsquo;accueil Foundry, ouvrez les d&eacute;ploiements.</span></figcaption></figure></div>
+    </article></div>
+    <div class="step"><div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck">&#10003;</span></div><article class="scard">
+      <h4 data-i18n="p3s2.title">D&eacute;ployer un mod&egrave;le de base</h4><div class="do" data-i18n="p3s2.body">Dans <b>Models &rarr; Deployments</b>, cliquez sur <span class="ui-lbl">Deploy a base model</span>.</div>
+      <div class="shots"><figure class="shot"><a class="zoom" href="assets/screens/api-key-azure-07.png" target="_blank" rel="noopener"><img src="assets/screens/api-key-azure-07.png" loading="lazy" alt="Page Models Deployments avec le bouton Deploy a base model"></a><figcaption><span class="sn">2</span><span data-i18n="cap.07">Lancez le d&eacute;ploiement de votre premier mod&egrave;le.</span></figcaption></figure></div>
+    </article></div>
+    <div class="step"><div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck">&#10003;</span></div><article class="scard">
+      <h4 data-i18n="p3s3.title">Rechercher le mod&egrave;le</h4><div class="do" data-i18n="p3s3.body">Recherchez le mod&egrave;le souhait&eacute; &mdash; par exemple <code>gpt-5.5</code> dans le tutoriel &mdash; puis ouvrez sa fiche.</div>
+      <div class="shots"><figure class="shot"><a class="zoom" href="assets/screens/api-key-azure-08.png" target="_blank" rel="noopener"><img src="assets/screens/api-key-azure-08.png" loading="lazy" alt="Catalogue Foundry filtr&eacute; sur le mod&egrave;le gpt-5.5"></a><figcaption><span class="sn">3</span><span data-i18n="cap.08">Filtrez le catalogue, puis s&eacute;lectionnez le mod&egrave;le.</span></figcaption></figure></div>
+      <div class="note"><div class="lab" data-i18n="word.note">Note</div><p data-i18n="p3s3.note">La disponibilit&eacute; des mod&egrave;les d&eacute;pend de votre abonnement et de la r&eacute;gion. Si <code>gpt-5.5</code> n&rsquo;est pas propos&eacute;, choisissez un mod&egrave;le autoris&eacute; pour votre projet.</p></div>
+    </article></div>
+    <div class="step"><div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">4</span><span class="ck">&#10003;</span></div><article class="scard">
+      <h4 data-i18n="p3s4.title">D&eacute;ployer avec les param&egrave;tres par d&eacute;faut</h4><div class="do" data-i18n="p3s4.body">Cliquez sur <span class="ui-lbl">Deploy</span>, puis sur <span class="ui-lbl">Default settings</span>.</div>
+      <div class="shots"><figure class="shot"><a class="zoom" href="assets/screens/api-key-azure-09.png" target="_blank" rel="noopener"><img src="assets/screens/api-key-azure-09.png" loading="lazy" alt="Menu Deploy avec l'option Default settings"></a><figcaption><span class="sn">4</span><span data-i18n="cap.09">Utilisez les param&egrave;tres par d&eacute;faut pour ce premier d&eacute;ploiement.</span></figcaption></figure></div>
+    </article></div>
+    <div class="step"><div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">5</span><span class="ck">&#10003;</span></div><article class="scard">
+      <h4 data-i18n="p3s5.title">R&eacute;cup&eacute;rer les informations de connexion</h4><div class="do" data-i18n="p3s5.body">Une fois le d&eacute;ploiement cr&eacute;&eacute;, ouvrez l&rsquo;onglet <span class="ui-lbl">Details</span>. Copiez les trois valeurs dont votre application aura besoin.</div>
+      <div class="shots"><figure class="shot"><a class="zoom" href="assets/screens/api-key-azure-10.png" target="_blank" rel="noopener"><img src="assets/screens/api-key-azure-10.png" loading="lazy" alt="D&eacute;tails du d&eacute;ploiement avec Endpoint, Key et Name rep&eacute;r&eacute;s"></a><figcaption><span class="sn">5</span><span data-i18n="cap.10">Les champs Endpoint, Key et Name se trouvent dans &laquo;&nbsp;Details&nbsp;&raquo;.</span></figcaption></figure></div>
+      <div class="key-grid">
+        <div class="key-item"><b>Endpoint</b><span data-i18n="key.endpoint">Pour certaines applications, conservez uniquement la base de l&rsquo;URL, par exemple <code>https://mve-ai.services.ai.azure.com</code>.</span></div>
+        <div class="key-item"><b>Key</b><span data-i18n="key.secret">C&rsquo;est votre cl&eacute; API. <strong>Ne la partagez jamais</strong> et stockez-la comme un secret.</span></div>
+        <div class="key-item"><b>Name</b><span data-i18n="key.name">C&rsquo;est le nom du d&eacute;ploiement, par exemple <code>gpt-5.5</code>.</span></div>
+      </div>
+    </article></div>
+  </div></div>
+
+  <div class="phase-head">
+    <div><span class="eyebrow" data-i18n="p4.eyebrow">Phase 4 &mdash; Tester</span><h2 data-i18n="p4.title">V&eacute;rifier la cl&eacute; dans DeckSeeder</h2><div class="sub" data-i18n="p4.sub">Exemple d&rsquo;int&eacute;gration avec une application qui utilise Azure OpenAI.</div></div>
+    <div class="prog"><b class="dn">0</b>/<span class="tot">3</span> <span data-i18n="word.steps">&eacute;tapes</span></div>
+  </div>
+  <div class="phase"><div class="steps"><div class="spine"><div class="spine-fill"></div></div>
+    <div class="step"><div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck">&#10003;</span></div><article class="scard">
+      <h4 data-i18n="p4s1.title">Ouvrir la configuration IA</h4><div class="do" data-i18n="p4s1.body">Ouvrez DeckSeeder et cliquez sur <span class="ui-lbl">Configure AI</span>.</div>
+      <div class="shots"><figure class="shot"><a class="zoom" href="assets/screens/api-key-azure-11.png" target="_blank" rel="noopener"><img src="assets/screens/api-key-azure-11.png" loading="lazy" alt="Accueil DeckSeeder avec le bouton Configure AI"></a><figcaption><span class="sn">1</span><span data-i18n="cap.11">Depuis l&rsquo;&eacute;cran d&rsquo;accueil, ouvrez &laquo;&nbsp;Configure AI&nbsp;&raquo;.</span></figcaption></figure></div>
+      <div class="links"><a class="lk" href="https://deckseeder.pages.dev/" target="_blank" rel="noopener">deckseeder.pages.dev <span class="ar">&#8599;</span></a></div>
+    </article></div>
+    <div class="step"><div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck">&#10003;</span></div><article class="scard">
+      <h4 data-i18n="p4s2.title">Renseigner les param&egrave;tres Azure</h4><div class="do" data-i18n="p4s2.body">Choisissez <span class="ui-lbl">Azure OpenAI</span> comme fournisseur, puis collez la cl&eacute;, l&rsquo;endpoint et le nom du d&eacute;ploiement. S&eacute;lectionnez enfin le mod&egrave;le correspondant.</div>
+      <div class="shots"><figure class="shot"><a class="zoom" href="assets/screens/api-key-azure-12.png" target="_blank" rel="noopener"><img src="assets/screens/api-key-azure-12.png" loading="lazy" alt="Param&egrave;tres IA DeckSeeder configur&eacute;s pour Azure OpenAI"></a><figcaption><span class="sn">2</span><span data-i18n="cap.12">Renseignez les quatre champs avec les valeurs de votre d&eacute;ploiement.</span></figcaption></figure></div>
+      <div class="note warn"><div class="lab" data-i18n="word.security">S&eacute;curit&eacute;</div><p data-i18n="p4s2.note">V&eacute;rifiez que l&rsquo;usage de l&rsquo;IA est autoris&eacute; pour le contenu manipul&eacute;. Ne saisissez jamais une cl&eacute; dans une application que vous ne connaissez pas ou qui ne prot&egrave;ge pas les secrets.</p></div>
+    </article></div>
+    <div class="step"><div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck">&#10003;</span></div><article class="scard">
+      <h4 data-i18n="p4s3.title">Tester puis enregistrer</h4><div class="do" data-i18n="p4s3.body">Cliquez sur <span class="ui-lbl">Test connection</span>. Si le voyant passe au vert et que le statut <b>Connected</b> appara&icirc;t, cliquez sur <span class="ui-lbl">Save</span>.</div>
+      <div class="shots narrow"><figure class="shot"><a class="zoom" href="assets/screens/api-key-azure-13.png" target="_blank" rel="noopener"><img src="assets/screens/api-key-azure-13.png" loading="lazy" alt="Boutons Save et Test connection avec le statut Connected"></a><figcaption><span class="sn">3</span><span data-i18n="cap.13">Le voyant vert et &laquo;&nbsp;Connected&nbsp;&raquo; confirment que la configuration fonctionne.</span></figcaption></figure></div>
+      <div class="note green"><div class="lab" data-i18n="word.bravo">Bravo</div><p data-i18n="p4s3.note">Votre ressource, votre mod&egrave;le et votre cl&eacute; sont op&eacute;rationnels. Vous pouvez maintenant connecter une application compatible &agrave; ce d&eacute;ploiement.</p></div>
+    </article></div>
+  </div></div>
 
   <div class="sec-head">
-    <span class="eyebrow" data-i18n="sec.eyebrow">S&eacute;curit&eacute;</span>
-    <h2 data-i18n="sec.h2">Une cl&eacute; API se traite comme un mot de passe</h2>
+    <span class="eyebrow" data-i18n="security.eyebrow">S&eacute;curit&eacute;</span>
+    <h2 data-i18n="security.title">Traitez la cl&eacute; comme un mot de passe</h2>
+    <p data-i18n="security.intro">Toute personne qui poss&egrave;de la cl&eacute; peut consommer le quota et les services associ&eacute;s. Appliquez ces r&egrave;gles d&egrave;s sa cr&eacute;ation.</p>
   </div>
-
-  <div class="note" style="margin-top:24px">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true"><rect x="3" y="11" width="18" height="11"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-    <div>
-      <div class="lab" data-i18n="sec.lab">R&egrave;gles de s&eacute;curit&eacute;</div>
-      <p data-i18n="sec.intro">Une cl&eacute; API est aussi sensible qu'un <b>mot de passe</b> : quiconque la d&eacute;tient peut consommer le quota et les services associ&eacute;s &mdash; &agrave; tes frais.</p>
-      <p data-i18n="sec.r1" style="margin-top:8px">&bull; <b>Ne la partage jamais en clair</b> (email, chat, ticket) et ne la commite pas dans ton code ni sur GitHub.</p>
-      <p data-i18n="sec.r2" style="margin-top:6px">&bull; <b>Conserve-la dans un coffre-fort de mots de passe</b> (gestionnaire de secrets), pas dans un fichier en clair ni dans tes notes.</p>
-      <p data-i18n="sec.r3" style="margin-top:6px">&bull; <b>Dans le code, charge-la depuis une variable d'environnement</b> ou un fichier <code>.env</code> exclu du d&eacute;p&ocirc;t (via <code>.gitignore</code>).</p>
-      <p data-i18n="sec.r4" style="margin-top:6px">&bull; <b>En cas de doute sur une fuite, r&eacute;voque la cl&eacute; imm&eacute;diatement</b> et g&eacute;n&egrave;re-en une nouvelle.</p>
-    </div>
+  <div class="note green">
+    <div class="lab" data-i18n="security.lab">Les quatre r&eacute;flexes</div>
+    <ul class="security-list">
+      <li data-i18n="security.r1"><b>Ne partagez jamais la cl&eacute; en clair</b> dans un e-mail, un chat ou un ticket, et ne la commitez jamais dans GitHub.</li>
+      <li data-i18n="security.r2"><b>Stockez-la dans un gestionnaire de secrets</b> ou un coffre-fort de mots de passe, pas dans un fichier ou des notes en clair.</li>
+      <li data-i18n="security.r3"><b>Dans le code, utilisez une variable d&rsquo;environnement</b> ou un fichier <code>.env</code> exclu du d&eacute;p&ocirc;t via <code>.gitignore</code>.</li>
+      <li data-i18n="security.r4"><b>En cas de fuite suspect&eacute;e, r&eacute;voquez imm&eacute;diatement la cl&eacute;</b> et g&eacute;n&eacute;rez-en une nouvelle.</li>
+    </ul>
   </div>
+</main>
 
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="lb-close" id="lbClose" aria-label="Fermer">&times;</button>
+  <img id="lbImg" src="" alt="">
 </div>
 
 <footer>
-  <span class="src" data-i18n="footer.src">Cl&eacute;s API &amp; gouvernance &mdash; Wavestone CYB &middot; AI Maker Initiative</span>
-  <a class="jump" href="index.html" data-i18n="back">&#8592; retour &agrave; l'accueil</a>
+  <span class="src" data-i18n="footer.src">Cl&eacute; API Azure &mdash; Wavestone CYB &middot; guide interne</span>
+  <button class="reset" id="reset" data-i18n="footer.reset">&#128285; Recommencer</button>
 </footer>
 
 <script>
 window.WS_I18N = {
   en: {
-    "__title": "Wavestone CYB AI Maker &mdash; Create an API key",
+    "__title": "Wavestone CYB AI Maker — Create an Azure API key",
     "nav.home": "Home",
     "nav.usecases": "Playbook",
     "nav.principles": "Agent principles",
     "nav.agents": "Our agents",
+    "nav.dais": "Dance With the AI Stars",
     "nav.apikey": "API key",
-    "hero.eyebrow": "Access &amp; governance",
-    "hero.title": "Create an API key for your project",
-    "hero.lede": "To call an AI model from your application, you need a Wavestone API key. Here is the procedure, the sign-off required, and the special case of our in-house applications.",
+    "hero.eyebrow": "Hands-on tutorial",
+    "hero.title": "Create and use an <span class=\"ac\">Azure API key</span>",
+    "hero.lede": "From the POC account to a successful first connection: follow the journey in Azure Microsoft Foundry, tick off each step and zoom in on the screenshots.",
+    "hero.chip1": "# 100% browser",
+    "hero.chip2": "# CDM approval required",
+    "hero.chip3": "# demo budget: $20",
+    "hero.chip4": "# Azure &middot; Microsoft Foundry",
+    "hero.notice": "<b>Prerequisite:</b> first request a <b>POC account</b> in Power Apps and wait for approval from your <b>engagement manager (CDM)</b>. A <b>$20</b> budget is enough for most demonstrations.",
+    "overview.eyebrow": "The journey",
+    "overview.title": "From request to tested connection",
+    "overview.intro": "This tutorial covers creating the Foundry resource, deploying a model and retrieving the three values your application needs.",
+    "rail.1": "POC account",
+    "rail.2": "CDM approval",
+    "rail.3": "Foundry resource",
+    "rail.4": "Model deployed",
+    "rail.5": "Connection tested",
+    "special.lab": "CrisisMaker &amp; CyberBenchmark Helper case",
+    "special.body": "If the key is intended for <b>CrisisMaker</b> or <b>CyberBenchmark Helper</b>, do not create a resource yourself: <b>contact the product team directly</b>. They will provide the right access.",
+    "word.steps": "steps",
+    "word.keypoint": "Key point",
+    "word.note": "Note",
+    "word.security": "Security",
+    "word.bravo": "Well done",
+    "p1.eyebrow": "Phase 1 &mdash; Request",
+    "p1.title": "Get the POC account and approval",
+    "p1.sub": "This phase comes before any action in Azure.",
+    "p1s1.title": "Request a new POC account",
+    "p1s1.body": "In the Azure Platform application, select <b>Request the creation of a new POC account</b> and complete the required information.",
+    "p1s1.clicks": "<li>Open the Power Apps application.</li><li>Select <span class=\"ui-lbl\">Request the creation of a new POC account</span>.</li><li>Describe the need, members and budget. For a standard demonstration, enter <b>$20</b>.</li><li>Submit the request for approval.</li>",
+    "cap.01": "Choose the creation of a new POC account.",
+    "p1s2.title": "Wait for CDM approval",
+    "p1s2.body": "The request must be <b>approved by your engagement manager</b>. Once approved, open Azure from the link emailed by the Azure Platform team, or directly from the portal.",
+    "p1s2.note": "Do not continue until the POC account is visible in Azure and approval has been confirmed.",
+    "p2.eyebrow": "Phase 2 &mdash; Create",
+    "p2.title": "Create the Microsoft Foundry resource",
+    "p2.sub": "Use the Self Service subscription and the West Europe region.",
+    "p2s1.title": "Start creating a resource",
+    "p2s1.body": "From the Azure home page, click <span class=\"ui-lbl\">Create a resource</span>.",
+    "cap.02": "From Azure services, open &ldquo;Create a resource&rdquo;.",
+    "p2s2.title": "Choose Microsoft Foundry",
+    "p2s2.body": "Search for <b>Microsoft Foundry</b>, then select the <span class=\"ui-lbl\">Self Service</span> subscription and the <span class=\"ui-lbl\">Microsoft Foundry</span> plan.",
+    "cap.03": "Check the subscription and plan before clicking &ldquo;Create&rdquo;.",
+    "p2s3.title": "Configure the resource and project",
+    "p2s3.body": "Complete the four key fields, then start the configuration review.",
+    "p2s3.clicks": "<li>Under <b>Resource group</b>, choose the name selected when requesting the POC account.</li><li>Give the resource a clear name.</li><li>Choose <span class=\"ui-lbl\">(Europe) West Europe</span>.</li><li>Name the first project, then click <span class=\"ui-lbl\">Review + create</span>.</li>",
+    "cap.04": "Resource group, name, region and project name.",
+    "p2s4.title": "Open the Foundry portal",
+    "p2s4.body": "When deployment is complete, open the resource and click <span class=\"ui-lbl\">Go to Foundry portal</span>.",
+    "cap.05": "Open the deployed resource, then switch to Foundry.",
+    "p3.eyebrow": "Phase 3 &mdash; Deploy",
+    "p3.title": "Deploy a model and retrieve the key",
+    "p3.sub": "The key can be used once a model has been deployed.",
+    "p3s1.title": "View deployments",
+    "p3s1.body": "In the new Foundry interface, click <span class=\"ui-lbl\">View deployments</span> in the <b>Use a model</b> card.",
+    "cap.06": "Open deployments from the Foundry home page.",
+    "p3s2.title": "Deploy a base model",
+    "p3s2.body": "Under <b>Models &rarr; Deployments</b>, click <span class=\"ui-lbl\">Deploy a base model</span>.",
+    "cap.07": "Start deploying your first model.",
+    "p3s3.title": "Find the model",
+    "p3s3.body": "Search for the model you need &mdash; <code>gpt-5.5</code> in this tutorial &mdash; then open its details.",
+    "cap.08": "Filter the catalogue, then select the model.",
+    "p3s3.note": "Model availability depends on your subscription and region. If <code>gpt-5.5</code> is not available, choose a model authorised for your project.",
+    "p3s4.title": "Deploy with default settings",
+    "p3s4.body": "Click <span class=\"ui-lbl\">Deploy</span>, then <span class=\"ui-lbl\">Default settings</span>.",
+    "cap.09": "Use the default settings for this first deployment.",
+    "p3s5.title": "Retrieve the connection details",
+    "p3s5.body": "Once the deployment is created, open the <span class=\"ui-lbl\">Details</span> tab. Copy the three values your application will need.",
+    "cap.10": "The Endpoint, Key and Name fields are under &ldquo;Details&rdquo;.",
+    "key.endpoint": "For some applications, keep only the base URL, for example <code>https://mve-ai.services.ai.azure.com</code>.",
+    "key.secret": "This is your API key. <strong>Never share it</strong> and store it as a secret.",
+    "key.name": "This is the deployment name, for example <code>gpt-5.5</code>.",
+    "p4.eyebrow": "Phase 4 &mdash; Test",
+    "p4.title": "Verify the key in DeckSeeder",
+    "p4.sub": "An integration example using an application that supports Azure OpenAI.",
+    "p4s1.title": "Open AI configuration",
+    "p4s1.body": "Open DeckSeeder and click <span class=\"ui-lbl\">Configure AI</span>.",
+    "cap.11": "From the home screen, open &ldquo;Configure AI&rdquo;.",
+    "p4s2.title": "Enter the Azure settings",
+    "p4s2.body": "Choose <span class=\"ui-lbl\">Azure OpenAI</span> as the provider, then paste the key, endpoint and deployment name. Finally select the matching model.",
+    "cap.12": "Complete the four fields with your deployment values.",
+    "p4s2.note": "Check that AI use is authorised for the content involved. Never enter a key into an application you do not know or that does not protect secrets.",
+    "p4s3.title": "Test, then save",
+    "p4s3.body": "Click <span class=\"ui-lbl\">Test connection</span>. If the indicator turns green and <b>Connected</b> appears, click <span class=\"ui-lbl\">Save</span>.",
+    "cap.13": "The green indicator and &ldquo;Connected&rdquo; confirm that the configuration works.",
+    "p4s3.note": "Your resource, model and key are operational. You can now connect a compatible application to this deployment.",
+    "security.eyebrow": "Security",
+    "security.title": "Treat the key like a password",
+    "security.intro": "Anyone who has the key can consume the associated quota and services. Apply these rules as soon as it is created.",
+    "security.lab": "Four essential habits",
+    "security.r1": "<b>Never share the key in clear text</b> in email, chat or tickets, and never commit it to GitHub.",
+    "security.r2": "<b>Store it in a secrets manager</b> or password vault, not in a plain-text file or notes.",
+    "security.r3": "<b>In code, use an environment variable</b> or a <code>.env</code> file excluded from the repository via <code>.gitignore</code>.",
+    "security.r4": "<b>If you suspect a leak, revoke the key immediately</b> and generate a new one.",
     "steps.eyebrow": "How to proceed",
     "steps.h2": "Three steps to obtain a key",
     "s1.title": "Follow the Power Apps procedure",
@@ -214,10 +486,11 @@ window.WS_I18N = {
     "s3.body": "Once created and approved, the key is assigned to the person (project lead / user) running the engagement, then used in the code for the model calls.",
     "important.lab": "CrisisMaker &amp; CyberBenchmark Helper case",
     "important.body": "If the key is meant for using <b>CrisisMaker</b> or <b>CyberBenchmark Helper</b>, do not create a key yourself: <b>contact the project team directly</b> &mdash; they will provide the access tailored to the application.",
-    "res.title": "Wavestone access &amp; keys",
-    "res.cta": "Create a Wavestone API key",
-    "res.note": "Creating an API key and requesting a POC account are both done in the same Wavestone Power Apps application.",
-    "footer.src": "API keys &amp; governance &mdash; Wavestone CYB &middot; AI Maker Initiative",
+    "res.title": "Start with the POC account request",
+    "res.cta": "Open the Wavestone Power Apps application",
+    "res.note": "The POC account request and Azure access operations are handled in this same application.",
+    "footer.src": "Azure API key &mdash; Wavestone CYB &middot; internal guide",
+    "footer.reset": "&#128285; Start over",
     "sec.eyebrow": "Security",
     "sec.h2": "Treat an API key like a password",
     "sec.lab": "Security rules",
@@ -229,15 +502,106 @@ window.WS_I18N = {
     "back": "&#8592; back to home"
   },
   de: {
-    "__title": "Wavestone CYB AI Maker &mdash; API-Schl&uuml;ssel erstellen",
+    "__title": "Wavestone CYB AI Maker — Azure-API-Schl&uuml;ssel erstellen",
     "nav.home": "Start",
     "nav.usecases": "Playbook",
     "nav.principles": "Agenten-Prinzipien",
     "nav.agents": "Unsere Agenten",
+    "nav.dais": "Dance With the AI Stars",
     "nav.apikey": "API-Schl&uuml;ssel",
-    "hero.eyebrow": "Zugang &amp; Governance",
-    "hero.title": "Einen API-Schl&uuml;ssel f&uuml;r dein Projekt erstellen",
-    "hero.lede": "Um ein KI-Modell aus deiner Anwendung aufzurufen, brauchst du einen Wavestone-API-Schl&uuml;ssel. Hier sind das Vorgehen, die erforderliche Freigabe und der Sonderfall unserer hauseigenen Anwendungen.",
+    "hero.eyebrow": "Hands-on-Tutorial",
+    "hero.title": "Einen <span class=\"ac\">Azure-API-Schl&uuml;ssel</span> erstellen und nutzen",
+    "hero.lede": "Vom POC-Konto bis zur ersten erfolgreichen Verbindung: Folge dem Ablauf in Azure Microsoft Foundry, hake jeden Schritt ab und vergr&ouml;&szlig;ere die Screenshots.",
+    "hero.chip1": "# 100% Browser",
+    "hero.chip2": "# CDM-Freigabe erforderlich",
+    "hero.chip3": "# Demo-Budget: 20 $",
+    "hero.chip4": "# Azure &middot; Microsoft Foundry",
+    "hero.notice": "<b>Voraussetzung:</b> Beantrage zuerst ein <b>POC-Konto</b> in Power Apps und warte auf die Freigabe durch deinen <b>Engagement Manager (CDM)</b>. F&uuml;r die meisten Demonstrationen reicht ein Budget von <b>20 $</b>.",
+    "overview.eyebrow": "Der Ablauf",
+    "overview.title": "Von der Anfrage zur getesteten Verbindung",
+    "overview.intro": "Dieses Tutorial behandelt die Erstellung der Foundry-Ressource, das Deployment eines Modells und die drei Werte, die deine Anwendung ben&ouml;tigt.",
+    "rail.1": "POC-Konto",
+    "rail.2": "CDM-Freigabe",
+    "rail.3": "Foundry-Ressource",
+    "rail.4": "Modell bereitgestellt",
+    "rail.5": "Verbindung getestet",
+    "special.lab": "Sonderfall CrisisMaker &amp; CyberBenchmark Helper",
+    "special.body": "Wenn der Schl&uuml;ssel f&uuml;r <b>CrisisMaker</b> oder <b>CyberBenchmark Helper</b> bestimmt ist, erstelle die Ressource nicht selbst: <b>Wende dich direkt an das Produktteam</b>. Es stellt dir den passenden Zugang bereit.",
+    "word.steps": "Schritte",
+    "word.keypoint": "Merke",
+    "word.note": "Hinweis",
+    "word.security": "Sicherheit",
+    "word.bravo": "Geschafft",
+    "p1.eyebrow": "Phase 1 &mdash; Beantragen",
+    "p1.title": "POC-Konto und Freigabe erhalten",
+    "p1.sub": "Diese Phase erfolgt vor jeder Aktion in Azure.",
+    "p1s1.title": "Ein neues POC-Konto beantragen",
+    "p1s1.body": "W&auml;hle in der Azure-Platform-Anwendung <b>Request the creation of a new POC account</b> und erg&auml;nze die erforderlichen Angaben.",
+    "p1s1.clicks": "<li>&Ouml;ffne die Power-Apps-Anwendung.</li><li>W&auml;hle <span class=\"ui-lbl\">Request the creation of a new POC account</span>.</li><li>Beschreibe Bedarf, Mitglieder und Budget. F&uuml;r eine Standarddemo tr&auml;gst du <b>20 $</b> ein.</li><li>Sende den Antrag zur Freigabe ab.</li>",
+    "cap.01": "W&auml;hle die Erstellung eines neuen POC-Kontos.",
+    "p1s2.title": "Auf die CDM-Freigabe warten",
+    "p1s2.body": "Der Antrag muss <b>von deinem Engagement Manager freigegeben</b> werden. &Ouml;ffne danach Azure &uuml;ber den Link aus der E-Mail des Azure-Platform-Teams oder direkt &uuml;ber das Portal.",
+    "p1s2.note": "Fahre erst fort, wenn das POC-Konto in Azure sichtbar und die Freigabe best&auml;tigt ist.",
+    "p2.eyebrow": "Phase 2 &mdash; Erstellen",
+    "p2.title": "Die Microsoft-Foundry-Ressource erstellen",
+    "p2.sub": "Verwende das Self-Service-Abonnement und die Region West Europe.",
+    "p2s1.title": "Die Ressourcenerstellung starten",
+    "p2s1.body": "Klicke auf der Azure-Startseite auf <span class=\"ui-lbl\">Create a resource</span>.",
+    "cap.02": "&Ouml;ffne unter Azure services &bdquo;Create a resource&ldquo;.",
+    "p2s2.title": "Microsoft Foundry ausw&auml;hlen",
+    "p2s2.body": "Suche nach <b>Microsoft Foundry</b> und w&auml;hle das Abonnement <span class=\"ui-lbl\">Self Service</span> sowie den Plan <span class=\"ui-lbl\">Microsoft Foundry</span>.",
+    "cap.03": "Pr&uuml;fe Abonnement und Plan, bevor du auf &bdquo;Create&ldquo; klickst.",
+    "p2s3.title": "Ressource und Projekt konfigurieren",
+    "p2s3.body": "F&uuml;lle die vier wichtigsten Felder aus und starte dann die Pr&uuml;fung der Konfiguration.",
+    "p2s3.clicks": "<li>W&auml;hle unter <b>Resource group</b> den Namen aus dem Antrag f&uuml;r das POC-Konto.</li><li>Gib der Ressource einen eindeutigen Namen.</li><li>W&auml;hle <span class=\"ui-lbl\">(Europe) West Europe</span>.</li><li>Benenne das erste Projekt und klicke auf <span class=\"ui-lbl\">Review + create</span>.</li>",
+    "cap.04": "Ressourcengruppe, Name, Region und Projektname.",
+    "p2s4.title": "Das Foundry-Portal &ouml;ffnen",
+    "p2s4.body": "Wenn das Deployment abgeschlossen ist, &ouml;ffne die Ressource und klicke auf <span class=\"ui-lbl\">Go to Foundry portal</span>.",
+    "cap.05": "&Ouml;ffne die bereitgestellte Ressource und wechsle zu Foundry.",
+    "p3.eyebrow": "Phase 3 &mdash; Bereitstellen",
+    "p3.title": "Ein Modell bereitstellen und den Schl&uuml;ssel abrufen",
+    "p3.sub": "Der Schl&uuml;ssel kann verwendet werden, sobald ein Modell bereitgestellt ist.",
+    "p3s1.title": "Deployments anzeigen",
+    "p3s1.body": "Klicke in der neuen Foundry-Oberfl&auml;che in der Karte <b>Use a model</b> auf <span class=\"ui-lbl\">View deployments</span>.",
+    "cap.06": "&Ouml;ffne die Deployments von der Foundry-Startseite.",
+    "p3s2.title": "Ein Basismodell bereitstellen",
+    "p3s2.body": "Klicke unter <b>Models &rarr; Deployments</b> auf <span class=\"ui-lbl\">Deploy a base model</span>.",
+    "cap.07": "Starte das Deployment deines ersten Modells.",
+    "p3s3.title": "Das Modell suchen",
+    "p3s3.body": "Suche das gew&uuml;nschte Modell &mdash; in diesem Tutorial <code>gpt-5.5</code> &mdash; und &ouml;ffne seine Details.",
+    "cap.08": "Filtere den Katalog und w&auml;hle das Modell.",
+    "p3s3.note": "Die Modellverf&uuml;gbarkeit h&auml;ngt von Abonnement und Region ab. Wenn <code>gpt-5.5</code> nicht verf&uuml;gbar ist, w&auml;hle ein f&uuml;r dein Projekt zugelassenes Modell.",
+    "p3s4.title": "Mit Standardeinstellungen bereitstellen",
+    "p3s4.body": "Klicke auf <span class=\"ui-lbl\">Deploy</span> und danach auf <span class=\"ui-lbl\">Default settings</span>.",
+    "cap.09": "Verwende f&uuml;r dieses erste Deployment die Standardeinstellungen.",
+    "p3s5.title": "Verbindungsinformationen abrufen",
+    "p3s5.body": "&Ouml;ffne nach der Erstellung des Deployments den Reiter <span class=\"ui-lbl\">Details</span>. Kopiere die drei Werte, die deine Anwendung ben&ouml;tigt.",
+    "cap.10": "Endpoint, Key und Name findest du unter &bdquo;Details&ldquo;.",
+    "key.endpoint": "Manche Anwendungen ben&ouml;tigen nur die Basis-URL, zum Beispiel <code>https://mve-ai.services.ai.azure.com</code>.",
+    "key.secret": "Das ist dein API-Schl&uuml;ssel. <strong>Teile ihn niemals</strong> und speichere ihn als Secret.",
+    "key.name": "Das ist der Deployment-Name, zum Beispiel <code>gpt-5.5</code>.",
+    "p4.eyebrow": "Phase 4 &mdash; Testen",
+    "p4.title": "Den Schl&uuml;ssel in DeckSeeder pr&uuml;fen",
+    "p4.sub": "Ein Integrationsbeispiel mit einer Anwendung, die Azure OpenAI unterst&uuml;tzt.",
+    "p4s1.title": "KI-Konfiguration &ouml;ffnen",
+    "p4s1.body": "&Ouml;ffne DeckSeeder und klicke auf <span class=\"ui-lbl\">Configure AI</span>.",
+    "cap.11": "&Ouml;ffne vom Startbildschirm aus &bdquo;Configure AI&ldquo;.",
+    "p4s2.title": "Azure-Einstellungen eingeben",
+    "p4s2.body": "W&auml;hle <span class=\"ui-lbl\">Azure OpenAI</span> als Anbieter und f&uuml;ge Schl&uuml;ssel, Endpoint und Deployment-Name ein. W&auml;hle danach das passende Modell.",
+    "cap.12": "F&uuml;lle die vier Felder mit den Werten deines Deployments aus.",
+    "p4s2.note": "Pr&uuml;fe, ob die KI-Nutzung f&uuml;r die verwendeten Inhalte erlaubt ist. Gib niemals einen Schl&uuml;ssel in eine unbekannte Anwendung ein oder in eine Anwendung, die Secrets nicht sch&uuml;tzt.",
+    "p4s3.title": "Testen und speichern",
+    "p4s3.body": "Klicke auf <span class=\"ui-lbl\">Test connection</span>. Wenn die Anzeige gr&uuml;n wird und <b>Connected</b> erscheint, klicke auf <span class=\"ui-lbl\">Save</span>.",
+    "cap.13": "Die gr&uuml;ne Anzeige und &bdquo;Connected&ldquo; best&auml;tigen die funktionierende Konfiguration.",
+    "p4s3.note": "Ressource, Modell und Schl&uuml;ssel sind einsatzbereit. Du kannst jetzt eine kompatible Anwendung mit diesem Deployment verbinden.",
+    "security.eyebrow": "Sicherheit",
+    "security.title": "Behandle den Schl&uuml;ssel wie ein Passwort",
+    "security.intro": "Jede Person mit dem Schl&uuml;ssel kann das Kontingent und die zugeh&ouml;rigen Dienste nutzen. Wende diese Regeln direkt nach der Erstellung an.",
+    "security.lab": "Vier wichtige Regeln",
+    "security.r1": "<b>Teile den Schl&uuml;ssel nie im Klartext</b> per E-Mail, Chat oder Ticket und committe ihn niemals auf GitHub.",
+    "security.r2": "<b>Speichere ihn in einem Secrets-Manager</b> oder Passwort-Tresor, nicht in einer Klartextdatei oder in Notizen.",
+    "security.r3": "<b>Verwende im Code eine Umgebungsvariable</b> oder eine per <code>.gitignore</code> ausgeschlossene <code>.env</code>-Datei.",
+    "security.r4": "<b>Widerrufe den Schl&uuml;ssel bei Verdacht auf ein Leck sofort</b> und erzeuge einen neuen.",
     "steps.eyebrow": "So gehst du vor",
     "steps.h2": "Drei Schritte zum Schl&uuml;ssel",
     "s1.title": "Dem Power-Apps-Vorgehen folgen",
@@ -249,10 +613,11 @@ window.WS_I18N = {
     "s3.body": "Nach Erstellung und Freigabe wird der Schl&uuml;ssel der Person (Projektleitung / Nutzer) zugewiesen, die den Auftrag durchf&uuml;hrt, und dann im Code f&uuml;r die Modellaufrufe verwendet.",
     "important.lab": "Fall CrisisMaker &amp; CyberBenchmark Helper",
     "important.body": "Wenn der Schl&uuml;ssel f&uuml;r die Nutzung von <b>CrisisMaker</b> oder <b>CyberBenchmark Helper</b> gedacht ist, erstelle keinen Schl&uuml;ssel selbst: <b>wende dich direkt an das Projektteam</b> &mdash; es stellt dir den passenden Zugang zur Anwendung bereit.",
-    "res.title": "Wavestone-Zugang &amp; -Schl&uuml;ssel",
-    "res.cta": "Einen Wavestone-API-Schl&uuml;ssel erstellen",
-    "res.note": "Das Erstellen eines API-Schl&uuml;ssels und das Anfordern eines POC-Kontos erfolgen in derselben Wavestone-Power-Apps-Anwendung.",
-    "footer.src": "API-Schl&uuml;ssel &amp; Governance &mdash; Wavestone CYB &middot; AI Maker Initiative",
+    "res.title": "Mit dem Antrag f&uuml;r das POC-Konto beginnen",
+    "res.cta": "Die Wavestone-Power-Apps-Anwendung &ouml;ffnen",
+    "res.note": "Der Antrag f&uuml;r das POC-Konto und die Vorg&auml;nge f&uuml;r den Azure-Zugang werden in derselben Anwendung erledigt.",
+    "footer.src": "Azure-API-Schl&uuml;ssel &mdash; Wavestone CYB &middot; interner Leitfaden",
+    "footer.reset": "&#128285; Neu starten",
     "sec.eyebrow": "Sicherheit",
     "sec.h2": "Behandle einen API-Schlüssel wie ein Passwort",
     "sec.lab": "Sicherheitsregeln",
@@ -266,6 +631,51 @@ window.WS_I18N = {
 };
 </script>
 <script src="assets/i18n.js"></script>
+<script>
+(function(){
+  'use strict';
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.phase').forEach(function(phase){
+    var steps=phase.querySelectorAll('.step');
+    var fill=phase.querySelector('.spine-fill');
+    var head=phase.previousElementSibling;
+    var done=head&&head.querySelector('.prog .dn');
+    function refresh(){
+      var count=phase.querySelectorAll('.step.done').length;
+      if(done) done.textContent=count;
+      if(fill) fill.style.height=(count/steps.length*100)+'%';
+    }
+    steps.forEach(function(step){
+      var node=step.querySelector('.node');
+      function toggle(){step.classList.toggle('done');node.setAttribute('aria-pressed',step.classList.contains('done'));refresh();}
+      node.addEventListener('click',toggle);
+      node.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();toggle();}});
+    });
+    refresh();
+  });
+
+  var lb=document.getElementById('lb');
+  var lbImg=document.getElementById('lbImg');
+  var lbClose=document.getElementById('lbClose');
+  function openLb(src,alt){lbImg.src=src;lbImg.alt=alt||'';lb.classList.add('on');lb.setAttribute('aria-hidden','false');lbClose.focus();}
+  function closeLb(){lb.classList.remove('on');lb.setAttribute('aria-hidden','true');lbImg.src='';lbImg.alt='';}
+  document.querySelectorAll('figure.shot a.zoom').forEach(function(a){
+    a.addEventListener('click',function(e){e.preventDefault();var img=a.querySelector('img');openLb(a.getAttribute('href')||(img&&img.src),img&&img.alt);});
+  });
+  lb.addEventListener('click',function(e){if(e.target!==lbImg) closeLb();});
+  lbClose.addEventListener('click',closeLb);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lb.classList.contains('on')) closeLb();});
+
+  document.getElementById('reset').addEventListener('click',function(){
+    document.querySelectorAll('.step.done').forEach(function(step){step.classList.remove('done');step.querySelector('.node').setAttribute('aria-pressed','false');});
+    document.querySelectorAll('.phase').forEach(function(phase){
+      var fill=phase.querySelector('.spine-fill');if(fill)fill.style.height='0';
+      var head=phase.previousElementSibling;var done=head&&head.querySelector('.prog .dn');if(done)done.textContent='0';
+    });
+    window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});
+  });
+})();
+</script>
 <script src="assets/mobile-nav.js"></script>
 
 </body>

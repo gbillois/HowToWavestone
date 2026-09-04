@@ -31,9 +31,10 @@ from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
 
-# Pages included in the hub, in navigation order.
-# The first entry is the default view shown when no #hash is present.
-PAGES = [
+# Preferred navigation order for known pages. Any other root-level HTML page
+# is discovered automatically and appended alphabetically, so newly added
+# pages are included without having to update this list.
+PREFERRED_PAGES = [
     "index.html",
     "playbook.html",
     "agent-principles.html",
@@ -64,6 +65,23 @@ OUTPUT_FILE = os.environ.get("OUTPUT_FILE", "howto290626.html")
 SENTINEL = "__WS_CLOSE_SCRIPT__"
 
 RASTER_EXT = {".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp"}
+
+
+def discover_pages():
+    """Return every source HTML page, excluding generated bundle outputs."""
+    generated_paths = {
+        (ROOT / "howto290626.html").resolve(),
+        (ROOT / OUTPUT_FILE).resolve(),
+    }
+    discovered = {
+        path.name
+        for path in ROOT.glob("*.html")
+        if path.resolve() not in generated_paths
+    }
+    ordered = [name for name in PREFERRED_PAGES if name in discovered]
+    ordered.extend(sorted(discovered.difference(ordered), key=str.casefold))
+    return ordered
+
 
 SHELL_HEAD = """<!DOCTYPE html>
 <html lang="fr">
@@ -246,15 +264,13 @@ def build_page_block(name):
 
 
 def main():
+    pages = discover_pages()
     print(
         f"Building {OUTPUT_FILE}  (webp q={WEBP_QUALITY}, "
         f"max width={WEBP_MAX_WIDTH or 'none'})"
     )
     blocks = []
-    for name in PAGES:
-        if not (ROOT / name).is_file():
-            print(f"  ! skipping missing page: {name}", file=sys.stderr)
-            continue
+    for name in pages:
         print(f"  + {name}")
         blocks.append(build_page_block(name))
 
