@@ -1830,6 +1830,13 @@ Acceptance checks:
 - The app remains local, portable, and usable without a mandatory server.</pre>
   </section>
 
+  <section class="prompt-example" aria-labelledby="prompt-template-title">
+    <span class="eyebrow" data-i18n="tmpl.eyebrow">Template de prompt</span>
+    <h3 id="prompt-template-title" data-i18n="tmpl.title">D&eacute;marrer une application local-first</h3>
+    <p data-i18n="tmpl.intro">Le prompt de d&eacute;part &agrave; recopier tel quel dans un assistant de code, en rempla&ccedil;ant <code>[DESCRIPTION]</code> par le besoin&nbsp;: il embarque d&egrave;s la premi&egrave;re ligne la portabilit&eacute;, le d&eacute;terminisme, l'ind&eacute;pendance au LLM et la protection des secrets.</p>
+    <pre>Using a single self-contained index.html file (HTML/CSS/JavaScript, no external dependencies, no backend, no installation), please create [DESCRIPTION]. Keep the application local-first, portable and deterministic-first: use hard-coded logic wherever possible and LLM calls only where they add clear value. If AI is needed, keep the provider and model configurable at runtime, with no dependency on a specific LLM. Store data locally and use JSON import/export for sharing. Never embed or export API keys or other secrets.</pre>
+  </section>
+
   <div class="recap">
     <span class="eyebrow" data-i18n="recap.eyebrow">En une phrase</span>
     <h3 data-i18n="recap.title">Un agent CYB, c'est&hellip;</h3>
@@ -1953,6 +1960,9 @@ window.WS_I18N = {
     "prompt.eyebrow": "Prompt example",
     "prompt.title": "Add a portable LLM call",
     "prompt.intro": "A ready-to-use prompt for a coding assistant to add an AI layer while preserving autonomy, portability and client-governance principles.",
+    "tmpl.eyebrow": "Prompt template",
+    "tmpl.title": "Start a local-first application",
+    "tmpl.intro": "The starter prompt to paste as-is into a coding assistant, replacing <code>[DESCRIPTION]</code> with the need: it builds in portability, determinism, LLM independence and secret protection from the very first line.",
     "recap.eyebrow": "In one sentence",
     "recap.title": "A CYB agent is&hellip;",
     "recap.intro": "&hellip;a tool that is as autonomous as possible, that you carry everywhere and share by file.",
@@ -2045,6 +2055,9 @@ window.WS_I18N = {
     "prompt.eyebrow": "Prompt-Beispiel",
     "prompt.title": "Einen portablen LLM-Aufruf hinzuf&uuml;gen",
     "prompt.intro": "Ein direkt nutzbarer Prompt f&uuml;r einen Coding Assistant, um eine KI-Schicht hinzuzuf&uuml;gen und dabei Autonomie, Portabilit&auml;t und Kunden-Governance zu bewahren.",
+    "tmpl.eyebrow": "Prompt-Vorlage",
+    "tmpl.title": "Eine local-first-Anwendung starten",
+    "tmpl.intro": "Der Start-Prompt, den man unver&auml;ndert in einen Coding Assistant einf&uuml;gt und <code>[DESCRIPTION]</code> durch den Bedarf ersetzt: Portabilit&auml;t, Determinismus, LLM-Unabh&auml;ngigkeit und Schutz der Secrets sind ab der ersten Zeile eingebaut.",
     "recap.eyebrow": "In einem Satz",
     "recap.title": "Ein CYB-Agent ist&hellip;",
     "recap.intro": "&hellip;ein m&ouml;glichst autonomes Werkzeug, das man &uuml;berallhin mitnimmt und per Datei teilt.",
@@ -12026,6 +12039,19 @@ __WS_CLOSE_SCRIPT__
     <div class="links"><a class="lk" href="our-agents.html"><span data-i18n="f.showcase.link">Voir le showcase</span> <span class="ar">&#8599;</span></a></div>
   </div>
 
+  <!-- ============ F — PROMPT TEMPLATE ============ -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="tmpl.eyebrow">Template de prompt</span>
+    <h2 data-i18n="tmpl.title">Le prompt de d&eacute;part &agrave; r&eacute;utiliser</h2>
+    <p data-i18n="tmpl.intro">Pour lancer votre propre application, recopiez ce prompt en rempla&ccedil;ant <code>[DESCRIPTION]</code> par votre besoin&nbsp;: il embarque d&eacute;j&agrave; nos principes &mdash; fichier autonome, portable, d&eacute;terministe d&rsquo;abord, ind&eacute;pendant du LLM et sans secret expos&eacute;.</p>
+  </div>
+
+  <div class="prompt">
+    <button class="copy">copier</button>
+    <div class="who" data-i18n="tmpl.who">Template de prompt</div>
+    <div class="txt">Using a single self-contained index.html file (HTML/CSS/JavaScript, no external dependencies, no backend, no installation), please create [DESCRIPTION]. Keep the application local-first, portable and deterministic-first: use hard-coded logic wherever possible and LLM calls only where they add clear value. If AI is needed, keep the provider and model configurable at runtime, with no dependency on a specific LLM. Store data locally and use JSON import/export for sharing. Never embed or export API keys or other secrets.</div>
+  </div>
+
 </div>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-hidden="true">
@@ -12111,6 +12137,7 @@ __WS_CLOSE_SCRIPT__
       "e3.title":"The loop never changes","e3.body":"<b>Idea &rarr; prompt &rarr; Pull Request &rarr; merge &rarr; live.</b> You know this rhythm now. Over to you!",
       "e4.title":"Don&rsquo;t forget the security audit!","e4.body":"Before sharing your app, ask the AI: &ldquo;Run a security audit of my application and fix the vulnerabilities.&rdquo; A simple reflex that prevents a lot of mistakes.",
       "f.showcase":"This approach really lets you build very different things. Have a look at the applications already built here:","f.showcase.link":"See the showcase",
+      "tmpl.eyebrow":"Prompt template","tmpl.title":"The starter prompt to reuse","tmpl.intro":"To launch your own application, copy this prompt and replace <code>[DESCRIPTION]</code> with your need: it already carries our principles &mdash; self-contained file, portable, deterministic first, independent of the LLM and with no exposed secret.","tmpl.who":"Prompt template",
       "footer.src":"Vibe coding workshop &mdash; Wavestone &middot; internal guide","footer.reset":"&#128285; Start over"
     },
     de:{
@@ -12180,6 +12207,7 @@ __WS_CLOSE_SCRIPT__
       "e3.title":"Die Schleife bleibt gleich","e3.body":"<b>Idee &rarr; Prompt &rarr; Pull Request &rarr; Merge &rarr; live.</b> Diesen Rhythmus kennt ihr jetzt. Ihr seid dran!",
       "e4.title":"Vergesst den Sicherheits-Audit nicht!","e4.body":"Bevor ihr eure App teilt, bittet die KI: &bdquo;F&uuml;hre einen Sicherheits-Audit meiner Anwendung durch und behebe die Schwachstellen.&ldquo; Ein einfacher Reflex, der viele Fehler vermeidet.",
       "f.showcase":"Mit diesem Ansatz k&ouml;nnt ihr wirklich ganz unterschiedliche Dinge bauen. Seht euch die bereits erstellten Anwendungen hier an:","f.showcase.link":"Zum Showcase",
+      "tmpl.eyebrow":"Prompt-Vorlage","tmpl.title":"Der Start-Prompt zum Wiederverwenden","tmpl.intro":"Um eure eigene Anwendung zu starten, kopiert diesen Prompt und ersetzt <code>[DESCRIPTION]</code> durch euren Bedarf: Er tr&auml;gt bereits unsere Prinzipien &mdash; eigenst&auml;ndige Datei, portabel, deterministisch zuerst, unabh&auml;ngig vom LLM und ohne offengelegte Secrets.","tmpl.who":"Prompt-Vorlage",
       "footer.src":"Vibe-Coding-Workshop &mdash; Wavestone &middot; interner Leitfaden","footer.reset":"&#128285; Neu starten"
     }
   };

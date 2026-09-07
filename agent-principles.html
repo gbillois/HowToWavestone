@@ -365,6 +365,13 @@ Acceptance checks:
 - The app remains local, portable, and usable without a mandatory server.</pre>
   </section>
 
+  <section class="prompt-example" aria-labelledby="prompt-template-title">
+    <span class="eyebrow" data-i18n="tmpl.eyebrow">Template de prompt</span>
+    <h3 id="prompt-template-title" data-i18n="tmpl.title">D&eacute;marrer une application local-first</h3>
+    <p data-i18n="tmpl.intro">Le prompt de d&eacute;part &agrave; recopier tel quel dans un assistant de code, en rempla&ccedil;ant <code>[DESCRIPTION]</code> par le besoin&nbsp;: il embarque d&egrave;s la premi&egrave;re ligne la portabilit&eacute;, le d&eacute;terminisme, l'ind&eacute;pendance au LLM et la protection des secrets.</p>
+    <pre>Using a single self-contained index.html file (HTML/CSS/JavaScript, no external dependencies, no backend, no installation), please create [DESCRIPTION]. Keep the application local-first, portable and deterministic-first: use hard-coded logic wherever possible and LLM calls only where they add clear value. If AI is needed, keep the provider and model configurable at runtime, with no dependency on a specific LLM. Store data locally and use JSON import/export for sharing. Never embed or export API keys or other secrets.</pre>
+  </section>
+
   <div class="recap">
     <span class="eyebrow" data-i18n="recap.eyebrow">En une phrase</span>
     <h3 data-i18n="recap.title">Un agent CYB, c'est&hellip;</h3>
@@ -488,6 +495,9 @@ window.WS_I18N = {
     "prompt.eyebrow": "Prompt example",
     "prompt.title": "Add a portable LLM call",
     "prompt.intro": "A ready-to-use prompt for a coding assistant to add an AI layer while preserving autonomy, portability and client-governance principles.",
+    "tmpl.eyebrow": "Prompt template",
+    "tmpl.title": "Start a local-first application",
+    "tmpl.intro": "The starter prompt to paste as-is into a coding assistant, replacing <code>[DESCRIPTION]</code> with the need: it builds in portability, determinism, LLM independence and secret protection from the very first line.",
     "recap.eyebrow": "In one sentence",
     "recap.title": "A CYB agent is&hellip;",
     "recap.intro": "&hellip;a tool that is as autonomous as possible, that you carry everywhere and share by file.",
@@ -580,6 +590,9 @@ window.WS_I18N = {
     "prompt.eyebrow": "Prompt-Beispiel",
     "prompt.title": "Einen portablen LLM-Aufruf hinzuf&uuml;gen",
     "prompt.intro": "Ein direkt nutzbarer Prompt f&uuml;r einen Coding Assistant, um eine KI-Schicht hinzuzuf&uuml;gen und dabei Autonomie, Portabilit&auml;t und Kunden-Governance zu bewahren.",
+    "tmpl.eyebrow": "Prompt-Vorlage",
+    "tmpl.title": "Eine local-first-Anwendung starten",
+    "tmpl.intro": "Der Start-Prompt, den man unver&auml;ndert in einen Coding Assistant einf&uuml;gt und <code>[DESCRIPTION]</code> durch den Bedarf ersetzt: Portabilit&auml;t, Determinismus, LLM-Unabh&auml;ngigkeit und Schutz der Secrets sind ab der ersten Zeile eingebaut.",
     "recap.eyebrow": "In einem Satz",
     "recap.title": "Ein CYB-Agent ist&hellip;",
     "recap.intro": "&hellip;ein m&ouml;glichst autonomes Werkzeug, das man &uuml;berallhin mitnimmt und per Datei teilt.",
