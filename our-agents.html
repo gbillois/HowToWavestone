@@ -97,6 +97,7 @@
   .action.primary{border-color:var(--ws-indigo-600);background:var(--ws-indigo-600);color:#fff}
   .action:hover{transform:translateY(-1px);box-shadow:var(--ws-shadow-sm)}
   .action.primary:hover{background:var(--ws-indigo-700)}
+  .action.is-disabled{border-color:var(--ws-ink-200);background:var(--ws-ink-100);color:var(--ws-ink-500);opacity:.78;cursor:not-allowed;pointer-events:none}
   .action svg{width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:square;stroke-linejoin:miter}
 
   .agent-tools{margin-top:26px;border:1.5px solid var(--ws-ink-100);background:#fff;box-shadow:var(--ws-shadow-sm);padding:18px;display:grid;gap:14px}
@@ -176,7 +177,7 @@
   <div class="hero-in">
     <span class="eyebrow" data-i18n="hero.eyebrow">Showcase</span>
     <h1 data-i18n="hero.title">Des <span class="ac">agents</span> Wavestone concrets</h1>
-    <p class="lede" data-i18n="hero.lede">Quatre outils autonomes issus des d&eacute;p&ocirc;ts locaux, pens&eacute;s pour transformer vite une expertise terrain en application utilisable.</p>
+    <p class="lede" data-i18n="hero.lede">Huit agents concrets, pens&eacute;s pour transformer vite une expertise terrain en application utilisable.</p>
     <div class="hero-meta">
       <span class="hero-pill" data-i18n="hero.pill1">Static-first</span>
       <span class="hero-pill" data-i18n="hero.pill2">Local browser apps</span>
@@ -207,11 +208,12 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg>
           <input id="agentSearch" type="search" data-i18n-placeholder="tools.search.placeholder" placeholder="Rechercher un agent, un export, une capacit&eacute;..." autocomplete="off">
         </label>
-        <div class="tool-count" aria-live="polite"><span id="agentCount">4</span> <span data-i18n="tools.count">agents affich&eacute;s</span></div>
+        <div class="tool-count" aria-live="polite"><span id="agentCount">8</span> <span data-i18n="tools.count">agents affich&eacute;s</span></div>
       </div>
       <div class="tool-row">
         <div class="filters" role="group" aria-label="Filtres agents">
           <button class="filter-btn is-active" type="button" data-filter="all" data-i18n="filter.all">Tous</button>
+          <button class="filter-btn" type="button" data-filter="missions" data-i18n="filter.missions">Agents pour les missions</button>
           <button class="filter-btn" type="button" data-filter="crisis" data-i18n="filter.crisis">Crise cyber</button>
           <button class="filter-btn" type="button" data-filter="assessment" data-i18n="filter.assessment">Diagnostic</button>
           <button class="filter-btn" type="button" data-filter="mapping" data-i18n="filter.mapping">Mapping</button>
@@ -231,7 +233,7 @@
   </section>
 
   <section class="wrap showcase" id="agentShowcase" aria-label="Agents Wavestone">
-    <article class="usecase" data-category="crisis" data-search="crisismaker cyber crisis exercise crise cyber scenario stimuli timeline crisis checker debrief html video facilitation exercice">
+    <article class="usecase" data-category="crisis" data-mission="true" data-search="crisismaker cyber crisis exercise crise cyber scenario stimuli timeline crisis checker debrief html video facilitation exercice">
       <div class="media">
         <img src="assets/showcase/crisismaker.svg" data-i18n-alt="img.crisis" alt="Miniature animee de CrisisMaker montrant un scenario, des stimuli et un export debrief">
       </div>
@@ -263,7 +265,7 @@
       </div>
     </article>
 
-    <article class="usecase" data-category="assessment" data-search="cyberbenchmark helper cyberbenchexplorer workspace benchmark assessment evaluation ingest business checks radar matrix pptx excel scores referentiels livrables">
+    <article class="usecase" data-category="assessment" data-mission="true" data-search="cyberbenchmark helper cyberbenchexplorer workspace benchmark assessment evaluation ingest business checks radar matrix pptx excel scores referentiels livrables">
       <div class="media">
         <img src="assets/showcase/cyberbench.svg" data-i18n-alt="img.cyberbench" alt="Miniature animee de CyberBenchmark Helper montrant import, checks, matrice, radar et export PPTX">
       </div>
@@ -290,7 +292,7 @@
       </div>
     </article>
 
-    <article class="usecase" data-category="assessment" data-search="mythos readiness assessment post-mythos questionnaire diagnostic maturite cyber xlsx pptx pdf ingest plan llm configurable reponses api debug">
+    <article class="usecase" data-category="assessment" data-mission="true" data-search="mythos readiness assessment post-mythos questionnaire diagnostic maturite cyber xlsx pptx pdf ingest plan llm configurable reponses api debug">
       <div class="media">
         <img src="assets/showcase/mythos.svg" data-i18n-alt="img.mythos" alt="Miniature animee de Mythos Readiness montrant un questionnaire cyber, un ingest plan et une synthese LLM">
       </div>
@@ -346,7 +348,7 @@
       </div>
     </article>
 
-    <article class="usecase" data-category="assessment" data-search="smart identity analyzer iam identites identity analyse fichiers regles transformation incoherences local outil iga">
+    <article class="usecase" data-category="assessment" data-mission="true" data-search="smart identity analyzer iam identites identity analyse fichiers regles transformation incoherences local outil iga">
       <div class="media">
         <img src="assets/showcase/smartidentity.svg" data-i18n-alt="img.smartidentity" alt="Miniature de Smart Identity Analyzer montrant l'analyse des fichiers d'identites, des regles de transformation et des incoherences">
       </div>
@@ -378,7 +380,7 @@
       </div>
     </article>
 
-    <article class="usecase" data-category="assessment" data-search="web recon accelerator auto ti web autotiweb pentest test intrusion black-box boite noire deterministe application web analyse ia local outil recon reconnaissance">
+    <article class="usecase" data-category="assessment" data-mission="true" data-search="web recon accelerator webrecon auto ti web autotiweb pentest test intrusion black-box boite noire deterministe application web analyse ia local outil recon reconnaissance">
       <div class="media">
         <img src="assets/showcase/autotiweb.svg" data-i18n-alt="img.autotiweb" alt="Miniature de Web Recon Accelerator montrant un test d'intrusion black-box deterministe et une analyse des resultats par IA">
       </div>
@@ -402,7 +404,7 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
             <span data-i18n="uc6.repo">Voir le repo</span>
           </a>
-          <a class="action" href="https://digiplace.sharepoint.com/:p:/r/sites/WIX-GLOBALCYBERSECURITY/_layouts/15/Doc.aspx?sourcedoc=%7B78C20B33-127D-4437-8761-0302FBB6AAAE%7D&amp;file=WID%20-%20AI4Pentest%20%26%20AI%20Web%20Accelerators.pptx&amp;action=edit&amp;mobileredirect=true" target="_blank" rel="noopener">
+          <a class="action" href="https://gbillois.github.io/HowToWavestone/usecase-web-recon-accelerator.html" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13"/><path d="M12 17v4M8 21h8"/></svg>
             <span data-i18n="action.present">Voir la pr&eacute;sentation</span>
           </a>
@@ -410,7 +412,39 @@
       </div>
     </article>
 
-    <article class="usecase" data-category="assessment" data-search="booster risk analysis rm ebios rm risk analysis analyse risque agent livrables deliverables ateliers scenarios matrice traitement methode anssi">
+    <article class="usecase" data-category="assessment" data-mission="true" data-search="sam security agent manager security assistant manager secure by design architecture document architecture checklist controls conformite ecarts mission client">
+      <div class="media">
+        <img src="assets/showcase/sam.svg" data-i18n-alt="img.sam" alt="Miniature de SAM montrant un document d'architecture analyse et une checklist avec des controles conformes et non conformes">
+      </div>
+      <div class="body">
+        <span class="tag" data-i18n="uc8.tag">Secure by design</span>
+        <h2>SAM &ndash; Security Agent Manager</h2>
+        <p class="owner">Owners&nbsp;: <b>Emeline LEGRAND, Gr&eacute;groire SENAME</b></p>
+        <p data-i18n="uc8.body">SAM analyse les documents d'architecture d&egrave;s leur arriv&eacute;e et les confronte &agrave; une checklist de s&eacute;curit&eacute; pour identifier rapidement les points conformes et les &eacute;carts &agrave; traiter.</p>
+        <div class="chips">
+          <span class="chip" data-i18n="uc8.chip1">Document d'architecture</span>
+          <span class="chip" data-i18n="uc8.chip2">Checklist s&eacute;curit&eacute;</span>
+          <span class="chip" data-i18n="uc8.chip3">Contr&ocirc;les rouge / vert</span>
+          <span class="chip" data-i18n="uc8.chip4">Secure by design</span>
+        </div>
+        <div class="actions">
+          <span class="action is-disabled" aria-disabled="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            <span data-i18n="uc8.demo">Coming soon</span>
+          </span>
+          <span class="action is-disabled" aria-disabled="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span data-i18n="uc8.repo">Coming soon</span>
+          </span>
+          <span class="action is-disabled" aria-disabled="true">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13"/><path d="M12 17v4M8 21h8"/></svg>
+            <span data-i18n="uc8.present">Coming soon</span>
+          </span>
+        </div>
+      </div>
+    </article>
+
+    <article class="usecase" data-category="assessment" data-mission="true" data-search="booster risk analysis rm ebios rm risk analysis analyse risque agent livrables deliverables ateliers scenarios matrice traitement methode anssi">
       <div class="media">
         <img src="assets/showcase/ebiosrm.svg" data-i18n-alt="img.ebiosrm" alt="Miniature de Booster Risk Analysis RM montrant les ateliers, la matrice de risque et les livrables generes">
       </div>
@@ -462,7 +496,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr data-category="crisis" data-search="crisismaker cyber crisis exercise crise cyber scenario stimuli timeline crisis checker debrief html video facilitation exercice" data-name="crisismaker" data-category-label="crise cyber" data-capabilities="scenario stimuli timeline controles checker" data-outputs="debrief html video facilitation" data-links="demo repo">
+        <tr data-category="crisis" data-mission="true" data-search="crisismaker cyber crisis exercise crise cyber scenario stimuli timeline crisis checker debrief html video facilitation exercice" data-name="crisismaker" data-category-label="crise cyber" data-capabilities="scenario stimuli timeline controles checker" data-outputs="debrief html video facilitation" data-links="demo repo">
           <td>
             <div class="agent-cell">
               <span class="agent-thumb"><img src="assets/showcase/crisismaker.svg" data-i18n-alt="img.crisis" alt="Miniature animee de CrisisMaker montrant un scenario, des stimuli et un export debrief"></span>
@@ -480,7 +514,7 @@
             </div>
           </td>
         </tr>
-        <tr data-category="assessment" data-search="cyberbenchmark helper cyberbenchexplorer workspace benchmark assessment evaluation ingest business checks radar matrix pptx excel scores referentiels livrables" data-name="cyberbenchmark helper" data-category-label="diagnostic assessment benchmark" data-capabilities="ingest checks scores radar matrix referentiels" data-outputs="pptx excel livrables">
+        <tr data-category="assessment" data-mission="true" data-search="cyberbenchmark helper cyberbenchexplorer workspace benchmark assessment evaluation ingest business checks radar matrix pptx excel scores referentiels livrables" data-name="cyberbenchmark helper" data-category-label="diagnostic assessment benchmark" data-capabilities="ingest checks scores radar matrix referentiels" data-outputs="pptx excel livrables">
           <td>
             <div class="agent-cell">
               <span class="agent-thumb"><img src="assets/showcase/cyberbench.svg" data-i18n-alt="img.cyberbench" alt="Miniature animee de CyberBenchmark Helper montrant import, checks, matrice, radar et export PPTX"></span>
@@ -497,7 +531,7 @@
             </div>
           </td>
         </tr>
-        <tr data-category="assessment" data-search="mythos readiness assessment post-mythos questionnaire diagnostic maturite cyber xlsx pptx pdf ingest plan llm configurable reponses api debug" data-name="mythos readiness assessment" data-category-label="diagnostic assessment mythos" data-capabilities="questionnaire ingest plan multi llm api debug" data-outputs="xlsx pptx pdf reponses synthese">
+        <tr data-category="assessment" data-mission="true" data-search="mythos readiness assessment post-mythos questionnaire diagnostic maturite cyber xlsx pptx pdf ingest plan llm configurable reponses api debug" data-name="mythos readiness assessment" data-category-label="diagnostic assessment mythos" data-capabilities="questionnaire ingest plan multi llm api debug" data-outputs="xlsx pptx pdf reponses synthese">
           <td>
             <div class="agent-cell">
               <span class="agent-thumb"><img src="assets/showcase/mythos.svg" data-i18n-alt="img.mythos" alt="Miniature animee de Mythos Readiness montrant un questionnaire cyber, un ingest plan et une synthese LLM"></span>
@@ -531,7 +565,7 @@
             </div>
           </td>
         </tr>
-        <tr data-category="assessment" data-search="smart identity analyzer iam identites identity analyse fichiers regles transformation incoherences local outil iga" data-name="smart identity analyzer" data-category-label="diagnostic assessment iam identite" data-capabilities="analyse fichiers regles transformation incoherences" data-outputs="regles incoherences local">
+        <tr data-category="assessment" data-mission="true" data-search="smart identity analyzer iam identites identity analyse fichiers regles transformation incoherences local outil iga" data-name="smart identity analyzer" data-category-label="diagnostic assessment iam identite" data-capabilities="analyse fichiers regles transformation incoherences" data-outputs="regles incoherences local">
           <td>
             <div class="agent-cell">
               <span class="agent-thumb"><img src="assets/showcase/smartidentity.svg" data-i18n-alt="img.smartidentity" alt="Miniature de Smart Identity Analyzer montrant l'analyse des fichiers d'identites, des regles de transformation et des incoherences"></span>
@@ -549,7 +583,7 @@
             </div>
           </td>
         </tr>
-        <tr data-category="assessment" data-search="web recon accelerator auto ti web autotiweb pentest test intrusion black-box boite noire deterministe application web analyse ia local outil recon reconnaissance" data-name="web recon accelerator" data-category-label="diagnostic assessment pentest" data-capabilities="black-box tests deterministes pentest analyse ia" data-outputs="findings rapport analyse ia">
+        <tr data-category="assessment" data-mission="true" data-search="web recon accelerator webrecon auto ti web autotiweb pentest test intrusion black-box boite noire deterministe application web analyse ia local outil recon reconnaissance" data-name="web recon accelerator" data-category-label="diagnostic assessment pentest" data-capabilities="black-box tests deterministes pentest analyse ia" data-outputs="findings rapport analyse ia">
           <td>
             <div class="agent-cell">
               <span class="agent-thumb"><img src="assets/showcase/autotiweb.svg" data-i18n-alt="img.autotiweb" alt="Miniature de Auto-TI-Web montrant un test d'intrusion black-box deterministe et une analyse des resultats par IA"></span>
@@ -563,11 +597,28 @@
             <div class="table-actions">
               <span class="action primary" aria-disabled="true" style="opacity:.5;cursor:not-allowed;pointer-events:none"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-i18n="uc6.demo">Bient&ocirc;t disponible</span></span>
               <a class="action" href="https://gitlab.wavestone-app.com/audit/auto-ti-web" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span data-i18n="uc6.repo">Voir le repo</span></a>
-              <a class="action" href="https://digiplace.sharepoint.com/:p:/r/sites/WIX-GLOBALCYBERSECURITY/_layouts/15/Doc.aspx?sourcedoc=%7B78C20B33-127D-4437-8761-0302FBB6AAAE%7D&amp;file=WID%20-%20AI4Pentest%20%26%20AI%20Web%20Accelerators.pptx&amp;action=edit&amp;mobileredirect=true" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13"/><path d="M12 17v4M8 21h8"/></svg><span data-i18n="action.present">Voir la pr&eacute;sentation</span></a>
+              <a class="action" href="https://gbillois.github.io/HowToWavestone/usecase-web-recon-accelerator.html" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13"/><path d="M12 17v4M8 21h8"/></svg><span data-i18n="action.present">Voir la pr&eacute;sentation</span></a>
             </div>
           </td>
         </tr>
-        <tr data-category="assessment" data-search="booster risk analysis rm ebios rm risk analysis analyse risque agent livrables deliverables ateliers scenarios matrice traitement methode anssi" data-name="booster risk analysis rm" data-category-label="diagnostic assessment risque ebios" data-capabilities="ateliers scenarios matrice risque livrables" data-outputs="livrables registre scenarios traitement">
+        <tr data-category="assessment" data-mission="true" data-search="sam security agent manager security assistant manager secure by design architecture document checklist controls conformite ecarts mission client" data-name="sam security agent manager" data-category-label="diagnostic secure by design" data-capabilities="analyse architecture checklist controles conformite ecarts" data-outputs="revue architecture checklist securite">
+          <td>
+            <div class="agent-cell">
+              <span class="agent-thumb"><img src="assets/showcase/sam.svg" data-i18n-alt="img.sam" alt="Miniature de SAM montrant un document d'architecture analyse et une checklist avec des controles conformes et non conformes"></span>
+              <span><b>SAM &ndash; Security Agent Manager</b><small data-i18n="uc8.tag">Secure by design</small><small class="owner-cell">Owners&nbsp;: Emeline LEGRAND, Gr&eacute;groire SENAME</small></span>
+            </div>
+          </td>
+          <td><span class="table-tag" data-i18n="filter.assessment">Diagnostic</span></td>
+          <td data-i18n="row.uc8.capabilities">Analyse d'architecture, checklist, contr&ocirc;les de s&eacute;curit&eacute;</td>
+          <td data-i18n="row.uc8.outputs">Revue secure by design, &eacute;carts &agrave; traiter</td>
+          <td>
+            <div class="table-actions">
+              <span class="action is-disabled" aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-i18n="uc8.demo">Coming soon</span></span>
+              <span class="action is-disabled" aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span data-i18n="uc8.repo">Coming soon</span></span>
+            </div>
+          </td>
+        </tr>
+        <tr data-category="assessment" data-mission="true" data-search="booster risk analysis rm ebios rm risk analysis analyse risque agent livrables deliverables ateliers scenarios matrice traitement methode anssi" data-name="booster risk analysis rm" data-category-label="diagnostic assessment risque ebios" data-capabilities="ateliers scenarios matrice risque livrables" data-outputs="livrables registre scenarios traitement">
           <td>
             <div class="agent-cell">
               <span class="agent-thumb"><img src="assets/showcase/ebiosrm.svg" data-i18n-alt="img.ebiosrm" alt="Miniature de EBIOS-RM Risk Analysis montrant les ateliers, la matrice de risque et les livrables generes"></span>
@@ -609,8 +660,8 @@ window.WS_I18N = {
     "nav.agents": "Our agents",
     "nav.apikey": "API key",
     "hero.eyebrow": "Showcase",
-    "hero.title": "Concrete Wavestone <span class=\"ac\">agents</span>",
-    "hero.lede": "Four standalone tools built from local repositories, designed to quickly turn field expertise into a usable application.",
+    "hero.title": "Live CYB <span class=\"ac\">Agents</span>",
+    "hero.lede": "Eight concrete agents designed to quickly turn field expertise into usable applications.",
     "hero.pill1": "Static-first",
     "hero.pill2": "Local browser apps",
     "hero.pill3": "GitHub Pages",
@@ -679,10 +730,20 @@ window.WS_I18N = {
     "uc7.chip4": "Deliverables",
     "uc7.demo": "Upcoming",
     "uc7.repo": "N/A",
+    "uc8.tag": "Secure by design",
+    "uc8.body": "SAM analyses architecture documents as soon as they arrive and checks them against a security checklist to quickly identify compliant points and gaps to address.",
+    "uc8.chip1": "Architecture document",
+    "uc8.chip2": "Security checklist",
+    "uc8.chip3": "Red / green controls",
+    "uc8.chip4": "Secure by design",
+    "uc8.demo": "Coming soon",
+    "uc8.repo": "Coming soon",
+    "uc8.present": "Coming soon",
     "tools.search.placeholder": "Search for an agent, export, capability...",
     "tools.count": "agents shown",
     "tools.empty": "No agent matches this search.",
     "filter.all": "All",
+    "filter.missions": "Client engagement agents",
     "filter.crisis": "Cyber crisis",
     "filter.assessment": "Assessment",
     "filter.mapping": "Mapping",
@@ -709,6 +770,8 @@ window.WS_I18N = {
     "row.uc6.outputs": "Triaged findings, report",
     "row.uc7.capabilities": "Workshops, scenarios, risk matrix, deliverables",
     "row.uc7.outputs": "Generated EBIOS-RM deliverables",
+    "row.uc8.capabilities": "Architecture analysis, checklist, security controls",
+    "row.uc8.outputs": "Secure-by-design review, gaps to address",
     "note.lab": "Thumbnails",
     "note.body": "The thumbnails are animated SVGs versioned in the site. They play the role of a GIF, but stay lighter, sharp on high-density screens and easy to maintain in Git.",
     "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; showcase agents",
@@ -720,6 +783,7 @@ window.WS_I18N = {
     "img.smartidentity": "Thumbnail of Smart Identity Analyzer showing identity files analysis, transformation rules and inconsistencies",
     "img.autotiweb": "Thumbnail of Auto-TI-Web showing a deterministic black-box web pentest and AI output analysis",
     "img.ebiosrm": "Thumbnail of EBIOS-RM Risk Analysis showing workshops, a risk matrix and generated deliverables",
+    "img.sam": "Thumbnail of SAM showing an architecture document and a checklist with compliant and non-compliant controls",
     "__title": "Wavestone CYB &middot; AI Maker Initiative &mdash; Showcase agents"
   },
   de: {
@@ -730,7 +794,7 @@ window.WS_I18N = {
     "nav.apikey": "API-Schl&uuml;ssel",
     "hero.eyebrow": "Showcase",
     "hero.title": "Konkrete Wavestone-<span class=\"ac\">Agenten</span>",
-    "hero.lede": "Vier eigenst&auml;ndige Tools aus lokalen Repositories, entwickelt, um Praxiswissen schnell in eine nutzbare Anwendung zu verwandeln.",
+    "hero.lede": "Acht konkrete Agenten, die Praxiswissen schnell in nutzbare Anwendungen verwandeln.",
     "hero.pill1": "Static-first",
     "hero.pill2": "Local browser apps",
     "hero.pill3": "GitHub Pages",
@@ -799,10 +863,20 @@ window.WS_I18N = {
     "uc7.chip4": "Lieferobjekte",
     "uc7.demo": "Demn&auml;chst",
     "uc7.repo": "N/A",
+    "uc8.tag": "Secure by design",
+    "uc8.body": "SAM analysiert eingehende Architekturdokumente und gleicht sie mit einer Sicherheits-Checkliste ab, um konforme Punkte und zu behandelnde Abweichungen schnell zu erkennen.",
+    "uc8.chip1": "Architekturdokument",
+    "uc8.chip2": "Sicherheits-Checkliste",
+    "uc8.chip3": "Rote / gr&uuml;ne Kontrollen",
+    "uc8.chip4": "Secure by design",
+    "uc8.demo": "Demn&auml;chst",
+    "uc8.repo": "Demn&auml;chst",
+    "uc8.present": "Demn&auml;chst",
     "tools.search.placeholder": "Agent, Export oder Funktion suchen...",
     "tools.count": "Agenten angezeigt",
     "tools.empty": "Kein Agent entspricht dieser Suche.",
     "filter.all": "Alle",
+    "filter.missions": "Agenten f&uuml;r Kundenprojekte",
     "filter.crisis": "Cyber-Krise",
     "filter.assessment": "Assessment",
     "filter.mapping": "Mapping",
@@ -829,6 +903,8 @@ window.WS_I18N = {
     "row.uc6.outputs": "Triagierte Ergebnisse, Bericht",
     "row.uc7.capabilities": "Workshops, Szenarien, Risikomatrix, Lieferobjekte",
     "row.uc7.outputs": "Generierte EBIOS-RM-Lieferobjekte",
+    "row.uc8.capabilities": "Architekturanalyse, Checkliste, Sicherheitskontrollen",
+    "row.uc8.outputs": "Secure-by-Design-Pr&uuml;fung, zu behandelnde Abweichungen",
     "note.lab": "Vorschaubilder",
     "note.body": "Die Vorschaubilder sind animierte SVGs, die im Site versioniert sind. Sie &uuml;bernehmen die Rolle eines GIFs, bleiben aber leichter, scharf auf hochaufl&ouml;senden Bildschirmen und einfach in Git zu pflegen.",
     "footer.src": "Wavestone CYB &middot; AI Maker Initiative &mdash; Showcase-Agenten",
@@ -840,6 +916,7 @@ window.WS_I18N = {
     "img.smartidentity": "Vorschaubild von Smart Identity Analyzer mit Analyse von Identit&auml;tsdateien, Transformationsregeln und Inkonsistenzen",
     "img.autotiweb": "Vorschaubild von Auto-TI-Web mit deterministischem Black-Box-Web-Pentest und KI-Ergebnisanalyse",
     "img.ebiosrm": "Vorschaubild von EBIOS-RM Risk Analysis mit Workshops, einer Risikomatrix und generierten Lieferobjekten",
+    "img.sam": "Vorschaubild von SAM mit einem Architekturdokument und einer Checkliste mit konformen und nicht konformen Kontrollen",
     "__title": "Wavestone CYB &middot; AI Maker Initiative &mdash; Showcase-Agenten"
   }
 };
@@ -871,7 +948,9 @@ window.WS_I18N = {
     var visible = 0;
 
     cards.forEach(function (card) {
-      var matchesFilter = activeFilter === 'all' || card.getAttribute('data-category') === activeFilter;
+      var matchesFilter = activeFilter === 'all' ||
+        (activeFilter === 'missions' && card.getAttribute('data-mission') === 'true') ||
+        card.getAttribute('data-category') === activeFilter;
       var haystack = normalize(card.getAttribute('data-search') + ' ' + card.textContent);
       var matchesSearch = !query || haystack.indexOf(query) !== -1;
       var show = matchesFilter && matchesSearch;
@@ -881,7 +960,9 @@ window.WS_I18N = {
     });
 
     rows.forEach(function (row) {
-      var matchesFilter = activeFilter === 'all' || row.getAttribute('data-category') === activeFilter;
+      var matchesFilter = activeFilter === 'all' ||
+        (activeFilter === 'missions' && row.getAttribute('data-mission') === 'true') ||
+        row.getAttribute('data-category') === activeFilter;
       var haystack = normalize(row.getAttribute('data-search') + ' ' + row.textContent);
       var matchesSearch = !query || haystack.indexOf(query) !== -1;
       row.hidden = !(matchesFilter && matchesSearch);
