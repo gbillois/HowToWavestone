@@ -1,0 +1,600 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Utiliser VS Code avec M365 &mdash; Wavestone CYB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-teal-500:#228D95;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-warning:#C8861A;
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ws-white);color:var(--ws-ink-900);font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  .eyebrow{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid var(--ws-green-400)}
+
+  /* ---------- sticky brand bar ---------- */
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .dot{width:9px;height:9px;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .nav a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:6px 12px;transition:.18s var(--ws-ease)}
+  .nav a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+  .langsel{display:flex;border:1px solid var(--ws-ink-200);overflow:hidden}
+  .langsel button{font-family:var(--ws-font-mono);font-size:12px;padding:6px 11px;background:#fff;border:none;border-left:1px solid var(--ws-ink-100);color:var(--ws-ink-500);cursor:pointer;transition:.15s var(--ws-ease)}
+  .langsel button:first-child{border-left:none}
+  .langsel button.on{background:var(--ws-indigo-600);color:#fff;font-weight:600}
+  .langsel button:hover:not(.on){color:var(--ws-indigo-600)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff;border-radius:0 0 28px 28px}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1040px;margin:0 auto;padding:60px 24px 52px}
+  .hero .eyebrow{color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(34px,6vw,60px);line-height:1.04;letter-spacing:-.025em;margin:22px 0 16px;max-width:18ch}
+  .hero h1 .ac{color:var(--ws-green-400)}
+  .hero .lede{font-size:18.5px;line-height:1.55;color:rgba(255,255,255,.85);max-width:60ch}
+  .meta-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+  .meta-chips span{font-family:var(--ws-font-mono);font-size:11.5px;color:rgba(255,255,255,.9);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:6px 12px}
+  .host-tip{display:flex;gap:10px;align-items:flex-start;margin-top:22px;background:rgba(4,240,106,.12);border:1px solid rgba(4,240,106,.35);border-left:4px solid var(--ws-green-400);padding:12px 16px;max-width:62ch}
+  .host-tip svg{flex:0 0 auto;color:var(--ws-green-300);margin-top:2px}
+  .host-tip p{font-size:13.5px;color:rgba(255,255,255,.92);line-height:1.5}
+  .host-tip b{color:#fff}
+
+  /* ---------- section heads ---------- */
+  .sec-head{margin:60px 0 6px}
+  .sec-head .eyebrow{color:var(--ws-ink-900)}
+  .sec-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:30px;letter-spacing:-.02em;color:var(--ws-indigo-600);margin-top:10px}
+  .sec-head p{color:var(--ws-ink-500);margin-top:6px;font-size:15.5px;max-width:64ch}
+
+  /* ---------- concept bricks ---------- */
+  .rail{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin:28px 0 22px;font-family:var(--ws-font-mono);font-size:13px}
+  .rail .n{padding:9px 16px;border:1px solid var(--ws-ink-200);background:#fff;color:var(--ws-ink-700);box-shadow:var(--ws-shadow-sm)}
+  .rail .n.idea{border-color:var(--ws-indigo-200);color:var(--ws-indigo-700)}
+  .rail .n.live{background:var(--ws-green-400);border-color:var(--ws-green-400);color:var(--ws-indigo-900);font-weight:600}
+  .rail .ar{color:var(--ws-ink-300);font-size:18px;animation:slide 1.8s var(--ws-ease) infinite}
+  @keyframes slide{0%,100%{transform:translateX(0);opacity:.4}50%{transform:translateX(4px);opacity:1}}
+
+  .bricks{display:flex;flex-direction:column;gap:14px}
+  @media(min-width:820px){.bricks{flex-direction:row;align-items:stretch}}
+  .brick{flex:1;position:relative;background:#fff;border:1.5px solid var(--ws-ink-100);padding:24px 22px 22px;box-shadow:var(--ws-shadow-sm);opacity:0;transform:translateY(12px);animation:rise .6s var(--ws-ease) forwards}
+  .brick::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--ws-gradient-accent);transform:scaleX(0);transform-origin:left;animation:grow .6s var(--ws-ease) forwards}
+  .brick:nth-child(1),.brick:nth-child(1)::before{animation-delay:.05s}
+  .brick:nth-child(3),.brick:nth-child(3)::before{animation-delay:.25s}
+  .brick:nth-child(5),.brick:nth-child(5)::before{animation-delay:.45s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @keyframes grow{to{transform:scaleX(1)}}
+  .b-arrow{display:none;flex:0 0 auto;align-items:center;color:var(--ws-ink-300);font-size:24px}
+  @media(min-width:820px){.b-arrow{display:flex}}
+  .bk-no{font-family:var(--ws-font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-indigo-600)}
+  .bk-ic{width:46px;height:46px;background:var(--ws-indigo-50);color:var(--ws-indigo-600);display:grid;place-items:center;margin:12px 0 14px}
+  .brick:nth-child(5) .bk-ic{background:var(--ws-green-50);color:var(--ws-green-700)}
+  .brick h3{font-family:var(--ws-font-display);font-weight:600;font-size:19px;color:var(--ws-ink-900);margin-bottom:7px;line-height:1.2}
+  .brick p{font-size:14.5px;color:var(--ws-ink-500);line-height:1.55}
+  .brick p b{color:var(--ws-ink-900)}
+  .brick .tool{font-family:var(--ws-font-mono);font-size:11px;color:var(--ws-indigo-700);background:var(--ws-indigo-50);padding:3px 9px;margin-top:13px;display:inline-block}
+
+  /* ---------- phase / steps (pipeline spine) ---------- */
+  .phase{margin-top:18px}
+  .phase-head{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;border-bottom:1px solid var(--ws-ink-100);padding-bottom:16px;margin-top:30px}
+  .phase-head .eyebrow{color:var(--ws-ink-900)}
+  .phase-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:26px;color:var(--ws-indigo-600);margin-top:10px;letter-spacing:-.015em}
+  .phase-head .sub{color:var(--ws-ink-500);font-size:14.5px;margin-top:5px;max-width:60ch}
+  .prog{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-500);white-space:nowrap}
+  .prog b{color:var(--ws-indigo-600)}
+
+  .steps{position:relative;margin-top:24px}
+  .spine{position:absolute;left:21px;top:22px;bottom:22px;width:2px;background:var(--ws-ink-100);z-index:0}
+  .spine-fill{position:absolute;left:0;top:0;width:100%;height:0;background:var(--ws-gradient-accent);transition:height .5s var(--ws-ease)}
+  .step{position:relative;z-index:1;display:flex;gap:18px;padding-bottom:20px}
+  .node{flex:0 0 44px;width:44px;height:44px;background:#fff;border:1.5px solid var(--ws-ink-200);display:grid;place-items:center;font-family:var(--ws-font-mono);font-weight:600;font-size:15px;color:var(--ws-indigo-600);cursor:pointer;user-select:none;transition:.22s var(--ws-ease)}
+  .node:hover{border-color:var(--ws-indigo-600)}
+  .node .ck{display:none;font-size:20px;color:#fff;line-height:1}
+  .step.done .node{background:var(--ws-indigo-600);border-color:var(--ws-indigo-600);color:#fff}
+  .step.done .node .nm{display:none}
+  .step.done .node .ck{display:block}
+  .scard{flex:1;background:#fff;border:1px solid var(--ws-ink-100);padding:18px 20px;box-shadow:var(--ws-shadow-sm);transition:.22s var(--ws-ease);min-width:0}
+  .step.done .scard{opacity:.72;border-color:var(--ws-green-50)}
+  .scard h4{font-family:var(--ws-font-display);font-weight:600;font-size:17px;color:var(--ws-ink-900);display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .scard .do{margin-top:8px;font-size:14.5px;color:var(--ws-ink-600);line-height:1.55}
+  .scard .do b{color:var(--ws-ink-900)}
+  code{font-family:var(--ws-font-mono);font-size:.85em;background:var(--ws-ink-50);padding:1px 6px}
+  .mini{font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ws-green-700);background:var(--ws-green-50);padding:3px 8px;font-weight:600}
+  .mini.opt{color:var(--ws-ink-500);background:var(--ws-ink-50)}
+
+  .clicks{list-style:none;counter-reset:c;margin-top:13px;display:grid;gap:8px}
+  .clicks li{counter-increment:c;position:relative;padding-left:32px;font-size:14px;color:var(--ws-ink-700);line-height:1.5}
+  .clicks li::before{content:counter(c);position:absolute;left:0;top:1px;width:22px;height:22px;background:var(--ws-indigo-50);color:var(--ws-indigo-700);font-family:var(--ws-font-mono);font-weight:600;font-size:11px;display:grid;place-items:center}
+  .clicks b{color:var(--ws-ink-900)}
+  .ui-lbl{font-family:var(--ws-font-mono);font-size:.9em;background:var(--ws-ink-900);color:#fff;padding:1px 7px}
+
+  .links{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+  .lk{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-family:var(--ws-font-mono);font-size:12.5px;border:1px solid var(--ws-ink-200);padding:7px 13px;background:#fff;color:var(--ws-ink-900);transition:.18s var(--ws-ease)}
+  .lk:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600);transform:translateY(-1px)}
+  .lk .ar{color:var(--ws-ink-400)}
+  .lk:hover .ar{color:var(--ws-indigo-600)}
+
+  /* ---------- screenshots ---------- */
+  .shots{display:grid;gap:14px;margin-top:16px;grid-template-columns:1fr}
+  @media(min-width:600px){.shots.two{grid-template-columns:1fr 1fr}}
+  figure.shot{margin:0;border:1px solid var(--ws-ink-200);background:#fff;box-shadow:var(--ws-shadow-md);overflow:hidden;display:flex;flex-direction:column}
+  figure.shot a.zoom{display:block;line-height:0;cursor:zoom-in}
+
+  /* ---------- lightbox (in-page zoom) ---------- */
+  .lb{position:fixed;inset:0;z-index:200;background:rgba(20,12,46,.9);display:none;align-items:center;justify-content:center;padding:32px;cursor:zoom-out}
+  .lb.on{display:flex}
+  .lb img{max-width:95vw;max-height:90vh;width:auto;height:auto;box-shadow:0 24px 70px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.14);cursor:default}
+  .lb-close{position:fixed;top:18px;right:22px;width:44px;height:44px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.32);color:#fff;font-size:24px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:.18s var(--ws-ease)}
+  .lb-close:hover{background:rgba(255,255,255,.24)}
+  figure.shot img{display:block;width:100%;height:auto;background:var(--ws-ink-50);border-bottom:1px solid var(--ws-ink-100)}
+  figure.shot figcaption{display:flex;gap:9px;align-items:flex-start;font-family:var(--ws-font-mono);font-size:11.5px;color:var(--ws-ink-500);padding:10px 13px;background:#fff;line-height:1.5}
+  figure.shot .sn{flex:0 0 auto;width:18px;height:18px;background:var(--ws-indigo-600);color:#fff;font-family:var(--ws-font-mono);font-weight:600;font-size:10.5px;display:grid;place-items:center;margin-top:1px}
+
+  /* prompt card */
+  .prompt{position:relative;background:var(--ws-indigo-950);padding:16px 18px;margin-top:14px;font-family:var(--ws-font-mono);font-size:13.5px;color:#EAE7F6;box-shadow:var(--ws-shadow-md)}
+  .prompt .who{color:rgba(255,255,255,.5);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:9px}
+  .prompt .txt{color:var(--ws-green-300);line-height:1.6}
+  .prompt .txt::before{content:"\2192  ";color:rgba(255,255,255,.35)}
+  .copy{position:absolute;top:13px;right:13px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.7);font-family:var(--ws-font-mono);font-size:11px;padding:5px 11px;cursor:pointer;transition:.18s var(--ws-ease)}
+  .copy:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+  .copy.ok{color:var(--ws-green-300);border-color:var(--ws-green-400)}
+
+  /* note */
+  .note{margin-top:16px;background:var(--ws-indigo-50);border:1px solid var(--ws-indigo-100);border-left:4px solid var(--ws-indigo-600);padding:14px 16px}
+  .note.green{background:var(--ws-green-50);border-color:var(--ws-green-400);border-left-color:var(--ws-green-700)}
+  .note .lab{font-family:var(--ws-font-body);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ws-indigo-600);margin-bottom:6px}
+  .note.green .lab{color:var(--ws-green-700)}
+  .note p{font-size:13.8px;color:var(--ws-ink-700);line-height:1.55}
+  .note b{color:var(--ws-ink-900)}
+
+  /* iterate / tips grids */
+  .idea-grid{display:grid;gap:14px;grid-template-columns:1fr;margin-top:22px}
+  @media(min-width:760px){.idea-grid{grid-template-columns:1fr 1fr}}
+  .tips{display:grid;gap:16px;grid-template-columns:1fr;margin-top:22px}
+  @media(min-width:760px){.tips{grid-template-columns:repeat(3,1fr)}}
+  .tip{background:#fff;border:1.5px solid var(--ws-ink-100);padding:22px 20px;box-shadow:var(--ws-shadow-sm);transition:.2s var(--ws-ease)}
+  .tip:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-3px);border-color:var(--ws-indigo-200)}
+  .tip .ti{width:42px;height:42px;background:var(--ws-indigo-50);color:var(--ws-indigo-600);display:grid;place-items:center;margin-bottom:14px}
+  .tip h3{font-family:var(--ws-font-display);font-weight:600;font-size:17.5px;color:var(--ws-ink-900);margin-bottom:7px;line-height:1.25}
+  .tip p{font-size:14px;color:var(--ws-ink-500);line-height:1.55}
+  .tip p b{color:var(--ws-ink-900)}
+
+  footer{max-width:1040px;margin:64px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+  .reset{font-family:var(--ws-font-mono);font-size:12.5px;border:1px solid var(--ws-ink-200);background:#fff;padding:8px 14px;cursor:pointer;color:var(--ws-ink-500);transition:.18s var(--ws-ease)}
+  .reset:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus)}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.brick{opacity:1;transform:none}.brick::before{transform:scaleX(1)}}
+  /* square corners — DS identity */
+  *,*::before,*::after{border-radius:0!important}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
+    <div class="nav">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
+      <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="ai-usage-models.html">Copilot &rarr; Agents</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+      <a class="jump" href="dance-with-the-ai-stars.html" data-i18n="nav.dais">Dance With the AI Stars</a>
+      <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
+      <div class="langsel" role="group" aria-label="Language">
+        <button data-lang="fr">FR</button>
+        <button data-lang="en">EN</button>
+        <button data-lang="de">DE</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1040 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,300 Q260,180 540,250 T1100,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <span class="eyebrow" data-i18n="hero.eyebrow">Playbook &middot; VS Code &amp; M365</span>
+    <h1 data-i18n="hero.title">Utiliser VS Code avec <span class="ac">M365</span></h1>
+    <p class="lede" data-i18n="hero.lede">Installer l&rsquo;extension CoPro dans Visual Studio Code &agrave; partir d&rsquo;un fichier VSIX, puis coder avec un agent qui s&rsquo;appuie sur ton compte Microsoft&nbsp;365. Suis le d&eacute;roul&eacute;, coche chaque &eacute;tape.</p>
+    <div class="meta-chips">
+      <span data-i18n="hero.chip1"># sans droits admin</span>
+      <span data-i18n="hero.chip2"># installation VSIX</span>
+      <span data-i18n="hero.chip3"># ~10 min</span>
+      <span data-i18n="hero.chip4"># VS Code &middot; CoPro &middot; M365</span>
+    </div>
+    <div class="host-tip">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg>
+      <p data-i18n="hero.tip"><b>Astuce&nbsp;:</b> d&eacute;roule la page de haut en bas. Clique sur les <b>num&eacute;ros</b> pour cocher les &eacute;tapes valid&eacute;es et sur <b>copier</b> pour r&eacute;cup&eacute;rer un prompt. Le s&eacute;lecteur de langue est en haut &agrave; droite.</p>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ A - CONCEPT ============ -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="a.eyebrow">Le concept</span>
+    <h2 data-i18n="a.title">Trois briques, et c&rsquo;est tout</h2>
+    <p data-i18n="a.intro">Un &eacute;diteur, une extension install&eacute;e &agrave; la main, un compte M365. Comprends ces trois briques et l&rsquo;installation devient m&eacute;canique.</p>
+  </div>
+
+  <div class="rail">
+    <span class="n idea" data-i18n="a.rail1">VS Code</span>
+    <span class="ar" aria-hidden="true">&#8594;</span>
+    <span class="n" data-i18n="a.rail2">Fichier VSIX</span>
+    <span class="ar" aria-hidden="true">&#8594;</span>
+    <span class="n live" data-i18n="a.rail3">CoPro connect&eacute; &agrave; M365</span>
+  </div>
+
+  <div class="bricks">
+    <div class="brick">
+      <span class="bk-no" data-i18n="a.b1.tag">Brique 1</span>
+      <div class="bk-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><rect x="2" y="3" width="20" height="14"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <h3 data-i18n="a.b1.title">VS Code, ton poste de travail</h3>
+      <p data-i18n="a.b1.body">L&rsquo;&eacute;diteur s&rsquo;installe <b>sans droits admin</b> et h&eacute;berge toutes les extensions. C&rsquo;est le point d&rsquo;entr&eacute;e unique de la cha&icirc;ne.</p>
+      <span class="tool" data-i18n="a.b1.tool">Visual Studio Code</span>
+    </div>
+    <div class="b-arrow" aria-hidden="true">&#8594;</div>
+    <div class="brick">
+      <span class="bk-no" data-i18n="a.b2.tag">Brique 2</span>
+      <div class="bk-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M21 16V8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/></svg></div>
+      <h3 data-i18n="a.b2.title">Le fichier VSIX</h3>
+      <p data-i18n="a.b2.body">Une extension peut &ecirc;tre livr&eacute;e sous forme de fichier <code>.vsix</code> plut&ocirc;t que via la Marketplace. On l&rsquo;installe alors <b>manuellement</b> depuis le panneau Extensions.</p>
+      <span class="tool" data-i18n="a.b2.tool">Install from VSIX</span>
+    </div>
+    <div class="b-arrow" aria-hidden="true">&#8594;</div>
+    <div class="brick">
+      <span class="bk-no" data-i18n="a.b3.tag">Brique 3</span>
+      <div class="bk-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <h3 data-i18n="a.b3.title">Ton compte M365</h3>
+      <p data-i18n="a.b3.body">Une fois install&eacute;e, l&rsquo;extension se connecte avec ton <b>compte Microsoft&nbsp;365 Wavestone</b>. L&rsquo;agent travaille ensuite dans le dossier que tu ouvres.</p>
+      <span class="tool" data-i18n="a.b3.tool">Microsoft 365</span>
+    </div>
+  </div>
+
+  <!-- ============ B - PHASE 1 : INSTALL ============ -->
+  <div class="phase-head" id="setup">
+    <div class="t">
+      <span class="eyebrow" data-i18n="b.eyebrow">&Eacute;tape 1 &mdash; Installer</span>
+      <h2 data-i18n="b.title">Installer l&rsquo;extension CoPro</h2>
+      <div class="sub" data-i18n="b.sub">&Agrave; faire une seule fois. Aucun droit admin n&eacute;cessaire. Comptez 10&nbsp;min.</div>
+    </div>
+    <div class="prog"><b class="dn">0</b>/<span class="tot">5</span> <span data-i18n="word.steps">&eacute;tapes</span></div>
+  </div>
+
+  <div class="phase">
+    <div class="steps">
+      <div class="spine"><div class="spine-fill"></div></div>
+
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="b1.title">Installer Visual Studio Code</h4>
+          <div class="do" data-i18n="b1.body">Si ce n&rsquo;est pas d&eacute;j&agrave; fait, t&eacute;l&eacute;charge VS Code pour Windows et installe-le (version utilisateur, sans droits admin).</div>
+          <div class="links"><a class="lk" href="https://code.visualstudio.com/" target="_blank" rel="noopener">code.visualstudio.com <span class="ar">&#8599;</span></a></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="b2.title">R&eacute;cup&eacute;rer le fichier VSIX de CoPro</h4>
+          <div class="do" data-i18n="b2.body">Demande le fichier <code>.vsix</code> de CoPro &agrave; l&rsquo;&eacute;quipe CYB AI Maker et enregistre-le sur ton poste (par exemple dans <code>Documents</code>). Note bien le chemin&nbsp;: tu en auras besoin &agrave; l&rsquo;&eacute;tape&nbsp;4.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="b3.title">Ouvrir le panneau Extensions</h4>
+          <div class="do" data-i18n="b3.body">Dans VS Code, ouvre la vue des extensions&nbsp;:</div>
+          <ol class="clicks" data-i18n="b3.clicks">
+            <li>Menu <span class="ui-lbl">View</span> (Affichage) &rarr; <span class="ui-lbl">Extensions</span></li>
+            <li>Ou le raccourci <code>Ctrl+Shift+X</code></li>
+            <li>Le panneau <b>Extensions</b> s&rsquo;affiche dans la barre lat&eacute;rale</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">4</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="b4.title">Install from VSIX</h4>
+          <div class="do" data-i18n="b4.body">L&rsquo;installation manuelle se fait depuis le menu &laquo;&nbsp;...&nbsp;&raquo; en haut du panneau Extensions&nbsp;:</div>
+          <ol class="clicks" data-i18n="b4.clicks">
+            <li>Clique sur <span class="ui-lbl">...</span> (Views and More Actions) en haut &agrave; droite du panneau Extensions</li>
+            <li>Choisis <span class="ui-lbl">Install from VSIX...</span></li>
+            <li>S&eacute;lectionne le fichier <code>.vsix</code> de CoPro r&eacute;cup&eacute;r&eacute; &agrave; l&rsquo;&eacute;tape&nbsp;2, puis <b>Install</b></li>
+            <li>Recharge la fen&ecirc;tre si VS Code le propose (<span class="ui-lbl">Restart Extensions</span> / <span class="ui-lbl">Reload Window</span>)</li>
+          </ol>
+          <div class="note">
+            <div class="lab" data-i18n="b4.note.lab">Variante</div>
+            <p data-i18n="b4.note.p">Le m&ecirc;me r&eacute;sultat s&rsquo;obtient depuis la palette de commandes&nbsp;: <code>Ctrl+Shift+P</code> &rarr; <b>Extensions: Install from VSIX...</b></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">5</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="b5.title">V&eacute;rifier et se connecter</h4>
+          <div class="do" data-i18n="b5.body">Dans le panneau Extensions, section <b>Installed</b>, v&eacute;rifie que <b>CoPro</b> appara&icirc;t bien. Ouvre ensuite le panneau CoPro et connecte-toi avec ton <b>compte Microsoft&nbsp;365 Wavestone</b>.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ C - PHASE 2 : USE ============ -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="c.eyebrow">&Eacute;tape 2 &mdash; Utiliser</span>
+    <h2 data-i18n="c.title">Ton premier &eacute;change avec CoPro</h2>
+    <p data-i18n="c.intro">Ouvre un dossier de travail dans VS Code (<span class="ui-lbl">File</span> &rarr; <span class="ui-lbl">Open Folder</span>), puis formule ta demande dans le panneau CoPro. Deux prompts pour d&eacute;marrer&nbsp;:</p>
+  </div>
+
+  <div class="idea-grid">
+    <div class="prompt">
+      <button class="copy">copier</button>
+      <div class="who" data-i18n="c.prompt1.who">Exemple &mdash; d&eacute;couvrir le dossier</div>
+      <div class="txt" data-i18n="c.prompt1.txt">Analyse le dossier ouvert et explique-moi en dix lignes &agrave; quoi sert chaque fichier.</div>
+    </div>
+    <div class="prompt">
+      <button class="copy">copier</button>
+      <div class="who" data-i18n="c.prompt2.who">Exemple &mdash; premi&egrave;re page</div>
+      <div class="txt" data-i18n="c.prompt2.txt">Cr&eacute;e-moi une page HTML autonome nomm&eacute;e demo.html qui affiche un tableau de bord simple avec trois indicateurs.</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="lab" data-i18n="c.note.lab">Human in the loop</div>
+    <p data-i18n="c.note.p">CoPro travaille sur les fichiers du dossier ouvert et te montre ce qu&rsquo;il modifie. Relis les changements propos&eacute;s avant de les valider &mdash; rien ne part en production tout seul.</p>
+  </div>
+
+  <div class="note green">
+    <div class="lab" data-i18n="c.gov.lab">Donn&eacute;es &amp; confidentialit&eacute;</div>
+    <p data-i18n="c.gov.p">Comme pour tout agent CYB&nbsp;: pas de donn&eacute;es client sensibles dans un dossier de travail sans validation, et un budget d&rsquo;usage cadr&eacute;. En cas de doute, reporte-toi aux principes de conception des agents.</p>
+  </div>
+
+  <!-- ============ D - GO FURTHER ============ -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="d.eyebrow">Aller plus loin</span>
+    <h2 data-i18n="d.title">Bien d&eacute;marrer avec l&rsquo;extension</h2>
+    <p data-i18n="d.intro">Quelques r&eacute;flexes qui font gagner du temps d&egrave;s la premi&egrave;re session.</p>
+  </div>
+
+  <div class="tips">
+    <div class="tip">
+      <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12" y2="17"/></svg></div>
+      <h3 data-i18n="d1.title">L&rsquo;installation a &eacute;chou&eacute;&nbsp;?</h3>
+      <p data-i18n="d1.body">V&eacute;rifie que le fichier <code>.vsix</code> n&rsquo;est pas bloqu&eacute; par Windows (clic droit &rarr; Propri&eacute;t&eacute;s &rarr; <b>D&eacute;bloquer</b>) et qu&rsquo;il est bien enregistr&eacute; en local, pas sur un lecteur r&eacute;seau.</p>
+    </div>
+    <div class="tip">
+      <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><polyline points="23 4 23 10 17 10"/><path d="M20.5 15a9 9 0 1 1-2.1-9.4L23 10"/></svg></div>
+      <h3 data-i18n="d2.title">Mettre &agrave; jour CoPro</h3>
+      <p data-i18n="d2.body">Une extension install&eacute;e par VSIX <b>ne se met pas &agrave; jour automatiquement</b>. Pour une nouvelle version, r&eacute;cup&egrave;re le nouveau fichier et refais l&rsquo;&eacute;tape <b>Install from VSIX</b>.</p>
+    </div>
+    <div class="tip">
+      <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
+      <h3 data-i18n="d3.title">Toujours un dossier d&eacute;di&eacute;</h3>
+      <p data-i18n="d3.body">Ouvre un dossier <b>par projet</b>. L&rsquo;agent ne voit que ce dossier&nbsp;: c&rsquo;est la fa&ccedil;on la plus simple de ma&icirc;triser ce que tu lui donnes &agrave; lire.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="lb-close" id="lbClose" aria-label="Fermer">&times;</button>
+  <img id="lbImg" src="" alt="">
+</div>
+
+<footer>
+  <span class="src" data-i18n="footer.src">VS Code avec M365 &mdash; Wavestone CYB &middot; AI Maker</span>
+  <button class="reset" id="reset" data-i18n="footer.reset">&#128285; Recommencer</button>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------------- i18n ---------------- */
+  var I18N = {
+    en:{
+      "nav.home":"Home","nav.usecases":"Playbook","nav.principles":"Agent principles","nav.agents":"Our agents","nav.apikey":"API key",
+      "hero.eyebrow":"Playbook &middot; VS Code &amp; M365",
+      "hero.title":"Use VS Code with <span class=\"ac\">M365</span>",
+      "hero.lede":"Install the CoPro extension in Visual Studio Code from a VSIX file, then code with an agent backed by your Microsoft&nbsp;365 account. Follow the flow and tick off each step.",
+      "hero.chip1":"# no admin rights","hero.chip2":"# VSIX install","hero.chip3":"# ~10 min","hero.chip4":"# VS Code &middot; CoPro &middot; M365",
+      "hero.tip":"<b>Tip:</b> scroll the page top to bottom. Click the <b>numbers</b> to tick off completed steps and <b>copy</b> to grab a prompt. The language switch is top right.",
+      "a.eyebrow":"The concept","a.title":"Three building blocks, that&rsquo;s it",
+      "a.intro":"An editor, an extension installed by hand, an M365 account. Understand these three blocks and the install becomes mechanical.",
+      "a.rail1":"VS Code","a.rail2":"VSIX file","a.rail3":"CoPro connected to M365",
+      "a.b1.tag":"Block 1","a.b1.title":"VS Code, your workbench","a.b1.body":"The editor installs <b>without admin rights</b> and hosts every extension. It is the single entry point of the chain.","a.b1.tool":"Visual Studio Code",
+      "a.b2.tag":"Block 2","a.b2.title":"The VSIX file","a.b2.body":"An extension can be shipped as a <code>.vsix</code> file instead of through the Marketplace. You then install it <b>manually</b> from the Extensions panel.","a.b2.tool":"Install from VSIX",
+      "a.b3.tag":"Block 3","a.b3.title":"Your M365 account","a.b3.body":"Once installed, the extension signs in with your <b>Wavestone Microsoft&nbsp;365 account</b>. The agent then works in the folder you open.","a.b3.tool":"Microsoft 365",
+      "b.eyebrow":"Step 1 &mdash; Install","b.title":"Install the CoPro extension","b.sub":"Done once. No admin rights needed. Allow 10 min.",
+      "word.steps":"steps",
+      "b1.title":"Install Visual Studio Code","b1.body":"If you haven&rsquo;t already, download VS Code for Windows and install it (user build, no admin rights).",
+      "b2.title":"Get the CoPro VSIX file","b2.body":"Ask the CYB AI Maker team for the CoPro <code>.vsix</code> file and save it on your machine (for example in <code>Documents</code>). Remember the path: you&rsquo;ll need it at step&nbsp;4.",
+      "b3.title":"Open the Extensions panel","b3.body":"In VS Code, open the extensions view:",
+      "b3.clicks":"<li>Menu <span class=\"ui-lbl\">View</span> &rarr; <span class=\"ui-lbl\">Extensions</span></li><li>Or the <code>Ctrl+Shift+X</code> shortcut</li><li>The <b>Extensions</b> panel appears in the sidebar</li>",
+      "b4.title":"Install from VSIX","b4.body":"Manual installation happens from the &ldquo;...&rdquo; menu at the top of the Extensions panel:",
+      "b4.clicks":"<li>Click <span class=\"ui-lbl\">...</span> (Views and More Actions) at the top right of the Extensions panel</li><li>Choose <span class=\"ui-lbl\">Install from VSIX...</span></li><li>Select the CoPro <code>.vsix</code> file from step&nbsp;2, then <b>Install</b></li><li>Reload the window if VS Code offers to (<span class=\"ui-lbl\">Restart Extensions</span> / <span class=\"ui-lbl\">Reload Window</span>)</li>",
+      "b4.note.lab":"Alternative","b4.note.p":"You get the same result from the command palette: <code>Ctrl+Shift+P</code> &rarr; <b>Extensions: Install from VSIX...</b>",
+      "b5.title":"Check and sign in","b5.body":"In the Extensions panel, under <b>Installed</b>, check that <b>CoPro</b> is listed. Then open the CoPro panel and sign in with your <b>Wavestone Microsoft&nbsp;365 account</b>.",
+      "c.eyebrow":"Step 2 &mdash; Use","c.title":"Your first exchange with CoPro","c.intro":"Open a working folder in VS Code (<span class=\"ui-lbl\">File</span> &rarr; <span class=\"ui-lbl\">Open Folder</span>), then type your request in the CoPro panel. Two prompts to get started:",
+      "c.prompt1.who":"Example &mdash; explore the folder","c.prompt1.txt":"Analyse the open folder and explain in ten lines what each file is for.",
+      "c.prompt2.who":"Example &mdash; first page","c.prompt2.txt":"Build me a self-contained HTML page named demo.html showing a simple dashboard with three indicators.",
+      "c.note.lab":"Human in the loop","c.note.p":"CoPro works on the files of the open folder and shows you what it changes. Review the proposed changes before approving them &mdash; nothing ships on its own.",
+      "c.gov.lab":"Data &amp; confidentiality","c.gov.p":"As with every CYB agent: no sensitive client data in a working folder without validation, and a framed usage budget. When in doubt, go back to the agent design principles.",
+      "d.eyebrow":"Go further","d.title":"Getting off to a good start","d.intro":"A few reflexes that save time from the very first session.",
+      "d1.title":"Installation failed?","d1.body":"Check that the <code>.vsix</code> file isn&rsquo;t blocked by Windows (right click &rarr; Properties &rarr; <b>Unblock</b>) and that it is stored locally, not on a network drive.",
+      "d2.title":"Updating CoPro","d2.body":"An extension installed from VSIX <b>does not update automatically</b>. For a new version, get the new file and repeat the <b>Install from VSIX</b> step.",
+      "d3.title":"Always a dedicated folder","d3.body":"Open one folder <b>per project</b>. The agent only sees that folder: it&rsquo;s the simplest way to control what you let it read.",
+      "footer.src":"VS Code with M365 &mdash; Wavestone CYB &middot; AI Maker","footer.reset":"&#128285; Start over",
+      "__title":"Use VS Code with M365 &mdash; Wavestone CYB"
+    },
+    de:{
+      "nav.home":"Start","nav.usecases":"Playbook","nav.principles":"Agenten-Prinzipien","nav.agents":"Unsere Agenten","nav.apikey":"API-Schl&uuml;ssel",
+      "hero.eyebrow":"Playbook &middot; VS Code &amp; M365",
+      "hero.title":"VS Code mit <span class=\"ac\">M365</span> nutzen",
+      "hero.lede":"Installiere die CoPro-Erweiterung in Visual Studio Code aus einer VSIX-Datei und arbeite dann mit einem Agenten, der auf deinem Microsoft&nbsp;365-Konto aufsetzt. Folge dem Ablauf und hake jeden Schritt ab.",
+      "hero.chip1":"# ohne Adminrechte","hero.chip2":"# VSIX-Installation","hero.chip3":"# ~10 Min","hero.chip4":"# VS Code &middot; CoPro &middot; M365",
+      "hero.tip":"<b>Tipp:</b> scrolle die Seite von oben nach unten. Klicke die <b>Zahlen</b> an, um erledigte Schritte abzuhaken, und <b>kopieren</b>, um einen Prompt zu &uuml;bernehmen. Die Sprachauswahl ist oben rechts.",
+      "a.eyebrow":"Das Konzept","a.title":"Drei Bausteine, mehr nicht",
+      "a.intro":"Ein Editor, eine manuell installierte Erweiterung, ein M365-Konto. Versteh diese drei Bausteine, und die Installation l&auml;uft wie von selbst.",
+      "a.rail1":"VS Code","a.rail2":"VSIX-Datei","a.rail3":"CoPro mit M365 verbunden",
+      "a.b1.tag":"Baustein 1","a.b1.title":"VS Code, deine Werkbank","a.b1.body":"Der Editor installiert sich <b>ohne Adminrechte</b> und beherbergt alle Erweiterungen. Er ist der einzige Einstiegspunkt der Kette.","a.b1.tool":"Visual Studio Code",
+      "a.b2.tag":"Baustein 2","a.b2.title":"Die VSIX-Datei","a.b2.body":"Eine Erweiterung kann als <code>.vsix</code>-Datei statt &uuml;ber den Marketplace ausgeliefert werden. Dann installiert man sie <b>manuell</b> &uuml;ber das Extensions-Panel.","a.b2.tool":"Install from VSIX",
+      "a.b3.tag":"Baustein 3","a.b3.title":"Dein M365-Konto","a.b3.body":"Nach der Installation meldet sich die Erweiterung mit deinem <b>Wavestone-Microsoft&nbsp;365-Konto</b> an. Der Agent arbeitet dann in dem Ordner, den du &ouml;ffnest.","a.b3.tool":"Microsoft 365",
+      "b.eyebrow":"Schritt 1 &mdash; Installieren","b.title":"Die CoPro-Erweiterung installieren","b.sub":"Einmalig. Keine Adminrechte n&ouml;tig. Plane 10 Min ein.",
+      "word.steps":"Schritte",
+      "b1.title":"Visual Studio Code installieren","b1.body":"Falls noch nicht geschehen: Lade VS Code f&uuml;r Windows herunter und installiere es (User-Version, ohne Adminrechte).",
+      "b2.title":"Die CoPro-VSIX-Datei besorgen","b2.body":"Fordere die <code>.vsix</code>-Datei von CoPro beim CYB-AI-Maker-Team an und speichere sie auf deinem Rechner (zum Beispiel unter <code>Dokumente</code>). Merke dir den Pfad: du brauchst ihn in Schritt&nbsp;4.",
+      "b3.title":"Das Extensions-Panel &ouml;ffnen","b3.body":"&Ouml;ffne in VS Code die Erweiterungsansicht:",
+      "b3.clicks":"<li>Men&uuml; <span class=\"ui-lbl\">View</span> (Ansicht) &rarr; <span class=\"ui-lbl\">Extensions</span></li><li>Oder das K&uuml;rzel <code>Ctrl+Shift+X</code></li><li>Das <b>Extensions</b>-Panel erscheint in der Seitenleiste</li>",
+      "b4.title":"Install from VSIX","b4.body":"Die manuelle Installation erfolgt &uuml;ber das Men&uuml; &bdquo;...&ldquo; oben im Extensions-Panel:",
+      "b4.clicks":"<li>Klicke oben rechts im Extensions-Panel auf <span class=\"ui-lbl\">...</span> (Views and More Actions)</li><li>W&auml;hle <span class=\"ui-lbl\">Install from VSIX...</span></li><li>W&auml;hle die CoPro-<code>.vsix</code>-Datei aus Schritt&nbsp;2, dann <b>Install</b></li><li>Lade das Fenster neu, wenn VS Code es vorschl&auml;gt (<span class=\"ui-lbl\">Restart Extensions</span> / <span class=\"ui-lbl\">Reload Window</span>)</li>",
+      "b4.note.lab":"Variante","b4.note.p":"Dasselbe Ergebnis erreichst du &uuml;ber die Befehlspalette: <code>Ctrl+Shift+P</code> &rarr; <b>Extensions: Install from VSIX...</b>",
+      "b5.title":"Pr&uuml;fen und anmelden","b5.body":"Pr&uuml;fe im Extensions-Panel unter <b>Installed</b>, ob <b>CoPro</b> aufgef&uuml;hrt ist. &Ouml;ffne dann das CoPro-Panel und melde dich mit deinem <b>Wavestone-Microsoft&nbsp;365-Konto</b> an.",
+      "c.eyebrow":"Schritt 2 &mdash; Nutzen","c.title":"Dein erster Austausch mit CoPro","c.intro":"&Ouml;ffne einen Arbeitsordner in VS Code (<span class=\"ui-lbl\">File</span> &rarr; <span class=\"ui-lbl\">Open Folder</span>) und formuliere deine Anfrage im CoPro-Panel. Zwei Prompts f&uuml;r den Start:",
+      "c.prompt1.who":"Beispiel &mdash; Ordner erkunden","c.prompt1.txt":"Analysiere den ge&ouml;ffneten Ordner und erkl&auml;re mir in zehn Zeilen, wof&uuml;r jede Datei da ist.",
+      "c.prompt2.who":"Beispiel &mdash; erste Seite","c.prompt2.txt":"Erstelle mir eine eigenst&auml;ndige HTML-Seite namens demo.html mit einem einfachen Dashboard aus drei Kennzahlen.",
+      "c.note.lab":"Human in the loop","c.note.p":"CoPro arbeitet an den Dateien des ge&ouml;ffneten Ordners und zeigt dir, was es &auml;ndert. Pr&uuml;fe die vorgeschlagenen &Auml;nderungen, bevor du sie best&auml;tigst &mdash; nichts geht von allein raus.",
+      "c.gov.lab":"Daten &amp; Vertraulichkeit","c.gov.p":"Wie bei jedem CYB-Agenten: keine sensiblen Kundendaten im Arbeitsordner ohne Freigabe und ein klar gerahmtes Nutzungsbudget. Im Zweifel gelten die Agenten-Prinzipien.",
+      "d.eyebrow":"Weitergehen","d.title":"Gut starten mit der Erweiterung","d.intro":"Ein paar Reflexe, die schon in der ersten Sitzung Zeit sparen.",
+      "d1.title":"Installation fehlgeschlagen?","d1.body":"Pr&uuml;fe, ob die <code>.vsix</code>-Datei von Windows blockiert wird (Rechtsklick &rarr; Eigenschaften &rarr; <b>Zulassen</b>) und ob sie lokal liegt und nicht auf einem Netzlaufwerk.",
+      "d2.title":"CoPro aktualisieren","d2.body":"Eine per VSIX installierte Erweiterung <b>aktualisiert sich nicht automatisch</b>. F&uuml;r eine neue Version besorgst du die neue Datei und wiederholst den Schritt <b>Install from VSIX</b>.",
+      "d3.title":"Immer ein eigener Ordner","d3.body":"&Ouml;ffne einen Ordner <b>pro Projekt</b>. Der Agent sieht nur diesen Ordner: die einfachste Art zu steuern, was du ihn lesen l&auml;sst.",
+      "footer.src":"VS Code mit M365 &mdash; Wavestone CYB &middot; AI Maker","footer.reset":"&#128285; Neu starten",
+      "__title":"VS Code mit M365 nutzen &mdash; Wavestone CYB"
+    }
+  };
+
+  var LABELS = { fr:{copy:"copier",copied:"copie OK"}, en:{copy:"copy",copied:"copied OK"}, de:{copy:"kopieren",copied:"kopiert OK"} };
+
+  var nodes = Array.prototype.slice.call(document.querySelectorAll('[data-i18n]'));
+  var ORIG = {};
+  nodes.forEach(function(n){ ORIG[n.getAttribute('data-i18n')] = n.innerHTML; });
+  var ORIG_TITLE = document.title;
+  var cur = 'fr';
+
+  function apply(lang){
+    if(lang!=='fr' && !I18N[lang]) lang='fr';
+    cur = lang;
+    document.documentElement.lang = lang;
+    nodes.forEach(function(n){
+      var k = n.getAttribute('data-i18n');
+      var v = (lang==='fr') ? ORIG[k] : (I18N[lang][k]!=null ? I18N[lang][k] : ORIG[k]);
+      if(v!=null) n.innerHTML = v;
+    });
+    document.title = (lang==='fr') ? ORIG_TITLE : (I18N[lang]['__title']!=null ? I18N[lang]['__title'] : ORIG_TITLE);
+    document.querySelectorAll('.copy').forEach(function(c){ if(!c.classList.contains('ok')) c.textContent = LABELS[lang].copy; });
+    document.querySelectorAll('.langsel button').forEach(function(b){ b.classList.toggle('on', b.getAttribute('data-lang')===lang); });
+    try{ localStorage.setItem('ws_lang', lang); }catch(e){}
+  }
+
+  document.querySelectorAll('.langsel button').forEach(function(b){
+    b.addEventListener('click', function(){ apply(b.getAttribute('data-lang')); });
+  });
+
+  /* language: saved choice > browser language > English (improvement over the FR default) */
+  var saved=null; try{ saved=localStorage.getItem('ws_lang'); }catch(e){}
+  function wsDetect(){
+    if(saved && ['fr','en','de'].indexOf(saved)>-1) return saved;
+    var ls=navigator.languages||[navigator.language||navigator.userLanguage||''];
+    for(var i=0;i<ls.length;i++){ var c=(ls[i]||'').slice(0,2).toLowerCase(); if(['fr','en','de'].indexOf(c)>-1) return c; }
+    return 'en';
+  }
+  apply(wsDetect());
+
+  /* ---------------- step progress per phase ---------------- */
+  document.querySelectorAll('.phase').forEach(function(ph){
+    var steps = ph.querySelectorAll('.step');
+    if(!steps.length) return;
+    var fill = ph.querySelector('.spine-fill');
+    var head = ph.previousElementSibling;
+    var dn = head && head.querySelector ? head.querySelector('.prog .dn') : null;
+    function refresh(){
+      var d = ph.querySelectorAll('.step.done').length;
+      if(dn) dn.textContent = d;
+      if(fill) fill.style.height = (d/steps.length*100)+'%';
+    }
+    steps.forEach(function(step){
+      var node = step.querySelector('.node');
+      function toggle(){
+        step.classList.toggle('done');
+        node.setAttribute('aria-pressed', step.classList.contains('done'));
+        refresh();
+      }
+      node.addEventListener('click', toggle);
+      node.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); toggle(); } });
+    });
+    refresh();
+  });
+
+  /* ---------------- copy prompts ---------------- */
+  document.querySelectorAll('.copy').forEach(function(c){
+    c.addEventListener('click', function(){
+      var txt = c.parentElement.querySelector('.txt').textContent.trim();
+      var ok = function(){ c.textContent = LABELS[cur].copied; c.classList.add('ok'); setTimeout(function(){ c.classList.remove('ok'); c.textContent = LABELS[cur].copy; },1600); };
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(ok, ok); }
+      else { var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); ok(); }
+    });
+  });
+
+  /* ---------------- lightbox (in-page zoom) ---------------- */
+  var lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbClose = document.getElementById('lbClose');
+  function openLb(src){ lbImg.src = src; lb.classList.add('on'); lb.setAttribute('aria-hidden','false'); }
+  function closeLb(){ lb.classList.remove('on'); lb.setAttribute('aria-hidden','true'); lbImg.src = ''; }
+  document.querySelectorAll('figure.shot a.zoom').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); openLb(a.getAttribute('href')); });
+  });
+  lb.addEventListener('click', function(e){ if(e.target !== lbImg) closeLb(); });
+  lbClose.addEventListener('click', closeLb);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && lb.classList.contains('on')) closeLb(); });
+
+  /* ---------------- reset ---------------- */
+  document.getElementById('reset').addEventListener('click', function(){
+    document.querySelectorAll('.step.done').forEach(function(s){ s.classList.remove('done'); s.querySelector('.node').setAttribute('aria-pressed','false'); });
+    document.querySelectorAll('.phase').forEach(function(ph){
+      var fill=ph.querySelector('.spine-fill'); if(fill) fill.style.height='0';
+      var head=ph.previousElementSibling; var dn=head&&head.querySelector?head.querySelector('.prog .dn'):null; if(dn) dn.textContent='0';
+    });
+    window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
+  });
+})();
+</script>
+<script src="assets/mobile-nav.js"></script>
+</body>
+</html>
