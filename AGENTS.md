@@ -1,16 +1,17 @@
 # AGENTS.md
 
-Instructions pour les assistants de code (Claude Code, Codex, Copilot...) qui travaillent sur ce dépôt ou qui construisent un agent CYB à partir de ses principes.
+Guidance for coding assistants (Claude Code, Codex, Copilot...) working on this repository or building a CYB agent from its principles.
 
-## Le dépôt
+## Repository
 
-- Site statique HowToWavestone : pages HTML autonomes à la racine, style commun dans `wavestonedesign.css`, assets dans `assets/`.
-- Textes en français par défaut, traductions EN / DE dans l'objet `window.WS_I18N` de chaque page (clés `data-i18n`).
-- `howto290626.html` et `dist/index.html` sont générés par `tools/build_inline_html.py` (workflow "Build inline HTML"). Toute modification d'une page doit y être reportée ou régénérée.
+- HowToWavestone static site: standalone HTML pages at the root, shared styling in `wavestonedesign.css`, assets in `assets/`.
+- French is the default text written in the HTML; English and German translations live in each page's `window.WS_I18N` object, keyed by `data-i18n` attributes (see `assets/i18n.js`).
+- `howto290626.html` and `dist/index.html` are consolidated builds produced by `tools/build_inline_html.py` (the "Build inline HTML" workflow). Any page change must be carried over to them or rebuilt.
+- GitHub Pages deploys automatically from `main`.
 
-## Principes des agents CYB
+## CYB agent principles
 
-Référence complète : `agent-principles.html`. Tout agent ou outil construit ici suit le prompt type ci-dessous, identique à celui affiché en bas de cette page. Si l'un change, mettre l'autre à jour.
+Full reference: `agent-principles.html`. Any agent or tool built here follows the prompt below. The page shows the same prompt in FR / EN / DE (`prompt.body` key); keep the three versions and this file in sync.
 
 ```text
 Build or modify a local-first CYB agent.
@@ -32,8 +33,8 @@ Secrets
 Done when: no AI call before approval, exports hold no secrets, the app runs without a server.
 ```
 
-## Règles de rédaction
+## Writing rules
 
-- Garder le prompt type court : uniquement les règles actionnables, sans répéter ce que la page explique déjà.
-- Pas de tiret cadratin dans les textes.
-- Pas de paramètre `utm_source` dans les URL.
+- Keep the prompt short: actionable rules only, no repetition of what the page already explains.
+- No em dashes in any text.
+- No `utm_source` parameter in URLs.

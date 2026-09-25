@@ -1790,23 +1790,23 @@ __WS_CLOSE_SCRIPT__
     <span class="eyebrow" data-i18n="prompt.eyebrow">Exemple de prompt</span>
     <h3 id="prompt-example-title" data-i18n="prompt.title">Ajouter un appel LLM portable</h3>
     <p data-i18n="prompt.intro">Un prompt pr&ecirc;t &agrave; donner &agrave; un assistant de code pour ajouter une couche IA tout en conservant les principes d'autonomie, de portabilit&eacute; et de gouvernance client.</p>
-    <pre>Build or modify a local-first CYB agent.
+    <pre data-i18n="prompt.body">Construis ou modifie un agent CYB local-first.
 
 Architecture
-- One standalone HTML file (or small static folder) that opens in any browser: no server, install, admin rights, database or client infrastructure.
-- Deterministic logic first; call an LLM only where it clearly adds value. Core features must work offline.
-- Share and collaborate through JSON export / import.
+- Un fichier HTML autonome (ou un petit dossier statique) qui s'ouvre dans n'importe quel navigateur : sans serveur, installation, droits admin, base de donn&eacute;es ni infrastructure client.
+- Logique d&eacute;terministe d'abord ; n'appeler un LLM que l&agrave; o&ugrave; il apporte une vraie valeur. Les fonctions cl&eacute;s marchent hors-ligne.
+- Partage et collaboration par export / import JSON.
 
-LLM layer (optional)
-- One LLMClient (getAvailableModels, testConnection, generate). Provider and model are settings: OpenAI, Anthropic, Mistral, Azure OpenAI / AI Foundry, Ollama, any OpenAI-compatible endpoint.
-- Block every AI call until the user checks "AI use is authorized for this content and complies with the client's rules".
-- Load models dynamically with a curated fallback; show connection status and clear errors (provider, model, HTTP status, never secrets).
+Couche LLM (optionnelle)
+- Un seul LLMClient (getAvailableModels, testConnection, generate). Fournisseur et mod&egrave;le sont des param&egrave;tres : OpenAI, Anthropic, Mistral, Azure OpenAI / AI Foundry, Ollama, tout endpoint compatible OpenAI.
+- Bloquer tout appel IA tant que l'utilisateur n'a pas coch&eacute; &laquo; L'usage de l'IA est autoris&eacute; pour ce contenu et conforme aux r&egrave;gles du client &raquo;.
+- Charger les mod&egrave;les dynamiquement avec une liste de repli ; afficher l'&eacute;tat de connexion et des erreurs claires (fournisseur, mod&egrave;le, statut HTTP, jamais de secrets).
 
 Secrets
-- API keys never appear in exports, logs, prompts or generated files.
-- sessionStorage by default, localStorage only on explicit opt-in; password fields and a "Clear API keys" button.
+- Les cl&eacute;s API n'apparaissent jamais dans les exports, logs, prompts ou fichiers g&eacute;n&eacute;r&eacute;s.
+- sessionStorage par d&eacute;faut, localStorage uniquement sur accord explicite ; champs mot de passe et bouton &laquo; Effacer les cl&eacute;s API &raquo;.
 
-Done when: no AI call before approval, exports hold no secrets, the app runs without a server.</pre>
+Termin&eacute; quand : aucun appel IA avant accord, aucun secret dans les exports, l'app tourne sans serveur.</pre>
   </section>
 
   <div class="recap">
@@ -1932,6 +1932,7 @@ window.WS_I18N = {
     "prompt.eyebrow": "Prompt example",
     "prompt.title": "Add a portable LLM call",
     "prompt.intro": "A ready-to-use prompt for a coding assistant to add an AI layer while preserving autonomy, portability and client-governance principles.",
+    "prompt.body": "Build or modify a local-first CYB agent.\n\nArchitecture\n- One standalone HTML file (or small static folder) that opens in any browser: no server, install, admin rights, database or client infrastructure.\n- Deterministic logic first; call an LLM only where it clearly adds value. Core features must work offline.\n- Share and collaborate through JSON export / import.\n\nLLM layer (optional)\n- One LLMClient (getAvailableModels, testConnection, generate). Provider and model are settings: OpenAI, Anthropic, Mistral, Azure OpenAI / AI Foundry, Ollama, any OpenAI-compatible endpoint.\n- Block every AI call until the user checks \"AI use is authorized for this content and complies with the client's rules\".\n- Load models dynamically with a curated fallback; show connection status and clear errors (provider, model, HTTP status, never secrets).\n\nSecrets\n- API keys never appear in exports, logs, prompts or generated files.\n- sessionStorage by default, localStorage only on explicit opt-in; password fields and a \"Clear API keys\" button.\n\nDone when: no AI call before approval, exports hold no secrets, the app runs without a server.",
     "recap.eyebrow": "In one sentence",
     "recap.title": "A CYB agent is&hellip;",
     "recap.intro": "&hellip;a tool that is as autonomous as possible, that you carry everywhere and share by file.",
@@ -2024,6 +2025,7 @@ window.WS_I18N = {
     "prompt.eyebrow": "Prompt-Beispiel",
     "prompt.title": "Einen portablen LLM-Aufruf hinzuf&uuml;gen",
     "prompt.intro": "Ein direkt nutzbarer Prompt f&uuml;r einen Coding Assistant, um eine KI-Schicht hinzuzuf&uuml;gen und dabei Autonomie, Portabilit&auml;t und Kunden-Governance zu bewahren.",
+    "prompt.body": "Baue oder &auml;ndere einen Local-first-CYB-Agenten.\n\nArchitektur\n- Eine eigenst&auml;ndige HTML-Datei (oder ein kleiner statischer Ordner), die in jedem Browser l&auml;uft: ohne Server, Installation, Admin-Rechte, Datenbank oder Kundeninfrastruktur.\n- Zuerst deterministische Logik; ein LLM nur dort aufrufen, wo es klaren Mehrwert bringt. Kernfunktionen laufen offline.\n- Teilen und Zusammenarbeit per JSON-Export / -Import.\n\nLLM-Schicht (optional)\n- Ein einziger LLMClient (getAvailableModels, testConnection, generate). Anbieter und Modell sind Einstellungen: OpenAI, Anthropic, Mistral, Azure OpenAI / AI Foundry, Ollama, jeder OpenAI-kompatible Endpoint.\n- Jeden KI-Aufruf blockieren, bis der Nutzer &bdquo;Der KI-Einsatz ist f&uuml;r diese Inhalte freigegeben und entspricht den Regeln des Kunden&ldquo; best&auml;tigt.\n- Modelle dynamisch laden, mit kuratierter Fallback-Liste; Verbindungsstatus und klare Fehler anzeigen (Anbieter, Modell, HTTP-Status, nie Secrets).\n\nSecrets\n- API-Schl&uuml;ssel erscheinen nie in Exporten, Logs, Prompts oder generierten Dateien.\n- Standardm&auml;&szlig;ig sessionStorage, localStorage nur nach ausdr&uuml;cklichem Opt-in; Passwortfelder und ein Button &bdquo;API-Schl&uuml;ssel l&ouml;schen&ldquo;.\n\nFertig, wenn: kein KI-Aufruf vor der Freigabe, keine Secrets in Exporten, die App l&auml;uft ohne Server.",
     "recap.eyebrow": "In einem Satz",
     "recap.title": "Ein CYB-Agent ist&hellip;",
     "recap.intro": "&hellip;ein m&ouml;glichst autonomes Werkzeug, das man &uuml;berallhin mitnimmt und per Datei teilt.",
