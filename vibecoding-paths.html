@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Comparatif pour choisir entre l'exploration personnelle du vibecoding et la communauté AI Makers for CYB.">
+<title>Wavestone CYB AI Maker · Vibecoder oui, mais comment ?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B; --ws-indigo-800:#2D1380; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-danger:#D8412F; --ws-danger-ink:#7A1C14; --ws-danger-bg:#FDECEA; --ws-danger-line:#F3C1BB;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63; --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+    --rail:42px;
+    --gap:16px;
+    --cg:48px;
+    --cols:minmax(0,1fr) minmax(0,1fr);
+    --lane:calc((100% - var(--cg)) / 4 - 1px);
+    --between:calc((100% - var(--cg)) / 4 + 24px);
+    --box-inset:calc((100% - 48px) / 5.6 + 24px);
+    --ws-beat-bg:#FFF4C2; --ws-beat-line:#F5D76E; --ws-beat-accent:#E0A800; --ws-beat-ink:#4A3A00;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--ws-white);color:var(--ws-ink-900);font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:72px}
+  a{color:inherit}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+  .eyebrow{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid var(--ws-green-400)}
+
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1120px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .dot{width:9px;height:9px;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .nav-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-left:auto}
+  .bar-in .langsel{margin-left:10px}
+  .bar a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:6px 13px;transition:.18s var(--ws-ease)}
+  .bar a.jump:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1120px;margin:0 auto;padding:52px 24px 40px}
+  .hero .eyebrow{color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(34px,5vw,54px);line-height:1.04;letter-spacing:-.025em;margin:16px 0 12px;max-width:18ch}
+  .hero h1 .ac{color:var(--ws-green-400)}
+  .hero .lede{font-size:17px;line-height:1.55;color:rgba(255,255,255,.82);max-width:68ch}
+
+  .schema{margin-top:28px}
+  .legend{display:flex;flex-wrap:wrap;gap:10px 22px;margin-bottom:22px}
+  .legend span{display:inline-flex;align-items:center;gap:8px;font-family:var(--ws-font-mono);font-size:12px;font-weight:600;color:var(--ws-ink-700)}
+  .legend i{width:28px;height:3px;background:#451DC7;flex:0 0 auto}
+  .legend .crew i{background:#088A42}
+
+  .head{display:flex;flex-direction:column;align-items:center}
+  .source{width:min(320px,100%);border:1.5px solid var(--ws-indigo-600);background:var(--ws-indigo-50);color:var(--ws-indigo-950);padding:14px 16px;text-align:center}
+  .source .k{font-family:var(--ws-font-mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ws-green-700)}
+  .source strong{display:block;font-family:var(--ws-font-display);font-size:16px;line-height:1.25;margin-top:4px;letter-spacing:-.02em}
+  .neck{width:2px;height:28px;background:#451DC7}
+
+  .steps{position:relative;display:flex;flex-direction:column;gap:64px;padding-top:72px}
+  .steps::before{content:"";position:absolute;top:0;left:var(--lane);right:var(--lane);height:2px;background:linear-gradient(90deg,#451DC7 0 50%,#088A42 50% 100%);z-index:1}
+
+  .step{position:relative;display:grid;grid-template-columns:var(--cols);column-gap:var(--cg);row-gap:14px;align-items:center;cursor:pointer;opacity:.45;scroll-margin-top:88px}
+  .step.seen,.step.on{opacity:1}
+  .step:not(.seen):hover{opacity:.72}
+  .pin{position:relative;z-index:2;width:34px;height:34px;display:grid;place-items:center;justify-self:center;font-family:var(--ws-font-mono);font-weight:600;font-size:13px;background:#fff;border:2px solid #451DC7;color:var(--ws-indigo-600)}
+  .pin.solo{grid-column:1;grid-row:1}
+  .pin.crew{grid-column:2;grid-row:1;border-color:#088A42;color:var(--ws-green-700)}
+  .step:not(.seen) .pin{border-color:var(--ws-ink-200);color:var(--ws-ink-400);background:var(--ws-ink-50)}
+  .step.on .pin.solo{background:var(--ws-indigo-600);color:#fff;border-color:var(--ws-indigo-600)}
+  .step.on .pin.crew{background:var(--ws-green-400);color:var(--ws-indigo-950);border-color:var(--ws-green-400)}
+
+  .seg{position:absolute;z-index:0;top:0;bottom:-64px;width:2px;background:#451DC7;pointer-events:none}
+  .step:first-child .seg{top:-72px}
+  .seg.solo{left:var(--lane)}
+  .seg.crew{left:auto;right:var(--lane);background:#088A42}
+  .seg.ahead{background:repeating-linear-gradient(180deg,#BDAFEB 0 5px,transparent 5px 11px)}
+  .seg.crew.ahead{background:repeating-linear-gradient(180deg,#9ED9B8 0 5px,transparent 5px 11px)}
+  .step:last-child .seg{bottom:0}
+
+  .ans{position:relative;z-index:1;align-self:stretch}
+  .ans.solo{grid-column:1;grid-row:2}
+  .q{grid-column:1 / -1;grid-row:1;padding-inline:var(--between);font-family:var(--ws-font-display);font-weight:700;font-size:clamp(16px,2vw,22px);line-height:1.3;letter-spacing:-.02em;text-align:center}
+  .ans.crew{grid-column:2;grid-row:2}
+  .note,.step .alert{position:relative;z-index:1}
+  .note{grid-column:1 / -1;grid-row:3;margin-inline:var(--box-inset);padding:12px 14px;background:var(--ws-beat-bg);border:1.5px solid var(--ws-beat-line);border-left:4px solid var(--ws-beat-accent);font-size:14px;line-height:1.5;color:var(--ws-beat-ink);text-align:center}
+  .step.has-alert .alert{grid-column:1 / -1;grid-row:2;margin-inline:var(--box-inset)}
+  .step.has-alert .ans{grid-row:3}
+  .step.has-alert .note{grid-row:4}
+
+  .card{border:1.5px solid var(--ws-indigo-100);border-left:4px solid var(--ws-indigo-600);background:#fff;padding:14px 16px}
+  .card.crew{background:var(--ws-green-50);color:var(--ws-ink-900);border-color:var(--ws-green-50);border-left-color:var(--ws-green-700)}
+  .card .k{font-family:var(--ws-font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-indigo-600)}
+  .card.crew .k{color:var(--ws-green-700)}
+  .card p{margin-top:8px;font-size:15px;line-height:1.55;color:var(--ws-ink-700)}
+
+  .alert{display:flex;gap:14px;align-items:flex-start;background:var(--ws-danger-bg);border:1px solid var(--ws-danger-line);border-left:6px solid var(--ws-danger);padding:16px 18px;box-shadow:0 10px 24px rgba(216,65,47,.16)}
+  .alert .mark{flex:0 0 auto;width:36px;height:36px;display:grid;place-items:center;background:var(--ws-danger);color:#fff}
+  .alert .mark svg{display:block}
+  .alert .lab{display:inline-block;font-family:var(--ws-font-mono);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:var(--ws-danger-ink);padding:3px 8px}
+  .alert strong{display:block;font-family:var(--ws-font-display);font-weight:700;font-size:18px;line-height:1.25;color:var(--ws-danger-ink);margin-top:8px}
+  .alert p{margin-top:4px;font-size:14.5px;line-height:1.5;color:#3A201C}
+  .tags{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px}
+  .flag{display:inline-block;font-family:var(--ws-font-mono);font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 8px}
+  .flag.no{color:#fff;background:var(--ws-danger)}
+  .flag.yes{color:var(--ws-indigo-950);background:var(--ws-green-400)}
+
+  .landings{position:relative;display:grid;grid-template-columns:var(--cols);gap:var(--cg);margin-top:48px}
+  .end.crew{grid-column:2}
+  .landings[hidden]{display:none}
+  .tail{position:absolute;top:-48px;width:2px;height:48px;background:repeating-linear-gradient(180deg,#BDAFEB 0 5px,transparent 5px 11px);pointer-events:none}
+  .tail.solo{left:var(--lane)}
+  .tail.crew{right:var(--lane);background:repeating-linear-gradient(180deg,#9ED9B8 0 5px,transparent 5px 11px)}
+  .end h3{font-family:var(--ws-font-display);font-weight:700;font-size:16px;line-height:1.25;letter-spacing:-.02em;margin:4px 0 8px}
+  .end a{display:block;text-decoration:none;border:1.5px solid var(--ws-indigo-100);background:#fff;padding:8px 10px;margin-top:6px}
+  .end a strong{display:block;font-family:var(--ws-font-display);font-weight:600;font-size:14px;color:var(--ws-indigo-600)}
+  .end a span{display:block;margin-top:3px;font-size:13px;line-height:1.4;color:var(--ws-ink-700)}
+  .end.solo a:hover{border-color:var(--ws-indigo-600)}
+  .end.crew a{border-color:#C8F5DC}
+  .end.crew a strong{color:var(--ws-green-700)}
+  .end.crew a:hover{border-color:var(--ws-green-700)}
+
+  .advance{margin-top:18px}
+  .advance button{font-family:var(--ws-font-mono);font-size:12.5px;font-weight:600;background:var(--ws-indigo-600);color:#fff;border:0;padding:10px 14px;cursor:pointer}
+  .advance button:hover{background:var(--ws-indigo-700)}
+  .advance button[hidden]{display:none}
+  .finale{margin-top:22px;padding:16px 18px;background:var(--ws-indigo-50);color:var(--ws-indigo-950);border-left:4px solid var(--ws-indigo-600);font-family:var(--ws-font-display);font-weight:600;font-size:18px;line-height:1.35}
+  .finale[hidden]{display:none}
+  .finale strong{color:var(--ws-green-700);font-weight:700}
+  .hint{margin-top:14px;font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+
+  footer{max-width:1120px;margin:48px auto 0;padding:22px 24px;border-top:1px solid var(--ws-ink-100)}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus)}
+  @media(max-width:640px){
+    :root{--rail:34px;--gap:8px;--lane:16px;--between:0px;--box-inset:0px}
+    .step{grid-template-columns:var(--rail) minmax(0,1fr) var(--rail);column-gap:var(--gap)}
+    .pin.crew{grid-column:3}
+    .q,.ans.solo,.ans.crew,.note,.step.has-alert .alert{grid-column:2}
+    .ans.crew{grid-row:3}
+    .note{grid-row:4}
+    .step.has-alert .alert{grid-row:2}
+    .step.has-alert .ans.solo{grid-row:3}
+    .step.has-alert .ans.crew{grid-row:4}
+    .step.has-alert .note{grid-row:5}
+    .note{text-align:left}
+    .landings{gap:20px}
+    .end.crew{grid-column:auto}
+    .landings{grid-template-columns:1fr}
+    .alert{flex-direction:column}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  *,*::before,*::after{border-radius:0!important}
+
+  /* Parcours AI Makers &middot; un seul cadre, replay interactif */
+  .makers{margin-top:36px}
+  .makers-head h2{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(26px,3vw,36px);letter-spacing:-.02em;line-height:1.12;margin:12px 0 8px}
+  .makers-lede{max-width:72ch;font-size:16px;line-height:1.55;color:var(--ws-ink-600)}
+  .makers-stage{margin-top:18px;border:1.5px solid var(--ws-ink-100);background:#fff}
+  .makers-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 14px;border-bottom:1px solid var(--ws-ink-100);background:var(--ws-ink-50)}
+  .makers-steps{display:flex;gap:8px;flex-wrap:wrap}
+  .makers-steps button,.makers-replay{font-family:var(--ws-font-mono);font-size:12.5px;font-weight:600;background:#fff;color:var(--ws-ink-700);border:1px solid var(--ws-ink-200);padding:8px 12px;cursor:pointer}
+  .makers-steps button:hover,.makers-replay:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+  .makers[data-step="1"] [data-mk="1"],
+  .makers[data-step="2"] [data-mk="2"],
+  .makers[data-step="3"] [data-mk="3"],
+  .makers[data-step="4"] [data-mk="4"]{background:var(--ws-indigo-600);border-color:var(--ws-indigo-600);color:#fff;box-shadow:inset 0 -3px 0 var(--ws-green-400)}
+  .makers[data-step="1"] [data-mk="1"]:hover,
+  .makers[data-step="2"] [data-mk="2"]:hover,
+  .makers[data-step="3"] [data-mk="3"]:hover,
+  .makers[data-step="4"] [data-mk="4"]:hover{color:#fff}
+  .makers-cap{margin:14px 16px 0;padding:8px 12px;background:var(--ws-indigo-50);border-left:4px solid var(--ws-green-400);font-family:var(--ws-font-display);font-weight:600;font-size:16px;line-height:1.35;color:var(--ws-indigo-950);min-height:2.7em}
+  .makers-cap .mk-cap{display:none}
+  .makers-cap .mk-cap.on{display:block}
+  .makers-canvas{padding:6px 8px 0;overflow-x:auto}
+  .makers-canvas svg{display:block;width:100%;height:auto}
+  .makers-legend{margin:0;padding:12px 16px;border-top:1px solid var(--ws-ink-100);background:var(--ws-ink-50);font-family:var(--ws-font-mono);font-size:12.5px;line-height:1.45;color:var(--ws-ink-600)}
+  .makers-legend span{display:none}
+  .makers[data-step="1"] .mk-leg-1,.makers[data-step="2"] .mk-leg-2,.makers[data-step="3"] .mk-leg-3,.makers[data-step="4"] .mk-leg-4{display:block}
+  .makers[data-step="0"] .mk-leg-0{display:block}
+  .mk-player{display:flex;align-items:center;gap:12px;padding:10px 14px 14px}
+  .mk-play{flex:0 0 auto;font-family:var(--ws-font-mono);font-size:12.5px;font-weight:600;background:var(--ws-indigo-600);color:#fff;border:0;padding:8px 12px;cursor:pointer}
+  .mk-play:hover{background:var(--ws-indigo-700)}
+  .mk-rail{position:relative;flex:1;height:28px;display:flex;align-items:center;gap:0}
+  .mk-rail-line{position:absolute;left:0;right:0;top:13px;height:2px;background:var(--ws-ink-200)}
+  .mk-rail-fill{position:absolute;left:0;top:13px;height:2px;width:0;background:var(--ws-indigo-600)}
+  .mk-tick{position:relative;z-index:1;flex:1;height:28px;border:0;background:transparent;cursor:pointer;padding:0}
+  .mk-tick i{display:block;width:10px;height:10px;margin:0 auto;background:#fff;border:2px solid var(--ws-ink-200)}
+  .mk-tick.on i{border-color:var(--ws-indigo-600);background:var(--ws-indigo-600)}
+  .mk-tick.now i{background:var(--ws-green-400);border-color:var(--ws-green-400)}
+  .mk-phases{display:flex;gap:8px;flex-wrap:wrap;padding:0 14px 12px}
+  .mk-phases button{font-family:var(--ws-font-mono);font-size:11.5px;font-weight:600;background:#fff;color:var(--ws-ink-600);border:1px solid var(--ws-ink-200);padding:6px 10px;cursor:pointer}
+  .mk-phases button.on{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600);background:var(--ws-indigo-50)}
+  .node,.edge{opacity:0;transition:opacity .35s var(--ws-ease);pointer-events:none}
+  .node.on,.edge.on{opacity:1}
+  .node.on{pointer-events:auto}
+  .node.now{filter:drop-shadow(0 0 0 transparent)}
+  .mk-name,.mk-dsi{opacity:0;pointer-events:none;transition:opacity .18s var(--ws-ease)}
+  .mk-ico:hover .mk-name,
+  .mk-ico:focus .mk-name,
+  .mk-ico:focus-visible .mk-name{opacity:1}
+  .mk-claude:hover ~ .mk-dsi,
+  .mk-claude:focus ~ .mk-dsi,
+  .mk-claude:focus-visible ~ .mk-dsi,
+  .mk-foundry:hover ~ .mk-dsi,
+  .mk-foundry:focus ~ .mk-dsi,
+  .mk-foundry:focus-visible ~ .mk-dsi,
+  .mk-dsi:hover{opacity:1;pointer-events:auto}
+  .mk-warn-box{box-sizing:border-box;height:100%;background:#FFF7ED;border:1.25px solid #C2410C;color:#9A3412;font-family:var(--ws-font-mono);font-size:11.5px;font-weight:600;line-height:1.35;padding:8px 10px 8px 28px;position:relative}
+  .mk-warn-box p{margin:0}
+  .mk-warn-box::before{content:"!";position:absolute;left:8px;top:8px;width:14px;height:14px;background:#C2410C;color:#fff;font-family:var(--ws-font-display);font-weight:800;font-size:11px;line-height:14px;text-align:center}
+  .mk-warn-box a{color:#9A3412;font-weight:800}
+  .mk-parallax:hover .mk-name,
+  .mk-parallax:focus .mk-name,
+  .mk-parallax:focus-visible .mk-name{opacity:1}
+  .mk-tip{fill:var(--ws-indigo-50);stroke:#451DC7;stroke-width:1}
+  .mk-lab{font-family:var(--ws-font-mono);font-size:11px;font-weight:700;fill:var(--ws-ink-700);text-anchor:middle}
+  .mk-lab-sm{font-size:10px}
+  .mk-zone-lab{font-family:var(--ws-font-mono);font-size:11px;font-weight:700;letter-spacing:.03em;fill:var(--ws-indigo-700);text-anchor:middle}
+  .mk-zone-s3lab{fill:#8A4B00}
+  .mk-aws-word{font-family:var(--ws-font-display);font-size:22px;font-weight:800;fill:#232F3E;text-anchor:middle}
+  .mk-pc-frame{fill:#F3F4F6;stroke:#CFCCDC;stroke-width:1.5}
+  .mk-pc-screen{fill:#F8F7FC;stroke:#E5E7EB;stroke-width:1}
+  .mk-pc-deck{fill:#E5E7EB;stroke:#CFCCDC;stroke-width:1.25}
+  .mk-zone-git{fill:#F8F7FC;stroke:#451DC7;stroke-width:1.5}
+  .mk-zone-s3{fill:#FFF8F0;stroke:#FF9900;stroke-width:1.5}
+  .mk-zone-az{fill:#F3F9FD;stroke:#0078D4;stroke-width:1.5}
+  .mk-zone-azlab{fill:#004578}
+  .mk-chip{fill:var(--ws-indigo-50);stroke:#451DC7;stroke-width:1.25}
+  .mk-chip-s3{fill:#FFF8F0;stroke:#FF9900}
+  .mk-file{fill:#fff;stroke:#451DC7;stroke-width:1.5}
+  .mk-draw{fill:none;stroke:#451DC7;stroke-width:2.25;stroke-dasharray:7 5;stroke-linecap:butt;stroke-linejoin:miter}
+  .mk-draw-px{stroke:#C2410C}
+  .mk-draw-ide{stroke:#0F766E}
+  .mk-draw-repo{stroke:#BE185D}
+  .mk-draw-host{stroke:#FF9900}
+  .mk-draw-az{stroke:#0078D4}
+  .edge.on .mk-draw{animation:mkFlow 1.05s linear infinite}
+  @keyframes mkFlow{to{stroke-dashoffset:-24}}
+  .mk-sso .sso-disk{fill:var(--ws-indigo-50);stroke:var(--ws-indigo-600);stroke-width:1.75}
+  .mk-sso .sso-shield{fill:var(--ws-indigo-600)}
+  .mk-sso .sso-lock{fill:#fff}
+  .node.on .mk-sso.is-ok .sso-disk{fill:var(--ws-green-50);stroke:var(--ws-green-700)}
+  .node.on .mk-sso.is-ok .sso-shield{fill:var(--ws-green-700)}
+  .node.on .mk-sso.is-ok .sso-lock{opacity:0}
+  .node.on .mk-sso.is-ok .sso-check{opacity:1}
+  .mk-sso .sso-check{fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:square;opacity:0}
+  .mkp-chrome{fill:#fff;stroke:var(--ws-ink-200);stroke-width:1.5}
+  .mkp-bar{fill:var(--ws-ink-50);stroke:var(--ws-ink-200);stroke-width:1}
+  .mkp-dot{fill:#C4C0D4}
+  .mkp-url{fill:#fff;stroke:var(--ws-ink-200);stroke-width:1}
+  .mkp-t{fill:var(--ws-indigo-100)}
+  .mkp-b{fill:var(--ws-ink-100)}
+  .mkp-cta{fill:var(--ws-green-400)}
+  @media(max-width:640px){
+    .makers-cap{margin:12px 12px 0;font-size:15px}
+    .makers-bar,.makers-legend{padding-left:12px;padding-right:12px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .makers .mk-draw{animation:none!important}
+    .makers .sso-disk{fill:var(--ws-green-50)!important;stroke:var(--ws-green-700)!important}
+    .makers .sso-shield{fill:var(--ws-green-700)!important}
+    .makers .sso-check{opacity:1!important}
+    .makers .sso-lock{opacity:0!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
+    <div class="nav-links">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
+      <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="ai-usage-models.html">Copilot &rarr; Agents</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+      <a class="jump" href="dance-with-the-ai-stars.html" data-i18n="nav.dais">Dance With the AI Stars</a>
+      <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1120 320" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-40,220 Q260,120 560,180 T1180,150" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-40,260 Q300,150 580,210 T1180,180" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <span class="eyebrow" data-i18n="hero.eyebrow">Comparatif</span>
+    <h1 data-i18n="hero.title">Vibecoder oui, mais <span class="ac">comment</span>&nbsp;?</h1>
+    <p class="lede" data-i18n="hero.lede">Vous voulez vibecoder un premier agent sans savoir quelle m&eacute;thode suivre&nbsp;? Nous voyons deux grandes approches, compar&eacute;es ici question par question. Alors, plut&ocirc;t team &laquo;&nbsp;Exploration personnelle&nbsp;&raquo; ou &laquo;&nbsp;Communaut&eacute; AI Makers for CYB&nbsp;&raquo;&nbsp;?</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="makers" id="makers" data-step="0" aria-labelledby="makersTitle">
+    <div class="makers-head">
+      <span class="eyebrow" data-i18n="mk.eye">AI Makers</span>
+      <h2 id="makersTitle" data-i18n="mk.title">Le parcours AI Makers</h2>
+      <p class="makers-lede" data-i18n="mk.lede">Le sch&eacute;ma ci-dessous d&eacute;roule le parcours AI Makers &eacute;tape par &eacute;tape, de la pr&eacute;paration du poste jusqu&rsquo;&agrave; l&rsquo;usage en mission. Lancez la lecture ou cliquez sur une &eacute;tape.</p>
+    </div>
+    <div class="makers-stage">
+      <div class="makers-canvas">
+        <svg viewBox="0 0 1100 580" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="makersTitle">
+          <defs>
+            <marker id="mkArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 1 L9 5 L0 9 Z" fill="#451DC7"/>
+            </marker>
+            <marker id="mkArrPx" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 1 L9 5 L0 9 Z" fill="#C2410C"/>
+            </marker>
+            <marker id="mkArrIde" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 1 L9 5 L0 9 Z" fill="#0F766E"/>
+            </marker>
+            <marker id="mkArrRepo" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 1 L9 5 L0 9 Z" fill="#BE185D"/>
+            </marker>
+            <marker id="mkArrS3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 1 L9 5 L0 9 Z" fill="#FF9900"/>
+            </marker>
+            <marker id="mkArrAz" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 1 L9 5 L0 9 Z" fill="#0078D4"/>
+            </marker>
+          </defs>
+
+          <g class="edge" data-from="1"><path class="mk-draw" d="M293 316 V250" marker-end="url(#mkArr)"/></g>
+          <g class="edge" data-from="2"><path class="mk-draw" d="M328 326 H531 V230" marker-end="url(#mkArr)"/></g>
+          <g class="edge" data-from="3"><path class="mk-draw mk-draw-px" d="M531 140 V132 H710 V80 H726" marker-end="url(#mkArrPx)"/></g>
+          <g class="edge" data-from="4"><path class="mk-draw mk-draw-px" d="M574 196 H660 V220 H726" marker-end="url(#mkArrPx)"/></g>
+          <g class="edge" data-from="5"><path class="mk-draw" d="M160 353 H254" marker-start="url(#mkArr)" marker-end="url(#mkArr)"/></g>
+          <g class="edge" data-from="6"><path class="mk-draw mk-draw-ide" d="M82 303 V178 H186" marker-start="url(#mkArrIde)" marker-end="url(#mkArrIde)"/></g>
+          <g class="edge" data-from="7"><path class="mk-draw mk-draw-repo" d="M300 122 V90 H690 V44 H726" marker-start="url(#mkArrRepo)" marker-end="url(#mkArrRepo)"/></g>
+          <g class="edge" data-from="8"><path class="mk-draw mk-draw-host" d="M855 112 V164" marker-end="url(#mkArrS3)"/></g>
+          <g class="edge" data-from="9"><path class="mk-draw mk-draw-host" d="M784 272 V324" marker-end="url(#mkArrS3)"/></g>
+          <g class="edge" data-from="10"><path class="mk-draw" d="M328 376 H472" marker-end="url(#mkArr)"/></g>
+          <g class="edge" data-from="11"><path class="mk-draw" d="M526 376 H702" marker-end="url(#mkArr)"/></g>
+          <g class="edge" data-from="12"><path class="mk-draw mk-draw-az" d="M870 376 H912" marker-start="url(#mkArrAz)" marker-end="url(#mkArrAz)"/></g>
+
+          <g class="node" data-from="0">
+            <image href="assets/showcase/user-icon.png" x="258" y="318" width="70" height="70" preserveAspectRatio="xMidYMid meet"/>
+            <text class="mk-zone-lab" x="293" y="406" data-i18n="mk.colleague">Collaborateur Wavestone</text>
+          </g>
+          <g class="node" data-from="5">
+            <rect x="6" y="303" width="152" height="100" fill="#1E1E1E"/>
+            <rect x="6" y="303" width="152" height="16" fill="#3C3C3C"/>
+            <circle cx="16" cy="311" r="2.2" fill="#FF5F57"/>
+            <circle cx="24" cy="311" r="2.2" fill="#FEBC2E"/>
+            <circle cx="32" cy="311" r="2.2" fill="#28C840"/>
+            <rect x="6" y="319" width="18" height="84" fill="#333333"/>
+            <rect x="10" y="326" width="10" height="8" fill="#007ACC"/>
+            <rect x="10" y="338" width="10" height="8" fill="#6E6E6E"/>
+            <rect x="30" y="328" width="46" height="3" fill="#569CD6"/>
+            <rect x="30" y="336" width="78" height="3" fill="#CE9178"/>
+            <rect x="30" y="344" width="58" height="3" fill="#6A9955"/>
+            <rect x="24" y="369" width="134" height="34" fill="#181818"/>
+            <text x="30" y="384" fill="#04F06A" font-family="IBM Plex Mono,monospace" font-size="10">PS&gt;</text>
+            <rect x="54" y="376" width="6" height="9" fill="#04F06A"/>
+            <text x="30" y="396" fill="#9A9A9A" font-family="IBM Plex Mono,monospace" font-size="8">TERMINAL</text>
+          </g>
+          <g class="node" data-from="1">
+            <rect x="190" y="122" width="220" height="116" fill="#16161C"/>
+            <rect x="198" y="130" width="204" height="96" fill="#FBFBFD"/>
+            <text class="mk-zone-lab" x="300" y="148" data-i18n="mk.pcZone">PC Wavestone</text>
+            <rect x="176" y="238" width="248" height="8" fill="#2C2C34"/>
+            <rect x="284" y="246" width="32" height="4" fill="#1A1A1F"/>
+            <g class="mk-ico" tabindex="0">
+              <rect x="224" y="148" width="44" height="60" fill="transparent"/>
+              <image href="assets/showcase/vscode-logo.svg" x="228" y="160" width="36" height="36" preserveAspectRatio="xMidYMid meet"/>
+              <g class="mk-name">
+                <rect class="mk-tip" x="206" y="96" width="78" height="22"/>
+                <text class="mk-lab" x="245" y="111" data-i18n="mk.vscode">VS Code</text>
+              </g>
+            </g>
+            <g class="mk-ico mk-claude" tabindex="0">
+              <rect class="mk-bridge" x="278" y="6" width="44" height="200" fill="transparent"/>
+              <image href="assets/showcase/claude-logo.svg" x="282" y="160" width="36" height="36" preserveAspectRatio="xMidYMid meet"/>
+              <g class="mk-name">
+                <rect class="mk-tip" x="252" y="96" width="96" height="22"/>
+                <text class="mk-lab" x="300" y="111" data-i18n="mk.claude">Claude Code</text>
+              </g>
+            </g>
+            <g class="mk-ico" tabindex="0">
+              <rect x="332" y="148" width="44" height="60" fill="transparent"/>
+              <image href="assets/showcase/git-logo.svg" x="336" y="160" width="36" height="36" preserveAspectRatio="xMidYMid meet"/>
+              <g class="mk-name">
+                <rect class="mk-tip" x="330" y="96" width="48" height="22"/>
+                <text class="mk-lab" x="354" y="111" data-i18n="mk.git">Git</text>
+              </g>
+            </g>
+            <foreignObject class="mk-dsi" x="186" y="6" width="400" height="70">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="mk-warn-box">
+                <p data-i18n="mk.warn">Une licence Claude Code Wavestone est requise.</p>
+                <p><span data-i18n="mk.warnAsk">La demander </span><a class="mk-license-link" href="https://wavestone.identitynow.com/ui/d/mysailpoint" data-i18n="mk.warnHere">ici</a></p>
+              </div>
+            </foreignObject>
+          </g>
+
+          <g class="node mk-parallax" data-from="2" tabindex="0">
+            <rect x="488" y="140" width="86" height="86" fill="transparent"/>
+            <image href="assets/showcase/parallax-logo.png" x="488" y="140" width="86" height="86" preserveAspectRatio="xMidYMid meet"/>
+            <g class="mk-name">
+              <rect class="mk-tip" x="580" y="156" width="86" height="22"/>
+              <text class="mk-lab" x="623" y="171" data-i18n="mk.parallax">Parallax</text>
+            </g>
+          </g>
+          <g class="node" data-from="3">
+            <rect class="mk-zone-git" x="730" y="12" width="250" height="100"/>
+            <text class="mk-zone-lab" x="855" y="34" data-i18n="mk.gitlabZone">GitLab Wavestone</text>
+            <g transform="translate(760,46) scale(0.1)">
+              <path fill="#e24329" d="M190 310 282 88H98z"/>
+              <path fill="#fc6d26" d="M190 310 98 88H20z"/>
+              <path fill="#fca326" d="M20 88 1.2 146.2c-3.6 11.2.4 23.6 9.8 31.2L190 310z"/>
+              <path fill="#fc6d26" d="M20 88h78L70.2 6.2c-3.2-10.2-17.8-10.2-21 0z"/>
+              <path fill="#e24329" d="M190 310 282 88h78z"/>
+              <path fill="#fca326" d="M360 88l18.8 58.2c3.6 11.2-.4 23.6-9.8 31.2L190 310z"/>
+              <path fill="#fc6d26" d="M360 88h-78l27.8-81.8c3.2-10.2 17.8-10.2 21 0z"/>
+            </g>
+            <g transform="translate(820,50)">
+              <path fill="#451DC7" d="M2 8h14l4 5h22v22H2z"/>
+              <path fill="#D1CAF2" d="M2 18h40v18H2z"/>
+            </g>
+            <g transform="translate(890,48)" fill="none" stroke-width="2.2">
+              <path d="M10 8 V36" stroke="#088A42"/>
+              <path d="M10 20 H26" stroke="#451DC7"/>
+              <circle cx="10" cy="6" r="3.5" fill="#fff" stroke="#088A42"/>
+              <circle cx="10" cy="38" r="3.5" fill="#fff" stroke="#088A42"/>
+              <circle cx="28" cy="18" r="3.5" fill="#fff" stroke="#451DC7"/>
+            </g>
+          </g>
+          <g class="node" data-from="4">
+            <rect class="mk-zone-s3" x="730" y="168" width="250" height="104"/>
+            <text class="mk-zone-lab mk-zone-s3lab" x="855" y="190" data-i18n="mk.awsZone">AWS S3 Wavestone</text>
+            <image href="assets/showcase/s3-logo.svg" x="824" y="200" width="62" height="62" preserveAspectRatio="xMidYMid meet"/>
+          </g>
+
+          <g class="node" data-from="10">
+            <g class="mk-sso is-ok" transform="translate(475,351) scale(1.15)">
+              <circle class="sso-disk" cx="22" cy="22" r="20"/>
+              <path class="sso-shield" d="M22 8 L34 13 V24 C34 31 28 36 22 38 C16 36 10 31 10 24 V13 Z"/>
+              <g class="sso-lock" transform="translate(16,18)">
+                <rect x="2" y="6" width="12" height="9"/>
+                <path d="M4 6 V4.5 C4 2 6 1 8 1 C10 1 12 2 12 4.5 V6" fill="none" stroke="#fff" stroke-width="1.6"/>
+              </g>
+              <path class="sso-check" d="M14 22 L20 28 L32 14"/>
+            </g>
+            <text class="mk-zone-lab" x="500" y="422" data-i18n="mk.sso">Portail SSO Wavestone</text>
+          </g>
+          <g class="node" data-from="9">
+            <rect class="mkp-chrome" x="706" y="328" width="156" height="96"/>
+            <rect class="mkp-bar" x="706" y="328" width="156" height="18"/>
+            <circle class="mkp-dot" cx="716" cy="337" r="2.4"/>
+            <circle class="mkp-dot" cx="724" cy="337" r="2.4"/>
+            <circle class="mkp-dot" cx="732" cy="337" r="2.4"/>
+            <rect class="mkp-url" x="742" y="332" width="108" height="8"/>
+            <image href="assets/showcase/agent-icon.png" x="716" y="354" width="46" height="52" preserveAspectRatio="xMidYMid meet"/>
+            <rect class="mkp-t" x="770" y="358" width="74" height="6"/>
+            <rect class="mkp-b" x="770" y="370" width="74" height="4"/>
+            <rect class="mkp-b" x="770" y="378" width="56" height="4"/>
+            <rect class="mkp-cta" x="770" y="390" width="40" height="12"/>
+            <text class="mk-zone-lab" x="784" y="448" data-i18n="mk.agentName">Nouvel Agent IA embarqué</text>
+          </g>
+          <g class="node" data-from="12">
+            <rect class="mk-zone-az" x="916" y="312" width="176" height="116"/>
+            <text class="mk-zone-lab mk-zone-azlab" x="1004" y="330" data-i18n="mk.azureZone">Tenant Azure Wavestone</text>
+            <g class="mk-ico mk-foundry" tabindex="0">
+              <rect class="mk-bridge" x="990" y="400" width="56" height="80" fill="transparent"/>
+              <image href="assets/showcase/foundry-logo.png" x="954" y="338" width="100" height="82" preserveAspectRatio="xMidYMid meet"/>
+              <g class="mk-name">
+                <rect class="mk-tip" x="948" y="286" width="112" height="22"/>
+                <text class="mk-lab" x="1004" y="301" data-i18n="mk.foundry">Azure Foundry</text>
+              </g>
+            </g>
+            <foreignObject class="mk-dsi" x="692" y="478" width="400" height="70">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="mk-warn-box">
+                <p data-i18n="mk.azWarn">Une instance Azure Foundry Wavestone est requise.</p>
+                <p><span data-i18n="mk.azWarnAsk">&Agrave; demander </span><a class="mk-license-link" href="https://apps.powerapps.com/play/e/03198640-3be3-ebd9-90cf-49ed52db3158/a/cb325a04-ac43-4133-9f1a-af3fc3845f8c?tenantId=5de96c96-c87c-4dce-aad9-f5c557b52ac1&hint=26ff1bb4-0493-416f-a06f-0c1c4f1d6245&source=sharebutton&sourcetime=1781518515405" data-i18n="mk.azWarnHere">ici</a></p>
+              </div>
+            </foreignObject>
+          </g>
+        </svg>
+      </div>
+      <p class="makers-cap" aria-live="polite">
+        <span class="mk-cap on" data-beat-cap="-1" data-i18n="mk.b-1">Lancez la lecture pour d&eacute;rouler le parcours.</span>
+        <span class="mk-cap" data-beat-cap="0" data-i18n="mk.b0">Un collaborateur souhaite d&eacute;velopper un agent IA selon la m&eacute;thode AI Makers for CYB.</span>
+        <span class="mk-cap" data-beat-cap="1" data-i18n="mk.b1">Il commence par pr&eacute;parer son environnement de d&eacute;veloppement&nbsp;: VS Code, l&rsquo;extension Claude Code et Git.</span>
+        <span class="mk-cap" data-beat-cap="2" data-i18n="mk.b2">Ensuite, il se rend sur Parallax et demande un environnement d&rsquo;h&eacute;bergement et d&rsquo;exposition pour son futur agent IA.</span>
+        <span class="mk-cap" data-beat-cap="3" data-i18n="mk.b3">De mani&egrave;re automatis&eacute;e, Parallax cr&eacute;e deux espaces d&eacute;di&eacute;s au futur agent IA&nbsp;: un d&eacute;p&ocirc;t de code sur le GitLab Wavestone et un espace de stockage S3 sur un compte AWS &eacute;galement g&eacute;r&eacute; par Wavestone.</span>
+        <span class="mk-cap" data-beat-cap="4" data-i18n="mk.b4">De mani&egrave;re automatis&eacute;e, Parallax cr&eacute;e deux espaces d&eacute;di&eacute;s au futur agent IA&nbsp;: un d&eacute;p&ocirc;t de code sur le GitLab Wavestone et un espace de stockage S3 sur un compte AWS &eacute;galement g&eacute;r&eacute; par Wavestone.</span>
+        <span class="mk-cap" data-beat-cap="5" data-i18n="mk.b5">Le collaborateur peut d&eacute;sormais ouvrir VS Code et commencer &agrave; vibecoder avec l&rsquo;extension Claude Code.</span>
+        <span class="mk-cap" data-beat-cap="6" data-i18n="mk.b6">Le collaborateur peut d&eacute;sormais ouvrir VS Code et commencer &agrave; vibecoder avec l&rsquo;extension Claude Code.</span>
+        <span class="mk-cap" data-beat-cap="7" data-i18n="mk.b7">Le code d&eacute;velopp&eacute; est r&eacute;guli&egrave;rement d&eacute;pos&eacute; sur le GitLab Wavestone.</span>
+        <span class="mk-cap" data-beat-cap="8" data-i18n="mk.b8">Des automatisations d&eacute;tectent les modifications apport&eacute;es au code et mettent &agrave; jour les fichiers finaux stock&eacute;s sur AWS S3.</span>
+        <span class="mk-cap" data-beat-cap="9" data-i18n="mk.b9">L&rsquo;agent IA d&eacute;velopp&eacute; est ainsi automatiquement mis &agrave; jour.</span>
+        <span class="mk-cap" data-beat-cap="10" data-i18n="mk.b10">Pour acc&eacute;der &agrave; son agent IA, nouvellement cr&eacute;&eacute; et expos&eacute; sur internet, le collaborateur doit s&rsquo;authentifier via le SSO Wavestone.</span>
+        <span class="mk-cap" data-beat-cap="11" data-i18n="mk.b11">Une fois le collaborateur authentifi&eacute;, l&rsquo;acc&egrave;s &agrave; son agent est accord&eacute;.</span>
+        <span class="mk-cap" data-beat-cap="12" data-i18n="mk.b12">Selon les besoins, le collaborateur peut demander une instance Azure Foundry et brancher son agent IA &agrave; des mod&egrave;les LLM h&eacute;berg&eacute;s sur le tenant Azure Wavestone, afin d&rsquo;utiliser des donn&eacute;es client dans le respect des principes de confidentialit&eacute;.</span>
+      </p>
+      <div class="mk-player">
+        <button type="button" class="mk-play" id="mkPlay" aria-pressed="true"><span data-i18n="mk.pause">Pause</span></button>
+        <div class="mk-rail" id="mkRail">
+          <span class="mk-rail-line"></span>
+          <span class="mk-rail-fill" id="mkFill"></span>
+        </div>
+      </div>
+      <div class="mk-phases" role="group" data-i18n-aria-label="mk.tabs" aria-label="Étapes du parcours AI Makers">
+        <button type="button" data-mk="1" data-i18n="mk.tab1">&Eacute;tape 1&nbsp;: Poste</button>
+        <button type="button" data-mk="2" data-i18n="mk.tab2">&Eacute;tape 2&nbsp;: Parallax</button>
+        <button type="button" data-mk="3" data-i18n="mk.tab3">&Eacute;tape 3&nbsp;: Vibecoder</button>
+        <button type="button" data-mk="4" data-i18n="mk.tab4">&Eacute;tape 4&nbsp;: Mission</button>
+        <button type="button" id="mkReplay" data-i18n="mk.replay">Rejouer</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="schema" id="schema" aria-label="Comparatif des deux méthodologies de vibecoding">
+    <div class="legend">
+      <span><i></i><span data-i18n="leg.solo">Exploration personnelle</span></span>
+      <span class="crew"><i></i><span data-i18n="leg.crew">AI Makers for CYB</span></span>
+    </div>
+
+    <div class="head">
+      <div class="source">
+        <span class="k" data-i18n="src.k">Point de d&eacute;part</span>
+        <strong data-i18n="src.t">Mon premier agent</strong>
+      </div>
+      <span class="neck" aria-hidden="true"></span>
+    </div>
+
+    <div class="steps" role="listbox" aria-label="Questions du parcours">
+      <div class="step seen on" role="option" id="vane-1" tabindex="0" aria-selected="true">
+        <i class="seg solo" aria-hidden="true"></i><i class="seg crew" aria-hidden="true"></i>
+        <span class="pin solo" aria-hidden="true">01</span>
+        <article class="card ans solo"><span class="k" data-i18n="role1.short">Exploration personnelle</span><p data-i18n="s1.solo">Vous ouvrez un outil d&rsquo;IA et vous it&eacute;rez tout de suite, sans pr&eacute;requis. C&rsquo;est le parcours le plus rapide pour d&eacute;marrer.</p></article>
+        <span class="pin crew" aria-hidden="true">01</span>
+        <h2 class="q" data-i18n="q1">Quelles m&eacute;thodologies existent pour vibecoder mon premier agent IA&nbsp;?</h2>
+        <article class="card ans crew"><span class="k" data-i18n="role2.short">Communaut&eacute; AI Makers for CYB</span><p data-i18n="s1.crew">Vous suivez les pratiques et les outils de la communaut&eacute;. Le d&eacute;marrage demande un peu plus de pr&eacute;paration, mais le cadre technique et les r&egrave;gles sont d&eacute;j&agrave; en place.</p></article>
+        <p class="note" data-i18n="s1.beat">Pour tester une id&eacute;e rapidement, l&rsquo;exploration personnelle suffit.</p>
+      </div>
+
+      <div class="step" role="option" id="vane-2" tabindex="-1" aria-selected="false">
+        <i class="seg solo ahead" aria-hidden="true"></i><i class="seg crew ahead" aria-hidden="true"></i>
+        <span class="pin solo" aria-hidden="true">02</span>
+        <article class="card ans solo"><span class="k" data-i18n="role1.short">Exploration personnelle</span><p data-i18n="s2.solo">N&rsquo;importe quel logiciel ou site web, comme ChatGPT. L&rsquo;objectif est de produire un PoC pour tester votre id&eacute;e.</p></article>
+        <span class="pin crew" aria-hidden="true">02</span>
+        <h2 class="q" data-i18n="q2">Quels logiciels de d&eacute;veloppement utiliser&nbsp;?</h2>
+        <article class="card ans crew"><span class="k" data-i18n="role2.short">Communaut&eacute; AI Makers for CYB</span><p data-i18n="s2.crew">VS Code et l&rsquo;extension Claude Code, valid&eacute;s par la DSI Wavestone. Le code produit peut &ecirc;tre repris et maintenu par d&rsquo;autres makers.</p></article>
+        <p class="note" data-i18n="s2.beat">Si l&rsquo;agent doit &ecirc;tre maintenu dans le temps, le parcours communaut&eacute; est plus adapt&eacute;.</p>
+      </div>
+
+      <div class="step" role="option" id="vane-3" tabindex="-1" aria-selected="false">
+        <i class="seg solo ahead" aria-hidden="true"></i><i class="seg crew ahead" aria-hidden="true"></i>
+        <span class="pin solo" aria-hidden="true">03</span>
+        <article class="card ans solo"><span class="k" data-i18n="role1.short">Exploration personnelle</span><p data-i18n="s3.solo">Une plateforme gratuite de type GitHub, non g&eacute;r&eacute;e par Wavestone. Vous &ecirc;tes seul responsable du code et de sa s&eacute;curit&eacute;.</p></article>
+        <span class="pin crew" aria-hidden="true">03</span>
+        <h2 class="q" data-i18n="q3">O&ugrave; stocker le code source de mon agent&nbsp;?</h2>
+        <article class="card ans crew"><span class="k" data-i18n="role2.short">Communaut&eacute; AI Makers for CYB</span><p data-i18n="s3.crew">L&rsquo;instance GitLab interne, administr&eacute;e et s&eacute;curis&eacute;e par Wavestone. Les makers peuvent y collaborer pour faire &eacute;voluer et maintenir l&rsquo;agent.</p></article>
+      </div>
+
+      <div class="step" role="option" id="vane-4" tabindex="-1" aria-selected="false">
+        <i class="seg solo ahead" aria-hidden="true"></i><i class="seg crew ahead" aria-hidden="true"></i>
+        <span class="pin solo" aria-hidden="true">04</span>
+        <article class="card ans solo"><span class="k" data-i18n="role1.short">Exploration personnelle</span><p data-i18n="s4.solo">Exposition sur une plateforme d&rsquo;h&eacute;bergement de type GitHub Pages, Vercel, Netlify ou Cloudflare Pages.</p></article>
+        <span class="pin crew" aria-hidden="true">04</span>
+        <h2 class="q" data-i18n="q4">Comment rendre mon agent disponible en ligne&nbsp;?</h2>
+        <article class="card ans crew"><span class="k" data-i18n="role2.short">Communaut&eacute; AI Makers for CYB</span><p data-i18n="s4.crew">Parallax, un espace d&rsquo;h&eacute;bergement s&eacute;curis&eacute; g&eacute;r&eacute; par Wavestone. L&rsquo;agent est accessible via le SSO Wavestone et mis &agrave; jour automatiquement &agrave; chaque push.</p></article>
+        <p class="note" data-i18n="s4.beat">Pour un agent accessible aux seuls collaborateurs Wavestone, passez par Parallax.</p>
+      </div>
+
+      <div class="step has-alert" role="option" id="vane-5" tabindex="-1" aria-selected="false">
+        <i class="seg solo ahead" aria-hidden="true"></i><i class="seg crew ahead" aria-hidden="true"></i>
+        <span class="pin solo" aria-hidden="true">05</span>
+        <article class="card ans solo"><span class="tags"><span class="k" data-i18n="role1.short">Exploration personnelle</span><span class="flag no" data-i18n="flag.no">Donn&eacute;es client interdites</span></span><p data-i18n="s5.solo">N&rsquo;importe quel mod&egrave;le disponible en ligne, au choix. Utilisez uniquement des donn&eacute;es fictives ou des contenus internes, jamais de donn&eacute;es client.</p></article>
+        <div class="alert" role="alert">
+          <span class="mark" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 1.6 1.1 21.2h21.8L12 1.6zm1.45 7.4v4.8h-2.9v-4.8h2.9zm0 6.3v2.6h-2.9v-2.6h2.9z"/></svg></span>
+          <div>
+            <span class="lab" data-i18n="alert.lab">Alerte - donn&eacute;e client</span>
+            <strong data-i18n="alert.title">Aucune utilisation de donn&eacute;es de clients dans l&rsquo;exploration personnelle.</strong>
+            <p data-i18n="alert.p">Les donn&eacute;es client ne sont autoris&eacute;es que dans le parcours AI Makers for CYB.</p>
+          </div>
+        </div>
+        <span class="pin crew" aria-hidden="true">05</span>
+        <h2 class="q" data-i18n="q5">&Agrave; quels mod&egrave;les LLM puis-je brancher mon agent IA&nbsp;?</h2>
+        <article class="card ans crew"><span class="tags"><span class="k" data-i18n="role2.short">Communaut&eacute; AI Makers for CYB</span></span><p data-i18n="s5.crew">Les mod&egrave;les du tenant Azure Foundry Wavestone, h&eacute;berg&eacute;s en Europe et valid&eacute;s par la DSI Wavestone. Les frais d&rsquo;appels sont pris en charge et suivis (FinOps). L&rsquo;agent peut &ecirc;tre utilis&eacute; en mission, avec des donn&eacute;es client.</p></article>
+        <p class="note" data-i18n="s5.beat">Pour des donn&eacute;es client, seul le tenant Azure Foundry Wavestone est autoris&eacute;.</p>
+      </div>
+    </div>
+
+    <div class="landings" id="ends" hidden aria-label="Points d'arriv&eacute;e" data-i18n-aria-label="end.aria">
+      <i class="tail solo" aria-hidden="true"></i>
+      <i class="tail crew" aria-hidden="true"></i>
+      <article class="card end solo">
+        <span class="k" data-i18n="role1.short">Exploration personnelle</span>
+        <h3 data-i18n="end.solo">Explorer personnellement le vibecoding</h3>
+        <a href="playbook.html"><strong data-i18n="end.p1.t">Playbooks</strong><span data-i18n="end.p1.p">Des exemples concrets pour passer de l&rsquo;id&eacute;e au code.</span></a>
+        <a href="ai-usage-models.html"><strong data-i18n="end.p2.t">Du Copilot &agrave; l&rsquo;agent</strong><span data-i18n="end.p2.p">Quatre mani&egrave;res de mobiliser l&rsquo;IA, dont l&rsquo;agent personnel.</span></a>
+      </article>
+      <article class="card end crew">
+        <span class="k" data-i18n="end.crew.k">Communaut&eacute; AI Makers for CYB</span>
+        <h3 data-i18n="end.crew">Rejoindre la communaut&eacute; AI Makers for CYB</h3>
+        <a href="vibecoding-setup-guide.html"><strong data-i18n="end.c1.t">Environnement et premier agent</strong><span data-i18n="end.c1.p">Tutoriel pour mettre en place son environnement de vibecoding et d&eacute;ployer son premier agent.</span></a>
+        <a href="api-key.html"><strong data-i18n="end.c2.t">Cl&eacute; API Azure Foundry</strong><span data-i18n="end.c2.p">Cr&eacute;er une cl&eacute; pour brancher un agent aux mod&egrave;les du tenant Wavestone.</span></a>
+        <a href="token-economics.html"><strong data-i18n="end.c3.t">Mod&egrave;le &eacute;conomique des tokens</strong><span data-i18n="end.c3.p">Budg&eacute;ter et suivre la consommation, en mission ou en interne.</span></a>
+      </article>
+    </div>
+
+    <p class="advance"><button type="button" id="advance" data-i18n="next">Question suivante</button></p>
+    <p class="finale" id="finale" hidden data-i18n="cut.finale">D&egrave;s que l&rsquo;agent doit <strong>traiter une donn&eacute;e client</strong> ou <strong>&ecirc;tre utilis&eacute; en mission</strong>, passez par la communaut&eacute; AI Makers for CYB&nbsp;: c&rsquo;est le seul parcours autoris&eacute;.</p>
+    <p class="hint" data-i18n="hint">Faites d&eacute;filer la page ou utilisez les fl&egrave;ches haut et bas pour passer d&rsquo;une question &agrave; l&rsquo;autre.</p>
+  </section>
+</main>
+
+<footer>
+  <span class="src" data-i18n="footer.src">Wavestone CYB &middot; AI Maker Initiative &middot; Vibecoder oui, mais comment&nbsp;?</span>
+</footer>
+
+<script>
+(function () {
+  var root = document.getElementById('makers');
+  if (!root) return;
+  var items = [].slice.call(root.querySelectorAll('.node, .edge'));
+  var caps = [].slice.call(root.querySelectorAll('[data-beat-cap]'));
+  var phases = [].slice.call(root.querySelectorAll('[data-mk]'));
+  var fill = document.getElementById('mkFill');
+  var rail = document.getElementById('mkRail');
+  var playBtn = document.getElementById('mkPlay');
+  var playLabel = playBtn ? playBtn.querySelector('span') : null;
+  var timer = 0;
+  var paused = false;
+  var cursor = -1;
+  var LAST = 12;
+  var STEP = 5000;
+  var ZONES = [0, 2, 5, 10];
+
+  for (var t = 0; t <= LAST; t++) {
+    var tickBtn = document.createElement('button');
+    tickBtn.type = 'button';
+    tickBtn.className = 'mk-tick';
+    tickBtn.setAttribute('data-tick', String(t));
+    tickBtn.innerHTML = '<i></i>';
+    rail.appendChild(tickBtn);
+  }
+  var ticks = [].slice.call(root.querySelectorAll('[data-tick]'));
+
+  function zoneOf(i) {
+    if (i < 0) return 0;
+    if (i >= 10) return 4;
+    if (i >= 5) return 3;
+    if (i >= 2) return 2;
+    return 1;
+  }
+
+  function setPlayLabel() {
+    if (!playLabel) return;
+    var key = paused ? 'mk.play' : 'mk.pause';
+    playLabel.setAttribute('data-i18n', key);
+    var lang = 'fr';
+    try { lang = localStorage.getItem('ws_lang') || 'fr'; } catch (e) {}
+    var pack = window.WS_I18N && window.WS_I18N[lang];
+    if (pack && pack[key]) playLabel.innerHTML = pack[key];
+    else playLabel.textContent = paused ? 'Lecture' : 'Pause';
+    playBtn.setAttribute('aria-pressed', paused ? 'false' : 'true');
+  }
+
+  function paint(upTo) {
+    items.forEach(function (el) {
+      var from = parseInt(el.getAttribute('data-from'), 10);
+      el.classList.toggle('on', from <= upTo);
+      el.classList.toggle('now', from === upTo);
+    });
+    caps.forEach(function (cap) {
+      cap.classList.toggle('on', cap.getAttribute('data-beat-cap') === String(upTo));
+    });
+    ticks.forEach(function (tick) {
+      var n = parseInt(tick.getAttribute('data-tick'), 10);
+      tick.classList.toggle('on', n <= upTo);
+      tick.classList.toggle('now', n === upTo);
+    });
+    var zone = upTo < 0 ? 0 : zoneOf(upTo);
+    root.setAttribute('data-step', String(zone));
+    phases.forEach(function (btn) {
+      var z = parseInt(btn.getAttribute('data-mk'), 10);
+      btn.classList.toggle('on', z === zone);
+      btn.setAttribute('aria-pressed', z === zone ? 'true' : 'false');
+    });
+    if (fill) fill.style.width = (upTo < 0 ? 0 : ((upTo + 1) / (LAST + 1)) * 100) + '%';
+  }
+
+  function arm(delay) {
+    if (paused) return;
+    clearTimeout(timer);
+    timer = setTimeout(tick, delay == null ? STEP : delay);
+  }
+
+  function finish() {
+    paused = true;
+    clearTimeout(timer);
+    setPlayLabel();
+  }
+
+  function tick() {
+    if (cursor >= LAST) {
+      finish();
+      return;
+    }
+    cursor += 1;
+    paint(cursor);
+    if (cursor >= LAST) finish();
+    else arm(STEP);
+  }
+
+  function go(index) {
+    clearTimeout(timer);
+    cursor = index;
+    paint(cursor);
+    if (cursor >= LAST) finish();
+    else if (!paused) arm(STEP);
+  }
+
+  if (playBtn) {
+    playBtn.addEventListener('click', function () {
+      paused = !paused;
+      setPlayLabel();
+      if (paused) clearTimeout(timer);
+      else if (cursor >= LAST) go(0);
+      else arm(200);
+    });
+  }
+  ticks.forEach(function (tick) {
+    tick.addEventListener('click', function () {
+      go(parseInt(tick.getAttribute('data-tick'), 10));
+    });
+  });
+  phases.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var z = parseInt(btn.getAttribute('data-mk'), 10);
+      go(ZONES[z - 1]);
+    });
+  });
+  var replayBtn = document.getElementById('mkReplay');
+  if (replayBtn) replayBtn.addEventListener('click', function () {
+    paused = false;
+    setPlayLabel();
+    go(0);
+  });
+  root.addEventListener('click', function (e) {
+    var link = e.target.closest && e.target.closest('.mk-license-link');
+    if (link && link.getAttribute('href') === '#') e.preventDefault();
+  });
+
+  function startPlayback() {
+    if (paused) return;
+    setPlayLabel();
+    go(0);
+  }
+
+  setPlayLabel();
+  startPlayback();
+})();
+</script>
+<script>
+(function () {
+  var root = document.getElementById('schema');
+  if (!root) return;
+  var nodes = [].slice.call(root.querySelectorAll('.step'));
+  var ends = document.getElementById('ends');
+  var finale = document.getElementById('finale');
+  var advance = document.getElementById('advance');
+  var i = 0;
+  var reached = 0;
+
+  function show(n) {
+    i = Math.max(0, Math.min(nodes.length - 1, n));
+    if (i > reached) reached = i;
+    var done = reached >= nodes.length - 1;
+    nodes.forEach(function (node, idx) {
+      var on = idx === i;
+      node.classList.toggle('on', on);
+      node.classList.toggle('seen', idx <= reached);
+      node.setAttribute('aria-selected', on ? 'true' : 'false');
+      node.tabIndex = on ? 0 : -1;
+      [].slice.call(node.querySelectorAll('.seg')).forEach(function (seg) {
+        seg.classList.toggle('ahead', idx > reached);
+      });
+    });
+    if (ends) {
+      if (done) ends.removeAttribute('hidden');
+      else ends.setAttribute('hidden', '');
+    }
+    if (finale) {
+      if (done) finale.removeAttribute('hidden');
+      else finale.setAttribute('hidden', '');
+    }
+    if (advance) advance.hidden = i >= nodes.length - 1;
+    if (done && ends && !ends.dataset.seen) ends.dataset.seen = '1';
+  }
+
+  function activationLine() {
+    var bar = document.querySelector('.bar');
+    var min = (bar ? bar.offsetHeight : 64) + 16;
+    return Math.max(min, Math.round(window.innerHeight * 0.52));
+  }
+
+  function fromScroll() {
+    var line = activationLine();
+    var current = 0;
+    var doc = document.documentElement;
+    if (window.innerHeight + window.scrollY >= doc.scrollHeight - 2) {
+      current = nodes.length - 1;
+    } else {
+      nodes.forEach(function (node, idx) {
+        var q = node.querySelector('.q') || node;
+        if (q.getBoundingClientRect().top <= line) current = idx;
+      });
+    }
+    if (current !== i) show(current);
+  }
+
+  var frame = 0;
+  function onScroll() {
+    if (frame) return;
+    frame = requestAnimationFrame(function () {
+      frame = 0;
+      fromScroll();
+    });
+  }
+
+  function scrollToStep(idx) {
+    idx = Math.max(0, Math.min(nodes.length - 1, idx));
+    var q = nodes[idx].querySelector('.q') || nodes[idx];
+    var top = window.scrollY + q.getBoundingClientRect().top - activationLine();
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: Math.max(0, top), behavior: reduce ? 'auto' : 'smooth' });
+  }
+
+  nodes.forEach(function (node, idx) {
+    node.addEventListener('click', function () { scrollToStep(idx); });
+  });
+  if (advance) advance.addEventListener('click', function () { scrollToStep(i + 1); });
+  root.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') { e.preventDefault(); scrollToStep(i + 1); nodes[Math.min(nodes.length - 1, i + 1)].focus(); }
+    else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') { e.preventDefault(); scrollToStep(i - 1); nodes[Math.max(0, i - 1)].focus(); }
+  });
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+
+  var hash = (location.hash || '').match(/(?:vane|junc)-(\d)/);
+  if (hash) scrollToStep(parseInt(hash[1], 10) - 1);
+  else fromScroll();
+})();
+</script>
+<script>
+window.WS_I18N = {
+  en: {
+    "__title": "Wavestone CYB AI Maker · Vibe-code, yes, but how?",
+    "nav.home": "Home", "nav.usecases": "Playbook", "nav.principles": "Agent principles", "nav.agents": "Our agents", "nav.dais": "Dance With the AI Stars", "nav.apikey": "API key",
+    "hero.eyebrow": "Comparison",
+    "hero.title": "Vibe-code, yes, but <span class=\"ac\">how</span>?",
+    "hero.lede": "You want to vibe-code a first agent but do not know which method to follow? We see two main approaches, compared here question by question. So, team &ldquo;Personal exploration&rdquo; or &ldquo;AI Makers for CYB community&rdquo;?",
+    "mk.eye": "AI Makers",
+    "mk.title": "The AI Makers path",
+    "mk.lede": "The diagram below walks through the AI Makers path step by step, from workstation setup to use on an engagement. Press play or click a step.",
+    "mk.tabs": "Steps of the AI Makers path",
+    "mk.tab1": "Step 1: Workstation", "mk.tab2": "Step 2: Parallax", "mk.tab3": "Step 3: Vibe-code", "mk.tab4": "Step 4: Engagement", "mk.replay": "Replay",
+    "mk.play": "Play", "mk.pause": "Pause", "mk.user": "Colleague",
+    "mk.z1": "1 &middot; Workstation", "mk.z2": "2 &middot; Parallax", "mk.z3": "3 &middot; Vibe-code", "mk.z4": "4 &middot; Engagement",
+    "mk.b-1": "Press play to walk through the path.",
+    "mk.b0": "A colleague wants to develop an AI agent using the AI Makers for CYB method.",
+    "mk.b1": "They start by preparing the development environment: VS Code, the Claude Code extension and Git.",
+    "mk.b2": "They then go to Parallax and request a hosting and publishing environment for the future AI agent.",
+    "mk.b3": "Parallax automatically creates two dedicated spaces for the future AI agent: a code repository on Wavestone GitLab and an S3 storage space on an AWS account also managed by Wavestone.",
+    "mk.b4": "Parallax automatically creates two dedicated spaces for the future AI agent: a code repository on Wavestone GitLab and an S3 storage space on an AWS account also managed by Wavestone.",
+    "mk.b5": "The colleague can now open VS Code and start vibe-coding with the Claude Code extension.",
+    "mk.b6": "The colleague can now open VS Code and start vibe-coding with the Claude Code extension.",
+    "mk.b7": "The code is regularly committed to Wavestone GitLab.",
+    "mk.b8": "Automations detect code changes and update the final files stored on AWS S3.",
+    "mk.b9": "The AI agent is updated automatically.",
+    "mk.b10": "To reach the newly created AI agent published on the internet, the colleague must sign in through Wavestone SSO.",
+    "mk.b11": "Once the colleague is authenticated, access to the agent is granted.",
+    "mk.b12": "If needed, the colleague can request an Azure Foundry instance and connect the AI agent to LLM models hosted on the Wavestone Azure tenant, so client data can be used while respecting confidentiality principles.",
+    "mk.vscode": "VS Code", "mk.claude": "Claude Code", "mk.git": "Git",
+    "mk.dsi": "IT", "mk.license": "Claude Code licence",
+    "mk.warn": "A Wavestone Claude Code licence is required.",
+    "mk.warnAsk": "Request it ", "mk.warnHere": "here",
+    "mk.azWarn": "A Wavestone Azure Foundry instance is required.",
+    "mk.azWarnAsk": "Request it ", "mk.azWarnHere": "here",
+    "mk.parallax": "Parallax", "mk.gitlabZone": "GitLab Wavestone", "mk.gitlab": "GitLab",
+    "mk.folder": "Folder", "mk.branch": "Branch", "mk.awsZone": "AWS S3 Wavestone", "mk.aws": "AWS", "mk.bucket": "Bucket",
+    "mk.access": "GitLab access", "mk.claudeMd": "AI Makers standard",
+    "mk.push": "Push GitLab", "mk.s3upd": "S3 update",
+    "mk.pcZone": "PC Wavestone", "mk.colleague": "Wavestone colleague",
+    "mk.sso": "Wavestone SSO portal", "mk.azureZone": "Wavestone Azure tenant", "mk.agentName": "New embedded AI agent",
+    "mk.page": "Page", "mk.ifLlm": "If an LLM is needed", "mk.foundry": "Azure Foundry", "mk.key": "API key",
+    "mk.leg0": "The path has four steps. Press play to walk through them one by one.",
+    "mk.leg1": "Step 1: Wavestone workstation: VS Code, Claude Code, Git, then a Claude Code licence from IT.",
+    "mk.leg2": "Step 2: Parallax creates the internal GitLab repository, then the Wavestone AWS S3 bucket.",
+    "mk.leg3": "Step 3: GitLab access passed to Claude Code, CLAUDE.md, push and S3 update.",
+    "mk.leg4": "Step 4: SSO then the web page. If needed, Azure Foundry access and an API key in the agent.",
+    "leg.solo": "Personal exploration", "leg.crew": "AI Makers for CYB",
+    "src.k": "Starting point", "src.t": "My first agent",
+    "role1.short": "Personal exploration",
+    "role2.short": "AI Makers for CYB community",
+    "next": "Next question",
+    "q1": "Which methodologies exist to vibe-code my first AI agent?",
+    "s1.solo": "You open an AI tool and iterate straight away, with no prerequisites. It is the fastest path to get started.",
+    "s1.crew": "You follow the community&rsquo;s practices and tools. Getting started takes a little more preparation, but the technical setup and the rules are already in place.",
+    "s1.beat": "To test an idea quickly, personal exploration is enough.",
+    "q2": "Which development software should I use?",
+    "s2.solo": "Any software or website, such as ChatGPT. The goal is a PoC to test your idea.",
+    "s2.crew": "VS Code and the Claude Code extension, validated by Wavestone IT. The resulting code can be picked up and maintained by other makers.",
+    "s2.beat": "If the agent must be maintained over time, the community path is the better fit.",
+    "q3": "Where do I store my agent’s source code?",
+    "s3.solo": "A free platform such as GitHub, not managed by Wavestone. You alone are responsible for the code and its security.",
+    "s3.crew": "The internal GitLab instance, administered and secured by Wavestone. Makers can collaborate there to evolve and maintain the agent.",
+    "q4": "How do I make my agent available online?",
+    "s4.solo": "Exposure on a hosting platform such as GitHub Pages, Vercel, Netlify or Cloudflare Pages.",
+    "s4.crew": "Parallax, a secure hosting space managed by Wavestone. The agent is reached through Wavestone SSO and updated automatically on every push.",
+    "s4.beat": "For an agent reachable only by Wavestone colleagues, use Parallax.",
+    "q5": "Which LLM models can I connect my AI agent to?",
+    "s5.solo": "Any model available online, your choice. Use only fictional data or internal content, never client data.",
+    "s5.crew": "The models on the Wavestone Azure Foundry tenant, hosted in Europe and validated by Wavestone IT. Call costs are covered and tracked (FinOps). The agent can be used on an engagement, with client data.",
+    "s5.beat": "For client data, only the Wavestone Azure Foundry tenant is authorized.",
+    "alert.lab": "Alert - client data",
+    "alert.title": "No use of client data in personal exploration.",
+    "alert.p": "Client data is authorized only in the AI Makers for CYB path.",
+    "flag.no": "Client data forbidden",
+    "cut.finale": "As soon as the agent must <strong>handle client data</strong> or <strong>be used on an engagement</strong>, go through the AI Makers for CYB community: it is the only authorized path.",
+    "end.aria": "Arrival points",
+    "end.solo": "Explore vibe coding on your own",
+    "end.p1.t": "Playbooks",
+    "end.p1.p": "Concrete examples to go from idea to code.",
+    "end.p2.t": "From Copilot to the agent",
+    "end.p2.p": "Four ways to use AI, including the personal agent.",
+    "end.crew.k": "AI Makers for CYB community",
+    "end.crew": "Join the AI Makers for CYB community",
+    "end.c1.t": "Environment and first agent",
+    "end.c1.p": "Tutorial to set up a vibe-coding environment and deploy a first agent.",
+    "end.c2.t": "Azure Foundry API key",
+    "end.c2.p": "Create a key to connect an agent to the models on the Wavestone tenant.",
+    "end.c3.t": "Token economics",
+    "end.c3.p": "Budget and track consumption, on an engagement or internally.",
+    "hint": "Scroll or use the up and down arrows to move between questions.",
+    "footer.src": "Wavestone CYB &middot; AI Maker Initiative &middot; Vibe-code, yes, but how?"
+  },
+  de: {
+    "__title": "Wavestone CYB AI Maker · Vibe Coding, ja, aber wie?",
+    "nav.home": "Start", "nav.usecases": "Playbook", "nav.principles": "Agenten-Prinzipien", "nav.agents": "Unsere Agenten", "nav.dais": "Dance With the AI Stars", "nav.apikey": "API-Schl&uuml;ssel",
+    "hero.eyebrow": "Vergleich",
+    "hero.title": "Vibe Coding, ja, aber <span class=\"ac\">wie</span>?",
+    "hero.lede": "Sie wollen einen ersten Agenten per Vibe Coding bauen, wissen aber nicht, welche Methode Sie w&auml;hlen sollen? Wir sehen zwei gro&szlig;e Ans&auml;tze, die hier Frage f&uuml;r Frage verglichen werden. Also eher Team &bdquo;Pers&ouml;nliche Erkundung&ldquo; oder &bdquo;Community AI Makers for CYB&ldquo;?",
+    "mk.eye": "AI Makers",
+    "mk.title": "Der Weg AI Makers",
+    "mk.lede": "Das Diagramm unten zeigt den Weg AI Makers Schritt f&uuml;r Schritt, von der Arbeitsplatzvorbereitung bis zum Projekteinsatz. Starten Sie die Wiedergabe oder klicken Sie auf einen Schritt.",
+    "mk.tabs": "Schritte des Wegs AI Makers",
+    "mk.tab1": "Schritt 1: Arbeitsplatz", "mk.tab2": "Schritt 2: Parallax", "mk.tab3": "Schritt 3: Vibe Coding", "mk.tab4": "Schritt 4: Einsatz", "mk.replay": "Erneut abspielen",
+    "mk.play": "Wiedergabe", "mk.pause": "Pause", "mk.user": "Person",
+    "mk.z1": "1 &middot; Arbeitsplatz", "mk.z2": "2 &middot; Parallax", "mk.z3": "3 &middot; Vibe Coding", "mk.z4": "4 &middot; Einsatz",
+    "mk.b-1": "Starten Sie die Wiedergabe, um den Weg zu durchlaufen.",
+    "mk.b0": "Ein Mitarbeiter m&ouml;chte einen KI-Agenten nach der Methode AI Makers for CYB entwickeln.",
+    "mk.b1": "Er bereitet zuerst die Entwicklungsumgebung vor: VS Code, die Erweiterung Claude Code und Git.",
+    "mk.b2": "Anschlie&szlig;end &ouml;ffnet er Parallax und fordert eine Hosting- und Bereitstellungsumgebung f&uuml;r den k&uuml;nftigen KI-Agenten an.",
+    "mk.b3": "Parallax legt automatisch zwei eigene Bereiche f&uuml;r den k&uuml;nftigen KI-Agenten an: ein Code-Repository auf dem GitLab von Wavestone und einen S3-Speicher auf einem AWS-Konto, das ebenfalls von Wavestone verwaltet wird.",
+    "mk.b4": "Parallax legt automatisch zwei eigene Bereiche f&uuml;r den k&uuml;nftigen KI-Agenten an: ein Code-Repository auf dem GitLab von Wavestone und einen S3-Speicher auf einem AWS-Konto, das ebenfalls von Wavestone verwaltet wird.",
+    "mk.b5": "Der Mitarbeiter kann nun VS Code &ouml;ffnen und mit der Erweiterung Claude Code per Vibe Coding entwickeln.",
+    "mk.b6": "Der Mitarbeiter kann nun VS Code &ouml;ffnen und mit der Erweiterung Claude Code per Vibe Coding entwickeln.",
+    "mk.b7": "Der entwickelte Code wird regelm&auml;&szlig;ig auf dem GitLab von Wavestone abgelegt.",
+    "mk.b8": "Automatisierungen erkennen die &Auml;nderungen am Code und aktualisieren die endg&uuml;ltigen Dateien auf AWS S3.",
+    "mk.b9": "Der entwickelte KI-Agent wird so automatisch aktualisiert.",
+    "mk.b10": "Um auf den neu erstellten und im Internet bereitgestellten KI-Agenten zuzugreifen, muss sich der Mitarbeiter &uuml;ber das SSO von Wavestone anmelden.",
+    "mk.b11": "Nach der Authentifizierung wird der Zugang zum Agenten gew&auml;hrt.",
+    "mk.b12": "Bei Bedarf kann der Mitarbeiter eine Azure-Foundry-Instanz anfordern und den KI-Agenten an LLM-Modelle auf dem Azure-Tenant von Wavestone anbinden, um Kundendaten unter Wahrung der Vertraulichkeit zu nutzen.",
+    "mk.vscode": "VS Code", "mk.claude": "Claude Code", "mk.git": "Git",
+    "mk.dsi": "IT", "mk.license": "Lizenz Claude Code",
+    "mk.warn": "Eine Claude-Code-Lizenz von Wavestone ist erforderlich.",
+    "mk.warnAsk": "Beantragen ", "mk.warnHere": "hier",
+    "mk.azWarn": "Eine Azure-Foundry-Instanz von Wavestone ist erforderlich.",
+    "mk.azWarnAsk": "Beantragen ", "mk.azWarnHere": "hier",
+    "mk.parallax": "Parallax", "mk.gitlabZone": "GitLab Wavestone", "mk.gitlab": "GitLab",
+    "mk.folder": "Ordner", "mk.branch": "Branch", "mk.awsZone": "AWS S3 Wavestone", "mk.aws": "AWS", "mk.bucket": "Bucket",
+    "mk.access": "GitLab-Zugang", "mk.claudeMd": "Standard AI Makers",
+    "mk.push": "Push GitLab", "mk.s3upd": "S3-Update",
+    "mk.pcZone": "PC Wavestone", "mk.colleague": "Wavestone-Mitarbeiter",
+    "mk.sso": "Wavestone-SSO-Portal", "mk.azureZone": "Wavestone-Azure-Tenant", "mk.agentName": "Neuer eingebetteter KI-Agent",
+    "mk.page": "Seite", "mk.ifLlm": "Wenn ein LLM n&ouml;tig ist", "mk.foundry": "Azure Foundry", "mk.key": "API-Schl&uuml;ssel",
+    "mk.leg0": "Der Weg hat vier Schritte. Starten Sie die Wiedergabe, um sie nacheinander zu durchlaufen.",
+    "mk.leg1": "Schritt 1: Wavestone-Arbeitsplatz: VS Code, Claude Code, Git, dann Lizenz Claude Code bei der IT.",
+    "mk.leg2": "Schritt 2: Parallax legt das interne GitLab-Repository an, dann den AWS-S3-Bucket von Wavestone.",
+    "mk.leg3": "Schritt 3: GitLab-Zugang an Claude Code, CLAUDE.md, Push und S3-Aktualisierung.",
+    "mk.leg4": "Schritt 4: SSO, dann die Webseite. Bei Bedarf Azure-Foundry-Zugang und API-Schl&uuml;ssel im Agenten.",
+    "leg.solo": "Pers&ouml;nliche Erkundung", "leg.crew": "AI Makers for CYB",
+    "src.k": "Ausgangspunkt", "src.t": "Mein erster Agent",
+    "role1.short": "Pers&ouml;nliche Erkundung",
+    "role2.short": "Community AI Makers for CYB",
+    "next": "N&auml;chste Frage",
+    "q1": "Welche Methodiken gibt es, um meinen ersten KI-Agenten per Vibe Coding zu bauen?",
+    "s1.solo": "Sie &ouml;ffnen ein KI-Werkzeug und iterieren sofort, ohne Voraussetzungen. Das ist der schnellste Weg zum Einstieg.",
+    "s1.crew": "Sie folgen den Praktiken und Werkzeugen der Community. Der Start erfordert etwas mehr Vorbereitung, aber der technische Rahmen und die Regeln stehen bereits.",
+    "s1.beat": "Um eine Idee schnell zu testen, reicht die pers&ouml;nliche Erkundung.",
+    "q2": "Welche Entwicklungssoftware soll ich nutzen?",
+    "s2.solo": "Beliebige Software oder Website, etwa ChatGPT. Ziel ist ein PoC, um Ihre Idee zu testen.",
+    "s2.crew": "VS Code und die Erweiterung Claude Code, von der Wavestone-IT validiert. Der entstandene Code kann von anderen Makern &uuml;bernommen und gepflegt werden.",
+    "s2.beat": "Wenn der Agent langfristig gepflegt werden soll, passt der Community-Weg besser.",
+    "q3": "Wo speichere ich den Quellcode meines Agenten?",
+    "s3.solo": "Eine kostenlose Plattform wie GitHub, nicht von Wavestone verwaltet. Sie allein sind f&uuml;r den Code und seine Sicherheit verantwortlich.",
+    "s3.crew": "Die interne GitLab-Instanz, von Wavestone betrieben und abgesichert. Die Maker k&ouml;nnen dort zusammenarbeiten, um den Agenten weiterzuentwickeln und zu pflegen.",
+    "q4": "Wie mache ich meinen Agenten online verf&uuml;gbar?",
+    "s4.solo": "Ver&ouml;ffentlichung auf einer Hosting-Plattform wie GitHub Pages, Vercel, Netlify oder Cloudflare Pages.",
+    "s4.crew": "Parallax, ein sicherer, von Wavestone verwalteter Hosting-Bereich. Der Agent ist &uuml;ber das Wavestone-SSO erreichbar und wird bei jedem Push automatisch aktualisiert.",
+    "s4.beat": "F&uuml;r einen Agenten, der nur f&uuml;r Wavestone-Mitarbeitende erreichbar ist, nutzen Sie Parallax.",
+    "q5": "An welche LLM-Modelle kann ich meinen KI-Agenten anschlie&szlig;en?",
+    "s5.solo": "Jedes online verf&uuml;gbare Modell, nach Wahl. Nutzen Sie nur fiktive Daten oder interne Inhalte, niemals Kundendaten.",
+    "s5.crew": "Die Modelle auf dem Wavestone-Tenant Azure Foundry, in Europa gehostet und von der Wavestone-IT validiert. Die Kosten der Aufrufe werden &uuml;bernommen und nachverfolgt (FinOps). Der Agent kann im Projekteinsatz genutzt werden, mit Kundendaten.",
+    "s5.beat": "F&uuml;r Kundendaten ist nur der Wavestone-Tenant Azure Foundry zugelassen.",
+    "alert.lab": "Alarm - Kundendaten",
+    "alert.title": "Keine Nutzung von Kundendaten in der pers&ouml;nlichen Erkundung.",
+    "alert.p": "Kundendaten sind nur im Weg AI Makers for CYB erlaubt.",
+    "flag.no": "Kundendaten verboten",
+    "cut.finale": "Sobald der Agent <strong>Kundendaten verarbeiten</strong> oder <strong>im Projekteinsatz genutzt werden</strong> soll, gehen Sie &uuml;ber die Community AI Makers for CYB: Das ist der einzige zugelassene Weg.",
+    "end.aria": "Ankunftspunkte",
+    "end.solo": "Vibe Coding pers&ouml;nlich erkunden",
+    "end.p1.t": "Playbooks",
+    "end.p1.p": "Konkrete Beispiele, um von der Idee zum Code zu kommen.",
+    "end.p2.t": "Vom Copilot zum Agenten",
+    "end.p2.p": "Vier Arten, KI zu nutzen, darunter der pers&ouml;nliche Agent.",
+    "end.crew.k": "Community AI Makers for CYB",
+    "end.crew": "Der Community AI Makers for CYB beitreten",
+    "end.c1.t": "Umgebung und erster Agent",
+    "end.c1.p": "Tutorial, um eine Vibe-Coding-Umgebung einzurichten und einen ersten Agenten bereitzustellen.",
+    "end.c2.t": "API-Schl&uuml;ssel Azure Foundry",
+    "end.c2.p": "Einen Schl&uuml;ssel erstellen, um einen Agenten an die Modelle des Wavestone-Tenants anzuschlie&szlig;en.",
+    "end.c3.t": "Token-&Ouml;konomie",
+    "end.c3.p": "Verbrauch budgetieren und verfolgen, im Projekt oder intern.",
+    "hint": "Scrollen Sie oder nutzen Sie die Pfeiltasten nach oben und unten, um zwischen den Fragen zu wechseln.",
+    "footer.src": "Wavestone CYB &middot; AI Maker Initiative &middot; Vibe Coding, ja, aber wie?"
+  }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/mobile-nav.js"></script>
+</body>
+</html>
