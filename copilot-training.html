@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Training Copilot &middot; Wavestone CYB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ws-white);color:var(--ws-ink-900);font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:60px}
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  .eyebrow{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid var(--ws-green-400)}
+
+  /* ---------- sticky brand bar ---------- */
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .dot{width:9px;height:9px;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .nav a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:6px 12px;transition:.18s var(--ws-ease)}
+  .nav a.jump:hover,.nav a.jump.cur{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1040px;margin:0 auto;padding:60px 24px 84px}
+  .hero .eyebrow{color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(34px,6vw,60px);line-height:1.04;letter-spacing:-.025em;margin:22px 0 16px;max-width:18ch}
+  .hero h1 .ac{color:var(--ws-green-400)}
+  .hero .lede{font-size:18.5px;line-height:1.55;color:rgba(255,255,255,.85);max-width:62ch}
+  .meta-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+  .meta-chips span{font-family:var(--ws-font-mono);font-size:11.5px;color:rgba(255,255,255,.9);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:6px 12px}
+
+  /* ---------- use case cards ---------- */
+  .ucs{display:grid;gap:20px;grid-template-columns:1fr;margin-top:-44px;position:relative;z-index:2;align-items:start}
+  @media(min-width:820px){.ucs{grid-template-columns:3fr 2fr}}
+  .uc{position:relative;display:flex;flex-direction:column;text-decoration:none;background:#fff;border:1.5px solid var(--ws-ink-100);box-shadow:var(--ws-shadow-md);overflow:hidden;transition:.25s var(--ws-ease)}
+  a.uc:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-4px);border-color:var(--ws-indigo-200)}
+  .uc::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--ws-gradient-accent);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ws-ease);z-index:1}
+  a.uc:hover::before{transform:scaleX(1)}
+  .uc .thumb{line-height:0;background:var(--ws-ink-50);border-bottom:1px solid var(--ws-ink-100)}
+  .uc .thumb img{width:100%;height:auto;display:block}
+  .uc .body{padding:24px 24px 22px;display:flex;flex-direction:column;flex:1}
+  .uc .no{font-family:var(--ws-font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-indigo-600)}
+  .badge-ok,.badge-soon{display:inline-block;font-family:var(--ws-font-mono);font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;width:fit-content;margin-bottom:12px}
+  .badge-ok{color:var(--ws-green-700);background:var(--ws-green-50)}
+  .badge-soon{color:var(--ws-ink-500);background:var(--ws-ink-50)}
+  .uc h2{font-family:var(--ws-font-display);font-weight:700;font-size:24px;letter-spacing:-.015em;color:var(--ws-ink-900);margin:6px 0 8px;line-height:1.2}
+  .uc p{font-size:15px;color:var(--ws-ink-500);line-height:1.55;flex:1}
+  .uc .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+  .uc .chip{font-family:var(--ws-font-mono);font-size:10.5px;color:var(--ws-ink-600);background:var(--ws-ink-50);padding:4px 10px}
+  .uc .cta{display:inline-flex;align-items:center;gap:8px;font-family:var(--ws-font-mono);font-size:13px;font-weight:600;color:var(--ws-indigo-600);margin-top:20px;transition:.18s var(--ws-ease)}
+  a.uc:hover .cta{gap:12px}
+  .uc.soon{background:var(--ws-ink-50);box-shadow:none;border-style:dashed}
+  .uc.soon .body{justify-content:center}
+  .uc.soon .ghost{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 18px}
+  .uc.soon .ghost span{height:56px;background:#fff;border:1px dashed var(--ws-ink-200)}
+
+  /* ---------- program ---------- */
+  .sec-head{margin:60px 0 6px}
+  .sec-head .eyebrow{color:var(--ws-ink-900)}
+  .sec-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:30px;letter-spacing:-.02em;color:var(--ws-indigo-600);margin-top:10px}
+  .sec-head p{color:var(--ws-ink-500);margin-top:6px;font-size:15.5px;max-width:66ch}
+  .tips{display:grid;gap:16px;grid-template-columns:1fr;margin-top:22px}
+  @media(min-width:760px){.tips{grid-template-columns:repeat(3,1fr)}}
+  .tip{background:#fff;border:1.5px solid var(--ws-ink-100);padding:22px 20px;box-shadow:var(--ws-shadow-sm);transition:.2s var(--ws-ease)}
+  .tip:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-3px);border-color:var(--ws-indigo-200)}
+  .tip .ti{width:42px;height:42px;background:var(--ws-indigo-50);color:var(--ws-indigo-600);display:grid;place-items:center;margin-bottom:14px}
+  .tip h3{font-family:var(--ws-font-display);font-weight:600;font-size:17.5px;color:var(--ws-ink-900);margin-bottom:7px;line-height:1.25}
+  .tip p{font-size:14px;color:var(--ws-ink-500);line-height:1.55}
+  .tip p b{color:var(--ws-ink-900)}
+
+  .back-row{display:flex;justify-content:flex-start;margin-top:40px}
+  .back-row a{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:8px 14px;transition:.18s var(--ws-ease)}
+  .back-row a:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  footer{max-width:1040px;margin:64px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);text-align:center}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus)}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  /* square corners: DS identity */
+  *,*::before,*::after{border-radius:0!important}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
+    <div class="nav">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
+      <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="ai-usage-models.html">Copilot &rarr; Agents</a>
+      <a class="jump cur" href="copilot-training.html" data-i18n="nav.training">Training Copilot</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+      <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1040 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,300 Q260,180 540,250 T1100,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <span class="eyebrow" data-i18n="hero.eyebrow">Training Copilot &middot; CYB AI Maker</span>
+    <h1 data-i18n="hero.title">Copilot est enfin <span class="ac">vraiment utile&nbsp;!</span></h1>
+    <p class="lede" data-i18n="hero.lede">Comment s&rsquo;en servir en pratique&nbsp;? Une s&eacute;rie de use cases concrets, tir&eacute;s de notre quotidien, avec les prompts test&eacute;s, ce que Copilot a fait et ce qu&rsquo;il reste &agrave; v&eacute;rifier. On commence par PowerPoint et la propale.</p>
+    <div class="meta-chips">
+      <span data-i18n="hero.chip1"># Microsoft 365 Copilot</span>
+      <span data-i18n="hero.chip2"># prompts pr&ecirc;ts &agrave; copier</span>
+      <span data-i18n="hero.chip3"># FR &middot; EN &middot; DE</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="ucs">
+    <a class="uc" href="copilot-usecase-proposal.html">
+      <div class="thumb"><img src="assets/copilot/uc1-result-cover.jpg" alt="Page de garde de la propale StonaWave retravaill&eacute;e avec Copilot" data-i18n-alt="uc1.alt" loading="lazy"></div>
+      <div class="body">
+        <span class="badge-ok" data-i18n="badge.ok">Disponible</span>
+        <span class="no">Use case 1 &middot; PowerPoint</span>
+        <h2>The proposal</h2>
+        <p data-i18n="uc1.p">Adapter une propale de gestion de crise &agrave; un nouveau client avec Copilot dans PowerPoint&nbsp;: contexte, logo, traduction, mise en page, animation, nouvelle phase, relecture compl&egrave;te et visuel g&eacute;n&eacute;r&eacute;. 10 prompts, pas &agrave; pas.</p>
+        <div class="chips" data-i18n="uc1.chips">
+          <span class="chip">10 prompts</span>
+          <span class="chip">Volet Copilot</span>
+          <span class="chip">Relecture prioris&eacute;e</span>
+          <span class="chip">R&egrave;gles d&rsquo;or</span>
+        </div>
+        <span class="cta" data-i18n="uc1.cta">Ouvrir le use case <span class="arrow">&#8594;</span></span>
+      </div>
+    </a>
+
+    <div class="uc soon">
+      <div class="body">
+        <span class="badge-soon" data-i18n="badge.soon">&Agrave; venir</span>
+        <div class="ghost" aria-hidden="true"><span></span><span></span><span></span></div>
+        <span class="no" data-i18n="soon.no">Use cases 2, 3&hellip;</span>
+        <h2 data-i18n="soon.h2">Les prochains use cases</h2>
+        <p data-i18n="soon.p">D&rsquo;autres cas pratiques arrivent, dans PowerPoint et au-del&agrave; (Word, Excel, Outlook). Tu as un prompt ou une astuce qui marche&nbsp;? Partage-le avec l&rsquo;&eacute;quipe CYB AI Maker.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="rules.eyebrow">&Agrave; garder en t&ecirc;te</span>
+    <h2 data-i18n="rules.title">Trois r&eacute;flexes pour tous les use cases</h2>
+  </div>
+
+  <div class="tips">
+    <div class="tip">
+      <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"/></svg></div>
+      <h3 data-i18n="r1.title">Choisis le bon mod&egrave;le</h3>
+      <p data-i18n="r1.body">V&eacute;rifie le mod&egrave;le s&eacute;lectionn&eacute; dans le volet Copilot, surtout quand la demande touche &agrave; la mise en page.</p>
+    </div>
+    <div class="tip">
+      <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M4 4h16v12H5.2L4 17.2V4z"/><path d="M8 9h8"/><path d="M8 12h5"/></svg></div>
+      <h3 data-i18n="r2.title">Sois pr&eacute;cis et nomme le p&eacute;rim&egrave;tre</h3>
+      <p data-i18n="r2.body">Toutes les slides ou une slide pr&eacute;cise, le contexte, le r&eacute;sultat attendu. &laquo;&nbsp;Fais plus joli&nbsp;&raquo; ne suffit pas.</p>
+    </div>
+    <div class="tip">
+      <div class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+      <h3 data-i18n="r3.title">Relis tout, vraiment</h3>
+      <p data-i18n="r3.body">Noms, chiffres, coh&eacute;rence d&rsquo;ensemble&nbsp;: tu as le dernier mot et c&rsquo;est ta responsabilit&eacute;.</p>
+    </div>
+  </div>
+
+  <div class="back-row">
+    <a href="index.html" data-i18n="back">&#8592; Retour &agrave; l&rsquo;accueil</a>
+  </div>
+
+</div>
+
+<footer>
+  <span class="src" data-i18n="footer.src">Training Copilot &middot; Wavestone CYB &middot; AI Maker</span>
+</footer>
+
+<script>
+window.WS_I18N = {
+  en: {
+    "__title": "Copilot training &middot; Wavestone CYB",
+    "nav.home": "Home", "nav.usecases": "Playbook", "nav.principles": "Agent principles", "nav.training": "Copilot training", "nav.agents": "Our agents", "nav.apikey": "API key",
+    "hero.eyebrow": "Copilot training &middot; CYB AI Maker",
+    "hero.title": "Amazing, Copilot is now <span class=\"ac\">actually useful!</span>",
+    "hero.lede": "How can you use it in practice? A series of hands-on use cases from our day-to-day work, with the tested prompts, what Copilot did and what still needs checking. We start with PowerPoint and the proposal.",
+    "hero.chip1": "# Microsoft 365 Copilot", "hero.chip2": "# copy-ready prompts", "hero.chip3": "# FR &middot; EN &middot; DE",
+    "badge.ok": "Available", "badge.soon": "Coming soon",
+    "uc1.alt": "Cover page of the StonaWave proposal reworked with Copilot",
+    "uc1.p": "Adapt a crisis management proposal to a new client with Copilot in PowerPoint: context, logo, translation, layout, animation, new phase, full review and generated visual. 10 prompts, step by step.",
+    "uc1.chips": "<span class=\"chip\">10 prompts</span><span class=\"chip\">Copilot pane</span><span class=\"chip\">Prioritised review</span><span class=\"chip\">Golden rules</span>",
+    "uc1.cta": "Open the use case <span class=\"arrow\">&#8594;</span>",
+    "soon.no": "Use cases 2, 3&hellip;",
+    "soon.h2": "The next use cases",
+    "soon.p": "More hands-on cases are on the way, in PowerPoint and beyond (Word, Excel, Outlook). Got a prompt or a tip that works? Share it with the CYB AI Maker team.",
+    "rules.eyebrow": "Keep in mind",
+    "rules.title": "Three habits for every use case",
+    "r1.title": "Pick the right model", "r1.body": "Check the model selected in the Copilot pane, especially when the request involves layout.",
+    "r2.title": "Be specific and name the scope", "r2.body": "All slides or one specific slide, the context, the expected result. &ldquo;Make it nicer&rdquo; is not enough.",
+    "r3.title": "Read everything, really", "r3.body": "Names, numbers, overall consistency: you have the final say and it&rsquo;s your responsibility.",
+    "back": "&#8592; Back to home",
+    "footer.src": "Copilot training &middot; Wavestone CYB &middot; AI Maker"
+  },
+  de: {
+    "__title": "Copilot-Training &middot; Wavestone CYB",
+    "nav.home": "Start", "nav.usecases": "Playbook", "nav.principles": "Agenten-Prinzipien", "nav.training": "Copilot-Training", "nav.agents": "Unsere Agenten", "nav.apikey": "API-Schl&uuml;ssel",
+    "hero.eyebrow": "Copilot-Training &middot; CYB AI Maker",
+    "hero.title": "Copilot ist endlich <span class=\"ac\">wirklich n&uuml;tzlich!</span>",
+    "hero.lede": "Wie setzt man es in der Praxis ein? Eine Reihe konkreter Use Cases aus unserem Alltag, mit den getesteten Prompts, dem, was Copilot gemacht hat, und dem, was noch zu pr&uuml;fen ist. Wir beginnen mit PowerPoint und dem Angebot.",
+    "hero.chip1": "# Microsoft 365 Copilot", "hero.chip2": "# Prompts zum Kopieren", "hero.chip3": "# FR &middot; EN &middot; DE",
+    "badge.ok": "Verf&uuml;gbar", "badge.soon": "Demn&auml;chst",
+    "uc1.alt": "Titelseite des mit Copilot &uuml;berarbeiteten StonaWave-Angebots",
+    "uc1.p": "Ein Krisenmanagement-Angebot mit Copilot in PowerPoint an einen neuen Kunden anpassen: Kontext, Logo, &Uuml;bersetzung, Layout, Animation, neue Phase, vollst&auml;ndige Pr&uuml;fung und generiertes Bild. 10 Prompts, Schritt f&uuml;r Schritt.",
+    "uc1.chips": "<span class=\"chip\">10 Prompts</span><span class=\"chip\">Copilot-Bereich</span><span class=\"chip\">Priorisierte Pr&uuml;fung</span><span class=\"chip\">Goldene Regeln</span>",
+    "uc1.cta": "Use Case &ouml;ffnen <span class=\"arrow\">&#8594;</span>",
+    "soon.no": "Use Cases 2, 3&hellip;",
+    "soon.h2": "Die n&auml;chsten Use Cases",
+    "soon.p": "Weitere Praxisf&auml;lle folgen, in PowerPoint und dar&uuml;ber hinaus (Word, Excel, Outlook). Du hast einen Prompt oder Tipp, der funktioniert? Teile ihn mit dem CYB-AI-Maker-Team.",
+    "rules.eyebrow": "Im Hinterkopf behalten",
+    "rules.title": "Drei Reflexe f&uuml;r jeden Use Case",
+    "r1.title": "Das richtige Modell w&auml;hlen", "r1.body": "Pr&uuml;fe das im Copilot-Bereich ausgew&auml;hlte Modell, vor allem wenn es um Layout geht.",
+    "r2.title": "Pr&auml;zise sein und den Umfang benennen", "r2.body": "Alle Folien oder eine bestimmte Folie, der Kontext, das erwartete Ergebnis. &bdquo;Mach es sch&ouml;ner&ldquo; reicht nicht.",
+    "r3.title": "Alles lesen, wirklich", "r3.body": "Namen, Zahlen, Gesamtstimmigkeit: Du hast das letzte Wort, und es ist deine Verantwortung.",
+    "back": "&#8592; Zur&uuml;ck zur Startseite",
+    "footer.src": "Copilot-Training &middot; Wavestone CYB &middot; AI Maker"
+  }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script src="assets/mobile-nav.js"></script>
+</body>
+</html>

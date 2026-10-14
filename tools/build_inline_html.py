@@ -39,6 +39,8 @@ PREFERRED_PAGES = [
     "playbook.html",
     "agent-principles.html",
     "ai-usage-models.html",
+    "copilot-training.html",
+    "copilot-usecase-proposal.html",
     "our-agents.html",
     "dance-with-the-ai-stars.html",
     "usecase-cyberbench-orchestrator.html",

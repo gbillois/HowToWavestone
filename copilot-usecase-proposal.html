@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Training Copilot &middot; Use case 1 : The proposal &middot; Wavestone CYB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ws-indigo-50:#F1EEFB; --ws-indigo-100:#D1CAF2; --ws-indigo-200:#BDAFEB;
+    --ws-indigo-500:#5A2BE0; --ws-indigo-600:#451DC7; --ws-indigo-700:#36169B;
+    --ws-indigo-800:#2D1380; --ws-indigo-900:#1E0D57; --ws-indigo-950:#150939;
+    --ws-green-300:#5CF59E; --ws-green-400:#04F06A; --ws-green-700:#088A42; --ws-green-50:#E1FDED;
+    --ws-teal-500:#228D95;
+    --ws-white:#FFFFFF; --ws-ink-50:#F5F4F9; --ws-ink-100:#E6E4EE; --ws-ink-200:#CFCCDC;
+    --ws-ink-300:#A8A4B8; --ws-ink-400:#817C95; --ws-ink-500:#6B6580; --ws-ink-600:#514C63;
+    --ws-ink-700:#3A3550; --ws-ink-900:#16121F;
+    --ws-warning:#C8861A; --ws-danger:#D8412F;
+    --ws-gradient-brand:radial-gradient(120% 120% at 25% 15%, #5226E0 0%, #451DC7 38%, #2D1380 100%);
+    --ws-gradient-accent:linear-gradient(90deg,#04F06A 0%,#5CF59E 100%);
+    --ws-font-display:'Poppins','Montserrat',system-ui,sans-serif;
+    --ws-font-body:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    --ws-font-mono:'IBM Plex Mono',ui-monospace,'SF Mono',Menlo,monospace;
+    --ws-shadow-sm:0 1px 3px rgba(22,18,31,.08),0 1px 2px rgba(22,18,31,.06);
+    --ws-shadow-md:0 4px 12px rgba(22,18,31,.10);
+    --ws-shadow-lg:0 12px 28px rgba(22,18,31,.12);
+    --ws-shadow-brand:0 14px 30px rgba(69,29,199,.30);
+    --ws-shadow-focus:0 0 0 3px rgba(90,43,224,.35);
+    --ws-ease:cubic-bezier(.2,0,0,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--ws-white);color:var(--ws-ink-900);font-family:var(--ws-font-body);line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:80px}
+  a{color:inherit}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  .eyebrow{display:inline-block;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding-bottom:4px;border-bottom:2px solid var(--ws-green-400)}
+
+  /* ---------- sticky brand bar ---------- */
+  .bar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--ws-ink-100)}
+  .bar-in{max-width:1040px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .brand{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:-.01em;color:var(--ws-indigo-600);display:flex;align-items:center;gap:9px;text-decoration:none}
+  .brand .dot{width:9px;height:9px;background:var(--ws-green-400);box-shadow:0 0 0 3px var(--ws-green-50)}
+  .nav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .nav a.jump{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:6px 12px;transition:.18s var(--ws-ease)}
+  .nav a.jump:hover,.nav a.jump.cur{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--ws-gradient-brand);color:#fff}
+  .hero .wave{position:absolute;inset:0;pointer-events:none}
+  .hero-in{position:relative;max-width:1040px;margin:0 auto;padding:52px 24px 52px}
+  .crumb{display:inline-flex;align-items:center;gap:8px;font-family:var(--ws-font-mono);font-size:12px;color:rgba(255,255,255,.75);text-decoration:none;margin-bottom:22px}
+  .crumb:hover{color:#fff}
+  .hero .eyebrow{color:#fff}
+  .hero h1{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(34px,6vw,60px);line-height:1.04;letter-spacing:-.025em;margin:22px 0 16px;max-width:18ch}
+  .hero h1 .ac{color:var(--ws-green-400)}
+  .hero .lede{font-size:18.5px;line-height:1.55;color:rgba(255,255,255,.85);max-width:62ch}
+  .meta-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+  .meta-chips span{font-family:var(--ws-font-mono);font-size:11.5px;color:rgba(255,255,255,.9);background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:6px 12px}
+  .host-tip{display:flex;gap:10px;align-items:flex-start;margin-top:22px;background:rgba(4,240,106,.12);border:1px solid rgba(4,240,106,.35);border-left:4px solid var(--ws-green-400);padding:12px 16px;max-width:66ch}
+  .host-tip svg{flex:0 0 auto;color:var(--ws-green-300);margin-top:2px}
+  .host-tip p{font-size:13.5px;color:rgba(255,255,255,.92);line-height:1.5}
+  .host-tip b{color:#fff}
+
+  /* ---------- section heads ---------- */
+  .sec-head{margin:60px 0 6px}
+  .sec-head .eyebrow{color:var(--ws-ink-900)}
+  .sec-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:30px;letter-spacing:-.02em;color:var(--ws-indigo-600);margin-top:10px}
+  .sec-head p{color:var(--ws-ink-500);margin-top:6px;font-size:15.5px;max-width:66ch}
+  .sec-head p b{color:var(--ws-ink-900)}
+
+  /* ---------- before / after ---------- */
+  .ba{display:grid;gap:18px;grid-template-columns:1fr;margin-top:24px;align-items:start}
+  @media(min-width:860px){.ba{grid-template-columns:5fr 7fr}}
+  .ba-col{border:1.5px solid var(--ws-ink-100);background:#fff;padding:20px;box-shadow:var(--ws-shadow-sm);display:flex;flex-direction:column;gap:14px}
+  .ba-col.after{background:var(--ws-indigo-50);border-color:var(--ws-indigo-100)}
+  .ba-tag{font-family:var(--ws-font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;width:fit-content;padding:3px 9px;background:var(--ws-ink-100);color:var(--ws-ink-600)}
+  .ba-col.after .ba-tag{background:var(--ws-green-400);color:var(--ws-indigo-900)}
+  .ba-col h3{font-family:var(--ws-font-display);font-weight:600;font-size:18px;line-height:1.25;color:var(--ws-ink-900)}
+  .ba-col .cap{font-size:13.8px;color:var(--ws-ink-500);line-height:1.5}
+  .bad-wrap{position:relative;padding:18px 34px;background:var(--ws-ink-50)}
+  .bad-wrap .sad{position:absolute;font-size:22px;line-height:1;animation:bob 2.6s ease-in-out infinite}
+  .bad-wrap .sad:nth-child(1){left:6px;top:14px}
+  .bad-wrap .sad:nth-child(2){left:6px;bottom:14px;animation-delay:.6s}
+  .bad-wrap .sad:nth-child(3){right:6px;top:40%;animation-delay:1.2s}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+  .bad-slide{background:#fff;border:1px solid var(--ws-ink-200);box-shadow:var(--ws-shadow-md);padding:16px 18px;font-family:Calibri,Carlito,'Segoe UI',sans-serif;color:#222}
+  .bad-slide .t{font-size:17px;margin-bottom:8px}
+  .bad-slide ul{font-size:11.5px;padding-left:16px;margin-bottom:12px;color:#333}
+  .bad-slide .boxes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .bad-slide .boxes span{background:#4472C4;color:#fff;font-size:11px;text-align:center;padding:12px 4px;border-radius:6px!important}
+
+  /* ---------- concept bricks ---------- */
+  .bricks{display:flex;flex-direction:column;gap:14px;margin-top:24px}
+  @media(min-width:820px){.bricks{flex-direction:row;align-items:stretch}}
+  .brick{flex:1;position:relative;background:#fff;border:1.5px solid var(--ws-ink-100);padding:24px 22px 22px;box-shadow:var(--ws-shadow-sm);opacity:0;transform:translateY(12px);animation:rise .6s var(--ws-ease) forwards}
+  .brick::before{content:"";position:absolute;left:0;top:0;right:0;height:4px;background:var(--ws-gradient-accent);transform:scaleX(0);transform-origin:left;animation:grow .6s var(--ws-ease) forwards}
+  .brick:nth-child(2),.brick:nth-child(2)::before{animation-delay:.2s}
+  @keyframes rise{to{opacity:1;transform:none}}
+  @keyframes grow{to{transform:scaleX(1)}}
+  .bk-no{font-family:var(--ws-font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ws-indigo-600)}
+  .bk-ic{width:46px;height:46px;background:var(--ws-indigo-50);color:var(--ws-indigo-600);display:grid;place-items:center;margin:12px 0 14px}
+  .brick:nth-child(2) .bk-ic{background:var(--ws-green-50);color:var(--ws-green-700)}
+  .brick h3{font-family:var(--ws-font-display);font-weight:600;font-size:19px;color:var(--ws-ink-900);margin-bottom:7px;line-height:1.2}
+  .brick p{font-size:14.5px;color:var(--ws-ink-500);line-height:1.55}
+  .brick p b{color:var(--ws-ink-900)}
+
+  /* golden rule banner */
+  .golden{display:grid;grid-template-columns:1fr;gap:22px;align-items:center;margin-top:18px;background:var(--ws-indigo-900);color:#fff;padding:24px;box-shadow:var(--ws-shadow-brand)}
+  @media(min-width:760px){.golden{grid-template-columns:220px 1fr;padding:26px 30px}}
+  .golden a.zoom{display:block;line-height:0;cursor:zoom-in;border:1px solid rgba(255,255,255,.2)}
+  .golden img{width:100%;height:auto;display:block}
+  .golden .g-lab{font-family:var(--ws-font-display);font-weight:700;font-size:15px;letter-spacing:.04em;text-transform:uppercase;color:var(--ws-green-400)}
+  .golden .g-big{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(26px,4vw,40px);line-height:1.1;letter-spacing:-.02em;margin:8px 0 10px}
+  .golden p{font-size:14.5px;color:rgba(255,255,255,.82);line-height:1.55;max-width:60ch}
+  .golden p b{color:#fff}
+
+  /* where to work */
+  .where{display:grid;gap:18px;grid-template-columns:1fr;margin-top:24px}
+  @media(min-width:820px){.where{grid-template-columns:1fr 1fr}}
+  .wcard{border:1.5px solid var(--ws-indigo-100);background:var(--ws-indigo-50);padding:24px 22px;display:flex;flex-direction:column;gap:12px}
+  .wcard.dark{background:var(--ws-indigo-900);border-color:var(--ws-indigo-900);color:#fff}
+  .wcard .wh{display:flex;gap:14px;align-items:flex-start}
+  .wcard .num{flex:0 0 auto;width:40px;height:40px;display:grid;place-items:center;font-family:var(--ws-font-display);font-weight:700;font-size:18px;background:var(--ws-indigo-600);color:#fff}
+  .wcard.dark .num{background:var(--ws-green-400);color:var(--ws-indigo-900)}
+  .wcard h3{font-family:var(--ws-font-display);font-weight:700;font-size:18px;letter-spacing:.01em;text-transform:uppercase;line-height:1.2}
+  .wcard .ws{font-size:13.5px;color:var(--ws-ink-500);margin-top:3px}
+  .wcard.dark .ws{color:rgba(255,255,255,.7)}
+  .wcard ul{list-style:none;display:grid;gap:7px}
+  .wcard li{position:relative;padding-left:26px;font-size:14.2px;line-height:1.5;color:var(--ws-ink-700)}
+  .wcard.dark li{color:rgba(255,255,255,.88)}
+  .wcard li::before{position:absolute;left:0;top:0;font-family:var(--ws-font-mono);font-weight:700}
+  .wcard li.ok::before{content:"+";color:var(--ws-green-700)}
+  .wcard li.ko::before{content:"!";color:var(--ws-warning)}
+  .wcard.dark li.ok::before{color:var(--ws-green-400)}
+  .flowline{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:auto;padding-top:6px;font-family:var(--ws-font-mono);font-size:11.5px}
+  .flowline .fn{padding:5px 9px;background:#fff;border:1px solid var(--ws-indigo-100);color:var(--ws-indigo-700)}
+  .flowline .fn.hl{background:var(--ws-green-400);border-color:var(--ws-green-400);color:var(--ws-indigo-900);font-weight:600}
+  .flowline .fn.warn{background:#FFF4E0;border-color:#F2C77A;color:#7A4E00;font-weight:600}
+  .wcard.dark .flowline .fn{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:#fff}
+  .wcard.dark .flowline .fn.hl{background:var(--ws-green-400);color:var(--ws-indigo-900)}
+  .wcard.dark .flowline .fn.warn{background:#F2A93B;border-color:#F2A93B;color:var(--ws-indigo-900)}
+  .flowline .fa{color:var(--ws-ink-300)}
+
+  /* ---------- phase / steps (pipeline spine) ---------- */
+  .phase{margin-top:18px}
+  .phase-head{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px;border-bottom:1px solid var(--ws-ink-100);padding-bottom:16px;margin-top:56px}
+  .phase-head .eyebrow{color:var(--ws-ink-900)}
+  .phase-head h2{font-family:var(--ws-font-display);font-weight:700;font-size:26px;color:var(--ws-indigo-600);margin-top:10px;letter-spacing:-.015em}
+  .phase-head .sub{color:var(--ws-ink-500);font-size:14.5px;margin-top:5px;max-width:64ch}
+  .prog{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-500);white-space:nowrap}
+  .prog b{color:var(--ws-indigo-600)}
+
+  .steps{position:relative;margin-top:24px}
+  .spine{position:absolute;left:21px;top:22px;bottom:22px;width:2px;background:var(--ws-ink-100);z-index:0}
+  .spine-fill{position:absolute;left:0;top:0;width:100%;height:0;background:var(--ws-gradient-accent);transition:height .5s var(--ws-ease)}
+  .step{position:relative;z-index:1;display:flex;gap:18px;padding-bottom:20px}
+  .node{flex:0 0 44px;width:44px;height:44px;background:#fff;border:1.5px solid var(--ws-ink-200);display:grid;place-items:center;font-family:var(--ws-font-mono);font-weight:600;font-size:15px;color:var(--ws-indigo-600);cursor:pointer;user-select:none;transition:.22s var(--ws-ease)}
+  .node:hover{border-color:var(--ws-indigo-600)}
+  .node .ck{display:none;font-size:20px;color:#fff;line-height:1}
+  .step.done .node{background:var(--ws-indigo-600);border-color:var(--ws-indigo-600);color:#fff}
+  .step.done .node .nm{display:none}
+  .step.done .node .ck{display:block}
+  .scard{flex:1;background:#fff;border:1px solid var(--ws-ink-100);padding:18px 20px;box-shadow:var(--ws-shadow-sm);transition:.22s var(--ws-ease);min-width:0}
+  .step.done .scard{opacity:.72;border-color:var(--ws-green-50)}
+  .scard h4{font-family:var(--ws-font-display);font-weight:600;font-size:17px;color:var(--ws-ink-900);display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .scard .do{margin-top:8px;font-size:14.5px;color:var(--ws-ink-600);line-height:1.55}
+  .scard .do b{color:var(--ws-ink-900)}
+  code{font-family:var(--ws-font-mono);font-size:.85em;background:var(--ws-ink-50);padding:1px 6px}
+  .mini{font-family:var(--ws-font-mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--ws-green-700);background:var(--ws-green-50);padding:3px 8px;font-weight:600}
+  .mini.one{color:var(--ws-indigo-700);background:var(--ws-indigo-50)}
+  .ui-lbl{font-family:var(--ws-font-mono);font-size:.9em;background:var(--ws-ink-900);color:#fff;padding:1px 7px}
+
+  /* ---------- screenshots ---------- */
+  .shots{display:grid;gap:14px;margin-top:16px;grid-template-columns:1fr}
+  @media(min-width:600px){.shots.two{grid-template-columns:1fr 1fr}}
+  @media(min-width:600px){.shots.three{grid-template-columns:1fr 1fr}}
+  @media(min-width:900px){.shots.three{grid-template-columns:repeat(3,1fr)}}
+  .ba-col .shots{margin-top:0}
+  @media(min-width:600px){.ba-col .shots.three{grid-template-columns:1fr 1fr}}
+  .ba-col .shots.three figure:first-child{grid-column:1/-1}
+  figure.shot{margin:0;border:1px solid var(--ws-ink-200);background:#fff;box-shadow:var(--ws-shadow-md);overflow:hidden;display:flex;flex-direction:column}
+  figure.shot a.zoom{display:block;line-height:0;cursor:zoom-in}
+  figure.shot img{display:block;width:100%;height:auto;background:var(--ws-ink-50);border-bottom:1px solid var(--ws-ink-100)}
+  figure.shot figcaption{display:flex;gap:9px;align-items:flex-start;font-family:var(--ws-font-mono);font-size:11.5px;color:var(--ws-ink-500);padding:10px 13px;background:#fff;line-height:1.5;flex:1}
+  figure.shot .sn{flex:0 0 auto;width:18px;height:18px;background:var(--ws-indigo-600);color:#fff;font-family:var(--ws-font-mono);font-weight:600;font-size:10.5px;display:grid;place-items:center;margin-top:1px}
+
+  /* ---------- lightbox (in-page zoom) ---------- */
+  .lb{position:fixed;inset:0;z-index:200;background:rgba(20,12,46,.9);display:none;align-items:center;justify-content:center;padding:32px;cursor:zoom-out}
+  .lb.on{display:flex}
+  .lb img{max-width:95vw;max-height:90vh;width:auto;height:auto;box-shadow:0 24px 70px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.14);cursor:default}
+  .lb-close{position:fixed;top:18px;right:22px;width:44px;height:44px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.32);color:#fff;font-size:24px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:.18s var(--ws-ease)}
+  .lb-close:hover{background:rgba(255,255,255,.24)}
+
+  /* prompt card */
+  .prompt{position:relative;background:var(--ws-indigo-950);padding:16px 18px;margin-top:14px;font-family:var(--ws-font-mono);font-size:13.5px;color:#EAE7F6;box-shadow:var(--ws-shadow-md)}
+  .prompt .who{color:rgba(255,255,255,.5);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:9px;padding-right:90px}
+  .prompt .txt{color:var(--ws-green-300);line-height:1.6}
+  .prompt .txt::before{content:"\2192  ";color:rgba(255,255,255,.35)}
+  .copy{position:absolute;top:13px;right:13px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:rgba(255,255,255,.7);font-family:var(--ws-font-mono);font-size:11px;padding:5px 11px;cursor:pointer;transition:.18s var(--ws-ease)}
+  .copy:hover{color:#fff;border-color:rgba(255,255,255,.4)}
+  .copy.ok{color:var(--ws-green-300);border-color:var(--ws-green-400)}
+
+  /* note */
+  .note{margin-top:16px;background:var(--ws-indigo-50);border:1px solid var(--ws-indigo-100);border-left:4px solid var(--ws-indigo-600);padding:14px 16px}
+  .note.green{background:var(--ws-green-50);border-color:var(--ws-green-400);border-left-color:var(--ws-green-700)}
+  .note .lab{font-family:var(--ws-font-body);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ws-indigo-600);margin-bottom:6px}
+  .note.green .lab{color:var(--ws-green-700)}
+  .note p{font-size:13.8px;color:var(--ws-ink-700);line-height:1.55}
+  .note b{color:var(--ws-ink-900)}
+  .note a{color:var(--ws-indigo-600);font-weight:600}
+
+  /* verdict */
+  .verdict{display:grid;gap:16px;grid-template-columns:1fr;margin-top:22px}
+  @media(min-width:860px){.verdict{grid-template-columns:repeat(3,1fr)}}
+  .vcol{padding:22px 20px;border:1.5px solid var(--ws-indigo-100);background:var(--ws-indigo-50)}
+  .vcol.hi{background:var(--ws-indigo-900);border-color:var(--ws-indigo-900);color:#fff}
+  .vcol.lo{background:var(--ws-ink-50);border-color:var(--ws-ink-100)}
+  .vcol .vh{display:flex;gap:12px;align-items:center;margin-bottom:14px}
+  .vcol .vn{flex:0 0 auto;width:36px;height:36px;display:grid;place-items:center;font-family:var(--ws-font-display);font-weight:700;background:var(--ws-indigo-600);color:#fff}
+  .vcol.hi .vn{background:var(--ws-green-400);color:var(--ws-indigo-900)}
+  .vcol.lo .vn{background:var(--ws-indigo-200);color:var(--ws-indigo-900)}
+  .vcol h3{font-family:var(--ws-font-display);font-weight:600;font-size:17px;line-height:1.2}
+  .vcol .vs{font-size:12.5px;color:var(--ws-ink-500)}
+  .vcol.hi .vs{color:rgba(255,255,255,.65)}
+  .vcol ul{list-style:none;display:grid;gap:10px}
+  .vcol li{font-size:13.4px;line-height:1.5;color:var(--ws-ink-700)}
+  .vcol.hi li{color:rgba(255,255,255,.85)}
+  .vcol li b{color:var(--ws-ink-900)}
+  .vcol.hi li b{color:#fff}
+  .bubble{display:flex;gap:12px;align-items:flex-start;margin-top:16px;background:var(--ws-indigo-600);color:#fff;padding:14px 18px;box-shadow:var(--ws-shadow-brand)}
+  .bubble .who{flex:0 0 auto;font-family:var(--ws-font-mono);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;background:rgba(255,255,255,.16);padding:3px 8px;margin-top:1px}
+  .bubble p{font-size:14.2px;font-style:italic;line-height:1.5}
+
+  /* tips grids */
+  .idea-grid{display:grid;gap:14px;grid-template-columns:1fr;margin-top:22px}
+  @media(min-width:760px){.idea-grid{grid-template-columns:1fr 1fr}}
+  .idea-grid .prompt{margin-top:0}
+  .tips{display:grid;gap:16px;grid-template-columns:1fr;margin-top:22px}
+  @media(min-width:760px){.tips{grid-template-columns:repeat(3,1fr)}}
+  .tip{background:#fff;border:1.5px solid var(--ws-ink-100);padding:22px 20px;box-shadow:var(--ws-shadow-sm);transition:.2s var(--ws-ease);display:flex;flex-direction:column}
+  .tip:hover{box-shadow:var(--ws-shadow-lg);transform:translateY(-3px);border-color:var(--ws-indigo-200)}
+  .tip .ti{width:42px;height:42px;background:var(--ws-indigo-50);color:var(--ws-indigo-600);display:grid;place-items:center;margin-bottom:14px;font-family:var(--ws-font-display);font-weight:700;font-size:15px}
+  .tip h3{font-family:var(--ws-font-display);font-weight:600;font-size:17.5px;color:var(--ws-ink-900);margin-bottom:7px;line-height:1.25}
+  .tip p{font-size:14px;color:var(--ws-ink-500);line-height:1.55}
+  .tip p b{color:var(--ws-ink-900)}
+  .tip .aside{margin-top:12px;padding:10px 12px;background:var(--ws-ink-50);font-size:12.8px;font-style:italic;color:var(--ws-ink-600);line-height:1.5}
+  .tip .keys{display:flex;align-items:center;gap:8px;margin-top:14px;font-family:var(--ws-font-mono);font-size:13px}
+  .tip .keys kbd{font-family:inherit;padding:6px 12px;border:1px solid var(--ws-ink-200);box-shadow:0 2px 0 var(--ws-ink-200);background:#fff;color:var(--ws-ink-900)}
+  .tip .redo{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:14px;font-family:var(--ws-font-mono);font-size:12px}
+  .tip .redo .bad{padding:5px 9px;border:1px dashed var(--ws-ink-300);color:var(--ws-ink-400);text-decoration:line-through}
+  .tip .redo .good{padding:5px 9px;background:var(--ws-indigo-600);color:#fff}
+  .tip figure.shot{margin-top:14px}
+
+  .never{margin-top:18px;background:var(--ws-gradient-brand);color:#fff;padding:24px 26px;text-align:center;box-shadow:var(--ws-shadow-brand)}
+  .never .lab{font-family:var(--ws-font-display);font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--ws-green-400)}
+  .never .q{display:block;font-family:var(--ws-font-display);font-weight:700;font-style:italic;font-size:clamp(19px,3vw,26px);line-height:1.3;margin-top:8px}
+
+  /* final */
+  .final{margin-top:60px;background:var(--ws-indigo-50);border:1.5px solid var(--ws-indigo-100);padding:34px 26px;text-align:center}
+  .final .eyebrow{color:var(--ws-ink-900)}
+  .final h2{font-family:var(--ws-font-display);font-weight:800;font-size:clamp(28px,4.4vw,40px);color:var(--ws-indigo-900);letter-spacing:-.02em;margin-top:12px}
+  .final .lede2{font-size:16.5px;color:var(--ws-ink-700);margin-top:8px}
+  .final .lede2 b{color:var(--ws-indigo-600)}
+  .qp{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:22px}
+  .qp button{font-family:var(--ws-font-mono);font-size:12.5px;background:#fff;border:1px solid var(--ws-indigo-100);color:var(--ws-indigo-700);padding:8px 13px;cursor:pointer;transition:.18s var(--ws-ease);text-align:left}
+  .qp button:hover{border-color:var(--ws-indigo-600);transform:translateY(-1px);box-shadow:var(--ws-shadow-sm)}
+  .qp button.ok{background:var(--ws-green-50);border-color:var(--ws-green-400);color:var(--ws-green-700)}
+  .final .hint{font-family:var(--ws-font-mono);font-size:11.5px;color:var(--ws-ink-400);margin-top:14px}
+
+  .back-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:40px}
+  .back-row a{font-family:var(--ws-font-mono);font-size:12.5px;color:var(--ws-ink-600);text-decoration:none;border:1px solid var(--ws-ink-200);padding:8px 14px;transition:.18s var(--ws-ease)}
+  .back-row a:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  footer{max-width:1040px;margin:64px auto 0;padding:24px;border-top:1px solid var(--ws-ink-100);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer .src{font-family:var(--ws-font-mono);font-size:12px;color:var(--ws-ink-400)}
+  .reset{font-family:var(--ws-font-mono);font-size:12.5px;border:1px solid var(--ws-ink-200);background:#fff;padding:8px 14px;cursor:pointer;color:var(--ws-ink-500);transition:.18s var(--ws-ease)}
+  .reset:hover{border-color:var(--ws-indigo-600);color:var(--ws-indigo-600)}
+
+  :focus-visible{outline:none;box-shadow:var(--ws-shadow-focus)}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.brick{opacity:1;transform:none}.brick::before{transform:scaleX(1)}}
+  /* square corners: DS identity */
+  *,*::before,*::after{border-radius:0!important}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="brand" href="index.html"><span class="dot"></span>Wavestone CYB &middot; AI Maker</a>
+    <div class="nav">
+      <a class="jump" href="index.html" data-i18n="nav.home">Accueil</a>
+      <a class="jump" href="playbook.html" data-i18n="nav.usecases">Playbook</a>
+      <a class="jump" href="agent-principles.html" data-i18n="nav.principles">Principes des agents</a>
+      <a class="jump" href="ai-usage-models.html">Copilot &rarr; Agents</a>
+      <a class="jump cur" href="copilot-training.html" data-i18n="nav.training">Training Copilot</a>
+      <a class="jump" href="our-agents.html" data-i18n="nav.agents">Nos agents</a>
+      <a class="jump" href="api-key.html" data-i18n="nav.apikey">Cl&eacute; API</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <svg class="wave" viewBox="0 0 1040 360" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-50,300 Q260,180 540,250 T1100,210" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5"/>
+    <path d="M-50,330 Q300,210 560,285 T1100,250" fill="none" stroke="#04F06A" stroke-width="1.5" opacity=".55"/>
+  </svg>
+  <div class="hero-in">
+    <a class="crumb" href="copilot-training.html" data-i18n="hero.crumb">&#8592; Training Copilot</a><br>
+    <span class="eyebrow" data-i18n="hero.eyebrow">Training Copilot &middot; Use case 1</span>
+    <h1 data-i18n="hero.title">Use case 1&nbsp;: <span class="ac">The proposal</span></h1>
+    <p class="lede" data-i18n="hero.lede">Copilot est enfin vraiment utile dans PowerPoint. Comment s&rsquo;en servir en pratique&nbsp;? On reprend une propale existante, on l&rsquo;adapte &agrave; un nouveau client et on demande &agrave; Copilot de retoucher le contenu, la mise en page et les animations. Puis on regarde o&ugrave; il a encore besoin de nous.</p>
+    <div class="meta-chips">
+      <span data-i18n="hero.chip1"># PowerPoint &middot; Copilot</span>
+      <span data-i18n="hero.chip2"># 10 prompts test&eacute;s</span>
+      <span data-i18n="hero.chip3"># cas StonaWave</span>
+      <span data-i18n="hero.chip4"># relecture humaine</span>
+    </div>
+    <div class="host-tip">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg>
+      <p data-i18n="hero.tip"><b>Astuce&nbsp;:</b> d&eacute;roule la page de haut en bas. Clique sur les <b>num&eacute;ros</b> pour cocher les &eacute;tapes faites, sur <b>copier</b> pour r&eacute;cup&eacute;rer un prompt et sur les captures pour les agrandir.</p>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ============ A - THE REALITY ============ -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="a.eyebrow">Le constat</span>
+    <h2 data-i18n="a.title">Soyons honn&ecirc;tes&nbsp;: pendant longtemps, Copilot, c&rsquo;&eacute;tait &ccedil;a&hellip;</h2>
+    <p data-i18n="a.intro">On demandait une pr&eacute;sentation et on obtenait un titre, quelques puces g&eacute;n&eacute;riques et trois bo&icirc;tes &laquo;&nbsp;Step&nbsp;1, Step&nbsp;2, Step&nbsp;3&nbsp;&raquo;. Techniquement une slide, mais l&rsquo;essentiel du travail restait &agrave; faire. Aujourd&rsquo;hui, le r&eacute;sultat n&rsquo;a plus rien &agrave; voir.</p>
+  </div>
+
+  <div class="ba">
+    <div class="ba-col before">
+      <span class="ba-tag" data-i18n="a.before.tag">Avant</span>
+      <div class="bad-wrap" aria-hidden="true">
+        <span class="sad">&#128542;</span><span class="sad">&#128542;</span><span class="sad">&#128542;</span>
+        <div class="bad-slide">
+          <div class="t">Presentation: project summary</div>
+          <ul><li>Introduction and context</li><li>The topic is important for the company</li><li>There are several aspects to consider</li><li>Conclusion and next steps</li></ul>
+          <div class="boxes"><span>Step 1</span><span>Step 2</span><span>Step 3</span></div>
+        </div>
+      </div>
+      <p class="cap" data-i18n="a.before.cap">Une slide g&eacute;n&eacute;rique, sans message clair ni mise en page adapt&eacute;e au contenu.</p>
+    </div>
+    <div class="ba-col after">
+      <span class="ba-tag" data-i18n="a.after.tag">Aujourd&rsquo;hui</span>
+      <h3 data-i18n="a.after.title">Copilot peut cr&eacute;er des slides comme celles-ci&nbsp;!</h3>
+      <div class="shots three">
+        <figure class="shot"><a class="zoom" href="assets/copilot/uc1-example-platform.jpg"><img src="assets/copilot/uc1-example-platform.jpg" alt="Slide d'architecture g&eacute;n&eacute;r&eacute;e par Copilot" data-i18n-alt="a.after.alt1" loading="lazy"></a></figure>
+        <figure class="shot"><a class="zoom" href="assets/copilot/uc1-example-program.jpg"><img src="assets/copilot/uc1-example-program.jpg" alt="Slide de programme g&eacute;n&eacute;r&eacute;e par Copilot" data-i18n-alt="a.after.alt2" loading="lazy"></a></figure>
+        <figure class="shot"><a class="zoom" href="assets/copilot/uc1-example-attacks.jpg"><img src="assets/copilot/uc1-example-attacks.jpg" alt="Slide de chiffres cl&eacute;s g&eacute;n&eacute;r&eacute;e par Copilot" data-i18n-alt="a.after.alt3" loading="lazy"></a></figure>
+      </div>
+      <p class="cap" data-i18n="a.after.cap"><b>Et c&rsquo;est aussi tr&egrave;s utile pour modifier des slides existantes&nbsp;!</b> C&rsquo;est l&rsquo;angle de ce use case&nbsp;: partir de ce qu&rsquo;on a d&eacute;j&agrave; (une propale, un template) et demander &agrave; Copilot de l&rsquo;am&eacute;liorer.</p>
+    </div>
+  </div>
+
+  <!-- ============ B - WHY NOW ============ -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="b.eyebrow">Pourquoi maintenant&nbsp;?</span>
+    <h2 data-i18n="b.title">Deux raisons principales</h2>
+  </div>
+
+  <div class="bricks">
+    <div class="brick">
+      <span class="bk-no" data-i18n="b.b1.tag">Raison 1</span>
+      <div class="bk-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><path d="M10 6.5h4"/><path d="M17.5 10v4"/></svg></div>
+      <h3 data-i18n="b.b1.title">Une meilleure orchestration agentique</h3>
+      <p data-i18n="b.b1.body">Copilot <b>planifie et encha&icirc;ne lui-m&ecirc;me</b> les actions sur ta pr&eacute;sentation, au lieu de s&rsquo;arr&ecirc;ter apr&egrave;s une t&acirc;che isol&eacute;e.</p>
+    </div>
+    <div class="brick">
+      <span class="bk-no" data-i18n="b.b2.tag">Raison 2</span>
+      <div class="bk-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"/></svg></div>
+      <h3 data-i18n="b.b2.title">Des mod&egrave;les plus puissants dans PowerPoint</h3>
+      <p data-i18n="b.b2.body">Des mod&egrave;les qui <b>comprennent une mise en page</b> et produisent des slides de qualit&eacute;.</p>
+    </div>
+  </div>
+
+  <div class="golden">
+    <a class="zoom" href="assets/copilot/uc1-model-picker.jpg"><img src="assets/copilot/uc1-model-picker.jpg" alt="S&eacute;lecteur de mod&egrave;le dans le volet Copilot" data-i18n-alt="b.g.alt" loading="lazy"></a>
+    <div>
+      <div class="g-lab" data-i18n="b.g.lab">R&egrave;gle d&rsquo;or n&deg;1&nbsp;: utilise le bon mod&egrave;le</div>
+      <div class="g-big" data-i18n="b.g.big">Claude Sonnet ou Opus 5.5&nbsp;!</div>
+      <p data-i18n="b.g.p">GPT&nbsp;6.1 Sol fonctionne, mais manque de go&ucirc;t en design. Inutile d&rsquo;apprendre les noms par c&oelig;ur&nbsp;: le bon r&eacute;flexe est de <b>v&eacute;rifier le mod&egrave;le s&eacute;lectionn&eacute;</b> en haut du volet, surtout quand la demande touche &agrave; la mise en page, puis de regarder le r&eacute;sultat d&rsquo;un &oelig;il critique.</p>
+    </div>
+  </div>
+
+  <!-- ============ C - WHERE TO WORK ============ -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="c.eyebrow">Comment &ccedil;a marche&nbsp;?</span>
+    <h2 data-i18n="c.title">Par o&ugrave; commencer et o&ugrave; travailler&nbsp;?</h2>
+    <p data-i18n="c.intro">Deux fa&ccedil;ons de travailler. La vraie diff&eacute;rence, c&rsquo;est <b>le fichier</b>&nbsp;: est-ce que je modifie ce fichier, ou est-ce que je suis en train de cr&eacute;er une autre version&nbsp;?</p>
+  </div>
+
+  <div class="where">
+    <div class="wcard">
+      <div class="wh"><span class="num">1</span><div><h3 data-i18n="c.w1.title">Dans PowerPoint</h3><div class="ws" data-i18n="c.w1.sub">Extension&nbsp;: le volet lat&eacute;ral Copilot</div></div></div>
+      <ul data-i18n="c.w1.list">
+        <li class="ok">M&ecirc;me fichier&nbsp;: les modifications arrivent dans ton deck ouvert</li>
+        <li class="ok">Fonctionne en co-&eacute;dition, id&eacute;al pour les retouches rapides</li>
+        <li class="ok">Tu valides ou tu annules directement dans PowerPoint</li>
+      </ul>
+      <div class="flowline" data-i18n="c.w1.flow"><span class="fn">Deck.pptx</span><span class="fa">&rarr;</span><span class="fn">Copilot lit le deck</span><span class="fa">&rarr;</span><span class="fn">modifie en place</span><span class="fa">&rarr;</span><span class="fn hl">Un seul fichier, rien &agrave; r&eacute;int&eacute;grer</span></div>
+    </div>
+    <div class="wcard dark">
+      <div class="wh"><span class="num">2</span><div><h3 data-i18n="c.w2.title">App Copilot desktop &amp; mobile</h3><div class="ws" data-i18n="c.w2.sub">Client complet&nbsp;: en dehors de PowerPoint</div></div></div>
+      <ul data-i18n="c.w2.list">
+        <li class="ok">Travaille sur une copie&nbsp;: plus rapide sur les gros chantiers</li>
+        <li class="ko">Pas de co-&eacute;dition&nbsp;: il faut t&eacute;l&eacute;charger le nouveau fichier</li>
+        <li class="ko">Puis r&eacute;int&eacute;grer le travail &agrave; la main dans ton deck d&rsquo;origine</li>
+      </ul>
+      <div class="flowline" data-i18n="c.w2.flow"><span class="fn">Deck.pptx</span><span class="fa">&rarr;</span><span class="fn">copie de travail</span><span class="fa">&rarr;</span><span class="fn">agent Copilot</span><span class="fa">&rarr;</span><span class="fn">nouveau .pptx</span><span class="fa">&rarr;</span><span class="fn warn">2 versions &agrave; r&eacute;concilier</span></div>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="lab" data-i18n="c.note.lab">Pour ce use case</div>
+    <p data-i18n="c.note.p">On travaille <b>dans PowerPoint, avec le volet Copilot</b>&nbsp;: chaque modification arrive directement dans la propale ouverte, on la relit, puis on la garde ou on l&rsquo;annule.</p>
+  </div>
+
+  <!-- ============ D - THE USE CASE ============ -->
+  <div class="sec-head" id="usecase">
+    <span class="eyebrow" data-i18n="d.eyebrow">Le cas d&rsquo;usage</span>
+    <h2 data-i18n="d.title">R&eacute;diger une propale de gestion de crise pour un nouveau client</h2>
+    <p data-i18n="d.intro">Point de d&eacute;part tr&egrave;s familier&nbsp;: un template &laquo;&nbsp;&agrave; peu pr&egrave;s bon&nbsp;&raquo; et un premier jet des besoins du client (StonaWave, groupe pharmaceutique fictif). Le template donne la structure, les besoins disent ce qu&rsquo;il faut &agrave; ce client. Notre travail&nbsp;: r&eacute;unir les deux dans une propale coh&eacute;rente.</p>
+  </div>
+
+  <div class="shots two">
+    <figure class="shot">
+      <a class="zoom" href="assets/copilot/uc1-template.jpg"><img src="assets/copilot/uc1-template.jpg" alt="Miniatures du template de propale" data-i18n-alt="d.s1.alt" loading="lazy"></a>
+      <figcaption><span class="sn">1</span><span data-i18n="d.s1.cap">J&rsquo;ai un template &agrave; peu pr&egrave;s bon&hellip; trouv&eacute; avec l&rsquo;aide de Copilot.</span></figcaption>
+    </figure>
+    <figure class="shot">
+      <a class="zoom" href="assets/copilot/uc1-client-email.jpg"><img src="assets/copilot/uc1-client-email.jpg" alt="E-mail avec les informations sur la propale StonaWave" data-i18n-alt="d.s2.alt" loading="lazy"></a>
+      <figcaption><span class="sn">2</span><span data-i18n="d.s2.cap">&hellip;et un premier jet des besoins du client. C&rsquo;est parti&nbsp;!</span></figcaption>
+    </figure>
+  </div>
+
+  <!-- ============ E - LAUNCH COPILOT ============ -->
+  <div class="phase-head" id="launch">
+    <div class="t">
+      <span class="eyebrow" data-i18n="e.eyebrow">&Eacute;tape 0 &middot; Lancer</span>
+      <h2 data-i18n="e.title">On ouvre PowerPoint et on clique sur Copilot&nbsp;!</h2>
+      <div class="sub" data-i18n="e.sub">Ouvre la propale &agrave; retravailler dans PowerPoint, puis lance le volet Copilot.</div>
+    </div>
+    <div class="prog"><b class="dn">0</b>/<span class="tot">2</span> <span data-i18n="word.steps">&eacute;tapes</span></div>
+  </div>
+
+  <div class="phase">
+    <div class="steps">
+      <div class="spine"><div class="spine-fill"></div></div>
+
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="e1.title">Clique sur le bouton Copilot</h4>
+          <div class="do" data-i18n="e1.body">Il se trouve <b>en bas &agrave; droite</b> de la fen&ecirc;tre PowerPoint.</div>
+          <div class="shots"><figure class="shot"><a class="zoom" href="assets/copilot/uc1-copilot-button.jpg"><img src="assets/copilot/uc1-copilot-button.jpg" alt="Bouton Copilot en bas &agrave; droite de PowerPoint" data-i18n-alt="e1.alt" loading="lazy"></a></figure></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4 data-i18n="e2.title">Tout se passe dans le volet lat&eacute;ral</h4>
+          <div class="do" data-i18n="e2.body">On y &eacute;crit la demande, on relit la r&eacute;ponse et on applique les modifications. Pas besoin de tout accepter d&rsquo;un coup&nbsp;: une demande, on regarde ce qui a chang&eacute;, puis on garde ou on affine.</div>
+          <div class="shots"><figure class="shot"><a class="zoom" href="assets/copilot/uc1-side-pane.jpg"><img src="assets/copilot/uc1-side-pane.jpg" alt="Volet lat&eacute;ral Copilot ouvert dans PowerPoint" data-i18n-alt="e2.alt" loading="lazy"></a></figure></div>
+          <div class="note green">
+            <div class="lab" data-i18n="e2.note.lab">Astuce</div>
+            <p data-i18n="e2.note.p">Le volet reste ouvert pendant que tu travailles&nbsp;: chaque modification arrive directement dans ton deck ouvert.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ F - PROMPTS 1 TO 5 ============ -->
+  <div class="phase-head" id="steps1">
+    <div class="t">
+      <span class="eyebrow" data-i18n="f.eyebrow">Les 10 &eacute;tapes &middot; 1 &agrave; 5</span>
+      <h2 data-i18n="f.title">Adapter le contenu et la forme</h2>
+      <div class="sub" data-i18n="f.sub">Pour chaque &eacute;tape, le prompt saisi dans Copilot et ce qu&rsquo;il a fait. Regarde surtout <b>la pr&eacute;cision</b> de chaque demande et la fa&ccedil;on d&rsquo;en <b>nommer le p&eacute;rim&egrave;tre</b>&nbsp;: toutes les slides, ou une slide et un changement pr&eacute;cis.</div>
+    </div>
+    <div class="prog"><b class="dn">0</b>/<span class="tot">5</span> <span data-i18n="word.steps">&eacute;tapes</span></div>
+  </div>
+
+  <div class="phase">
+    <div class="steps">
+      <div class="spine"><div class="spine-fill"></div></div>
+
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">1</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4><span data-i18n="p1.title">J&rsquo;adapte ma propale au client</span> <span class="mini" data-i18n="scope.all">Toutes les slides</span></h4>
+          <div class="do" data-i18n="p1.do">On commence par donner le <b>contexte</b>&nbsp;: le client, le secteur pharmaceutique et le sc&eacute;nario d&rsquo;exercice. Copilot a ainsi du concret pour travailler sur tout le deck.</div>
+          <div class="prompt"><button class="copy">copier</button><div class="who" data-i18n="word.prompt">Prompt saisi dans Copilot</div><div class="txt" data-i18n="p1.txt">Toutes les slides : je pr&eacute;pare une proposition en anglais pour un exercice de crise pour le groupe StonaWave. Ce groupe pharmaceutique compte 120 000 collaborateurs dans le monde, avec une forte pr&eacute;sence en Europe. Ses activit&eacute;s couvrent la recherche et le d&eacute;veloppement de m&eacute;dicaments, la fabrication et la distribution. Il souhaite tester un sc&eacute;nario de crise ransomware touchant une usine qui fabrique son dernier m&eacute;dicament, WaveXen. Peux-tu adapter toutes les slides &agrave; ce contexte ?</div></div>
+          <div class="note green"><div class="lab" data-i18n="word.result">Ce que Copilot a fait</div><p data-i18n="p1.res">Tous les &laquo;&nbsp;XXX&nbsp;&raquo; deviennent StonaWave, le texte est adapt&eacute; au contexte pharma (120&nbsp;000 collaborateurs, R&amp;D, fabrication, distribution) et au sc&eacute;nario ransomware sur l&rsquo;usine WaveXen. Il corrige au passage des restes d&rsquo;autres propales&nbsp;: &laquo;&nbsp;Clarins&nbsp;&raquo;, &laquo;&nbsp;CNAM lead for Lot 1&nbsp;&raquo;, une phrase en fran&ccedil;ais en slide&nbsp;2.</p></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">2</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4><span data-i18n="p2.title">J&rsquo;ajoute le logo du client</span> <span class="mini" data-i18n="scope.all">Toutes les slides</span></h4>
+          <div class="prompt"><button class="copy">copier</button><div class="who" data-i18n="word.prompt">Prompt saisi dans Copilot</div><div class="txt" data-i18n="p2.txt">Toutes les slides : ajoute le logo StonaWave partout o&ugrave; c&rsquo;est pertinent</div></div>
+          <div class="note green"><div class="lab" data-i18n="word.result">Ce que Copilot a fait</div><p data-i18n="p2.res">Slides 1 et 16&nbsp;: le logo StonaWave remplace l&rsquo;espace r&eacute;serv&eacute; &laquo;&nbsp;Client logo&nbsp;&raquo;.</p></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">3</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4><span data-i18n="p3.title">Je traduis une r&eacute;f&eacute;rence</span> <span class="mini one">Slide 6</span></h4>
+          <div class="prompt"><button class="copy">copier</button><div class="who" data-i18n="word.prompt">Prompt saisi dans Copilot</div><div class="txt" data-i18n="p3.txt">Slide 6 : peux-tu traduire cette slide en anglais ?</div></div>
+          <div class="note green"><div class="lab" data-i18n="word.result">Ce que Copilot a fait</div><p data-i18n="p3.res">Toute la slide est traduite en anglais, titre compris.</p></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">4</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4><span data-i18n="p4.title">Je r&eacute;organise la mise en page</span> <span class="mini one">Slide 8</span></h4>
+          <div class="prompt"><button class="copy">copier</button><div class="who" data-i18n="word.prompt">Prompt saisi dans Copilot</div><div class="txt" data-i18n="p4.txt">Slide 8 : j&rsquo;ai d&eacute;pos&eacute; plusieurs images au hasard. Peux-tu les ranger dans les blocs correspondants, avec une taille et un alignement coh&eacute;rents ?</div></div>
+          <div class="note green"><div class="lab" data-i18n="word.result">Ce que Copilot a fait</div><p data-i18n="p4.res">Chaque image est plac&eacute;e dans son bloc&nbsp;: tailles coh&eacute;rentes, alignement r&eacute;gulier, espacement &eacute;gal.</p></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">5</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4><span data-i18n="p5.title">J&rsquo;ajoute une animation</span> <span class="mini one">Slide 9</span></h4>
+          <div class="prompt"><button class="copy">copier</button><div class="who" data-i18n="word.prompt">Prompt saisi dans Copilot</div><div class="txt" data-i18n="p5.txt">Slide 9 : peux-tu ajouter une animation pour que les colonnes &quot;Step 1&quot;, &quot;Step 2&quot; et &quot;Step 3&quot; apparaissent l&rsquo;une apr&egrave;s l&rsquo;autre, chacune au clic ?</div></div>
+          <div class="note green"><div class="lab" data-i18n="word.result">Ce que Copilot a fait</div><p data-i18n="p5.res">Les colonnes Step&nbsp;1, 2 et 3 apparaissent l&rsquo;une apr&egrave;s l&rsquo;autre, au clic (effet fondu). &Agrave; v&eacute;rifier en mode diaporama.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <div class="lab" data-i18n="f.note.lab">&Agrave; savoir</div>
+    <p data-i18n="f.note.p">Les num&eacute;ros de slide cit&eacute;s dans les prompts renvoient &agrave; <b>la propale d&rsquo;exemple</b>. Ils montrent le niveau de d&eacute;tail &agrave; donner&nbsp;: adapte-les &agrave; ton propre deck.</p>
+  </div>
+
+  <!-- ============ G - PROMPTS 6 TO 10 ============ -->
+  <div class="phase-head" id="steps2">
+    <div class="t">
+      <span class="eyebrow" data-i18n="g.eyebrow">Les 10 &eacute;tapes &middot; 6 &agrave; 10</span>
+      <h2 data-i18n="g.title">Faire &eacute;voluer la structure et relire</h2>
+      <div class="sub" data-i18n="g.sub">On va plus loin&nbsp;: une nouvelle phase &agrave; refl&eacute;ter partout, une r&eacute;f&eacute;rence &agrave; r&eacute;&eacute;crire sans rien inventer, une relecture compl&egrave;te et un visuel g&eacute;n&eacute;r&eacute;.</div>
+    </div>
+    <div class="prog"><b class="dn">0</b>/<span class="tot">5</span> <span data-i18n="word.steps">&eacute;tapes</span></div>
+  </div>
+
+  <div class="phase">
+    <div class="steps">
+      <div class="spine"><div class="spine-fill"></div></div>
+
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">6</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4><span data-i18n="p6.title">J&rsquo;ajoute une &eacute;tape au planning visuel</span> <span class="mini one">Slide 11</span></h4>
+          <div class="prompt"><button class="copy">copier</button><div class="who" data-i18n="word.prompt">Prompt saisi dans Copilot</div><div class="txt" data-i18n="p6.txt">Slide 11 : ajoute une nouvelle &eacute;tape entre les &eacute;tapes 2 et 3, appel&eacute;e &quot;Dry run&quot;. Cette phase comprend une r&eacute;p&eacute;tition de l&rsquo;exercice, suivie d&rsquo;une r&eacute;union de d&eacute;briefing. Le livrable de cette &eacute;tape est le PowerPoint mis &agrave; jour. Renum&eacute;rote les &eacute;tapes suivantes. V&eacute;rifie bien la mise en forme pour que tout tienne et que les phases ne se chevauchent pas. N&rsquo;h&eacute;site pas &agrave; retravailler la mise en page.</div></div>
+          <div class="note green"><div class="lab" data-i18n="word.result">Ce que Copilot a fait</div><p data-i18n="p6.res">Nouvelle phase 03 &laquo;&nbsp;Dry run&nbsp;&raquo; (r&eacute;p&eacute;tition + d&eacute;briefing, livrable&nbsp;: PowerPoint mis &agrave; jour). L&rsquo;ancienne 03 devient 04.</p></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">7</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4><span data-i18n="p7.title">J&rsquo;ajoute une &eacute;tape &agrave; la d&eacute;marche</span> <span class="mini one">Slide 14</span></h4>
+          <div class="do" data-i18n="p7.do">Ajouter une phase &agrave; un endroit ne la r&eacute;percute pas automatiquement ailleurs&nbsp;: on refl&egrave;te donc le m&ecirc;me changement dans la d&eacute;marche d&eacute;taill&eacute;e, pour que la propale raconte une histoire coh&eacute;rente.</div>
+          <div class="prompt"><button class="copy">copier</button><div class="who" data-i18n="word.prompt">Prompt saisi dans Copilot</div><div class="txt" data-i18n="p7.txt">Slide 14 : peux-tu pr&eacute;senter les &eacute;tapes 3 et 4 sur la m&ecirc;me slide ? L&rsquo;actuelle &eacute;tape 3 devient l&rsquo;&eacute;tape 4. La nouvelle &eacute;tape 3 est une r&eacute;p&eacute;tition de l&rsquo;exercice avec les 10 complices, lors d&rsquo;un atelier guid&eacute; de 90 minutes o&ugrave; chacun rejoue ses stimuli. Nous analysons ensuite les r&eacute;sultats, tenons une r&eacute;union de d&eacute;briefing et mettons &agrave; jour le sc&eacute;nario et les livrables. Adapte la mise en page pour que les deux &eacute;tapes restent lisibles.</div></div>
+          <div class="note green"><div class="lab" data-i18n="word.result">Ce que Copilot a fait</div><p data-i18n="p7.res">&Eacute;tapes 3 et 4 sur deux bandeaux&nbsp;: r&eacute;p&eacute;tition avec les 10 complices, puis animation condens&eacute;e. Les miniatures de stimuli sont retir&eacute;es.</p></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">8</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4><span data-i18n="p8.title">Je mets &agrave; jour un CV</span> <span class="mini one">Slide 19</span></h4>
+          <div class="do" data-i18n="p8.do">On donne les faits du projet dans le prompt et on demande de reprendre le style existant, <b>sans inventer d&rsquo;exp&eacute;rience</b>.</div>
+          <div class="prompt"><button class="copy">copier</button><div class="who" data-i18n="word.prompt">Prompt saisi dans Copilot</div><div class="txt" data-i18n="p8.txt">Slide 19 : supprime l&rsquo;exp&eacute;rience Vivalto et ajoute une nouvelle r&eacute;f&eacute;rence. J&rsquo;ai r&eacute;cemment men&eacute; un exercice de crise pour un constructeur automobile : 200 joueurs, 4 cellules de crise et un projet de 3 mois, avec un sc&eacute;nario ransomware industriel couvrant 4 fuseaux horaires. R&eacute;dige-la dans le m&ecirc;me style que les autres r&eacute;f&eacute;rences de la slide.</div></div>
+          <div class="note green"><div class="lab" data-i18n="word.result">Ce que Copilot a fait</div><p data-i18n="p8.res">Vivalto est remplac&eacute; par la r&eacute;f&eacute;rence du constructeur automobile, dans le m&ecirc;me style (description sur une ligne).</p></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">9</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4><span data-i18n="p9.title">Je v&eacute;rifie la coh&eacute;rence de la propale</span> <span class="mini" data-i18n="scope.all">Toutes les slides</span></h4>
+          <div class="do" data-i18n="p9.do">Une demande importante&nbsp;: rep&eacute;rer les erreurs, les manques et les incoh&eacute;rences sur tout le deck, et dire ce qui doit &ecirc;tre trait&eacute; en premier.</div>
+          <div class="prompt"><button class="copy">copier</button><div class="who" data-i18n="word.prompt">Prompt saisi dans Copilot</div><div class="txt" data-i18n="p9.txt">Toutes les slides : peux-tu v&eacute;rifier la proposition pour rep&eacute;rer les erreurs, incoh&eacute;rences ou &eacute;l&eacute;ments manquants ? Liste ce qui doit &ecirc;tre corrig&eacute; ou compl&eacute;t&eacute;, avec les slides concern&eacute;es, et propose les am&eacute;liorations prioritaires.</div></div>
+          <div class="note green"><div class="lab" data-i18n="word.result">Ce que Copilot a fait</div><p data-i18n="p9.res">Une liste de points class&eacute;s par priorit&eacute;. Le d&eacute;tail est plus bas&nbsp;: <a href="#verdict">son verdict sur la propale</a>.</p></div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="node" tabindex="0" role="button" aria-pressed="false"><span class="nm">10</span><span class="ck"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"><polyline points="20 6 9 17 4 12"/></svg></span></div>
+        <div class="scard">
+          <h4><span data-i18n="p10.title">J&rsquo;ajoute un visuel</span> <span class="mini one">Slide 1</span></h4>
+          <div class="do" data-i18n="p10.do">On pr&eacute;cise comment le visuel doit s&rsquo;int&eacute;grer &agrave; la forme existante.</div>
+          <div class="prompt"><button class="copy">copier</button><div class="who" data-i18n="word.prompt">Prompt saisi dans Copilot</div><div class="txt" data-i18n="p10.txt">Slide 1 : cr&eacute;e une image d&rsquo;une ligne de fabrication de m&eacute;dicaments et ins&egrave;re-la dans la forme &agrave; droite. Ajuste le recadrage pour qu&rsquo;elle remplisse bien la forme.</div></div>
+          <div class="note green"><div class="lab" data-i18n="word.result">Ce que Copilot a fait</div><p data-i18n="p10.res">Titre &laquo;&nbsp;Crisis exercise StonaWave&nbsp;&raquo; et image g&eacute;n&eacute;r&eacute;e d&rsquo;une ligne de fabrication de m&eacute;dicaments, recadr&eacute;e sur les machines.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ H - RESULT ============ -->
+  <div class="sec-head" id="result">
+    <span class="eyebrow" data-i18n="h.eyebrow">Le r&eacute;sultat</span>
+    <h2 data-i18n="h.title">Un deck complet et adapt&eacute; au client&nbsp;!</h2>
+    <p data-i18n="h.intro">Une propale adapt&eacute;e au client d&rsquo;exemple, avec des changements sur le fond comme sur la forme. Deux questions &agrave; s&eacute;parer&nbsp;: <b>a-t-on un brouillon complet pour travailler&nbsp;?</b> Oui. <b>Est-il pr&ecirc;t &agrave; envoyer&nbsp;?</b> Pas encore.</p>
+  </div>
+
+  <div class="shots two">
+    <figure class="shot">
+      <a class="zoom" href="assets/copilot/uc1-result-cover.jpg"><img src="assets/copilot/uc1-result-cover.jpg" alt="Page de garde Crisis exercise StonaWave" data-i18n-alt="h.s1.alt" loading="lazy"></a>
+      <figcaption><span class="sn">1</span><span data-i18n="h.s1.cap">Page de garde&nbsp;: titre, logo client et visuel g&eacute;n&eacute;r&eacute; (&eacute;tapes 1, 2 et 10).</span></figcaption>
+    </figure>
+    <figure class="shot">
+      <a class="zoom" href="assets/copilot/uc1-result-timeline.jpg"><img src="assets/copilot/uc1-result-timeline.jpg" alt="Planning initial avec la phase Dry run" data-i18n-alt="h.s2.alt" loading="lazy"></a>
+      <figcaption><span class="sn">2</span><span data-i18n="h.s2.cap">Planning avec la nouvelle phase &laquo;&nbsp;Dry run&nbsp;&raquo; (&eacute;tape 6).</span></figcaption>
+    </figure>
+    <figure class="shot">
+      <a class="zoom" href="assets/copilot/uc1-result-needs.jpg"><img src="assets/copilot/uc1-result-needs.jpg" alt="Slide de compr&eacute;hension des besoins" data-i18n-alt="h.s3.alt" loading="lazy"></a>
+      <figcaption><span class="sn">3</span><span data-i18n="h.s3.cap">Compr&eacute;hension des besoins r&eacute;&eacute;crite pour le contexte pharma (&eacute;tape 1).</span></figcaption>
+    </figure>
+    <figure class="shot">
+      <a class="zoom" href="assets/copilot/uc1-result-deck.jpg"><img src="assets/copilot/uc1-result-deck.jpg" alt="Vue d'ensemble du deck final" data-i18n-alt="h.s4.alt" loading="lazy"></a>
+      <figcaption><span class="sn">4</span><span data-i18n="h.s4.cap">Vue d&rsquo;ensemble du deck final.</span></figcaption>
+    </figure>
+  </div>
+
+  <div class="note">
+    <div class="lab" data-i18n="h.note.lab">Le journal des actions&nbsp;: ta checklist</div>
+    <p data-i18n="h.note.p">Copilot a <b>raisonn&eacute; en 23 &eacute;tapes</b> et indique dans le chat ce qu&rsquo;il dit avoir chang&eacute;, slide par slide (repris dans les encadr&eacute;s verts ci-dessus). Sers-t&rsquo;en comme checklist&nbsp;: si le journal dit que les images sont align&eacute;es, regarde la slide&nbsp;; s&rsquo;il dit que les phases sont renum&eacute;rot&eacute;es, v&eacute;rifie la s&eacute;quence&nbsp;; pour une animation, teste en mode diaporama. Le journal aide &agrave; relire, il ne remplace pas la relecture.</p>
+  </div>
+
+  <!-- ============ I - VERDICT ============ -->
+  <div class="sec-head" id="verdict">
+    <span class="eyebrow" data-i18n="i.eyebrow">La relecture par Copilot</span>
+    <h2 data-i18n="i.title">Et son verdict sur la propale&hellip; encore du travail &#128578;</h2>
+    <p data-i18n="i.intro">R&eacute;ponse au prompt de l&rsquo;&eacute;tape&nbsp;9. Pas besoin de tout lire&nbsp;: l&rsquo;id&eacute;e est de <b>demander une relecture prioris&eacute;e</b>, puis de v&eacute;rifier soi-m&ecirc;me les constats.</p>
+  </div>
+
+  <div class="verdict">
+    <div class="vcol hi">
+      <div class="vh"><span class="vn">1</span><div><h3 data-i18n="i.c1.title">Priorit&eacute; haute</h3><div class="vs" data-i18n="i.c1.sub">&Agrave; corriger avant envoi</div></div></div>
+      <ul data-i18n="i.c1.list">
+        <li><b>Le budget oublie le dry run.</b> Le tableau d&eacute;taille encore 3 &eacute;tapes, pour un total de 69&nbsp;600,00&nbsp;&euro; HT, alors que la d&eacute;marche en compte d&eacute;sormais 4. Le dry run doit &ecirc;tre chiffr&eacute; et le total revu.</li>
+        <li><b>Le nombre de complices ne colle pas.</b> Le dry run implique 10 complices, mais l&rsquo;animation n&rsquo;en pr&eacute;voit que 2 c&ocirc;t&eacute; StonaWave (environ 7 animateurs au total).</li>
+        <li><b>Le nombre d&rsquo;ateliers de cadrage varie&nbsp;:</b> &laquo;&nbsp;2-3 ateliers&nbsp;&raquo; en &eacute;tape 1, &laquo;&nbsp;(x2)&nbsp;&raquo; dans le planning. La phase de construction mentionne &laquo;&nbsp;2 sc&eacute;narios (2x5)&nbsp;&raquo; alors que la propale couvre un seul sc&eacute;nario.</li>
+        <li><b>La page de garde n&rsquo;a ni date ni r&eacute;f&eacute;rence d&rsquo;offre &agrave; jour</b> (&laquo;&nbsp;Date | OFR24-200925&nbsp;&raquo;).</li>
+        <li><b>La slide 20 est vide.</b> Il faut une page de contact ou de conclusion.</li>
+      </ul>
+    </div>
+    <div class="vcol">
+      <div class="vh"><span class="vn">2</span><div><h3 data-i18n="i.c2.title">Priorit&eacute; moyenne</h3><div class="vs" data-i18n="i.c2.sub">Pour renforcer l&rsquo;offre</div></div></div>
+      <ul data-i18n="i.c2.list">
+        <li><b>Les r&eacute;f&eacute;rences ne sont pas assez cibl&eacute;es.</b> Le cas mis en avant est une banque centrale et une sensibilisation du conseil, pas un exercice industriel. Une r&eacute;f&eacute;rence pharma ou industrielle (ransomware sur un environnement OT) rendrait l&rsquo;offre plus convaincante.</li>
+        <li><b>L&rsquo;&eacute;quipe n&rsquo;est pas nomm&eacute;e.</b> Un seul CV &laquo;&nbsp;exemple&nbsp;&raquo; (consultant). Il manque ceux du directeur de mission et du chef de projet.</li>
+        <li><b>Les frais de d&eacute;placement supposent une mission en &Icirc;le-de-France.</b> Pr&eacute;ciser o&ugrave; se trouve l&rsquo;usine WaveXen et s&rsquo;il y a une animation sur site.</li>
+        <li><b>L&rsquo;exemple de deepfake</b> (demande de virement frauduleuse) n&rsquo;est pas reli&eacute; au sc&eacute;nario ransomware. Il pourrait devenir un faux appel du directeur de l&rsquo;usine.</li>
+      </ul>
+    </div>
+    <div class="vcol lo">
+      <div class="vh"><span class="vn">3</span><div><h3 data-i18n="i.c3.title">Finitions</h3><div class="vs" data-i18n="i.c3.sub">Coquilles et d&eacute;tails</div></div></div>
+      <ul data-i18n="i.c3.list">
+        <li><b>Slide 15&nbsp;:</b> &laquo;&nbsp;Our supports services&nbsp;&raquo; doit devenir &laquo;&nbsp;Our support services&nbsp;&raquo;.</li>
+        <li><b>Slide 4&nbsp;:</b> il manque la majuscule &agrave; &laquo;&nbsp;list of scenarios&hellip;&nbsp;&raquo;.</li>
+        <li><b>Slide 14&nbsp;:</b> les notes contiennent une ligne restante d&rsquo;un autre projet (&laquo;&nbsp;4 clients types&hellip;&nbsp;&raquo;).</li>
+        <li><b>Slide 16&nbsp;:</b> le logo StonaWave chevauche le cadre en pointill&eacute;s. Il suffit d&rsquo;ajouter un fond blanc derri&egrave;re, comme pour le logo Wavestone.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="bubble">
+    <span class="who">Copilot</span>
+    <p data-i18n="i.bubble">Je peux ajouter la ligne du dry run au tableau de prix et aligner le nombre de complices, si tu me donnes le montant &agrave; utiliser.</p>
+  </div>
+
+  <div class="note">
+    <div class="lab" data-i18n="i.note.lab">&Agrave; retenir</div>
+    <p data-i18n="i.note.p">Copilot nous demande le montant &agrave; mettre au budget&nbsp;: <b>cette d&eacute;cision nous revient</b>. Les chiffres et les num&eacute;ros de slide ci-dessus concernent la propale d&rsquo;exemple.</p>
+  </div>
+
+  <!-- ============ J - BEST PRACTICES ============ -->
+  <div class="sec-head" id="practices">
+    <span class="eyebrow" data-i18n="j.eyebrow">Bonnes pratiques</span>
+    <h2 data-i18n="j.title">Don&rsquo;t worry, be happy&nbsp;!</h2>
+    <p data-i18n="j.intro">Pour un usage quotidien et raisonnable. Le bon rythme&nbsp;: <b>demander, relire, affiner</b>. On peut exp&eacute;rimenter sans accepter chaque premier jet.</p>
+  </div>
+
+  <div class="tips">
+    <div class="tip">
+      <div class="ti">01</div>
+      <h3 data-i18n="j1.title">Pas de peur&nbsp;: Ctrl+Z fonctionne</h3>
+      <p data-i18n="j1.body">Toute modification de Copilot s&rsquo;annule comme n&rsquo;importe quelle autre, y compris en lui demandant d&rsquo;annuler ce qu&rsquo;il a fait. Tu peux aussi lui demander de <b>dupliquer ta slide</b> pour garder l&rsquo;original sous les yeux.</p>
+      <div class="keys" aria-hidden="true"><kbd>Ctrl</kbd>+<kbd>Z</kbd></div>
+    </div>
+    <div class="tip">
+      <div class="ti">02</div>
+      <h3 data-i18n="j2.title">&Ccedil;a n&rsquo;a pas march&eacute;&nbsp;? Reformule</h3>
+      <p data-i18n="j2.body">M&ecirc;me demande, en plus pr&eacute;cis&nbsp;: en g&eacute;n&eacute;ral, la deuxi&egrave;me fois est la bonne. &laquo;&nbsp;Fais plus joli&nbsp;&raquo; laisse tout ouvert, &laquo;&nbsp;3 colonnes, comme la slide 7&nbsp;&raquo; donne une direction claire.</p>
+      <div class="redo" data-i18n="j2.redo"><span class="bad">Fais plus joli</span><span>&rarr;</span><span class="good">Utilise 3 colonnes, comme la slide 7</span></div>
+    </div>
+    <div class="tip">
+      <div class="ti">03</div>
+      <h3 data-i18n="j3.title">Ne co-travaille pas sur la m&ecirc;me slide</h3>
+      <p data-i18n="j3.body">Ne modifie pas et ne r&eacute;ordonne pas les slides sur lesquelles Copilot est en train de travailler. Laisse-le finir, relis le r&eacute;sultat, puis reprends la main.</p>
+    </div>
+  </div>
+
+  <!-- going further -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="k.eyebrow">Plus d&rsquo;usages de Copilot</span>
+    <h2 data-i18n="k.title">Aller plus loin</h2>
+    <p data-i18n="k.intro">Copilot est l&agrave;, dans tes outils, et travaille avec tes donn&eacute;es. Choisis une t&acirc;che, donne-lui la bonne mati&egrave;re et regarde ce qui t&rsquo;aide.</p>
+  </div>
+
+  <div class="tips">
+    <div class="tip">
+      <div class="ti">01</div>
+      <h3 data-i18n="k1.title">Fais toujours une v&eacute;rification finale</h3>
+      <p data-i18n="k1.body">Demande &agrave; Copilot de rep&eacute;rer les erreurs, les incoh&eacute;rences et les manques majeurs. Puis <b>relis toi-m&ecirc;me</b> ses constats.</p>
+      <div class="prompt"><button class="copy">copier</button><div class="who" data-i18n="word.example">Exemple</div><div class="txt" data-i18n="k1.txt">Peux-tu v&eacute;rifier la proposition pour rep&eacute;rer les erreurs, incoh&eacute;rences ou d&eacute;tails manquants ?</div></div>
+    </div>
+    <div class="tip">
+      <div class="ti">02</div>
+      <h3 data-i18n="k2.title">Un appel d&rsquo;offres&nbsp;? Donne-le &agrave; Copilot&nbsp;!</h3>
+      <p data-i18n="k2.body">Colle le cahier des charges et demande-lui de mettre &agrave; jour ta propale. &Agrave; la fin, n&rsquo;oublie pas de lui poser la question de la couverture.</p>
+      <div class="prompt"><button class="copy">copier</button><div class="who" data-i18n="word.example">Exemple</div><div class="txt" data-i18n="k2.txt">La proposition couvre-t-elle toutes les exigences ? Comment l&rsquo;am&eacute;liorerais-tu ?</div></div>
+    </div>
+    <div class="tip">
+      <div class="ti">03</div>
+      <h3 data-i18n="k3.title">Word, Excel&hellip; &ccedil;a marche aussi&nbsp;!</h3>
+      <p data-i18n="k3.body">&Eacute;cris ton plan dans Word et demande &agrave; Copilot d&rsquo;y adapter les slides. Ou donne-lui ta propale et demande un tableau de charge dans Excel, en <b>v&eacute;rifiant les hypoth&egrave;ses d&rsquo;effort</b> avant de l&rsquo;utiliser. Essaie avec tes propres fichiers&nbsp;!</p>
+    </div>
+  </div>
+
+  <!-- golden rules -->
+  <div class="sec-head">
+    <span class="eyebrow" data-i18n="l.eyebrow">Les r&egrave;gles d&rsquo;or</span>
+    <h2 data-i18n="l.title">Copilot est l&agrave; pour t&rsquo;aider, pas pour te rendre b&ecirc;te&nbsp;:D</h2>
+  </div>
+
+  <div class="tips">
+    <div class="tip">
+      <div class="ti">01</div>
+      <h3 data-i18n="l1.title">Utilise-le avec discernement. Pense &agrave; la plan&egrave;te&nbsp;!</h3>
+      <p data-i18n="l1.body">Utilise Copilot pour les modifications cons&eacute;quentes. Pour changer deux mots ou une animation, fais-le toi-m&ecirc;me.</p>
+      <div class="aside" data-i18n="l1.aside">Fais en sorte que le prompt en vaille la peine&nbsp;: l&rsquo;IA consomme beaucoup de ressources.</div>
+    </div>
+    <div class="tip">
+      <div class="ti">02</div>
+      <h3 data-i18n="l2.title">Tu veux &eacute;viter le &laquo;&nbsp;look IA&nbsp;&raquo;&nbsp;?</h3>
+      <p data-i18n="l2.body">Trouve simplement une slide que tu aimes et demande &agrave; Copilot d&rsquo;adapter ton contenu &agrave; cette mise en page. Inutile de d&eacute;crire tout le design.</p>
+      <figure class="shot"><a class="zoom" href="assets/copilot/uc1-ai-slop.jpg"><img src="assets/copilot/uc1-ai-slop.jpg" alt="Exemple de slide au look IA g&eacute;n&eacute;rique" data-i18n-alt="l2.alt" loading="lazy"></a><figcaption data-i18n="l2.cap">Le &laquo;&nbsp;AI slop&nbsp;&raquo; &agrave; &eacute;viter (illustration g&eacute;n&eacute;r&eacute;e par IA).</figcaption></figure>
+    </div>
+    <div class="tip">
+      <div class="ti">03</div>
+      <h3 data-i18n="l3.title">Relis chaque slide. Vraiment.</h3>
+      <p data-i18n="l3.body">Lis tout avant d&rsquo;envoyer. Rev&eacute;rifie les noms et les chiffres pour d&eacute;busquer ce qui aurait &eacute;t&eacute; invent&eacute;, et les d&eacute;tails qui n&rsquo;ont rien &agrave; faire dans la propale.</p>
+      <div class="aside" data-i18n="l3.aside">Tu as le dernier mot. C&rsquo;est ta responsabilit&eacute;.</div>
+    </div>
+  </div>
+
+  <div class="never">
+    <div class="lab" data-i18n="l.never.lab">Ce qu&rsquo;on ne veut jamais entendre</div>
+    <div class="q" data-i18n="l.never.q">&laquo;&nbsp;Copilot l&rsquo;a fait. Je ne l&rsquo;ai pas relu, mais &ccedil;a doit &ecirc;tre bon.&nbsp;&raquo; &#128563;&#128561;</div>
+  </div>
+
+  <!-- ============ FINAL ============ -->
+  <div class="final">
+    <span class="eyebrow" data-i18n="m.eyebrow">Pour finir</span>
+    <h2 data-i18n="m.title">Copilot est utile&nbsp;!</h2>
+    <p class="lede2" data-i18n="m.lede">Mettons-le au travail sur notre prochain deck. <b>Et partageons les prompts et astuces qui marchent pour nous&nbsp;!</b></p>
+    <div class="qp" data-i18n="m.qp">
+      <button type="button">Uniformise la mise en forme de tous les titres.</button>
+      <button type="button">R&eacute;&eacute;cris les titres pour plus d&rsquo;impact.</button>
+      <button type="button">Corrige l&rsquo;orthographe et la grammaire dans tout le deck.</button>
+      <button type="button">Traduis tout le deck en anglais.</button>
+      <button type="button">Raccourcis le texte sans perdre les points cl&eacute;s.</button>
+      <button type="button">Aligne les images et uniformise leurs tailles.</button>
+      <button type="button">Aligne la mise en page de cette slide sur la slide 7.</button>
+      <button type="button">Transforme ce paragraphe en trois puces claires.</button>
+      <button type="button">Cr&eacute;e une synth&egrave;se ex&eacute;cutive en une slide.</button>
+      <button type="button">V&eacute;rifie la coh&eacute;rence des chiffres et des noms.</button>
+    </div>
+    <div class="hint" data-i18n="m.hint">Clique sur un prompt pour le copier. Par quoi vas-tu commencer&nbsp;?</div>
+  </div>
+
+  <div class="back-row">
+    <a href="copilot-training.html" data-i18n="back.hub">&#8592; Tous les use cases Copilot</a>
+    <a href="index.html" data-i18n="back.home">Retour &agrave; l&rsquo;accueil &#8594;</a>
+  </div>
+
+</div>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-hidden="true">
+  <button class="lb-close" id="lbClose" aria-label="Fermer">&times;</button>
+  <img id="lbImg" src="" alt="">
+</div>
+
+<footer>
+  <span class="src" data-i18n="footer.src">Training Copilot &middot; Use case 1 : The proposal &middot; Wavestone CYB &middot; AI Maker</span>
+  <button class="reset" id="reset" data-i18n="footer.reset">&#128285; Recommencer</button>
+</footer>
+
+<script>
+window.WS_I18N = {
+  en: {
+    "__title": "Copilot training &middot; Use case 1: The proposal &middot; Wavestone CYB",
+    "nav.home": "Home", "nav.usecases": "Playbook", "nav.principles": "Agent principles", "nav.training": "Copilot training", "nav.agents": "Our agents", "nav.apikey": "API key",
+    "hero.crumb": "&#8592; Copilot training",
+    "hero.eyebrow": "Copilot training &middot; Use case 1",
+    "hero.title": "Use case 1: <span class=\"ac\">The proposal</span>",
+    "hero.lede": "Amazing, Copilot is now actually useful in PowerPoint! How can you use it in practice? We take an existing proposal, adapt it to a new client and ask Copilot to edit the content, the layout and the animations. Then we look at where it still needs our help.",
+    "hero.chip1": "# PowerPoint &middot; Copilot", "hero.chip2": "# 10 tested prompts", "hero.chip3": "# StonaWave case", "hero.chip4": "# human review",
+    "hero.tip": "<b>Tip:</b> scroll the page top to bottom. Click the <b>numbers</b> to tick off completed steps, <b>copy</b> to grab a prompt and the screenshots to enlarge them.",
+    "word.steps": "steps", "word.prompt": "Prompt entered in Copilot", "word.result": "What Copilot did", "word.example": "Example",
+    "scope.all": "All slides",
+    "a.eyebrow": "The reality",
+    "a.title": "Let&rsquo;s be honest: for a long time, Copilot meant slides like this&hellip;",
+    "a.intro": "You asked for a presentation and got a title, a few generic bullets and three boxes saying &ldquo;Step&nbsp;1, Step&nbsp;2, Step&nbsp;3&rdquo;. Technically a slide, but you were still left with most of the work. Today, the result is a different story.",
+    "a.before.tag": "Before",
+    "a.before.cap": "A generic slide, with no clear message and no layout that fits the content.",
+    "a.after.tag": "Today",
+    "a.after.title": "Copilot can now create slides like these!",
+    "a.after.alt1": "Architecture slide created by Copilot", "a.after.alt2": "Programme slide created by Copilot", "a.after.alt3": "Key figures slide created by Copilot",
+    "a.after.cap": "<b>It&rsquo;s also really useful for editing existing slides!</b> That&rsquo;s the angle of this use case: take what we already have (a proposal, a template) and ask Copilot to improve it.",
+    "b.eyebrow": "Why now?",
+    "b.title": "Two main reasons",
+    "b.b1.tag": "Reason 1", "b.b1.title": "Better agentic orchestration", "b.b1.body": "Copilot <b>plans and chains the actions</b> on your presentation by itself, rather than stopping after one isolated task.",
+    "b.b2.tag": "Reason 2", "b.b2.title": "Access to stronger models in PowerPoint", "b.b2.body": "Models that <b>understand a layout</b> and produce quality slides.",
+    "b.g.alt": "Model picker in the Copilot pane",
+    "b.g.lab": "Golden rule #1: use the right model",
+    "b.g.big": "Claude Sonnet or Opus 5.5!",
+    "b.g.p": "GPT&nbsp;6.1 Sol is OK but lacks design taste. No need to memorise model names: the useful habit is to <b>check the selected model</b> at the top of the pane, especially when layout and design are part of the request, then look critically at the output.",
+    "c.eyebrow": "How does it work?",
+    "c.title": "How to get started and where to work?",
+    "c.intro": "Two ways of working, and <b>the file</b> is the real difference: am I editing this file, or am I about to create another version?",
+    "c.w1.title": "In PowerPoint", "c.w1.sub": "Extension: the Copilot side pane",
+    "c.w1.list": "<li class=\"ok\">Same file: edits land in your open deck</li><li class=\"ok\">Works with co-authoring, best for fast edits</li><li class=\"ok\">You approve or undo right in PowerPoint</li>",
+    "c.w1.flow": "<span class=\"fn\">Deck.pptx</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Copilot reads the deck</span><span class=\"fa\">&rarr;</span><span class=\"fn\">edits in place</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">One file, nothing to re-integrate</span>",
+    "c.w2.title": "Copilot desktop &amp; mobile app", "c.w2.sub": "Full client: outside PowerPoint",
+    "c.w2.list": "<li class=\"ok\">Works on a copy: faster on heavy jobs</li><li class=\"ko\">No co-authoring: you download the new file</li><li class=\"ko\">Then re-integrate the work by hand into your original deck</li>",
+    "c.w2.flow": "<span class=\"fn\">Deck.pptx</span><span class=\"fa\">&rarr;</span><span class=\"fn\">working copy</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Copilot agent</span><span class=\"fa\">&rarr;</span><span class=\"fn\">new .pptx</span><span class=\"fa\">&rarr;</span><span class=\"fn warn\">2 versions to reconcile</span>",
+    "c.note.lab": "For this use case",
+    "c.note.p": "We work <b>in PowerPoint, with the Copilot pane</b>: every edit lands directly in the open proposal, we review it, then keep it or undo it.",
+    "d.eyebrow": "The use case",
+    "d.title": "Writing a crisis management proposal for a new client",
+    "d.intro": "A very familiar starting point: a template that&rsquo;s more or less right and a first draft of the client&rsquo;s requirements (StonaWave, a fictional pharmaceutical group). The template gives the structure, the requirements say what this client needs. Our job: bring the two together into a coherent proposal.",
+    "d.s1.alt": "Proposal template thumbnails", "d.s1.cap": "I have a template that&rsquo;s more or less right&hellip; found with the help of Copilot.",
+    "d.s2.alt": "Email with StonaWave proposal details", "d.s2.cap": "&hellip;and a first draft of the client&rsquo;s requirements. Off we go!",
+    "e.eyebrow": "Step 0 &middot; Launch",
+    "e.title": "Let&rsquo;s launch PowerPoint and click on Copilot!",
+    "e.sub": "Open the proposal you want to rework in PowerPoint, then open the Copilot pane.",
+    "e1.title": "Click the Copilot button", "e1.body": "It sits in the <b>bottom-right corner</b> of your PowerPoint window.", "e1.alt": "Copilot button in the bottom-right corner of PowerPoint",
+    "e2.title": "Everything happens in the side pane", "e2.body": "This is where you write the request, review the response and apply the edits. No need to accept everything in one go: make a request, look at what changed, then keep it or refine it.", "e2.alt": "Copilot side pane open in PowerPoint",
+    "e2.note.lab": "Tip", "e2.note.p": "The pane stays open while you work: every edit lands directly in your open deck.",
+    "f.eyebrow": "The 10 steps &middot; 1 to 5",
+    "f.title": "Adapt the content and the look",
+    "f.sub": "For each step, the prompt entered in Copilot and what it did. Look at <b>how specific</b> each request is and how it <b>names its scope</b>: all slides, or one slide and one specific change.",
+    "p1.title": "I tailor my proposal",
+    "p1.do": "We start by giving the <b>context</b>: the client, the pharmaceutical setting and the exercise scenario. That gives Copilot something concrete to work with across the deck.",
+    "p1.txt": "All slides: I am preparing a proposal in English for a crisis exercise for the StonaWave group. This pharmaceutical group has 120,000 employees worldwide, with a strong presence in Europe. Its activities cover drug research and development, manufacturing and distribution. It wants to test a ransomware crisis scenario hitting a plant that makes its latest drug, WaveXen. Can you adapt all the slides to this context?",
+    "p1.res": "All &ldquo;XXX&rdquo; become StonaWave; text adapted to the pharma context (120,000 employees, R&amp;D, manufacturing, distribution) and the ransomware scenario at the WaveXen plant. Leftovers from other proposals fixed along the way: &ldquo;Clarins&rdquo;, &ldquo;CNAM lead for Lot 1&rdquo;, a French sentence on slide&nbsp;2.",
+    "p2.title": "I add the client logo",
+    "p2.txt": "All slides: add the StonaWave logo wherever relevant",
+    "p2.res": "Slides 1 and 16: the StonaWave logo replaces the &ldquo;Client logo&rdquo; placeholder.",
+    "p3.title": "I translate a reference",
+    "p3.txt": "Slide 6: can you translate this slide into English?",
+    "p3.res": "The whole slide is translated into English, title included.",
+    "p4.title": "I rearrange the layout",
+    "p4.txt": "Slide 8: I dropped in several images at random. Can you arrange them in the matching blocks, with consistent size and alignment?",
+    "p4.res": "Each image placed in its block: consistent sizes, regular alignment, equal spacing.",
+    "p5.title": "I add an animation",
+    "p5.txt": "Slide 9: can you add an animation so the &quot;Step 1&quot;, &quot;Step 2&quot; and &quot;Step 3&quot; columns appear one after another, each on click?",
+    "p5.res": "The Step&nbsp;1, 2 and 3 columns appear one after another, on click (fade effect). Check it in slideshow mode.",
+    "f.note.lab": "Good to know",
+    "f.note.p": "The slide numbers in these prompts refer to <b>the example proposal</b>. They show the level of detail to give: adapt them to your own deck.",
+    "g.eyebrow": "The 10 steps &middot; 6 to 10",
+    "g.title": "Change the structure and review",
+    "g.sub": "Going a bit further: a new phase to reflect everywhere, a reference to rewrite without inventing anything, a full review and a generated visual.",
+    "p6.title": "I add a step to the visual plan",
+    "p6.txt": "Slide 11: add a new step between steps 2 and 3, called &quot;Dry run&quot;. This phase includes a dry run of the exercise, followed by a debriefing meeting. The deliverable for this step is the updated PowerPoint. Renumber the following steps. Check the formatting carefully so everything fits and the phases do not overlap. Feel free to rework the layout.",
+    "p6.res": "New phase 03 &ldquo;Dry run&rdquo; (dry run + debriefing; deliverable: updated PowerPoint). The former 03 becomes 04.",
+    "p7.title": "I add a step to the approach",
+    "p7.do": "Adding a phase in one place doesn&rsquo;t automatically carry it elsewhere: we reflect the same change in the detailed approach, so the whole proposal tells a consistent story.",
+    "p7.txt": "Slide 14: can you show steps 3 and 4 on the same slide? The current step 3 becomes step 4. The new step 3 is a dry run of the exercise with the 10 accomplices, in a 90-minute guided workshop where each one replays their stimuli. We then analyze the results, hold a debriefing meeting, and update the scenario and deliverables. Adapt the layout so both steps stay readable.",
+    "p7.res": "Steps 3 and 4 on two banners: dry run with the 10 accomplices, then condensed facilitation. Stimuli thumbnails removed.",
+    "p8.title": "I update the career summary",
+    "p8.do": "We give the project facts in the prompt and ask to match the existing style, <b>without inventing extra experience</b>.",
+    "p8.txt": "Slide 19: remove the Vivalto experience and add a new reference. I recently ran a crisis exercise for a car manufacturer: 200 players, 4 crisis cells and a 3-month project, with an industrial ransomware scenario spanning 4 time zones. Write it up in the same style as the other references on the slide.",
+    "p8.res": "Vivalto replaced by the car manufacturer reference, in the same style (one-line description).",
+    "p9.title": "I check the proposal for consistency",
+    "p9.do": "An important request: find errors, gaps and inconsistencies across the whole deck, and say what needs attention first.",
+    "p9.txt": "All slides: can you check the proposal for errors, inconsistencies or missing elements? List what needs fixing or completing, with the slides concerned, and suggest the top-priority improvements.",
+    "p9.res": "A prioritised list of findings. Details below: <a href=\"#verdict\">its verdict on the proposal</a>.",
+    "p10.title": "I add a visual",
+    "p10.do": "We specify how the visual should fit the existing shape.",
+    "p10.txt": "Slide 1: create an image of a drug manufacturing line and insert it into the shape on the right. Adjust the crop so it fills the shape properly.",
+    "p10.res": "Title &ldquo;Crisis exercise StonaWave&rdquo; and a generated image of a drug manufacturing line, cropped on the machines.",
+    "h.eyebrow": "The result",
+    "h.title": "A complete and tailored deck!",
+    "h.intro": "A proposal adapted to the example client, with changes to both content and presentation. Two questions to keep apart: <b>do we have a complete draft to work with?</b> Yes. <b>Is it ready to send?</b> Not yet.",
+    "h.s1.alt": "Crisis exercise StonaWave cover page", "h.s1.cap": "Cover page: title, client logo and generated visual (steps 1, 2 and 10).",
+    "h.s2.alt": "Initial timeline with the Dry run phase", "h.s2.cap": "Timeline with the new &ldquo;Dry run&rdquo; phase (step 6).",
+    "h.s3.alt": "Understanding of needs slide", "h.s3.cap": "Understanding of needs rewritten for the pharma context (step 1).",
+    "h.s4.alt": "Overview of the final deck", "h.s4.cap": "Overview of the final deck.",
+    "h.note.lab": "The action log: your checklist",
+    "h.note.p": "Copilot <b>reasoned in 23 steps</b> and says in the chat what it changed, slide by slide (reproduced in the green boxes above). Use it as a checklist: if the log says the images now align, look at the slide; if it says the phases were renumbered, check the sequence; for an animation, test it in slideshow mode. The log helps you review, it doesn&rsquo;t replace the review.",
+    "i.eyebrow": "Copilot&rsquo;s review",
+    "i.title": "And its verdict on the proposal&hellip; still some work to do &#128578;",
+    "i.intro": "The answer to the step&nbsp;9 prompt. No need to read every finding: the point is to <b>ask for a prioritised review</b>, then check the findings yourself.",
+    "i.c1.title": "High priority", "i.c1.sub": "Fix before sending",
+    "i.c1.list": "<li><b>The budget leaves out the dry run.</b> The table still details only 3 steps, for a total of &euro;69,600.00 excl. VAT, while the approach now has 4. The dry run must be costed and the total revised.</li><li><b>The number of accomplices does not match.</b> The dry run involves 10 accomplices, but facilitation only plans for 2 on the StonaWave side (about 7 facilitators in total).</li><li><b>The number of scoping workshops varies:</b> &ldquo;2-3 workshops&rdquo; in step 1, &ldquo;(x2)&rdquo; in the schedule. The build phase mentions &ldquo;2 scenarios (2x5)&rdquo; while the proposal covers a single scenario.</li><li><b>The title page lacks a date and an up-to-date offer reference</b> (&ldquo;Date | OFR24-200925&rdquo;).</li><li><b>Slide 20 is empty.</b> It needs a contact or closing page.</li>",
+    "i.c2.title": "Medium priority", "i.c2.sub": "To strengthen the offer",
+    "i.c2.list": "<li><b>References are not targeted enough.</b> The featured case is a central bank and a board awareness session, not an industrial exercise. A pharma or industrial reference (ransomware on an OT environment) would make the offer more convincing.</li><li><b>The team is not named.</b> Only one &ldquo;sample&rdquo; CV is shown (consultant). The engagement director&rsquo;s and project manager&rsquo;s CVs are missing.</li><li><b>Travel costs assume an engagement in the Paris area.</b> Specify where the WaveXen plant is and whether there is on-site facilitation.</li><li><b>The deepfake example</b> (fraudulent transfer request) is not linked to the ransomware scenario. It could be shown as a fake call from the plant director.</li>",
+    "i.c3.title": "Finishing touches", "i.c3.sub": "Typos and details",
+    "i.c3.list": "<li><b>Slide 15:</b> &ldquo;Our supports services&rdquo; should read &ldquo;Our support services&rdquo;.</li><li><b>Slide 4:</b> &ldquo;list of scenarios&hellip;&rdquo; is missing its capital letter.</li><li><b>Slide 14:</b> the speaker notes contain a leftover line from another project (&ldquo;4 clients types&hellip;&rdquo;).</li><li><b>Slide 16:</b> the StonaWave logo overlaps the dotted frame. Just add a white background behind it, as for the Wavestone logo.</li>",
+    "i.bubble": "I can add the dry run line to the pricing table and align the number of accomplices, if you give me the amount to use.",
+    "i.note.lab": "Key point",
+    "i.note.p": "Copilot asks us for the amount to put in the budget: <b>that decision is ours</b>. The numbers and slide references above belong to the example proposal.",
+    "j.eyebrow": "Best practices",
+    "j.title": "Don&rsquo;t worry, be happy!",
+    "j.intro": "For a daily and reasonable use. The right rhythm: <b>ask, review, refine</b>. You can experiment without accepting every first attempt.",
+    "j1.title": "No fear: Ctrl+Z works",
+    "j1.body": "Any Copilot change can be undone like any other, even by asking Copilot to undo what it did. You can also ask it to <b>duplicate your slide</b> to keep the original as a reference.",
+    "j2.title": "Didn&rsquo;t work? Try new wording",
+    "j2.body": "Same request, more precise: it usually gets it right the second time. &ldquo;Make it nicer&rdquo; leaves everything open, &ldquo;3 columns, like slide 7&rdquo; gives a clear direction.",
+    "j2.redo": "<span class=\"bad\">Make it nicer</span><span>&rarr;</span><span class=\"good\">Use 3 columns, like slide 7</span>",
+    "j3.title": "Just don&rsquo;t co-work on the same slide",
+    "j3.body": "Don&rsquo;t edit or reorder slides while Copilot is working on them. Let it finish, review the result, then carry on.",
+    "k.eyebrow": "More ways to use Copilot",
+    "k.title": "Going further",
+    "k.intro": "Copilot is right there in your tools, working with your data. Pick a task, give it the right material and see what helps.",
+    "k1.title": "Always run a final check",
+    "k1.body": "Ask Copilot to find errors, inconsistencies and major gaps. Then <b>review its findings yourself</b>.",
+    "k1.txt": "Can you check the proposal for errors, inconsistencies or missing details?",
+    "k2.title": "Got an RFP? Give it to Copilot!",
+    "k2.body": "Paste in the RFP and ask it to update your proposal. At the end, don&rsquo;t forget to ask about coverage.",
+    "k2.txt": "Does the proposal cover every requirement? How would you improve it?",
+    "k3.title": "Word, Excel&hellip; it works there too!",
+    "k3.body": "Write your outline in Word and ask Copilot to adapt the slides to it. Or give it your proposal and ask for a workload table in Excel, <b>checking the effort assumptions</b> before you use it. Try it with your own files!",
+    "l.eyebrow": "The golden rules",
+    "l.title": "Copilot is here to help you, not to make you dumber :D",
+    "l1.title": "Use it wisely. Think of the planet!",
+    "l1.body": "Use Copilot for substantial edits. Change two words or one animation yourself.",
+    "l1.aside": "Make the prompt worth it: AI uses a lot of resources.",
+    "l2.title": "Want to avoid the &ldquo;AI look&rdquo;?",
+    "l2.body": "Just find a slide you like and ask Copilot to fit your content to that layout. No need to describe the whole design.",
+    "l2.alt": "Example of a generic AI-looking slide",
+    "l2.cap": "The &ldquo;AI slop&rdquo; to avoid (AI-generated illustration).",
+    "l3.title": "Read every slide. Really.",
+    "l3.body": "Read it all before you send it. Double-check names and numbers for made-up stuff, and look for details that don&rsquo;t belong in the proposal.",
+    "l3.aside": "You have the final say. It&rsquo;s your responsibility.",
+    "l.never.lab": "What we never want to hear",
+    "l.never.q": "&ldquo;Copilot did it. I didn&rsquo;t read it, but it must be fine.&rdquo; &#128563;&#128561;",
+    "m.eyebrow": "Finally",
+    "m.title": "Copilot is useful!",
+    "m.lede": "Let&rsquo;s put it to work on our next deck. <b>And share the prompts and tips that work for us!</b>",
+    "m.qp": "<button type=\"button\">Make all title formatting consistent.</button><button type=\"button\">Rewrite the titles for greater impact.</button><button type=\"button\">Fix spelling and grammar throughout.</button><button type=\"button\">Translate the entire deck into English.</button><button type=\"button\">Shorten the text without losing key points.</button><button type=\"button\">Align images and make their sizes consistent.</button><button type=\"button\">Match this slide&rsquo;s layout to slide 7.</button><button type=\"button\">Turn this paragraph into three clear bullets.</button><button type=\"button\">Create a one-slide executive summary.</button><button type=\"button\">Check figures and names for consistency.</button>",
+    "m.hint": "Click a prompt to copy it. What would you try first?",
+    "back.hub": "&#8592; All Copilot use cases",
+    "back.home": "Back to home &#8594;",
+    "footer.src": "Copilot training &middot; Use case 1: The proposal &middot; Wavestone CYB &middot; AI Maker",
+    "footer.reset": "&#128285; Start over"
+  },
+  de: {
+    "__title": "Copilot-Training &middot; Use case 1: The proposal &middot; Wavestone CYB",
+    "nav.home": "Start", "nav.usecases": "Playbook", "nav.principles": "Agenten-Prinzipien", "nav.training": "Copilot-Training", "nav.agents": "Unsere Agenten", "nav.apikey": "API-Schl&uuml;ssel",
+    "hero.crumb": "&#8592; Copilot-Training",
+    "hero.eyebrow": "Copilot-Training &middot; Use case 1",
+    "hero.title": "Use case 1: <span class=\"ac\">The proposal</span>",
+    "hero.lede": "Copilot ist in PowerPoint endlich wirklich n&uuml;tzlich. Wie setzt man es in der Praxis ein? Wir nehmen ein bestehendes Angebot, passen es an einen neuen Kunden an und lassen Copilot Inhalt, Layout und Animationen bearbeiten. Dann schauen wir, wo es uns noch braucht.",
+    "hero.chip1": "# PowerPoint &middot; Copilot", "hero.chip2": "# 10 getestete Prompts", "hero.chip3": "# Fall StonaWave", "hero.chip4": "# menschliche Pr&uuml;fung",
+    "hero.tip": "<b>Tipp:</b> scrolle die Seite von oben nach unten. Klicke die <b>Zahlen</b> an, um erledigte Schritte abzuhaken, <b>kopieren</b>, um einen Prompt zu &uuml;bernehmen, und die Screenshots, um sie zu vergr&ouml;&szlig;ern.",
+    "word.steps": "Schritte", "word.prompt": "In Copilot eingegebener Prompt", "word.result": "Was Copilot gemacht hat", "word.example": "Beispiel",
+    "scope.all": "Alle Folien",
+    "a.eyebrow": "Die Realit&auml;t",
+    "a.title": "Seien wir ehrlich: Lange Zeit bedeutete Copilot Folien wie diese&hellip;",
+    "a.intro": "Man bat um eine Pr&auml;sentation und bekam einen Titel, ein paar allgemeine Aufz&auml;hlungspunkte und drei K&auml;sten mit &bdquo;Step&nbsp;1, Step&nbsp;2, Step&nbsp;3&ldquo;. Technisch eine Folie, aber die meiste Arbeit blieb liegen. Heute sieht das Ergebnis ganz anders aus.",
+    "a.before.tag": "Fr&uuml;her",
+    "a.before.cap": "Eine generische Folie, ohne klare Botschaft und ohne Layout, das zum Inhalt passt.",
+    "a.after.tag": "Heute",
+    "a.after.title": "Copilot kann jetzt Folien wie diese erstellen!",
+    "a.after.alt1": "Von Copilot erstellte Architekturfolie", "a.after.alt2": "Von Copilot erstellte Programmfolie", "a.after.alt3": "Von Copilot erstellte Kennzahlenfolie",
+    "a.after.cap": "<b>Und es ist auch sehr n&uuml;tzlich, um bestehende Folien zu bearbeiten!</b> Genau darum geht es in diesem Use Case: von dem ausgehen, was wir schon haben (ein Angebot, eine Vorlage), und Copilot bitten, es zu verbessern.",
+    "b.eyebrow": "Warum jetzt?",
+    "b.title": "Zwei Hauptgr&uuml;nde",
+    "b.b1.tag": "Grund 1", "b.b1.title": "Bessere agentische Orchestrierung", "b.b1.body": "Copilot <b>plant und verkettet die Aktionen</b> an deiner Pr&auml;sentation selbst, statt nach einer einzelnen Aufgabe stehen zu bleiben.",
+    "b.b2.tag": "Grund 2", "b.b2.title": "St&auml;rkere Modelle in PowerPoint", "b.b2.body": "Modelle, die <b>ein Layout verstehen</b> und hochwertige Folien erzeugen.",
+    "b.g.alt": "Modellauswahl im Copilot-Bereich",
+    "b.g.lab": "Goldene Regel Nr. 1: das richtige Modell w&auml;hlen",
+    "b.g.big": "Claude Sonnet oder Opus 5.5!",
+    "b.g.p": "GPT&nbsp;6.1 Sol funktioniert, hat aber wenig Gesp&uuml;r f&uuml;r Design. Modellnamen muss man nicht auswendig lernen: Der sinnvolle Reflex ist, <b>das ausgew&auml;hlte Modell zu pr&uuml;fen</b> (oben im Bereich), vor allem wenn es um Layout und Design geht, und das Ergebnis dann kritisch anzuschauen.",
+    "c.eyebrow": "Wie funktioniert es?",
+    "c.title": "Wie anfangen und wo arbeiten?",
+    "c.intro": "Zwei Arbeitsweisen, und der eigentliche Unterschied ist <b>die Datei</b>: Bearbeite ich diese Datei, oder erstelle ich gerade eine weitere Version?",
+    "c.w1.title": "In PowerPoint", "c.w1.sub": "Erweiterung: der Copilot-Seitenbereich",
+    "c.w1.list": "<li class=\"ok\">Dieselbe Datei: &Auml;nderungen landen in deinem ge&ouml;ffneten Deck</li><li class=\"ok\">Funktioniert mit gemeinsamer Bearbeitung, ideal f&uuml;r schnelle &Auml;nderungen</li><li class=\"ok\">Du best&auml;tigst oder machst direkt in PowerPoint r&uuml;ckg&auml;ngig</li>",
+    "c.w1.flow": "<span class=\"fn\">Deck.pptx</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Copilot liest das Deck</span><span class=\"fa\">&rarr;</span><span class=\"fn\">bearbeitet direkt</span><span class=\"fa\">&rarr;</span><span class=\"fn hl\">Eine Datei, nichts zu &uuml;bertragen</span>",
+    "c.w2.title": "Copilot-App f&uuml;r Desktop &amp; Mobil", "c.w2.sub": "Vollst&auml;ndiger Client: au&szlig;erhalb von PowerPoint",
+    "c.w2.list": "<li class=\"ok\">Arbeitet an einer Kopie: schneller bei gro&szlig;en Aufgaben</li><li class=\"ko\">Keine gemeinsame Bearbeitung: du l&auml;dst die neue Datei herunter</li><li class=\"ko\">Danach &uuml;bertr&auml;gst du die Arbeit von Hand in dein Original-Deck</li>",
+    "c.w2.flow": "<span class=\"fn\">Deck.pptx</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Arbeitskopie</span><span class=\"fa\">&rarr;</span><span class=\"fn\">Copilot-Agent</span><span class=\"fa\">&rarr;</span><span class=\"fn\">neue .pptx</span><span class=\"fa\">&rarr;</span><span class=\"fn warn\">2 Versionen abzugleichen</span>",
+    "c.note.lab": "F&uuml;r diesen Use Case",
+    "c.note.p": "Wir arbeiten <b>in PowerPoint, mit dem Copilot-Bereich</b>: Jede &Auml;nderung landet direkt im ge&ouml;ffneten Angebot, wir pr&uuml;fen sie und behalten sie oder machen sie r&uuml;ckg&auml;ngig.",
+    "d.eyebrow": "Der Use Case",
+    "d.title": "Ein Krisenmanagement-Angebot f&uuml;r einen neuen Kunden schreiben",
+    "d.intro": "Ein sehr vertrauter Ausgangspunkt: eine Vorlage, die &bdquo;ungef&auml;hr passt&ldquo;, und ein erster Entwurf der Kundenanforderungen (StonaWave, ein fiktiver Pharmakonzern). Die Vorlage liefert die Struktur, die Anforderungen sagen, was dieser Kunde braucht. Unsere Aufgabe: beides zu einem stimmigen Angebot zusammenf&uuml;hren.",
+    "d.s1.alt": "Miniaturen der Angebotsvorlage", "d.s1.cap": "Ich habe eine Vorlage, die ungef&auml;hr passt&hellip; mit Hilfe von Copilot gefunden.",
+    "d.s2.alt": "E-Mail mit Angaben zum StonaWave-Angebot", "d.s2.cap": "&hellip;und einen ersten Entwurf der Kundenanforderungen. Los geht&rsquo;s!",
+    "e.eyebrow": "Schritt 0 &middot; Starten",
+    "e.title": "PowerPoint &ouml;ffnen und auf Copilot klicken!",
+    "e.sub": "&Ouml;ffne das zu &uuml;berarbeitende Angebot in PowerPoint und starte dann den Copilot-Bereich.",
+    "e1.title": "Auf die Copilot-Schaltfl&auml;che klicken", "e1.body": "Sie befindet sich <b>unten rechts</b> im PowerPoint-Fenster.", "e1.alt": "Copilot-Schaltfl&auml;che unten rechts in PowerPoint",
+    "e2.title": "Alles passiert im Seitenbereich", "e2.body": "Hier schreibst du die Anfrage, pr&uuml;fst die Antwort und wendest die &Auml;nderungen an. Du musst nicht alles auf einmal annehmen: eine Anfrage, schauen, was sich ge&auml;ndert hat, dann behalten oder nachsch&auml;rfen.", "e2.alt": "Ge&ouml;ffneter Copilot-Seitenbereich in PowerPoint",
+    "e2.note.lab": "Tipp", "e2.note.p": "Der Bereich bleibt offen, w&auml;hrend du arbeitest: Jede &Auml;nderung landet direkt in deinem ge&ouml;ffneten Deck.",
+    "f.eyebrow": "Die 10 Schritte &middot; 1 bis 5",
+    "f.title": "Inhalt und Form anpassen",
+    "f.sub": "F&uuml;r jeden Schritt der in Copilot eingegebene Prompt und was Copilot gemacht hat. Achte vor allem darauf, <b>wie pr&auml;zise</b> jede Anfrage ist und wie sie <b>ihren Umfang benennt</b>: alle Folien oder eine Folie und eine konkrete &Auml;nderung.",
+    "p1.title": "Ich passe mein Angebot an den Kunden an",
+    "p1.do": "Wir beginnen mit dem <b>Kontext</b>: der Kunde, das pharmazeutische Umfeld und das &Uuml;bungsszenario. So hat Copilot etwas Konkretes f&uuml;r das ganze Deck.",
+    "p1.txt": "Alle Folien: Ich bereite ein Angebot auf Englisch f&uuml;r eine Krisen&uuml;bung f&uuml;r die StonaWave-Gruppe vor. Dieser Pharmakonzern besch&auml;ftigt weltweit 120.000 Mitarbeitende und ist stark in Europa vertreten. Seine T&auml;tigkeiten umfassen Forschung und Entwicklung von Arzneimitteln, Herstellung und Vertrieb. Er m&ouml;chte ein Ransomware-Krisenszenario testen, das ein Werk trifft, in dem sein neuestes Medikament WaveXen hergestellt wird. Kannst du alle Folien an diesen Kontext anpassen?",
+    "p1.res": "Alle &bdquo;XXX&ldquo; werden zu StonaWave; der Text ist an den Pharmakontext (120.000 Mitarbeitende, F&amp;E, Herstellung, Vertrieb) und das Ransomware-Szenario im WaveXen-Werk angepasst. Nebenbei korrigiert: Reste aus anderen Angeboten wie &bdquo;Clarins&ldquo;, &bdquo;CNAM lead for Lot 1&ldquo; und ein franz&ouml;sischer Satz auf Folie&nbsp;2.",
+    "p2.title": "Ich f&uuml;ge das Kundenlogo hinzu",
+    "p2.txt": "Alle Folien: F&uuml;ge das StonaWave-Logo &uuml;berall dort ein, wo es sinnvoll ist",
+    "p2.res": "Folien 1 und 16: Das StonaWave-Logo ersetzt den Platzhalter &bdquo;Client logo&ldquo;.",
+    "p3.title": "Ich &uuml;bersetze eine Referenz",
+    "p3.txt": "Folie 6: Kannst du diese Folie ins Englische &uuml;bersetzen?",
+    "p3.res": "Die ganze Folie ist ins Englische &uuml;bersetzt, einschlie&szlig;lich Titel.",
+    "p4.title": "Ich ordne das Layout neu",
+    "p4.txt": "Folie 8: Ich habe mehrere Bilder wahllos eingef&uuml;gt. Kannst du sie in den passenden Bl&ouml;cken anordnen, mit einheitlicher Gr&ouml;&szlig;e und Ausrichtung?",
+    "p4.res": "Jedes Bild steht in seinem Block: einheitliche Gr&ouml;&szlig;en, regelm&auml;&szlig;ige Ausrichtung, gleiche Abst&auml;nde.",
+    "p5.title": "Ich f&uuml;ge eine Animation hinzu",
+    "p5.txt": "Folie 9: Kannst du eine Animation hinzuf&uuml;gen, damit die Spalten &quot;Step 1&quot;, &quot;Step 2&quot; und &quot;Step 3&quot; nacheinander erscheinen, jeweils per Klick?",
+    "p5.res": "Die Spalten Step&nbsp;1, 2 und 3 erscheinen nacheinander per Klick (Verblassen-Effekt). Im Bildschirmpr&auml;sentationsmodus pr&uuml;fen.",
+    "f.note.lab": "Gut zu wissen",
+    "f.note.p": "Die Foliennummern in den Prompts beziehen sich auf <b>das Beispielangebot</b>. Sie zeigen den n&ouml;tigen Detailgrad: passe sie an dein eigenes Deck an.",
+    "g.eyebrow": "Die 10 Schritte &middot; 6 bis 10",
+    "g.title": "Die Struktur weiterentwickeln und pr&uuml;fen",
+    "g.sub": "Wir gehen weiter: eine neue Phase, die &uuml;berall auftauchen muss, eine Referenz, die ohne Erfundenes umgeschrieben wird, eine vollst&auml;ndige Pr&uuml;fung und ein generiertes Bild.",
+    "p6.title": "Ich f&uuml;ge dem visuellen Plan einen Schritt hinzu",
+    "p6.txt": "Folie 11: F&uuml;ge zwischen Schritt 2 und 3 einen neuen Schritt namens &quot;Dry run&quot; ein. Diese Phase umfasst einen Probedurchlauf der &Uuml;bung, gefolgt von einem Debriefing. Das Ergebnis dieses Schritts ist das aktualisierte PowerPoint. Nummeriere die folgenden Schritte neu. Pr&uuml;fe die Formatierung sorgf&auml;ltig, damit alles passt und sich die Phasen nicht &uuml;berlappen. Du darfst das Layout gern &uuml;berarbeiten.",
+    "p6.res": "Neue Phase 03 &bdquo;Dry run&ldquo; (Probedurchlauf + Debriefing; Ergebnis: aktualisiertes PowerPoint). Die bisherige 03 wird zu 04.",
+    "p7.title": "Ich f&uuml;ge dem Vorgehen einen Schritt hinzu",
+    "p7.do": "Eine Phase an einer Stelle hinzuzuf&uuml;gen, &uuml;bertr&auml;gt sie nicht automatisch an andere Stellen: Wir spiegeln dieselbe &Auml;nderung im detaillierten Vorgehen, damit das Angebot eine stimmige Geschichte erz&auml;hlt.",
+    "p7.txt": "Folie 14: Kannst du die Schritte 3 und 4 auf derselben Folie zeigen? Der aktuelle Schritt 3 wird zu Schritt 4. Der neue Schritt 3 ist ein Probedurchlauf der &Uuml;bung mit den 10 Komplizen in einem gef&uuml;hrten 90-Minuten-Workshop, in dem jeder seine Stimuli nachspielt. Danach analysieren wir die Ergebnisse, halten ein Debriefing ab und aktualisieren Szenario und Ergebnisse. Passe das Layout so an, dass beide Schritte lesbar bleiben.",
+    "p7.res": "Schritte 3 und 4 auf zwei Bannern: Probedurchlauf mit den 10 Komplizen, dann verk&uuml;rzte Moderation. Stimuli-Miniaturen entfernt.",
+    "p8.title": "Ich aktualisiere einen Lebenslauf",
+    "p8.do": "Wir liefern die Projektfakten im Prompt und verlangen den bestehenden Stil, <b>ohne zus&auml;tzliche Erfahrung zu erfinden</b>.",
+    "p8.txt": "Folie 19: Entferne die Vivalto-Erfahrung und f&uuml;ge eine neue Referenz hinzu. Ich habe k&uuml;rzlich eine Krisen&uuml;bung f&uuml;r einen Automobilhersteller durchgef&uuml;hrt: 200 Teilnehmende, 4 Krisenst&auml;be und ein 3-monatiges Projekt mit einem industriellen Ransomware-Szenario &uuml;ber 4 Zeitzonen. Formuliere sie im selben Stil wie die anderen Referenzen auf der Folie.",
+    "p8.res": "Vivalto ist durch die Referenz des Automobilherstellers ersetzt, im selben Stil (einzeilige Beschreibung).",
+    "p9.title": "Ich pr&uuml;fe das Angebot auf Stimmigkeit",
+    "p9.do": "Eine wichtige Anfrage: Fehler, L&uuml;cken und Unstimmigkeiten im ganzen Deck finden und sagen, was zuerst angegangen werden muss.",
+    "p9.txt": "Alle Folien: Kannst du das Angebot auf Fehler, Unstimmigkeiten oder fehlende Elemente pr&uuml;fen? Liste auf, was korrigiert oder erg&auml;nzt werden muss, mit den betroffenen Folien, und schlage die wichtigsten Verbesserungen vor.",
+    "p9.res": "Eine nach Priorit&auml;t geordnete Liste. Details weiter unten: <a href=\"#verdict\">sein Urteil &uuml;ber das Angebot</a>.",
+    "p10.title": "Ich f&uuml;ge ein Bild hinzu",
+    "p10.do": "Wir geben genau an, wie sich das Bild in die vorhandene Form einf&uuml;gen soll.",
+    "p10.txt": "Folie 1: Erstelle ein Bild einer Arzneimittel-Produktionslinie und f&uuml;ge es in die Form rechts ein. Passe den Zuschnitt so an, dass es die Form gut ausf&uuml;llt.",
+    "p10.res": "Titel &bdquo;Crisis exercise StonaWave&ldquo; und ein generiertes Bild einer Arzneimittel-Produktionslinie, auf die Maschinen zugeschnitten.",
+    "h.eyebrow": "Das Ergebnis",
+    "h.title": "Ein vollst&auml;ndiges, ma&szlig;geschneidertes Deck!",
+    "h.intro": "Ein an den Beispielkunden angepasstes Angebot, mit &Auml;nderungen an Inhalt und Darstellung. Zwei Fragen auseinanderhalten: <b>Haben wir einen vollst&auml;ndigen Entwurf zum Weiterarbeiten?</b> Ja. <b>Ist er versandfertig?</b> Noch nicht.",
+    "h.s1.alt": "Titelseite Crisis exercise StonaWave", "h.s1.cap": "Titelseite: Titel, Kundenlogo und generiertes Bild (Schritte 1, 2 und 10).",
+    "h.s2.alt": "Erster Zeitplan mit der Phase Dry run", "h.s2.cap": "Zeitplan mit der neuen Phase &bdquo;Dry run&ldquo; (Schritt 6).",
+    "h.s3.alt": "Folie zum Verst&auml;ndnis der Anforderungen", "h.s3.cap": "Verst&auml;ndnis der Anforderungen, f&uuml;r den Pharmakontext umgeschrieben (Schritt 1).",
+    "h.s4.alt": "&Uuml;berblick &uuml;ber das fertige Deck", "h.s4.cap": "&Uuml;berblick &uuml;ber das fertige Deck.",
+    "h.note.lab": "Das Aktionsprotokoll: deine Checkliste",
+    "h.note.p": "Copilot hat <b>in 23 Schritten &uuml;berlegt</b> und sagt im Chat, was es nach eigener Aussage ge&auml;ndert hat, Folie f&uuml;r Folie (in den gr&uuml;nen K&auml;sten oben wiedergegeben). Nutze das als Checkliste: Wenn das Protokoll sagt, dass die Bilder ausgerichtet sind, schau dir die Folie an; wenn es sagt, dass die Phasen neu nummeriert wurden, pr&uuml;fe die Reihenfolge; eine Animation testest du im Bildschirmpr&auml;sentationsmodus. Das Protokoll hilft beim Pr&uuml;fen, ersetzt es aber nicht.",
+    "i.eyebrow": "Die Pr&uuml;fung durch Copilot",
+    "i.title": "Und sein Urteil &uuml;ber das Angebot&hellip; noch etwas Arbeit &#128578;",
+    "i.intro": "Die Antwort auf den Prompt aus Schritt&nbsp;9. Du musst nicht alles lesen: Es geht darum, <b>eine priorisierte Pr&uuml;fung anzufordern</b> und die Befunde dann selbst zu kontrollieren.",
+    "i.c1.title": "Hohe Priorit&auml;t", "i.c1.sub": "Vor dem Versand beheben",
+    "i.c1.list": "<li><b>Das Budget l&auml;sst den Probedurchlauf aus.</b> Die Tabelle f&uuml;hrt weiterhin nur 3 Schritte auf, insgesamt 69.600,00&nbsp;&euro; netto, w&auml;hrend das Vorgehen jetzt 4 hat. Der Probedurchlauf muss kalkuliert und die Summe angepasst werden.</li><li><b>Die Zahl der Komplizen passt nicht.</b> Am Probedurchlauf nehmen 10 Komplizen teil, die Moderation sieht aber nur 2 auf StonaWave-Seite vor (insgesamt etwa 7 Moderierende).</li><li><b>Die Zahl der Scoping-Workshops schwankt:</b> &bdquo;2-3 Workshops&ldquo; in Schritt 1, &bdquo;(x2)&ldquo; im Zeitplan. Die Aufbauphase nennt &bdquo;2 Szenarien (2x5)&ldquo;, obwohl das Angebot nur ein Szenario abdeckt.</li><li><b>Auf der Titelseite fehlen ein Datum und eine aktuelle Angebotsreferenz</b> (&bdquo;Date | OFR24-200925&ldquo;).</li><li><b>Folie 20 ist leer.</b> Sie braucht eine Kontakt- oder Abschlussseite.</li>",
+    "i.c2.title": "Mittlere Priorit&auml;t", "i.c2.sub": "Um das Angebot zu st&auml;rken",
+    "i.c2.list": "<li><b>Die Referenzen sind nicht zielgerichtet genug.</b> Der hervorgehobene Fall ist eine Zentralbank und eine Sensibilisierung des Vorstands, keine Industrie&uuml;bung. Eine Pharma- oder Industriereferenz (Ransomware in einer OT-Umgebung) w&auml;re &uuml;berzeugender.</li><li><b>Das Team ist nicht benannt.</b> Es gibt nur einen &bdquo;Muster&ldquo;-Lebenslauf (Consultant). Die Lebensl&auml;ufe von Engagement Director und Projektleitung fehlen.</li><li><b>Die Reisekosten gehen von einem Einsatz im Gro&szlig;raum Paris aus.</b> Angeben, wo das WaveXen-Werk liegt und ob vor Ort moderiert wird.</li><li><b>Das Deepfake-Beispiel</b> (betr&uuml;gerische &Uuml;berweisungsanfrage) ist nicht mit dem Ransomware-Szenario verkn&uuml;pft. Es k&ouml;nnte als gef&auml;lschter Anruf des Werksleiters dargestellt werden.</li>",
+    "i.c3.title": "Feinschliff", "i.c3.sub": "Tippfehler und Details",
+    "i.c3.list": "<li><b>Folie 15:</b> &bdquo;Our supports services&ldquo; muss &bdquo;Our support services&ldquo; hei&szlig;en.</li><li><b>Folie 4:</b> bei &bdquo;list of scenarios&hellip;&ldquo; fehlt der Gro&szlig;buchstabe.</li><li><b>Folie 14:</b> die Notizen enthalten eine &uuml;briggebliebene Zeile aus einem anderen Projekt (&bdquo;4 clients types&hellip;&ldquo;).</li><li><b>Folie 16:</b> das StonaWave-Logo &uuml;berlappt den gepunkteten Rahmen. Einfach einen wei&szlig;en Hintergrund dahinter legen, wie beim Wavestone-Logo.</li>",
+    "i.bubble": "Ich kann die Zeile f&uuml;r den Probedurchlauf in die Preistabelle einf&uuml;gen und die Zahl der Komplizen angleichen, wenn du mir den Betrag nennst.",
+    "i.note.lab": "Merke",
+    "i.note.p": "Copilot fragt uns nach dem Betrag f&uuml;r das Budget: <b>Diese Entscheidung liegt bei uns</b>. Die Zahlen und Foliennummern oben geh&ouml;ren zum Beispielangebot.",
+    "j.eyebrow": "Bew&auml;hrte Praktiken",
+    "j.title": "Don&rsquo;t worry, be happy!",
+    "j.intro": "F&uuml;r eine t&auml;gliche und ma&szlig;volle Nutzung. Der richtige Rhythmus: <b>fragen, pr&uuml;fen, nachsch&auml;rfen</b>. Man kann experimentieren, ohne jeden ersten Entwurf zu &uuml;bernehmen.",
+    "j1.title": "Keine Angst: Strg+Z funktioniert",
+    "j1.body": "Jede &Auml;nderung von Copilot l&auml;sst sich wie jede andere r&uuml;ckg&auml;ngig machen, sogar indem man Copilot darum bittet. Du kannst auch verlangen, <b>deine Folie zu duplizieren</b>, um das Original als Referenz zu behalten.",
+    "j2.title": "Hat nicht geklappt? Neu formulieren",
+    "j2.body": "Dieselbe Anfrage, nur pr&auml;ziser: Meist klappt es beim zweiten Mal. &bdquo;Mach es sch&ouml;ner&ldquo; l&auml;sst alles offen, &bdquo;3 Spalten, wie Folie 7&ldquo; gibt eine klare Richtung.",
+    "j2.redo": "<span class=\"bad\">Mach es sch&ouml;ner</span><span>&rarr;</span><span class=\"good\">Nutze 3 Spalten, wie Folie 7</span>",
+    "j3.title": "Nicht gleichzeitig an derselben Folie arbeiten",
+    "j3.body": "Bearbeite oder verschiebe keine Folien, an denen Copilot gerade arbeitet. Lass es fertig werden, pr&uuml;fe das Ergebnis und mach dann weiter.",
+    "k.eyebrow": "Weitere Einsatzm&ouml;glichkeiten",
+    "k.title": "Weitergehen",
+    "k.intro": "Copilot ist direkt in deinen Tools und arbeitet mit deinen Daten. W&auml;hle eine Aufgabe, gib ihm das passende Material und schau, was hilft.",
+    "k1.title": "Immer eine Schlusspr&uuml;fung machen",
+    "k1.body": "Bitte Copilot, Fehler, Unstimmigkeiten und gr&ouml;&szlig;ere L&uuml;cken zu finden. Dann <b>pr&uuml;fe seine Befunde selbst</b>.",
+    "k1.txt": "Kannst du das Angebot auf Fehler, Unstimmigkeiten oder fehlende Details pr&uuml;fen?",
+    "k2.title": "Eine Ausschreibung? Gib sie Copilot!",
+    "k2.body": "F&uuml;ge die Ausschreibung ein und lass Copilot dein Angebot aktualisieren. Vergiss am Ende nicht, nach der Abdeckung zu fragen.",
+    "k2.txt": "Deckt das Angebot alle Anforderungen ab? Wie w&uuml;rdest du es verbessern?",
+    "k3.title": "Word, Excel&hellip; dort funktioniert es auch!",
+    "k3.body": "Schreib deine Gliederung in Word und lass Copilot die Folien daran anpassen. Oder gib ihm dein Angebot und lass dir eine Aufwandstabelle in Excel erstellen, wobei du <b>die Aufwandsannahmen pr&uuml;fst</b>, bevor du sie nutzt. Probier es mit deinen eigenen Dateien!",
+    "l.eyebrow": "Die goldenen Regeln",
+    "l.title": "Copilot soll dir helfen, nicht dich d&uuml;mmer machen :D",
+    "l1.title": "Mit Bedacht nutzen. Denk an den Planeten!",
+    "l1.body": "Nutze Copilot f&uuml;r substanzielle &Auml;nderungen. Zwei W&ouml;rter oder eine Animation &auml;nderst du selbst.",
+    "l1.aside": "Der Prompt sollte sich lohnen: KI verbraucht viele Ressourcen.",
+    "l2.title": "Du willst den &bdquo;KI-Look&ldquo; vermeiden?",
+    "l2.body": "Such dir einfach eine Folie, die dir gef&auml;llt, und lass Copilot deinen Inhalt in dieses Layout bringen. Das ganze Design musst du nicht beschreiben.",
+    "l2.alt": "Beispiel einer generischen Folie im KI-Look",
+    "l2.cap": "Der zu vermeidende &bdquo;AI slop&ldquo; (KI-generierte Illustration).",
+    "l3.title": "Lies jede Folie. Wirklich.",
+    "l3.body": "Lies alles, bevor du es verschickst. Pr&uuml;fe Namen und Zahlen doppelt auf Erfundenes und achte auf Details, die nicht ins Angebot geh&ouml;ren.",
+    "l3.aside": "Du hast das letzte Wort. Es ist deine Verantwortung.",
+    "l.never.lab": "Was wir nie h&ouml;ren wollen",
+    "l.never.q": "&bdquo;Copilot hat es gemacht. Ich habe es nicht gelesen, aber es wird schon passen.&ldquo; &#128563;&#128561;",
+    "m.eyebrow": "Zum Schluss",
+    "m.title": "Copilot ist n&uuml;tzlich!",
+    "m.lede": "Setzen wir es bei unserem n&auml;chsten Deck ein. <b>Und teilen wir die Prompts und Tipps, die f&uuml;r uns funktionieren!</b>",
+    "m.qp": "<button type=\"button\">Vereinheitliche die Formatierung aller Titel.</button><button type=\"button\">Formuliere die Titel wirkungsvoller.</button><button type=\"button\">Korrigiere Rechtschreibung und Grammatik im ganzen Deck.</button><button type=\"button\">&Uuml;bersetze das ganze Deck ins Englische.</button><button type=\"button\">K&uuml;rze den Text, ohne Kernaussagen zu verlieren.</button><button type=\"button\">Richte die Bilder aus und vereinheitliche ihre Gr&ouml;&szlig;en.</button><button type=\"button\">Passe das Layout dieser Folie an Folie 7 an.</button><button type=\"button\">Mach aus diesem Absatz drei klare Aufz&auml;hlungspunkte.</button><button type=\"button\">Erstelle eine Management-Zusammenfassung auf einer Folie.</button><button type=\"button\">Pr&uuml;fe Zahlen und Namen auf Stimmigkeit.</button>",
+    "m.hint": "Klicke auf einen Prompt, um ihn zu kopieren. Womit f&auml;ngst du an?",
+    "back.hub": "&#8592; Alle Copilot-Use-Cases",
+    "back.home": "Zur&uuml;ck zur Startseite &#8594;",
+    "footer.src": "Copilot-Training &middot; Use case 1: The proposal &middot; Wavestone CYB &middot; AI Maker",
+    "footer.reset": "&#128285; Neu starten"
+  }
+};
+</script>
+<script src="assets/i18n.js"></script>
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var LABELS = { fr:{copy:"copier",copied:"copié ✓"}, en:{copy:"copy",copied:"copied ✓"}, de:{copy:"kopieren",copied:"kopiert ✓"} };
+  function lang(){ var l = document.documentElement.lang; return LABELS[l] ? l : 'fr'; }
+
+  function writeClip(txt, done){
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done, done); return; }
+    var ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta); done();
+  }
+
+  /* ---------------- step progress per phase ---------------- */
+  document.querySelectorAll('.phase').forEach(function(ph){
+    var steps = ph.querySelectorAll('.step');
+    if(!steps.length) return;
+    var fill = ph.querySelector('.spine-fill');
+    var head = ph.previousElementSibling;
+    var dn = head && head.querySelector ? head.querySelector('.prog .dn') : null;
+    function refresh(){
+      var d = ph.querySelectorAll('.step.done').length;
+      if(dn) dn.textContent = d;
+      if(fill) fill.style.height = (d/steps.length*100)+'%';
+    }
+    steps.forEach(function(step){
+      var node = step.querySelector('.node');
+      function toggle(){
+        step.classList.toggle('done');
+        node.setAttribute('aria-pressed', step.classList.contains('done'));
+        refresh();
+      }
+      node.addEventListener('click', toggle);
+      node.addEventListener('keydown', function(e){ if(e.key===' '||e.key==='Enter'){ e.preventDefault(); toggle(); } });
+    });
+    refresh();
+  });
+
+  /* ---------------- copy prompts ---------------- */
+  document.querySelectorAll('.copy').forEach(function(c){
+    c.addEventListener('click', function(){
+      var txt = c.parentElement.querySelector('.txt').textContent.trim();
+      writeClip(txt, function(){
+        c.textContent = LABELS[lang()].copied; c.classList.add('ok');
+        setTimeout(function(){ c.classList.remove('ok'); c.textContent = LABELS[lang()].copy; }, 1600);
+      });
+    });
+  });
+
+  /* quick prompts (buttons are re-rendered on language change, so delegate) */
+  var qp = document.querySelector('.qp');
+  if(qp) qp.addEventListener('click', function(e){
+    var b = e.target.closest && e.target.closest('button');
+    if(!b) return;
+    writeClip(b.textContent.trim(), function(){
+      b.classList.add('ok');
+      setTimeout(function(){ b.classList.remove('ok'); }, 1400);
+    });
+  });
+
+  /* ---------------- lightbox (in-page zoom) ---------------- */
+  var lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'), lbClose = document.getElementById('lbClose');
+  function openLb(src){ lbImg.src = src; lb.classList.add('on'); lb.setAttribute('aria-hidden','false'); }
+  function closeLb(){ lb.classList.remove('on'); lb.setAttribute('aria-hidden','true'); lbImg.src = ''; }
+  document.querySelectorAll('a.zoom').forEach(function(a){
+    a.addEventListener('click', function(e){ e.preventDefault(); openLb(a.getAttribute('href') || a.querySelector('img').src); });
+  });
+  lb.addEventListener('click', function(e){ if(e.target !== lbImg) closeLb(); });
+  lbClose.addEventListener('click', closeLb);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && lb.classList.contains('on')) closeLb(); });
+
+  /* ---------------- reset ---------------- */
+  document.getElementById('reset').addEventListener('click', function(){
+    document.querySelectorAll('.step.done').forEach(function(s){ s.classList.remove('done'); s.querySelector('.node').setAttribute('aria-pressed','false'); });
+    document.querySelectorAll('.phase').forEach(function(ph){
+      var fill=ph.querySelector('.spine-fill'); if(fill) fill.style.height='0';
+      var head=ph.previousElementSibling; var dn=head&&head.querySelector?head.querySelector('.prog .dn'):null; if(dn) dn.textContent='0';
+    });
+    window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
+  });
+})();
+</script>
+<script src="assets/mobile-nav.js"></script>
+</body>
+</html>
